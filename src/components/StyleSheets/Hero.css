@@ -1,0 +1,273 @@
+.hero-section {
+  position: relative;
+  background-color: #1163C7;
+  padding: 100px 20px 80px;
+  color: white;
+  overflow: hidden;
+  border-radius: 0 0 40px 40px;
+}
+
+.hero-background {
+  position: relative;
+  max-width: 1200px;
+  height: 650px;
+  margin: auto;
+}
+
+.hero-left-img {
+  position: absolute;
+  width: 489px;
+  height: 400px;
+  top: -50px;
+  left: -279px;
+  object-fit: contain;
+  z-index: 1;
+}
+
+
+.hero-right-img {
+  position: absolute;
+  width: 489px;
+  height: 400px;
+  top: -50px;
+  right: -288px;
+  object-fit: contain;
+  z-index: 1;
+}
+
+.hero-content {
+  text-align: center;
+  z-index: 2;
+  position: relative;
+}
+
+.hero-content h3 {
+  font-family: 'DM Sans', Arial, sans-serif;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 39.2px;
+  letter-spacing: 0;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.hero-content h1 {
+  font-family: 'Lato', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 60px;
+  line-height: 70px;
+  letter-spacing: 0;
+  margin-bottom: 20px;
+}
+
+.heading-animate, 
+.heading-nonAnimate {
+  display: flex;
+  align-items: center;    /* Center vertically */
+  justify-content: center; /* Optional: center horizontally */
+  /* Ensure it has height or fills parent */
+}
+
+
+
+
+
+.hero-search {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.hero-search input {
+  width: 332.44px;
+  height: 68.44px;
+  border-width: 1.22px;
+  border-style: solid;
+  border-radius: 14.89px;
+  padding: 12px 16px;
+  font-size: 1rem;
+  background-color: transparent;
+  box-sizing: border-box;
+  border-color: #ffffff;
+  color: #ffffff;
+  /* Remove previous conflicting styles if any */
+}
+
+.hero-search input::placeholder {
+  color: #ffffff;
+  opacity: 1;
+  /* Ensures full opacity in most browsers */
+}
+
+.hero-search select,
+input:focus {
+  outline: none;
+  border-color: #ffffff;
+  box-shadow: none;
+  /* Optional: removes blue shadow in some browsers */
+}
+
+
+.hero-search select {
+  width: 195.56px;
+  height: 68.44px;
+  border-width: 1.22px;
+  border-style: solid;
+  border-color: #ffffff;
+  /* You can adjust the color as needed */
+  border-radius: 14px;
+  padding: 12px 16px;
+  font-size: 1rem;
+  /* Remove previous conflicting styles if any */
+  box-sizing: border-box;
+  background-color: transparent;
+  color: #ffffff;
+}
+
+.hero-search select option {
+  background-color: #ffffff;
+  color: #1163C7;
+}
+
+
+
+.hero-cards {
+  width: 97vw;
+  /* Makes it as wide as the viewport */
+  max-width: 100vw;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 0;
+  /* Remove horizontal padding if you want edge-to-edge */
+  margin-top: 130px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-sizing: border-box;
+}
+
+
+.card-list {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  scroll-behavior: smooth;
+  flex: 1;
+  /* Take all available space */
+  min-width: 0;
+  /* Prevent overflow issues */
+  box-sizing: border-box;
+  padding: 0 20px;
+  margin-top: 30px;
+}
+
+
+..card-list::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.hero-arrow {
+  width: 50px;
+  height: 50px;
+}
+
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 60px 16px 40px;
+    border-radius: 0 0 20px 20px;
+  }
+
+  .hero-background {
+    height: auto;
+  }
+
+  .hero-left-img,
+  .hero-right-img {
+    display: none;
+    /* Hide side images on small screens */
+  }
+
+  .hero-content h3 {
+    font-size: 20px;
+    line-height: 30px;
+  }
+
+  .hero-content h1 {
+    font-size: 36px;
+    line-height: 44px;
+  }
+
+  .hero-search {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .hero-search input,
+  .hero-search select {
+    width: 100%;
+    height: 56px;
+    font-size: 1rem;
+    padding: 10px 14px;
+  }
+
+  .hero-cards {
+    flex-direction: column;
+    padding: 0 10px;
+    margin-top: 60px;
+    width: 100%;
+    left: 0;
+    transform: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-list {
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .card-list {
+    gap: 12px;
+    padding: 0 10px;
+    margin-top: 20px;
+  }
+
+  /* .card-list::-webkit-scrollbar {
+    display: none;
+  } */
+
+  .nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: none;
+    /* Hide arrows on mobile for better UX */
+  }
+
+  .hero-arrow {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Optional: allow horizontal scroll on touch */
+  .card-list {
+    -webkit-overflow-scrolling: touch;
+  }
+}

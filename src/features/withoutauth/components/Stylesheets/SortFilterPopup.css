@@ -1,0 +1,152 @@
+/* Base overlay */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Popup container */
+.popup-container {
+  background: white;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 550px;
+  height: 360px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Header */
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.popup-header h3 {
+  font-size: 30px;
+  font-weight:700px ;
+  margin: 0;
+  color: #172A39;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #0072db;
+  cursor: pointer;
+}
+
+/* Options */
+.sort-options {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  margin-top: 2rem;
+}
+
+.sort-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 300px;
+  font-family: 'DM Sans', sans-serif;
+  position: relative;
+  color: #172A39;
+}
+
+/* Hide default */
+.sort-option input[type="radio"] {
+  display: none;
+}
+
+.checkmark {
+  height: 18px;
+  width: 18px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+}
+
+.sort-option input[type="radio"]:checked + .checkmark {
+  border-color: #1163C7;
+  background-color: #ffffff;
+}
+
+.sort-option input[type="radio"]:checked + .checkmark::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #1163C7;
+}
+
+/* Buttons */
+.popup-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn {
+  padding: 10px 30px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 0.95rem;
+ 
+}
+
+.reset-btn {
+  /* border: 1px solid #1163C7; */
+  background: white;
+  color: #1163C7;
+  border: 2px solid transparent;
+  background-image:
+    linear-gradient(#fff, #fff),
+    /* Inner background */
+    linear-gradient(90deg,
+      rgba(163, 208, 255, 0.870588) 10.58%,
+      #1163C7 31.73%,
+      #1163C7 72.12%,
+      #A3D0FF 92.31%);
+  /* Border gradient */
+  background-origin: border-box;
+  background-clip: padding-box, border-box
+}
+
+.apply-btn {
+  background: #1163C7;
+  color: white;
+  border: none;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .popup-container {
+    padding: 1rem;
+    width: 80%;
+  }
+
+  .btn {
+    flex: 1;
+    text-align: center;
+  }
+
+  .popup-actions {
+    gap: 1rem;
+  }
+}

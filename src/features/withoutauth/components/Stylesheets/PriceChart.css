@@ -1,0 +1,110 @@
+.price-chart {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  max-width: 1000px;
+  margin: auto;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h2 {
+  font-size: 2rem;
+  margin: 0;
+  color: #1b1b1b;
+}
+
+.close-icon {
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #1163C7;
+}
+
+.venueName {
+  color: #aaa;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+.notes {
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 2rem;
+}
+
+.columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: space-between;
+}
+
+.column {
+  flex: 1;
+  min-width: 250px;
+}
+
+.column h5 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.5rem;
+}
+
+.slot {
+  margin-bottom: 0.8rem;
+}
+
+.slot strong {
+  display: block;
+  color: #333;
+  margin-bottom: 0.3rem;
+}
+
+.time-price {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.price {
+  color: #1163C7;
+  font-weight: 600;
+}
+
+.book-btn {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.book-btn button {
+  background: #1163C7;
+  color: white;
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  border-radius: 0.6rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  width: 100%;
+  max-width: 300px;
+}
+
+@media screen and (max-width: 768px) {
+  .columns {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .book-btn button {
+    width: 100%;
+  }
+}

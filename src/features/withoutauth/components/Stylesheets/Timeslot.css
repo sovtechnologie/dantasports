@@ -1,0 +1,206 @@
+.time-picker-box {
+  background: #fff;
+  padding: 16px;
+  border-radius: 12px;
+  width: 90%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  font-family: 'DM Sans', sans-serif;
+  border: 2px solid #ddd;
+}
+
+.time-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.selected-time {
+  /* background: #f8f8f8; */
+  padding: 6px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+
+.time-scroll-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+/* .arrow {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  padding: 4px 0px;
+  color: #333;
+  z-index: 1;
+} */
+
+/* .time-buttons-wrapper {
+  overflow-x: auto;
+  white-space: nowrap;
+  scroll-behavior: smooth;
+  flex: 1;
+} */
+
+/* .time-buttons {
+  display: inline-flex;
+  gap: 12px;
+  min-width: max-content;
+  padding: 0 8px;
+} */
+
+.time-btn {
+  /* min-width: 100px; */
+  /* padding: 10px 16px; */
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: 0.3s ease;
+}
+
+.time-btn.selected {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+/* .timeline-bar-wrapper {
+  overflow-x: auto;
+  margin-top: 12px;
+  padding-bottom: 4px;
+}
+
+.timeline-bar {
+  display: flex;
+  gap: 12px;
+  min-width: max-content;
+  padding: 0 8px;
+  
+} */
+
+/* .timeline-slot {
+  width: 80px; 
+  height: 6px;
+  background-color: #ccc;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+  
+} */
+
+.timeline-slot.available {
+  background-color: green;
+}
+
+.timeline-slot.selected {
+  background-color: red;
+}
+
+.time-buttons-wrapper, .timeline-bar {
+  overflow-x: auto;
+  white-space: nowrap;
+  display: flex;
+}
+
+.time-buttons, .timeline-bar {
+  display: flex;
+  gap: 12px;
+}
+
+.time-buttons-wrapper::-webkit-scrollbar,
+.timeline-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.time-btn {
+  min-width: 70px;
+  /* padding: 8px; */
+  white-space: nowrap;
+  margin-bottom: 10px;
+}
+
+.timeline-slot {
+  min-width: 70px;
+  height: 10px;
+  background-color: lightgray;
+}
+
+.timeline-slot.selected {
+  background-color: red;
+}
+
+.arrow {
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+
+/* 
+.time-buttons {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: #ccc transparent;
+}
+
+.time-buttons::-webkit-scrollbar {
+  height: 6px;
+}
+
+.time-buttons::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+.time-buttons::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.time-btn {
+
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f2f2f2;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.time-btn.selected {
+  background: #0047ab;
+  color: white;
+  border-color: #0047ab;
+}
+
+.timeline-bar {
+  display: flex;
+  justify-content: space-between;
+  height: 6px;
+  background: #eee;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.timeline-slot {
+  flex: 1;
+  margin: 0 2px;
+  border-radius: 2px;
+  background-color: #27ae60; 
+}
+
+.timeline-slot.selected {
+  background-color: #e74c3c; 
+} */

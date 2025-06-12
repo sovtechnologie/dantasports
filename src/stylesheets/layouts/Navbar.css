@@ -1,0 +1,224 @@
+/* body {
+  overflow-x: hidden;
+} */
+
+.navbar {
+  /* width: 100%; */
+  padding: 12px 40px;
+  display: flex;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(17, 99, 199, 0.08);
+
+}
+
+.navbar.home {
+  background-color: #1163C7;
+}
+
+.navbar-container {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  gap: 0px;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: #0a0a0a;
+}
+
+
+
+.navbar-logo {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  position: relative;
+  right: 150px;
+  display: block;
+}
+
+
+.navbar-link {
+  text-decoration: none;
+  color: #0a0a0a;
+  font-family: 'DM Sans', Arial, sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: 0;
+  text-align: center;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  /* Use center for vertical alignment */
+  gap: 20px;
+  margin-left: auto;
+  /* Pushes navbar-actions to the far right */
+}
+
+.app-btn {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid #1163C7;
+  background-color: transparent;
+  font-weight: 500;
+  cursor: pointer;
+  color: #0a0a0a;
+}
+
+.user-icon {
+  border: 1px solid #1163C7;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Blue style overrides on homepage */
+.navbar.home .navbar-link,
+.navbar.home .navbar-brand,
+.navbar.home .app-btn,
+.navbar.home .user-icon {
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.navbar.home .app-btn {
+  background-color: white;
+  color: #172A39;
+}
+
+.navbar.home .user-icon {
+  background-color: white;
+  color: #1163C7;
+}
+
+
+
+/* ...existing code... */
+
+@media (max-width: 1024px) {
+  .navbar {
+    padding: 12px 20px;
+  }
+
+  .navbar-container {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+
+  .navbar-logo {
+    right: 0;
+    width: 40px;
+    height: 40px;
+  }
+
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+
+  .navbar-link {
+    font-size: 16px;
+    padding: 0 8px;
+  }
+
+  .navbar-actions {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 10px 8px;
+  }
+
+  .navbar-container {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    gap: 10px;
+  }
+
+  .navbar-logo {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 8px;
+  }
+
+  .navbar-brand {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+
+  .navbar-actions {
+    width: 100%;
+    justify-content: flex-end;
+    margin-left: 0;
+    gap: 8px;
+  }
+
+  .navbar-link {
+    font-size: 15px;
+    padding: 0 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 4px 1vw;
+  }
+
+  .navbar-container {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 4px;
+    padding: 0;
+  }
+
+  .navbar-logo {
+    width: 34px;
+    height: 34px;
+    right: 0;
+    margin-bottom: 4px;
+  }
+
+  .navbar-brand {
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+  }
+
+  .navbar-link {
+    /* font-size: 12px;
+    padding: 0 2px; */
+    display: none;
+  }
+
+  .navbar-actions {
+    gap: 4px;
+  }
+
+  .app-btn {
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 14px;
+  }
+
+  .user-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+}

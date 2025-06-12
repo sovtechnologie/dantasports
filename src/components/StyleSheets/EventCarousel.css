@@ -1,0 +1,53 @@
+
+
+.carousel-container {
+  width: 100%;
+  max-width: 1460px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease;
+  width: 100%;
+  gap: 16px;
+  /* Adjust gap to control spacing between slides */
+
+}
+
+.carousel-slide {
+ min-width: calc(50% - 13px);
+  /* Show 2 slides at a time */
+  box-sizing: border-box;
+
+}
+
+.carousel-slide img {
+  width: 100%;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background: #d8d8d8;
+  border-radius: 50%;
+  margin: 0 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.dot.active {
+  background: #409eff;
+}

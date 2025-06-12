@@ -1,0 +1,245 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f5f7f8;
+  color: #333;
+}
+
+.Profile-heading {
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+  flex-wrap: wrap;
+}
+
+.Profile-heading h1 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 44px;
+  line-height: 36px;
+  letter-spacing: 0;
+  color: #172A39;
+
+}
+
+/* Container */
+.profile-container {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+  flex-wrap: wrap;
+
+}
+
+/* Left Sidebar */
+.sidebar {
+  flex: 1;
+  min-width: 400px;
+  max-width: 600px;
+  /* background: #fff; */
+  /* padding: 20px; */
+  /* border-radius: 10px; */
+  /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); */
+}
+
+.user-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px 20px;
+  box-shadow: 0 0 0 2px #e0e0e0, 0 4px 8px rgba(0, 123, 255, 0.2);
+  border: 1px solid #d0e6ff;
+  max-width: 500px;
+  margin: auto;
+  margin-bottom: 40px;
+}
+
+.user-card-left {
+  display: flex;
+  align-items: center;
+}
+
+.user-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 16px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-weight: bold;
+  color: #0066cc;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.user-email {
+  color: #777;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.user-phone {
+  color: #999;
+  font-size: 14px;
+}
+
+.user-card-right .edit-icon {
+  font-size: 18px;
+  color: #007bff;
+  cursor: pointer;
+}
+
+.account-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 0 0 2px #e0e0e0, 0 4px 8px rgba(0, 123, 255, 0.2);
+  max-width: 500px;
+  margin: 40px auto;
+  overflow: hidden;
+}
+
+.account-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  border-bottom: 1px solid #f0f0f0;
+  text-decoration: none;
+}
+
+.account-option:last-child {
+  border-bottom: none;
+}
+
+.account-left {
+  display: flex;
+  align-items: center;
+}
+
+.account-icon {
+  width: 40px;
+  height: 40px;
+  background-color: #e5f0ff;
+  color: #DBECFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  margin-right: 14px;
+  font-size: 12px;
+}
+
+.account-label {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 21.64px;
+  line-height: 30.91px;
+  letter-spacing: 0;
+  color: #272727;
+}
+
+.account-arrow {
+  font-size: 30px;
+  color: #999;
+}
+
+
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nav-item {
+  background-color: #f5f7f8;
+  padding: 12px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s;
+}
+
+.nav-item:hover {
+  background-color: #e8f0fe;
+}
+
+/* Right Panel */
+.main-content {
+  flex: 3;
+  min-width: 300px;
+  max-width: 650px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  height: 700px;
+  border: 2px solid transparent;
+  background-image:
+    linear-gradient(#fff, #fff),
+    /* Inner background */
+    linear-gradient(90deg,
+      rgba(163, 208, 255, 0.870588) 10.58%,
+      #1163C7 31.73%,
+      #1163C7 72.12%,
+      #A3D0FF 92.31%);
+  /* Border gradient */
+  background-origin: border-box;
+  background-clip: padding-box, border-box
+}
+
+.account-option.active-tab {
+  /* background-color: #1163C7; */
+  text-decoration: none;
+  color: #ffffff;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .profile-container {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .sidebar {
+    width: 90%;
+    max-width: 100%;
+  }
+
+  .main-content {
+    width: 100%;
+  }
+
+  .booking-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .booking-image {
+    width: 100%;
+    height: auto;
+  }
+}
