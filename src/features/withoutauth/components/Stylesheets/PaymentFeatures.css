@@ -1,0 +1,75 @@
+/* Container styling */
+.solutions-wrapper {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+/* Heading */
+.solutions-heading {
+  font-size: 32px;
+  font-weight: 700;
+  color: #172A39;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.solutions-heading span {
+  color: #1163c7;
+}
+
+/* Subheading paragraph */
+.solutions-wrapper > p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 40px;
+}
+
+/* Grid layout */
+.solutions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(700px, 1fr));
+  gap: 24px;
+  justify-items: center;
+}
+
+/* Individual card */
+.solution-card {
+  display: flex;
+  align-items: flex-start;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(17, 99, 199, 0.1);
+  padding: 20px;
+  max-width: 500px;
+  width: 100%;
+}
+
+
+/* Icon image styling */
+.solution-icon {
+  width: 50px;
+  height: 50px;
+  background-color: #e6f0ff;
+  border-radius: 50%;
+  padding: 10px;
+  object-fit: contain;
+}
+
+/* Title inside card */
+.solution-title {
+  display: flex;
+  align-items: flex-start;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1163c7;
+  margin: 0;
+  padding-left: 30px;
+}
+
+/* Description inside card */
+.solution-description {
+  font-size: 14px;
+  color: #444;
+  margin-top: 6px;
+  padding-left: 30px;
+}

@@ -20,8 +20,8 @@ function generateTimeSlots(startTimeStr, endTimeStr, intervalInMinutes) {
   return slots;
 }
 
-export default function Timeslot() {
-   const [selectedTime, setSelectedTime] = useState(null);
+function Timeslot({ selectedTime, onTimeSlotChange }) {
+  //  const [selectedTime, setSelectedTime] = useState(null);
   const [timeSlots, setTimeSlots] = useState([]);
 
   const buttonRef = useRef(null);
@@ -44,8 +44,11 @@ export default function Timeslot() {
     }
   };
 
+  console.log("timeslots:", selectedTime);
+
   const handleTimeClick = (time, index) => {
-    setSelectedTime(time);
+    // setSelectedTime(time);
+    onTimeSlotChange(time);
     const scrollTo = index * 112; // Width + gap
     buttonRef.current.scrollTo({ left: scrollTo, behavior: "smooth" });
     barRef.current.scrollTo({ left: scrollTo, behavior: "smooth" });
@@ -54,7 +57,8 @@ export default function Timeslot() {
   useEffect(() => {
     const slots = generateTimeSlots("11:30", "20:30", 60);
     setTimeSlots(slots);
-    setSelectedTime(slots[0]);
+    // setSelectedTime(slots[0]);
+    onTimeSlotChange(slots[0]);
   }, []);
 
   useEffect(() => {
@@ -82,12 +86,6 @@ export default function Timeslot() {
   }, []);;
 
 
-  useEffect(() => {
-    const slots = generateTimeSlots("11:30", "20:30", 60); // from 11:30 AM to 2:30 PM
-    setTimeSlots(slots);
-    setSelectedTime(slots[0]); // default to first slot
-  }, []);
-
   return (
     <div className="time-picker-box">
       <div className="time-display">
@@ -106,8 +104,8 @@ export default function Timeslot() {
                 key={idx}
                 className={`time-btn ${selectedTime === time ? "selected" : ""}`}
                 onClick={() => {
-                 
-                  handleTimeClick(time, idx)}}
+                 onTimeSlotChange(time)
+                }}
               >
                 {time}
               </button>
@@ -125,7 +123,7 @@ export default function Timeslot() {
               key={idx}
               className={`timeline-slot ${selectedTime === time ? "selected" : "available"
                 }`}
-                 onClick={() => handleTimeClick(time, idx)}
+              onClick={() => handleTimeClick(time, idx)}
             />
           ))}
         </div>
@@ -133,3 +131,5 @@ export default function Timeslot() {
     </div>
   );
 }
+
+export default React.memo(Timeslot);

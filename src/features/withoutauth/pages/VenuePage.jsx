@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import "../Stylesheets/VenuePage.css";
 import { Link } from 'react-router-dom';
 import SortFilterPopup from '../components/SortFilterPopup.jsx';
@@ -10,22 +10,40 @@ import VenueCardData from '../StaticData/VenueCardData.js';
 import leftArrow from "../assets/left-arrow.png";
 import rightArrow from "../assets/right-arrow.png";
 import AppDownloadBanner from '../components/AppDownloadBanner.jsx';
-import FootballIcon from "../assets/Football.png";
 import Calendar from "../components/FilterCalendar.jsx";
 import Timeslot from '../components/Timeslot.jsx';
 import SearchIcon from "../assets/Search-icon.png";
+import Cricket from "../assets/sport-list/Cricket-Icon.png";
+import Football from "../assets/sport-list/Football-Icon.png";
+import BasketBall from "../assets/sport-list/BasketBall-Icon.png";
+import TableTenis from "../assets/sport-list/Table-tennis.png";
+import PickelBall from "../assets/sport-list/PickelBall.png";
+import Batminton from "../assets/sport-list/Batminton.png";
+import Swimming from "../assets/sport-list/Swimming.png";
+import Skating from "../assets/sport-list/Skating.png";
+import Fitness from "../assets/sport-list/Fitness.png";
+import Kabaddi from "../assets/sport-list/Kabaddi.png";
+import Running from "../assets/sport-list/Running.png";
+import Golf from "../assets/sport-list/Golf.png";
+import DeskTopFilterCalendar from '../components/DeskTopFilterCalendar.jsx';
+import { format } from 'date-fns';
+
 
 
 const sportsData = [
-    { name: "Football", icon: FootballIcon },
-    { name: "Tennis", icon: FootballIcon },
-    { name: "Basketball", icon: FootballIcon },
-    { name: "Cricket", icon: FootballIcon },
-    { name: "Volleyball", icon: FootballIcon },
-    { name: "Badminton", icon: FootballIcon },
-    { name: "Cricket", icon: FootballIcon },
-    { name: "Volleyball", icon: FootballIcon },
-    { name: "Badminton", icon: FootballIcon },
+    { name: "Cricket", icon: Cricket },
+    { name: "Football", icon: Football },
+    { name: "Basketball", icon: BasketBall },
+    { name: "Tennis", icon: TableTenis },
+    { name: "PickelBall", icon: PickelBall },
+    { name: "Badminton", icon: Batminton },
+    { name: "Swimming", icon: Swimming },
+    { name: "Skating", icon: Skating },
+    { name: "Fitness", icon: Fitness },
+    { name: "Kabaddi", icon: Kabaddi },
+    { name: "Running", icon: Running },
+    { name: "Golf", icon: Golf },
+
 ];
 
 const sortOptions = [
@@ -39,6 +57,42 @@ const sortOptions = [
 
 
 function VenuePage() {
+
+    const [selectedSport, setSelectedSport] = useState(null);
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [selectedTime, setSelectedTime] = useState(null);
+    const [filteredData, setFilteredData] = useState([]);
+
+    //   Handle Time Selection from Timeslots
+
+    const handleTimeChange = useCallback((timeslot) => {
+        if (timeslot === selectedTime) return;
+        setSelectedTime(timeslot);
+    }, [selectedTime]);
+
+
+
+    // Handle date selection from calendar
+    const handleDateChange = useCallback((date) => {
+        if (date.getTime() === selectedDate.getTime()) return;
+        setSelectedDate(date);
+        applyFilters(date);
+    }, [selectedDate]);
+
+
+    // Apply your filter logic
+    const applyFilters = (date) => {
+        // Your actual filtering logic here
+        const formattedDate = format(date, 'yyyy-MM-dd');
+        console.log('Filtering by date:', formattedDate);
+        
+
+        // Example: filter some data array
+        // const filtered = yourDataArray.filter(item =>
+        //     item.date === formattedDate
+        // );
+        // setFilteredData(filtered);
+    };
 
     const itemsPerPage = 3;
     const [activeIndex, setActiveIndex] = useState(0);
@@ -93,6 +147,13 @@ function VenuePage() {
     };
 
     const reset = () => setSelected([]);
+    const handleReset = () => {
+        setSelectedSport(null);
+        setSelectedDate(new Date());
+        setSelectedTime(null);
+    }
+
+
 
 
 
@@ -143,7 +204,7 @@ function VenuePage() {
                         <div className='filters'>
                             <div className="filter-header">
                                 <h3>Filter</h3>
-                                <button className="reset-btns">Reset</button>
+                                <button className="reset-btns" onClick={handleReset}>Reset</button>
                             </div>
 
                             <div className="filter-sec1">
@@ -165,7 +226,11 @@ function VenuePage() {
                                     <div className="sports-scroll-wrapper">
                                         <div className="sports-scroll">
                                             {paginatedSports.map((sport, idx) => (
-                                                <div className="sport-item" key={idx}>
+                                                <div
+                                                    className={`sport-item ${selectedSport === sport.name ? 'active-sport' : ''}`}
+                                                    key={idx}
+                                                    onClick={() => setSelectedSport(sport.name)}
+                                                >
                                                     <img src={sport.icon} alt={sport.name} />
                                                     <span>{sport.name}</span>
                                                 </div>
@@ -177,20 +242,41 @@ function VenuePage() {
                                 </div>
 
                                 <div className="pagination-dots">
-                                    {Array.from({ length: totalPages }).map((_, i) => (
+                                    {Array.from({ length: totalPageSport }).map((_, i) => (
                                         <span key={i} className={`dot ${i === activeIndex ? "active" : ""}`} />
                                     ))}
                                 </div>
                             </div>
-                            <div className='filter-sec2'>
-                                <label>Availability</label>
-                                <div className='calendar'>
-                                    <Calendar />
+                            {selectedSport ? (
+                                <div className='filter-sec2'>
+                                    <label>Availability</label>
+                                    <div className='calendar'>
+                                        <DeskTopFilterCalendar
+                                            selectedDate={selectedDate}
+                                            onDateChange={handleDateChange}
+                                        />
+                                    </div>
+                                    {/* Show timeslot only if date is selected */}
+                                    {selectedDate ? (
+                                        <div className='timeslot'>
+                                            <Timeslot
+                                                selectedTime={selectedTime}
+                                                onTimeSlotChange={handleTimeChange}
+                                            />
+                                        </div>
+                                    ) : (
+                                        <div className="no-sport-msg">
+                                            <p>Please select a date to view available time slots.</p>
+                                        </div>
+                                    )}
                                 </div>
-                                <div className='timeslot'>
-                                    <Timeslot />
+                            ) : (
+                                <div className='filter-sec2 no-sport-msg'>
+                                    <p>Please select a sport first to choose availability (date & time).</p>
                                 </div>
-                            </div>
+                            )}
+
+
                         </div>
 
                         <div className='sort'>

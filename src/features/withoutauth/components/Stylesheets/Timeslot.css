@@ -2,7 +2,7 @@
   background: #fff;
   padding: 16px;
   border-radius: 12px;
-  width: 90%;
+  max-width: 100%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
   font-family: 'DM Sans', sans-serif;
   border: 2px solid #ddd;
@@ -105,13 +105,15 @@
   background-color: red;
 }
 
-.time-buttons-wrapper, .timeline-bar {
+.time-buttons-wrapper,
+.timeline-bar {
   overflow-x: auto;
   white-space: nowrap;
   display: flex;
 }
 
-.time-buttons, .timeline-bar {
+.time-buttons,
+.timeline-bar {
   display: flex;
   gap: 12px;
 }
@@ -139,10 +141,13 @@
 }
 
 .arrow {
-  font-size: 20px;
   background: none;
   border: none;
+  font-size: 28px;
   cursor: pointer;
+  padding: 4px 0px;
+  color: #333;
+  z-index: 1;
 }
 
 

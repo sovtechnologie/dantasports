@@ -1,0 +1,83 @@
+.carousel-card-container {
+  width: 100%;
+  overflow: hidden;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.carousel {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+}
+
+.card {
+  min-width: 250px;
+  max-width: 300px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.card-icon {
+    width: 100px;
+    height: 100px;
+  /* height: 40px; */
+  /* margin-bottom: 16px; */
+}
+
+.card-title {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 120%; /* or line-height: 1.2; */
+  letter-spacing: 0.35px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.card-subtitle {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 140%; /* or line-height: 1.4; */
+  letter-spacing: 0.35px;
+  text-align: center;
+  vertical-align: middle;
+  color: #172A39;
+}
+
+.highlight {
+  color: #1163C7;
+}
+
+/* .highlighted {
+  border: 2px solid #007bff;
+} */
+
+/* Hide scrollbar */
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+.carousel {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Desktop view — no scroll */
+@media (min-width: 769px) {
+  .carousel {
+    overflow-x: hidden;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    flex: 0 0 22%; /* show 4 per row */
+    margin-bottom: 20px;
+  }
+}

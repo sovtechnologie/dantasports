@@ -90,11 +90,3 @@ function ProfilePage() {
 export default ProfilePage;
 
 
-{/* <nav className="sidebar-nav">
-          <button>My Bookings</button>
-          <button>Favorites</button>
-          <button>Played Games</button>
-          <button>Login and Security</button>
-          <button>Help and Support</button>
-          <button>Log out</button>
-        </nav> */}

@@ -22,8 +22,8 @@ function Navbar() {
         </Link>
 
         <div className="navbar-actions">
-          <Link to="/corporate-booking" className="navbar-link">Corporate Booking</Link>
-          <Link to="/partner" className="navbar-link">Become a Partner</Link>
+          <Link to="/CorporateBooking" className="navbar-link">Corporate Booking</Link>
+          <Link to="/Partner" className="navbar-link">Become a Partner</Link>
           <button className="app-btn">Get the App<img src={arrowlogo} height={20} width={20}  style={{ marginLeft: '8px', verticalAlign:'middle' ,marginTop: '-2px'}} alt="Arrow" /></button>
           <Link to="/profile/:id" className="user-icon">
             <img src={userLogo} alt="User Profile" />

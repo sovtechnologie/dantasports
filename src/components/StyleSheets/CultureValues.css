@@ -1,0 +1,62 @@
+
+.culture-values-section {
+  background: #f5f7f9;
+  padding: 60px 40px;
+  text-align: center;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.culture-heading {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+.highlight {
+  color: #1a73e8;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.value-card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  transition: 0.3s ease;
+}
+
+.value-card img {
+  width: 70px;
+  margin-bottom: 20px;
+}
+
+.value-card h3 {
+  margin-bottom: 20px;
+  color: #172A39;
+   font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 120%; /* or line-height: 38.4px; */
+  letter-spacing: 0.41px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.value-card p {
+  color: #555;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 140%; /* or 22.4px */
+  letter-spacing: 0.41px;
+  text-align: center;
+  vertical-align: middle;
+}

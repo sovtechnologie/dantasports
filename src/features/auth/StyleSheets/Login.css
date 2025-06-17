@@ -1,0 +1,148 @@
+/* Login.css */
+.login-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  min-height: 100vh;
+  background-color: #ffffff;
+  font-family: 'DM Sans', sans-serif;
+  flex-wrap: wrap;
+}
+
+.login-box {
+  flex: 1;
+  max-width: 480px;
+  padding: 30px;
+  border-radius: 12px;
+}
+
+.login-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: #000000;
+}
+
+.login-subtitle {
+  font-size: 20px;
+  color: #6b7280;
+  margin-bottom: 24px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  font-weight: 500;
+  margin-bottom: 6px;
+  display: block;
+  font-size: 16px;
+}
+
+.input-field {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.otp-button,
+.verify-button {
+  margin-left: 10px;
+  background: none;
+  border: none;
+  color: #007bff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.login-btn {
+  background-color: #0052cc;
+  color: white;
+  border: none;
+  padding: 14px 0;
+  font-size: 18px;
+  width: 100%;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.login-btn:hover {
+  background-color: #003d99;
+}
+
+.whatsapp-check {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.whatsapp-check input {
+  margin-right: 10px;
+}
+
+.signup-link {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 15px;
+  color: #555;
+}
+
+.signup-link a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
+/* QR code section */
+.qr-box {
+  flex: 1;
+  max-width: 420px;
+  padding: 30px;
+  text-align: center;
+}
+
+.qr-box img {
+  width: 240px;
+  height: 240px;
+  margin-bottom: 24px;
+}
+
+.qr-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #1f2937;
+}
+
+.qr-desc {
+  color: #6b7280;
+  font-size: 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .login-box,
+  .qr-box {
+    max-width: 100%;
+    padding: 20px 0;
+  }
+
+  .qr-box img {
+    width: 180px;
+    height: 180px;
+  }
+}

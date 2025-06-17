@@ -2,11 +2,16 @@
    background-color: #F1F3F2;
 } */
 
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #F1F3F2;
+  color: #333;
+}
 .venue-page {
   font-family: 'Lato', Arial, sans-serif;
   /* padding: 0 100px; */
   min-height: 100vh;
-  background-color: #F1F3F2;
+  /* background-color: #F1F3F2; */
 }
 
 .filter-bar {
@@ -80,8 +85,8 @@
 /* left  siderbar filter section */
 /* Left sidebar filter section */
 .left-section {
-  flex: 0 0 23%;           /* Fixed width: 20% */
-  max-width: 23%;          /* Limit max width */
+  flex: 0 0 22%;           /* Fixed width: 20% */
+  max-width: 22%;          /* Limit max width */
   min-width: 180px;        /* Optional: minimum width for usability */
   box-sizing: border-box;
   overflow-wrap: break-word;
@@ -179,6 +184,12 @@
   overflow: hidden;
   width: 100%;
 }
+.sport-item.active-sport {
+  border: 2px solid #1163c7;
+  border-radius: 8px;
+  background-color: #f0f8ff;
+}
+
 
 .sports-scroll {
   display: grid;
@@ -186,7 +197,8 @@
   /* 4 per row */
   grid-template-rows: repeat(2, auto);
   /* 2 rows */
-  gap: 5px;
+  gap: 1.5rem;
+  padding: 0.5rem 0;
   transition: transform 0.3s ease;
   width: 80%;
 
@@ -200,6 +212,12 @@
   transition: border 0.3s ease;
   border: 2px solid transparent;
 }
+.sport-item img {
+  height: 40px;
+  width: 40px;
+}
+
+
 
 .sport-item:hover {
   border: 2px solid #1163C7;
@@ -225,6 +243,16 @@
 .pagination-dots .dot.active {
   background-color: #1163C7;
 }
+.no-sport-msg {
+  padding: 15px;
+  background-color: #ffffff;
+  color: #1163C7;
+  border: 1px solid #1163C7;
+  border-radius: 6px;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
 
 .filter-sec2 {
   border-radius: 10px;
@@ -242,6 +270,13 @@
 .calendar {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.left-section input,
+.left-section .time-scroll-container,
+.left-section .sports-scroll-wrapper {
+  width: 100%;
+  box-sizing: border-box;
 }
 
 

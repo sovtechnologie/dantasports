@@ -1,0 +1,142 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    /* background-color: #f5f8fb; */
+}
+
+.form-card {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    width: 100%;
+    padding: 40px;
+    gap: 20px;
+}
+
+@media (min-width: 768px) {
+    .form-card {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 40px;
+    }
+
+    .form-left,
+    .form-right {
+        flex: 1;
+    }
+
+    .form-left {
+        padding-right: 0px;
+    }
+}
+
+.form-left {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.form-left h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.form-left p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.form-left ul {
+    list-style: none;
+    padding: 0;
+}
+
+.form-left li {
+    margin-bottom: 10px;
+    color: #0066cc;
+}
+
+.form-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+textarea {
+    min-height: 100px;
+}
+
+.form-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1163C7;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    width: 300px;
+    margin: 0 auto;
+    /* This centers the button horizontally */
+}
+
+
+.form-btn:hover {
+    background-color: #004f99;
+}
+
+.response-message {
+    color: green;
+    font-size: 14px;
+}
+
+/* Mobile-specific tweaks (≤ 480px) */
+@media (max-width: 480px) {
+    .form-left h2 {
+        font-size: 20px;
+    }
+
+    .form-left li,
+    .form-left p {
+        font-size: 13px;
+    }
+
+    .form-container {
+        padding: 20px 10px;
+    }
+
+    .form-card {
+        padding: 20px 15px;
+    }
+
+    input,
+    select,
+    textarea {
+        width: 80%;
+    }
+
+    .form-btn {
+        width: 150px;
+        margin: 0 auto;
+        /* This centers the button horizontally */
+    }
+}

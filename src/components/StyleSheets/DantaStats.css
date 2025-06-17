@@ -1,0 +1,103 @@
+.danta-stats {
+  position: relative;
+  background-color: #0663c7;
+  padding: 10px 20px;
+  color: #ffffff;
+  text-align: center;
+  overflow: hidden;
+  border-radius:30px;
+}
+
+.danta-stats .danta-overlay {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  z-index: 2;
+}
+
+.danta-stats .stats-heading {
+  font-size: 36px;
+  font-weight: 700;
+  /* margin-bottom: 10px; */
+}
+
+.danta-stats .stats-subheading {
+  font-size: 18px;
+  font-weight: 400;
+  /* margin-bottom: 50px; */
+  color: #e0e0e0;
+}
+
+.stats-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  /* border-top: 1px solid rgba(255, 255, 255, 0.25);
+  padding-top: 40px; */
+}
+
+.stat-item {
+  flex: 1;
+  min-width: 150px;
+  position: relative;
+}
+
+.stat-item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  height: 60%;
+  width: 1px;
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-50%);
+}
+
+.stat-item h3 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.stat-item p {
+  font-size: 14px;
+  line-height: 1.4;
+  color: #e0e0e0;
+}
+
+/* Left and Right Pattern Backgrounds */
+.danta-stats img:first-of-type,
+.danta-stats img:last-of-type {
+  position: absolute;
+  top: 0;
+  height: 50%;
+  max-height: 100%;
+  object-fit: contain;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.danta-stats img:first-of-type {
+  left: 0;
+}
+
+.danta-stats img:last-of-type {
+  right: 0;
+  
+}
+
+/* Responsive Tweaks */
+@media (max-width: 768px) {
+  .stats-grid {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .stat-item:not(:last-child)::after {
+    display: none;
+  }
+
+  .stat-item h3 {
+    font-size: 24px;
+  }
+}
