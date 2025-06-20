@@ -1,44 +1,154 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { sendOtp, verifyOtp } from '../redux/slices/authSlice';
-import '../StyleSheets/login.css';
-import qrImage from '../assets/qr.png';
+import { sendOtp, verifyOtp, clearError } from '../../../redux/Slices/authSlice.js';
+import { resetLoginState } from "../../../redux/Slices/authSlice.js";
+import '../StyleSheets/Login.css';
+import qrImage from '../assets/QR_Code.png';
 
-const Login = () => {
+const Login = ({ isModal = false, onSuccess = () => { }, onSwitchToRegister = () => { } }) => {
+
+  // tempory code
+    const [showOtpPopup, setShowOtpPopup] = useState(false); // new state
+    const [otpJustSent, setOtpJustSent] = useState(false);
+
+    // tempory code
+
+
+  
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const [phone, setPhone] = useState('');
-  const [otp, setOtp] = useState('');
+  const [otp, setOtp] = useState(null);
+  const [otpVerified,setOtpVerified] = useState(false);
+  const [validationErrors, setValidationErrors] = useState([]);
   const [whatsappAgree, setWhatsappAgree] = useState(true);
 
-  const { loading, error, otpSent, token } = useSelector((state) => state.auth);
+  const { isSendingOtp, isVerifyingOtp, error, otpSent, token, id, devOtp, user } = useSelector((state) => state.auth);
 
-  const handleSendOtp = () => {
-    if (/^\d{10}$/.test(phone)) {
-      dispatch(sendOtp('+91' + phone));
-    } else {
-      alert('Enter a valid 10-digit mobile number');
-    }
-  };
-
-  const handleVerifyOtp = () => {
-    if (/^\d{6}$/.test(otp)) {
-      dispatch(verifyOtp({ mobile: '+91' + phone, otp }));
-    } else {
-      alert('Enter a valid 6-digit OTP');
-    }
-  };
+  // useEffect(() => {
+  //   if (token && user) {
+  //     console.log("✅ Verified User (from component):", user);
+  //     console.log("✅ Token:", token);
+  //     if (isModal && onSuccess) {
+  //       onSuccess(); // Close modal
+  //       navigate('/');
+  //     }
+  //   }
+  // }, [token, user]);
 
   useEffect(() => {
-    if (token) {
-      // Navigate to profile or home after successful login
-      window.location.href = '/profile'; // or use useNavigate if you're using react-router-dom v6+
+    dispatch(resetLoginState());
+    setShowOtpPopup(false)
+  }, []);
+
+
+  useEffect(() => {
+    if (!user || !token) {
+      setPhone('');
+      setOtp(null);
+      setWhatsappAgree(true);
     }
-  }, [token]);
+  }, [user, token]);
+
+ const handleCopyOtp = () => {
+    if (devOtp) {
+      navigator.clipboard.writeText(devOtp.toString()); // Copy to clipboard
+      setOtp(devOtp.toString()); // Auto-fill OTP input
+      setShowOtpPopup(false); // Close popup
+    }
+  };
+
+
+useEffect(() => {
+  if (devOtp && otpJustSent) {
+    setShowOtpPopup(true);
+    setOtpJustSent(false); // Reset flag after showing popup
+  }
+}, [devOtp, otpJustSent]);
+
+  const validateLoginForm = () => {
+    const errors = [];
+
+    if (!/^\d{10}$/.test(phone)) {
+      errors.push("Enter a valid 10-digit mobile number.");
+    }
+
+    if (otp !== null && !/^\d{6}$/.test(otp)) {
+      errors.push("Enter a valid 6-digit OTP.");
+    }
+
+    return errors;
+  };
+
+  const handleSendOtp = async () => {
+    const errors = validateLoginForm();
+
+    if (errors.length > 0) {
+      setValidationErrors(errors);
+      setTimeout(() => setValidationErrors([]), 5000);
+      return;
+    }
+
+    try {
+      await dispatch(sendOtp(phone)).unwrap();
+      setOtpJustSent(true);  
+    } catch (err) {
+      console.error("❌ Send OTP failed:", err);
+      // alert(err);
+    }
+  };
+
+  const handleVerifyOtp = async () => {
+    const errors = validateLoginForm();
+
+    if (errors.length > 0) {
+      setValidationErrors(errors);
+      setTimeout(() => setValidationErrors([]), 5000);
+      return;
+    }
+
+    try {
+      await dispatch(verifyOtp({ id, otp: Number(otp) })).unwrap();
+      setOtpVerified(true);
+    } catch (err) {
+      console.error("❌ Verify OTP failed:", err);
+      setOtp('');
+      // alert(err);
+    }
+  };
+
+ const handlelogIn = () => {
+  if (!otpVerified) {
+    setValidationErrors(["Please verify the OTP before logging in."]);
+    setTimeout(() => setValidationErrors([]), 4000);
+    return;
+  }
+
+  if (isModal && onSuccess) {
+    onSuccess(); // Close modal
+    navigate('/');
+  }
+};
+
+
 
   return (
-    <div className="login-container">
+    <div className={` ${isModal ? 'modal-style' : ''}`}>
       <div className="login-box">
+
+
+        {/* OTP Dev Popup */}
+        {showOtpPopup && (
+          <div className="otp-popup-overlay">
+            <div className="otp-popup">
+              <h4>🔐 Dev OTP</h4>
+              <p>{devOtp}</p>
+              <button onClick={handleCopyOtp}>Copy & Paste</button>
+            </div>
+          </div>
+        )}
+
         {/* Left Side */}
         <div className="left-panel">
           <h2>Welcome back</h2>
@@ -52,36 +162,42 @@ const Login = () => {
               type="tel"
               maxLength="10"
               value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              onChange={(e) => {
+                setPhone(e.target.value);
+                if (error) dispatch(clearError());
+              }}
               placeholder="Enter number"
               disabled={otpSent}
             />
-            <button onClick={handleSendOtp} className="otp-button" disabled={loading}>
-              {loading ? 'Sending...' : 'Send OTP'}
+            <button onClick={handleSendOtp} className="otp-button" disabled={isSendingOtp}>
+              {isSendingOtp ? 'Sending...' : 'Send OTP'}
             </button>
           </div>
 
           {/* OTP Input */}
-          {otpSent && (
-            <>
-              <label>Enter OTP</label>
-              <div className="input-group">
-                <input
-                  type="text"
-                  maxLength="6"
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value)}
-                  placeholder="Enter OTP"
-                />
-                <button onClick={handleVerifyOtp} className="otp-button" disabled={loading}>
-                  {loading ? 'Verifying...' : 'Verify OTP'}
-                </button>
-              </div>
-            </>
-          )}
+          {/* {otpSent && ( */}
+          <>
+            <label>Enter OTP</label>
+            <div className="input-group">
+              <input
+                type="text"
+                maxLength="6"
+                value={otp}
+                onChange={(e) => {
+                  setOtp(e.target.value);
+                  if (error) dispatch(clearError());
+                }}
+                placeholder="Enter OTP"
+              />
+              <button onClick={handleVerifyOtp} className="otp-button" disabled={isVerifyingOtp}>
+                {otpVerified ? 'OTP Verified' : isVerifyingOtp ? 'Verifying...' : 'Verify OTP'}
+              </button>
+            </div>
+          </>
+          {/* )} */}
 
           {/* Login Button */}
-          <button className="login-button" onClick={handleVerifyOtp} disabled={loading || !otpSent}>
+          <button className="login-button" onClick={handlelogIn} disabled={isVerifyingOtp || !otpSent}>
             LOG IN
           </button>
 
@@ -97,10 +213,21 @@ const Login = () => {
 
           {/* Sign Up Link */}
           <p className="signup-text">
-            Don’t have an account? <a href="/signup">Sign up</a>
+            Don’t have an account?{' '}
+            <button type="button" className="link-button" onClick={onSwitchToRegister}>
+              Sign up
+            </button>
           </p>
 
+
           {/* Error Display */}
+          {validationErrors.length > 0 && (
+            <div className="error-box">
+              {validationErrors.map((err, idx) => (
+                <p key={idx} className="error-text">{err}</p>
+              ))}
+            </div>
+          )}
           {error && <p className="error-text">{error}</p>}
         </div>
 
@@ -124,89 +251,3 @@ export default Login;
 
 
 
-
-// import React, { useState } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { sendOtp, verifyOtp, loginUser } from '../redux/actions/authActions';
-// import "../StyleSheets/login.css";
-// import qrImage from '../assets/qr.png';
-
-// const Login = () => {
-//   const dispatch = useDispatch();
-//   const [phone, setPhone] = useState('');
-//   const [otp, setOtp] = useState('');
-//   const [whatsappAgree, setWhatsappAgree] = useState(true);
-
-//   const handleSendOtp = () => {
-//     if (phone.length === 10) {
-//       dispatch(sendOtp('+91' + phone));
-//     } else {
-//       alert('Enter a valid 10-digit mobile number');
-//     }
-//   };
-
-//   const handleVerifyOtp = () => {
-//     if (otp.length === 6) {
-//       dispatch(verifyOtp({ phone: '+91' + phone, otp }));
-//     } else {
-//       alert('Enter a valid 6-digit OTP');
-//     }
-//   };
-
-//   const handleLogin = () => {
-//     dispatch(loginUser({ phone: '+91' + phone, otp }));
-//   };
-
-//   return (
-//     <div className="login-container">
-//       <div className="login-box">
-//         <div className="left-panel">
-//           <h2>Welcome back</h2>
-//           <p className="subtitle">You're Almost There!</p>
-//           <label>Enter Mobile Number</label>
-//           <div className="input-group">
-//             <span className="country-code">🇮🇳 +91</span>
-//             <input
-//               type="tel"
-//               maxLength="10"
-//               value={phone}
-//               onChange={(e) => setPhone(e.target.value)}
-//               placeholder="Enter number"
-//             />
-//             <button onClick={handleSendOtp} className="otp-button">Send OTP</button>
-//           </div>
-//           <label>Enter OTP</label>
-//           <div className="input-group">
-//             <input
-//               type="text"
-//               maxLength="6"
-//               value={otp}
-//               onChange={(e) => setOtp(e.target.value)}
-//               placeholder="Enter OTP"
-//             />
-//             <button onClick={handleVerifyOtp} className="otp-button">Verify OTP</button>
-//           </div>
-//           <button className="login-button" onClick={handleLogin}>LOG IN</button>
-//           <div className="checkbox">
-//             <input
-//               type="checkbox"
-//               checked={whatsappAgree}
-//               onChange={() => setWhatsappAgree(!whatsappAgree)}
-//             />
-//             <span>I agree to receive updates over whatsapp</span>
-//           </div>
-//           <p className="signup-text">
-//             Don’t have an account? <a href="/signup">Sign up</a>
-//           </p>
-//         </div>
-//         <div className="right-panel">
-//           <img src={qrImage} alt="QR Code" />
-//           <h3>Log in with QR code</h3>
-//           <p>Scan this with our App to log in instantly</p>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Login;

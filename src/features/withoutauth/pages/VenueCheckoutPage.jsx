@@ -145,12 +145,7 @@ function VenueCheckoutPage() {
                             </div>
                         </div>
                         <div className="section">
-                            {/* <h4>Sports Available</h4>
-                            <div className="tags">
-                                {venue.sports.map((sport) => (
-                                    <span className="tag" key={sport}>{sport}</span>
-                                ))}
-                            </div> */}
+                            
                             <div className="sports-wrapper">
                                 <div className="sports-header">
                                     <strong>Sports Available</strong>
@@ -178,22 +173,7 @@ function VenueCheckoutPage() {
                     <div className="venue-right">
 
                         {/* Calendar */}
-                        {/* <div className="vb-calendar">
-                            <button>&lt;</button>
-                            <span>September</span>
-                            <button>&gt;</button>
-                        </div>
-                        <div className="vb-dates">
-                            {dates.map((date) => (
-                                <div
-                                    key={date}
-                                    className={`vb-date-item ${selectedDate === date ? 'active' : ''}`}
-                                    onClick={() => setSelectedDate(date)}
-                                >
-                                    {date}
-                                </div>
-                            ))}
-                        </div> */}
+                       
                         <Calendar />
 
                         {/* Sports Selector */}
@@ -212,48 +192,7 @@ function VenueCheckoutPage() {
                             </div>
                         </div>
 
-                        {/* Duration & Time */}
-                        {/* <div className="vb-section vb-duration-time">
-                            <div className="vb-duration">
-                                <label>Duration:</label>
-                                <div className="vb-duration-box">0hr</div>
-                            </div>
-                            <div className="vb-time">
-                                <label>Time:</label>
-                                <div className="vb-time-box">{selectedTime}</div>
-                            </div>
-                        </div> */}
-
-                        {/* Time Slots */}
-                        {/* <div className="vb-section">
-                            <div className="vb-time-periods">
-                                {['Morning', 'Afternoon', 'Evening'].map((period, idx) => (
-                                    <button
-                                        key={period}
-                                        className={`vb-period-btn ${idx === 0 ? 'active' : ''}`}
-                                    >
-                                        {period}
-                                    </button>
-                                ))}
-                            </div>
-                            <div className="vb-time-slots">
-                                {['11:30 AM', '12:30 PM', '1:30 PM', '2:30 PM'].map((time) => (
-                                    <button
-                                        key={time}
-                                        className={`vb-slot-btn ${selectedTime === time ? 'active' : ''}`}
-                                        onClick={() => setSelectedTime(time)}
-                                    >
-                                        {time}
-                                    </button>
-                                ))}
-                            </div>
-                            <div className="vb-availability-bar">
-                                <div className="green"></div>
-                                <div className="green"></div>
-                                <div className="red"></div>
-                                <div className="green"></div>
-                            </div>
-                        </div> */}
+                     
 
                         <TimeSelector />
 
@@ -290,7 +229,6 @@ function VenueCheckoutPage() {
 
                                         }}
                                     />
-
                                 </div>
                             </div>
                         )}
@@ -300,38 +238,7 @@ function VenueCheckoutPage() {
                             bookingData={BookingData}
                             events={Events}
                         />
-                        {/* <div className="venue-timing-price">
-                            <div>
-                                <strong>Timing</strong>
-                                <p>{venue.timing}</p>
-                            </div>
-                            <div>
-                                <strong>Price</strong>
-                                <p>₹{venue.price} onwards</p>
-                            </div>
-                        </div> */}
-
-                        {/* <div className="venue-location">
-                            <div><strong>Location:</strong></div>
-                            <p>{venue.address}</p>
-                            <div className="venue-map">
-                                <iframe
-                                    // src={mapEmbedLink}
-                                    width="100%"
-                                    height="300"
-                                    allowFullScreen=""
-                                    loading="lazy"
-                                    title="Venue Map"
-                                ></iframe>
-                            </div>
-                        </div>
-
-                        <div className="btn-group">
-                            <button className="btn-secondary">Corporate Booking</button>
-                            <button className="btn-primary">Check Availability</button>
-                        </div> */}
-
-
+                       
                     </div>
 
                     <div className="amenities-wrapper">
@@ -390,3 +297,65 @@ function VenueCheckoutPage() {
 };
 
 export default VenueCheckoutPage
+
+
+
+
+   {/* Duration & Time */}
+                        {/* <div className="vb-section vb-duration-time">
+                            <div className="vb-duration">
+                                <label>Duration:</label>
+                                <div className="vb-duration-box">0hr</div>
+                            </div>
+                            <div className="vb-time">
+                                <label>Time:</label>
+                                <div className="vb-time-box">{selectedTime}</div>
+                            </div>
+                        </div> */}
+
+                        {/* Time Slots */}
+                        {/* <div className="vb-section">
+                            <div className="vb-time-periods">
+                                {['Morning', 'Afternoon', 'Evening'].map((period, idx) => (
+                                    <button
+                                        key={period}
+                                        className={`vb-period-btn ${idx === 0 ? 'active' : ''}`}
+                                    >
+                                        {period}
+                                    </button>
+                                ))}
+                            </div>
+                            <div className="vb-time-slots">
+                                {['11:30 AM', '12:30 PM', '1:30 PM', '2:30 PM'].map((time) => (
+                                    <button
+                                        key={time}
+                                        className={`vb-slot-btn ${selectedTime === time ? 'active' : ''}`}
+                                        onClick={() => setSelectedTime(time)}
+                                    >
+                                        {time}
+                                    </button>
+                                ))}
+                            </div>
+                            <div className="vb-availability-bar">
+                                <div className="green"></div>
+                                <div className="green"></div>
+                                <div className="red"></div>
+                                <div className="green"></div>
+                            </div>
+                        </div> */}
+                         {/* <div className="vb-calendar">
+                            <button>&lt;</button>
+                            <span>September</span>
+                            <button>&gt;</button>
+                        </div>
+                        <div className="vb-dates">
+                            {dates.map((date) => (
+                                <div
+                                    key={date}
+                                    className={`vb-date-item ${selectedDate === date ? 'active' : ''}`}
+                                    onClick={() => setSelectedDate(date)}
+                                >
+                                    {date}
+                                </div>
+                            ))}
+                        </div> */}

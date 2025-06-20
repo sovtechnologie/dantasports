@@ -1,0 +1,358 @@
+/* Background overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(30, 30, 30, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Modal container */
+.register-modal {
+  background-color: white;
+  width: 480px;
+  height: 80vh;
+  border-radius: 16px;
+  padding: 50px;
+  position: relative;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Close button */
+.close-button {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  font-size: 30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.register-modal h2 {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: -14px;
+  color: #0d1b2a;
+}
+
+.register-modal label {
+  font-size: 14px;
+  font-weight: 550;
+  display: block;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.register-modal input,
+.register-modal select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.main-input:focus,
+.register-modal select:focus {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* Phone input row */
+.phone-input,
+.otp-input {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 6px;
+  background: white;
+}
+.otp-input input,
+.phone-input input
+{
+   display: flex;
+  align-items: center;
+  border: none;
+  flex: 1;
+  padding: 6px;
+  font-size: 14px;
+  outline: none;
+}
+
+.country-code {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: none;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+.country-code img {
+  width: 20px;
+  height: 14px;
+  border-radius: 2px;
+}
+
+.otp-btn {
+  background: none;
+  border: none;
+  color: #0066cc;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 14px;
+  white-space: nowrap;
+  margin-left: auto;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: flex-start; /* or center if text height allows */
+  gap: 8px; /* space between checkbox and text */
+  
+}
+
+.checkbox-row input[type="checkbox"] {
+  /* margin-top: 3px; vertically align with text */
+}
+
+.checkbox-row p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.checkbox-row a {
+  color: #007bff; /* Optional: link color */
+  text-decoration: underline;
+}
+
+/* .error-box {
+  margin-bottom: 10px;
+  background-color: #ffe0e0;
+  padding: 10px;
+  border-radius: 6px;
+} */
+
+.error-text {
+  color: #d8000c;
+  margin: 0;
+  font-size: 14px;
+}
+
+
+/* Submit row */
+.submit-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.signup-btn {
+  background-color: #0050ff;
+  color: white;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.submit-row p {
+  font-size: 13px;
+  color: #333;
+}
+
+.submit-row a {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+
+
+
+
+/* .register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
+  background-color: #f9f9f9;
+}
+
+.register-box {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 420px;
+  padding: 2rem;
+  position: relative;
+}
+
+.register-box h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 8px 12px;
+  width: 100%;
+  max-width: 480px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.input-group input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  background: transparent;
+}
+
+.register-box input,
+.register-box select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-group input:focus,
+.register-box input:focus,
+.register-box select:focus {
+  border-color: #007bff;
+}
+
+
+.country-code {
+  font-size: 16px;
+  margin-right: 8px;
+  color: #444;
+}
+
+button.otp-button,
+button.verify-button {
+  background: none;
+  border: none;
+  color: #007bff;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  font-weight: 500;
+  padding-left: 8px;
+}
+
+button.otp-button:hover,
+button.verify-button:hover {
+  text-decoration: underline;
+}
+
+.register-box label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.register-box .checkbox-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+.register-box .checkbox-group input[type='checkbox'] {
+  margin-top: 4px;
+}
+
+.register-box .terms {
+  margin-bottom: 12px;
+}
+
+.register-box .terms a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.register-box .terms a:hover {
+  text-decoration: underline;
+}
+
+button.register-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 600;
+  margin-top: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button.register-button:hover {
+  background-color: #005dc5;
+}
+
+.login-link {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 13px;
+}
+
+.login-link a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+.error-text {
+  color: red;
+  font-size: 13px;
+  margin-top: 0.5rem;
+}
+
+
+@media (max-width: 480px) {
+  .register-box {
+    padding: 1.5rem;
+  }
+} */

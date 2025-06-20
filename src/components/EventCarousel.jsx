@@ -20,6 +20,7 @@ function EventCarousel() {
   }, []);
 
   return (
+    <div className='main-carousel-container'>
     <div className="carousel-container">
       <div
         className="carousel-track"
@@ -40,6 +41,7 @@ function EventCarousel() {
           ></span>
         ))}
       </div>
+    </div>
     </div>
   );
 }

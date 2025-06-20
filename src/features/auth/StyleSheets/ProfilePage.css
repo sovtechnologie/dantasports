@@ -219,18 +219,27 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
+
+   .Profile-heading {
+    flex-direction: column;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .Profile-heading h1 {
+    font-size: 28px;
+    line-height: 32px;
+  }
+
   .profile-container {
     flex-direction: column;
-    padding: 10px;
+    padding: 16px;
   }
 
-  .sidebar {
-    width: 90%;
-    max-width: 100%;
-  }
-
+  .sidebar,
   .main-content {
-    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
   }
 
   .booking-card {

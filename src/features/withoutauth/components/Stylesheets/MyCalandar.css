@@ -98,11 +98,12 @@
 .year-cell.selected {
     background-color: #007bff;
     color: white;
+    font-weight: bold;
 }
 
 .day-cell.today {
     font-weight: bold;
-    color: #007bff;
+    /* color: #007bff; */
 }
 
 .day-cell.today.selected {
@@ -116,11 +117,11 @@
 
 .day-number {
     font-size: 16px;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
 }
 
 .day-label {
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .selected-date {

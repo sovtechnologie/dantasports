@@ -1,0 +1,35 @@
+.edit-profile-form {
+  padding: 20px;
+}
+
+.edit-profile-form h2 {
+  margin-bottom: 20px;
+}
+
+.edit-profile-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.edit-profile-form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+}
+
+.edit-profile-form input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.edit-profile-form button {
+  padding: 10px 14px;
+  background-color: #1163c7;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}

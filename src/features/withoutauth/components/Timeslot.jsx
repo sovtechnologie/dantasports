@@ -90,7 +90,7 @@ function Timeslot({ selectedTime, onTimeSlotChange }) {
     <div className="time-picker-box">
       <div className="time-display">
         <label>Time:</label>
-        <div className="selected-time">{selectedTime || "--:--"}</div>
+        <span className="selected-time">{selectedTime || "--:--"}</span>
       </div>
 
       <div className="time-scroll-container">
