@@ -2,11 +2,14 @@ import React from 'react';
 import '../StyleSheets/Favorites.css';
 import { useQuery } from '@tanstack/react-query';
 import { fetchFavoriteVenue } from '../../../services/LoginApi/FavouritesVenueApi.js/endpointApi';
+import { useSelector } from 'react-redux';
 
 const Favorites = () => {
+ const userId = useSelector((state) => state.auth?.id);
+
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['favoriteVenues'],
-    queryFn: fetchFavoriteVenue,
+    queryFn: fetchFavoriteVenue(userId),
   });
 
   if (isLoading) return <div className="main-content">Loading favorites...</div>;
