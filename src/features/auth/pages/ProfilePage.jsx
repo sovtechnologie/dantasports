@@ -11,6 +11,8 @@ import WorkIcon from "../assets/WorkIcon.png";
 import HelpIcon from "../assets/HelpIcon.png";
 import LogoutIcon from "../assets/logoutIcon.png";
 import SecurityIcon from "../assets/SecurityIcon.png";
+import { fetchProfile } from '../../../services/LoginApi/profileApi/endpointApi.js';
+import { useQuery } from '@tanstack/react-query';
 
 
 function ProfilePage() {
@@ -18,7 +20,15 @@ function ProfilePage() {
   const id = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.auth);
+ 
+
+  const { data, isLoading: isFetching } = useQuery({
+      queryKey: ['profile'],
+      queryFn: fetchProfile,
+    });
+  
+    const profile = data?.result[0];
+    console.log(" my Profile data:", profile);
 
   const handleLogout = () => {
     const confirmLogout = window.confirm("Are you sure you want to log out?");
@@ -41,6 +51,9 @@ function ProfilePage() {
     { label: 'Log out', icon: LogoutIcon, action: handleLogout }
   ];
 
+   if (isFetching) return <p>Loading profile...</p>;
+  if (!profile) return <p>Error loading profile data.</p>;
+
   return (
     <>
       <div className='Profile-heading'><h1>Profile </h1></div>
@@ -50,9 +63,9 @@ function ProfilePage() {
             <div className="user-card-left">
               <img src={ProfileImage} alt="User" className="user-avatar" />
               <div className="user-info">
-                <div className="user-name">{user?.full_name || "Noel Jacob"}</div>
-                <div className="user-email">{user?.email || "noeljacob@gmail.com"}</div>
-                <div className="user-phone">{user?.mobile_number || "+919898989898"}</div>
+                <div className="user-name">{profile?.full_name || "Noel Jacob"}</div>
+                <div className="user-email">{profile?.email || "noeljacob@gmail.com"}</div>
+                <div className="user-phone">{profile?.mobile_number || "+919898989898"}</div>
               </div>
             </div>
             <div className="user-card-right">

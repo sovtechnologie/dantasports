@@ -79,6 +79,20 @@
   color: #10b981;
 }
 
+.venue-about {
+  font-family: 'DM Sans', Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #4B5563;
+  margin: 4px 0;
+  height: 38px; /* Limit height */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* show only 2 lines */
+  -webkit-box-orient: vertical;
+}
+
 
 .venue-locations {
   font-family: 'DM Sans', Arial, sans-serif;

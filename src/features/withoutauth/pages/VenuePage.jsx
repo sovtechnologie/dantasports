@@ -1,50 +1,32 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import "../Stylesheets/VenuePage.css";
 import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import SortFilterPopup from '../components/SortFilterPopup.jsx';
 import FilterPopup from '../components/FilterPopup.jsx';
 import SortingIcon from "../assets/Filtericon/sortingicon.png";
 import FilterIcon from "../assets/Filtericon/Filtericon.png";
 import VenueCard from '../components/VenueCard';
-import VenueCardData from '../StaticData/VenueCardData.js';
+// import VenueCardData from '../StaticData/VenueCardData.js';
 import leftArrow from "../assets/left-arrow.png";
 import rightArrow from "../assets/right-arrow.png";
 import AppDownloadBanner from '../components/AppDownloadBanner.jsx';
-import Calendar from "../components/FilterCalendar.jsx";
 import Timeslot from '../components/Timeslot.jsx';
 import SearchIcon from "../assets/Search-icon.png";
-import Cricket from "../assets/sport-list/Cricket-Icon.png";
 import Football from "../assets/sport-list/Football-Icon.png";
-import BasketBall from "../assets/sport-list/BasketBall-Icon.png";
-import TableTenis from "../assets/sport-list/Table-tennis.png";
-import PickelBall from "../assets/sport-list/PickelBall.png";
-import Batminton from "../assets/sport-list/Batminton.png";
-import Swimming from "../assets/sport-list/Swimming.png";
-import Skating from "../assets/sport-list/Skating.png";
-import Fitness from "../assets/sport-list/Fitness.png";
-import Kabaddi from "../assets/sport-list/Kabaddi.png";
-import Running from "../assets/sport-list/Running.png";
-import Golf from "../assets/sport-list/Golf.png";
+import CricketLogo from "../assets/VenueCardLogo/CricketLogo.png";
+import FootballLogo from "../assets/VenueCardLogo/FootballLogo.png";
 import DeskTopFilterCalendar from '../components/DeskTopFilterCalendar.jsx';
 import { format } from 'date-fns';
+import { useLikeVenue } from '../../../hooks/favouriteVenue/useLikeVenue.js';
+import { useUnlikeVenue } from '../../../hooks/favouriteVenue/useUnlikeVenue.js';
+import { useSelector } from 'react-redux';
+import { fetchSportList } from '../../../services/withoutLoginApi/SportListApi/endpointApi.js';
+import { useFetchVenue } from '../../../hooks/VenueList/useFetchVenue.js';
+import { useQueryClient } from '@tanstack/react-query';
 
 
 
-const sportsData = [
-    { name: "Cricket", icon: Cricket },
-    { name: "Football", icon: Football },
-    { name: "Basketball", icon: BasketBall },
-    { name: "Tennis", icon: TableTenis },
-    { name: "PickelBall", icon: PickelBall },
-    { name: "Badminton", icon: Batminton },
-    { name: "Swimming", icon: Swimming },
-    { name: "Skating", icon: Skating },
-    { name: "Fitness", icon: Fitness },
-    { name: "Kabaddi", icon: Kabaddi },
-    { name: "Running", icon: Running },
-    { name: "Golf", icon: Golf },
-
-];
 
 const sortOptions = [
     "Popularity",
@@ -57,11 +39,98 @@ const sortOptions = [
 
 
 function VenuePage() {
-
+    const queryClient = useQueryClient();
+    const [venueList, setVenueList] = useState([]);
     const [selectedSport, setSelectedSport] = useState(null);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [selectedTime, setSelectedTime] = useState(null);
     const [filteredData, setFilteredData] = useState([]);
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [showFilter, setShowFilter] = useState(false);
+    const [showSort, setshowSort] = useState(false);
+    const [selectedSort, setSelectedSort] = useState('');
+    const [page, setPage] = useState(0);
+    const [selected, setSelected] = useState([]);
+
+
+    // Handle venueList data by react-Query
+
+
+    const { data, isLoading, isError, error } = useFetchVenue();
+
+    // const {
+    //     data,
+    //     isLoading,
+    //     isError,
+    //     error
+    // } = useQuery({
+    //     queryKey: ["venueList"],
+    //     queryFn: fetchVenueList,
+    // });
+
+    const {
+        data: sportsDataResponse,
+        isLoading: isSportsLoading,
+        isError: isSportsError,
+        error: sportsError
+    } = useQuery({
+        queryKey: ['sportsList'],
+        queryFn: fetchSportList,
+    });
+
+    const sportsData = sportsDataResponse?.result || [];
+
+    const likeVenue = useLikeVenue();
+    const unlikeVenue = useUnlikeVenue();
+    const userId = useSelector((state) => state.auth?.id);
+
+    const toggleFavourite = (venueId) => {
+        setVenueList((prevList) =>
+            prevList.map((venue) =>
+                venue.id === venueId ? { ...venue, favourite: !venue.favourite } : venue
+            )
+        );
+
+        const venue = venueList.find((v) => v.id === venueId);
+
+        if (!venue) return;
+
+        if (!venue.favourite) {
+            likeVenue.mutate({ venueId, userId }, {
+                onSuccess: async () => {
+                    await queryClient.invalidateQueries(['fetchVenueList']); // Fetch updated data
+                },
+                onError: () => {
+                    // revert on error
+                    setVenueList((prevList) =>
+                        prevList.map((v) =>
+                            v.id === venueId ? { ...v, favourite: false } : v
+                        )
+                    );
+                },
+            });
+        } else {
+            // 🟡 Use favourite_venue_id instead of venueId
+            unlikeVenue.mutate({ favouriteVenueId: venue.favourite_venue_id }, {
+                onSuccess: async () => {
+                    await queryClient.invalidateQueries(['fetchVenueList']); // Fetch updated data
+                },
+                onError: () => {
+                    setVenueList((prevList) =>
+                        prevList.map((v) =>
+                            v.id === venueId ? { ...v, favourite: true } : v
+                        )
+                    );
+                },
+            });
+        }
+    };
+
+
+
+
+
+
 
     //   Handle Time Selection from Timeslots
 
@@ -85,7 +154,7 @@ function VenuePage() {
         // Your actual filtering logic here
         const formattedDate = format(date, 'yyyy-MM-dd');
         console.log('Filtering by date:', formattedDate);
-        
+
 
         // Example: filter some data array
         // const filtered = yourDataArray.filter(item =>
@@ -95,7 +164,7 @@ function VenuePage() {
     };
 
     const itemsPerPage = 3;
-    const [activeIndex, setActiveIndex] = useState(0);
+
 
     const totalPageSport = Math.ceil(sportsData.length / itemsPerPage);
 
@@ -114,16 +183,10 @@ function VenuePage() {
 
 
 
-    const [showFilter, setShowFilter] = useState(false);
 
-    const [showSort, setshowSort] = useState(false);
-    const [selectedSort, setSelectedSort] = useState('');
-
-
-    const [page, setPage] = useState(0);
     const pageSize = 12; // Number of cards per page
 
-    const totalVenues = VenueCardData.length;
+    const totalVenues = venueList.length;
     const totalPages = Math.ceil(totalVenues / pageSize);
 
     const handlePrev = () => {
@@ -134,9 +197,9 @@ function VenuePage() {
         if (page < totalPages - 1) setPage(page + 1);
     };
 
-    const paginatedVenues = VenueCardData.slice(page * pageSize, (page + 1) * pageSize);
+    const paginatedVenues = venueList.slice(page * pageSize, (page + 1) * pageSize);
 
-    const [selected, setSelected] = useState([]);
+
 
     const toggleCheckbox = (option) => {
         setSelected((prev) =>
@@ -153,10 +216,19 @@ function VenuePage() {
         setSelectedTime(null);
     }
 
+    useEffect(() => {
+        if (data?.result) {
+            setVenueList(data.result);
+        }
+    }, [data]);
 
 
+    if (isLoading) return <div>Loading venues...</div>;
+    if (isError) return <div>Error loading venues: {error.message}</div>;
+    if (isSportsLoading) return <div>Loading sports...</div>;
+    if (isSportsError) return <div>Error loading sports: {sportsError.message}</div>;
 
-
+    if (!venueList.length) return <div>No venues found.</div>;
     return (
         <>
             {/* filter section */}
@@ -225,14 +297,14 @@ function VenuePage() {
 
                                     <div className="sports-scroll-wrapper">
                                         <div className="sports-scroll">
-                                            {paginatedSports.map((sport, idx) => (
+                                            {paginatedSports.map((sport, id) => (
                                                 <div
-                                                    className={`sport-item ${selectedSport === sport.name ? 'active-sport' : ''}`}
-                                                    key={idx}
-                                                    onClick={() => setSelectedSport(sport.name)}
+                                                    className={`sport-item ${selectedSport === sport.sports_name ? 'active-sport' : ''}`}
+                                                    key={id}
+                                                    onClick={() => setSelectedSport(sport.sports_name)}
                                                 >
-                                                    <img src={sport.icon} alt={sport.name} />
-                                                    <span>{sport.name}</span>
+                                                    <img src={sport.sports_images || Football} alt={sport.sports_name} />
+                                                    <span>{sport.sports_name}</span>
                                                 </div>
                                             ))}
                                         </div>
@@ -306,7 +378,7 @@ function VenuePage() {
                     <aside className='right-section'>
                         <div className="venue-list-mobile-scroll">
                             <div className="venue-list">
-                                {paginatedVenues.map((venue, index) => (
+                                {/* {paginatedVenues.map((venue, index) => (
                                     <Link
                                         key={venue.id || index}
                                         to={`/venue/${venue.id || index}`}
@@ -315,7 +387,34 @@ function VenuePage() {
                                         <VenueCard key={index} venue={venue} />
                                     </Link>
 
-                                ))}
+                                ))} */}
+                                {paginatedVenues.map((venue, index) => {
+                                    const formattedVenue = {
+                                        id: venue.id,
+                                        image: venue.cover_image,
+                                        sportsIcons: [CricketLogo, FootballLogo],
+                                        name: venue.venue_name,
+                                        about: venue.about_venue,
+                                        rating: 4.5,
+                                        reviews: 20,
+                                        address: `${venue.area}, ${venue.city}`,
+                                        distance: "3",
+                                        offer: "10% Off",
+                                        price: `₹${venue.pricing}`,
+                                        favourite: venue.favourite
+                                    };
+
+                                    return (
+                                        <Link key={venue.id} to={`/venue/${venue.id}`} style={{ textDecoration: "none", color: "inherit" }}>
+                                            <VenueCard
+                                                venue={formattedVenue}
+                                                isLiked={formattedVenue.favourite}
+                                                onLikeToggle={() => toggleFavourite(venue.id)}
+                                            />
+                                        </Link>
+                                    );
+                                })}
+
                             </div>
                         </div>
                         <div className="venue-nav">

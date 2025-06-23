@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import "../Stylesheets/VenueDetail.css";
 import venueImage from "../assets/Venue-image.png";
@@ -12,34 +12,89 @@ import ShareIcon from '../assets/VenueDetailIcon/shareIcon.png';
 import LikeIcon from '../assets/VenueDetailIcon/LikeIcon.png';
 import PriceChart from '../components/PriceChart.jsx';
 import checkitIcon from "../assets/Checkitcon.png";
+import { useFetchSingleVenue } from '../../../hooks/VenueList/useFetchSingleVenue.js';
+import { formatTime } from '../../../utils/formatTime.js';
+import CustomMap from '../components/CustomMap.jsx';
 
 const banners = [Banner, Banner, Banner];
 
-const venue = {
-    name: 'Pushpa Sports Arena',
-    location: 'Bibwewadi',
-    rating: 4,
-    reviews: 6,
-    timing: '6AM - 12AM',
-    price: 1100,
-    address:
-        'PSA Ground Next To Shreeji Lawns Ganga Dham Road Bibwewadi Pune 411037',
-    images: [
-        venueImage,
-        venueImage,
-        venueImage,
-        venueImage,
-    ],
-    sports: [
-        { name: 'Cricket', icon: cricketIcon },
-        { name: 'Football', icon: footballIcon },
-        { name: 'Pickle Ball', icon: pickleballIcon },
-    ],
-    amenities: ['Parking', 'Restroom', 'Changing Room', 'First Aid'],
+const mapVenueData = (apiData) => {
+    return {
+        name: apiData?.venue_name || "Unknown Venue",
+        location: apiData?.area || "Unknown Area",
+        rating: 4, // Assuming static, unless provided
+        reviews: 6, // Assuming static, unless provided
+        timing: `${formatTime(apiData?.start_time || '06:00:00')} - ${formatTime(apiData?.end_time || '22:00:00')}`,
+        price: parseFloat(apiData?.pricing) || 1100,
+        address: `${apiData?.full_address || ''}, ${apiData?.area || ''}, ${apiData?.city || ''}, ${apiData?.state || ''} - ${apiData?.pincode || ''}`.trim().replace(/^,|,$/g, '')
+            || "Not Available",
+        images: [
+            apiData?.cover_image ? apiData.cover_image : venueImage,
+        ],
+        sports: [
+            { name: 'Cricket', icon: cricketIcon },
+            { name: 'Football', icon: footballIcon },
+            { name: 'Pickle Ball', icon: pickleballIcon }
+        ],
+        amenities: ['Parking', 'Restroom', 'Changing Room', 'First Aid'],
+        latitude: apiData?.latitude || 0,
+        longitude: apiData?.longitude || 0,
+    };
 };
 
+
+// const venue = {
+//     name: 'Pushpa Sports Arena',
+//     location: 'Bibwewadi',
+//     rating: 4,
+//     reviews: 6,
+//     timing: '6AM - 12AM',
+//     price: 1100,
+//     address:
+//         'PSA Ground Next To Shreeji Lawns Ganga Dham Road Bibwewadi Pune 411037',
+//     images: [
+//         venueImage,
+//         venueImage,
+//         venueImage,
+//         venueImage,
+//     ],
+//     sports: [
+//         { name: 'Cricket', icon: cricketIcon },
+//         { name: 'Football', icon: footballIcon },
+//         { name: 'Pickle Ball', icon: pickleballIcon },
+//     ],
+//     amenities: ['Parking', 'Restroom', 'Changing Room', 'First Aid'],
+// };
+
 function VenueDetailsPage() {
+
     const { id } = useParams();
+
+    const { data, loading, error } = useFetchSingleVenue(id);
+
+
+    // const venue = { ... }
+    const venue = Array.isArray(data?.result) && data.result.length > 0
+        ? mapVenueData(data.result[0])
+        : {
+            name: 'Loading Venue...',
+            location: '',
+            rating: 0,
+            reviews: 0,
+            timing: '',
+            price: 0,
+            address: '',
+            images: [venueImage],
+            sports: [],
+            amenities: []
+        };
+
+
+
+
+
+    // Replace with actual data fetching logic
+
     const [imageIndex, setImageIndex] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -94,13 +149,28 @@ function VenueDetailsPage() {
             Math.min(prev + 1, reviews.length - visibleCount)
         );
 
-    const visibleCount = window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3;
+    const visibleCount = useMemo(() => {
+        return window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3;
+    }, []);
+
+
+
+
+
+
+    if (loading) return <div>Loading venue details...</div>;
+    if (error) return <div>Error loading venue details</div>;
+    if (!venue || Object.keys(venue).length === 0) {
+        return <div>No venue data available</div>;
+    }
+
+
     return (
         <>
 
             <div className='venue-main-header'>
                 <div className="breadcrumb">
-                    <span>Venues &gt; Dhankawadi &gt; {venue.name}</span>
+                    <span>Venues &gt; {venue.location} &gt; {venue.name}</span>
                 </div>
 
                 <h1 className="venue-name">{venue.name}</h1>
@@ -152,7 +222,7 @@ function VenueDetailsPage() {
                 <div className="venue-wrapper">
                     <div className="venue-left">
                         <div className="carousel">
-                            <img src={venue.images[imageIndex]} alt="venue" className="carousel-img" />
+                            <img src={venue.images[imageIndex]} alt="venue" className="carousel-img" onError={(e) => (e.target.src = venueImage)} />
                             {/* <div className="carousel-controls"> */}
                             <div
                                 className="carousel-hover left"
@@ -237,15 +307,10 @@ function VenueDetailsPage() {
                             <div><strong>Location:</strong></div>
                             <p>{venue.address}</p>
                             <div className="venue-map">
-                                <iframe
-                                    // src={mapEmbedLink}
-                                    width="100%"
-                                    height="300"
-                                    allowFullScreen=""
-                                    loading="lazy"
-                                    title="Venue Map"
-                                ></iframe>
+
+                                <CustomMap latitude={venue.latitude} longitude={venue.longitude} />
                             </div>
+
                         </div>
 
                         <div className="btn-group">
