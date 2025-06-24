@@ -321,7 +321,7 @@ function VenueDetailsPage() {
 
                     </div>
 
-                    <div className="amenities-wrapper">
+                    <div className="amenities-wrappers">
                         <div className="amenities-box">
                             <p className="section-title">Amenities</p>
                             <div className="amenity-tags">
@@ -346,7 +346,7 @@ function VenueDetailsPage() {
                     <div className='rating-wrapper'>
                         <div className="ratings-carousel">
                             <h2 className="heading">Ratings & Reviews</h2>
-                            <div className="carousel-container">
+                            <div className="review-carousel-container">
                                 {reviews.slice(start, start + visibleCount).map((review) => (
                                     <ReviewCard key={review.id} review={review} />
                                 ))}

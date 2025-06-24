@@ -1,6 +1,128 @@
-.main-content{
+.Favourite-main-container {
+    padding: 1rem;
+    max-width: 900px;
+    margin: auto;
+}
+
+.favorite-tabs {
     display: flex;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    background: #F1F3F2;
+    padding: 12px;
+    border-radius: 10px;
+}
+
+.tab {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ccc;
+    background: #ffffff;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #858585;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 21.67px;
+}
+
+.tab.active {
+    background: #0d6efd;
+    color: white;
+    font-weight: bold;
+    border: none;
+}
+
+.favorite-section-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.favorites-list {
+    /* height: 500px; */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.favorite-card {
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid #e0e0e0; */
+  border-radius: 12px;
+  padding: 1rem;
+  /* background: white; */
+  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); */
+  height: 100%; 
+}
+
+.no-favorites {
+    text-align: center;
+    margin: 2rem 0;
+    font-size: 1rem;
+    color: #999;
+}
+
+.pagination-controls {
+    display: flex;
+    gap: 0.5rem;
     justify-content: center;
     align-items: center;
-    color: #ccc;
+    margin-top: 1rem;
+}
+
+.pagination-controls button {
+    padding: 0.4rem 0.8rem;
+    border: none;
+    background: #f2f2f2;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.pagination-controls button.active {
+    background-color: #0d6efd;
+    color: white;
+    font-weight: bold;
+}
+
+.pagination-controls button:disabled {
+    background: #eee;
+    cursor: not-allowed;
+    color: #999;
+}
+
+.favorite-sport-card
+{
+ display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+     .favorites-list {
+    grid-template-columns: 1fr;
+  }
+    .favorite-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .favorite-image {
+        width: 100%;
+        height: auto;
+    }
+
+    .favorite-actions {
+        justify-content: center;
+    }
 }

@@ -1,9 +1,9 @@
 
 import api from "../../api";
 
-export const fetchFavoriteVenue = async (userId) => {
+export const fetchFavoriteVenue = async () => {
   try {
-    const response = await api.get('/user/favoriteVenue/getFavoriteVenueList',{userId});
+    const response = await api.get('/user/favoriteVenue/getFavoriteVenueList');
     return response.data;
   } catch (error) {
     console.error("Error fetching favorite venue:", error);

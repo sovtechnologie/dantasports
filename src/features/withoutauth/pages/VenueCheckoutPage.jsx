@@ -263,7 +263,7 @@ function VenueCheckoutPage() {
                     <div className='rating-wrapper'>
                         <div className="ratings-carousel">
                             <h2 className="heading">Ratings & Reviews</h2>
-                            <div className="carousel-container">
+                            <div className="review-carousel-container">
                                 {reviews.slice(start, start + visibleCount).map((review) => (
                                     <ReviewCard key={review.id} review={review} />
                                 ))}
