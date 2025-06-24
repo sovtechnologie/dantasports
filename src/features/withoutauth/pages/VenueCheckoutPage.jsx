@@ -301,61 +301,61 @@ export default VenueCheckoutPage
 
 
 
-   {/* Duration & Time */}
-                        {/* <div className="vb-section vb-duration-time">
-                            <div className="vb-duration">
-                                <label>Duration:</label>
-                                <div className="vb-duration-box">0hr</div>
-                            </div>
-                            <div className="vb-time">
-                                <label>Time:</label>
-                                <div className="vb-time-box">{selectedTime}</div>
-                            </div>
-                        </div> */}
+//    /* Duration & Time */
+//                         /* <div className="vb-section vb-duration-time">
+//                             <div className="vb-duration">
+//                                 <label>Duration:</label>
+//                                 <div className="vb-duration-box">0hr</div>
+//                             </div>
+//                             <div className="vb-time">
+//                                 <label>Time:</label>
+//                                 <div className="vb-time-box">{selectedTime}</div>
+//                             </div>
+//                         </div> */
 
-                        {/* Time Slots */}
-                        {/* <div className="vb-section">
-                            <div className="vb-time-periods">
-                                {['Morning', 'Afternoon', 'Evening'].map((period, idx) => (
-                                    <button
-                                        key={period}
-                                        className={`vb-period-btn ${idx === 0 ? 'active' : ''}`}
-                                    >
-                                        {period}
-                                    </button>
-                                ))}
-                            </div>
-                            <div className="vb-time-slots">
-                                {['11:30 AM', '12:30 PM', '1:30 PM', '2:30 PM'].map((time) => (
-                                    <button
-                                        key={time}
-                                        className={`vb-slot-btn ${selectedTime === time ? 'active' : ''}`}
-                                        onClick={() => setSelectedTime(time)}
-                                    >
-                                        {time}
-                                    </button>
-                                ))}
-                            </div>
-                            <div className="vb-availability-bar">
-                                <div className="green"></div>
-                                <div className="green"></div>
-                                <div className="red"></div>
-                                <div className="green"></div>
-                            </div>
-                        </div> */}
-                         {/* <div className="vb-calendar">
-                            <button>&lt;</button>
-                            <span>September</span>
-                            <button>&gt;</button>
-                        </div>
-                        <div className="vb-dates">
-                            {dates.map((date) => (
-                                <div
-                                    key={date}
-                                    className={`vb-date-item ${selectedDate === date ? 'active' : ''}`}
-                                    onClick={() => setSelectedDate(date)}
-                                >
-                                    {date}
-                                </div>
-                            ))}
-                        </div> */}
+//                         /* Time Slots */
+//                         /* <div className="vb-section">
+//                             <div className="vb-time-periods">
+//                                 {['Morning', 'Afternoon', 'Evening'].map((period, idx) => (
+//                                     <button
+//                                         key={period}
+//                                         className={`vb-period-btn ${idx === 0 ? 'active' : ''}`}
+//                                     >
+//                                         {period}
+//                                     </button>
+//                                 ))}
+//                             </div>
+//                             <div className="vb-time-slots">
+//                                 {['11:30 AM', '12:30 PM', '1:30 PM', '2:30 PM'].map((time) => (
+//                                     <button
+//                                         key={time}
+//                                         className={`vb-slot-btn ${selectedTime === time ? 'active' : ''}`}
+//                                         onClick={() => setSelectedTime(time)}
+//                                     >
+//                                         {time}
+//                                     </button>
+//                                 ))}
+//                             </div>
+//                             <div className="vb-availability-bar">
+//                                 <div className="green"></div>
+//                                 <div className="green"></div>
+//                                 <div className="red"></div>
+//                                 <div className="green"></div>
+//                             </div>
+//                         </div> */
+//                          /* <div className="vb-calendar">
+//                             <button>&lt;</button>
+//                             <span>September</span>
+//                             <button>&gt;</button>
+//                         </div>
+//                         <div className="vb-dates">
+//                             {dates.map((date) => (
+//                                 <div
+//                                     key={date}
+//                                     className={`vb-date-item ${selectedDate === date ? 'active' : ''}`}
+//                                     onClick={() => setSelectedDate(date)}
+//                                 >
+//                                     {date}
+//                                 </div>
+//                             ))}
+//                         </div> */

@@ -63,8 +63,8 @@ const Footer = () => {
           <div>
             <h4>Contact</h4>
             <ul>
-              <li><img src={phonelogo}></img>+123 456 7890</li>
-              <li><img src={emailLogo} />support@mm.com</li>
+              <li><img src={phonelogo} alt='phonelogo'></img>+123 456 7890</li>
+              <li><img src={emailLogo} alt='emaillogo'/>support@mm.com</li>
             </ul>
           </div>
         </div>

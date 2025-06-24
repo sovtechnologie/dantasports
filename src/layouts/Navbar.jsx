@@ -12,11 +12,13 @@ import LoginModal from "../features/auth/components/loginModal";
 function Navbar() {
   const location = useLocation();
   const isHome = location.pathname === '/';
-  const { user } = useSelector((state) => state.auth);
+   
+  const { user,token } = useSelector((state) => state.auth);
+  console.log("User in Naber:",user,token)
   const [showLoginModal, setShowLoginModal] = useState(false);
 
   const handleProfileClick = (e) => {
-  if (!user) {
+  if (!user || !token) {
     e.preventDefault();
     setShowLoginModal(true);
   }
@@ -37,7 +39,7 @@ function Navbar() {
           <Link to="/CorporateBooking" className="navbar-link">Corporate Booking</Link>
           <Link to="/Partner" className="navbar-link">Become a Partner</Link>
           <button className="app-btn">Get the App<img src={arrowlogo} height={20} width={20} style={{ marginLeft: '8px', verticalAlign: 'middle', marginTop: '-2px' }} alt="Arrow" /></button>
-           <Link to={user ? `/profile/${user.id}` : '#'} className="user-icon" onClick={handleProfileClick}>
+           <Link to={user && token ? `/profile/${user.id}` : '#'} className="user-icon" onClick={handleProfileClick}>
             <img src={userLogo} alt="User Profile" />
           </Link>
         </div>

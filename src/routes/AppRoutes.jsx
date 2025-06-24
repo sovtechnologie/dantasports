@@ -7,7 +7,7 @@ const ScrollToTop = lazy(() => import("../components/ScrollToTop"));
 
 const Home = lazy(() => import('../pages/Home'));
 const About = lazy(() => import('../pages/About'));
-const Login = lazy(() => import('../features/auth/pages/Login'));
+
 const Register = lazy(() => import('../features/auth/pages/Register'));
 
 const VenuePage = lazy(() => import('../features/withoutauth/pages/VenuePage'));

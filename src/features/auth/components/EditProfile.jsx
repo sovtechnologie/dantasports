@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
@@ -39,7 +39,7 @@ const EditProfile = () => {
     queryKey: ['profile'],
     queryFn: fetchProfile,
   });
-
+  const [successMessage, setSuccessMessage] = useState('');
   const [profileImage, setProfileImage] = useState(null);
   const profile = data?.result[0];
   console.log("Profile data:", profile);
@@ -83,6 +83,10 @@ const EditProfile = () => {
       {
         onSuccess: async () => {
           await queryClient.invalidateQueries(['profile']); // Fetch updated data
+          setSuccessMessage('Profile updated successfully!');
+
+          // Optionally clear the message after 3 seconds
+          setTimeout(() => setSuccessMessage(''), 3000);
         },
         onError: (error) => {
           const message = error?.response?.data?.message;
@@ -117,7 +121,7 @@ const EditProfile = () => {
     }
   }, [profile, reset]); // ✅ This gets re-run after refetch
 
-   const handleImageChange = (e) => {
+  const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setProfileImage(URL.createObjectURL(file));
@@ -149,28 +153,28 @@ const EditProfile = () => {
       </div>
 
 
-    
+
       <form className="profile-form" onSubmit={handleSubmit(onSubmit)}>
         <label>
-        
-          <input {...register('fullName')}  placeholder="Enter Full Name"/>
+
+          <input {...register('fullName')} placeholder="Enter Full Name" />
           {errors.fullName && <p className="error">{errors.fullName.message}</p>}
         </label>
 
         <label>
-        
+
           <input type="email" {...register('email')} />
           {errors.email && <p className="error">{errors.email.message}</p>}
         </label>
 
         <label>
-        
+
           <input type="date" {...register('dob')} />
           {errors.dob && <p className="error">{errors.dob.message}</p>}
         </label>
 
         <label>
-         
+
           <select {...register('gender')}>
             <option value="">Select Gender</option>
             <option value="Male">Male</option>
@@ -180,7 +184,7 @@ const EditProfile = () => {
         </label>
 
         <label>
-         
+
           <input value={profile?.mobile_number || ''} disabled readOnly />
         </label>
 
@@ -188,8 +192,9 @@ const EditProfile = () => {
           {isSaving ? 'Saving...' : 'Save Changes'}
         </button>
       </form>
+      {successMessage && <p className="success-message">{successMessage}</p>}
     </div>
-    </>
+  </>
   );
 };
 

@@ -9,44 +9,7 @@ import FootballLogo from "../assets/VenueCardLogo/FootballLogo.png";
 import { useUnlikeVenue } from "../../../hooks/favouriteVenue/useUnlikeVenue.js";
 import { useQueryClient } from '@tanstack/react-query';
 
-// const FavoritesVenueData = [
-//   {
-//     id: 1,
-//     title: "Red Meadows",
-//     type: "5x5, Football",
-//     date: "Wed, 04 Sep 2024",
-//     time: "09:00 am – 10:00 am",
-//     reference: "#00256",
-//     status: "all Booking",
-//   },
-//   {
-//     id: 2,
-//     title: "Red Meadows",
-//     type: "5x5, Football",
-//     date: "Thu, 05 Sep 2024",
-//     time: "11:00 am – 12:00 pm",
-//     reference: "#00257",
-//     status: "upcoming",
-//   },
-//   {
-//     id: 3,
-//     title: "Red Meadows",
-//     type: "5x5, Football",
-//     date: "Fri, 01 Sep 2024",
-//     time: "08:00 am – 09:00 am",
-//     reference: "#00258",
-//     status: "completed",
-//   },
-//   {
-//     id: 4,
-//     title: "Red Meadows",
-//     type: "5x5, Football",
-//     date: "Sat, 02 Sep 2024",
-//     time: "10:00 am – 11:00 am",
-//     reference: "#00259",
-//     status: "cancelled",
-//   },
-// ];
+
 
 const FavoritesSportData = [
   {
@@ -218,19 +181,3 @@ export default Favorites;
 
 
 
-//  {FavoritesData?.length === 0 ? (
-//         <p>No favorite venues yet.</p>
-//       ) : (
-//         <div className="favorites-list">
-//           {FavoritesData.map((venue) => (
-//             <div key={venue.id} className="favorite-card">
-//               <h3>{venue.title}</h3>
-//               <p>{venue.date}</p>
-//               {/* Customize fields below based on your actual data shape */}
-//               <p>Location: {venue.status}</p>
-//               <p>Category: {venue.type}</p>
-//               {/* Add image or buttons if needed */}
-//             </div>
-//           ))}
-//         </div>
-//       )}

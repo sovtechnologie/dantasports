@@ -1,7 +1,10 @@
 // src/redux/slices/authSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { scheduleAutoLogout } from '../../utils/authUtils';
+
 // import API_BASE from '../../services/api';
 
 // Replace with your actual API endpoints
@@ -18,7 +21,7 @@ export const sendOtp = createAsyncThunk('auth/sendLoginOtp', async (mobileNumber
 });
 
 // Verify OTP and Log In
-export const verifyOtp = createAsyncThunk('auth/verifyLoginOtp', async ({ id, otp }, { rejectWithValue }) => {
+export const verifyOtp = createAsyncThunk('auth/verifyLoginOtp', async ({ id, otp }, { rejectWithValue ,dispatch}) => {
     try {
         const response = await axios.post(`${API_BASE}/auth/verifyLoginOtp`, { id, otp });
         const token = response.data.token;
@@ -26,6 +29,8 @@ export const verifyOtp = createAsyncThunk('auth/verifyLoginOtp', async ({ id, ot
 
         // Save token in cookies (expires in 7 days)
         Cookies.set('token', token, { expires: 1 });
+        // ✅ Schedule logout inside the thunk using dispatch
+      scheduleAutoLogout(token, dispatch);
 
         return { token, user };
     } catch (err) {
@@ -42,12 +47,14 @@ export const registerUserSendOtp = createAsyncThunk('auth/userRegister', async (
     }
 });
 
-export const registerUserVerifyOtp = createAsyncThunk("auth/otpVerification", async ({ id, otp }, { rejectWithValue }) => {
+export const registerUserVerifyOtp = createAsyncThunk("auth/otpVerification", async ({ id, otp }, { rejectWithValue ,dispatch}) => {
     try {
         const response = await axios.post(`${API_BASE}/auth/otpVerification`, { id, otp });
         const token = response.data.token;
 
         Cookies.set('token', token, { expires: 1 });
+         // ✅ Schedule logout inside the thunk
+      scheduleAutoLogout(token, dispatch);
         return { token };
     } catch (err) {
         return rejectWithValue(err.response?.data?.message || 'Otp Verification failed')
@@ -56,7 +63,7 @@ export const registerUserVerifyOtp = createAsyncThunk("auth/otpVerification", as
 
 
 const tokenFromCookie = Cookies.get('token');
-
+ // Get dispatch from Redux
 
 const initialState = {
     token: tokenFromCookie || null,
@@ -120,6 +127,8 @@ const authSlice = createSlice({
                 state.isVerifyingOtp = false;
                 state.token = action.payload.token;
                 state.user = action.payload.user;
+                // Auto-logout timer
+               
             })
             .addCase(verifyOtp.rejected, (state, action) => {
                 state.isVerifyingOtp = false;
@@ -134,6 +143,7 @@ const authSlice = createSlice({
                 state.devOtp = action.payload.otp || null;
                 state.id = action.payload.id || null;
                 state.otpSent = true;
+                
             })
             .addCase(registerUserSendOtp.rejected, (state, action) => {
                 state.isSendingOtp = false;
@@ -146,7 +156,7 @@ const authSlice = createSlice({
             .addCase(registerUserVerifyOtp.fulfilled, (state, action) => {
                 state.isVerifyingOtp = false;
                 state.token = action.payload.token;
-
+              
             })
             .addCase(registerUserVerifyOtp.rejected, (state, action) => {
                 state.isVerifyingOtp = false;
@@ -155,5 +165,5 @@ const authSlice = createSlice({
     },
 });
 
-export const { logout, resetLoginState, resetLoading ,clearError} = authSlice.actions;
+export const { logout, resetLoginState, resetLoading, clearError } = authSlice.actions;
 export default authSlice.reducer;

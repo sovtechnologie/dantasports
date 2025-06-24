@@ -1,5 +1,7 @@
 import axios from 'axios';
-import Cookies from 'js-cookie';;
+import Cookies from 'js-cookie';
+import { handleLogout } from '../utils/authUtils';
+import {store} from "../redux/store.js"
 
 const api = axios.create({
   baseURL: 'http://65.0.170.18:3000/api/v1', // replace with real API
@@ -11,7 +13,7 @@ export default api;
 api.interceptors.request.use(
   (config) => {
     // Add any request interceptors here, e.g., adding auth tokens
-    const token = Cookies.get('token');;
+    const token = Cookies.get('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -22,24 +24,21 @@ api.interceptors.request.use(
   }
 );
 
-api.interceptors.response.use(
-  (response) => {
-    // Handle successful responses
-    return response;
-  },
-  (error) => {
-    // Handle errors globally
-    if (error.response && error.response.status === 401) {
-      // Handle unauthorized access, e.g., redirect to login
-      console.error('Unauthorized access - redirecting to login');
-      // You can add logic to redirect to login page here
-      // For example, you might use a router to navigate to the login page
-      Cookies.remove('token'); // Remove token from cookies
-      // Optionally, you can redirect to the login page
-      
-      // window.location.href = '/login';
+let isLoggingOut = false;
 
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const isUnauthorized =
+      error.response?.status === 401 &&
+      error.response?.data?.message === 'Unauthorized';
+
+    if (isUnauthorized && !isLoggingOut) {
+      isLoggingOut = true;
+      console.warn('Unauthorized access - logging out user');
+      handleLogout(store.dispatch); // Clear token and redirect
     }
+
     return Promise.reject(error);
   }
 );
