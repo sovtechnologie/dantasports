@@ -22,21 +22,26 @@ const mapVenueData = (apiData) => {
     return {
         name: apiData?.venue_name || "Unknown Venue",
         location: apiData?.area || "Unknown Area",
-        rating: 4, // Assuming static, unless provided
-        reviews: 6, // Assuming static, unless provided
+        rating: parseFloat(apiData?.average_rating) || 0, // Assuming static, unless provided
+        reviews: apiData?.review_count || 0, // Assuming static, unless provided
         timing: `${formatTime(apiData?.start_time || '06:00:00')} - ${formatTime(apiData?.end_time || '22:00:00')}`,
         price: parseFloat(apiData?.pricing) || 1100,
         address: `${apiData?.full_address || ''}, ${apiData?.area || ''}, ${apiData?.city || ''}, ${apiData?.state || ''} - ${apiData?.pincode || ''}`.trim().replace(/^,|,$/g, '')
             || "Not Available",
-        images: [
-            apiData?.cover_image ? apiData.cover_image : venueImage,
-        ],
-        sports: [
-            { name: 'Cricket', icon: cricketIcon },
+        images: Array.isArray(apiData?.venue_gallery)
+            ? apiData.venue_gallery.map((img) => img.venue_image)
+            : [venueImage, venueImage, venueImage, venueImage],
+        sports: Array.isArray(apiData?.sports)
+            ? apiData.sports.map((sport) => ({
+                name: sport.name,
+                icon: sport.image
+            }))
+            : [{ name: 'Cricket', icon: cricketIcon },
             { name: 'Football', icon: footballIcon },
-            { name: 'Pickle Ball', icon: pickleballIcon }
-        ],
-        amenities: ['Parking', 'Restroom', 'Changing Room', 'First Aid'],
+            { name: 'Pickle Ball', icon: pickleballIcon }],
+        amenities: Array.isArray(apiData?.amenities)
+            ? apiData.amenities.map((a) => a.name)
+            : ['Parking', 'Restroom', 'Changing Room', 'First Aid'],
         latitude: apiData?.latitude || 0,
         longitude: apiData?.longitude || 0,
     };
@@ -176,7 +181,7 @@ function VenueDetailsPage() {
                 <h1 className="venue-name">{venue.name}</h1>
                 <div className="location-rating">
                     <span>{venue.location}</span>
-                    <span>⭐ {venue.rating} ({venue.totalRatings} ratings)</span>
+                    <span>⭐ {venue.rating} ({venue.reviews} ratings)</span>
                 </div>
             </div>
             {/* <div className="venue-detail">

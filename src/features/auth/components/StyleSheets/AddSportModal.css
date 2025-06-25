@@ -1,0 +1,91 @@
+.sport-modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.sport-modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 700px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.sport-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 32px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.sport-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.sport-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.sport-card:hover {
+  background-color: #ffffff;
+}
+
+.sport-card.selected {
+  border-color: #007BFF;
+  background-color: #ffffff;
+}
+
+.sport-card-image {
+  width: 70px;
+  height: 60px;
+  object-fit: contain;
+}
+.sport-card-title{
+  margin-top: 8px;
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+}
+
+.sport-modal-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.save-button{
+  padding: 10px 16px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 6px;
+}
+
+.save-button {
+  background-color: #007BFF;
+  color: white;
+  font-size: 16px;
+}
+
+

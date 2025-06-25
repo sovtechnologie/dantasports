@@ -55,8 +55,8 @@ function VenuePage() {
 
     // Handle venueList data by react-Query
 
-
-    const { data, isLoading, isError, error } = useFetchVenue();
+    const auth = useSelector((state) => state.auth);
+    const { data, isLoading, isError, error } = useFetchVenue(auth?.id || null);
 
     // const {
     //     data,
@@ -84,24 +84,21 @@ function VenuePage() {
     const unlikeVenue = useUnlikeVenue();
     const userId = useSelector((state) => state.auth?.id);
 
-    const toggleFavourite = (venueId) => {
+    const toggleFavourite = (venue) => {
+        const venueId = venue.id;
+
         setVenueList((prevList) =>
-            prevList.map((venue) =>
-                venue.id === venueId ? { ...venue, favourite: !venue.favourite } : venue
+            prevList.map((v) =>
+                v.id === venueId ? { ...v, favourite: !v.favourite } : v
             )
         );
 
-        const venue = venueList.find((v) => v.id === venueId);
-
-        if (!venue) return;
-
         if (!venue.favourite) {
-            likeVenue.mutate({ venueId, userId }, {
+            likeVenue.mutate({ venueId, userId: auth?.id }, {
                 onSuccess: async () => {
-                    await queryClient.invalidateQueries(['fetchVenueList']); // Fetch updated data
+                    await queryClient.invalidateQueries(['venueList', auth?.id || null]);
                 },
                 onError: () => {
-                    // revert on error
                     setVenueList((prevList) =>
                         prevList.map((v) =>
                             v.id === venueId ? { ...v, favourite: false } : v
@@ -110,10 +107,9 @@ function VenuePage() {
                 },
             });
         } else {
-            // 🟡 Use favourite_venue_id instead of venueId
             unlikeVenue.mutate({ favouriteVenueId: venue.favourite_venue_id }, {
                 onSuccess: async () => {
-                    await queryClient.invalidateQueries(['fetchVenueList']); // Fetch updated data
+                    await queryClient.invalidateQueries(['venueList', auth?.id || null]);
                 },
                 onError: () => {
                     setVenueList((prevList) =>
@@ -409,7 +405,7 @@ function VenuePage() {
                                             <VenueCard
                                                 venue={formattedVenue}
                                                 isLiked={formattedVenue.favourite}
-                                                onLikeToggle={() => toggleFavourite(venue.id)}
+                                                onLikeToggle={() => toggleFavourite(venue)}
                                             />
                                         </Link>
                                     );

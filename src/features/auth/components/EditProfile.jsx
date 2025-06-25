@@ -156,25 +156,25 @@ const EditProfile = () => {
 
       <form className="profile-form" onSubmit={handleSubmit(onSubmit)}>
         <label>
-
+          FullName
           <input {...register('fullName')} placeholder="Enter Full Name" />
           {errors.fullName && <p className="error">{errors.fullName.message}</p>}
         </label>
 
         <label>
-
+          Email
           <input type="email" {...register('email')} />
           {errors.email && <p className="error">{errors.email.message}</p>}
         </label>
 
         <label>
-
+          Date of Birth
           <input type="date" {...register('dob')} />
           {errors.dob && <p className="error">{errors.dob.message}</p>}
         </label>
 
         <label>
-
+          Gender
           <select {...register('gender')}>
             <option value="">Select Gender</option>
             <option value="Male">Male</option>
@@ -184,7 +184,8 @@ const EditProfile = () => {
         </label>
 
         <label>
-
+          Mobile Number
+          {/* Assuming mobile_number is not editable */}
           <input value={profile?.mobile_number || ''} disabled readOnly />
         </label>
 

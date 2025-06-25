@@ -40,9 +40,10 @@ function EventCarousel() {
         {banners.map((item, i) => (
           <div className="carousel-slide" key={i}>
            <img
-                src={item.banner_image || Banner1}
+                src={item.banner_image }
                 alt={`Slide ${i + 1}`}
                 onError={(e) => { e.target.src = Banner1; }}
+                className='carousel-image'
               />
           </div>
         ))}

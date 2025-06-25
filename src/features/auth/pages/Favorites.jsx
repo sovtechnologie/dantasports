@@ -3,38 +3,21 @@ import '../StyleSheets/Favorites.css';
 import { useSelector } from 'react-redux';
 import { useQuery } from '@tanstack/react-query';
 import { fetchFavoriteVenue } from '../../../services/LoginApi/FavouritesVenueApi.js/endpointApi';
+import { fetchfavoriteSport } from '../../../services/LoginApi/FavouriteSportApi/endpointApi.js';
 import FavoriteVenueCard from '../components/FavoriteVenueCard';
 import CricketLogo from "../assets/VenueCardLogo/CricketLogo.png";
 import FootballLogo from "../assets/VenueCardLogo/FootballLogo.png";
 import { useUnlikeVenue } from "../../../hooks/favouriteVenue/useUnlikeVenue.js";
+import { useDeleteSport } from '../../../hooks/favouriteSport/useDeleteSport.js';
 import { useQueryClient } from '@tanstack/react-query';
+import AddSportModal from "../components/Modal/AddSportModal.jsx";
+import DeleteIcon from "../assets/DeleteIcon.png";
 
 
-
-const FavoritesSportData = [
-  {
-    id: 1,
-    title: "Football",
-    image: "https://example.com/football.jpg",
-  },
-  {
-    id: 2,
-    title: "Basketball",
-    image: "https://example.com/basketball.jpg",
-  },
-  {
-    id: 3,
-    title: "Cricket",
-    image: "https://example.com/cricket.jpg",
-  },
-  {
-    id: 4,
-    title: "Tennis",
-    image: "https://example.com/tennis.jpg",
-  },
-];
 
 const ITEMS_PER_PAGE = 4;
+const SPORTS_PER_PAGE = 12;
+
 const tabs = ["Venue", "Sport"];
 
 const Favorites = () => {
@@ -42,7 +25,17 @@ const Favorites = () => {
   const userId = useSelector((state) => state.auth.id);
   const [activeTab, setActiveTab] = useState("Venue");
   const [currentPage, setCurrentPage] = useState(1);
+  const [isSportModalOpen, setIsSportModalOpen] = useState(false);
+  const [sportPage, setSportPage] = useState(1);
   const queryClient = useQueryClient();
+
+  const { data: sportList, isLoading: isSportListLoading, isError: isSportListError, error } = useQuery({
+    queryKey: ['favoritesSport'],
+    queryFn: () => fetchfavoriteSport(), // Assuming this fetches the sport list,
+    enabled: !!token, // Only fetch if token is available
+  });
+
+  const FavoritesSportData = sportList?.result || [];
 
   const { data, isLoading: isFavoriteVenue, isError: isFavouriteVenueError } = useQuery({
     queryKey: ['favoritesVenue'],
@@ -51,6 +44,7 @@ const Favorites = () => {
   });
 
   const FavoritesVenueData = data?.result || [];
+  console.log("FavoritesVenueData", FavoritesVenueData);
 
 
   const { mutate: unlikeVenue } = useUnlikeVenue();
@@ -64,13 +58,23 @@ const Favorites = () => {
         console.error("Error unliking venue:", error);
       },
     });
-
   };
 
+  const { mutate: deleteSport, } = useDeleteSport();
+  const handleSportDelete = (favoriteSportsId) => {
+    deleteSport(favoriteSportsId);
+  };
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
     setCurrentPage(1); // Reset to first page when tab changes
+    setSportPage(1);
+  };
+
+  const handleAddSport = () => {
+    // Add sport logic (connect API/form here)
+    console.log("Sport added");
+    setIsSportModalOpen(false);
   };
 
   const paginatedVenues = FavoritesVenueData.slice(
@@ -80,8 +84,18 @@ const Favorites = () => {
 
   const totalPages = Math.ceil(FavoritesVenueData.length / ITEMS_PER_PAGE);
 
+  const paginatedSports = [...FavoritesSportData].slice(
+    (sportPage - 1) * SPORTS_PER_PAGE,
+    sportPage * SPORTS_PER_PAGE
+  );
+
+
+  const totalSportPages = Math.ceil(FavoritesSportData.length / SPORTS_PER_PAGE);
+
   if (isFavoriteVenue) return <p>Loading favorite venues...</p>;
   if (isFavouriteVenueError) return <p>Error loading favorite venues.</p>;
+  if (isSportListLoading) return <p>Loading favorite sports...</p>;
+  if (isSportListError) return <p>Error loading favorite sports. {error.message}</p>;
 
   return (
     <div className="Favourite-main-container">
@@ -156,20 +170,62 @@ const Favorites = () => {
         </>
       ) : (
 
-        <>{FavoritesSportData.length === 0 ? (
-          <p>No favorite sports yet.</p>
-        ) : (
-          <>
-            <div className="favorites-list sport-list">
-              {FavoritesSportData.map((sport) => (
-                <div key={sport.id} className="favorite-sport-card">
-                  <img src={sport.image} alt={sport.title} className="sport-image" />
-                  <h3>{sport.title}</h3>
-                </div>
-              ))}
-            </div>
-          </>
-        )}
+        <>
+          <button className="add-sport-button" onClick={() => setIsSportModalOpen(true)}>
+            <span className="add-sport-icon">+</span>
+            <span className="add-sport-text">Add Sport</span>
+          </button>
+
+          {FavoritesSportData.length === 0 ? (
+            <p>No favorite sports yet.</p>
+          ) : (
+            <>
+              <div className="sport-list">
+                {paginatedSports.map((sport) => (
+                  <div key={sport.favoourite_sports_id} className="favorite-sport-card">
+                    <img src={sport.sports_images} alt={sport.sports_name} className="sport-image" />
+                    <h3 className='sport-name'>{sport.sports_name}</h3>
+                    <button
+                      className="remove-sport-button">
+                      <img
+                        src={DeleteIcon}
+                        alt="Remove Sport"
+                        className="remove-sport-icon"
+                        onClick={() => handleSportDelete(sport.favoourite_sports_id)}
+                      />
+                    </button>
+                  </div>
+                ))}
+              </div>
+
+              <div className="pagination-controls">
+                <button
+                  onClick={() => setSportPage((prev) => Math.max(prev - 1, 1))}
+                  disabled={sportPage === 1}
+                >
+                  Previous
+                </button>
+                <span>
+                  Page {sportPage} of {totalSportPages}
+                </span>
+                <button
+                  onClick={() => setSportPage((prev) => Math.min(prev + 1, totalSportPages))}
+                  disabled={sportPage === totalSportPages}
+                >
+                  Next
+                </button>
+              </div>
+
+            </>
+          )}
+          {/* Reusable Modal for Adding Sport */}
+          {isSportModalOpen && (
+            <AddSportModal
+              title="Add New Sport"
+              onClose={() => setIsSportModalOpen(false)}
+              onSubmit={handleAddSport}
+            />
+          )}
         </>
 
       )}
