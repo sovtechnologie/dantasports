@@ -1,30 +1,43 @@
-// src/features/auth/components/LoginModal.jsx
 import React, { useState } from 'react';
 import './StyleSheets/LoginModal.css';
 import Login from '../pages/Login';
 import RegisterModal from '../pages/Register';
+import { RegisterSportModal } from '../components/Modal/RegisterSportModal';
 
 const LoginModal = ({ onClose }) => {
-  const [showRegisterModal, setShowRegisterModal] = useState(false);
-
-  const handleSwitchToRegister = () => {
-    setShowRegisterModal(true);
-  };
+  const [step, setStep] = useState('login'); // 'login', 'register', 'sport'
 
   return (
     <>
-      {!showRegisterModal && (
+      {step === 'login' && (
         <div className="modal-overlay">
           <div className="modal-content">
             <button className="modal-close" onClick={onClose}>×</button>
-            <Login isModal={true} onSuccess={onClose} onSwitchToRegister={handleSwitchToRegister} />
+            <Login
+              isModal={true}
+              onSuccess={onClose}
+              onSwitchToRegister={() => setStep('register')}
+            />
           </div>
         </div>
       )}
-      {showRegisterModal && <RegisterModal isModal={true} onSuccess={onClose} onSwitchToRegister={handleSwitchToRegister} />}
+
+      {step === 'register' && (
+        <RegisterModal
+          isModal={true}
+          onSuccess={() => setStep('sport')}         // Register → Sport
+          onSwitchToLogin={() => setStep('login')}   // Back to Login
+        />
+      )}
+
+      {step === 'sport' && (
+        <RegisterSportModal
+          title="Pick your favourite sport"
+          onClose={onClose} // Final close
+        />
+      )}
     </>
   );
 };
 
 export default LoginModal;
-

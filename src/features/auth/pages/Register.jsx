@@ -24,6 +24,9 @@ const validateForm = (form) => {
   if (!form.gender) {
     errors.push('Gender is required.');
   }
+   if(!form.email){
+    errors.push('Email is required.');
+   }
 
   if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
     errors.push('Enter a valid email address (e.g. username@gmail.com).');

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Cookies from 'js-cookie';
 import "../stylesheets/layouts/Navbar.css";
 import whiteLogo from "../assets/sportdantaLogo/whiteLogo.png";
 import blueLogo from "../assets/sportdantaLogo/blueLogo.png";
@@ -13,7 +14,8 @@ function Navbar() {
   const location = useLocation();
   const isHome = location.pathname === '/';
    
-  const { user,token } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
+  const token  = Cookies.get('token');
   console.log("User in Naber:",user,token)
   const [showLoginModal, setShowLoginModal] = useState(false);
 

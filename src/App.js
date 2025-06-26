@@ -9,18 +9,19 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { scheduleAutoLogout } from './utils/authUtils';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const queryClient = new QueryClient();
 
 function App() {
- const dispatch = useDispatch(); // ✅ get dispatch from Redux
-
+  const dispatch = useDispatch(); // ✅ get dispatch from Redux
+  const navigate = useNavigate();
+  const token = Cookies.get("token");
   useEffect(() => {
-    const token = Cookies.get("token");
     if (token) {
-      scheduleAutoLogout(token, dispatch); // ✅ pass it in
+      scheduleAutoLogout(token, dispatch, navigate); // ✅ pass it in
     }
-  }, [dispatch]);
+  }, [token, dispatch, navigate]);
 
 
   return (
