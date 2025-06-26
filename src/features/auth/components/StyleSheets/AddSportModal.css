@@ -38,7 +38,7 @@
 }
 
 .sport-card {
-  border: 1px solid #ddd;
+  border: 1px solid transparent;
   border-radius: 8px;
   padding: 12px;
   text-align: center;

@@ -1,6 +1,6 @@
 import React from 'react';
 import "./Stylesheets/ReviewCard.css";
-import reviews from "../StaticData/ReviewRatingData.js";
+
 
 function ReviewCard({ review }) {
   if (!review) {  
@@ -11,13 +11,13 @@ function ReviewCard({ review }) {
       <div className="rating">
         <span className="star">★</span> {review.rating}
       </div>
-      <p className="text">{review.review}</p>
+      <p className="text">{review.comment}</p>
       <div className="review-footer">
         <div className="user">
-          <img src={review.avatar} alt={review.name} />
-          <span className="name">{review.name}</span>
+          <img src= "https://i.pravatar.cc/40?img=1" alt={review.userName} />
+          <span className="name">{review.userName}</span>
         </div>
-        <span className="time">{review.time}</span>
+        <span className="time">{review.date}</span>
       </div>
     </div>
   )

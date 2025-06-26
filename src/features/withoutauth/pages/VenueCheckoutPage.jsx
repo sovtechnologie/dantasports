@@ -13,39 +13,96 @@ import TimeSelector from '../components/TimeSelector.jsx';
 import ConfirmSlotCard from "../components/ConfirmSlotCard.jsx";
 import BookingPopupCard from '../components/BookingPopupCard.jsx';
 import BookingData from "../StaticData/BookingData.js";
+import checkitIcon from "../assets/Checkitcon.png";
+import { useFetchSingleVenue } from '../../../hooks/VenueList/useFetchSingleVenue.js';
+import { formatTime } from '../../../utils/formatTime.js';
+import { useBanner } from '../../../hooks/useBanner.js';
 
-const banners = [Banner, Banner, Banner];
-const Events = [Banner, Banner]
 
-const venue = {
-    name: 'Pushpa Sports Arena',
-    location: 'Bibwewadi',
-    rating: 4,
-    reviews: 6,
-    timing: '6AM - 12AM',
-    price: 1100,
-    address:
-        'PSA Ground Next To Shreeji Lawns Ganga Dham Road Bibwewadi Pune 411037',
-    images: [
-        venueImage,
-        venueImage,
-        venueImage,
-        venueImage,
-    ],
-    sports: [
-        { name: 'Cricket', icon: cricketIcon },
-        { name: 'Football', icon: footballIcon },
-        { name: 'Pickle Ball', icon: pickleballIcon },
-    ],
-    amenities: ['Parking', 'Restroom', 'Changing Room', 'First Aid'],
+
+
+
+
+
+
+export const formatDate = (isoString) => {
+    const date = new Date(isoString);
+    return date.toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+    });
+};
+
+
+const mapVenueData = (apiData) => {
+    return {
+        name: apiData?.venue_name || "Unknown Venue",
+        location: apiData?.area || "Unknown Area",
+        about: apiData?.about_venue || "No description available for this venue.",
+        rating: parseFloat(apiData?.average_rating) || 0,
+        reviewcount: apiData?.review_count || 0,
+        timing: `${formatTime(apiData?.start_time || '06:00:00')} - ${formatTime(apiData?.end_time || '22:00:00')}`,
+        price: parseFloat(apiData?.pricing) || 1100,
+        address: `${apiData?.full_address || ''}, ${apiData?.area || ''}, ${apiData?.city || ''}, ${apiData?.state || ''} - ${apiData?.pincode || ''}`.trim().replace(/^,|,$/g, '')
+            || "Not Available",
+        images: Array.isArray(apiData?.venue_gallery)
+            ? apiData.venue_gallery.map((img) => img.venue_image)
+            : [venueImage, venueImage, venueImage, venueImage],
+        sports: Array.isArray(apiData?.sports)
+            ? apiData.sports.map((sport) => ({
+                sportId: sport.id,
+                name: sport.name,
+                icon: sport.image
+            }))
+            : [{ name: 'Cricket', icon: cricketIcon },
+            { name: 'Football', icon: footballIcon },
+            { name: 'Pickle Ball', icon: pickleballIcon }],
+        amenities: Array.isArray(apiData?.amenities)
+            ? apiData.amenities.map((a) => a.name)
+            : ['Parking', 'Restroom', 'Changing Room', 'First Aid'],
+        latitude: apiData?.latitude || 0,
+        longitude: apiData?.longitude || 0,
+        reviews: Array.isArray(apiData?.reviews)
+            ? apiData.reviews.map((review) => ({
+                id: review.id,
+                userName: review.user_name || "Anonymous",
+                rating: review.rating || 0,
+                comment: review.comment || "No comment provided",
+                date: formatDate(review.createdAt) || new Date().toISOString().split('T')[0],
+            }))
+            : reviews.slice(0, 5), // Default to first 5 reviews if not available
+    };
 };
 
 function VenueCheckoutPage() {
     const { id } = useParams();
+    const pageNo = 3;
     const [imageIndex, setImageIndex] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
 
+
+    const { data, loading, error } = useFetchSingleVenue(id);
+    const venue = Array.isArray(data?.result) && data.result.length > 0
+        ? mapVenueData(data.result[0])
+        : {
+            name: 'Loading Venue...',
+            location: '',
+            rating: 0,
+            reviewcount: 0,
+            timing: '',
+            price: 0,
+            address: '',
+            images: [venueImage],
+            sports: [],
+            amenities: [],
+            reviews: [],
+        };
+
+    const { data: bannerData, isLoading: Bannerloading, error: BannerError } = useBanner(pageNo);
+
+    const banners = bannerData?.result || [];
 
     const handleProceedClick = () => {
         setIsModalOpen(true);
@@ -96,24 +153,30 @@ function VenueCheckoutPage() {
     const visibleCount = window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3;
 
 
-    const [selectedSport, setSelectedSport] = useState('Football');
-
+    const [selectedSport, setSelectedSport] = useState('');
+    const [selectedDate, setSelectedDate] = useState(new Date());
     const [selectedPitch, setSelectedPitch] = useState('10 x 10');
 
-
+    if (loading) return <div>Loading venue details...</div>;
+    if (error) return <div>Error loading venue details</div>;
+    if (!venue || Object.keys(venue).length === 0) {
+        return <div>No venue data available</div>;
+    }
+    if (Bannerloading) return <div>Loading banners...</div>;
+    if (BannerError) return <div>Error loading banners</div>;
 
     return (
         <>
 
             <div className='venue-main-header'>
                 <div className="breadcrumb">
-                    <span>Venues &gt; Dhankawadi &gt; {venue.name}</span>
+                    <span>Venues &gt; {venue.location} &gt; {venue.name}</span>
                 </div>
 
                 <h1 className="venue-name">{venue.name}</h1>
                 <div className="location-rating">
                     <span>{venue.location}</span>
-                    <span>⭐ {venue.rating} ({venue.totalRatings} ratings)</span>
+                    <span>⭐ {venue.rating} ({venue.reviewcount} ratings)</span>
                 </div>
             </div>
 
@@ -121,7 +184,7 @@ function VenueCheckoutPage() {
                 <div className="venue-wrapper">
                     <div className="venue-left">
                         <div className="carousel">
-                            <img src={venue.images[imageIndex]} alt="venue" className="carousel-img" />
+                            <img src={venue.images[imageIndex]} alt="venue" className="carousel-img" onError={(e) => (e.target.src = venueImage)} />
                             {/* <div className="carousel-controls"> */}
                             <div
                                 className="carousel-hover left"
@@ -145,7 +208,7 @@ function VenueCheckoutPage() {
                             </div>
                         </div>
                         <div className="section">
-                            
+
                             <div className="sports-wrapper">
                                 <div className="sports-header">
                                     <strong>Sports Available</strong>
@@ -164,8 +227,16 @@ function VenueCheckoutPage() {
                                     ))}
                                 </div>
                             </div>
+                        </div>
 
+                        <div className='section'>
+                            <div className='sports-wrapper'>
+                                <div className="sports-header">
+                                    <strong>About</strong>
 
+                                </div>
+                                {venue.about}
+                            </div>
                         </div>
 
 
@@ -173,28 +244,28 @@ function VenueCheckoutPage() {
                     <div className="venue-right">
 
                         {/* Calendar */}
-                       
-                        <Calendar />
+
+                        <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
 
                         {/* Sports Selector */}
                         <div className="vb-section">
                             <label>Select Sports:</label>
                             <div className="vb-sport-options">
-                                {['Football', 'Cricket'].map((sport) => (
+                                {venue.sports.map((sport) => (
                                     <button
-                                        key={sport}
-                                        className={`vb-sport-btn ${selectedSport === sport ? 'active' : ''}`}
-                                        onClick={() => setSelectedSport(sport)}
+                                        key={sport.sportId}
+                                        className={`vb-sport-btn ${selectedSport === sport.sportId ? 'active' : ''}`}
+                                        onClick={() => setSelectedSport(sport.sportId)}
                                     >
-                                        {sport}
+                                        {sport.name}
                                     </button>
                                 ))}
                             </div>
                         </div>
 
-                     
 
-                        <TimeSelector />
+
+                        <TimeSelector selectedDate={selectedDate} />
 
                         {/* Pitch Selection */}
                         <div className="vb-section vb-pitch-options">
@@ -236,9 +307,8 @@ function VenueCheckoutPage() {
                             show={showPopup}
                             onClose={() => setShowPopup(false)}
                             bookingData={BookingData}
-                            events={Events}
                         />
-                       
+
                     </div>
 
                     <div className="amenities-wrapper">
@@ -247,7 +317,10 @@ function VenueCheckoutPage() {
                             <div className="amenity-tags">
                                 {venue.amenities.map((item) => (
                                     <span className="amenity-tag" key={item}>
-                                        <span className="dots" /> {item}
+                                        <span className="check-icon">
+                                            <img src={checkitIcon} alt="check" />
+                                        </span>
+                                        <span className="check-label">{item}</span>
                                     </span>
                                 ))}
                             </div>
@@ -264,7 +337,7 @@ function VenueCheckoutPage() {
                         <div className="ratings-carousel">
                             <h2 className="heading">Ratings & Reviews</h2>
                             <div className="review-carousel-container">
-                                {reviews.slice(start, start + visibleCount).map((review) => (
+                                {venue.reviews.slice(start, start + visibleCount).map((review) => (
                                     <ReviewCard key={review.id} review={review} />
                                 ))}
                             </div>
@@ -279,9 +352,9 @@ function VenueCheckoutPage() {
                         <div className='banner'>
                             <h2 className='banner-heading'>Ongoing Events</h2>
                             <div className="image-banner-wrapper">
-                                {banners.map((img, index) => (
-                                    <div key={index} className="image-banner">
-                                        <img src={img} alt="Event" />
+                                {banners.map((item, i) => (
+                                    <div key={i} className="image-banner">
+                                        <img src={item.banner_image} alt="Event" />
                                     </div>
                                 ))}
                             </div>

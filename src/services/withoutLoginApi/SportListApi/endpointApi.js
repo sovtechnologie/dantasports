@@ -10,4 +10,14 @@ export const fetchSportList = async () => {
   }
 };
 
-
+export const fetchSportPriceChart = async(sportId,venueId) =>{
+  try {
+    const response = await api.post('/user/home/getPriceListBySports', 
+      { sportId, venueId }
+    );
+    return response.data; 
+  } catch (error) {
+    console.error("Failed to fetch sport price chart:", error);
+    throw error; // re-throw if you want the calling code to handle it
+  }
+}

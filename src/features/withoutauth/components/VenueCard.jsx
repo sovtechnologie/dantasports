@@ -5,6 +5,7 @@ import ShareLogo from "../assets/VenueCardLogo/ShareLogo.png";
 import HeartOutline from "../assets/VenueCardLogo/LikeLogo.png";
 import HeartFilled from "../assets/VenueCardLogo/heartfilled.png";
 import image from "../assets/image.png";
+import { Share } from '../../../utils/share.js';
 
 const VenueCard = ({ venue, isLiked, onLikeToggle }) => {
 
@@ -18,6 +19,7 @@ const VenueCard = ({ venue, isLiked, onLikeToggle }) => {
     e.preventDefault();
     e.stopPropagation();
     console.log("Shared venue:", venue.id);
+    Share(); // Call the share function from utils
     // Implement share logic
   };
 

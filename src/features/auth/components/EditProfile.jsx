@@ -41,7 +41,7 @@ const EditProfile = () => {
   });
   const [successMessage, setSuccessMessage] = useState('');
   const [profileImage, setProfileImage] = useState(null);
-  const profile = data?.result[0];
+  const profile = data?.data;
   console.log("Profile data:", profile);
 
   const {

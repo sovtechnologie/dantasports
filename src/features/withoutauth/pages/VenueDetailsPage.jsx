@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import "../Stylesheets/VenueDetail.css";
 import venueImage from "../assets/Venue-image.png";
 import cricketIcon from "../assets/VenueDetailIcon/CricketIcon.png";
@@ -7,7 +7,6 @@ import footballIcon from "../assets/VenueDetailIcon/Footballicon.png";
 import pickleballIcon from "../assets/VenueDetailIcon/BatmintonIcon.png";
 import reviews from "../StaticData/ReviewRatingData.js";
 import ReviewCard from '../components/ReviewCard.jsx';
-import Banner from '../assets/venue-banner.png';
 import ShareIcon from '../assets/VenueDetailIcon/shareIcon.png';
 import LikeIcon from '../assets/VenueDetailIcon/LikeIcon.png';
 import PriceChart from '../components/PriceChart.jsx';
@@ -15,15 +14,28 @@ import checkitIcon from "../assets/Checkitcon.png";
 import { useFetchSingleVenue } from '../../../hooks/VenueList/useFetchSingleVenue.js';
 import { formatTime } from '../../../utils/formatTime.js';
 import CustomMap from '../components/CustomMap.jsx';
+import { useBanner } from '../../../hooks/useBanner.js';
+import { Share } from '../../../utils/share.js';
 
-const banners = [Banner, Banner, Banner];
+
+
+export const formatDate = (isoString) => {
+    const date = new Date(isoString);
+    return date.toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+    });
+};
+
 
 const mapVenueData = (apiData) => {
     return {
         name: apiData?.venue_name || "Unknown Venue",
         location: apiData?.area || "Unknown Area",
-        rating: parseFloat(apiData?.average_rating) || 0, // Assuming static, unless provided
-        reviews: apiData?.review_count || 0, // Assuming static, unless provided
+        about: apiData?.about_venue || "No description available for this venue.",
+        rating: parseFloat(apiData?.average_rating) || 0, 
+        reviewcount: apiData?.review_count || 0, 
         timing: `${formatTime(apiData?.start_time || '06:00:00')} - ${formatTime(apiData?.end_time || '22:00:00')}`,
         price: parseFloat(apiData?.pricing) || 1100,
         address: `${apiData?.full_address || ''}, ${apiData?.area || ''}, ${apiData?.city || ''}, ${apiData?.state || ''} - ${apiData?.pincode || ''}`.trim().replace(/^,|,$/g, '')
@@ -33,6 +45,7 @@ const mapVenueData = (apiData) => {
             : [venueImage, venueImage, venueImage, venueImage],
         sports: Array.isArray(apiData?.sports)
             ? apiData.sports.map((sport) => ({
+                sportId: sport.id,
                 name: sport.name,
                 icon: sport.image
             }))
@@ -44,55 +57,49 @@ const mapVenueData = (apiData) => {
             : ['Parking', 'Restroom', 'Changing Room', 'First Aid'],
         latitude: apiData?.latitude || 0,
         longitude: apiData?.longitude || 0,
+        reviews: Array.isArray(apiData?.reviews)
+            ? apiData.reviews.map((review) => ({
+                id: review.id,
+                userName: review.user_name || "Anonymous",
+                rating: review.rating || 0,
+                comment: review.comment || "No comment provided",
+                date: formatDate(review.createdAt) || new Date().toISOString().split('T')[0],
+            }))
+            : reviews.slice(0, 5), // Default to first 5 reviews if not available
     };
 };
 
 
-// const venue = {
-//     name: 'Pushpa Sports Arena',
-//     location: 'Bibwewadi',
-//     rating: 4,
-//     reviews: 6,
-//     timing: '6AM - 12AM',
-//     price: 1100,
-//     address:
-//         'PSA Ground Next To Shreeji Lawns Ganga Dham Road Bibwewadi Pune 411037',
-//     images: [
-//         venueImage,
-//         venueImage,
-//         venueImage,
-//         venueImage,
-//     ],
-//     sports: [
-//         { name: 'Cricket', icon: cricketIcon },
-//         { name: 'Football', icon: footballIcon },
-//         { name: 'Pickle Ball', icon: pickleballIcon },
-//     ],
-//     amenities: ['Parking', 'Restroom', 'Changing Room', 'First Aid'],
-// };
 
 function VenueDetailsPage() {
 
     const { id } = useParams();
-
+    const [selectedSportId, setSelectedSportId] = useState(null);
+    const [imageIndex, setImageIndex] = useState(0);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [slideInterval, setSlideInterval] = useState(null);
+    const pageNo = 3; // Pass dynamic page number as needed
     const { data, loading, error } = useFetchSingleVenue(id);
-
-
-    // const venue = { ... }
     const venue = Array.isArray(data?.result) && data.result.length > 0
         ? mapVenueData(data.result[0])
         : {
             name: 'Loading Venue...',
             location: '',
             rating: 0,
-            reviews: 0,
+            reviewcount: 0,
             timing: '',
             price: 0,
             address: '',
             images: [venueImage],
             sports: [],
-            amenities: []
+            amenities: [],
+            reviews: [],
         };
+
+
+    const { data: bannerData, isLoading: Bannerloading, error: BannerError } = useBanner(pageNo);
+
+    const banners = bannerData?.result || [];
 
 
 
@@ -100,10 +107,6 @@ function VenueDetailsPage() {
 
     // Replace with actual data fetching logic
 
-    const [imageIndex, setImageIndex] = useState(0);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const [slideInterval, setSlideInterval] = useState(null);
 
     const startPrevSlide = () => {
         if (slideInterval) return;
@@ -138,7 +141,9 @@ function VenueDetailsPage() {
 
 
 
-    const handleSportClick = () => {
+    const handleSportClick = (sportId) => {
+        console.log("Selected Sport ID:", sportId);
+        setSelectedSportId(sportId);
         setIsModalOpen(true);
     };
 
@@ -163,12 +168,15 @@ function VenueDetailsPage() {
 
 
 
+
+
     if (loading) return <div>Loading venue details...</div>;
     if (error) return <div>Error loading venue details</div>;
     if (!venue || Object.keys(venue).length === 0) {
         return <div>No venue data available</div>;
     }
-
+    if (Bannerloading) return <div>Loading banners...</div>;
+    if (BannerError) return <div>Error loading banners</div>;
 
     return (
         <>
@@ -181,48 +189,10 @@ function VenueDetailsPage() {
                 <h1 className="venue-name">{venue.name}</h1>
                 <div className="location-rating">
                     <span>{venue.location}</span>
-                    <span>⭐ {venue.rating} ({venue.reviews} ratings)</span>
+                    <span>⭐ {venue.rating} ({venue.reviewcount} ratings)</span>
                 </div>
             </div>
-            {/* <div className="venue-detail">
 
-                <img className="venue-banner" src={venue.image} alt={venue.name} />
-
-                <div className="venue-content">
-                    <div className="info-box">
-                        <div className="info">
-                            <p><strong>Timing:</strong> {venue.time}</p>
-                            <p><strong>Price:</strong> ₹{venue.price} onwards</p>
-                        </div>
-
-                        <div className="location-box">
-                            <p>{venue.address}</p>
-                            <div className="map-placeholder">[ Google Map Here ]</div>
-                        </div>
-
-                        <div className="buttons">
-                            <button className="btn-secondary">Corporate Booking</button>
-                            <button className="btn-primary">Check Availability</button>
-                        </div>
-                    </div>
-
-                    <div className="sports-box">
-                        <h3>Sports Available</h3>
-                        <div className="sports-list">
-                            {venue.sports.map((sport, idx) => (
-                                <div className="sport-tag" key={idx}>{sport}</div>
-                            ))}
-                        </div>
-
-                        <h4>Amenities</h4>
-                        <div className="amenities-list">
-                            {venue.amenities.map((item, idx) => (
-                                <span key={idx} className="amenity">{item}</span>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </div> */}
             <div className="venue-details-container">
                 <div className="venue-wrapper">
                     <div className="venue-left">
@@ -251,12 +221,7 @@ function VenueDetailsPage() {
                             </div>
                         </div>
                         <div className="section">
-                            {/* <h4>Sports Available</h4>
-                            <div className="tags">
-                                {venue.sports.map((sport) => (
-                                    <span className="tag" key={sport}>{sport}</span>
-                                ))}
-                            </div> */}
+
                             <div className="sports-wrapper">
                                 <div className="sports-header">
                                     <strong>Sports Available</strong>
@@ -268,7 +233,7 @@ function VenueDetailsPage() {
                                             className="sport-card"
                                             key={sport.name}
                                             type="button"
-                                            onClick={handleSportClick}
+                                            onClick={() => handleSportClick(sport.sportId)}
                                         >
                                             <img src={sport.icon} alt={sport.name} />
                                             <p>{sport.name}</p>
@@ -278,14 +243,22 @@ function VenueDetailsPage() {
                             </div>
 
                             {/* PriceChart Model */}
-                            {isModalOpen && (
-                                <div className="modal-overlay" onClick={closeModal}>
-                                    <div className="modal-content" onClick={(e) => e.stopPropagation()} >
-                                        <PriceChart onClose={closeModal} />
-
-                                    </div>
-                                </div>
+                            {isModalOpen && (                          
+                                        <PriceChart
+                                            onClose={closeModal}
+                                            venueId={id}
+                                            sportId={selectedSportId} />
                             )}
+                        </div>
+
+                        <div className='section'>
+                            <div className='sports-wrapper'>
+                                <div className="sports-header">
+                                    <strong>About</strong>
+                                    
+                                </div>
+                                {venue.about}
+                            </div>
                         </div>
 
 
@@ -293,7 +266,7 @@ function VenueDetailsPage() {
                     <div className="venue-right">
 
                         <div className="venue-actions">
-                            <button className="venue-action-btn"><img src={ShareIcon} alt='share' className="venue-icon" style={{ marginLeft: "50px" }} />Share</button>
+                            <button className="venue-action-btn" onClick={Share} ><img src={ShareIcon} alt='share' className="venue-icon" style={{ marginLeft: "50px" }} />Share</button>
                             <button className="venue-action-btn"><img src={LikeIcon} alt='like' className="venue-icon" /> Add To favourite</button>
                         </div>
 
@@ -320,18 +293,18 @@ function VenueDetailsPage() {
 
                         <div className="btn-group">
                             <button className="btn-secondary">Corporate Booking</button>
-                            <button className="btn-primary">Check Availability</button>
+                            <Link to={`/venueCheckout/${id}`} style={{ textDecoration: "none", color: "inherit" }}><button className="btn-primary" >Check Availability</button></Link>
                         </div>
 
 
                     </div>
 
-                    <div className="amenities-wrappers">
-                        <div className="amenities-box">
-                            <p className="section-title">Amenities</p>
-                            <div className="amenity-tags">
+                    <div className="amenities-wrapper-container">
+                        <div className="amenities-boxContainer">
+                            <p className="amenities-title">Amenities</p>
+                            <div className="amenities-tags">
                                 {venue.amenities.map((item) => (
-                                    <span className="amenity-tag" key={item}>
+                                    <span className="amenities-tag" key={item}>
                                         <span className="check-icon">
                                             <img src={checkitIcon} alt="check" />
                                         </span>
@@ -341,18 +314,17 @@ function VenueDetailsPage() {
                             </div>
                         </div>
 
-                        <div className="rules-box">
-                            <p className="section-title">Rules and regulations</p>
+                        <div className="rules-boxContainer">
+                            <p className="rule-box-title">Rules and regulations</p>
                             <span className="arrow">&gt;</span>
                         </div>
-
                     </div>
 
                     <div className='rating-wrapper'>
                         <div className="ratings-carousel">
-                            <h2 className="heading">Ratings & Reviews</h2>
+                            <h2 className="review-heading">Ratings & Reviews</h2>
                             <div className="review-carousel-container">
-                                {reviews.slice(start, start + visibleCount).map((review) => (
+                                {venue.reviews.slice(start, start + visibleCount).map((review) => (
                                     <ReviewCard key={review.id} review={review} />
                                 ))}
                             </div>
@@ -367,9 +339,9 @@ function VenueDetailsPage() {
                         <div className='banner'>
                             <h2 className='banner-heading'>Ongoing Events</h2>
                             <div className="image-banner-wrapper">
-                                {banners.map((img, index) => (
-                                    <div key={index} className="image-banner">
-                                        <img src={img} alt="Event" />
+                                {banners.map((item, i) => (
+                                    <div key={i} className="image-banner">
+                                        <img src={item.banner_image} alt="Event" />
                                     </div>
                                 ))}
                             </div>
@@ -385,3 +357,4 @@ function VenueDetailsPage() {
 };
 
 export default VenueDetailsPage
+

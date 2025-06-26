@@ -19,6 +19,7 @@ function Navbar() {
 
   const handleProfileClick = (e) => {
   if (!user || !token) {
+    
     e.preventDefault();
     setShowLoginModal(true);
   }

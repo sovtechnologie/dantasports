@@ -362,18 +362,16 @@ body {
   box-sizing: border-box;
 } */
 .venue-list {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 30px;
   padding: 0 20px;
   margin: 30px 0 40px;
-  justify-content: flex-start;
-  /* ensures left alignment */
   box-sizing: border-box;
 }
 
 .venue-list .card {
-  flex: 0 1 calc(33.333% - 16px);
+  flex: 0 1 calc((100% - 60px) / 3); 
   /* 3 per row with gap */
   box-sizing: border-box;
   background-color: #fff;

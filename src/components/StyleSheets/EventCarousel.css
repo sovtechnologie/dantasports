@@ -1,9 +1,9 @@
 
-.main-carousel-container{
+.mainEvent-carousel-container{
   background-color: #ffffff;
 }
 
-.carousel-container {
+.Eventcarousel-container {
   width: 100%;
   max-width: 1460px;
   margin: 0 auto;
@@ -13,7 +13,7 @@
   background: #ffffff;
 }
 
-.carousel-track {
+.Eventcarousel-track {
   display: flex;
   transition: transform 0.5s ease;
   width: 100%;
@@ -22,26 +22,26 @@
 
 }
 
-.carousel-slide {
+.Eventcarousel-slide {
  min-width: calc(50% - 13px);
   /* Show 2 slides at a time */
   box-sizing: border-box;
 
 }
 
-.carousel-slide img {
+.Eventcarousel-image{
   width: 100%;
   border-radius: 16px;
   object-fit: cover;
 }
 
-.carousel-dots {
+.Eventcarousel-dots {
   display: flex;
   justify-content: center;
   margin-top: 12px;
 }
 
-.dot {
+.Eventdot {
   width: 10px;
   height: 10px;
   background: #d8d8d8;
@@ -51,6 +51,6 @@
   transition: background 0.3s;
 }
 
-.dot.active {
+.Eventdot.active {
   background: #409eff;
 }

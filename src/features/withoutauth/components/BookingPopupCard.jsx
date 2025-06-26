@@ -4,16 +4,20 @@ import checkIcon from "../assets/Checkicon.png";
 import Banner from "../assets/venue-banner.png";
 import ShareIcon from "../assets/BookingshareIcons.png";
 import viewIcon from "../assets/BookingViewIcons.png";
+import { useBanner } from '../../../hooks/useBanner.js';
 
 
-const banners = [Banner, Banner];
 
 const BookingPopupCard = ({
   show,
   onClose,
   bookingData,
-  events = []
 }) => {
+
+  const pageNo = 4;
+
+  const { data: bannerData, isLoading: Bannerloading, error: BannerError } = useBanner(pageNo);
+
   if (!show || !bookingData) return null;
 
   const {
@@ -26,6 +30,10 @@ const BookingPopupCard = ({
     date,
     time,
   } = bookingData;
+  const banners = bannerData?.result || [];
+
+  if (Bannerloading) return <div>Loading banners...</div>;
+  if (BannerError) return <div>Error loading banners</div>;
 
   return (
     <div className="popup-overlay" onClick={onClose}>
@@ -69,11 +77,11 @@ const BookingPopupCard = ({
 
           <div className="ref-footer">
             <button className="ref-btn">
-              <span role="img" aria-label="share"><img src={ShareIcon} alt='ShareIcon'/></span> Share
+              <span role="img" aria-label="share"><img src={ShareIcon} alt='ShareIcon' /></span> Share
             </button>
             <div className="ref-divider" />
             <button className="ref-btn">
-              <span role="img" aria-label="view"><img src={viewIcon} alt='view Details'/></span> View bookings
+              <span role="img" aria-label="view"><img src={viewIcon} alt='view Details' /></span> View bookings
             </button>
           </div>
         </div>
@@ -82,9 +90,9 @@ const BookingPopupCard = ({
         <div className="popup-events">
           <h4>Explore Nearby Events</h4>
           <div className="event-cards">
-            {events.map((img, index) => (
-              <div className={`event-card ${index > 0 ? 'hide-on-mobile' : ''}`} key={index}>
-                <img src={img} alt="Event" />
+            {banners.slice(0,2).map((item, i) => (
+              <div className={`event-card ${i > 0 ? 'hide-on-mobile' : ''}`} key={i}>
+                <img src={item.banner_image} alt="Event" onError={(e) => (e.target.src = Banner)} />
               </div>
             ))}
           </div>

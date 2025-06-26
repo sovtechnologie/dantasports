@@ -31,28 +31,28 @@ function EventCarousel() {
   if (!banners.length) return null;
 
   return (
-    <div className='main-carousel-container'>
-    <div className="carousel-container">
+    <div className='mainEvent-carousel-container'>
+    <div className="Eventcarousel-container">
       <div
-        className="carousel-track"
+        className="Eventcarousel-track"
         style={{ transform: `translateX(-${currentIndex * 50}%)` }}
       >
         {banners.map((item, i) => (
-          <div className="carousel-slide" key={i}>
+          <div className="Eventcarousel-slide" key={i}>
            <img
                 src={item.banner_image }
                 alt={`Slide ${i + 1}`}
                 onError={(e) => { e.target.src = Banner1; }}
-                className='carousel-image'
+                className='Eventcarousel-image'
               />
           </div>
         ))}
       </div>
-      <div className="carousel-dots">
+      <div className="Eventcarousel-dots">
         {banners.slice(0, banners.length - 1).map((_, idx) => (
           <span
             key={idx}
-            className={`dot ${idx === currentIndex ? 'active' : ''}`}
+            className={`Eventdot ${idx === currentIndex ? 'active' : ''}`}
             onClick={() => goToSlide(idx)}
           ></span>
         ))}

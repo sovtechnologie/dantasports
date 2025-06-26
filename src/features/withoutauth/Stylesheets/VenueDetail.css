@@ -92,9 +92,9 @@ h1 {
 
 .carousel-img {
   width: 100%;
-  height: auto;
+  height: 510px;
   border-radius: 12px;
-  object-fit: cover;
+  object-fit: fill;
 }
 
 
@@ -487,14 +487,14 @@ h1 {
 } */
 
 
-.amenities-wrappers {
+.amenities-wrapper-container {
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
   /* margin-top: 1rem; */
 }
 
-.amenities-box {
+.amenities-boxContainer {
   background-color: #fff;
   border: 1px solid #d6e4f0;
   border-radius: 12px;
@@ -506,19 +506,9 @@ h1 {
   justify-content: center;
 }
 
-.rules-box {
-  background-color: #fff;
-  border: 1px solid #d6e4f0;
-  border-radius: 12px;
-  padding: 1rem;
-  flex: 1;
-  min-width: 405px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
 
-.section-title {
+
+.amenities-title {
   font-family: 'Figtree', Arial, sans-serif;
   font-weight: 600;
   font-size: 15.52px;
@@ -528,13 +518,13 @@ h1 {
   color: #000000;
 }
 
-.amenity-tags {
+.amenities-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
 }
 
-.amenity-tag {
+.amenities-tag {
   font-family: 'Figtree', Arial, sans-serif;
   font-weight: 400;
   font-size: 13.58px;
@@ -564,7 +554,19 @@ h1 {
   /* optional */
 }
 
-.rules-box {
+.rules-boxContainer {
+  background-color: #fff;
+  border: 1px solid #d6e4f0;
+  border-radius: 12px;
+  padding: 1rem;
+  flex: 1;
+  min-width: 405px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.rules-boxContainer {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -579,7 +581,7 @@ h1 {
 
 }
 
-.section-title {
+.rule-box-title {
   font-family: 'Lato', sans-serif;
   font-weight: 500;
   font-size: 18px;
@@ -613,7 +615,8 @@ h1 {
   font-family: "Lato", sans-serif;
 }
 
-.heading {
+.review-heading,
+.banner-heading {
   font-size: 24px;
   font-weight: 700;
   color: #0c1f3f;
@@ -719,41 +722,6 @@ h1 {
   .image-banner {
     width: 100%;
   }
-}
-
-
-/* MODAL STYLES */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-}
-
-.modal-content {
-  position: relative;
-  background: white;
-  border-radius: 1rem;
-  width: 100%;
-  max-width: 960px;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
-
-.modal-close {
-  position: absolute;
-  top: 1rem;
-  right: 1.5rem;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  color: #007aff;
-  cursor: pointer;
 }
 
 

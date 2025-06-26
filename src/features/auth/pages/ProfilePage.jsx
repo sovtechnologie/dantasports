@@ -17,7 +17,7 @@ import { useQuery } from '@tanstack/react-query';
 
 function ProfilePage() {
 
-  const id = useParams();
+  const {id} = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
  
@@ -27,8 +27,8 @@ function ProfilePage() {
       queryFn: fetchProfile,
     });
   
-    const profile = data?.result[0];
-    console.log(" my Profile data:", profile);
+    const profile = data?.data;
+    console.log(" my Profile data:", data);
 
   const handleLogout = () => {
     const confirmLogout = window.confirm("Are you sure you want to log out?");

@@ -1,15 +1,15 @@
 .venue-card-wrapper {
-  width: 370px;
-  border-radius: 16px;
+  width: 23.125rem; 
+  border-radius: 1rem;
   overflow: hidden;
   background: white;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+ box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.08);
   font-family: 'Segoe UI', sans-serif;
 }
 
 .venue-image-container {
   position: relative;
-  height: 200px;
+  aspect-ratio: 16 / 9;
 }
 
 .venue-image {

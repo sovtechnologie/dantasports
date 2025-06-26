@@ -11,9 +11,9 @@ import {
   startOfDay,
 } from 'date-fns';
 
-const Calendar = () => {
+const Calendar = ({ selectedDate, setSelectedDate }) => {
   const [currentWeek, setCurrentWeek] = useState(new Date());
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  // const [selectedDate, setSelectedDate] = useState(new Date());
 
   const today = startOfDay(new Date());
   const startWeek = startOfWeek(currentWeek, { weekStartsOn: 1 });

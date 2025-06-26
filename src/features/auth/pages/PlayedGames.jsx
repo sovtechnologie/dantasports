@@ -3,7 +3,7 @@ import '../StyleSheets/PlayedGames.css';
 
 const PlayedGames = () => {
   return (
-    <div className="main-content">
+    <div className="played-games-container">
       {/* <h2>Played Games</h2> */}
       <p>List of games you've played will appear here.</p>
     </div>
