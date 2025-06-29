@@ -1,4 +1,4 @@
-.modal-overlay {
+.login-modal-overlay {
   position: fixed;
   inset: 0;
   background: transparent;
@@ -8,7 +8,7 @@
   justify-content: center;
 }
 
-.modal-content {
+.login-modal-content {
   position: relative;
   /* background: #fff; */
   border-radius: 10px;
@@ -17,7 +17,7 @@
   width: 100%;
 }
 
-.modal-close {
+.login-modal-close {
   position: absolute;
   right: 30px;
   top: 25px;

@@ -10,9 +10,9 @@ const LoginModal = ({ onClose }) => {
   return (
     <>
       {step === 'login' && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <button className="modal-close" onClick={onClose}>×</button>
+        <div className="login-modal-overlay">
+          <div className="login-modal-content">
+            <button className="login-modal-close" onClick={onClose}>×</button>
             <Login
               isModal={true}
               onSuccess={onClose}
@@ -25,6 +25,7 @@ const LoginModal = ({ onClose }) => {
       {step === 'register' && (
         <RegisterModal
           isModal={true}
+          onClose={onClose} // Back to Login
           onSuccess={() => setStep('sport')}         // Register → Sport
           onSwitchToLogin={() => setStep('login')}   // Back to Login
         />

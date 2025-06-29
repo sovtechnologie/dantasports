@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "../Stylesheets/VenueCheckoutPage.css";
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import venueImage from "../assets/Venue-image.png";
 import cricketIcon from "../assets/VenueDetailIcon/CricketIcon.png";
 import footballIcon from "../assets/VenueDetailIcon/Footballicon.png";
@@ -17,6 +17,8 @@ import checkitIcon from "../assets/Checkitcon.png";
 import { useFetchSingleVenue } from '../../../hooks/VenueList/useFetchSingleVenue.js';
 import { formatTime } from '../../../utils/formatTime.js';
 import { useBanner } from '../../../hooks/useBanner.js';
+import { useSportDetails } from '../../../hooks/favouriteSport/useSportDetails.js';
+import { formatDate } from "../../../utils/formatDate.js";
 
 
 
@@ -24,15 +26,6 @@ import { useBanner } from '../../../hooks/useBanner.js';
 
 
 
-
-export const formatDate = (isoString) => {
-    const date = new Date(isoString);
-    return date.toLocaleDateString('en-GB', {
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric',
-    });
-};
 
 
 const mapVenueData = (apiData) => {
@@ -77,10 +70,25 @@ const mapVenueData = (apiData) => {
 
 function VenueCheckoutPage() {
     const { id } = useParams();
+    const location = useLocation();
+    const sportIdFromLink = location.state?.sportId;
     const pageNo = 3;
     const [imageIndex, setImageIndex] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
+    const [selectedSport, setSelectedSport] = useState('');
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [selectedTime, setSelectedTime] = useState(null);
+    const [selectedDuration, setSelectedDuration] = useState(1);
+    const [selectedPitch, setSelectedPitch] = useState('');
+    const [slideInterval, setSlideInterval] = useState(null);
+    const [start, setStart] = useState(0);
+    const [errors, setErrors] = useState({
+        sport: '',
+        date: '',
+        time: '',
+        court: '',
+    });
 
 
     const { data, loading, error } = useFetchSingleVenue(id);
@@ -100,15 +108,88 @@ function VenueCheckoutPage() {
             reviews: [],
         };
 
+    const { data: sportDetails, isLoading: sportDetailsLoading, error: sportDetailsError } = useSportDetails(selectedSport);
+    if (sportDetails && sportDetails.result) {
+        console.log("Sport Details:", sportDetails.result[0]);
+    }
+
+    const sportDetailsData = sportDetails?.result ? sportDetails.result[0] : null;
+
     const { data: bannerData, isLoading: Bannerloading, error: BannerError } = useBanner(pageNo);
 
     const banners = bannerData?.result || [];
 
+
+
+
     const handleProceedClick = () => {
+        const newErrors = {
+            sport: '',
+            date: '',
+            time: '',
+            court: '',
+        };
+
+        let hasError = false;
+
+        if (!selectedDate) {
+            newErrors.date = "Please select a date.";
+            hasError = true;
+        }
+
+        // Then validate other selections
+        if (!selectedSport) {
+            newErrors.sport = "Please select a sport.";
+            hasError = true;
+        }
+
+        // First: check if courts are available
+        const courtsAvailable = sportDetailsData?.courts?.length > 0;
+        if (!courtsAvailable) {
+            newErrors.court = "No courts available for this sport/date.";
+            setErrors(newErrors);
+            // Auto-clear after 3 seconds
+            setTimeout(() => {
+                setErrors(prev => ({ ...prev, court: '' }));
+            }, 2000);
+            return;
+        }
+        if (!selectedTime) {
+            newErrors.time = "Please select a time slot.";
+            hasError = true;
+        }
+
+        if (!selectedPitch) {
+            newErrors.court = "Please select a court.";
+            hasError = true;
+        }
+
+        setErrors(newErrors);
+
+        if (hasError) {
+            // Auto-clear all errors after 3 seconds
+            setTimeout(() => {
+                setErrors({
+                    sport: '',
+                    date: '',
+                    time: '',
+                    court: '',
+                });
+            }, 2000);
+            return;
+        }
+
         setIsModalOpen(true);
+        // setSelectedSport('');
+        // setSelectedDuration(1);
+        // setSelectedTime(null);
+        // setSelectedPitch('');
+
     };
 
-    const [slideInterval, setSlideInterval] = useState(null);
+
+
+
 
     const startPrevSlide = () => {
         if (slideInterval) return;
@@ -142,7 +223,7 @@ function VenueCheckoutPage() {
     };
 
 
-    const [start, setStart] = useState(0);
+
 
     const prev = () => setStart((prev) => Math.max(prev - 1, 0));
     const next = () =>
@@ -152,10 +233,22 @@ function VenueCheckoutPage() {
 
     const visibleCount = window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3;
 
+    const myBookingPayload = {
+        sportId: selectedSport,
+        venueId: id,
+        selectedDate: selectedDate?.toISOString().split('T')[0], // or format as needed
+        selectedDuration: selectedDuration * 60,
+        selectedTime,
+        selectedPitch,
+    };
 
-    const [selectedSport, setSelectedSport] = useState('');
-    const [selectedDate, setSelectedDate] = useState(new Date());
-    const [selectedPitch, setSelectedPitch] = useState('10 x 10');
+    useEffect(() => {
+        if (sportIdFromLink) {
+            setSelectedSport(sportIdFromLink);
+        }
+    }, [sportIdFromLink]);
+
+
 
     if (loading) return <div>Loading venue details...</div>;
     if (error) return <div>Error loading venue details</div>;
@@ -164,6 +257,10 @@ function VenueCheckoutPage() {
     }
     if (Bannerloading) return <div>Loading banners...</div>;
     if (BannerError) return <div>Error loading banners</div>;
+
+    // if (sportDetailsLoading) return <div>Loading sport details...</div>;
+    if (sportDetailsError) return <div>Error loading sport details</div>;
+
 
     return (
         <>
@@ -261,24 +358,40 @@ function VenueCheckoutPage() {
                                     </button>
                                 ))}
                             </div>
+                            {errors.sport && <p className="form-error">{errors.sport}</p>}
                         </div>
 
 
 
-                        <TimeSelector selectedDate={selectedDate} />
+                        <TimeSelector
+                            selectedDate={selectedDate}
+                            selectedTime={selectedTime}
+                            setSelectedTime={setSelectedTime}
+                            selectedDuration={selectedDuration}
+                            setSelectedDuration={setSelectedDuration}
+                            sportId={selectedSport}
+
+                        />
+                        {errors.time && <p className="form-error">{errors.time}</p>}
+
 
                         {/* Pitch Selection */}
                         <div className="vb-section vb-pitch-options">
-                            <label>Pitch:</label>
-                            {['5 x 5', '7 x 7', '10 x 10'].map((pitch) => (
-                                <button
-                                    key={pitch}
-                                    className={`vb-pitch-btn ${selectedPitch === pitch ? 'active' : ''}`}
-                                    onClick={() => setSelectedPitch(pitch)}
-                                >
-                                    {pitch}
-                                </button>
-                            ))}
+                            <label>Court:</label>
+                            {sportDetailsData?.courts?.length > 0 ? (
+                                sportDetailsData.courts.map(court => (
+                                    <button
+                                        key={court.id}
+                                        className={`vb-pitch-btn ${selectedPitch === court.id ? 'active' : ''}`}
+                                        onClick={() => setSelectedPitch(court.id)}
+                                    >
+                                        {court.court_name}
+                                    </button>
+                                ))
+                            ) : (
+                                <p>No courts available for this sport/date.</p>
+                            )}
+                            {errors.court && <p className="form-error">{errors.court}</p>}
                         </div>
 
                         <button className="vb-proceed-btn" onClick={handleProceedClick}>PROCEED</button>
@@ -287,19 +400,23 @@ function VenueCheckoutPage() {
                             <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
                                 <div className="modal-content" onClick={(e) => e.stopPropagation()} >
                                     <ConfirmSlotCard
-                                        duration="60 Min"
-                                        shift="Morning"
-                                        time="08:00 A.M – 09:00 A.M"
-                                        date="Wed, 23rd May"
-                                        pitch="5x5, Football"
+                                        duration={`${selectedDuration * 60} Min`} // Optional display
+                                        time={selectedTime} // Use selectedTime directly
+                                        date={selectedDate?.toISOString().split('T')[0]} // Display version
+                                        pitch={selectedPitch} // Could show pitch name instead of ID
+                                        payload={myBookingPayload} // ✅ Your payload here
                                         onClose={() => setIsModalOpen(false)}
                                         onProceed={() => {
-                                            alert("Slot Confirmed!");
-                                            setShowPopup(true)
+                                            console.log("Booking payload:", myBookingPayload); // ✅ To verify
+                                            setShowPopup(true);
                                             setIsModalOpen(false);
-
+                                            setSelectedSport('');
+                                            setSelectedDuration(1);
+                                            setSelectedTime(null);
+                                            setSelectedPitch('');
                                         }}
                                     />
+
                                 </div>
                             </div>
                         )}
@@ -373,62 +490,3 @@ export default VenueCheckoutPage
 
 
 
-
-//    /* Duration & Time */
-//                         /* <div className="vb-section vb-duration-time">
-//                             <div className="vb-duration">
-//                                 <label>Duration:</label>
-//                                 <div className="vb-duration-box">0hr</div>
-//                             </div>
-//                             <div className="vb-time">
-//                                 <label>Time:</label>
-//                                 <div className="vb-time-box">{selectedTime}</div>
-//                             </div>
-//                         </div> */
-
-//                         /* Time Slots */
-//                         /* <div className="vb-section">
-//                             <div className="vb-time-periods">
-//                                 {['Morning', 'Afternoon', 'Evening'].map((period, idx) => (
-//                                     <button
-//                                         key={period}
-//                                         className={`vb-period-btn ${idx === 0 ? 'active' : ''}`}
-//                                     >
-//                                         {period}
-//                                     </button>
-//                                 ))}
-//                             </div>
-//                             <div className="vb-time-slots">
-//                                 {['11:30 AM', '12:30 PM', '1:30 PM', '2:30 PM'].map((time) => (
-//                                     <button
-//                                         key={time}
-//                                         className={`vb-slot-btn ${selectedTime === time ? 'active' : ''}`}
-//                                         onClick={() => setSelectedTime(time)}
-//                                     >
-//                                         {time}
-//                                     </button>
-//                                 ))}
-//                             </div>
-//                             <div className="vb-availability-bar">
-//                                 <div className="green"></div>
-//                                 <div className="green"></div>
-//                                 <div className="red"></div>
-//                                 <div className="green"></div>
-//                             </div>
-//                         </div> */
-//                          /* <div className="vb-calendar">
-//                             <button>&lt;</button>
-//                             <span>September</span>
-//                             <button>&gt;</button>
-//                         </div>
-//                         <div className="vb-dates">
-//                             {dates.map((date) => (
-//                                 <div
-//                                     key={date}
-//                                     className={`vb-date-item ${selectedDate === date ? 'active' : ''}`}
-//                                     onClick={() => setSelectedDate(date)}
-//                                 >
-//                                     {date}
-//                                 </div>
-//                             ))}
-//                         </div> */

@@ -252,6 +252,7 @@ h1 {
 .vb-section {
   display: flex;
   align-items: center;
+  flex-direction: row;
   flex-wrap: wrap;
   gap: 0.75rem;
   margin-bottom: 1rem;
@@ -298,8 +299,8 @@ h1 {
 }
 
 .vb-pitch-btn {
-  padding: 0.9rem 1.5rem;
-  border: 1px solid #1163C7;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid #ccc;
   border-radius: 8px;
   background: white;
   cursor: pointer;
@@ -522,6 +523,13 @@ h1 {
   color: #1163C7;
   font-weight: bold;
 }
+
+.form-error {
+    color: red;
+    font-size: 0.85rem;
+    margin-top: 4px;
+}
+
 
 /* Responsive */
 @media (max-width: 768px) {

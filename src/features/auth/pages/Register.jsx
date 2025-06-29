@@ -39,7 +39,7 @@ const validateForm = (form) => {
   return errors;
 };
 
-const Register = ({ isModal = false, onSuccess = () => { }, onSwitchToLogin = () => { } }) => {
+const Register = ({ isModal = false,onClose = () =>{}, onSuccess = () => { }, onSwitchToLogin = () => { } }) => {
 
   // tempory code
   const [showOtp, setShowOtp] = useState(false); // new state
@@ -199,7 +199,7 @@ useEffect(() => {
         <div className="overlay">
           <div className="register-modal">
             {isModal && (
-              <button className="close-button" type="button" onClick={onSuccess}>
+              <button className="close-button" type="button" onClick={onClose}>
                 ×
               </button>
             )}
@@ -325,9 +325,9 @@ useEffect(() => {
 
                 <p className="login-link">
                   Already have an account?{' '}
-                  <button type="button" className="link-button" onClick={handleSwitchToRegister}>
+                  {/* <button type="button" className="link-button" onClick={handleSwitchToRegister}> */}
                     Log in
-                  </button>
+                  {/* </button> */}
                 </p>
 
               </div>

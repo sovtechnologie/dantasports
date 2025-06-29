@@ -14,16 +14,53 @@ function formatTime(timeStr) {
   return `${formattedHour}:${minute} ${ampm}`;
 }
 
-function transformPriceData(rawData) {
-  return rawData.result.map(court => ({
-    title: court.court_name,
-    slots: court.time_slots.map(slot => ({
-      day: slot.day_of_week,
-      time: `${formatTime(slot.start_time)} – ${formatTime(slot.end_time)}`,
-      price: `₹${slot.price}/Hr`
-    }))
-  }));
+function getDaysFromSlot(slot) {
+  const daysMap = {
+    monday: 'Monday',
+    tuesday: 'Tuesday',
+    wednesday: 'Wednesday',
+    thursday: 'Thursday',
+    friday: 'Friday',
+    staurday: 'Saturday',
+    sunday: 'Sunday',
+  };
+
+  const activeDays = Object.entries(daysMap)
+    .filter(([key, _]) => slot[key])
+    .map(([_, value]) => value);
+
+  return activeDays;
 }
+
+function groupDays(days) {
+  const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+  const weekends = ['Saturday', 'Sunday'];
+
+  const hasWeekdays = weekdays.every(d => days.includes(d));
+  const hasWeekends = weekends.every(d => days.includes(d));
+
+  if (hasWeekdays && hasWeekends) return 'All Week';
+  if (hasWeekdays) return 'Monday - Friday';
+  if (hasWeekends) return 'Saturday - Sunday';
+  return days.join(', ');
+}
+
+function transformPriceChartData(apiData) {
+  return apiData.result.map(court => {
+    const slots = court.time_slots.map(slot => {
+      const dayLabel = groupDays(getDaysFromSlot(slot));
+      const time = `${formatTime(slot.start_time)} – ${formatTime(slot.end_time)}`;
+      const price = `₹${slot.price}/Hr`;
+      return { day: dayLabel, time, price };
+    });
+
+    return {
+      title: court.court_name,
+      slots,
+    };
+  });
+}
+
 
 
 
@@ -34,7 +71,7 @@ function PriceChart({ onClose, venueId, sportId }) {
   const { data, isLoading, error } = useSportPriceChart(sportId, venueId);
 
   const hasValidData = data && Array.isArray(data.result) && data.result.length > 0;
-  const transformedPriceData = hasValidData ? transformPriceData(data) : null;
+ const transformedPriceData = data && data.result ? transformPriceChartData(data) : priceData;
 
 
   useEffect(() => {
@@ -91,7 +128,7 @@ function PriceChart({ onClose, venueId, sportId }) {
           </div>
 
           <div className="book-btn">
-            <Link to={`/venueCheckout/${venueId}`} style={{ textDecoration: "none", color: "inherit" }}><button>BOOK NOW</button></Link>
+            <Link to={`/venueCheckout/${venueId}`} state={{ sportId }} style={{ textDecoration: "none", color: "inherit" }}><button>BOOK NOW</button></Link>
           </div>
         </div>
       </div>
