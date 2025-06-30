@@ -1,6 +1,6 @@
 .hero-section {
   position: relative;
-  background-color: #1163C7;
+  background-color: #1163c7;
   padding: 100px 20px 80px;
   color: white;
   overflow: hidden;
@@ -19,18 +19,17 @@
   width: 489px;
   height: 400px;
   top: -50px;
-  left: -279px;
+  left: -13rem;
   object-fit: contain;
   z-index: 1;
 }
-
 
 .hero-right-img {
   position: absolute;
   width: 489px;
   height: 400px;
   top: -50px;
-  right: -288px;
+  right: -13rem;
   object-fit: contain;
   z-index: 1;
 }
@@ -42,7 +41,7 @@
 }
 
 .hero-content h3 {
-  font-family: 'DM Sans', Arial, sans-serif;
+  font-family: "DM Sans", Arial, sans-serif;
   font-weight: 600;
   font-size: 28px;
   line-height: 39.2px;
@@ -51,26 +50,23 @@
   margin-bottom: 8px;
 }
 
-.hero-content h1 {
-  font-family: 'Lato', Arial, sans-serif;
+/* .hero-content h1 {
+  margin-bottom: 20px;
+} */
+
+.heading-animate,
+.heading-nonAnimate {
+  display: flex;
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Optional: center horizontally */
+  font-family: "Lato", Arial, sans-serif;
   font-weight: 700;
-  font-size: 60px;
+  font-size: 2rem;
   line-height: 70px;
   letter-spacing: 0;
   margin-bottom: 20px;
-}
-
-.heading-animate, 
-.heading-nonAnimate {
-  display: flex;
-  align-items: center;    /* Center vertically */
-  justify-content: center; /* Optional: center horizontally */
   /* Ensure it has height or fills parent */
 }
-
-
-
-
 
 .hero-search {
   display: flex;
@@ -109,7 +105,6 @@ input:focus {
   /* Optional: removes blue shadow in some browsers */
 }
 
-
 .hero-search select {
   width: 195.56px;
   height: 68.44px;
@@ -128,10 +123,8 @@ input:focus {
 
 .hero-search select option {
   background-color: #ffffff;
-  color: #1163C7;
+  color: #1163c7;
 }
-
-
 
 .hero-cards {
   width: 97vw;
@@ -149,7 +142,6 @@ input:focus {
   box-sizing: border-box;
 }
 
-
 .card-list {
   display: flex;
   overflow-x: auto;
@@ -164,8 +156,7 @@ input:focus {
   margin-top: 30px;
 }
 
-
-..card-list::-webkit-scrollbar {
+.card-list::-webkit-scrollbar {
   display: none;
 }
 
@@ -180,7 +171,6 @@ input:focus {
   width: 50px;
   height: 50px;
 }
-
 
 @media (max-width: 768px) {
   .hero-section {

@@ -10,11 +10,10 @@
   transition: background-color 0.3s ease;
   background-color: white;
   box-shadow: 0 4px 12px rgba(17, 99, 199, 0.08);
-
 }
 
 .navbar.home {
-  background-color: #1163C7;
+  background-color: #1163c7;
 }
 
 .navbar-container {
@@ -35,22 +34,19 @@
   color: #0a0a0a;
 }
 
-
-
 .navbar-logo {
   width: 50px;
   height: 50px;
   object-fit: contain;
   position: relative;
-  right: 150px;
+  right: 6rem;
   display: block;
 }
-
 
 .navbar-link {
   text-decoration: none;
   color: #0a0a0a;
-  font-family: 'DM Sans', Arial, sans-serif;
+  font-family: "DM Sans", Arial, sans-serif;
   font-weight: 500;
   font-size: 18px;
   line-height: 28px;
@@ -70,7 +66,7 @@
 .app-btn {
   padding: 8px 16px;
   border-radius: 20px;
-  border: 1px solid #1163C7;
+  border: 1px solid #1163c7;
   background-color: transparent;
   font-weight: 500;
   cursor: pointer;
@@ -78,7 +74,7 @@
 }
 
 .user-icon {
-  border: 1px solid #1163C7;
+  border: 1px solid #1163c7;
   border-radius: 50%;
   width: 32px;
   height: 32px;
@@ -98,15 +94,13 @@
 
 .navbar.home .app-btn {
   background-color: white;
-  color: #172A39;
+  color: #172a39;
 }
 
 .navbar.home .user-icon {
   background-color: white;
-  color: #1163C7;
+  color: #1163c7;
 }
-
-
 
 /* ...existing code... */
 

@@ -193,13 +193,13 @@ function VenueCheckoutPage() {
 
     const startPrevSlide = () => {
         if (slideInterval) return;
-        const interval = setInterval(prevSlide, 3000); // adjust speed as needed
+        const interval = setInterval(prevSlide, 2000); // adjust speed as needed
         setSlideInterval(interval);
     };
 
     const startNextSlide = () => {
         if (slideInterval) return;
-        const interval = setInterval(nextSlide, 3000); // adjust speed as needed
+        const interval = setInterval(nextSlide, 2000); // adjust speed as needed
         setSlideInterval(interval);
     };
 
@@ -281,7 +281,7 @@ function VenueCheckoutPage() {
                 <div className="venue-wrapper">
                     <div className="venue-left">
                         <div className="carousel">
-                            <img src={venue.images[imageIndex]} alt="venue" className="carousel-img" onError={(e) => (e.target.src = venueImage)} />
+                            <img src={venue.images[imageIndex]} alt="venue" className="carousel-image" onError={(e) => (e.target.src = venueImage)} />
                             {/* <div className="carousel-controls"> */}
                             <div
                                 className="carousel-hover left"
@@ -400,13 +400,16 @@ function VenueCheckoutPage() {
                             <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
                                 <div className="modal-content" onClick={(e) => e.stopPropagation()} >
                                     <ConfirmSlotCard
-                                        duration={`${selectedDuration * 60} Min`} // Optional display
-                                        time={selectedTime} // Use selectedTime directly
-                                        date={selectedDate?.toISOString().split('T')[0]} // Display version
-                                        pitch={selectedPitch} // Could show pitch name instead of ID
                                         payload={myBookingPayload} // ✅ Your payload here
-                                        onClose={() => setIsModalOpen(false)}
-                                        onProceed={() => {
+                                        onClose={() => {
+                                            setIsModalOpen(false)
+                                            setSelectedSport('');
+                                            setSelectedDuration(1);
+                                            setSelectedTime(null);
+                                            setSelectedPitch('');
+                                        }
+                                        }
+                                        onSuccess={() => {
                                             console.log("Booking payload:", myBookingPayload); // ✅ To verify
                                             setShowPopup(true);
                                             setIsModalOpen(false);

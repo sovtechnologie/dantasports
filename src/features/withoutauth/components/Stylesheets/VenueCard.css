@@ -1,10 +1,10 @@
 .venue-card-wrapper {
-  width: 23.125rem; 
+  width: 100%;
   border-radius: 1rem;
   overflow: hidden;
   background: white;
- box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.08);
-  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.08);
+  font-family: "Segoe UI", sans-serif;
 }
 
 .venue-image-container {
@@ -61,13 +61,13 @@
 }
 
 .venue-header h4 {
-  font-family: 'Lato', Arial, sans-serif;
+  font-family: "Lato", Arial, sans-serif;
   font-weight: 500;
   font-size: 15.76px;
   line-height: 22.52px;
   letter-spacing: 0;
   vertical-align: middle;
-  color: #172A39;
+  color: #172a39;
   margin: 0;
 }
 
@@ -80,10 +80,10 @@
 }
 
 .venue-about {
-  font-family: 'DM Sans', Arial, sans-serif;
+  font-family: "DM Sans", Arial, sans-serif;
   font-size: 14px;
   font-weight: 400;
-  color: #4B5563;
+  color: #4b5563;
   margin: 4px 0;
   height: 38px; /* Limit height */
   overflow: hidden;
@@ -93,9 +93,8 @@
   -webkit-box-orient: vertical;
 }
 
-
 .venue-locations {
-  font-family: 'DM Sans', Arial, sans-serif;
+  font-family: "DM Sans", Arial, sans-serif;
   font-weight: 400;
   font-size: 13.51px;
   line-height: 22.52px;
@@ -110,12 +109,11 @@
   justify-content: space-between;
   align-items: center;
   border-top: 0.58px solid;
-  border-image: linear-gradient(180deg, #2971AC 0%, #031B2E 100%);
+  border-image: linear-gradient(180deg, #2971ac 0%, #031b2e 100%);
   border-image-slice: 1;
   padding-top: 10px;
   width: 100%;
   box-sizing: border-box;
-
 }
 
 .venue-discount {
@@ -180,6 +178,4 @@
   .venue-price {
     font-size: 12px;
   }
-
- 
 }

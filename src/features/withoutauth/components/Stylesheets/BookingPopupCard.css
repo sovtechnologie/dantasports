@@ -1,6 +1,6 @@
 .popup-overlay {
   position: fixed;
-  top: 0;
+  top: 0.3rem;
   left: 0;
   width: 100%;
   height: 100%;
@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: center;
   z-index: 999;
-  padding: 20px;
+  padding: 10px;
 }
 
 .booking-popup {
@@ -35,50 +35,48 @@
 }
 
 .booking-header {
-  background: #1163C7;
+  background: #1163c7;
   color: white;
   text-align: center;
-  padding: 20px 0px 10px;
+  padding: 10px 0px 10px 0px;
 }
 
 .booking-heading {
   color: #ffffff;
   font-family: "'Lato', sans-serif";
   font-weight: 400;
-  font-size: '20px';
+  font-size: 20px;
   /* line-height: '10px'; */
   letter-spacing: 0;
-  text-align: 'center'
+  text-align: center;
 }
 
 .check-icon {
   width: 60px;
   height: 60px;
-  margin: 0;
+  /* margin: 0; */
 }
 
 .confirmation-text {
-  font-family: 'DM Sans', sans-serif;
+  font-family: "DM Sans", sans-serif;
   font-weight: 100;
-  font-size: 16px;
+  font-size: 12px;
   line-height: 1.4;
   /* 140% = 1.4 */
   letter-spacing: 0;
   text-align: center;
 }
 
-
 .popup-events {
-  padding: 10px 50px;
+  padding: 0px 50px;
 }
 
-
 .popup-events h4 {
-  margin-bottom: 10px;
-  font-family: 'Lato', sans-serif;
+  margin-bottom: 0.4rem;
+  font-family: "Lato", sans-serif;
   font-weight: 500;
   font-size: 18.33px;
-  line-height: 26px;
+  /* line-height: 26px; */
   letter-spacing: 0;
 }
 
@@ -111,7 +109,7 @@
 }
 
 .home-btn {
-  background: #1163C7;
+  background: #1163c7;
   color: white;
   padding: 14px;
   font-size: 16px;
@@ -123,7 +121,6 @@
   width: 40%;
 }
 
-
 .ref-card {
   max-width: 600px;
   width: 100%;
@@ -131,14 +128,14 @@
   overflow: hidden;
   background: #ffffff;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-  font-family: 'Lato', sans-serif;
-  margin: 20px auto;
+  font-family: "Lato", sans-serif;
+  margin: 10px auto;
   border: 2px solid #e4f0ff;
 }
 
 .ref-header {
-  background-color: #DBECFF;
-  padding: 14px 20px;
+  background-color: #dbecff;
+  padding: 10px 20px;
   text-align: center;
   font-weight: 600;
   font-size: 16px;
@@ -152,7 +149,7 @@
 .ref-row {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
   flex-wrap: wrap;
   border-radius: 10px;
   align-items: flex-start;
@@ -161,13 +158,12 @@
   /* spacing for smaller screens */
 }
 
-.ref-row>div {
+.ref-row > div {
   flex: 0 0 48%;
   /* each column gets 48% width */
   text-align: left;
   /* ensure all start from left */
 }
-
 
 .ref-label {
   font-size: 14px;
@@ -199,7 +195,7 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  color: #172A39;
+  color: #172a39;
 }
 
 .ref-divider {
@@ -245,7 +241,7 @@
     gap: 10px;
   }
 
-  .ref-row>div {
+  .ref-row > div {
     flex: 0 0 48%;
     /* always 2 columns even on mobile */
     min-width: 140px;
@@ -265,7 +261,7 @@
     gap: 10px;
   }
 
- .hide-on-mobile {
+  .hide-on-mobile {
     display: none !important;
   }
 
@@ -299,7 +295,7 @@
     gap: 10px;
   }
 
-  .ref-row>div {
+  .ref-row > div {
     flex: 1 1 100%;
   }
 

@@ -58,15 +58,6 @@ function VenuePage() {
     const auth = useSelector((state) => state.auth);
     const { data, isLoading, isError, error } = useFetchVenue(auth?.id || null);
 
-    // const {
-    //     data,
-    //     isLoading,
-    //     isError,
-    //     error
-    // } = useQuery({
-    //     queryKey: ["venueList"],
-    //     queryFn: fetchVenueList,
-    // });
 
     const {
         data: sportsDataResponse,

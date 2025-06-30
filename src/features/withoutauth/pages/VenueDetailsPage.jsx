@@ -34,8 +34,8 @@ const mapVenueData = (apiData) => {
         name: apiData?.venue_name || "Unknown Venue",
         location: apiData?.area || "Unknown Area",
         about: apiData?.about_venue || "No description available for this venue.",
-        rating: parseFloat(apiData?.average_rating) || 0, 
-        reviewcount: apiData?.review_count || 0, 
+        rating: parseFloat(apiData?.average_rating) || 0,
+        reviewcount: apiData?.review_count || 0,
         timing: `${formatTime(apiData?.start_time || '06:00:00')} - ${formatTime(apiData?.end_time || '22:00:00')}`,
         price: parseFloat(apiData?.pricing) || 1100,
         address: `${apiData?.full_address || ''}, ${apiData?.area || ''}, ${apiData?.city || ''}, ${apiData?.state || ''} - ${apiData?.pincode || ''}`.trim().replace(/^,|,$/g, '')
@@ -197,7 +197,7 @@ function VenueDetailsPage() {
                 <div className="venue-wrapper">
                     <div className="venue-left">
                         <div className="carousel">
-                            <img src={venue.images[imageIndex]} alt="venue" className="carousel-img" onError={(e) => (e.target.src = venueImage)} />
+                            <img src={venue.images[imageIndex]} alt="venue" className="carousel-image" onError={(e) => (e.target.src = venueImage)} />
                             {/* <div className="carousel-controls"> */}
                             <div
                                 className="carousel-hover left"
@@ -243,11 +243,11 @@ function VenueDetailsPage() {
                             </div>
 
                             {/* PriceChart Model */}
-                            {isModalOpen && (                          
-                                        <PriceChart
-                                            onClose={closeModal}
-                                            venueId={id}
-                                            sportId={selectedSportId} />
+                            {isModalOpen && (
+                                <PriceChart
+                                    onClose={closeModal}
+                                    venueId={id}
+                                    sportId={selectedSportId} />
                             )}
                         </div>
 
@@ -255,7 +255,7 @@ function VenueDetailsPage() {
                             <div className='sports-wrapper'>
                                 <div className="sports-header">
                                     <strong>About</strong>
-                                    
+
                                 </div>
                                 {venue.about}
                             </div>
