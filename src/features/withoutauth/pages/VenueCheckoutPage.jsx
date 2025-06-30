@@ -352,7 +352,11 @@ function VenueCheckoutPage() {
                                     <button
                                         key={sport.sportId}
                                         className={`vb-sport-btn ${selectedSport === sport.sportId ? 'active' : ''}`}
-                                        onClick={() => setSelectedSport(sport.sportId)}
+                                        onClick={() => {
+                                            setSelectedSport(sport.sportId);
+                                            setSelectedDuration(1);
+                                            setSelectedTime(null);
+                                        }}
                                     >
                                         {sport.name}
                                     </button>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../StyleSheets/Favorites.css';
 import { useSelector } from 'react-redux';
 import { useQuery } from '@tanstack/react-query';
-import { fetchFavoriteVenue } from '../../../services/LoginApi/FavouritesVenueApi.js/endpointApi';
+import { fetchFavoriteVenue } from '../../../services/LoginApi/FavouritesVenueApi/endpointApi';
 import { fetchfavoriteSport } from '../../../services/LoginApi/FavouriteSportApi/endpointApi.js';
 import FavoriteVenueCard from '../components/FavoriteVenueCard';
 import CricketLogo from "../assets/VenueCardLogo/CricketLogo.png";

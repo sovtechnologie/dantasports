@@ -1,5 +1,5 @@
-import { useMutation } from '@tanstack/react-query';
-import { removeFavoriteVenue } from '../../services/LoginApi/FavouritesVenueApi.js/endpointApi';
+import { useMutation } from "@tanstack/react-query";
+import { removeFavoriteVenue } from "../../services/LoginApi/FavouritesVenueApi/endpointApi";
 
 export const useUnlikeVenue = (options = {}) => {
   return useMutation({
@@ -9,6 +9,6 @@ export const useUnlikeVenue = (options = {}) => {
       }
       return await removeFavoriteVenue(favouriteVenueId);
     },
-    ...options
+    ...options,
   });
 };
