@@ -7,7 +7,7 @@ import { useFetchSingleVenue } from "../../../hooks/VenueList/useFetchSingleVenu
 import { useCreateVenueBooking } from "../../../hooks/BookingVenue/useCreateVenueBooking.js";
 
 
-const ConfirmSlotCard = ({ onClose, onSuccess, payload }) => {
+const ConfirmSlotCard = ({ onClose, onSuccess, payload, setBookingId }) => {
   const { sportId, venueId, selectedDate, selectedDuration, selectedTime, selectedPitch } = payload;
   const isLoggedIn = Boolean(Cookies.get('token'));
   console.log("myPayload", payload)
@@ -42,7 +42,12 @@ const ConfirmSlotCard = ({ onClose, onSuccess, payload }) => {
     };
 
     createBooking(bookingPayload, {
-      onSuccess: (data) => onSuccess(data),
+      onSuccess: (data) => {
+        const id = data?.result?.insertId;
+        onSuccess(id);
+        // setBookingId(data?.result?.insertId);
+        console.log("My Booking Id", data?.result?.insertId);
+      },
       onError: (error) => alert('Booking failed. ' + (error.message || '')),
     });
 

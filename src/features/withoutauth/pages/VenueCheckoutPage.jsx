@@ -78,6 +78,7 @@ function VenueCheckoutPage() {
     const [selectedDuration, setSelectedDuration] = useState(1);
     const [selectedPitch, setSelectedPitch] = useState('');
     const [slideInterval, setSlideInterval] = useState(null);
+    const [bookingId, setBookingId] = useState(null);
     const [start, setStart] = useState(0);
     const [errors, setErrors] = useState({
         sport: '',
@@ -245,6 +246,7 @@ function VenueCheckoutPage() {
     }, [sportIdFromLink]);
 
 
+    console.log("Parent showPopup:", showPopup, "BookingId:", bookingId);
 
     if (loading) return <div>Loading venue details...</div>;
     if (error) return <div>Error loading venue details</div>;
@@ -397,7 +399,12 @@ function VenueCheckoutPage() {
                         <button className="vb-proceed-btn" onClick={handleProceedClick}>PROCEED</button>
 
                         {isModalOpen && (
-                            <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
+                            <div className="modal-overlay" onClick={(e) => {
+                                // Only close if overlay itself is clicked
+                                if (e.target === e.currentTarget) {
+                                    setIsModalOpen(false);
+                                }
+                            }}>
                                 <div className="modal-content" onClick={(e) => e.stopPropagation()} >
                                     <ConfirmSlotCard
                                         payload={myBookingPayload} // ✅ Your payload here
@@ -409,8 +416,9 @@ function VenueCheckoutPage() {
                                             setSelectedPitch('');
                                         }
                                         }
-                                        onSuccess={() => {
+                                        onSuccess={(id) => {
                                             console.log("Booking payload:", myBookingPayload); // ✅ To verify
+                                            setBookingId(id)
                                             setShowPopup(true);
                                             setIsModalOpen(false);
                                             setSelectedSport('');
@@ -418,6 +426,7 @@ function VenueCheckoutPage() {
                                             setSelectedTime(null);
                                             setSelectedPitch('');
                                         }}
+                                        setBookingId={setBookingId}
                                     />
 
                                 </div>
@@ -425,6 +434,7 @@ function VenueCheckoutPage() {
                         )}
                         <CheckoutModal
                             isOpen={showPopup}
+                            bookingId={bookingId}
                             onClose={() => setShowPopup(false)}
                         />
 

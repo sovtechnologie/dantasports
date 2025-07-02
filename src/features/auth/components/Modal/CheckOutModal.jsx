@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../StyleSheets/CheckOutModal.css";
 import venueImage from "../../assets/image.png";
-import editIcon from "../../assets/Edit Square.png"
+import editIcon from "../../assets/Edit Square.png";
+import { usePaymentDetails } from "../../../../hooks/Payments/usePaymentDetails.js";
+import { useCreatePayment } from "../../../../hooks/Payments/useCreatePayment.js";
 
 const booking = {
     image: venueImage,
@@ -17,20 +19,93 @@ const booking = {
     total: 1130
 };
 
+// Helper functions
+function formatTime(start, duration) {
+    const [h, m] = start.split(":").map(Number);
+    const startDT = new Date();
+    startDT.setHours(h, m, 0, 0);
+    const endDT = new Date(startDT.getTime() + duration * 60000);
+    const opts = { hour: "2-digit", minute: "2-digit" };
+    return `${startDT.toLocaleTimeString([], opts)} – ${endDT.toLocaleTimeString([], opts)}`;
+}
+
+function formatDate(dateStr) {
+    return new Date(dateStr).toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+    });
+}
+
+const mapBookingResponse = (api) => ({
+    image: api.cover_image,           // use cover_image
+    name: api.venue_name,
+    time: formatTime(api.start_time, api.duration),
+    date: formatDate(api.date),
+    size: api.court_name,
+    sport: api.sports_name,
+    onRemove: () => { /* your code */ },
+    onEdit: () => { /* your code */ },
+    contact: {
+        name: api.full_name,
+        phone: api.mobile_number,
+        email: api.email,
+    },
+    price: {
+        court: api.total_price - api.convenience_fee,
+        fee: api.convenience_fee,
+    },
+    total: api.total_price,
+});
 
 
-export function CheckoutModal({ isOpen, onClose, }) {
-    const [selectedPayment, setPayment] = useState('googlepay');
-    const [selectedCard, setCard] = useState('axis-4578');
+
+
+
+export function CheckoutModal({ isOpen, onClose, bookingId }) {
+    console.log("CheckoutModal render, isOpen:", isOpen, bookingId);
+
+
+
+    // ⚠️ Always call hooks at top
     const [fitness, setFitness] = useState(false);
+    const { data, error, isLoading } = usePaymentDetails(bookingId);
+    const {
+        mutate: createPayment,
+        data: paymentResponse,
+        isLoading: paymentLoading,
+        isError: paymentError
+    } = useCreatePayment();
+
+    const handlePay = () => {
+        if (!bookingId)
+            return;
+        createPayment(bookingId);
+    }
+
+    const paymentUrl = paymentResponse?.url;
+
+    // ⚠️ Open payment URL in new tab once it's available
+    useEffect(() => {
+        if (paymentUrl) {
+            window.open(paymentUrl, "_blank");
+        }
+    }, [paymentUrl]);
 
     if (!isOpen) return null;
 
-    const handlePay = () => {
-        // handle payment logic
-        console.log({ selectedPayment, selectedCard, fitness });
-    };
+    const details = data?.result?.[0];
+    console.log("payment detais", details)
+    // 2. Data loading or error states
+    if (isLoading) return <div>Loading booking data…</div>;
+    if (error) return <div>Error loading booking: {error.message}</div>;
 
+    // 3. Extract the first result
+    const response = data?.result?.[0];
+    if (!response) return <div>No booking data available.</div>;
+
+    // 4. Now map to booking safely
+    const booking = mapBookingResponse(response);
     return (
         <div className="modal-backdrop">
             <div className="modal">
@@ -74,30 +149,6 @@ export function CheckoutModal({ isOpen, onClose, }) {
                             </div>
                         </div>
 
-                        {/* <div className="price-details">
-                            <div>
-                                <span>Court price</span>
-                                <span>₹{booking.price.court}</span>
-                            </div>
-                            <div>
-                                <span>Convenience fee</span>
-                                <span>₹{booking.price.fee}</span>
-                            </div>
-                            <label className="fitness">
-                                <input
-                                    type="checkbox"
-                                    checked={fitness}
-                                    onChange={() => setFitness(!fitness)}
-                                />
-                                Fitness cover fee (₹10/session)
-                                <span>₹10</span>
-                            </label>
-                            <button className="apply-coupon">Apply coupon</button>
-                            <div className="total">
-                                <span>Total amount</span>
-                                <strong>₹{booking.total + (fitness ? 10 : 0)}</strong>
-                            </div>
-                        </div> */}
 
                         <div className="price-card">
                             <h4 className="price-card__header">Price details</h4>
