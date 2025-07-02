@@ -19,9 +19,22 @@ import { formatTime } from '../../../utils/formatTime.js';
 import { useBanner } from '../../../hooks/useBanner.js';
 import { useSportDetails } from '../../../hooks/favouriteSport/useSportDetails.js';
 import { formatDate } from "../../../utils/formatDate.js";
+import { CheckoutModal } from "../../auth/components/Modal/CheckOutModal.jsx";
 
 
-
+const booking = {
+    image: venueImage,
+    name: 'Red Meadows',
+    time: '09:00 am – 10:00 am',
+    date: '04 Sep 2024',
+    size: '5x5',
+    sport: 'Football',
+    onRemove: () => { },
+    onEdit: () => { },
+    contact: { name: 'Jane Cooper', phone: '+91 8085550833', email: 'janec@example.com' },
+    price: { court: 1100, fee: 30 },
+    total: 1130
+};
 
 
 
@@ -427,10 +440,10 @@ function VenueCheckoutPage() {
                                 </div>
                             </div>
                         )}
-                        <BookingPopupCard
-                            show={showPopup}
+                        <CheckoutModal
+                            isOpen={showPopup}
                             onClose={() => setShowPopup(false)}
-                            bookingData={BookingData}
+                            bookingData={booking}
                         />
 
                     </div>

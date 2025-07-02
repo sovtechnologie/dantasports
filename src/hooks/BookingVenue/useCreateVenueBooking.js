@@ -4,18 +4,17 @@ import { createBooking } from "../../services/LoginApi/BookingApi/endpointsApi";
 export const useCreateVenueBooking = ({ payload }) => {
   return useMutation({
     mutationKey: ["createVenueBooking"],
-    mutationFn: (sportsIds) => {
-      if (!Array.isArray(sportsIds)) {
-        throw new Error("sportsIds must be an array of IDs");
+    mutationFn: (payload) => {
+      if (!payload) {
+        throw new Error("paylaod must be an required");
       }
-      return AddfavoriteSport({ sportsId: sportsIds });
+      return createBooking({ payload });
     },
     onSuccess: (data) => {
-      console.log("Sports added successfully:", data);
-      queryClient.invalidateQueries(["favoritesSport"]);
+      console.log("Venue Booked successfully:", data);
     },
     onError: (error) => {
-      console.error("Error adding sports:", error);
+      console.error("Error Create Booking:", error);
     },
   });
 };

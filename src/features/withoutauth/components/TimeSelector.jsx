@@ -119,6 +119,11 @@ const TimeSelector = ({ selectedDate, selectedDuration, setSelectedDuration, sel
   return (
     <div className="ts-wrapper">
       <div className="ts-header">
+        <div className="ts-time">
+          <span>Time:</span>
+          <input value={selectedTime ? selectedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '--:--'} disabled />
+        </div>
+
         <div className="ts-control">
           <span>Duration:</span>
           <div className='ts-button'>
@@ -128,10 +133,7 @@ const TimeSelector = ({ selectedDate, selectedDuration, setSelectedDuration, sel
           </div>
 
         </div>
-        <div className="ts-time">
-          <span>Time:</span>
-          <input value={selectedTime ? selectedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '--:--'} disabled />
-        </div>
+
       </div>
 
       {/* <div className="ts-session-buttons">
@@ -158,20 +160,20 @@ const TimeSelector = ({ selectedDate, selectedDuration, setSelectedDuration, sel
         ))}
       </div>
 
-      <div className="ts-bar">
+      {/* <div className="ts-bar">
         {timeSlots.map((slot, i) => {
-          // const slotTime = slot.getTime();
-          // const selectedStart = selectedTime?.getTime();
-          // const selectedEnd = selectedStart + selectedDuration * 3600000;
+          const slotTime = slot.getTime();
+          const selectedStart = selectedTime?.getTime();
+          const selectedEnd = selectedStart + selectedDuration * 3600000;
 
           let color = 'green';
-          // if (selectedTime && slotTime >= selectedStart && slotTime < selectedEnd) {
-          //   color = 'red';
-          // }
+          if (selectedTime && slotTime >= selectedStart && slotTime < selectedEnd) {
+            color = 'red';
+          }
 
           return <div key={i} className="ts-segment" style={{ backgroundColor: color }}></div>;
         })}
-      </div>
+      </div> */}
     </div>
   );
 };
