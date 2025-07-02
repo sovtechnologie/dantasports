@@ -21,11 +21,21 @@ const Footer = () => {
             <h2>Danta Sports</h2>
             <p>India's Leading<br />Sports Venue Booking App</p>
             <div className="footer-socials">
-              <Link to="#"><img src={facebookLogo} alt="Facebook" /></Link>
-              <Link to="#"><img src={instagramLogo} alt="Instagram" /></Link>
-              <Link to="#"><img src={googleLogo} alt="Google" /></Link>
-              <Link to="#"><img src={twitterLogo} alt="Twitter" /></Link>
-              <Link to="#"><img src={linkedinLogo} alt="LinkedIn" /></Link>
+              <a href="" target="_blank" rel="noopener noreferrer">
+                <img src={facebookLogo} alt="Facebook" />
+              </a>
+              <a href=" https://www.instagram.com/dantasports?igsh=MXRnNWg0cmNsN3BycQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">
+                <img src={instagramLogo} alt="Instagram" />
+              </a>
+              <a href="" target="_blank" rel="noopener noreferrer">
+                <img src={googleLogo} alt="Google" />
+              </a>
+              <a href="" target="_blank" rel="noopener noreferrer">
+                <img src={twitterLogo} alt="Twitter" />
+              </a>
+              <a href="https://www.linkedin.com/company/dantasports/" target="_blank" rel="noopener noreferrer">
+                <img src={linkedinLogo} alt="LinkedIn" />
+              </a>
             </div>
           </div>
         </div>
@@ -35,10 +45,9 @@ const Footer = () => {
             <h4>Company</h4>
             <ul>
               <li><Link to="/about">About us</Link></li>
-              <li><Link to="/learn">Learn</Link></li>
               <li><Link to="/contact">Contact</Link></li>
-              <li><Link to="/careers">Careers</Link></li>
-              <li><Link to="/partner">Partner With us</Link></li>
+              <li><Link to="/Partner">Partner With us</Link></li>
+              <li><Link to="CorporateBooking">Corporate Booking</Link></li>
             </ul>
           </div>
           <div>
@@ -52,19 +61,19 @@ const Footer = () => {
               <li><Link to="/gym">Gym</Link></li>
             </ul>
           </div>
-          <div>
+          {/* <div>
             <h4>Our communities</h4>
             <ul>
               <li><Link to="/communities">MM Communities</Link></li>
               <li><Link to="/forum">MM Forum</Link></li>
               <li><Link to="/chat">MM Chat</Link></li>
             </ul>
-          </div>
+          </div> */}
           <div>
             <h4>Contact</h4>
             <ul>
-              <li><img src={phonelogo} alt='phonelogo'></img>+123 456 7890</li>
-              <li><img src={emailLogo} alt='emaillogo'/>support@mm.com</li>
+              <li><img src={phonelogo} alt='phonelogo'></img>+91-8884803877</li>
+              <li><img src={emailLogo} alt='emaillogo' />contact@dantasports.com</li>
             </ul>
           </div>
         </div>
@@ -73,10 +82,8 @@ const Footer = () => {
       <div className="footer-bottom">
         <p>© 2025 Danta Sports. All rights reserved.</p>
         <ul>
-          <li>Privacy Policy</li>
-          <li>Terms of Use</li>
-          <li>Legal</li>
-          <li>Site Map</li>
+          <li><Link to="/PrivacyAndPolicy">Privacy Policy</Link></li>
+          <li><Link to="/TermsAndConditions">Terms of Use</Link></li>
         </ul>
       </div>
     </footer>

@@ -17,9 +17,12 @@ const ProfilePage = lazy(() => import('../features/auth/pages/ProfilePage'));
 const MyBooking = lazy(() => import("../features/auth/pages/MyBooking"));
 const Favorites = lazy(() => import('../features/auth/pages/Favorites'));
 const PlayedGames = lazy(() => import('../features/auth/pages/PlayedGames'));
-const EditProfile = lazy(()=>import('../features/auth/components/EditProfile'));
+const EditProfile = lazy(() => import('../features/auth/components/EditProfile'));
 const CorporateBookingPage = lazy(() => import('../features/withoutauth/pages/CorporateBookingPage'));
 const PartnerPage = lazy(() => import("../features/withoutauth/pages/PartnerPage"));
+const PrivacyAndPolicy = lazy(() => import("../pages/PrivacyAndPolicy"));
+const TermsAndConditions = lazy(() => import("../pages/TermsAndConditions"))
+
 
 // Private Route to protected the route
 const PrivateRoute = lazy(() => import('../features/auth/components/PrivateRoute'));
@@ -44,6 +47,9 @@ export default function AppRoutes() {
                 <Route path="/venueCheckout/:id" element={<VenueCheckoutPage />} />
                 <Route path='/CorporateBooking' element={<CorporateBookingPage />} />
                 <Route path='/Partner' element={<PartnerPage />} />
+                <Route path='/PrivacyAndPolicy' element={<PrivacyAndPolicy />} />
+                <Route path='/TermsAndConditions' element={<TermsAndConditions />} />
+
                 {/* Auth Routes */}
                 {/* <Route path="/profile/:id" element={<ProfilePage />} /> */}
                 <Route element={<PrivateRoute />}>

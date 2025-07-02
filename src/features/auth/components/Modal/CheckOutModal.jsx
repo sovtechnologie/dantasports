@@ -34,82 +34,9 @@ export function CheckoutModal({ isOpen, onClose, }) {
     return (
         <div className="modal-backdrop">
             <div className="modal">
+                {/* <div className="checkoutModalHeading">CheckOut</div> */}
                 <button className="close-btn" onClick={onClose}>×</button>
                 <div className="modal-body">
-                    <div className="left-panel">
-                        <h2>CheckOut</h2>
-                        <h2>Payment Method</h2>
-                        <div className="method-list">
-                            <button
-                                className={selectedPayment === 'googlepay' ? 'active' : ''}
-                                onClick={() => setPayment('googlepay')}
-                            >Google Pay</button>
-                            <button
-                                className={selectedPayment === 'phonepe' ? 'active' : ''}
-                                onClick={() => setPayment('phonepe')}
-                            >PhonePe</button>
-                            <button
-                                className={selectedPayment === 'upi-new' ? 'active' : ''}
-                                onClick={() => setPayment('upi-new')}
-                            >Add New UPI ID</button>
-                            <button
-                                className={selectedPayment === 'card' ? 'active' : ''}
-                                onClick={() => setPayment('card')}
-                            >Debit Card</button>
-                        </div>
-
-                        {selectedPayment === 'card' && (
-                            <div className="card-list">
-                                <label>
-                                    <input
-                                        type="radio"
-                                        name="card"
-                                        value="axis-4578"
-                                        checked={selectedCard === 'axis-4578'}
-                                        onChange={() => setCard('axis-4578')}
-                                    />
-                                    Axis Bank **** 4578
-                                </label>
-                                <label>
-                                    <input
-                                        type="radio"
-                                        name="card"
-                                        value="hdfc-4521"
-                                        checked={selectedCard === 'hdfc-4521'}
-                                        onChange={() => setCard('hdfc-4521')}
-                                    />
-                                    HDFC Bank **** 4521
-                                </label>
-                                <button
-                                    className={selectedPayment === 'new-card' ? 'active' : ''}
-                                    onClick={() => setPayment('new-card')}
-                                >
-                                    + Add New Card
-                                </button>
-                                {selectedPayment === 'new-card' && (
-                                    <div className="new-card-form">
-                                        <input type="text" placeholder="Cardholder Name" />
-                                        <input type="text" placeholder="Card Number" maxLength="19" />
-                                        <div className="inline-fields">
-                                            <input type="text" placeholder="MM/YY" maxLength="5" />
-                                            <input type="text" placeholder="CVV" maxLength="4" />
-                                        </div>
-                                        {/* <button className="save-card" onClick={handleSaveCard}>
-                                            Save & Use Card
-                                        </button> */}
-                                    </div>
-                                )}
-
-                            </div>
-                        )}
-
-                        <h3>More Payment Options</h3>
-                        <div className="more-methods">
-                            <button>Amazon Pay</button>
-                            <button>CRED Pay</button>
-                            <button>Pay at Venue</button>
-                        </div>
-                    </div>
                     <div className="right-panel">
                         <div className="booking-card">
                             <img className="booking-card__img" src={booking.image} alt={booking.name} />

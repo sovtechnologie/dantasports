@@ -8,9 +8,9 @@
   z-index: 1000;
 }
 .modal {
-  width: 90%;
-  max-width: 1000px;
-  background: #fff;
+  width: 100%;
+  max-width: 500px;
+  background: #f1f3f2;
   border-radius: 8px;
   position: relative;
   padding: 20px;
@@ -29,49 +29,16 @@
 .modal-body {
   display: flex;
 }
-.left-panel,
+
 .right-panel {
   padding: 20px;
   overflow-y: auto;
 }
-.left-panel {
-  flex: 1;
-  border-right: 1px solid #eee;
-}
+
 .right-panel {
   width: 400px;
 }
 
-.method-list button,
-.more-methods button {
-  width: 100%;
-  text-align: left;
-  padding: 10px;
-  margin: 5px 0;
-  border: 1px solid #ddd;
-  background: #fff;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.method-list .active {
-  border-color: #0055ff;
-  background: #f0f9ff;
-}
-.card-list label {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-top: 10px;
-}
-.card-list .add-card {
-  margin-top: 10px;
-  background: transparent;
-  border: none;
-  color: #0055ff;
-  cursor: pointer;
-}
 /* BookingSummaryCard.css */
 .booking-card {
   display: flex;
@@ -246,12 +213,12 @@ hr {
 }
 
 .pay-now {
-  width: 100%;
-  background: #0055ff;
+  width: 70%;
+  background: #1163c7;
   color: white;
   padding: 15px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
 }
 .new-card-form {

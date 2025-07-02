@@ -11,6 +11,11 @@ const ConfirmSlotCard = ({ onClose, onSuccess, payload }) => {
   const { sportId, venueId, selectedDate, selectedDuration, selectedTime, selectedPitch } = payload;
   const isLoggedIn = Boolean(Cookies.get('token'));
   console.log("myPayload", payload)
+  const {
+    mutate: createBooking,
+    isLoading: bookingLoading,
+    error: bookingError
+  } = useCreateVenueBooking();
 
   const timeOnly = selectedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
@@ -27,7 +32,20 @@ const ConfirmSlotCard = ({ onClose, onSuccess, payload }) => {
       alert('Please log in to proceed.')
       return;
     }
-    onSuccess();
+    const bookingPayload = {
+      sportId: 2,
+      venueId: 1,
+      date: selectedDate,
+      startTime: timeOnly,
+      duration: selectedDuration,
+      courtId: 5,
+    };
+
+    createBooking(bookingPayload, {
+      onSuccess: (data) => onSuccess(data),
+      onError: (error) => alert('Booking failed. ' + (error.message || '')),
+    });
+
   }
 
   return (
@@ -46,10 +64,11 @@ const ConfirmSlotCard = ({ onClose, onSuccess, payload }) => {
 
         <button className="proceed-btn"
           onClick={handleProceed}
-          disabled={!isLoggedIn}
+          disabled={!isLoggedIn || bookingLoading}
           style={{ opacity: !isLoggedIn ? 0.6 : 1, cursor: !isLoggedIn ? 'not-allowed' : 'pointer' }}
-        >PROCEED</button>
+        > {bookingLoading ? 'Booking...' : 'PROCEED'}</button>
       </div>
+      {bookingError && <p className="error">Error: {bookingError.message}</p>}
       <div>
 
       </div>

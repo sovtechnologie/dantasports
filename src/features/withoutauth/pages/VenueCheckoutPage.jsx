@@ -22,23 +22,6 @@ import { formatDate } from "../../../utils/formatDate.js";
 import { CheckoutModal } from "../../auth/components/Modal/CheckOutModal.jsx";
 
 
-const booking = {
-    image: venueImage,
-    name: 'Red Meadows',
-    time: '09:00 am – 10:00 am',
-    date: '04 Sep 2024',
-    size: '5x5',
-    sport: 'Football',
-    onRemove: () => { },
-    onEdit: () => { },
-    contact: { name: 'Jane Cooper', phone: '+91 8085550833', email: 'janec@example.com' },
-    price: { court: 1100, fee: 30 },
-    total: 1130
-};
-
-
-
-
 
 
 const mapVenueData = (apiData) => {
@@ -443,7 +426,6 @@ function VenueCheckoutPage() {
                         <CheckoutModal
                             isOpen={showPopup}
                             onClose={() => setShowPopup(false)}
-                            bookingData={booking}
                         />
 
                     </div>

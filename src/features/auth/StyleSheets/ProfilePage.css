@@ -6,28 +6,9 @@
 }
 
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
   background-color: #f5f7f8;
   color: #333;
-}
-
-.Profile-heading {
-  display: flex;
-  flex-direction: row;
-  padding: 20px;
-  max-width: 1200px;
-  margin: auto;
-  flex-wrap: wrap;
-}
-
-.Profile-heading h1 {
-  font-family: 'Lato', sans-serif;
-  font-weight: 700;
-  font-size: 44px;
-  line-height: 36px;
-  letter-spacing: 0;
-  color: #172A39;
-
 }
 
 /* Container */
@@ -39,7 +20,6 @@ body {
   max-width: 1200px;
   margin: auto;
   flex-wrap: wrap;
-
 }
 
 /* Left Sidebar */
@@ -60,7 +40,9 @@ body {
   background: #ffffff;
   border-radius: 16px;
   padding: 16px 20px;
-  box-shadow: 0 0 0 2px #e0e0e0, 0 4px 8px rgba(0, 123, 255, 0.2);
+  box-shadow:
+    0 0 0 2px #e0e0e0,
+    0 4px 8px rgba(0, 123, 255, 0.2);
   border: 1px solid #d0e6ff;
   max-width: 500px;
   margin: auto;
@@ -112,7 +94,9 @@ body {
 .account-card {
   background-color: #ffffff;
   border-radius: 16px;
-  box-shadow: 0 0 0 2px #e0e0e0, 0 4px 8px rgba(0, 123, 255, 0.2);
+  box-shadow:
+    0 0 0 2px #e0e0e0,
+    0 4px 8px rgba(0, 123, 255, 0.2);
   max-width: 500px;
   margin: 40px auto;
   overflow: hidden;
@@ -140,7 +124,7 @@ body {
   width: 40px;
   height: 40px;
   background-color: #e5f0ff;
-  color: #DBECFF;
+  color: #dbecff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -150,7 +134,7 @@ body {
 }
 
 .account-label {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-size: 21.64px;
   line-height: 30.91px;
@@ -162,8 +146,6 @@ body {
   font-size: 30px;
   color: #999;
 }
-
-
 
 .sidebar-nav {
   display: flex;
@@ -200,14 +182,16 @@ body {
   background-image:
     linear-gradient(#fff, #fff),
     /* Inner background */
-    linear-gradient(90deg,
-      rgba(163, 208, 255, 0.870588) 10.58%,
-      #1163C7 31.73%,
-      #1163C7 72.12%,
-      #A3D0FF 92.31%);
+      linear-gradient(
+        90deg,
+        rgba(163, 208, 255, 0.870588) 10.58%,
+        #1163c7 31.73%,
+        #1163c7 72.12%,
+        #a3d0ff 92.31%
+      );
   /* Border gradient */
   background-origin: border-box;
-  background-clip: padding-box, border-box
+  background-clip: padding-box, border-box;
 }
 
 .account-option.active-tab {
@@ -216,11 +200,9 @@ body {
   color: #ffffff;
 }
 
-
 /* Responsive */
 @media (max-width: 768px) {
-
-   .Profile-heading {
+  .Profile-heading {
     flex-direction: column;
     padding: 16px;
     text-align: center;

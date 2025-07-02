@@ -17,18 +17,18 @@ import { useQuery } from '@tanstack/react-query';
 
 function ProfilePage() {
 
-  const {id} = useParams();
+  const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
- 
+
 
   const { data, isLoading: isFetching } = useQuery({
-      queryKey: ['profile'],
-      queryFn: fetchProfile,
-    });
-  
-    const profile = data?.data;
-    console.log(" my Profile data:", data);
+    queryKey: ['profile'],
+    queryFn: fetchProfile,
+  });
+
+  const profile = data?.data;
+  console.log(" my Profile data:", data);
 
   const handleLogout = () => {
     const confirmLogout = window.confirm("Are you sure you want to log out?");
@@ -51,12 +51,12 @@ function ProfilePage() {
     { label: 'Log out', icon: LogoutIcon, action: handleLogout }
   ];
 
-   if (isFetching) return <p>Loading profile...</p>;
+  if (isFetching) return <p>Loading profile...</p>;
   if (!profile) return <p>Error loading profile data.</p>;
 
   return (
     <>
-      <div className='Profile-heading'><h1>Profile </h1></div>
+
       <div className="profile-container">
         <aside className="sidebar">
           <div className="user-card">
