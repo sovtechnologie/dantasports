@@ -1,20 +1,21 @@
-.Terms-container {
+.Refund-container {
   max-width: 1000px;
   margin: auto;
   padding: 20px;
   font-family: sans-serif;
   line-height: 1.6;
+  margin-bottom: 15rem;
 }
 
-.Terms-container h1 {
+.Refund-container h1 {
   margin-bottom: 0.5em;
 }
 
-.Terms-container section {
+.Refund-container section {
   margin-top: 1.5em;
 }
 
-.Terms-container ul {
+.Refund-container ul {
   margin-left: 1.5em;
   list-style-type: disc;
 }

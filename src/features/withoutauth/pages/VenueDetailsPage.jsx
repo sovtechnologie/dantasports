@@ -267,7 +267,7 @@ function VenueDetailsPage() {
 
                         <div className="venue-actions">
                             <button className="venue-action-btn" onClick={Share} ><img src={ShareIcon} alt='share' className="venue-icon" style={{ marginLeft: "50px" }} />Share</button>
-                            <button className="venue-action-btn"><img src={LikeIcon} alt='like' className="venue-icon" /> Add To favourite</button>
+                            <button className="venue-action-btn"><img src={LikeIcon} alt='like' className="venue-icon" /> Favourite</button>
                         </div>
 
                         <div className="venue-timing-price">
@@ -292,7 +292,8 @@ function VenueDetailsPage() {
                         </div>
 
                         <div className="btn-group">
-                            <button className="btn-secondary">Corporate Booking</button>
+                            <Link to="/CorporateBooking" style={{ textDecoration: "none", color: "inherit" }}> <button className="btn-secondary">Corporate Booking</button>
+                            </Link>
                             <Link to={`/venueCheckout/${id}`} style={{ textDecoration: "none", color: "inherit" }}><button className="btn-primary" >Book Now</button></Link>
                         </div>
 

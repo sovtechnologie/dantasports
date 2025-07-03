@@ -6,9 +6,15 @@ import { useSportDetails } from "../../../hooks/favouriteSport/useSportDetails.j
 import { useFetchSingleVenue } from "../../../hooks/VenueList/useFetchSingleVenue.js";
 import { useCreateVenueBooking } from "../../../hooks/BookingVenue/useCreateVenueBooking.js";
 
+const getLocalIsoDate = date => {
+  const d = new Date(date);
+  d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+  return d.toISOString().split('T')[0];
+};
 
-const ConfirmSlotCard = ({ onClose, onSuccess, payload, setBookingId }) => {
+const ConfirmSlotCard = ({ onClose, onSuccess, payload }) => {
   const { sportId, venueId, selectedDate, selectedDuration, selectedTime, selectedPitch } = payload;
+  console.log("in my confirsmSlotCard", selectedDate)
   const isLoggedIn = Boolean(Cookies.get('token'));
   console.log("myPayload", payload)
   const {
@@ -18,6 +24,11 @@ const ConfirmSlotCard = ({ onClose, onSuccess, payload, setBookingId }) => {
   } = useCreateVenueBooking();
 
   const timeOnly = selectedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const timeRead = selectedTime.toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false
+  });
 
   const { data: sportDetails, isLoading: sportDetailLoading, error: sportDetailError } = useSportDetails(sportId);
   const { data: venueDetails, isLoading: venueDetailsLoading, error: VenueError } = useFetchSingleVenue(venueId);
@@ -35,8 +46,8 @@ const ConfirmSlotCard = ({ onClose, onSuccess, payload, setBookingId }) => {
     const bookingPayload = {
       sportId: 2,
       venueId: 1,
-      date: selectedDate,
-      startTime: timeOnly,
+      date: getLocalIsoDate(selectedDate),
+      startTime: timeRead,
       duration: selectedDuration,
       courtId: 5,
     };
@@ -63,7 +74,7 @@ const ConfirmSlotCard = ({ onClose, onSuccess, payload, setBookingId }) => {
           <p>sport:<span>{selectedSport.name}</span></p>
           <p>Duration: <span>{`${selectedDuration}min`}</span></p>
           <p>Time: <span>{timeOnly}</span></p>
-          <p>Day & Date: <span>{selectedDate}</span></p>
+          <p>Day & Date: <span>{getLocalIsoDate(selectedDate)}</span></p>
           <p>Court: <span>{selectedCourt.court_name}</span></p>
         </div>
 

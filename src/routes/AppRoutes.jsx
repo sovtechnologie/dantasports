@@ -21,7 +21,8 @@ const EditProfile = lazy(() => import('../features/auth/components/EditProfile')
 const CorporateBookingPage = lazy(() => import('../features/withoutauth/pages/CorporateBookingPage'));
 const PartnerPage = lazy(() => import("../features/withoutauth/pages/PartnerPage"));
 const PrivacyAndPolicy = lazy(() => import("../pages/PrivacyAndPolicy"));
-const TermsAndConditions = lazy(() => import("../pages/TermsAndConditions"))
+const TermsAndConditions = lazy(() => import("../pages/TermsAndConditions"));
+const RefundPolicy = lazy(() => import('../pages/RefundPolicy'));
 
 
 // Private Route to protected the route
@@ -49,6 +50,7 @@ export default function AppRoutes() {
                 <Route path='/Partner' element={<PartnerPage />} />
                 <Route path='/PrivacyAndPolicy' element={<PrivacyAndPolicy />} />
                 <Route path='/TermsAndConditions' element={<TermsAndConditions />} />
+                <Route path='/RefundPolicy' element={<RefundPolicy />} />
 
                 {/* Auth Routes */}
                 {/* <Route path="/profile/:id" element={<ProfilePage />} /> */}

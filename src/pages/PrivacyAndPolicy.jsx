@@ -2,11 +2,11 @@ import react from "react";
 import "../stylesheets/PrivacyAndPolicy.css"
 
 function PrivacyAndPolicy() {
-    let index = 0;
+
     return (
         <div className="privacy-container">
             <h1>Privacy & Policy</h1>
-            <p>Last updated: July 2, 2025</p>
+            {/* <p>Last updated: July 2, 2025</p> */}
 
             <section>
                 <p>In accordance with this privacy policy ("Policy"), Danta Sports Pvt. Ltd. and its colleagues, partners, successors, and authorized assigns ("Danta Sports," "we," "us," and "our") are dedicated to preserving your privacy. In this Policy, "you" refers to the users of the Danta Sports Platform (as defined below), regardless of whether you utilize the Platform's services or complete a transaction there ("Users"). The Policy outlines: (a) the kinds of data we might gather from you when you use our Platform to access or utilize our services (collectively, our "Services"), and (b) how we gather, use, preserve, safeguard, and disclose that data.</p>

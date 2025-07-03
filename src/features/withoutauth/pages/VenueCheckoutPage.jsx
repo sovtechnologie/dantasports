@@ -233,7 +233,7 @@ function VenueCheckoutPage() {
     const myBookingPayload = {
         sportId: selectedSport,
         venueId: id,
-        selectedDate: selectedDate?.toISOString().split('T')[0], // or format as needed
+        selectedDate: selectedDate, // or format as needed
         selectedDuration: selectedDuration * 60,
         selectedTime,
         selectedPitch,
@@ -246,7 +246,6 @@ function VenueCheckoutPage() {
     }, [sportIdFromLink]);
 
 
-    console.log("Parent showPopup:", showPopup, "BookingId:", bookingId);
 
     if (loading) return <div>Loading venue details...</div>;
     if (error) return <div>Error loading venue details</div>;
@@ -417,7 +416,7 @@ function VenueCheckoutPage() {
                                         }
                                         }
                                         onSuccess={(id) => {
-                                            console.log("Booking payload:", myBookingPayload); // ✅ To verify
+                                            // ✅ To verify
                                             setBookingId(id)
                                             setShowPopup(true);
                                             setIsModalOpen(false);
