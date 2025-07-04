@@ -45,11 +45,11 @@ const DownloadApp = () => {
                     {subtexts[subtextIndex]}
                 </p>
                 <div className="store-buttons">
-                    <a href="#" className="google-btn">
-                          <img src="https://img.icons8.com/color/48/000000/google-play.png" alt="Google Play" />
+                    <a href="https://play.google.com/store/apps" className="google-btn">
+                        <img src="https://img.icons8.com/color/48/000000/google-play.png" alt="Google Play" />
                         Google Play
                     </a>
-                    <a href="#" className="apple-btn">
+                    <a href="https://apps.apple.com/apps" className="apple-btn">
                         <img src="https://img.icons8.com/ios-filled/30/000000/mac-os.png" alt="Apple Store" />
                         Apple Store
                     </a>

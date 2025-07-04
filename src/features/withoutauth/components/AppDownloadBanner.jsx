@@ -10,14 +10,14 @@ const AppDownloadBanner = () => {
                     <h2>Get the Danta app for a seamless experience!</h2>
                 </div>
                 <div className="banner-buttons">
-                    <button className="store-button">
+                    <a href='https://play.google.com/store/apps' className="store-button">
                         <img src="https://img.icons8.com/color/48/000000/google-play.png" alt="Google Play" />
                         Google Play
-                    </button>
-                    <button className="store-button">
+                    </a>
+                    <a href='https://apps.apple.com/apps' className="store-button">
                         <img src="https://img.icons8.com/ios-filled/30/000000/mac-os.png" alt="Apple Store" />
                         Apple Store
-                    </button>
+                    </a>
                 </div>
             </div>
             <img src={waveImage} alt="Decoration" className="banner-bg" />
