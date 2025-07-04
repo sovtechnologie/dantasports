@@ -9,18 +9,18 @@ import qrImage from '../assets/QR_Code.png';
 const Login = ({ isModal = false, onSuccess = () => { }, onSwitchToRegister = () => { } }) => {
 
   // tempory code
-    const [showOtpPopup, setShowOtpPopup] = useState(false); // new state
-    const [otpJustSent, setOtpJustSent] = useState(false);
+  const [showOtpPopup, setShowOtpPopup] = useState(false); // new state
+  const [otpJustSent, setOtpJustSent] = useState(false);
 
-    // tempory code
+  // tempory code
 
 
-  
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [phone, setPhone] = useState('');
   const [otp, setOtp] = useState(null);
-  const [otpVerified,setOtpVerified] = useState(false);
+  const [otpVerified, setOtpVerified] = useState(false);
   const [validationErrors, setValidationErrors] = useState([]);
   const [whatsappAgree, setWhatsappAgree] = useState(true);
 
@@ -51,7 +51,7 @@ const Login = ({ isModal = false, onSuccess = () => { }, onSwitchToRegister = ()
     }
   }, [user, token]);
 
- const handleCopyOtp = () => {
+  const handleCopyOtp = () => {
     if (devOtp) {
       navigator.clipboard.writeText(devOtp.toString()); // Copy to clipboard
       setOtp(devOtp.toString()); // Auto-fill OTP input
@@ -60,12 +60,12 @@ const Login = ({ isModal = false, onSuccess = () => { }, onSwitchToRegister = ()
   };
 
 
-useEffect(() => {
-  if (devOtp && otpJustSent) {
-    setShowOtpPopup(true);
-    setOtpJustSent(false); // Reset flag after showing popup
-  }
-}, [devOtp, otpJustSent]);
+  useEffect(() => {
+    if (devOtp && otpJustSent) {
+      setShowOtpPopup(true);
+      setOtpJustSent(false); // Reset flag after showing popup
+    }
+  }, [devOtp, otpJustSent]);
 
   const validateLoginForm = () => {
     const errors = [];
@@ -92,7 +92,7 @@ useEffect(() => {
 
     try {
       await dispatch(sendOtp(phone)).unwrap();
-      setOtpJustSent(true);  
+      setOtpJustSent(true);
     } catch (err) {
       console.error("❌ Send OTP failed:", err);
       // alert(err);
@@ -118,18 +118,18 @@ useEffect(() => {
     }
   };
 
- const handlelogIn = () => {
-  if (!otpVerified) {
-    setValidationErrors(["Please verify the OTP before logging in."]);
-    setTimeout(() => setValidationErrors([]), 4000);
-    return;
-  }
+  const handlelogIn = () => {
+    if (!otpVerified) {
+      setValidationErrors(["Please verify the OTP before logging in."]);
+      setTimeout(() => setValidationErrors([]), 4000);
+      return;
+    }
 
-  if (isModal && onSuccess) {
-    onSuccess(); // Close modal
-    navigate('/');
-  }
-};
+    if (isModal && onSuccess) {
+      onSuccess(); // Close modal
+      navigate('/');
+    }
+  };
 
 
 
@@ -208,7 +208,8 @@ useEffect(() => {
               checked={whatsappAgree}
               onChange={() => setWhatsappAgree(!whatsappAgree)}
             />
-            <span>I agree to receive updates over WhatsApp</span>
+            <span>I agree to our{' '}
+              <a href="/TermsAndConditions">Terms of use</a> and <a href="/PrivacyAndPolicy">Privacy Policy</a></span>
           </div>
 
           {/* Sign Up Link */}
@@ -232,11 +233,11 @@ useEffect(() => {
         </div>
 
         {/* Right Side */}
-        <div className="right-panel">
+        {/* <div className="right-panel">
           <img src={qrImage} alt="QR Code" />
           <h3>Log in with QR code</h3>
           <p>Scan this with our App to log in instantly</p>
-        </div>
+        </div> */}
       </div>
     </div>
   );

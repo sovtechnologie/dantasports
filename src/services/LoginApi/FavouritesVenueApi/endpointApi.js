@@ -1,30 +1,32 @@
-
 import api from "../../api";
 
 export const fetchFavoriteVenue = async () => {
   try {
-    const response = await api.get('/user/favoriteVenue/getFavoriteVenueList');
+    const response = await api.get("user/favoriteVenue/getFavoriteVenueList");
     return response.data;
   } catch (error) {
     console.error("Error fetching favorite venue:", error);
     throw error;
   }
-}
+};
 
-export const addFavoriteVenue = async ({userId, venueId}) => {
+export const addFavoriteVenue = async ({ userId, venueId }) => {
   try {
-    const response = await api.post('/user/favoriteVenue/addFavoriteVenue', { userId,venueId });
+    const response = await api.post("user/favoriteVenue/addFavoriteVenue", {
+      userId,
+      venueId,
+    });
     return response.data;
   } catch (error) {
     console.error("Error adding favorite venue:", error);
     throw error;
   }
-}
+};
 
 export const removeFavoriteVenue = async (favoiritesVenueId) => {
   try {
-    const response = await api.post('/user/favoriteVenue/removeFavoritesVenue', {
-    favoiritesVenueId
+    const response = await api.post("user/favoriteVenue/removeFavoritesVenue", {
+      favoiritesVenueId,
     });
     return response.data;
   } catch (error) {
@@ -32,4 +34,3 @@ export const removeFavoriteVenue = async (favoiritesVenueId) => {
     throw error;
   }
 };
-

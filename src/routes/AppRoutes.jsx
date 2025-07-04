@@ -16,7 +16,6 @@ const VenueCheckoutPage = lazy(() => import('../features/withoutauth/pages/Venue
 const ProfilePage = lazy(() => import('../features/auth/pages/ProfilePage'));
 const MyBooking = lazy(() => import("../features/auth/pages/MyBooking"));
 const Favorites = lazy(() => import('../features/auth/pages/Favorites'));
-const PlayedGames = lazy(() => import('../features/auth/pages/PlayedGames'));
 const EditProfile = lazy(() => import('../features/auth/components/EditProfile'));
 const CorporateBookingPage = lazy(() => import('../features/withoutauth/pages/CorporateBookingPage'));
 const PartnerPage = lazy(() => import("../features/withoutauth/pages/PartnerPage"));
@@ -60,7 +59,7 @@ export default function AppRoutes() {
                         <Route path="edit-profile" element={<EditProfile />} />
                         <Route path="bookings" element={<MyBooking />} />
                         <Route path="favorites" element={<Favorites />} />
-                        <Route path="played-games" element={<PlayedGames />} />
+
                     </Route>
                 </Route>
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import '../StyleSheets/PlayedGames.css';
 
 const PlayedGames = () => {
   return (

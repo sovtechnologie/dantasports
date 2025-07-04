@@ -119,19 +119,13 @@ export function CheckoutModal({ isOpen, onClose, bookingId }) {
                                 <h3 className="booking-card__title">{booking.name}</h3>
                                 <p className="booking-card__time">{booking.time}, {booking.date}</p>
                                 <p className="booking-card__details">{booking.size}, {booking.sport}</p>
-                                <div className="booking-card__actions">
-                                    <button className="action-btn" onClick={booking.onRemove}>Remove</button>
-                                    <button className="action-btn" onClick={booking.onEdit}>Edit</button>
-                                </div>
                             </div>
                         </div>
 
                         <div className="contact-card">
                             <div className="contact-card__header">
                                 <h4>Contact info</h4>
-                                <button className="edit-btn" onClick={booking.onEdit}>
-                                    <img src={editIcon} alt="Edit" />
-                                </button>
+
                             </div>
                             <div className="contact-card__body">
                                 <div className="info-row">

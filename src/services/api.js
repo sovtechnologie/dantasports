@@ -1,10 +1,10 @@
-import axios from 'axios';
-import Cookies from 'js-cookie';
-import { handleLogout } from '../utils/authUtils';
-import {store} from "../redux/store.js"
+import axios from "axios";
+import Cookies from "js-cookie";
+import { handleLogout } from "../utils/authUtils";
+import { store } from "../redux/store.js";
 
 const api = axios.create({
-  baseURL: 'http://65.0.170.18:3000/api/v1', // replace with real API
+  baseURL: "https://qpcfbzrk62.execute-api.eu-north-1.amazonaws.com/api/v1/", // replace with real API
   // withCredentials: true,
 });
 
@@ -13,7 +13,7 @@ export default api;
 api.interceptors.request.use(
   (config) => {
     // Add any request interceptors here, e.g., adding auth tokens
-    const token = Cookies.get('token');
+    const token = Cookies.get("token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -31,11 +31,11 @@ api.interceptors.response.use(
   (error) => {
     const isUnauthorized =
       error.response?.status === 401 &&
-      error.response?.data?.message === 'Unauthorized';
+      error.response?.data?.message === "Unauthorized";
 
     if (isUnauthorized && !isLoggingOut) {
       isLoggingOut = true;
-      console.warn('Unauthorized access - logging out user');
+      console.warn("Unauthorized access - logging out user");
       handleLogout(store.dispatch); // Clear token and redirect
     }
 

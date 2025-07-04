@@ -10,7 +10,6 @@ import CalandarIcon from "../assets/CalanderIcon.png";
 import WorkIcon from "../assets/WorkIcon.png";
 import HelpIcon from "../assets/HelpIcon.png";
 import LogoutIcon from "../assets/logoutIcon.png";
-import SecurityIcon from "../assets/SecurityIcon.png";
 import { fetchProfile } from '../../../services/LoginApi/profileApi/endpointApi.js';
 import { useQuery } from '@tanstack/react-query';
 
@@ -42,11 +41,10 @@ function ProfilePage() {
   const options = [
     { label: 'My Bookings', icon: CalandarIcon, route: 'bookings' },
     { label: 'Favorites', icon: WorkIcon, route: 'favorites' },
-    { label: 'Played Games', icon: WorkIcon, route: 'played-games' }
+
   ];
 
   const options2 = [
-    { label: 'Login and Security', icon: SecurityIcon },
     { label: 'Help and Support', icon: HelpIcon },
     { label: 'Log out', icon: LogoutIcon, action: handleLogout }
   ];

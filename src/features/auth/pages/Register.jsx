@@ -24,9 +24,9 @@ const validateForm = (form) => {
   if (!form.gender) {
     errors.push('Gender is required.');
   }
-   if(!form.email){
+  if (!form.email) {
     errors.push('Email is required.');
-   }
+  }
 
   if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
     errors.push('Enter a valid email address (e.g. username@gmail.com).');
@@ -39,7 +39,7 @@ const validateForm = (form) => {
   return errors;
 };
 
-const Register = ({ isModal = false,onClose = () =>{}, onSuccess = () => { }, onSwitchToLogin = () => { } }) => {
+const Register = ({ isModal = false, onClose = () => { }, onSuccess = () => { }, onSwitchToLogin = () => { } }) => {
 
   // tempory code
   const [showOtp, setShowOtp] = useState(false); // new state
@@ -77,7 +77,7 @@ const Register = ({ isModal = false,onClose = () =>{}, onSuccess = () => { }, on
     }
   };
 
-    
+
 
   useEffect(() => {
     if (devOtp) {
@@ -85,10 +85,10 @@ const Register = ({ isModal = false,onClose = () =>{}, onSuccess = () => { }, on
     }
   }, [devOtp]);
 
-useEffect(() => {
-      dispatch(resetLoginState());
-      setShowOtp(false);
-    }, []);
+  useEffect(() => {
+    dispatch(resetLoginState());
+    setShowOtp(false);
+  }, []);
 
   // useEffect(() => {
   //   if (otpVerified) {
@@ -252,7 +252,7 @@ useEffect(() => {
                 <option value="Female">Female</option>
               </select>
 
-              <label htmlFor="email">Email address (Optional)</label>
+              <label htmlFor="email">Email address</label>
               <input name="email" id="email" value={form.email} onChange={handleChange} type="email" className='main-input' />
 
               <label htmlFor="referralCode">Referral Code (Optional)</label>
@@ -278,34 +278,34 @@ useEffect(() => {
                 </>
               )}
 
-              {/* <div className="checkbox-row">
-          <input
-            type="checkbox"
-            name="agreeTerms"
-            id="agreeTerms"
-            checked={form.agreeTerms}
-            onChange={handleChange}
-          />
-          <p>
-            By creating an account, I agree to our{' '}
-            <a href="#">Terms of use</a> and <a href="#">Privacy Policy</a>
-          </p>
-        </div> */}
+              <div className="checkbox-row">
+                <input
+                  type="checkbox"
+                  name="agreeTerms"
+                  id="agreeTerms"
+                  checked={form.agreeTerms}
+                  onChange={handleChange}
+                />
+                <p>
+                  By creating an account, I agree to our{' '}
+                  <a href="/TermsAndConditions">Terms of use</a> and <a href="/PrivacyAndPolicy">Privacy Policy</a>
+                </p>
+              </div>
 
-              {/* <div className="checkbox-row">
-          <input
-            type="checkbox"
-            name="agreeSMS"
-            id="agreeSMS"
-            checked={form.agreeSMS}
-            onChange={handleChange}
-          />
-          <p>
-            By creating an account, I am also consenting to receive SMS
-            messages and emails, including product new feature updates, events,
-            and marketing promotions.
-          </p>
-        </div> */}
+              <div className="checkbox-row">
+                <input
+                  type="checkbox"
+                  name="agreeSMS"
+                  id="agreeSMS"
+                  checked={form.agreeSMS}
+                  onChange={handleChange}
+                />
+                <p>
+                  By creating an account, I am also consenting to receive SMS
+                  messages and emails, including product new feature updates, events,
+                  and marketing promotions.
+                </p>
+              </div>
 
               {formErrors.length > 0 && (
                 <div className="error-list">
@@ -326,7 +326,7 @@ useEffect(() => {
                 <p className="login-link">
                   Already have an account?{' '}
                   {/* <button type="button" className="link-button" onClick={handleSwitchToRegister}> */}
-                    Log in
+                  Log in
                   {/* </button> */}
                 </p>
 

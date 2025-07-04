@@ -2,7 +2,7 @@ import api from "../../api";
 
 export const createPayment = async (bookingId) => {
   try {
-    const response = await api.post("/user/payment/createPayment", {
+    const response = await api.post("user/payment/createPayment", {
       bookingId,
     });
     return response?.data;
@@ -16,7 +16,7 @@ export const fetchpaymentandBookingDetails = async (bookingId) => {
   try {
     console.log("inapi", bookingId);
     const response = await api.post(
-      "/user/bookings/getPaymentAndBookingDetails",
+      "user/bookings/getPaymentAndBookingDetails",
       { bookingId }
     );
     return response?.data;

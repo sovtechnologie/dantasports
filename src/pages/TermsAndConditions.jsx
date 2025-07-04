@@ -187,7 +187,7 @@ function TermsAndConditions() {
                 </section>
                 <section>
                     <h2>XV.	CONTACT US</h2>
-                    <p>Please contact us for any questions or comments regarding the Terms of Use and other policies governing the Danta Sports Platform by e-mail at <a href="contact@dantasports.com">contact@dantasports.com</a></p>
+                    <p>Please contact us for any questions or comments regarding the Terms of Use and other policies governing the Danta Sports Platform by e-mail at <a href="mailto:contact@dantasports.com" target="_blank" rel="noopener noreferrer">contact@dantasports.com</a></p>
                 </section>
             </section>
         </div>

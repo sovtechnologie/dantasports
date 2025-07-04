@@ -3,7 +3,7 @@ import api from "../../api";
 export const createBooking = async ({ payload }) => {
   try {
     console.log("in api section payload", payload);
-    const response = await api.post("/user/bookings/createBookings", payload);
+    const response = await api.post("user/bookings/createBookings", payload);
     return response?.data;
   } catch (error) {
     console.error("Failed to create booking");
@@ -13,7 +13,7 @@ export const createBooking = async ({ payload }) => {
 
 export const cancelBooking = async ({ bookingId }) => {
   try {
-    const response = await api.post("/user/bookings/cancelBooking", {
+    const response = await api.post("user/bookings/cancelBooking", {
       bookingId,
     });
     return response?.data;
@@ -25,7 +25,7 @@ export const cancelBooking = async ({ bookingId }) => {
 
 export const getAllBookings = async ({ venueId }) => {
   try {
-    const response = await api.post("/user/bookings/getAllBookings", {
+    const response = await api.post("user/bookings/getAllBookings", {
       venueId,
     });
     return response?.data;
@@ -37,7 +37,7 @@ export const getAllBookings = async ({ venueId }) => {
 
 export const getBookingDetailsById = async ({ bookingId }) => {
   try {
-    const response = await api.post("/user/bookings/getBookingDetailsById", {
+    const response = await api.post("user/bookings/getBookingDetailsById", {
       bookingId,
     });
     return response?.data;

@@ -1,32 +1,30 @@
 import api from "../../api";
 
-
 export const fetchVenueList = async () => {
-
   try {
-    const response = await api.post('/home/venueList');
+    const response = await api.post("home/venueList");
     return response.data;
   } catch (error) {
     console.error("Failed to fetch Venue list:", error);
     throw error;
   }
-}
+};
 
-export const fetchVenueListByUserId = async (userId) =>{
+export const fetchVenueListByUserId = async (userId) => {
   try {
-     const response = await api.post('/home/venueList',{userId});
-      return response.data;
+    const response = await api.post("home/venueList", { userId });
+    return response.data;
   } catch (error) {
     console.error("Failed to fetch Venue list with favourite Venue:", error);
     throw error;
   }
-}
+};
 
 export const fetchVenueById = async (venueId) => {
   try {
-    console.log('📡 Sending venueId:', venueId);
+    console.log("📡 Sending venueId:", venueId);
 
-    const response = await api.post('/home/getSingleVenue', { venueId }); // JSON body
+    const response = await api.post("home/getSingleVenue", { venueId }); // JSON body
     return response.data;
   } catch (error) {
     console.error("❌ Failed to fetch venue:", error);
@@ -61,5 +59,3 @@ export const fetchVenueById = async (venueId) => {
 //     throw error;
 //   }
 // };
-
-
