@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import "../StyleSheets/ProfilePage.css";
 import { NavLink, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -12,6 +12,7 @@ import HelpIcon from "../assets/HelpIcon.png";
 import LogoutIcon from "../assets/logoutIcon.png";
 import { fetchProfile } from '../../../services/LoginApi/profileApi/endpointApi.js';
 import { useQuery } from '@tanstack/react-query';
+import TawkLoader from '../components/TawkLoade.jsx';
 
 
 function ProfilePage() {
@@ -19,6 +20,7 @@ function ProfilePage() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
 
   const { data, isLoading: isFetching } = useQuery({
@@ -28,6 +30,33 @@ function ProfilePage() {
 
   const profile = data?.data;
   console.log(" my Profile data:", data);
+
+  const toggleChat = useCallback(() => {
+    const api = window.Tawk_API;
+    if (api) {
+      if (isChatOpen) {
+        api.minimize();
+        api.shutdown();
+        setIsChatOpen(false);
+      } else if (typeof api.start === 'function') {
+        api.start({ showWidget: true });
+        setIsChatOpen(true);
+      }
+    } else {
+      console.warn('Tawk_API not ready');
+    }
+  }, [isChatOpen]);
+
+  // useEffect(() => {
+  //   if (!window.Tawk_API) return;
+
+  //   window.Tawk_API.onChatMinimized = () => setIsChatOpen(false);
+  //   window.Tawk_API.onChatEnded = () => setIsChatOpen(false);
+  //   window.Tawk_API.onChatMaximized = () => setIsChatOpen(true);
+  // }, []);
+
+
+
 
   const handleLogout = () => {
     const confirmLogout = window.confirm("Are you sure you want to log out?");
@@ -45,7 +74,7 @@ function ProfilePage() {
   ];
 
   const options2 = [
-    { label: 'Help and Support', icon: HelpIcon },
+    { label: 'Help and Support', icon: HelpIcon, action: toggleChat },
     { label: 'Log out', icon: LogoutIcon, action: handleLogout }
   ];
 
@@ -54,7 +83,7 @@ function ProfilePage() {
 
   return (
     <>
-
+      <TawkLoader />
       <div className="profile-container">
         <aside className="sidebar">
           <div className="user-card">

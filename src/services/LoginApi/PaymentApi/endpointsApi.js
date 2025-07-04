@@ -25,3 +25,15 @@ export const fetchpaymentandBookingDetails = async (bookingId) => {
     throw error;
   }
 };
+
+export const CancelBooking = async (bookingId) => {
+  try {
+    const response = await api.post("user/bookings/cancelBooking", {
+      bookingId,
+    });
+    return response?.data;
+  } catch (error) {
+    console.error("Failed to Cancel the Booking", error);
+    throw error;
+  }
+};

@@ -8,14 +8,18 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   margin: 25px 12px 0px 12px;
 }
 
 .info-card.hover-effect {
   box-shadow: 0 8px 24px rgba(17, 99, 199, 0.18);
   transform: scale(1.04) translateY(-5px);
-  transition: box-shadow 0.3s, transform 0.3s;
+  transition:
+    box-shadow 0.3s,
+    transform 0.3s;
 }
 
 .info-card:hover {
@@ -54,6 +58,25 @@
   margin: 4px 0 0 0;
   font-size: 16px;
   color: #6c757d;
+}
+
+.subtext {
+  font-family: "DM Sans", Arial, sans-serif;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 39.2px;
+  letter-spacing: 0;
+  color: #172a39;
+  margin-top: 0px;
+  transition:
+    opacity 0.4s,
+    transform 0.4s;
+  white-space: normal;
+  word-break: break-word;
+}
+.subtext-animate {
+  opacity: 0;
+  transform: translateY(-30px);
 }
 
 @media (max-width: 768px) {

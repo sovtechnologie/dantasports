@@ -46,3 +46,23 @@ export const getBookingDetailsById = async ({ bookingId }) => {
     throw error;
   }
 };
+
+export const getAllCancelBooking = async () => {
+  try {
+    const response = await api.get("user/bookings/getCancelBookings");
+    return response?.data;
+  } catch (error) {
+    console.error("Failed to fetch All cancel booking", error);
+    throw error;
+  }
+};
+
+export const getAllCompletedBooking = async () => {
+  try {
+    const response = await api.get("user/bookings/getCompleteBooking");
+    return response?.data;
+  } catch (error) {
+    console.error("Failed to fetch All completed Booking");
+    throw error;
+  }
+};

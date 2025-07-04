@@ -4,6 +4,8 @@ import venueImage from "../../assets/image.png";
 import editIcon from "../../assets/Edit Square.png";
 import { usePaymentDetails } from "../../../../hooks/Payments/usePaymentDetails.js";
 import { useCreatePayment } from "../../../../hooks/Payments/useCreatePayment.js";
+import { useCancelBooking } from "../../../../hooks/Payments/useCancelBooking.js";
+
 
 const booking = {
     image: venueImage,
@@ -77,6 +79,22 @@ export function CheckoutModal({ isOpen, onClose, bookingId }) {
         isError: paymentError
     } = useCreatePayment();
 
+    const {
+        mutate: cancelBooking,
+        data: cancelResponse,
+        isLoading: cancelLoading,
+        isError: cancelError
+    } = useCancelBooking();
+
+
+    const handleClose = () => {
+        if (!bookingId)
+            return;
+        cancelBooking(bookingId, {
+            onSuccess: () => onClose()
+        });
+    }
+
     const handlePay = () => {
         if (!bookingId)
             return;
@@ -110,7 +128,7 @@ export function CheckoutModal({ isOpen, onClose, bookingId }) {
         <div className="modal-backdrop">
             <div className="modal">
                 {/* <div className="checkoutModalHeading">CheckOut</div> */}
-                <button className="close-btn" onClick={onClose}>×</button>
+                <button className="close-btn" onClick={handleClose}>×</button>
                 <div className="modal-body">
                     <div className="right-panel">
                         <div className="booking-card">
