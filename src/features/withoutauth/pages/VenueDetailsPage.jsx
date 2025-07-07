@@ -16,7 +16,11 @@ import { formatTime } from '../../../utils/formatTime.js';
 import CustomMap from '../components/CustomMap.jsx';
 import { useBanner } from '../../../hooks/useBanner.js';
 import { Share } from '../../../utils/share.js';
-
+import HeartFilled from "../assets/VenueCardLogo/heartfilled.png";
+import { useSelector } from 'react-redux';
+import { useLikeVenue } from '../../../hooks/favouriteVenue/useLikeVenue.js';
+import { useUnlikeVenue } from '../../../hooks/favouriteVenue/useUnlikeVenue.js';
+import { useQueryClient } from '@tanstack/react-query';
 
 
 export const formatDate = (isoString) => {
@@ -37,7 +41,7 @@ const mapVenueData = (apiData) => {
         rating: parseFloat(apiData?.average_rating) || 0,
         reviewcount: apiData?.review_count || 0,
         timing: `${formatTime(apiData?.start_time || '06:00:00')} - ${formatTime(apiData?.end_time || '22:00:00')}`,
-        price: parseFloat(apiData?.pricing) || 1100,
+        price: parseFloat(apiData?.pricing) || 0,
         address: `${apiData?.full_address || ''}, ${apiData?.area || ''}, ${apiData?.city || ''}, ${apiData?.state || ''} - ${apiData?.pincode || ''}`.trim().replace(/^,|,$/g, '')
             || "Not Available",
         images: Array.isArray(apiData?.venue_gallery)
@@ -54,9 +58,11 @@ const mapVenueData = (apiData) => {
             { name: 'Pickle Ball', icon: pickleballIcon }],
         amenities: Array.isArray(apiData?.amenities)
             ? apiData.amenities.map((a) => a.name)
-            : ['Parking', 'Restroom', 'Changing Room', 'First Aid'],
+            : ["Not Available"],
         latitude: apiData?.latitude || 0,
         longitude: apiData?.longitude || 0,
+        favourite: apiData?.favourite,
+        favourite_venue_id: apiData?.favourite_venue_id,
         reviews: Array.isArray(apiData?.reviews)
             ? apiData.reviews.map((review) => ({
                 id: review.id,
@@ -65,7 +71,7 @@ const mapVenueData = (apiData) => {
                 comment: review.comment || "No comment provided",
                 date: formatDate(review.createdAt) || new Date().toISOString().split('T')[0],
             }))
-            : reviews.slice(0, 5), // Default to first 5 reviews if not available
+            : [{ comment: "Not Available" }], // Default to first 5 reviews if not available
     };
 };
 
@@ -74,12 +80,16 @@ const mapVenueData = (apiData) => {
 function VenueDetailsPage() {
 
     const { id } = useParams();
+    const queryClient = useQueryClient();
+    const userId = useSelector((state) => state?.auth?.id);
+    const likeVenue = useLikeVenue();
+    const unlikeVenue = useUnlikeVenue();
     const [selectedSportId, setSelectedSportId] = useState(null);
     const [imageIndex, setImageIndex] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [slideInterval, setSlideInterval] = useState(null);
     const pageNo = 3; // Pass dynamic page number as needed
-    const { data, loading, error } = useFetchSingleVenue(id);
+    const { data, loading, error } = useFetchSingleVenue(id, userId);
     const venue = Array.isArray(data?.result) && data.result.length > 0
         ? mapVenueData(data.result[0])
         : {
@@ -147,16 +157,39 @@ function VenueDetailsPage() {
         setIsModalOpen(true);
     };
 
+    const handleClickLike = (venue) => {
+        if (!venue.favourite) {
+            likeVenue.mutate({ id, userId }, {
+                onSuccess: async () => {
+                    await queryClient.invalidateQueries(["fetchSingleVenue", id, userId]);
+                },
+                onError: () => {
+                    console.error("Failed to like the button")
+                },
+            })
+        } else {
+            unlikeVenue.mutate({ favouriteVenueId: venue.favourite_venue_id }, {
+                onSuccess: async () => {
+                    await queryClient.invalidateQueries(["fetchSingleVenue", id, userId]);
+                },
+                onError: () => {
+                    console.error("Failed to unlike the button ")
+                }
+            })
+        }
+    }
+
     const closeModal = () => {
         setIsModalOpen(false);
     };
 
     const [start, setStart] = useState(0);
 
+
     const prev = () => setStart((prev) => Math.max(prev - 1, 0));
     const next = () =>
         setStart((prev) =>
-            Math.min(prev + 1, reviews.length - visibleCount)
+            Math.min(prev + 1, reviews.length + 1 - visibleCount)
         );
 
     const visibleCount = useMemo(() => {
@@ -165,7 +198,7 @@ function VenueDetailsPage() {
 
 
 
-
+    console.log("my review", venue.reviews);
 
 
 
@@ -267,7 +300,7 @@ function VenueDetailsPage() {
 
                         <div className="venue-actions">
                             <button className="venue-action-btn" onClick={Share} ><img src={ShareIcon} alt='share' className="venue-icon" style={{ marginLeft: "50px" }} />Share</button>
-                            <button className="venue-action-btn"><img src={LikeIcon} alt='like' className="venue-icon" /> Favourite</button>
+                            <button className="venue-action-btn" onClick={() => handleClickLike(venue)}><img src={venue.favourite ? HeartFilled : LikeIcon} alt='like' className="venue-icon" /> Favourite</button>
                         </div>
 
                         <div className="venue-timing-price">

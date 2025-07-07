@@ -12,10 +12,10 @@ export const useCreateVenueBooking = () => {
       return createBooking({ payload });
     },
     onSuccess: (data) => {
-      console.log("Venue Booked successfully:", data);
+      console.log("Add Review successfully:", data);
     },
     onError: (error) => {
-      console.error("Error Create Booking:", error);
+      console.error("Error Add Review:", error);
     },
   });
 };

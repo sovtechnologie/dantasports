@@ -82,9 +82,15 @@
   height: 40px;
   background-color: #ccc;
 }
+.action-btn.review {
+  color: #3366cc;
+}
 
 .action-btn.cancel {
   color: #3366cc;
+}
+.action-btn.cancelled {
+  color: red;
 }
 
 @media (max-width: 768px) {
@@ -134,8 +140,8 @@
     font-size: 0.75rem;
     padding: 0.3rem 0;
   }
- 
-  .action-btn img{
+
+  .action-btn img {
     height: 40px;
     width: 40px;
   }

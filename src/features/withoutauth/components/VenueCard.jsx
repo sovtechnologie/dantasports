@@ -10,6 +10,7 @@ import { Share } from '../../../utils/share.js';
 const VenueCard = ({ venue, isLiked, onLikeToggle }) => {
 
   const handleLikeClick = (e) => {
+    console.log("venueCard like")
     e.preventDefault();
     e.stopPropagation();
     onLikeToggle(); // Call parent toggle

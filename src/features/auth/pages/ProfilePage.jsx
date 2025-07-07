@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import "../StyleSheets/ProfilePage.css";
+import Cookies from "js-cookie";
 import { NavLink, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../../redux/Slices/authSlice';
@@ -12,7 +13,7 @@ import HelpIcon from "../assets/HelpIcon.png";
 import LogoutIcon from "../assets/logoutIcon.png";
 import { fetchProfile } from '../../../services/LoginApi/profileApi/endpointApi.js';
 import { useQuery } from '@tanstack/react-query';
-import TawkLoader from '../components/TawkLoade.jsx';
+// import TawkLoader from '../components/TawkLoade.jsx';
 
 
 function ProfilePage() {
@@ -31,21 +32,48 @@ function ProfilePage() {
   const profile = data?.data;
   console.log(" my Profile data:", data);
 
-  const toggleChat = useCallback(() => {
-    const api = window.Tawk_API;
-    if (api) {
-      if (isChatOpen) {
-        api.minimize();
-        api.shutdown();
-        setIsChatOpen(false);
-      } else if (typeof api.start === 'function') {
-        api.start({ showWidget: true });
-        setIsChatOpen(true);
-      }
-    } else {
-      console.warn('Tawk_API not ready');
-    }
-  }, [isChatOpen]);
+  // const toggleChat = useCallback(() => {
+  //   const api = window.Tawk_API;
+  //   const token = Cookies.get("token"); // or however you retrieve your auth token
+
+
+  //   if (!api) {
+  //     console.warn("Tawk_API not ready");
+  //     return;
+  //   }
+
+  //   // If no token, ensure chat is closed
+  //   if (!token) {
+  //     if (api.minimize) api.minimize();
+  //     if (api.shutdown) api.shutdown();
+  //     setIsChatOpen(false);
+  //     return;
+  //   }
+
+  //   // If token exists, toggle normally
+  //   if (isChatOpen) {
+  //     api.minimize();
+  //     api.shutdown();
+  //     setIsChatOpen(false);
+  //   } else if (typeof api.start === "function") {
+  //     api.start({ showWidget: true });
+  //     setIsChatOpen(true);
+  //   }
+  // }, [isChatOpen]);
+
+  // useEffect(() => {
+  //   const api = window.Tawk_API;
+  //   const token = Cookies.get("token");
+
+  //   if (!api) return;
+
+  //   if (!token) {
+  //     if (api.minimize) api.minimize();
+  //     if (api.shutdown) api.shutdown();
+  //     setIsChatOpen(false);
+  //   }
+  // }, [Cookies.get("token")]); // run whenever token changes
+
 
   // useEffect(() => {
   //   if (!window.Tawk_API) return;
@@ -74,7 +102,7 @@ function ProfilePage() {
   ];
 
   const options2 = [
-    { label: 'Help and Support', icon: HelpIcon, action: toggleChat },
+    { label: 'Help and Support', icon: HelpIcon },
     { label: 'Log out', icon: LogoutIcon, action: handleLogout }
   ];
 
@@ -83,7 +111,7 @@ function ProfilePage() {
 
   return (
     <>
-      <TawkLoader />
+      {/* <TawkLoader /> */}
       <div className="profile-container">
         <aside className="sidebar">
           <div className="user-card">

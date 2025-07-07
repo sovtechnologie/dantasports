@@ -77,6 +77,7 @@ function VenuePage() {
 
     const toggleFavourite = (venue) => {
         const venueId = venue.id;
+        console.log("toggle")
 
         setVenueList((prevList) =>
             prevList.map((v) =>

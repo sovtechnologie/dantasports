@@ -20,11 +20,11 @@ export const fetchVenueListByUserId = async (userId) => {
   }
 };
 
-export const fetchVenueById = async (venueId) => {
+export const fetchVenueById = async (venueId, userId) => {
   try {
-    console.log("📡 Sending venueId:", venueId);
+    console.log("📡 Sending venueId:", venueId, userId);
 
-    const response = await api.post("home/getSingleVenue", { venueId }); // JSON body
+    const response = await api.post("home/getSingleVenue", { venueId, userId }); // JSON body
     return response.data;
   } catch (error) {
     console.error("❌ Failed to fetch venue:", error);

@@ -23,11 +23,9 @@ export const cancelBooking = async ({ bookingId }) => {
   }
 };
 
-export const getAllBookings = async ({ venueId }) => {
+export const getAllBookings = async () => {
   try {
-    const response = await api.post("user/bookings/getAllBookings", {
-      venueId,
-    });
+    const response = await api.post("user/bookings/getAllBookings");
     return response?.data;
   } catch (error) {
     console.error("Failed to fetch all booking");
@@ -63,6 +61,17 @@ export const getAllCompletedBooking = async () => {
     return response?.data;
   } catch (error) {
     console.error("Failed to fetch All completed Booking");
+    throw error;
+  }
+};
+
+// add review in completed booking
+export const AddReview = async ({ payload }) => {
+  try {
+    const response = await api.post("user/home/addReview", payload);
+    return response?.data;
+  } catch (error) {
+    console.error("Failed to Add Review in completed Booking");
     throw error;
   }
 };
