@@ -45,6 +45,14 @@ function groupDays(days) {
   return days.join(', ');
 }
 
+function groupSlotsByDay(slots) {
+  return slots.reduce((acc, { day, time, price }) => {
+    acc[day] = acc[day] || [];
+    acc[day].push({ time, price });
+    return acc;
+  }, {});
+}
+
 function transformPriceChartData(apiData) {
   return apiData.result.map(court => {
     const slots = court.time_slots.map(slot => {
@@ -53,10 +61,11 @@ function transformPriceChartData(apiData) {
       const price = `₹${slot.price}/Hr`;
       return { day: dayLabel, time, price };
     });
+    const slotsByDay = groupSlotsByDay(slots);
 
     return {
       title: court.court_name,
-      slots,
+      slotsByDay,
     };
   });
 }
@@ -71,7 +80,7 @@ function PriceChart({ onClose, venueId, sportId }) {
   const { data, isLoading, error } = useSportPriceChart(sportId, venueId);
 
   const hasValidData = data && Array.isArray(data.result) && data.result.length > 0;
- const transformedPriceData = data && data.result ? transformPriceChartData(data) : priceData;
+  const transformedPriceData = data && data.result ? transformPriceChartData(data) : priceData;
 
 
   useEffect(() => {
@@ -107,20 +116,22 @@ function PriceChart({ onClose, venueId, sportId }) {
             <h2>Price Chart</h2>
             <span className="close-icon" onClick={onClose}>✕</span>
           </div>
-          <h4 className="venueName">Red Meadows</h4>
+          {/* <h4 className="venueName">Red Meadows</h4> */}
           <p className="notes">Pricing is subjected to change and is controlled by venue</p>
 
           <div className="columns">
             {transformedPriceData.map((column) => (
               <div key={column.title} className="column">
                 <h5>{column.title}</h5>
-                {column.slots.map((slot, i) => (
-                  <div key={i} className="slot">
-                    {slot.day && <strong>{slot.day}</strong>}
-                    <div className="time-price">
-                      <span>{slot.time}</span>
-                      <span className="price">{slot.price}</span>
-                    </div>
+                {Object.entries(column.slotsByDay).map(([day, slots]) => (
+                  <div key={day} className="day-group">
+                    <strong>{day}</strong>
+                    {slots.map((slot, i) => (
+                      <div key={i} className="time-price">
+                        <span>{slot.time}</span>
+                        <span className="price">{slot.price}</span>
+                      </div>
+                    ))}
                   </div>
                 ))}
               </div>

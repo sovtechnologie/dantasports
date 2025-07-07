@@ -26,22 +26,22 @@ const Hero = () => {
   const totalCards = data.carddata.length;
 
   useEffect(() => {
-  const handleResize = () => {
-    if (window.innerWidth <= 480) {
-      setVisibleCount(2);
-    } else if (window.innerWidth <= 768) {
-      setVisibleCount(2);
-    } else {
-      setVisibleCount(4);
-    }
-  };
+    const handleResize = () => {
+      if (window.innerWidth <= 480) {
+        setVisibleCount(2);
+      } else if (window.innerWidth <= 768) {
+        setVisibleCount(2);
+      } else {
+        setVisibleCount(4);
+      }
+    };
 
-  handleResize(); // Run on load
-  window.addEventListener("resize", handleResize);
+    handleResize(); // Run on load
+    window.addEventListener("resize", handleResize);
 
-  return () => window.removeEventListener("resize", handleResize);
-}, []);
-const isMobile = window.innerWidth <= 768;
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  const isMobile = window.innerWidth <= 768;
 
   const scroll = (direction) => {
     if (direction === "left" && startIndex > 0) {
@@ -52,16 +52,16 @@ const isMobile = window.innerWidth <= 768;
     }
   };
 
- useEffect(() => {
-  const interval = setInterval(() => {
-    setAnimate(true); // Start animation
-    setTimeout(() => {
-      setHeadingIndex((prev) => (prev + 1) % headings.length);
-      setAnimate(false); // Reset animation after change
-    }, 400); // Animation duration (ms)
-  }, 4000);
-  return () => clearInterval(interval);
-}, []);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAnimate(true); // Start animation
+      setTimeout(() => {
+        setHeadingIndex((prev) => (prev + 1) % headings.length);
+        setAnimate(false); // Reset animation after change
+      }, 400); // Animation duration (ms)
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <>
@@ -82,16 +82,16 @@ const isMobile = window.innerWidth <= 768;
             </div>
 
             <div className="hero-cards">
-            {!isMobile && (
-              <button
-                className="nav-btn left"
-                onClick={() => scroll("left")}
-                disabled={startIndex === 0}
-                onMouseEnter={() => setHoveredArrow('left')}
-                onMouseLeave={() => setHoveredArrow(null)}
-              >
-                <img src={leftArrow} alt="Left Arrow" className="hero-arrow left-arrow" />
-              </button>)}
+              {!isMobile && (
+                <button
+                  className="nav-btn left"
+                  onClick={() => scroll("left")}
+                  disabled={startIndex === 0}
+                  onMouseEnter={() => setHoveredArrow('left')}
+                  onMouseLeave={() => setHoveredArrow(null)}
+                >
+                  <img src={leftArrow} alt="Left Arrow" className="hero-arrow left-arrow" />
+                </button>)}
               <div className="card-list">
                 {data.carddata.slice(startIndex, startIndex + visibleCount).map((item, index) => {
                   let extraClass = "";

@@ -225,7 +225,7 @@ function VenueCheckoutPage() {
     const prev = () => setStart((prev) => Math.max(prev - 1, 0));
     const next = () =>
         setStart((prev) =>
-            Math.min(prev + 1, reviews.length - visibleCount)
+            Math.min(prev + 1, reviews.length + 1 - visibleCount)
         );
 
     const visibleCount = window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3;

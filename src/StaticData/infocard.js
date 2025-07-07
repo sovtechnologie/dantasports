@@ -1,10 +1,11 @@
 import image from "../assets/heroImages/character-left.png";
+import bookGiphy from "../assets/Giphy/Book.mov";
 
 const carddata = [
   {
     title: "Book",
     subtitle: ["Reserve Nearby Turf", "Book it.Play it", "Find.Book.Smash"],
-    image: "/images/book.png", // Replace with actual image paths
+    image: "bookGiphy", // Replace with actual image paths
   },
   {
     title: "Play / Host",
