@@ -30,7 +30,7 @@ function App() {
         <AppRoutes />
         <Footer />
       </ErrorBoundary>
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>
   );
 }

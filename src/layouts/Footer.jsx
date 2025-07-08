@@ -27,9 +27,9 @@ const Footer = () => {
               <a href=" https://www.instagram.com/dantasports?igsh=MXRnNWg0cmNsN3BycQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">
                 <img src={instagramLogo} alt="Instagram" />
               </a>
-              <a href="" target="_blank" rel="noopener noreferrer">
+              {/* <a href="" target="_blank" rel="noopener noreferrer">
                 <img src={googleLogo} alt="Google" />
-              </a>
+              </a> */}
               <a href="" target="_blank" rel="noopener noreferrer">
                 <img src={twitterLogo} alt="Twitter" />
               </a>
@@ -45,20 +45,20 @@ const Footer = () => {
             <h4>Company</h4>
             <ul>
               <li><Link to="/about">About us</Link></li>
-              <li><Link to="/contact">Contact</Link></li>
+              {/* <li><Link to="">Contact</Link></li> */}
               <li><Link to="/Partner">Partner With us</Link></li>
               <li><Link to="CorporateBooking">Corporate Booking</Link></li>
             </ul>
           </div>
           <div>
-            <h4>Services</h4>
+            {/* <h4>Services</h4> */}
             <ul>
-              <li><Link to="/Book">Book</Link></li>
+              {/* <li><Link to="/Book">Book</Link></li>
               <li><Link to="/host-play">Host/Play</Link></li>
               <li><Link to="/run">Run</Link></li>
               <li><Link to="/coach">Coach</Link></li>
               <li><Link to="/events">Events</Link></li>
-              <li><Link to="/gym">Gym</Link></li>
+              <li><Link to="/gym">Gym</Link></li> */}
             </ul>
           </div>
           {/* <div>
