@@ -10,7 +10,7 @@
 .hero-background {
   position: relative;
   max-width: 100%;
-  height: 80vh;
+  height: 100vh;
   margin: auto;
 }
 
@@ -133,13 +133,13 @@ input:focus {
 }
 
 .hero-cards {
-  width: 97vw;
+  width: 100%;
   /* Makes it as wide as the viewport */
-  max-width: 100vw;
+  /* max-width: 100vw; */
   position: relative;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
   padding: 20px 0;
   /* Remove horizontal padding if you want edge-to-edge */
   margin-top: 130px;
@@ -218,27 +218,24 @@ input:focus {
     padding: 10px 14px;
   }
 
-  .hero-cards {
-    flex-direction: column;
-    padding: 0 10px;
-    margin-top: 60px;
-    width: 100%;
-    left: 0;
-    transform: none;
-  }
+ .hero-cards {
+  flex-direction: row;
+  overflow-x: auto;
+}
+
 }
 
 @media (max-width: 768px) {
-  .card-list {
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-  }
+ .card-list {
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
 
   .card-list {
     gap: 12px;
     padding: 0 10px;
-    margin-top: 20px;
+    margin-left: 20px;
   }
 
   /* .card-list::-webkit-scrollbar {

@@ -327,7 +327,7 @@ function VenueDetailsPage() {
                         <div className="btn-group">
                             <Link to="/CorporateBooking" style={{ textDecoration: "none", color: "inherit" }}> <button className="btn-secondary">Corporate Booking</button>
                             </Link>
-                            <Link to={`/venueCheckout/${id}`} style={{ textDecoration: "none", color: "inherit" }}><button className="btn-primary" >Book Now</button></Link>
+                            <Link to={`/venueCheckout/${id}#bookingnow`} style={{ textDecoration: "none", color: "inherit" }}><button className="btn-primary" >Book Now</button></Link>
                         </div>
 
 

@@ -107,8 +107,9 @@ const Hero = () => {
                       key={index}
                       title={item.title}
                       subtitle={item.subtitle}
-                      image={item.image}
+                      video={item.video}
                       className={extraClass}
+                      routePath={item.route}
                     />
                   );
                 })}

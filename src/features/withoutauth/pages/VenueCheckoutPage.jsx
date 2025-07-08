@@ -245,6 +245,14 @@ function VenueCheckoutPage() {
         }
     }, [sportIdFromLink]);
 
+    useEffect(() => {
+    if (location.hash) {
+      const element = document.querySelector(location.hash);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  }, [location]);
 
 
     if (loading) return <div>Loading venue details...</div>;
@@ -335,7 +343,8 @@ function VenueCheckoutPage() {
 
 
                     </div>
-                    <div className="venue-right">
+                     {/* <div style={{ height: "100px" }}></div> Just for scroll simulation */}
+                    <div className="venue-right" id="bookingnow">
 
                         {/* Calendar */}
 

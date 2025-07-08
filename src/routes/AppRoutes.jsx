@@ -32,6 +32,7 @@ export default function AppRoutes() {
     const location = useLocation();
 
     return (
+        <div style={{marginTop:"4.6rem"}}>
         <Suspense fallback={<div>Loading...</div>}>
 
             <ScrollToTop />
@@ -67,5 +68,6 @@ export default function AppRoutes() {
             </Routes>
 
         </Suspense>
+        </div>
     );
 }

@@ -1,9 +1,10 @@
 // InfoCard.jsx
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import "./StyleSheets/InfoCard.css"; // Assuming you have a CSS file for styling
 
 
-function InfoCard({ title, subtitle, image, className = "" }) {
+function InfoCard({ title, subtitle, video, routePath, className = "" }) {
 
   const [subtitleIndex, setSubtitleIndex] = useState(0);
   const [animate, setAnimate] = useState(false);
@@ -19,15 +20,30 @@ function InfoCard({ title, subtitle, image, className = "" }) {
     return () => clearInterval(interval);
   }, []);
   return (
-    <div className={`info-card ${className}`}>
-      <div className="info-card-image" style={{ backgroundImage: `url(${image})` }} />
-      <div className="info-card-content">
-        <h3>{title}</h3>
-        <p className={`subtext ${animate ? "subtext-animate" : ""}`}>
-          {subtitle[subtitleIndex]}
-        </p>
+    <Link to={routePath} className="info-card-link">
+      <div className={`info-card ${className}`}>
+        {/* <div className="info-card-image" style={{ backgroundImage: `url(${image})` }} /> */}
+        <div className="video-wrapper">
+          <video
+            className="info-card-video"
+            src={video}
+            autoPlay
+            muted
+            loop
+            playsInline
+            disablePictureInPicture
+            controlsList="nodownload noplaybackrate nofullscreen"
+            controls={false}
+          />
+        </div>
+        <div className="info-card-content">
+          <h3>{title}</h3>
+          <p className={`subtext ${animate ? "subtext-animate" : ""}`}>
+            {subtitle[subtitleIndex]}
+          </p>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
