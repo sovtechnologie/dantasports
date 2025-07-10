@@ -1,14 +1,13 @@
 /* InfoCard.css */
 .info-card-link {
   text-decoration: none; /* remove underline */
-  color: inherit;        /* inherit parent color */
-  display: block;        /* make it behave like a block container */
+  color: inherit; /* inherit parent color */
+  display: block; /* make it behave like a block container */
   /* width: fit-content;    optional: to keep card sizing */
 }
 
-
 .info-card {
-  width: 17vw;
+  width: 18vw;
   /* height: 230px; */
   border-radius: 20px;
   background-color: white;
@@ -35,15 +34,10 @@
   box-shadow: 0 8px 24px rgba(17, 99, 199, 0.18);
 }
 
-
-
-
-
-
 .video-wrapper {
   position: relative;
   width: 100%;
-  padding-top: 80.25%; /* 16:9 ratio => 9/16 = 0.5625 = 56.25% */
+  padding-top: 45.25%; /* 16:9 ratio => 9/16 = 0.5625 = 56.25% */
   overflow: hidden;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
@@ -59,8 +53,6 @@
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
 }
-
-
 
 .info-card-content {
   background-color: #ffffff;
@@ -112,7 +104,7 @@
     border-radius: 16px;
   }
 
-   .video-wrapper {
+  .video-wrapper {
     padding-top: 70.25%; /* Still 16:9 */
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
@@ -134,9 +126,9 @@
     font-size: 8px;
   }
 
-  .info-card:hover,
+  /* .info-card:hover,
   .info-card.hover-effect {
     transform: none;
     box-shadow: 0 4px 12px rgba(17, 99, 199, 0.12);
-  }
+  } */
 }

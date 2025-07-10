@@ -21,7 +21,7 @@ const Footer = () => {
             <h2>Danta Sports</h2>
             <p>India's Leading<br />Sports Venue Booking App</p>
             <div className="footer-socials">
-              <a href="" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.facebook.com/profile.php?id=61555453983938" target="_blank" rel="noopener noreferrer">
                 <img src={facebookLogo} alt="Facebook" />
               </a>
               <a href=" https://www.instagram.com/dantasports?igsh=MXRnNWg0cmNsN3BycQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">
@@ -30,7 +30,7 @@ const Footer = () => {
               {/* <a href="" target="_blank" rel="noopener noreferrer">
                 <img src={googleLogo} alt="Google" />
               </a> */}
-              <a href="" target="_blank" rel="noopener noreferrer">
+              <a href="https://x.com/dantasports" target="_blank" rel="noopener noreferrer">
                 <img src={twitterLogo} alt="Twitter" />
               </a>
               <a href="https://www.linkedin.com/company/dantasports/" target="_blank" rel="noopener noreferrer">

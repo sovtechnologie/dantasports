@@ -288,15 +288,35 @@ function VenueDetailsPage() {
                             <div className='sports-wrapper'>
                                 <div className="sports-header">
                                     <strong>About</strong>
-
                                 </div>
-                                {venue.about}
+                                <p>{venue.about}</p>
+                            </div>
+                        </div>
+                        <div className="section">
+                            <div className='sports-wrapper'>
+                                <div className="sports-header">
+                                    <strong>Amenities</strong>
+                                </div>
+                                <div className="amenities-tags">
+                                    {venue.amenities.map((item) => (
+                                        <span className="amenities-tag" key={item}>
+                                            <span className="check-icon">
+                                                <img src={checkitIcon} alt="check" />
+                                            </span>
+                                            <span className="check-label">{item}</span>
+                                        </span>
+                                    ))}
+                                </div>
                             </div>
                         </div>
 
 
                     </div>
                     <div className="venue-right">
+
+                        <div className="btn-group" style={{ marginTop: "0px" }}>
+                            <Link to={`/venueCheckout/${id}#bookingnow`} style={{ textDecoration: "none", color: "inherit" }}><button className="btn-primary" >Book Now</button></Link>
+                        </div>
 
                         <div className="venue-actions">
                             <button className="venue-action-btn" onClick={Share} ><img src={ShareIcon} alt='share' className="venue-icon" style={{ marginLeft: "50px" }} />Share</button>
@@ -327,30 +347,6 @@ function VenueDetailsPage() {
                         <div className="btn-group">
                             <Link to="/CorporateBooking" style={{ textDecoration: "none", color: "inherit" }}> <button className="btn-secondary">Corporate Booking</button>
                             </Link>
-                            <Link to={`/venueCheckout/${id}#bookingnow`} style={{ textDecoration: "none", color: "inherit" }}><button className="btn-primary" >Book Now</button></Link>
-                        </div>
-
-
-                    </div>
-
-                    <div className="amenities-wrapper-container">
-                        <div className="amenities-boxContainer">
-                            <p className="amenities-title">Amenities</p>
-                            <div className="amenities-tags">
-                                {venue.amenities.map((item) => (
-                                    <span className="amenities-tag" key={item}>
-                                        <span className="check-icon">
-                                            <img src={checkitIcon} alt="check" />
-                                        </span>
-                                        <span className="check-label">{item}</span>
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
-
-                        <div className="rules-boxContainer">
-                            <p className="rule-box-title">Rules and regulations</p>
-                            <span className="arrow">&gt;</span>
                         </div>
                     </div>
 

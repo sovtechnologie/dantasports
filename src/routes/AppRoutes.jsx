@@ -22,6 +22,7 @@ const PartnerPage = lazy(() => import("../features/withoutauth/pages/PartnerPage
 const PrivacyAndPolicy = lazy(() => import("../pages/PrivacyAndPolicy"));
 const TermsAndConditions = lazy(() => import("../pages/TermsAndConditions"));
 const RefundPolicy = lazy(() => import('../pages/RefundPolicy'));
+const CommingSoon = lazy(() => import('../pages/CommingSoon'));
 
 
 // Private Route to protected the route
@@ -32,42 +33,43 @@ export default function AppRoutes() {
     const location = useLocation();
 
     return (
-        <div style={{marginTop:"4.6rem"}}>
-        <Suspense fallback={<div>Loading...</div>}>
+        <div style={{ marginTop: "4.6rem" }}>
+            <Suspense fallback={<div>Loading...</div>}>
 
-            <ScrollToTop />
-            <Routes>
-                <Route path="*" element={<NotFound />} />
-                <Route path="/" element={<Home />} />
-                <Route path='/about' element={<About />} />
-                {/* <Route path="/login" element={<Login />} /> */}
-                <Route path="/register" element={<Register />} />
+                <ScrollToTop />
+                <Routes>
+                    <Route path="*" element={<NotFound />} />
+                    <Route path="/" element={<Home />} />
+                    <Route path='/about' element={<About />} />
+                    {/* <Route path="/login" element={<Login />} /> */}
+                    <Route path="/register" element={<Register />} />
 
-                <Route path="/venue" element={<VenuePage key={location.pathname} />} />
-                <Route path="/venue/:id" element={<VenueDetailsPage />} />
-                <Route path="/venueCheckout/:id" element={<VenueCheckoutPage />} />
-                <Route path='/CorporateBooking' element={<CorporateBookingPage />} />
-                <Route path='/Partner' element={<PartnerPage />} />
-                <Route path='/PrivacyAndPolicy' element={<PrivacyAndPolicy />} />
-                <Route path='/TermsAndConditions' element={<TermsAndConditions />} />
-                <Route path='/RefundPolicy' element={<RefundPolicy />} />
+                    <Route path="/venue" element={<VenuePage key={location.pathname} />} />
+                    <Route path="/venue/:id" element={<VenueDetailsPage />} />
+                    <Route path="/venueCheckout/:id" element={<VenueCheckoutPage />} />
+                    <Route path='/CorporateBooking' element={<CorporateBookingPage />} />
+                    <Route path='/Partner' element={<PartnerPage />} />
+                    <Route path='/PrivacyAndPolicy' element={<PrivacyAndPolicy />} />
+                    <Route path='/TermsAndConditions' element={<TermsAndConditions />} />
+                    <Route path='/RefundPolicy' element={<RefundPolicy />} />
+                    <Route path="/CommingSoon" element={<CommingSoon />} />
 
-                {/* Auth Routes */}
-                {/* <Route path="/profile/:id" element={<ProfilePage />} /> */}
-                <Route element={<PrivateRoute />}>
-                    <Route path="/profile/:id" element={<ProfilePage />}>
-                        <Route index element={<Navigate to="bookings" replace />} />
-                        <Route path="edit-profile" element={<EditProfile />} />
-                        <Route path="bookings" element={<MyBooking />} />
-                        <Route path="favorites" element={<Favorites />} />
+                    {/* Auth Routes */}
+                    {/* <Route path="/profile/:id" element={<ProfilePage />} /> */}
+                    <Route element={<PrivateRoute />}>
+                        <Route path="/profile/:id" element={<ProfilePage />}>
+                            <Route index element={<Navigate to="bookings" replace />} />
+                            <Route path="edit-profile" element={<EditProfile />} />
+                            <Route path="bookings" element={<MyBooking />} />
+                            <Route path="favorites" element={<Favorites />} />
 
+                        </Route>
                     </Route>
-                </Route>
 
-                {/* Add more routes as needed */}
-            </Routes>
+                    {/* Add more routes as needed */}
+                </Routes>
 
-        </Suspense>
+            </Suspense>
         </div>
     );
 }

@@ -23,54 +23,14 @@ function formatTime(timeStr, durationMinutes) {
   return `${dt.toLocaleTimeString("en-US", opts)} – ${end.toLocaleTimeString("en-US", opts)}`;
 }
 
-const bookingsData = [
-  {
-    id: 1,
-    title: "Red Meadows",
-    type: "5x5, Football",
-    date: "Wed, 04 Sep 2024",
-    time: "09:00 am – 10:00 am",
-    reference: "#00256",
-    image: BookingImage,
-    status: "all Booking",
-  },
-  {
-    id: 2,
-    title: "Red Meadows",
-    type: "5x5, Football",
-    date: "Thu, 05 Sep 2024",
-    time: "11:00 am – 12:00 pm",
-    reference: "#00257",
-    image: BookingImage,
-    status: "upcoming",
-  },
-  {
-    id: 3,
-    title: "Red Meadows",
-    type: "5x5, Football",
-    date: "Fri, 01 Sep 2024",
-    time: "08:00 am – 09:00 am",
-    reference: "#00258",
-    image: BookingImage,
-    status: "completed",
-  },
-  {
-    id: 4,
-    title: "Red Meadows",
-    type: "5x5, Football",
-    date: "Sat, 02 Sep 2024",
-    time: "10:00 am – 11:00 am",
-    reference: "#00259",
-    image: BookingImage,
-    status: "cancelled",
-  },
-];
 
-const tabs = ["all Booking", "upcoming", "completed", "cancelled"];
+
+
+const tabs = ["upcoming", "completed", "cancelled"];
 const ITEMS_PER_PAGE = 2;
 
 const MyBookings = () => {
-  const [activeTab, setActiveTab] = useState("all Booking");
+  const [activeTab, setActiveTab] = useState("upcoming");
   const [currentPage, setCurrentPage] = useState(1);
 
   const { data: Bookingdata, isLoading, isError } = useGetAllBooking();
@@ -118,28 +78,17 @@ const MyBookings = () => {
 
   const filteredBookings = React.useMemo(() => {
     switch (activeTab) {
-      case "all Booking":
-        return allBookings;
       case "upcoming":
-        return bookingsData.filter(b => b.status === "upcoming");
+        return allBookings;
       case "completed":
         return AllCompletedBooking;
       case "cancelled":
         return AllCancelledBooking;
       default:
-        return bookingsData;
+        return allBookings;
     }
-  }, [activeTab, allBookings, AllCompletedBooking, AllCancelledBooking, bookingsData]);
+  }, [activeTab, allBookings, AllCompletedBooking, AllCancelledBooking]);
 
-  // const bookingsData = [filteredBookings].map(b => ({
-  //   id: b.id,
-  //   title: b.venue_name,
-  //   type: `${Math.floor(b.duration / 30)}x${Math.floor(b.duration / 30)}, ${b.sports_name}`,
-  //   date: formatDate(b.date),
-  //   time: formatTime(b.start_time, b.duration),
-  //   reference: `#${String(b.id).padStart(5, "0")}`,
-  //   image: BookingImage,  // or b.cover_image if dynamic
-  // }));
 
 
   const totalPages = Math.ceil(filteredBookings.length / ITEMS_PER_PAGE);
@@ -154,6 +103,32 @@ const MyBookings = () => {
     setCurrentPage(1); // Reset pagination on tab change
   };
 
+  const renderPageNumbers = () => {
+    const pageNumbers = [];
+    const maxVisible = 3;
+
+    let startPage = Math.max(currentPage - Math.floor(maxVisible / 2), 1);
+    let endPage = startPage + maxVisible - 1;
+
+    if (endPage > totalPages) {
+      endPage = totalPages;
+      startPage = Math.max(endPage - maxVisible + 1, 1);
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pageNumbers.push(
+        <button
+          key={i}
+          className={currentPage === i ? "active" : ""}
+          onClick={() => handlePageChange(i)}
+        >
+          {i}
+        </button>
+      );
+    }
+
+    return pageNumbers;
+  };
 
   return (
     <div className="booking-wrapper">
@@ -197,6 +172,7 @@ const MyBookings = () => {
               {i + 1}
             </button>
           ))} */}
+          {renderPageNumbers()}
 
           <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>{">"}</button>
         </div>

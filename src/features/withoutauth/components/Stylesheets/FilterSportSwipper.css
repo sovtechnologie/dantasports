@@ -1,0 +1,52 @@
+/* Optionally shrink vertical gap more precisely */
+.swiper-wrapper {
+  display: grid; /* ensure grid layout */
+  row-gap: 2px !important; /* reduce vertical gap */
+}
+
+/* Pagination dots spacing and colors */
+.swiper-pagination-bullet {
+  background: #c4c4c4;
+  width: 10px;
+  height: 10px;
+  margin: 0 6px;
+  opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+  background: #1163c7;
+}
+
+/* Add margin above and below pagination */
+.swiper-pagination {
+  margin: -11px 0px;
+}
+
+/* Customize navigation arrows */
+.swiper-button-prev,
+.swiper-button-next {
+  width: 32px;
+  height: 32px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+/* Left/right background images */
+.swiper-button-prev {
+  left: 0;
+  /* background-image: url("../../assets/left-arrow.png"); */
+}
+.swiper-button-next {
+  right: 0;
+  /* background-image: url("../../../../assets/cursorArrow.png"); */
+}
+/* Hide default arrow icons */
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  display: none;
+}
+
+/* Hide nav arrows when disabled */
+.swiper-button-disabled {
+  opacity: 0;
+  pointer-events: none;
+}

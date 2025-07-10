@@ -90,7 +90,7 @@ const Hero = () => {
                   onMouseEnter={() => setHoveredArrow('left')}
                   onMouseLeave={() => setHoveredArrow(null)}
                 >
-                  <img src={leftArrow} alt="Left Arrow" className="hero-arrow left-arrow" />
+                  <img src={leftArrow} alt="Left Arrow" className="hero-arrow" />
                 </button>)}
               <div className="card-list">
                 {data.carddata.slice(startIndex, startIndex + visibleCount).map((item, index) => {
@@ -107,7 +107,7 @@ const Hero = () => {
                       key={index}
                       title={item.title}
                       subtitle={item.subtitle}
-                      video={item.video}
+                      image={item.image}
                       className={extraClass}
                       routePath={item.route}
                     />
@@ -122,7 +122,7 @@ const Hero = () => {
                 onMouseEnter={() => setHoveredArrow('right')}
                 onMouseLeave={() => setHoveredArrow(null)}
               >
-                <img src={rightArrow} alt="Right Arrow" className="hero-arrow right-arrow" />
+                <img src={rightArrow} alt="Right Arrow" className="hero-arrow" />
               </button>
 
             </div>

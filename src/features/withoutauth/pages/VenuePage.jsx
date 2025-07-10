@@ -1,13 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import "../Stylesheets/VenuePage.css";
-import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import SortFilterPopup from '../components/SortFilterPopup.jsx';
 import FilterPopup from '../components/FilterPopup.jsx';
 import SortingIcon from "../assets/Filtericon/sortingicon.png";
 import FilterIcon from "../assets/Filtericon/Filtericon.png";
 import VenueCard from '../components/VenueCard';
-// import VenueCardData from '../StaticData/VenueCardData.js';
 import leftArrow from "../assets/left-arrow.png";
 import rightArrow from "../assets/right-arrow.png";
 import AppDownloadBanner from '../components/AppDownloadBanner.jsx';
@@ -17,6 +15,7 @@ import Football from "../assets/sport-list/Football-Icon.png";
 import CricketLogo from "../assets/VenueCardLogo/CricketLogo.png";
 import FootballLogo from "../assets/VenueCardLogo/FootballLogo.png";
 import DeskTopFilterCalendar from '../components/DeskTopFilterCalendar.jsx';
+import FilterSportSwipper from "../components/FilterSportSwipper.jsx"
 import { format } from 'date-fns';
 import { useLikeVenue } from '../../../hooks/favouriteVenue/useLikeVenue.js';
 import { useUnlikeVenue } from '../../../hooks/favouriteVenue/useUnlikeVenue.js';
@@ -24,6 +23,7 @@ import { useSelector } from 'react-redux';
 import { fetchSportList } from '../../../services/withoutLoginApi/SportListApi/endpointApi.js';
 import { useFetchVenue } from '../../../hooks/VenueList/useFetchVenue.js';
 import { useQueryClient } from '@tanstack/react-query';
+import { VenueListShimmer } from '../components/Shimmer/VenueListShimmer.jsx';
 
 
 
@@ -126,7 +126,7 @@ function VenuePage() {
         if (timeslot === selectedTime) return;
         setSelectedTime(timeslot);
     }, [selectedTime]);
-
+    console.log("Selectedtime and date in filter", selectedTime)
 
 
     // Handle date selection from calendar
@@ -151,7 +151,7 @@ function VenuePage() {
         // setFilteredData(filtered);
     };
 
-    const itemsPerPage = 3;
+    const itemsPerPage = 6;
 
 
     const totalPageSport = Math.ceil(sportsData.length / itemsPerPage);
@@ -211,7 +211,7 @@ function VenuePage() {
     }, [data]);
 
 
-    if (isLoading) return <div>Loading venues...</div>;
+    if (isLoading) return <div> <VenueListShimmer /></div>;
     if (isError) return <div>Error loading venues: {error.message}</div>;
     if (isSportsLoading) return <div>Loading sports...</div>;
     if (isSportsError) return <div>Error loading sports: {sportsError.message}</div>;
@@ -219,6 +219,7 @@ function VenuePage() {
     if (!venueList.length) return <div>No venues found.</div>;
     return (
         <>
+
             {/* filter section */}
             <div className='venue-page'>
                 <div className="filter-bar">
@@ -284,8 +285,8 @@ function VenuePage() {
                                     <button className="nav-arrow left" onClick={scrollLeft}>&lt;</button>
 
                                     <div className="sports-scroll-wrapper">
-                                        <div className="sports-scroll">
-                                            {paginatedSports.map((sport, id) => (
+                                        <div className="">
+                                            {/* {paginatedSports.map((sport, id) => (
                                                 <div
                                                     className={`sport-item ${selectedSport === sport.sports_name ? 'active-sport' : ''}`}
                                                     key={id}
@@ -294,7 +295,13 @@ function VenuePage() {
                                                     <img src={sport.sports_images || Football} alt={sport.sports_name} />
                                                     <span>{sport.sports_name}</span>
                                                 </div>
-                                            ))}
+                                            ))} */}
+                                            <FilterSportSwipper
+                                                SportsData={paginatedSports}
+                                                selectedSport={selectedSport}
+                                                setSelectedSport={setSelectedSport}
+                                            />
+
                                         </div>
                                     </div>
 
@@ -363,6 +370,8 @@ function VenuePage() {
                         </div>
 
                     </aside>
+
+
                     <aside className='right-section'>
                         <div className="venue-list-mobile-scroll">
                             <div className="venue-list">
@@ -393,13 +402,14 @@ function VenuePage() {
                                     };
 
                                     return (
-                                        <Link key={venue.id} to={`/venue/${venue.id}`} style={{ textDecoration: "none", color: "inherit" }}>
-                                            <VenueCard
-                                                venue={formattedVenue}
-                                                isLiked={formattedVenue.favourite}
-                                                onLikeToggle={() => toggleFavourite(venue)}
-                                            />
-                                        </Link>
+                                        // <Link key={venue.id} to={`/venue/${venue.id}`} style={{ textDecoration: "none", color: "inherit" }}>
+                                        <VenueCard
+                                            key={venue.id}
+                                            venue={formattedVenue}
+                                            isLiked={formattedVenue.favourite}
+                                            onLikeToggle={() => toggleFavourite(venue)}
+                                        />
+                                        // </Link>
                                     );
                                 })}
 

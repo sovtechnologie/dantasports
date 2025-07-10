@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "./Stylesheets/PriceChart.css"
 import priceData from '../StaticData/PriceChart'
 import { useSportPriceChart } from '../../../hooks/favouriteSport/useSportPriceChart'
-import { Link } from 'react-router-dom'
+
 
 
 // helper to convert 24hr time to 12hr AM/PM
@@ -116,7 +116,6 @@ function PriceChart({ onClose, venueId, sportId }) {
             <h2>Price Chart</h2>
             <span className="close-icon" onClick={onClose}>✕</span>
           </div>
-          {/* <h4 className="venueName">Red Meadows</h4> */}
           <p className="notes">Pricing is subjected to change and is controlled by venue</p>
 
           <div className="columns">
@@ -138,9 +137,6 @@ function PriceChart({ onClose, venueId, sportId }) {
             ))}
           </div>
 
-          <div className="book-btn">
-            <Link to={`/venueCheckout/${venueId}`} state={{ sportId }} style={{ textDecoration: "none", color: "inherit" }}><button>BOOK NOW</button></Link>
-          </div>
         </div>
       </div>
     </div>

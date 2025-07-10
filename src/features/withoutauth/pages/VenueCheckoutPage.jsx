@@ -6,13 +6,12 @@ import cricketIcon from "../assets/VenueDetailIcon/CricketIcon.png";
 import footballIcon from "../assets/VenueDetailIcon/Footballicon.png";
 import pickleballIcon from "../assets/VenueDetailIcon/BatmintonIcon.png";
 import reviews from "../StaticData/ReviewRatingData.js";
+import PriceChart from '../components/PriceChart.jsx';
 import ReviewCard from '../components/ReviewCard.jsx';
-import Banner from '../assets/venue-banner.png';
 import Calendar from '../components/Calendar.jsx';
 import TimeSelector from '../components/TimeSelector.jsx';
 import ConfirmSlotCard from "../components/ConfirmSlotCard.jsx";
 import BookingPopupCard from '../components/BookingPopupCard.jsx';
-import BookingData from "../StaticData/BookingData.js";
 import checkitIcon from "../assets/Checkitcon.png";
 import { useFetchSingleVenue } from '../../../hooks/VenueList/useFetchSingleVenue.js';
 import { formatTime } from '../../../utils/formatTime.js';
@@ -32,7 +31,7 @@ const mapVenueData = (apiData) => {
         rating: parseFloat(apiData?.average_rating) || 0,
         reviewcount: apiData?.review_count || 0,
         timing: `${formatTime(apiData?.start_time || '06:00:00')} - ${formatTime(apiData?.end_time || '22:00:00')}`,
-        price: parseFloat(apiData?.pricing) || 1100,
+        price: parseFloat(apiData?.pricing) || 0,
         address: `${apiData?.full_address || ''}, ${apiData?.area || ''}, ${apiData?.city || ''}, ${apiData?.state || ''} - ${apiData?.pincode || ''}`.trim().replace(/^,|,$/g, '')
             || "Not Available",
         images: Array.isArray(apiData?.venue_gallery)
@@ -49,7 +48,7 @@ const mapVenueData = (apiData) => {
             { name: 'Pickle Ball', icon: pickleballIcon }],
         amenities: Array.isArray(apiData?.amenities)
             ? apiData.amenities.map((a) => a.name)
-            : ['Parking', 'Restroom', 'Changing Room', 'First Aid'],
+            : ['Not Avaiable'],
         latitude: apiData?.latitude || 0,
         longitude: apiData?.longitude || 0,
         reviews: Array.isArray(apiData?.reviews)
@@ -60,7 +59,7 @@ const mapVenueData = (apiData) => {
                 comment: review.comment || "No comment provided",
                 date: formatDate(review.createdAt) || new Date().toISOString().split('T')[0],
             }))
-            : reviews.slice(0, 5), // Default to first 5 reviews if not available
+            : ["Not Available"], // Default to first 5 reviews if not available
     };
 };
 
@@ -71,6 +70,8 @@ function VenueCheckoutPage() {
     const pageNo = 3;
     const [imageIndex, setImageIndex] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedSportId, setSelectedSportId] = useState(null);
+    const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
     const [selectedSport, setSelectedSport] = useState('');
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -239,6 +240,15 @@ function VenueCheckoutPage() {
         selectedPitch,
     };
 
+    const handleSportClick = (sportId) => {
+        console.log("Selected Sport ID:", sportId);
+        setSelectedSportId(sportId);
+        setIsPriceModalOpen(true);
+    };
+    const closeModal = () => {
+        setIsPriceModalOpen(false);
+    };
+
     useEffect(() => {
         if (sportIdFromLink) {
             setSelectedSport(sportIdFromLink);
@@ -246,13 +256,13 @@ function VenueCheckoutPage() {
     }, [sportIdFromLink]);
 
     useEffect(() => {
-    if (location.hash) {
-      const element = document.querySelector(location.hash);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }
-  }, [location]);
+        if (location.hash) {
+            const element = document.querySelector(location.hash);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    }, [location]);
 
 
     if (loading) return <div>Loading venue details...</div>;
@@ -322,6 +332,7 @@ function VenueCheckoutPage() {
                                             className="sport-card"
                                             key={sport.name}
                                             type="button"
+                                            onClick={() => handleSportClick(sport.sportId)}
                                         >
                                             <img src={sport.icon} alt={sport.name} />
                                             <p>{sport.name}</p>
@@ -329,6 +340,13 @@ function VenueCheckoutPage() {
                                     ))}
                                 </div>
                             </div>
+                            {/* PriceChart Model */}
+                            {isPriceModalOpen && (
+                                <PriceChart
+                                    onClose={closeModal}
+                                    venueId={id}
+                                    sportId={selectedSportId} />
+                            )}
                         </div>
 
                         <div className='section'>
@@ -337,13 +355,31 @@ function VenueCheckoutPage() {
                                     <strong>About</strong>
 
                                 </div>
-                                {venue.about}
+                                <p>{venue.about}</p>
+                            </div>
+                        </div>
+
+                        <div className='section'>
+                            <div className='sports-wrapper'>
+                                <div className='sports-header'>
+                                    <strong>Amenities</strong>
+                                </div>
+                                <div className="amenity-tags">
+                                    {venue.amenities.map((item) => (
+                                        <span className="amenity-tag" key={item}>
+                                            <span className="check-icon">
+                                                <img src={checkitIcon} alt="check" />
+                                            </span>
+                                            <span className="check-label">{item}</span>
+                                        </span>
+                                    ))}
+                                </div>
                             </div>
                         </div>
 
 
                     </div>
-                     {/* <div style={{ height: "100px" }}></div> Just for scroll simulation */}
+                    {/* <div style={{ height: "100px" }}></div> Just for scroll simulation */}
                     <div className="venue-right" id="bookingnow">
 
                         {/* Calendar */}
@@ -448,27 +484,13 @@ function VenueCheckoutPage() {
 
                     </div>
 
-                    <div className="amenities-wrapper">
-                        <div className="amenities-box">
-                            <p className="section-title">Amenities</p>
-                            <div className="amenity-tags">
-                                {venue.amenities.map((item) => (
-                                    <span className="amenity-tag" key={item}>
-                                        <span className="check-icon">
-                                            <img src={checkitIcon} alt="check" />
-                                        </span>
-                                        <span className="check-label">{item}</span>
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
-
+                    {/* <div className="amenities-wrapper">
                         <div className="rules-box">
                             <p className="section-title">Rules and regulations</p>
                             <span className="arrow">&gt;</span>
                         </div>
 
-                    </div>
+                    </div> */}
 
                     <div className='rating-wrapper'>
                         <div className="ratings-carousel">

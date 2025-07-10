@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import "./StyleSheets/InfoCard.css"; // Assuming you have a CSS file for styling
 
 
-function InfoCard({ title, subtitle, video, routePath, className = "" }) {
+function InfoCard({ title, subtitle, image, routePath, className = "" }) {
 
   const [subtitleIndex, setSubtitleIndex] = useState(0);
   const [animate, setAnimate] = useState(false);
@@ -24,16 +24,10 @@ function InfoCard({ title, subtitle, video, routePath, className = "" }) {
       <div className={`info-card ${className}`}>
         {/* <div className="info-card-image" style={{ backgroundImage: `url(${image})` }} /> */}
         <div className="video-wrapper">
-          <video
+          <img
             className="info-card-video"
-            src={video}
-            autoPlay
-            muted
-            loop
-            playsInline
-            disablePictureInPicture
-            controlsList="nodownload noplaybackrate nofullscreen"
-            controls={false}
+            src={image}
+            alt='giphy'
           />
         </div>
         <div className="info-card-content">
