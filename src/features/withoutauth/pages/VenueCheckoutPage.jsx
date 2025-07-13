@@ -121,69 +121,53 @@ function VenueCheckoutPage() {
 
 
     const handleProceedClick = () => {
-        const newErrors = {
-            sport: '',
-            date: '',
-            time: '',
-            court: '',
-        };
-
+        const newErrors = { sport: '', date: '', time: '', court: '' };
         let hasError = false;
 
+        // 1️⃣ Date check
         if (!selectedDate) {
             newErrors.date = "Please select a date.";
             hasError = true;
-        }
 
-        // Then validate other selections
-        if (!selectedSport) {
+            // 2️⃣ Sport check
+        } else if (!selectedSport) {
             newErrors.sport = "Please select a sport.";
             hasError = true;
-        }
 
-        // First: check if courts are available
-        const courtsAvailable = sportDetailsData?.courts?.length > 0;
-        if (!courtsAvailable) {
-            newErrors.court = "No courts available for this sport/date.";
-            setErrors(newErrors);
-            // Auto-clear after 3 seconds
-            setTimeout(() => {
-                setErrors(prev => ({ ...prev, court: '' }));
-            }, 2000);
-            return;
-        }
-        if (!selectedTime) {
+            // 3️⃣ Time check
+        } else if (!selectedTime) {
             newErrors.time = "Please select a time slot.";
             hasError = true;
-        }
 
-        if (!selectedPitch) {
-            newErrors.court = "Please select a court.";
-            hasError = true;
+        } else {
+            // 4️⃣ Courts availability check
+            const courts = sportDetailsData?.courts;
+            if (!courts || courts.length === 0) {
+                newErrors.court = "No courts available for this sport/date.";
+                hasError = true;
+
+                // 5️⃣ Specific pitch selection check
+            } else if (!courts.some(c => c.id === selectedPitch)) {
+                newErrors.court = "Please select a valid court.";
+                hasError = true;
+            }
         }
 
         setErrors(newErrors);
 
         if (hasError) {
-            // Auto-clear all errors after 3 seconds
+            // Clear error after 3 seconds
             setTimeout(() => {
-                setErrors({
-                    sport: '',
-                    date: '',
-                    time: '',
-                    court: '',
-                });
-            }, 2000);
+                setErrors({ sport: '', date: '', time: '', court: '' });
+            }, 3000);
             return;
         }
 
+        // ✅ All validations passed
         setIsModalOpen(true);
-        // setSelectedSport('');
-        // setSelectedDuration(1);
-        // setSelectedTime(null);
-        // setSelectedPitch('');
-
     };
+
+
 
 
 
@@ -292,8 +276,8 @@ function VenueCheckoutPage() {
                 </div>
             </div>
 
-            <div className="venue-details-container">
-                <div className="venue-wrapper">
+            <div className="venue-details-container" id="bookingnow">
+                <div className="venue-wrapper" >
                     <div className="venue-left">
                         <div className="carousel">
                             <img src={venue.images[imageIndex]} alt="venue" className="carousel-image" onError={(e) => (e.target.src = venueImage)} />
@@ -380,7 +364,7 @@ function VenueCheckoutPage() {
 
                     </div>
                     {/* <div style={{ height: "100px" }}></div> Just for scroll simulation */}
-                    <div className="venue-right" id="bookingnow">
+                    <div className="venue-right" >
 
                         {/* Calendar */}
 
@@ -422,23 +406,35 @@ function VenueCheckoutPage() {
 
 
                         {/* Pitch Selection */}
+
+
                         <div className="vb-section vb-pitch-options">
                             <label>Court:</label>
-                            {sportDetailsData?.courts?.length > 0 ? (
-                                sportDetailsData.courts.map(court => (
-                                    <button
-                                        key={court.id}
-                                        className={`vb-pitch-btn ${selectedPitch === court.id ? 'active' : ''}`}
-                                        onClick={() => setSelectedPitch(court.id)}
-                                    >
-                                        {court.court_name}
-                                    </button>
-                                ))
+
+                            {selectedTime ? (
+                                sportDetailsData?.courts?.length > 0 ? (
+                                    sportDetailsData.courts.map(court => (
+                                        <button
+                                            key={court.id}
+                                            type="button"
+                                            className={`vb-pitch-btn ${selectedPitch === court.id ? 'active' : ''}`}
+                                            onClick={() => setSelectedPitch(court.id)}
+                                        >
+                                            {court.court_name}
+                                        </button>
+                                    ))
+                                ) : (
+                                    <p>No courts available for this sport/date.</p>
+                                )
                             ) : (
-                                <p>No courts available for this sport/date.</p>
+                                <p className="court-placeholder">Select a time to see available courts</p>
                             )}
+
                             {errors.court && <p className="form-error">{errors.court}</p>}
                         </div>
+
+
+
 
                         <button className="vb-proceed-btn" onClick={handleProceedClick}>PROCEED</button>
 
@@ -483,14 +479,6 @@ function VenueCheckoutPage() {
                         />
 
                     </div>
-
-                    {/* <div className="amenities-wrapper">
-                        <div className="rules-box">
-                            <p className="section-title">Rules and regulations</p>
-                            <span className="arrow">&gt;</span>
-                        </div>
-
-                    </div> */}
 
                     <div className='rating-wrapper'>
                         <div className="ratings-carousel">

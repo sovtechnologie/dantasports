@@ -72,9 +72,9 @@ const ConfirmSlotCard = ({ onClose, onSuccess, payload }) => {
         <div className="slot-details">
           <p>Venue:<span>{venueName}</span></p>
           <p>sport:<span>{selectedSport.name}</span></p>
+          <p>Day & Date: <span>{getLocalIsoDate(selectedDate)}</span></p>
           <p>Duration: <span>{`${selectedDuration}min`}</span></p>
           <p>Time: <span>{timeOnly}</span></p>
-          <p>Day & Date: <span>{getLocalIsoDate(selectedDate)}</span></p>
           <p>Court: <span>{selectedCourt.court_name}</span></p>
         </div>
 

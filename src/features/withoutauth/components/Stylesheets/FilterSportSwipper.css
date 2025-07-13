@@ -1,7 +1,7 @@
 /* Optionally shrink vertical gap more precisely */
 .swiper-wrapper {
-  display: grid; /* ensure grid layout */
-  row-gap: 2px !important; /* reduce vertical gap */
+  /* display: grid; ensure grid layout */
+  row-gap: 4px !important; /* reduce vertical gap */
 }
 
 /* Pagination dots spacing and colors */

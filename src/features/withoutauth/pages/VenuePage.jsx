@@ -213,7 +213,7 @@ function VenuePage() {
 
     if (isLoading) return <div> <VenueListShimmer /></div>;
     if (isError) return <div>Error loading venues: {error.message}</div>;
-    if (isSportsLoading) return <div>Loading sports...</div>;
+    if (isSportsLoading) return <div><VenueListShimmer /></div>;
     if (isSportsError) return <div>Error loading sports: {sportsError.message}</div>;
 
     if (!venueList.length) return <div>No venues found.</div>;
