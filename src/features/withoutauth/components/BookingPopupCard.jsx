@@ -1,5 +1,6 @@
 import React from 'react';
 import './Stylesheets/BookingPopupCard.css';
+import { useParams } from "react-router-dom";
 import checkIcon from "../assets/Checkicon.png";
 import Banner from "../assets/venue-banner.png";
 import ShareIcon from "../assets/BookingshareIcons.png";
@@ -13,7 +14,8 @@ const BookingPopupCard = ({
   onClose,
   bookingData,
 }) => {
-
+   const { bookingId } = useParams();
+   
   const pageNo = 4;
 
   const { data: bannerData, isLoading: Bannerloading, error: BannerError } = useBanner(pageNo);
@@ -22,13 +24,13 @@ const BookingPopupCard = ({
 
   const {
     referenceNumber,
-    hostName,
-    amount,
-    paymentMethod,
-    paymentTime,
-    location,
-    date,
-    time,
+    hostName = "Mohitpal",
+    amount = "123",
+    paymentMethod = "Gpay",
+    paymentTime = "12,2,10129",
+    location= "Delhi",
+    date = "12,2,30",
+    time = "233.344",
   } = bookingData;
   const banners = bannerData?.result || [];
 
@@ -49,7 +51,7 @@ const BookingPopupCard = ({
         </div>
 
         <div className="ref-card">
-          <div className="ref-header">Reference number: #{referenceNumber}</div>
+          <div className="ref-header">Reference number: #{bookingId}</div>
 
           <div className="ref-info">
             <div className="ref-row">

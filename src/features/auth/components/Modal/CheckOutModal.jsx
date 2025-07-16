@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../StyleSheets/CheckOutModal.css";
 import venueImage from "../../assets/image.png";
 import editIcon from "../../assets/Edit Square.png";
@@ -7,19 +8,19 @@ import { useCreatePayment } from "../../../../hooks/Payments/useCreatePayment.js
 import { useCancelBooking } from "../../../../hooks/Payments/useCancelBooking.js";
 
 
-const booking = {
-    image: venueImage,
-    name: 'Red Meadows',
-    time: '09:00 am – 10:00 am',
-    date: '04 Sep 2024',
-    size: '5x5',
-    sport: 'Football',
-    onRemove: () => { },
-    onEdit: () => { },
-    contact: { name: 'Jane Cooper', phone: '+91 8085550833', email: 'janec@example.com' },
-    price: { court: 1100, fee: 30 },
-    total: 1130
-};
+// const booking = {
+//     image: venueImage,
+//     name: 'Red Meadows',
+//     time: '09:00 am – 10:00 am',
+//     date: '04 Sep 2024',
+//     size: '5x5',
+//     sport: 'Football',
+//     onRemove: () => { },
+//     onEdit: () => { },
+//     contact: { name: 'Jane Cooper', phone: '+91 8085550833', email: 'janec@example.com' },
+//     price: { court: 1100, fee: 30 },
+//     total: 1130
+// };
 
 // Helper functions
 function formatTime(start, duration) {
@@ -67,7 +68,7 @@ const mapBookingResponse = (api) => ({
 export function CheckoutModal({ isOpen, onClose, bookingId }) {
     console.log("CheckoutModal render, isOpen:", isOpen, bookingId);
 
-
+    const navigate = useNavigate();
 
     // ⚠️ Always call hooks at top
     const [fitness, setFitness] = useState(false);
@@ -104,11 +105,26 @@ export function CheckoutModal({ isOpen, onClose, bookingId }) {
     const paymentUrl = paymentResponse?.url;
 
     // ⚠️ Open payment URL in new tab once it's available
+    // useEffect(() => {
+    //     if (paymentUrl) {
+    //         window.open(paymentUrl, "_blank");
+    //     }
+    // }, [paymentUrl]);
     useEffect(() => {
-        if (paymentUrl) {
-            window.open(paymentUrl, "_blank");
-        }
-    }, [paymentUrl]);
+    if (paymentUrl) {
+        const openedWindow = window.open(paymentUrl, "_blank");
+
+        const checkPaymentStatus = setInterval(() => {
+            if (openedWindow?.closed) {
+                clearInterval(checkPaymentStatus);
+                onClose();
+                navigate(`/payment-sucesss/${bookingId}`);
+            }
+        }, 1000);
+
+        return () => clearInterval(checkPaymentStatus);
+    }
+}, [paymentUrl]);
 
     if (!isOpen) return null;
 

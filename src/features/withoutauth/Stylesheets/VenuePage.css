@@ -7,6 +7,7 @@ body {
   background: #f1f3f2;
   color: #333;
 }
+
 .venue-page {
   font-family: "Lato", Arial, sans-serif;
   /* padding: 0 100px; */
@@ -16,23 +17,23 @@ body {
 
 .filter-bar {
   display: flex;
-  justify-content: space-between;
+  gap:30px;
   align-items: center;
   padding: 14px 90px;
   background-color: #ffffff;
   /* border-radius: 12px; */
   box-shadow: 0px 4px 4px 0px #1163c740;
-  border: 1px solid #e5e7eb;
+  /* border: 1px solid #e5e7eb; */
   width: 100%;
   box-sizing: border-box;
-  margin-top: 30px;
+  /* margin-top: 30px; */
   margin-bottom: 30px;
-  height: 86px;
+  height: 10vh;
   /* position: absolute;
     top: 100px; */
   border-bottom-right-radius: 40px;
   border-bottom-left-radius: 40px;
-  border: 1px solid #e5e7eb;
+  /* border: 1px solid #e5e7eb; */
 }
 
 .filter-title {
@@ -44,6 +45,38 @@ body {
   vertical-align: middle;
   color: #000000;
   margin: 0;
+}
+
+.search-input {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: 1px solid #ccc;
+  border-radius: 16px;
+  padding: 10px 16px;
+  gap:10px;
+  width: 25vw;
+  box-sizing: border-box;
+}
+
+
+/* Input Styling */
+.search-input input {
+  flex: 1;
+  font-size: 1.2rem;
+  border: none;
+  background-color: transparent;
+  color: #525252;
+}
+
+.search-input input::placeholder {
+  color: #525252;
+  opacity: 1;
+  font-size: 1.2rem;
+}
+
+.search-input input:focus {
+  outline: none;
 }
 
 .filter-actions {
@@ -65,13 +98,11 @@ body {
   background-image:
     linear-gradient(#fff, #fff),
     /* Inner background */
-      linear-gradient(
-        90deg,
-        rgba(163, 208, 255, 0.870588) 10.58%,
-        #1163c7 31.73%,
-        #1163c7 72.12%,
-        #a3d0ff 92.31%
-      );
+    linear-gradient(90deg,
+      rgba(163, 208, 255, 0.870588) 10.58%,
+      #1163c7 31.73%,
+      #1163c7 72.12%,
+      #a3d0ff 92.31%);
   /* Border gradient */
   background-origin: border-box;
   background-clip: padding-box, border-box;
@@ -85,12 +116,16 @@ body {
 /* left  siderbar filter section */
 /* Left sidebar filter section */
 .left-section {
-  flex: 0 0 22%; /* Fixed width: 20% */
-  max-width: 22%; /* Limit max width */
-  min-width: 180px; /* Optional: minimum width for usability */
+  flex: 0 0 22%;
+  /* Fixed width: 20% */
+  max-width: 22%;
+  /* Limit max width */
+  min-width: 180px;
+  /* Optional: minimum width for usability */
   box-sizing: border-box;
   overflow-wrap: break-word;
-  overflow-y: auto; /* Allow scroll if content overflows vertically */
+  overflow-y: auto;
+  /* Allow scroll if content overflows vertically */
   /* height: 100vh;           Optional: full height */
 }
 
@@ -186,6 +221,7 @@ body {
   overflow: hidden;
   width: 100%;
 }
+
 .sport-item.active-sport {
   border: 2px solid #1163c7;
   border-radius: 8px;
@@ -201,13 +237,16 @@ body {
   border: 2px solid transparent;
   height: fit-content;
 }
+
 .sport-item img {
   height: 30px;
   width: 30px;
 }
+
 .filter-sport-name {
   font-size: 10px;
 }
+
 .sport-item:hover {
   border: 2px solid #1163c7;
 }
@@ -231,6 +270,7 @@ body {
 .pagination-dots .dot.active {
   background-color: #1163c7;
 }
+
 .no-sport-msg {
   padding: 15px;
   background-color: #ffffff;
@@ -317,7 +357,8 @@ body {
 
 /* Right content area */
 .right-section {
-  flex: 1; /* Takes remaining space */
+  flex: 1;
+  /* Takes remaining space */
   padding: 20px;
   box-sizing: border-box;
   overflow-x: hidden;

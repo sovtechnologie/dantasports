@@ -15,9 +15,9 @@ function Navbar() {
   const location = useLocation();
   const isHome = location.pathname === '/';
 
-  const { user } = useSelector((state) => state.auth);
+  const userId = useSelector((state) => state.auth?.id);
   const token = Cookies.get('token');
-  console.log("User in Naber:", user, token)
+  console.log("User in Naber:", userId, token)
   const [showLoginModal, setShowLoginModal] = useState(false);
 
   const handleClick = () => {
@@ -31,7 +31,7 @@ function Navbar() {
   };
 
   const handleProfileClick = (e) => {
-    if (!user || !token) {
+    if (!userId || !token) {
 
       e.preventDefault();
       setShowLoginModal(true);
@@ -53,7 +53,7 @@ function Navbar() {
           <Link to="/CorporateBooking" className="navbar-link">Corporate Booking</Link>
           <Link to="/Partner" className="navbar-link">Become a Partner</Link>
           <button className="app-btn" onClick={handleClick}>Get the App<img src={arrowlogo} height={20} width={20} style={{ marginLeft: '8px', verticalAlign: 'middle', marginTop: '-2px' }} alt="Arrow" /></button>
-          <Link to={user && token ? `/profile/${user.id}` : '#'} className="user-icon" onClick={handleProfileClick}>
+          <Link to={userId && token ? `/profile/${userId}` : '#'} className="user-icon" onClick={handleProfileClick}>
             <img src={userLogo} alt="User Profile" />
           </Link>
         </div>

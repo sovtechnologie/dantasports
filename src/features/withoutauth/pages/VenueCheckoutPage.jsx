@@ -427,7 +427,7 @@ function VenueCheckoutPage() {
                                     <p>No courts available for this sport/date.</p>
                                 )
                             ) : (
-                                <p className="court-placeholder">Select a time to see available courts</p>
+                                <p className="court-placeholder">Select a timeslots to see available courts</p>
                             )}
 
                             {errors.court && <p className="form-error">{errors.court}</p>}

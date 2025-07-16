@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import "../Stylesheets/VenuePage.css";
+import searchlogo from "../assets/Searchlogo.png";
+import locationlogo from "../assets/locationlogo.png";
 import { useQuery } from '@tanstack/react-query';
 import SortFilterPopup from '../components/SortFilterPopup.jsx';
 import FilterPopup from '../components/FilterPopup.jsx';
@@ -11,7 +13,6 @@ import rightArrow from "../assets/right-arrow.png";
 import AppDownloadBanner from '../components/AppDownloadBanner.jsx';
 import Timeslot from '../components/Timeslot.jsx';
 import SearchIcon from "../assets/Search-icon.png";
-import Football from "../assets/sport-list/Football-Icon.png";
 import CricketLogo from "../assets/VenueCardLogo/CricketLogo.png";
 import FootballLogo from "../assets/VenueCardLogo/FootballLogo.png";
 import DeskTopFilterCalendar from '../components/DeskTopFilterCalendar.jsx';
@@ -24,16 +25,43 @@ import { fetchSportList } from '../../../services/withoutLoginApi/SportListApi/e
 import { useFetchVenue } from '../../../hooks/VenueList/useFetchVenue.js';
 import { useQueryClient } from '@tanstack/react-query';
 import { VenueListShimmer } from '../components/Shimmer/VenueListShimmer.jsx';
-
-
+import { useSortVenue } from '../../../hooks/SortAndFilter/useSortVenue.js';
+import { getUserLocation } from '../../../utils/getUserLocation.js';
 
 
 const sortOptions = [
-    "Popularity",
-    "Near By",
-    "Favorites",
-    "Price: Low to High"
+    { id: 1, label: "Popularity" },
+    { id: 2, label: "Near By" },
+    { id: 3, label: "Favorites" },
+    { id: 4, label: "Price: Low to High" }
 ];
+
+
+function formatDate(dateStr) {
+    return new Date(dateStr)
+        .toLocaleDateString("en-US", { weekday: "short", day: "2-digit", month: "short", year: "numeric" });
+}
+
+// Formats "15:00:00" or "15:00" → "03:00 PM"
+
+// Formats "15:00", "15:00:30" → "03:00 PM"
+function formatTime(timeStr = "00:00") {
+    if (!timeStr) return "";  // Return an empty string or suitable default
+
+    const parts = timeStr.split(':');
+    const h = Number(parts[0] || 0);
+    const m = Number(parts[1] || 0);
+    const s = parts.length > 2 ? Number(parts[2]) : 0;
+
+    const dt = new Date();
+    dt.setHours(h, m, s);
+
+    return dt.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+    });
+}
 
 
 
@@ -51,12 +79,12 @@ function VenuePage() {
     const [selectedSort, setSelectedSort] = useState('');
     const [page, setPage] = useState(0);
     const [selected, setSelected] = useState([]);
-
+    const [searchTerm, setSearchTerm] = useState("");
 
     // Handle venueList data by react-Query
 
     const auth = useSelector((state) => state.auth);
-    const { data, isLoading, isError, error } = useFetchVenue(auth?.id || null);
+    const { data: AllVenuedata, isLoading, isError, error, isFetching } = useFetchVenue(auth?.id || null);
 
 
     const {
@@ -73,6 +101,7 @@ function VenuePage() {
 
     const likeVenue = useLikeVenue();
     const unlikeVenue = useUnlikeVenue();
+    const sortVenue = useSortVenue();
     const userId = useSelector((state) => state.auth?.id);
 
     const toggleFavourite = (venue) => {
@@ -189,15 +218,49 @@ function VenuePage() {
 
 
 
-    const toggleCheckbox = (option) => {
-        setSelected((prev) =>
-            prev.includes(option)
-                ? prev.filter((item) => item !== option)
-                : [...prev, option]
-        );
+    const handleVenueSort = async (optionId) => {
+        // setSelected(prev => {
+        //     const newSelected = prev.includes(optionId)
+        //         ? prev.filter(id => id !== optionId)
+        //         : [...prev, optionId];
+        //     return newSelected;
+        // });
+
+         setSelected(prev => (prev === optionId ? null : optionId));
+
+        try {
+            const { lat, lng } = await getUserLocation();
+            sortVenue.mutate({ sortByType: optionId, lat, lng }, {
+                onSuccess: (data) => {
+                    if (Array.isArray(data?.result)) {
+                        setVenueList(data?.result);
+                    } else {
+                        queryClient.invalidateQueries(['venueList', userId || null]);
+                    }
+                },
+                onError: err => console.error("Sort failed:", err)
+            });
+        } catch (err) {
+            console.error("Location error:", err);
+        }
+
     };
 
-    const reset = () => setSelected([]);
+
+
+
+    console.log("sortedIds", selected);
+
+    const handleSortReset = () => {
+        setSelected([]); // Clear selected sort IDs
+        if (AllVenuedata?.result) setVenueList(AllVenuedata.result);
+
+        queryClient.invalidateQueries({
+            queryKey: ['venueList', auth?.id || null],
+            refetchType: 'all', // ensures even inactive queries are considered
+        });
+    };
+
     const handleReset = () => {
         setSelectedSport(null);
         setSelectedDate(new Date());
@@ -205,10 +268,11 @@ function VenuePage() {
     }
 
     useEffect(() => {
-        if (data?.result) {
-            setVenueList(data.result);
+        if (AllVenuedata?.result) {
+            setVenueList(AllVenuedata.result);
         }
-    }, [data]);
+    }, [AllVenuedata]);
+    console.log("venueList", venueList)
 
 
     if (isLoading) return <div> <VenueListShimmer /></div>;
@@ -216,7 +280,7 @@ function VenuePage() {
     if (isSportsLoading) return <div><VenueListShimmer /></div>;
     if (isSportsError) return <div>Error loading sports: {sportsError.message}</div>;
 
-    if (!venueList.length) return <div>No venues found.</div>;
+    // if (!venueList.length) return <div>No venues found.</div>;
     return (
         <>
 
@@ -224,6 +288,18 @@ function VenuePage() {
             <div className='venue-page'>
                 <div className="filter-bar">
                     <h3 className="filter-title">Discover sports venues in near you:</h3>
+
+                    <div className='search-input'>
+                        <img src={searchlogo} height={30} width={30} alt='searchlogo' />
+                        <input
+                            type="text"
+                            placeholder="Search by venue, location"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                        <img src={locationlogo} height={30} width={30} alt='locationlogo'/>
+                    </div>
+
 
                     <div className="filter-actions">
                         <button className="icon-btn" onClick={() => setShowFilter(true)}>
@@ -246,11 +322,11 @@ function VenuePage() {
 
                         {showSort && (
                             <SortFilterPopup
-                                onClose={() => setshowSort(false)}
-                                onApply={(sort) => {
-                                    console.log("Applied Sort:", sort);
+                                onClose={() => {
                                     setshowSort(false);
                                 }}
+                                onApply={handleVenueSort}
+                                reset={handleSortReset}
                                 selected={selectedSort}
                                 setSelected={setSelectedSort}
                             />
@@ -336,6 +412,9 @@ function VenuePage() {
                                             <p>Please select a date to view available time slots.</p>
                                         </div>
                                     )}
+                                    <div className='timeslots'>
+                                        {selectedSport} |{formatDate(selectedDate)} | {formatTime(selectedTime)}
+                                    </div>
                                 </div>
                             ) : (
                                 <div className='filter-sec2 no-sport-msg'>
@@ -349,22 +428,22 @@ function VenuePage() {
                         <div className='sort'>
                             <div className="filter-header">
                                 <h3 className='header-sort'>Sort By</h3>
-                                <button className="reset-btns" onClick={reset}>Reset</button>
+                                <button className="reset-btns" onClick={handleSortReset}>Reset</button>
                             </div>
 
-                            {/* <p className="work-mode">Work mode</p> */}
-
                             <div className="checkbox-list">
-                                {sortOptions.map((option, idx) => (
-                                    <label key={idx} className="checkbox-item">
+                                {sortOptions.map(({ id, label }) => (
+                                    <label key={id} className="checkbox-item">
                                         <input
                                             type="checkbox"
-                                            checked={selected.includes(option)}
-                                            onChange={() => toggleCheckbox(option)}
+                                            // checked={selected.includes(id)}
+                                            checked ={ selected === id}
+                                            onChange={() => handleVenueSort(id)}
                                         />
-                                        <span>{option}</span>
+                                        <span>{label}</span>
                                     </label>
                                 ))}
+
                             </div>
 
                         </div>
@@ -373,52 +452,58 @@ function VenuePage() {
 
 
                     <aside className='right-section'>
-                        <div className="venue-list-mobile-scroll">
-                            <div className="venue-list">
-                                {/* {paginatedVenues.map((venue, index) => (
-                                    <Link
-                                        key={venue.id || index}
-                                        to={`/venue/${venue.id || index}`}
-                                        style={{ textDecoration: "none", color: "inherit" }}
-                                    >
-                                        <VenueCard key={index} venue={venue} />
-                                    </Link>
+                        {
+                            !venueList.length ? (
+                                <div style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: "center",
+                                    marginTop: "20rem"
+                                }}>No venues found.</div>
+                            ) : (
+                                <>
+                                    <div className="venue-list-mobile-scroll">
 
-                                ))} */}
-                                {paginatedVenues.map((venue, index) => {
-                                    const formattedVenue = {
-                                        id: venue.id,
-                                        image: venue.cover_image,
-                                        sportsIcons: [CricketLogo, FootballLogo],
-                                        name: venue.venue_name,
-                                        about: venue.about_venue,
-                                        rating: 4.5,
-                                        reviews: 20,
-                                        address: `${venue.area}, ${venue.city}`,
-                                        distance: "3",
-                                        offer: "10% Off",
-                                        price: `₹${venue.pricing}`,
-                                        favourite: venue.favourite
-                                    };
+                                        <div className="venue-list">
 
-                                    return (
-                                        // <Link key={venue.id} to={`/venue/${venue.id}`} style={{ textDecoration: "none", color: "inherit" }}>
-                                        <VenueCard
-                                            key={venue.id}
-                                            venue={formattedVenue}
-                                            isLiked={formattedVenue.favourite}
-                                            onLikeToggle={() => toggleFavourite(venue)}
-                                        />
-                                        // </Link>
-                                    );
-                                })}
+                                            {paginatedVenues.map((venue, index) => {
+                                                const formattedVenue = {
+                                                    id: venue.id,
+                                                    image: venue.cover_image,
+                                                    sportsIcons: [CricketLogo, FootballLogo],
+                                                    name: venue.venue_name,
+                                                    about: venue.about_venue,
+                                                    rating: 4.5,
+                                                    reviews: 20,
+                                                    address: `${venue.area}, ${venue.city}`,
+                                                    distance: "3",
+                                                    offer: "10% Off",
+                                                    price: `₹${venue.pricing}`,
+                                                    favourite: venue.favourite
+                                                };
 
-                            </div>
-                        </div>
-                        <div className="venue-nav">
-                            <button onClick={handlePrev} disabled={page === 0}><img src={leftArrow} alt='left arrow' /></button>
-                            <button onClick={handleNext} disabled={page >= totalPages - 1}><img src={rightArrow} alt='right-arrow' /></button>
-                        </div>
+                                                return (
+
+                                                    <VenueCard
+                                                        key={venue.id}
+                                                        venue={formattedVenue}
+                                                        isLiked={formattedVenue.favourite}
+                                                        onLikeToggle={() => toggleFavourite(venue)}
+                                                    />
+
+                                                );
+                                            })}
+
+                                        </div>
+                                    </div>
+                                    <div className="venue-nav">
+                                        <button onClick={handlePrev} disabled={page === 0}><img src={leftArrow} alt='left arrow' /></button>
+                                        <button onClick={handleNext} disabled={page >= totalPages - 1}><img src={rightArrow} alt='right-arrow' /></button>
+                                    </div>
+                                </>
+                            )
+                        }
+
                     </aside>
 
                 </div>

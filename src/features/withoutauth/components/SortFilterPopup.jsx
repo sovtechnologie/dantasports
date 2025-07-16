@@ -2,15 +2,23 @@ import React, { useState } from 'react';
 import './Stylesheets/SortFilterPopup.css';
 
 const SORT_OPTIONS = [
-  'Popularity',
-  'Near By',
-  'Favorites',
-  'Price: Low to High',
+  { id: 1, label: 'Popularity' },
+  { id: 2, label: 'Near By' },
+  { id: 3, label: 'Favorites' },
+  { id: 4, label: 'Price: Low to High' },
 ];
 
-const SortFilterPopup = ({ onClose, onApply, selected, setSelected }) => {
-  const handleReset = () => setSelected('');
-  const handleApply = () => onApply(selected);
+const SortFilterPopup = ({ onClose, onApply, selected, setSelected,reset }) => {
+  const handleReset = () => {
+    reset();
+    onClose();
+  };
+  const handleApply = () => {
+    onApply(selected);
+    onClose();
+  };
+
+  
 
   return (
     <div className="popup-overlay" onClick={onClose}>
@@ -21,15 +29,15 @@ const SortFilterPopup = ({ onClose, onApply, selected, setSelected }) => {
         </div>
 
         <div className="sort-options">
-          {SORT_OPTIONS.map((option) => (
-            <label key={option} className="sort-option">
-              <span>{option}</span>
+          {SORT_OPTIONS.map(({ id, label }) => (
+            <label key={id} className="sort-option">
+              <span>{label}</span>
               <input
                 type="radio"
                 name="sort"
-                value={option}
-                checked={selected === option}
-                onChange={() => setSelected(option)}
+                value={id}
+                checked={selected === id}
+                onChange={() => setSelected(id)}
               />
               <span className="checkmark"></span>
             </label>

@@ -71,7 +71,9 @@ const TimeSelector = ({
     const end = new Date(selectedTime);
     end.setHours(eh, em, 0, 0);
     const diffHr = (end - selectedTime) / (1000 * 60 * 60);
-    return Math.floor(diffHr / slotMinDurationHr) * slotMinDurationHr;
+    console.log("slecte duration ,diffHr");
+    const diff = diffHr / slotMinDurationHr;
+    return diff * slotMinDurationHr;
   }, [selectedTime, end_time, slotMinDurationHr]);
 
   const handleDuration = useCallback((delta) => {
@@ -82,7 +84,7 @@ const TimeSelector = ({
     const max = getMaxDuration();
     setSelectedDuration(prev => {
       const next = prev + delta;
-      if (next < slotDurationHr) return slotDurationHr;
+      if (next < slotMinDurationHr) return slotMinDurationHr;
       if (next > max) return max;
       return next;
     });
@@ -214,7 +216,7 @@ const TimeSelector = ({
 
 
 
-      <div className="ts-slots">
+     {sportId ? (<div className="ts-slots">
         {timeSlots.map((slot, index) => (
           <button
             key={index}
@@ -224,7 +226,10 @@ const TimeSelector = ({
             {slot.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
           </button>
         ))}
-      </div>
+      </div>):(
+        <p>Select a sport to see available slots</p>
+      )}
+      
 
     </div>
   );

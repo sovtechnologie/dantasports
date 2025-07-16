@@ -27,7 +27,6 @@ body {
   margin-bottom: 20px;
   border-bottom-left-radius: 50px;
   border-bottom-right-radius: 50px;
-  border-top: 1px solid #1163c7;
   height: 22vh;
 }
 
@@ -192,22 +191,11 @@ h1 {
   color: #333;
 }
 
-/* Responsive */
-/* @media (max-width: 768px) {
-  .sports-grid {
-    justify-content: space-between;
-  }
 
-  .sport-card {
-    flex: 1 1 28%;
-    max-width: 90px;
-  }
-} */
 
 /* Right Side (Venue Info) */
 .venue-right {
   flex: 1 1 20%;
-  background-color: #f1f3f2;
   padding: 0 20px 20px 20px;
   border-radius: 10px;
   border: 1px solid #f1f3f2;
