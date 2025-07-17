@@ -2,12 +2,12 @@ import React from 'react';
 import "../stylesheets/layouts/Footer.css"; // Ensure this path is correct
 import logo from "../assets/sportdantaLogo/blueLogo.png"; // Replace with correct logo path
 import { Link } from 'react-router-dom';
-import phonelogo from "../assets/footerLogo/phone.png";
-import emailLogo from "../assets/footerLogo/email.png";
-import facebookLogo from "../assets/SocialmediaLogo/facebook.png";
-import instagramLogo from "../assets/SocialmediaLogo/instagram.png";
-import twitterLogo from "../assets/SocialmediaLogo/twitter.png";
-import linkedinLogo from "../assets/SocialmediaLogo/linkdin.png";
+import phonelogo from "../assets/footerLogo/phone copy.png";
+import emailLogo from "../assets/footerLogo/email copy.png";
+import facebookLogo from "../assets/SocialmediaLogo/facebook copy.png";
+import instagramLogo from "../assets/SocialmediaLogo/instagram copy.png";
+import twitterLogo from "../assets/SocialmediaLogo/twitter copy 2.png";
+import linkedinLogo from "../assets/SocialmediaLogo/linkdin copy.png";
 import googleLogo from "../assets/SocialmediaLogo/google.png";
 
 
@@ -16,9 +16,12 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-top">
         <div className="footer-brand">
+          <div className='logo-section'>
           <img src={logo} alt="Danta Sports Logo" className="footer-logo" />
-          <div>
-            <h2>Danta Sports</h2>
+          <h2>Danta Sports</h2>
+          </div>
+          <div className='icon-section-footer'>
+            
             <p>India's Leading<br />Sports Venue Booking App</p>
             <div className="footer-socials">
               <a href="https://www.facebook.com/profile.php?id=61555453983938" target="_blank" rel="noopener noreferrer">

@@ -1,10 +1,18 @@
+@import url("https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&display=swap");
+
+body {
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
 .footer {
   background-color: #ffffff;
   padding: 3.75rem 2.5rem 1.25rem; /* 60px 40px 20px */
   font-family: sans-serif;
   border-top: 0.0625rem solid #eee; /* 1px */
   border-radius: 2.5rem 2.5rem 0 0; /* 40px */
-  box-shadow: 0 -0.25rem 1.25rem #1163c7; /* 0 -4px 20px */
+  box-shadow: 0 -0.25rem 1.25rem rgba(17, 99, 199, 0.25);
+  padding: 79px 120px;
 }
 
 .footer-top {
@@ -15,34 +23,59 @@
   margin-bottom: 2.5rem; /* 40px */
 }
 
+.logo-section {
+  display: flex;
+  gap: 13px;
+}
+
 .footer-brand {
   display: flex;
-  gap: 1.25rem; /* 20px */
+  flex-direction: column;
+  /* gap: 1.25rem; */
+  gap: 16px;
   max-width: 17.5rem; /* 280px */
 }
 
 .footer-logo {
   width: 3.125rem; /* 50px */
   height: 3.125rem;
+  width: 53px;
+  height: 53px;
 }
 
 .footer-brand h2 {
-  margin: 0;
+  margin-top: 20px;
+  margin-bottom: 0px;
   font-size: 1.3rem;
+  font-family: "Plus Jakarta Sans";
+  font-size: 26px;
+  font-weight: 600;
+  color: #282828;
 }
 
 .footer-brand p {
-  margin: 0.375rem 0; /* 6px */
-  font-size: 0.9rem;
-  color: #333;
+  /* margin: 0.375rem 0;  */
+  margin: 0px;
+  font-size: 1rem;
+  color: #172a39;
+  font-family: "DM Sans";
+  font-weight: 400;
 }
-
+.icon-section-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 31px;
+}
 .footer-socials {
   display: flex;
-  gap: 0.625rem; /* 10px */
-  margin-top: 0.625rem;
+  gap: 15px;
+  /* margin-top: 0.625rem; */
   font-size: 1.2rem;
   color: #0a66c2;
+}
+.footer-socials img {
+  height: 24px;
+  width: 24px;
 }
 
 .footer-links {
@@ -52,9 +85,11 @@
 }
 
 .footer-links div h4 {
-  margin-bottom: 0.625rem; /* 10px */
-  font-size: 1rem;
+  font-size: 18px;
   color: #0a66c2;
+  font-weight: 700;
+  margin: 0;
+  font-family: "Lato", sans-serif;
 }
 
 .footer-links ul {
@@ -62,6 +97,11 @@
   padding: 0;
   font-size: 0.9rem;
   color: #333;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  margin-top: 14px;
 }
 
 .footer-links ul li {
@@ -69,12 +109,21 @@
   display: flex;
   align-items: center;
   gap: 0.375rem;
+  font-weight: 400;
+  font-size: 16px;
+  font-family: "Plus Jakarta Sans", sans-serif;
 }
-
+.footer-links ul li img {
+  height: 24px;
+  width: 24px;
+}
 .footer-links ul li a {
   text-decoration: none;
   color: #333;
   transition: color 0.2s;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
 }
 
 /* .footer-links ul li a:hover {
@@ -90,12 +139,25 @@
   font-size: 0.8rem;
   color: #555;
 }
-
+.footer-bottom p {
+  font-size: 16px;
+  font-weight: 300;
+  color: #3a3a3a;
+  margin: 0px;
+}
 .footer-bottom ul {
   list-style: none;
   display: flex;
-  gap: 1.25rem; /* 20px */
   padding: 0;
   margin: 0;
   text-decoration: none;
+  gap: 32px;
+}
+
+.footer-bottom ul li a {
+  color: #3a3a3a;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  font-family: "Plus Jakarta Sans", sans-serif;
 }

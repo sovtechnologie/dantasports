@@ -17,42 +17,48 @@ function PrivacyAndPolicy() {
                 <section>
                     <h2>I. Defination</h2>
                     <dl>
-                        <dt><strong>A.</strong></dt>
-                        <dd>
-                            The term <em>"Account"</em> denotes the password-protected account that users set up in order to access and engage with the Platform.
-                        </dd>
+                        <div className="privacy-policy">
+                            <dt><strong>A.</strong></dt>
+                            <dd>
+                                The term <em>"Account"</em> denotes the password-protected account that users set up in order to access and engage with the Platform.
+                            </dd>
+                        </div>
+                        <div className="privacy-policy">
+                            <dt><strong>B.</strong></dt>
+                            <dd>
+                                "Non-personal Identification Information" is any non-personal information that is collected from Users as a result of their interaction with the Platform. This information includes, but is not limited to, the type of computer, the browser name, and technical information about the means of connection to the Platform, such as the operating system and the Internet service providers used.
+                            </dd></div>
 
-                        <dt><strong>B.</strong></dt>
-                        <dd>
-                            "Non-personal Identification Information" is any non-personal information that is collected from Users as a result of their interaction with the Platform. This information includes, but is not limited to, the type of computer, the browser name, and technical information about the means of connection to the Platform, such as the operating system and the Internet service providers used.
-                        </dd>
+                        <div className="privacy-policy">
+                            <dt><strong>C.</strong></dt>
+                            <dd>
+                                When a user visits the platform, registers, completes a transaction, answers a survey, fills out a form, or does anything else related to other activities, services, features, or resources we make available on the platform, such information is referred to as "Personal Identification Information" because it can be used to identify, contact, or locate the person to whom it relates. In connection with the services offered on the Platform, users may be requested to provide personal information, such as their name, email address, phone number, and residence address. However, users can access our website anonymously. Users' personal identification information will only be collected by Danta Sports if they willingly provide it to us. Except in cases where it could prohibit them from using specific services or activities offered on the Platform, users are always free to decline to provide Personally Identifying Information.
+                            </dd></div>
 
-                        <dt><strong>C.</strong></dt>
-                        <dd>
-                            When a user visits the platform, registers, completes a transaction, answers a survey, fills out a form, or does anything else related to other activities, services, features, or resources we make available on the platform, such information is referred to as "Personal Identification Information" because it can be used to identify, contact, or locate the person to whom it relates. In connection with the services offered on the Platform, users may be requested to provide personal information, such as their name, email address, phone number, and residence address. However, users can access our website anonymously. Users' personal identification information will only be collected by Danta Sports if they willingly provide it to us. Except in cases where it could prohibit them from using specific services or activities offered on the Platform, users are always free to decline to provide Personally Identifying Information.
-                        </dd>
+                        <div className="privacy-policy">
+                            <dt><strong>D.</strong></dt>
+                            <dd>
+                                Together, personal and non-personal identification information will be referred to as "Information" for the purposes of this policy.Information pertaining to the following is included in "sensitive personal data or information" (SPDI):
 
-                        <dt><strong>D.</strong></dt>
-                        <dd>
-                            Together, personal and non-personal identification information will be referred to as "Information" for the purposes of this policy.Information pertaining to the following is included in "sensitive personal data or information" (SPDI):
+                                <ul>
+                                    <li>Passwords.</li>
+                                    <li>financial data, including bank account, credit card, debit card, or other payment instrument details.</li>
+                                    <li>physical, physiological, and mental health conditions.</li>
+                                    <li>sexual orientation.</li>
+                                    <li>medical records and history.</li>
+                                    <li>biometric data.</li>
+                                    <li>any information pertaining to the aforementioned clauses that is given to the body corporate in order for it to provide services.</li>
+                                    <li>and any data that the body corporate receives under the aforementioned clauses in order to process, store, or process it under a valid contract or otherwise.</li>
+                                </ul>
+                            </dd>
+                        </div>
 
-                            <ul>
-                                <li>Passwords.</li>
-                                <li>financial data, including bank account, credit card, debit card, or other payment instrument details.</li>
-                                <li>physical, physiological, and mental health conditions.</li>
-                                <li>sexual orientation.</li>
-                                <li>medical records and history.</li>
-                                <li>biometric data.</li>
-                                <li>any information pertaining to the aforementioned clauses that is given to the body corporate in order for it to provide services.</li>
-                                <li>and any data that the body corporate receives under the aforementioned clauses in order to process, store, or process it under a valid contract or otherwise.</li>
-                            </ul>
-                        </dd>
-
-
-                        <dt><strong>E.</strong></dt>
-                        <dd>
-                            A <em>“Third Party”</em> is any individual or organization that is not you or us.
-                        </dd>
+                        <div className="privacy-policy">
+                            <dt><strong>E.</strong></dt>
+                            <dd>
+                                A <em>“Third Party”</em> is any individual or organization that is not you or us.
+                            </dd>
+                        </div>
                     </dl>
                 </section>
             </section>
@@ -83,23 +89,23 @@ function PrivacyAndPolicy() {
 
                     <dt><strong>C.	Cookies</strong></dt>
                     <dd>
-                        Cookies are little data files that your browser saves. Cookies help us provide you with continuous service by recording different parts of your visit. Among other things, they enable ad networks to show you customized ads that they think will be most relevant to you. When you visit websites owned by third parties or when you use the Platform, we may install cookies in your browser.The information you provide to us is not connected to this anonymous data, which is kept separate. Cookies are used by us to:
-                        <ul>
-                            <li>Verify your login credentials.</li>
-                            <li>activate our security mechanisms;</li>
-                            <li>contextualize and display advertisements</li>
-                            <li>and enhance and expand the website's functionalities</li>
-                        </ul>
+                        <p>Cookies are little data files that your browser saves. Cookies help us provide you with continuous service by recording different parts of your visit. Among other things, they enable ad networks to show you customized ads that they think will be most relevant to you. When you visit websites owned by third parties or when you use the Platform, we may install cookies in your browser.The information you provide to us is not connected to this anonymous data, which is kept separate. Cookies are used by us to:</p>
+                            <ul>
+                                <li>Verify your login credentials.</li>
+                                <li>activate our security mechanisms;</li>
+                                <li>contextualize and display advertisements</li>
+                                <li>and enhance and expand the website's functionalities</li>
+                            </ul>
                     </dd>
                     <dt><strong>D.</strong></dt>
                     <dd>
-                        If you do not want to accept cookies, please feel free to adjust your browser's settings. Please be aware, though, that altering your browser's settings could have an impact on how you use the Platform.
-                        The use of cookies by advertising is not covered by this polic
+                       <p> If you do not want to accept cookies, please feel free to adjust your browser's settings. Please be aware, though, that altering your browser's settings could have an impact on how you use the Platform.
+                        The use of cookies by advertising is not covered by this policy.</p>
                     </dd>
 
                     <dt><strong>E.	SPDI collection. </strong></dt>
                     <dd>
-                        Users must provide specific SPDI, such as their credit card or debit card information, when creating an account on the platform. Payment gateways and financial institutions need this information in order to complete transactions. We make care to use reputable payment gateways with industry-accepted credentials and security measures, and we never obtain nor store any SPDI pertaining to financial transactions on our platform. Instead, the payment gateway obtains these SPDIs directly through an interaction with our platform. Depending on how a user interacts with the platform, several types of information are gathered. Danta Sports promises to adhere to reasonable security measures and procedures in order to safeguard the information you supply. Without your prior consent, Danta Sports agrees not to transfer or divulge your SPDI to a third party for any reason.
+                        <p> Users must provide specific SPDI, such as their credit card or debit card information, when creating an account on the platform. Payment gateways and financial institutions need this information in order to complete transactions. We make care to use reputable payment gateways with industry-accepted credentials and security measures, and we never obtain nor store any SPDI pertaining to financial transactions on our platform. Instead, the payment gateway obtains these SPDIs directly through an interaction with our platform. Depending on how a user interacts with the platform, several types of information are gathered. Danta Sports promises to adhere to reasonable security measures and procedures in order to safeguard the information you supply. Without your prior consent, Danta Sports agrees not to transfer or divulge your SPDI to a third party for any reason.</p>
                     </dd>
 
                 </dl>
@@ -109,7 +115,7 @@ function PrivacyAndPolicy() {
                 <h2>III. USE OF PERSONAL INFORMATION BY Danta Sports</h2>
                 <dl>
                     <dt><strong>A.</strong></dt>
-                    <dd>A.	in order to deliver services on the platform. If we must react to subpoenas, court orders, or other legal processes, your information might be shared in accordance with those subpoenas, court orders, or legal processes—and sometimes without your knowledge. If we are compelled to do so by law, regulation, or any other governmental authority, or if we are working with a government investigation, we will also provide your information—including, but not limited to, your name, city, state, phone number, email address, and activity history on the Platform—to law enforcement agencies or other government officials.
+                    <dd>in order to deliver services on the platform. If we must react to subpoenas, court orders, or other legal processes, your information might be shared in accordance with those subpoenas, court orders, or legal processes—and sometimes without your knowledge. If we are compelled to do so by law, regulation, or any other governmental authority, or if we are working with a government investigation, we will also provide your information—including, but not limited to, your name, city, state, phone number, email address, and activity history on the Platform—to law enforcement agencies or other government officials.
                         <ul>
                             <li>handle and react to user inquiries.</li>
                             <li>Recognize the needs of the users.</li>
@@ -124,10 +130,10 @@ function PrivacyAndPolicy() {
                     </dd>
                     <dt><strong>B.	Interaction.</strong></dt>
                     <dd>
-                        To provide you with information about specific promotions or features the Platform may decide to offer, or about our affiliates, subsidiaries, business partners, advertisers, and sponsors, including company news, updates, and relevant product or service information, we may use phone calls, emails, application notifications, short message services, multimedia message services, or other communication channels. After registering as a user, you might receive such communications, which are meant to show you ads for products and services that you might find interesting. We give comprehensive unsubscribe instructions at the bottom of every email, or the user can get in touch with the relevant person, if they would like to stop getting future emails that aren't about a transaction they completed on the platform.
+                        <p> To provide you with information about specific promotions or features the Platform may decide to offer, or about our affiliates, subsidiaries, business partners, advertisers, and sponsors, including company news, updates, and relevant product or service information, we may use phone calls, emails, application notifications, short message services, multimedia message services, or other communication channels. After registering as a user, you might receive such communications, which are meant to show you ads for products and services that you might find interesting. We give comprehensive unsubscribe instructions at the bottom of every email, or the user can get in touch with the relevant person, if they would like to stop getting future emails that aren't about a transaction they completed on the platform.</p> 
                     </dd>
                     <dt><strong>C.</strong></dt>
-                    <dd>However, we do not sell user-specific information to any third party for the aforementioned reasons, and any information we do share with third parties for these purposes will be on a no-name aggregate basis.</dd>
+                    <dd><p> However, we do not sell user-specific information to any third party for the aforementioned reasons, and any information we do share with third parties for these purposes will be on a no-name aggregate basis.</p></dd>
                 </dl>
             </section>
 
@@ -135,14 +141,14 @@ function PrivacyAndPolicy() {
                 <h2>IV.	SHARING OF PERSONAL INFORMATION BY Danta Sports</h2>
                 <dl>
                     <dt><strong>A.	disclosure of general information</strong></dt>
-                    <dd>Users' information is never traded, sold, or rented to outside parties. For the aforementioned reasons, we might provide our trusted affiliates, marketers, and business partners with basic aggregated demographic data on users and visitors. In the event of a merger, divestiture, restructuring, reorganization, dissolution, or other sale or transfer of some or all of Danta Sports's assets, whether as a going concern or as part of bankruptcy, liquidation, or similar proceedings, wherein Information of Users held by Danta Sports are among the transferred assets, Personal Identification Information may, however, be shared if necessary with (a) our subsidiaries or affiliates and (b) a buyer or successor.</dd>
+                    <dd><p>Users' information is never traded, sold, or rented to outside parties. For the aforementioned reasons, we might provide our trusted affiliates, marketers, and business partners with basic aggregated demographic data on users and visitors. In the event of a merger, divestiture, restructuring, reorganization, dissolution, or other sale or transfer of some or all of Danta Sports's assets, whether as a going concern or as part of bankruptcy, liquidation, or similar proceedings, wherein Information of Users held by Danta Sports are among the transferred assets, Personal Identification Information may, however, be shared if necessary with (a) our subsidiaries or affiliates and (b) a buyer or successor.</p></dd>
 
                     <dt><strong>B.	Law enforcement and court cases. </strong></dt>
-                    <dd>If we must react to subpoenas, court orders, or other legal processes, your information might be shared in accordance with those subpoenas, court orders, or legal processes—and sometimes without your knowledge. If we are compelled to do so by law, regulation, or any other governmental authority, or if we are working with a government investigation, we will also provide your information—including, but not limited to, your name, city, state, phone number, email address, and activity history on the Platform—to law enforcement agencies or other government officials.</dd>
+                    <dd><p>If we must react to subpoenas, court orders, or other legal processes, your information might be shared in accordance with those subpoenas, court orders, or legal processes—and sometimes without your knowledge. If we are compelled to do so by law, regulation, or any other governmental authority, or if we are working with a government investigation, we will also provide your information—including, but not limited to, your name, city, state, phone number, email address, and activity history on the Platform—to law enforcement agencies or other government officials.</p></dd>
                     <dt><strong>C.	Regarding the Platform, third-party service providers. </strong></dt>
-                    <dd>. We may share your information with third-party contractors who work for us or on our behalf to deliver the services on the Platform, assist us in communicating with you, or operate the Platform, if required to do so.</dd>
+                    <dd><p>We may share your information with third-party contractors who work for us or on our behalf to deliver the services on the Platform, assist us in communicating with you, or operate the Platform, if required to do so.</p></dd>
                     <dt><strong>D.	With permission.</strong></dt>
-                    <dd>If you give us your permission, we may share your information and/or SPDI.</dd>
+                    <dd><p>If you give us your permission, we may share your information and/or SPDI.</p></dd>
                 </dl>
             </section>
 
@@ -157,10 +163,10 @@ function PrivacyAndPolicy() {
             <section>
                 <h2>VI.	UPDATING, DELETING AND AMENDING YOUR INFORMATION</h2>
                 <dl>
-                    <dt><strong>A.</strong></dt>
-                    <dd>We will make every effort to accurately document the information you give us, including any modifications that may come up. You have the right to examine, update, and modify the information we keep about you. You can also ask that we remove any information that is incorrect, lacking, or unnecessary for legal purposes, or that is being processed in a way that violates any applicable laws.</dd>
-                    <dt><strong>B.</strong></dt>
-                    <dd>B.	Your ability to review, update, amend, and remove your information may be restricted in the following situations: (a) if doing so would violate the rights or safety of another person or people; (b) if the information you request is related to ongoing or planned legal proceedings between you and us; or (c) if giving us access to it would jeopardize our ability to negotiate with you or conduct an investigation into potential illegal activity. The applicable law, including any statutory retention requirements, also affects your ability to review, update, revise, and delete your information.</dd>
+                   
+                   <p>We will make every effort to accurately document the information you give us, including any modifications that may come up. You have the right to examine, update, and modify the information we keep about you. You can also ask that we remove any information that is incorrect, lacking, or unnecessary for legal purposes, or that is being processed in a way that violates any applicable laws.</p>
+                   
+                   <p>Your ability to review, update, amend, and remove your information may be restricted in the following situations: (a) if doing so would violate the rights or safety of another person or people; (b) if the information you request is related to ongoing or planned legal proceedings between you and us; or (c) if giving us access to it would jeopardize our ability to negotiate with you or conduct an investigation into potential illegal activity. The applicable law, including any statutory retention requirements, also affects your ability to review, update, revise, and delete your information.</p>
                 </dl>
             </section>
 
@@ -188,7 +194,7 @@ function PrivacyAndPolicy() {
             <section>
                 <h2>X.	CONTACT US</h2>
                 <p>
-                    You can email us at<a href="contact@dantasports.com">contact@dantasports.com</a> or send a letter to the following address if you have any questions about how we process or use the SPDI you submit or this policy.
+                    You can email us at <a href="contact@dantasports.com">contact@dantasports.com</a> or send a letter to the following address if you have any questions about how we process or use the SPDI you submit or this policy.
                 </p>
                 <address>
                     <strong>Danta Sports Private Limited</strong><br />

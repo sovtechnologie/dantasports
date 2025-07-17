@@ -23,7 +23,7 @@
 
 .navbar-container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1238px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -44,7 +44,7 @@
   height: 50px;
   object-fit: contain;
   position: relative;
-  right: 6rem;
+  /* right: 6rem; */
   display: block;
 }
 
@@ -53,7 +53,7 @@
   color: #0a0a0a;
   font-family: "DM Sans", Arial, sans-serif;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 28px;
   letter-spacing: 0;
   text-align: center;
