@@ -25,6 +25,7 @@ const RefundPolicy = lazy(() => import('../pages/RefundPolicy'));
 const CommingSoon = lazy(() => import('../pages/CommingSoon'));
 const SucessfulBooking = lazy(()=>import('../features/auth/components/paymentSuccess'));
 const PaymentFailed = lazy(()=>import('../features/withoutauth/components/paymentFailed'))
+const PaymentStatus = lazy(()=>import('../features/auth/components/paymentStatus'));
 
 
 // Private Route to protected the route
@@ -52,6 +53,7 @@ export default function AppRoutes() {
                     <Route path='/CorporateBooking' element={<CorporateBookingPage />} />
                     <Route path='/payment-sucesss/:id' element={<SucessfulBooking />} />
                     <Route path='/payment-failed/:id' element={<PaymentFailed/>} />
+                    <Route path='/payment-status/:id' element={<PaymentStatus />}/>
                     <Route path='/Partner' element={<PartnerPage />} />
                     <Route path='/PrivacyAndPolicy' element={<PrivacyAndPolicy />} />
                     <Route path='/TermsAndConditions' element={<TermsAndConditions />} />
