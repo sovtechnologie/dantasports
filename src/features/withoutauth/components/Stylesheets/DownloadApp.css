@@ -1,63 +1,66 @@
 .download-app-section {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 60px 10%;
-    background-color: white;
-    flex-wrap: wrap;
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 120px;
+  background-color: white;
+  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
 }
 
 .text-content {
-    max-width: 700px;
-    z-index: 2;
-    margin-top: -200px;
-    /* Remove if you want it flush with the top */
-    padding-top: 20px;
-    /* Add some space from the top if needed */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+  max-width: 700px;
+  z-index: 2;
+  margin-top: -200px;
+  /* Remove if you want it flush with the top */
+  padding-top: 20px;
+  /* Add some space from the top if needed */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
-.text-content>*:not(:last-child) {
-    margin-bottom: 18px;
-    /* Adjust as needed for spacing between tagline, heading, subtext, buttons */
+.text-content > *:not(:last-child) {
+  margin-bottom: 18px;
+  /* Adjust as needed for spacing between tagline, heading, subtext, buttons */
 }
 
 .tagline {
-    font-family: 'DM Sans', Arial, sans-serif;
-    font-weight: 600;
-    font-size: 28px;
-    line-height: 39.2px;
-    letter-spacing: 0;
-    color: #172A39;
+  font-family: "DM Sans", Arial, sans-serif;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 39.2px;
+  letter-spacing: 0;
+  color: #172a39;
+  margin-top: 60px;
+
 }
 
 .heading {
-    font-family: 'Lato', Arial, sans-serif;
-    font-weight: 700;
-    font-size: 50px;
-    line-height: 70px;
-    letter-spacing: 0;
-    color: #1163C7;
-    margin: 10px 0;
-    margin-bottom: 24px;
+  font-family: "Lato", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 50px;
+  line-height: 70px;
+  letter-spacing: 0;
+  color: #1163c7;
+  margin: 10px 0;
+  margin-bottom: 24px;
 }
 
-
 .subtext {
-    font-family: 'DM Sans', Arial, sans-serif;
-    font-weight: 600;
-    font-size: 28px;
-    line-height: 39.2px;
-    letter-spacing: 0;
-    color: #172A39;
-    margin-top: 0px;
-    transition: opacity 0.4s, transform 0.4s;
-    white-space: normal;
+  font-family: "DM Sans", Arial, sans-serif;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 39.2px;
+  letter-spacing: 0;
+  color: #172a39;
+  margin-top: 0px;
+  transition:
+    opacity 0.4s,
+    transform 0.4s;
+  white-space: normal;
   word-break: break-word;
 }
 .subtext-animate {
@@ -66,111 +69,121 @@
 }
 
 .store-buttons {
-    display: flex;
-    gap: 16px;
-    margin-top: 30px;
+  display: flex;
+  gap: 16px;
+  margin-top: 30px;
 }
 
 .google-btn,
 .apple-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 9999px;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 28px;
-    letter-spacing: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 28px;
+  letter-spacing: 0;
+  height: 40px;
+  font-family: "Poppins";
+  width: 137px;
+  justify-content: center;
+
 }
 
 .google-btn {
-    background-color: #1163C7;
-    color: white;
-    border: 2px solid #1163C7;
+  background-color: #1163c7;
+  color: white;
+  /* border: 2px solid #1163c7; */
+}
+.apple-btn img{
+  width: 25px;
+}
+.google-btn img{
+  width: 25px;
 }
 
 .apple-btn {
-    background-color: white;
-    border: 2px solid #1163C7;
-    color: #1163C7;
-    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  /* border: 2px solid #1163c7; */
+  color: #1163c7;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.15);
 }
 
 .image-container {
-    flex: 1;
-    text-align: end;
-    display: flex;
-    align-items: flex-end;
-    /* Align image to the bottom */
-    justify-content: flex-end;
-    position: relative;
-    z-index: 4;
+  flex: 1;
+  text-align: end;
+  display: flex;
+  align-items: flex-end;
+  /* Align image to the bottom */
+  justify-content: flex-end;
+  position: relative;
+  z-index: 4;
 }
 
 .iphone-image {
-    max-width: 450px;
-    width: 100%;
-    object-fit: contain;
-    position: relative;
-    z-index: 4;
+  max-width: 450px;
+  width: 100%;
+  object-fit: contain;
+  position: relative;
+  z-index: 4;
 }
-
 
 /* Decorative Background Shapes */
 .shape {
-    position: absolute;
-    z-index: 1;
-    opacity: 0.2;
-    pointer-events: none;
+  position: absolute;
+  z-index: 1;
+  opacity: 0.2;
+  pointer-events: none;
 }
 
 .big-blob {
-    width: 340px;
-    height: 340px;
-    background-color: #1163C7;
-    border-radius: 50%;
-    top: 136px;
-    left: -30px;
+  width: 340px;
+  height: 340px;
+  background-color: #1163c7;
+  border-radius: 50%;
+  top: 136px;
+  left: -30px;
 }
 
 .small-dot {
-    width: 80px;
-    height: 80px;
-    background-color: #ffffff;
-    border-radius: 50%;
-    position: absolute;
-    top: 40%;
-    left: 58%;
-    z-index: 3;
-    box-shadow: 0 0 0 999px #ffffff;
-    /* Higher than .middle-dot */
+  width: 80px;
+  height: 80px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  position: absolute;
+  top: 40%;
+  left: 58%;
+  z-index: 3;
+  box-shadow: 0 0 0 999px #ffffff;
+  /* Higher than .middle-dot */
 }
 
 .middle-dot {
-    width: 270px;
-    height: 270px;
-    background-image: radial-gradient(#000000 1px, transparent 1px);
-    background-size: 10px 10px;
-    border-radius: 50%;
-    position: absolute;
-    top: 20%;
-    left: 60%;
-    opacity: 0.1;
-    z-index: 2;
+  width: 270px;
+  height: 270px;
+  background-image: radial-gradient(#000000 1px, transparent 1px);
+  background-size: 10px 10px;
+  border-radius: 50%;
+  position: absolute;
+  top: 20%;
+  left: 60%;
+  opacity: 0.1;
+  z-index: 2;
 }
 
 .bottom-dot {
-    width: 220px;
-    height: 220px;
-    background-image: radial-gradient(#000 1px, transparent 1px);
-    background-size: 10px 10px;
-    border-radius: 50%;
-    position: absolute;
-    bottom: 10px;
-    right: -10px;
-    opacity: 0.1;
+  width: 220px;
+  height: 220px;
+  background-image: radial-gradient(#000 1px, transparent 1px);
+  background-size: 10px 10px;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 10px;
+  right: -10px;
+  opacity: 0.1;
 }
 
 /* Responsive */
@@ -246,8 +259,8 @@
     line-height: 28px;
   }
 
-   .store-button {
-    flex-direction: row ;
+  .store-button {
+    flex-direction: row;
     align-items: stretch;
     width: 100%;
     gap: 10px;
@@ -266,7 +279,7 @@
   .apple-btn img {
     height: 18px;
   } */
-  
+
   .image-container {
     justify-content: center;
     margin-top: 30px;

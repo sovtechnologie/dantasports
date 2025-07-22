@@ -5,6 +5,7 @@
   color: white;
   overflow: hidden;
   border-radius: 0 0 40px 40px;
+  height: 571px;
 }
 
 .hero-background {
@@ -72,7 +73,8 @@
   line-height: 70px;
   letter-spacing: 0;
   margin-bottom: 20px;
-  margin-top: -1rem;
+  margin-top: 137px;
+  /* margin-top: -1rem; */
   /* Ensure it has height or fills parent */
 }
 
@@ -80,7 +82,7 @@
    display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 40px;
+  /* margin-bottom: 40px; */
 }
 
 
@@ -150,20 +152,22 @@ input:focus {
   justify-content: center;
   align-items: center;
   position: relative;
-  margin-top: 10rem;
+  margin-top: 6rem;
   box-sizing: border-box;
   padding: 0 40px; /* Space for arrow buttons */
 }
 
 .card-list {
   display: flex;
-  gap: 20px;
+  /* gap: 20px; */
   overflow-x: auto;
   scroll-behavior: smooth;
   flex: 1;
   justify-content: center;
   padding: 30px 0;
   position: relative;
+  height: 296px;
+  width: 203px;
 }
 
 .card-list::-webkit-scrollbar {
@@ -188,12 +192,14 @@ input:focus {
 }
 
 .nav-btn.right {
-  right: 10px;
+  right: -3rem;
 }
 
 .hero-arrow {
   width: 60px;
   height: 60px;
+      margin-left: -3rem;
+
 }
 
 @media (max-width: 768px) {

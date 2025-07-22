@@ -1,10 +1,11 @@
 /* VenueCarousel.css */
 
 .venue-section {
-  padding: 1.7rem;
+  padding: 0px 100px;
   font-family: "Inter", sans-serif;
   background-color: #fff;
   overflow: hidden;
+  margin-top: 60px;
 }
 
 .venue-header {
@@ -27,7 +28,7 @@
 .see-all {
   font-family: "Lato", Arial, sans-serif;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 24px;
   line-height: 130%;
   letter-spacing: -1%;
   color: #1b1f2b;
@@ -57,7 +58,8 @@
 .venue-nav {
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: 30px;
+
   margin-top: 2rem;
 }
 
@@ -73,7 +75,9 @@
   transition: background-color 0.3s ease;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
-
+.venue-nav button img {
+  display: flex;
+}
 .venue-card.hover-effect {
   box-shadow: 0 8px 24px rgba(17, 99, 199, 0.18);
   transform: scale(1.04) translateY(-5px);

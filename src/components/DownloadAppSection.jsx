@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './StyleSheets/DownloadAppSection.css'; // Assuming you have a CSS file for styling
 import iphoneImage from '../assets/downloadAppLogo/iPhone 15.png'; // adjust the path as needed
-
+import appleicon from '../assets/downloadAppLogo/appleicon.png'; 
+import googleplaystoreicon from '../assets/downloadAppLogo/google icon.png'; 
 
 const subtexts = [
     "For seamless bookings and exclusive access to top sports venues near you.",
@@ -46,11 +47,11 @@ const DownloadAppSection = () => {
                 </p>
                 <div className="store-buttons">
                     <a href="https://play.google.com/store/apps" className="google-btn">
-                        <img src="https://img.icons8.com/color/48/000000/google-play.png" alt="Google Play" />
+                        <img src={googleplaystoreicon} alt="Google Play" />
                         Google Play
                     </a>
                     <a href="https://apps.apple.com/apps" className="apple-btn">
-                        <img src="https://img.icons8.com/ios-filled/30/000000/mac-os.png" alt="Apple Store" />
+                        <img src={appleicon} alt="Apple Store" />
                         Apple Store
                     </a>
                 </div>
