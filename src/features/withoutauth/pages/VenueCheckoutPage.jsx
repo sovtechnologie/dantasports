@@ -363,7 +363,7 @@ function VenueCheckoutPage() {
 
 
                     </div>
-                    {/* <div style={{ height: "100px" }}></div> Just for scroll simulation */}
+                   
                     <div className="venue-right" >
 
                         {/* Calendar */}

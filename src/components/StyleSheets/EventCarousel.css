@@ -32,7 +32,8 @@
 .Eventcarousel-image{
   width: 100%;
   border-radius: 16px;
-  object-fit: cover;
+  /* object-fit: cover; */
+  height: 300px;
 }
 
 .Eventcarousel-dots {

@@ -87,7 +87,7 @@ function PrivacyAndPolicy() {
                         </ul>
                     </dd>
 
-                    <dt><strong>C.	Cookies</strong></dt>
+                    <dt><strong>C.</strong></dt>
                     <dd>
                         <p>Cookies are little data files that your browser saves. Cookies help us provide you with continuous service by recording different parts of your visit. Among other things, they enable ad networks to show you customized ads that they think will be most relevant to you. When you visit websites owned by third parties or when you use the Platform, we may install cookies in your browser.The information you provide to us is not connected to this anonymous data, which is kept separate. Cookies are used by us to:</p>
                             <ul>
@@ -103,9 +103,9 @@ function PrivacyAndPolicy() {
                         The use of cookies by advertising is not covered by this policy.</p>
                     </dd>
 
-                    <dt><strong>E.	SPDI collection. </strong></dt>
+                    <dt><strong>E. </strong></dt>
                     <dd>
-                        <p> Users must provide specific SPDI, such as their credit card or debit card information, when creating an account on the platform. Payment gateways and financial institutions need this information in order to complete transactions. We make care to use reputable payment gateways with industry-accepted credentials and security measures, and we never obtain nor store any SPDI pertaining to financial transactions on our platform. Instead, the payment gateway obtains these SPDIs directly through an interaction with our platform. Depending on how a user interacts with the platform, several types of information are gathered. Danta Sports promises to adhere to reasonable security measures and procedures in order to safeguard the information you supply. Without your prior consent, Danta Sports agrees not to transfer or divulge your SPDI to a third party for any reason.</p>
+                        <p> SPDI collection.Users must provide specific SPDI, such as their credit card or debit card information, when creating an account on the platform. Payment gateways and financial institutions need this information in order to complete transactions. We make care to use reputable payment gateways with industry-accepted credentials and security measures, and we never obtain nor store any SPDI pertaining to financial transactions on our platform. Instead, the payment gateway obtains these SPDIs directly through an interaction with our platform. Depending on how a user interacts with the platform, several types of information are gathered. Danta Sports promises to adhere to reasonable security measures and procedures in order to safeguard the information you supply. Without your prior consent, Danta Sports agrees not to transfer or divulge your SPDI to a third party for any reason.</p>
                     </dd>
 
                 </dl>
