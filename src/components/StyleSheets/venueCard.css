@@ -1,6 +1,6 @@
 .venue-card {
   width: 100%;
-   min-width: 240px;
+  min-width: 240px;
   max-width: 350px;
   border-radius: 16px;
   background: #ffffff;
@@ -8,9 +8,14 @@
   height: 300px;
   box-shadow: 0px 4px 8px rgba(0, 94, 255, 0.15);
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  font-family: 'Inter', sans-serif;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  font-family: "Inter", sans-serif;
   position: relative;
+  height: 335px;
+  width: 296px;
+  border-radius: 29.6px;
 }
 
 .venue-card:hover {
@@ -31,23 +36,30 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 16px;
+  bottom: 30px;
   transform: translateY(70%);
   background: #fff;
-  border-radius: 16px;
+  border-radius: 29.6px;
   padding: 10px 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   /* margin: 0 8px 8px 8px; Optional: add margin for spacing from card edges */
   z-index: 1;
   height: 400px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 7.4px;
+  padding: 20px;
 }
 
 .venue-info h4 {
-  font-size: 1.3rem;
+  font-size: 25.9px;
   font-weight: 600;
   margin: 0 0 0.3rem;
   color: #1b1f2b;
+  font-family: "Lato", Arial, sans-serif;
+  font-weight: 500;
+  color: #272727;
 }
 
 .rating {
@@ -56,7 +68,8 @@
   align-items: center;
   font-size: 12px;
   color: #6b7280;
-  margin-bottom: 4px;
+  margin: 0px;
+  /* margin-bottom: 4px; */
 }
 
 .rating .star {
@@ -66,27 +79,34 @@
 }
 
 .rating .value {
-  font-weight: 600;
-  color: #1b1f2b;
+  font-weight: 500;
+  color: #272727;
   margin-right: 2px;
-  font-size: 18px;
+  font-size: 22.2px;
+  font-family: "DM Sans", sans-serif;
 }
 
 .rating .count {
-  font-weight: 600;
+  font-weight: 500;
   margin-right: 6px;
-  color: #1b1f2b;
-  font-size: 18px;
+  color: #272727;
+  font-size: 22.2px;
+  font-family: "DM Sans", sans-serif;
 }
 
 .rating .distance {
-  color: #6b7280;
-  font-size: 18px;
+  color: #858585;
+  font-weight: 400;
+  font-size: 22.2px;
+  font-family: "DM Sans", sans-serif;
 }
 
 .sports {
-  font-size: 18px;
-  color: #9ca3af;
+  color: #858585;
+  font-weight: 400;
+  font-size: 22.2px;
+  font-family: "DM Sans", sans-serif;
+  margin: 0px;
 }
 
 @media (max-width: 768px) {
@@ -108,6 +128,9 @@
     box-shadow: none;
     margin-top: 0;
     border-radius: 0 0 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 
   .venue-info h4 {
@@ -135,4 +158,3 @@
     margin-top: 6px;
   }
 }
-

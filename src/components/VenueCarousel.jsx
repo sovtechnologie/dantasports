@@ -47,7 +47,7 @@ const VenueCarousel = () => {
                 <h3>Book Venues</h3>
                 <Link to="/venue" className="see-all">
                     See All
-                    <img src={cursorArrow} height={15} width={15} style={{ marginLeft: "8px" }}  alt='cursorArrow'/>
+                    <img src={cursorArrow}  style={{ marginLeft: "8px", width:"auto" }}  alt='cursorArrow'/>
                 </Link>
             </div>
 

@@ -1,6 +1,7 @@
 
 .mainEvent-carousel-container{
   background-color: #ffffff;
+  padding: 0px 100px;
 }
 
 .Eventcarousel-container {
@@ -32,8 +33,8 @@
 .Eventcarousel-image{
   width: 100%;
   border-radius: 16px;
-  /* object-fit: cover; */
-  height: 300px;
+  object-fit: cover;
+  width: 612px;
 }
 
 .Eventcarousel-dots {

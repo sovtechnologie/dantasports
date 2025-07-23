@@ -9,7 +9,7 @@
 .info-card {
   width: 18vw;
   /* height: 230px; */
-  border-radius: 20px;
+  border-radius: 29.6px;
   background-color: white;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -19,6 +19,8 @@
     transform 0.3s ease,
     box-shadow 0.3s ease;
   margin: 25px 12px 0px 12px;
+  height: 203px;
+  width: 296px;
 }
 
 .info-card.hover-effect {
@@ -37,7 +39,7 @@
 .video-wrapper {
   position: relative;
   width: 100%;
-  padding-top: 45.25%; /* 16:9 ratio => 9/16 = 0.5625 = 56.25% */
+  padding-top: 38.25%; /* 16:9 ratio => 9/16 = 0.5625 = 56.25% */
   overflow: hidden;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
@@ -52,6 +54,7 @@
   object-fit: cover;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
+  height: 116px;
 }
 
 .info-card-content {
@@ -66,15 +69,21 @@
 .info-card-content h3 {
   margin: 0;
   font-size: 24px;
-  font-weight: 600;
-  color: #1d2b38;
+  font-weight: 400;
+  color: #172a39;
   text-align: left;
+  font-family: "Lato", Arial, sans-serif;
+  margin-left: 20px;
+
 }
 
 .info-card-content p {
   margin: 4px 0 0 0;
-  font-size: 16px;
-  color: #6c757d;
+  font-size: 20px;
+  color: #858585;
+  font-family: "DM Sans", Arial, sans-serif;
+  font-weight: 400;
+  margin-left: 20px;
 }
 
 .subtext {
