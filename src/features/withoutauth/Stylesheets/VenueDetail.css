@@ -665,6 +665,7 @@ h1 {
 }
 
 .image-banner img {
+   border-radius: 12px;
   width: 430px;
   height: 210px;
   object-fit: cover;

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './StyleSheets/EventCarousel.css'; // Assuming you have a CSS file for styling
-import BannerData from '../StaticData/EventCarousel';
 import Banner1 from "../assets/EventBanner/Banner1.png";
 import { useBanner } from '../hooks/useBanner';
 
