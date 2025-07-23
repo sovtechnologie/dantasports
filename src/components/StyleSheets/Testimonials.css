@@ -1,17 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap");
 
 .testimonials-section {
-  font-family: 'DM Sans', sans-serif;
+  font-family: "DM Sans", sans-serif;
   padding: 50px 20px;
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
   text-align: left;
 }
 
 .testimonials-section h2 {
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 400;
   margin-bottom: 30px;
+  font-family: "Lato", sans-serif;
+  color: #172a39;
 }
 
 .testimonials-wrapper {
@@ -23,10 +25,10 @@
 
 .testimonial-card {
   background: #fff;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #B1B1B1;
   border-radius: 10px;
   padding: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); */
 }
 
 .testimonial-header {
@@ -43,31 +45,36 @@
 }
 
 .testimonial-header h4 {
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 500;
   margin: 0;
   color: #0066cc;
+  font-family: "Lato", sans-serif;
+  text-transform: uppercase;
 }
 
 .testimonial-header span {
-  font-size: 16px;
-  color: #666;
+  font-size: 12px;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 400;
+  color: #1d1b20;
+  text-transform: uppercase;
 }
 
 .testimonial-message {
- font-family: 'DM Sans', sans-serif;
+  font-family: "DM Sans", sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 150%; /* or 24px */
   letter-spacing: 0;
   vertical-align: middle;
-  color: #333;
+  color: #172a39;
 }
 
 .testimonial-controls {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 30px;
 }
 
 .testimonial-controls button {
@@ -79,6 +86,9 @@
   font-size: 10px;
   cursor: pointer;
   transition: background 0.3s ease;
+  height: 60px;
+  width: 60px;
+  display: flex;
 }
 
 .testimonial-controls button:hover {

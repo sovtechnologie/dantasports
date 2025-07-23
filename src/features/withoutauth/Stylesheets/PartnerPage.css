@@ -31,7 +31,7 @@ body {
 .header-left {
   flex: 1;
   min-width: 0;
-  padding-left: 78px;
+  /* padding-left: 78px; */
 }
 
 
@@ -39,9 +39,10 @@ body {
 
 
 .header-left h1 {
-  font-size: 50px;
+  font-size: 64px;
   font-weight: 700;
-  color: #1d2b4f;
+  color: #172A39;
+  font-family: "Lato", Arial, sans-serif;
 }
 
 .header-left h1 span {
@@ -49,10 +50,13 @@ body {
 }
 
 .header-left p {
-  font-size: 1.1rem;
+ font-size: 18px;
   margin-top: 10px;
-  color: #444;
+  color: #757575;
+  font-weight: 400;
   max-width: 500px;
+  letter-spacing: 0.41px;
+
 }
 
 .button-group {
@@ -65,13 +69,19 @@ body {
 
 .primary-btn,
 .secondary-btn {
-  padding: 12px 20px;
-  border-radius: 20px;
-  border: 2px solid #1163C7;
+ /* padding: 12px 20px; */
+  border-radius: 50px;
+  border: 1px solid #1163C7;
   cursor: pointer;
   font-weight: 600;
   transition: all 0.3s ease;
   text-transform: uppercase;
+  height: 58px;
+  width: 161px;
+  font-family: "Poppins";
+  font-size: 20px;
+    font-weight: 400;
+
 }
 
 .primary-btn {
@@ -93,7 +103,7 @@ body {
 }
 
 .header-right {
-  flex: 1;
+  /* flex: 1; */
   min-width: 0;
   display: flex;
   flex-direction: column;
