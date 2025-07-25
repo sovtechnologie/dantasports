@@ -31,7 +31,7 @@ const DantaStats = () => {
         </div>
         {/* <img src={rightpattern}/> */}
       </div>
-       
+        <img src={rightpattern}/>
     </section>
   );
 };

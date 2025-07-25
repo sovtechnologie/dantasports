@@ -8,14 +8,14 @@ const ZeroCommissionBanner = () => {
       className="zero-banner"
     //   style={{ backgroundImage: `url(${sectionBanner})` }}
     >
-        <img src={leftsectionBanner} alt='banner'/>
+        {/* <img src={leftsectionBanner} alt='banner' style={{marginLeft:"185px",width:"494px"}}/> */}
       <div className="zero-banner-content">
         <h2>
           Why Pay Heavy Commissions? <span>Go Zero</span>
         </h2>
         <p>Transform Your Booking Experience with Danta</p>
       </div>
-      <img src={rightsectionBanner} alt='banner'/>
+      {/* <img src={rightsectionBanner} alt='banner'/> */}
     </div>
   );
 };

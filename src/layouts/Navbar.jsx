@@ -52,7 +52,7 @@ function Navbar() {
         <div className="navbar-actions">
           <Link to="/CorporateBooking" className="navbar-link">Corporate Booking</Link>
           <Link to="/Partner" className="navbar-link">Become a Partner</Link>
-          <button className="app-btn" onClick={handleClick}>Get the App<img src={arrowlogo} height={20} width={20} style={{ marginLeft: '8px', verticalAlign: 'middle', marginTop: '-2px' }} alt="Arrow" /></button>
+          <button className="app-btn" onClick={handleClick}>Get the App<img src={arrowlogo}  width={25} style={{ verticalAlign: 'middle' }} alt="Arrow" /></button>
           <Link to={userId && token ? `/profile/${userId}` : '#'} className="user-icon" onClick={handleProfileClick}>
             <img src={userLogo} alt="User Profile" />
           </Link>

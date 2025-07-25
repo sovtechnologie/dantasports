@@ -1,11 +1,15 @@
 .danta-stats {
   position: relative;
-  background-color: #0663c7;
+  /* background-color: #0663c7; */
   padding: 10px 20px;
   color: #ffffff;
   text-align: center;
   overflow: hidden;
-  border-radius:30px;
+  border-radius: 30px;
+  min-height: 274px;
+  /* background: url(../assets/datasat-wrapper.png) no-repeat center center; */
+  background: url(../../assets/datasat-wrapper.png) no-repeat center center;
+
 }
 
 .danta-stats .danta-overlay {
@@ -16,16 +20,19 @@
 }
 
 .danta-stats .stats-heading {
-  font-size: 36px;
+  font-size: 37.13px;
   font-weight: 700;
   /* margin-bottom: 10px; */
+  font-family: "Lato", sans-serif;
 }
 
 .danta-stats .stats-subheading {
-  font-size: 18px;
-  font-weight: 400;
+  font-size: 18.56px;
+  font-weight: 500;
   /* margin-bottom: 50px; */
-  color: #e0e0e0;
+  color: #ffffff;
+  margin: 10px;
+  font-family: "DM Sans", Arial, sans-serif;
 }
 
 .stats-grid {
@@ -34,6 +41,10 @@
   gap: 20px;
   /* border-top: 1px solid rgba(255, 255, 255, 0.25);
   padding-top: 40px; */
+  max-width: 740px;
+  justify-content: center;
+  margin: 0 auto;
+  margin-top: 32px;
 }
 
 .stat-item {
@@ -47,30 +58,34 @@
   position: absolute;
   right: 0;
   top: 50%;
-  height: 60%;
+  height: 80%;
   width: 1px;
   background-color: rgba(255, 255, 255, 0.3);
   transform: translateY(-50%);
 }
 
 .stat-item h3 {
-  font-size: 28px;
-  font-weight: 600;
+  font-size: 37.13px;
+  font-weight: 700;
   margin-bottom: 8px;
+  font-family: "Lato", sans-serif;
 }
 
 .stat-item p {
-  font-size: 14px;
+  font-size: 14.85px;
   line-height: 1.4;
-  color: #e0e0e0;
+  color: #ffffff;
+  font-weight: 400;
+  font-family: "DM Sans", Arial, sans-serif;
 }
 
 /* Left and Right Pattern Backgrounds */
 .danta-stats img:first-of-type,
 .danta-stats img:last-of-type {
   position: absolute;
-  top: 0;
-  height: 50%;
+  top: -13px;
+  /* height: 274px; */
+  height: 96%;
   max-height: 100%;
   object-fit: contain;
   z-index: 1;
@@ -78,12 +93,11 @@
 }
 
 .danta-stats img:first-of-type {
-  left: 0;
+  left: -108px;
 }
 
 .danta-stats img:last-of-type {
-  right: 0;
-  
+    right: -105px;
 }
 
 /* Responsive Tweaks */

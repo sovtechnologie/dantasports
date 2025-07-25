@@ -40,8 +40,8 @@ function CorporateBookingPage() {
             Do you operate sports facilities or events? Click Become A Partner or Book a Call to find out how Dantasports can help you
           </p>
           <div className="button-group">
-            <button className="primary-btn">Request a Demo</button>
-            <button className="secondary-btn">Book a Call With Us</button>
+            <button className="primary-btn-one">Request a Demo</button>
+            <button className="secondary-btn-two">Book a Call With Us</button>
           </div>
         </div>
 
