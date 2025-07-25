@@ -19,7 +19,7 @@ body {
   background-color: #ffffff;
   /* width: 100%; */
   border-radius: 0 0 60px 60px;
-  padding: 50px 20px;
+  padding: 50px 100px;
   border-top: 2px solid #1163C7;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
   /* gap: 20px; */
@@ -39,7 +39,7 @@ body {
 
 
 .header-left h1 {
-  font-size: 64px;
+  font-size: 51px;
   font-weight: 700;
   color: #172A39;
   font-family: "Lato", Arial, sans-serif;
@@ -54,8 +54,9 @@ body {
   margin-top: 10px;
   color: #757575;
   font-weight: 400;
-  max-width: 500px;
+  max-width: 576px;
   letter-spacing: 0.41px;
+ font-family: "DM Sans", sans-serif;
 
 }
 
@@ -66,39 +67,39 @@ body {
   flex-wrap: wrap;
 
 }
-
-.primary-btn,
-.secondary-btn {
- /* padding: 12px 20px; */
-  border-radius: 50px;
-  border: 1px solid #1163C7;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  height: 58px;
-  width: 161px;
-  font-family: "Poppins";
-  font-size: 20px;
+.primary-btn-one, .secondary-btn-two {
+    /* padding: 12px 20px; */
+    border-radius: 50px;
+    border: 1px solid #1163C7;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    /* height: 58px; */
+    font-family: "Poppins";
+    font-size: 20px;
+    padding: 5px 22px;
     font-weight: 400;
-
 }
 
-.primary-btn {
+
+
+
+.primary-btn-one {
   background-color: #1163C7;
   color: white;
 }
 
-.primary-btn:hover {
+.primary-btn-one:hover {
   background-color: #0d4da0;
 }
 
-.secondary-btn {
+.secondary-btn-two {
   background-color: white;
   color: #1163C7;
 }
 
-.secondary-btn:hover {
+.secondary-btn-two:hover {
   background-color: #e6f0fd;
 }
 

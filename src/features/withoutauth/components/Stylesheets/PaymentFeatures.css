@@ -1,14 +1,18 @@
 /* Container styling */
 .solutions-wrapper {
-  padding: 60px 20px;
+  padding: 10px 120px;
   text-align: center;
+  margin-top: 80px;
 }
 
 /* Heading */
 .solutions-heading {
-  font-size: 32px;
+  font-size: 48px;
   font-weight: 700;
-  color: #172A39;
+  margin-bottom: 20px;
+  font-family: "Lato", sans-serif;
+  margin: 0px;
+  color: #172a39;
   margin-bottom: 12px;
   line-height: 1.4;
 }
@@ -19,57 +23,72 @@
 
 /* Subheading paragraph */
 .solutions-wrapper > p {
-  font-size: 16px;
-  color: #555;
+  /* font-size: 16px; */
+  color: #000000;
   margin-bottom: 40px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  margin: 0;
 }
 
 /* Grid layout */
 .solutions-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(700px, 1fr));
-  gap: 24px;
+  /* grid-template-columns: repeat(auto-fit, minmax(700px, 1fr)); */
+  grid-template-columns: repeat(2, 1fr);
+  padding: 38px 0px;
+ gap: 24px;
   justify-items: center;
 }
 
 /* Individual card */
 .solution-card {
   display: flex;
-  align-items: flex-start;
+  /* align-items: flex-start; */
+  gap: 20px;
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(17, 99, 199, 0.1);
   padding: 20px;
-  max-width: 500px;
+  max-width: 530px;
+  height: 78px;
   width: 100%;
 }
 
-
 /* Icon image styling */
 .solution-icon {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   background-color: #e6f0ff;
   border-radius: 50%;
   padding: 10px;
   object-fit: contain;
+  /* margin-left: 30px; */
 }
 
 /* Title inside card */
 .solution-title {
   display: flex;
   align-items: flex-start;
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 600;
   color: #1163c7;
   margin: 0;
-  padding-left: 30px;
+  /* padding-left: 30px; */
+  font-family: "Lato", sans-serif;
 }
 
 /* Description inside card */
 .solution-description {
-  font-size: 14px;
-  color: #444;
+  /* font-size: 14px; */
+  color: #172a39;
+  margin: 0px;
   margin-top: 6px;
-  padding-left: 30px;
+  /* padding-left: 30px; */
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: left;
+  width: 381px;
 }
