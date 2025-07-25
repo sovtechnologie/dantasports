@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { sendOtp, verifyOtp, clearError } from '../../../redux/Slices/authSlice.js';
 import { resetLoginState } from "../../../redux/Slices/authSlice.js";
 import '../StyleSheets/Login.css';
-import qrImage from '../assets/QR_Code.png';
 
 const Login = ({ isModal = false, onSuccess = () => { }, onSwitchToRegister = () => { } }) => {
 
@@ -95,7 +94,6 @@ const Login = ({ isModal = false, onSuccess = () => { }, onSwitchToRegister = ()
       setOtpJustSent(true);
     } catch (err) {
       console.error("❌ Send OTP failed:", err);
-      // alert(err);
     }
   };
 
@@ -114,7 +112,6 @@ const Login = ({ isModal = false, onSuccess = () => { }, onSwitchToRegister = ()
     } catch (err) {
       console.error("❌ Verify OTP failed:", err);
       setOtp('');
-      // alert(err);
     }
   };
 
@@ -232,12 +229,6 @@ const Login = ({ isModal = false, onSuccess = () => { }, onSwitchToRegister = ()
           {error && <p className="error-text">{error}</p>}
         </div>
 
-        {/* Right Side */}
-        {/* <div className="right-panel">
-          <img src={qrImage} alt="QR Code" />
-          <h3>Log in with QR code</h3>
-          <p>Scan this with our App to log in instantly</p>
-        </div> */}
       </div>
     </div>
   );
