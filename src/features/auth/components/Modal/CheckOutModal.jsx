@@ -1,26 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../StyleSheets/CheckOutModal.css";
-import venueImage from "../../assets/image.png";
 import editIcon from "../../assets/Edit Square.png";
 import { usePaymentDetails } from "../../../../hooks/Payments/usePaymentDetails.js";
 import { useCreatePayment } from "../../../../hooks/Payments/useCreatePayment.js";
 import { useCancelBooking } from "../../../../hooks/Payments/useCancelBooking.js";
 
 
-// const booking = {
-//     image: venueImage,
-//     name: 'Red Meadows',
-//     time: '09:00 am – 10:00 am',
-//     date: '04 Sep 2024',
-//     size: '5x5',
-//     sport: 'Football',
-//     onRemove: () => { },
-//     onEdit: () => { },
-//     contact: { name: 'Jane Cooper', phone: '+91 8085550833', email: 'janec@example.com' },
-//     price: { court: 1100, fee: 30 },
-//     total: 1130
-// };
+
 
 // Helper functions
 function formatTime(start, duration) {
@@ -111,20 +98,23 @@ export function CheckoutModal({ isOpen, onClose, bookingId }) {
     //     }
     // }, [paymentUrl]);
     useEffect(() => {
-    if (paymentUrl) {
-        const openedWindow = window.open(paymentUrl, "_blank");
+        if (paymentUrl) {
+            const openedWindow = window.open(paymentUrl, "_blank");
 
-        const checkPaymentStatus = setInterval(() => {
-            if (openedWindow?.closed) {
-                clearInterval(checkPaymentStatus);
-                onClose();
-                navigate(`/payment-sucesss/${bookingId}`);
-            }
-        }, 1000);
+            // ✅ Immediately close the Checkout modal
+            onClose();
 
-        return () => clearInterval(checkPaymentStatus);
-    }
-}, [paymentUrl]);
+            const checkPaymentStatus = setInterval(() => {
+                if (openedWindow?.closed) {
+                    clearInterval(checkPaymentStatus);
+                    onClose();
+                    // navigate(`/payment-sucesss/${bookingId}`);
+                }
+            }, 1000);
+
+            return () => clearInterval(checkPaymentStatus);
+        }
+    }, [paymentUrl]);
 
     if (!isOpen) return null;
 

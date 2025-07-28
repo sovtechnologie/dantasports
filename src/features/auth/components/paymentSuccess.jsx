@@ -1,12 +1,12 @@
 import { useParams } from 'react-router-dom';
+import BookingPopupCard from '../components/BookingPopupCard.jsx';
 
 export default function PaymentSuccess() {
-    const { bookingId } = useParams();
+    const { id } = useParams();
 
     return (
-        <div style={{ textAlign: "center", padding: "2rem" }}>
-            <h1>Payment Successs</h1>
-            <p>Your booking ID: <strong>{bookingId}</strong></p>
+         <div style={{ textAlign: "center", padding: "2rem" }}>
+            <BookingPopupCard bookingId={id} />
         </div>
     );
 }

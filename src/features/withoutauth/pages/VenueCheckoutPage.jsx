@@ -11,7 +11,6 @@ import ReviewCard from '../components/ReviewCard.jsx';
 import Calendar from '../components/Calendar.jsx';
 import TimeSelector from '../components/TimeSelector.jsx';
 import ConfirmSlotCard from "../components/ConfirmSlotCard.jsx";
-import BookingPopupCard from '../components/BookingPopupCard.jsx';
 import checkitIcon from "../assets/Checkitcon.png";
 import { useFetchSingleVenue } from '../../../hooks/VenueList/useFetchSingleVenue.js';
 import { formatTime } from '../../../utils/formatTime.js';

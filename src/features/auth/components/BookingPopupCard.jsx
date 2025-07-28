@@ -1,6 +1,5 @@
 import React from 'react';
-import './Stylesheets/BookingPopupCard.css';
-import { useParams } from "react-router-dom";
+import './StyleSheets/BookingPopupCard.css';
 import checkIcon from "../assets/Checkicon.png";
 import Banner from "../assets/venue-banner.png";
 import ShareIcon from "../assets/BookingshareIcons.png";
@@ -10,17 +9,14 @@ import { useBanner } from '../../../hooks/useBanner.js';
 
 
 const BookingPopupCard = ({
-  show,
-  onClose,
-  bookingData,
+ bookingId
 }) => {
-   const { bookingId } = useParams();
    
+  const bookingData = [];
   const pageNo = 4;
 
   const { data: bannerData, isLoading: Bannerloading, error: BannerError } = useBanner(pageNo);
 
-  if (!show || !bookingData) return null;
 
   const {
     referenceNumber,
@@ -38,7 +34,7 @@ const BookingPopupCard = ({
   if (BannerError) return <div>Error loading banners</div>;
 
   return (
-    <div className="popup-overlay" onClick={onClose}>
+    <div className="popup-overlay" >
       <div className="booking-popup" onClick={(e) => e.stopPropagation()}>
         <div className="booking-header">
           <h2 className='booking-heading'>Booking confirmed</h2>
@@ -100,7 +96,7 @@ const BookingPopupCard = ({
           </div>
         </div>
         <div className='button-wrapper'>
-          <button className="home-btn" onClick={onClose}>BACK TO HOME</button>
+          <button className="home-btn" >BACK TO HOME</button>
         </div>
       </div>
     </div>
