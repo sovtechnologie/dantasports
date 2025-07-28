@@ -166,40 +166,41 @@ body {
   background-color: #ffffff;
   /* width: 100%; */
   /* border-radius: 0 0 60px 60px; */
-  padding: 50px 20px;
-  margin-bottom: 20px;
+  padding: 50px 95px;
+  /* margin-bottom: 20px; */
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
   /* gap: 20px; */
   /* Optional spacing between left and right */
   flex-wrap: nowrap;
+  justify-content: space-between;
 }
 
 .left-sport-event {
-  flex: 1;
+  /* flex: 1; */
   min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 20px;
-  padding-left: 10px;
+  /* padding-top: 20px; */
+  /* padding-left: 10px; */
 
 }
 
 .carousel-sport-img {
   width: 100%;
-  max-width: 600px;
-  height: 350px;
+  max-width: 612px;
+  height: 395px;
   border-radius: 16px;
   object-fit: cover;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
-
+/* 
 .right-sport-event {
   flex: 1;
   min-width: 0;
   padding: 20px;
   max-width: 100%;
-}
+} */
 
 .right-sport-event h1 {
   font-family: 'Lato', sans-serif;
@@ -220,13 +221,13 @@ body {
 .right-sport-event p {
   font-size: 1.1rem;
   margin-top: 10px;
-  color: #444;
-  max-width: 500px;
+  color: #000000;
+  max-width: 607px;
   font-family: DM Sans;
   font-weight: 400;
-  /* font-size: 24px; */
+  font-size: 24px;
   line-height: 180%;
-  /* letter-spacing: 0.41px; */
+  letter-spacing: 0.41px;
   vertical-align: middle;
 
 }

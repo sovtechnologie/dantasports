@@ -1,142 +1,178 @@
 .form-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px 20px;
-    /* background-color: #f5f8fb; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 100px;
+  /* background-color: #f5f8fb; */
 }
 
 .form-card {
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    max-width: 1200px;
-    width: 100%;
-    padding: 40px;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18); */
+  max-width: 1186px;
+  width: 100%;
+  padding: 40px 27px !important;
+  gap: 20px;
 }
 
 @media (min-width: 768px) {
-    .form-card {
-        flex-direction: row;
-        justify-content: space-between;
-        padding: 40px;
-    }
+  .form-card {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 40px;
+  }
 
-    .form-left,
-    .form-right {
-        flex: 1;
-    }
+  .form-left,
+  .form-right {
+    flex: 1;
+  }
 
-    .form-left {
-        padding-right: 0px;
-    }
+  .form-left {
+    padding-right: 0px;
+  }
 }
 
 .form-left {
-    flex: 1;
-    padding-right: 20px;
+  flex: 1;
+  max-width: 424px;
+  /* padding-right: 20px; */
 }
 
 .form-left h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-size: 44px;
+  margin: 0px;
+  /* margin-bottom: 10px; */
 }
 
 .form-left p {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 20px;
+  font-size: 20px;
+  color: #858585;
+  margin-bottom: 20px;
+  font-weight: 300;
+  font-family: "DM Sans", sans-serif;
 }
 
 .form-left ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 44px;
 }
 
 .form-left li {
-    margin-bottom: 10px;
-    color: #0066cc;
+  /* margin-bottom: 10px; */
+  color: #1163C7;
+  font-size: 20px;
+  /* margin-bottom: 20px; */
+  font-weight: 400;
+  font-family: "DM Sans", sans-serif;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  gap: 14px;
+}
+
+.form-left li img {
+  height: 28px;
+  width: 28px;
 }
 
 .form-right {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 729px;
 }
 
 input,
 select,
 textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 14px;
+  width: 100%;
+  padding: 21px;
+  border: 1px solid #ccc;
+  border-radius: 11.27px;
+  font-size: 20px;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 400;
+  width: 685px;
+  height: 19px;
+  color: #172a39;
 }
-
+select{
+    width: 729px;
+    height: 70px;
+}
 textarea {
-    min-height: 100px;
+  min-height: 100px;
 }
 
 .form-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #1163C7;
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-    width: 300px;
-    margin: 0 auto;
-    /* This centers the button horizontally */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1163c7;
+  color: white;
+  /* padding: 12px; */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 20px;
+  transition: background-color 0.3s ease;
+  width: 370px;
+  height: 54px;
+  margin: 0 auto;
+  /* This centers the button horizontally */
+  font-family: 'Poppins';
+  font-weight: 400;
+  margin-top: 25px;
 }
 
-
 .form-btn:hover {
-    background-color: #004f99;
+  background-color: #004f99;
 }
 
 .response-message {
-    color: green;
-    font-size: 14px;
+  color: green;
+  font-size: 14px;
 }
 
 /* Mobile-specific tweaks (≤ 480px) */
 @media (max-width: 480px) {
-    .form-left h2 {
-        font-size: 20px;
-    }
+  .form-left h2 {
+    font-size: 20px;
+  }
 
-    .form-left li,
-    .form-left p {
-        font-size: 13px;
-    }
+  .form-left li,
+  .form-left p {
+    font-size: 13px;
+  }
 
-    .form-container {
-        padding: 20px 10px;
-    }
+  .form-container {
+    padding: 20px 10px;
+  }
 
-    .form-card {
-        padding: 20px 15px;
-    }
+  .form-card {
+    padding: 20px 15px;
+  }
 
-    input,
-    select,
-    textarea {
-        width: 80%;
-    }
+  input,
+  select,
+  textarea {
+    width: 80%;
+  }
 
-    .form-btn {
-        width: 150px;
-        margin: 0 auto;
-        /* This centers the button horizontally */
-    }
+  .form-btn {
+    width: 150px;
+    margin: 0 auto;
+    /* This centers the button horizontally */
+  }
 }

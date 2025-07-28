@@ -17,12 +17,14 @@
   /* max-width: 300px; */
   background: white;
   border: 1px solid #ccc;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
   border-radius: 12px;
-  padding: 20px;
+  padding: 10px;
   text-align: center;
   flex-shrink: 0;
-  height: 240px;
-  width: 361px;
+  height: 194px;
+  width: 277px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -31,8 +33,8 @@
 }
 
 .card-icon {
-  width: 100px;
-  height: 100px;
+  width: 68px;
+  height: 68px;
   /* height: 40px; */
   /* margin-bottom: 16px; */
 }
@@ -40,7 +42,7 @@
 .card-title {
   font-family: "Lato", sans-serif;
   font-weight: 700;
-  font-size: 32px;
+  font-size: 22px;
   line-height: 120%; /* or line-height: 1.2; */
   letter-spacing: 0.35px;
   text-align: center;
@@ -51,14 +53,14 @@
 .card-subtitle {
   font-family: "DM Sans", sans-serif;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 140%; /* or line-height: 1.4; */
   letter-spacing: 0.35px;
   text-align: center;
   vertical-align: middle;
   color: #172a39;
   margin: 0px;
-  width: 326px;
+  width: 273px;
 }
 
 .highlight {

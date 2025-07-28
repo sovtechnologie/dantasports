@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Stylesheets/CorporateBookingForm.css';
 import { useMutation } from '@tanstack/react-query';
 import { submitInquiryForm } from '../../../services/withoutLoginApi/InquiryFormApi/endpointApi';
-import checkOutIcon from "../assets/Checkitcon.png";
+import checkOutIcon from "../assets/checkOutIcon.png";
 
 const CorporateBookingForm = () => {
   const [formData, setFormData] = useState({
@@ -82,7 +82,7 @@ const CorporateBookingForm = () => {
         <div className="form-left">
           <h2>Talk to Our Team</h2>
           <p>For a customized proposal as per your needs.</p>
-          <hr />
+          <hr style={{width:'422px'}}/>
           <ul>
             <li><img src={checkOutIcon}  alt='check it'/> Trusted By Some Of The Biggest Corporates In Industry</li>
             <li><img src={checkOutIcon} alt='check it'/> 1500+ Venues</li>

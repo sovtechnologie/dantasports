@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './Stylesheets/DownloadApp.css'; // Assuming you have a CSS file for styling
 import iphoneImage from '../assets/downloadAppLogo/iPhone 15.png'; // adjust the path as needed
-// import appleicon from '../assets/apple-icon.png'; 
-// import googleplaystoreicon from '../assets/google-play-icon.png'; 
+import appleicon from '/Users/admin/Desktop/DantaSport/src/assets/appleicon.png';
+import googleplaystoreicon from '/Users/admin/Desktop/DantaSport/src/assets/google-play-icon.png';
 
 
 const subtexts = [
@@ -48,11 +48,11 @@ const DownloadApp = () => {
                 </p>
                 <div className="store-buttons">
                     <a href="https://play.google.com/store/apps" className="google-btn">
-                        <img src="https://img.icons8.com/color/48/000000/google-play.png" alt="Google Play" />
+                       <img src={googleplaystoreicon} alt="Google Play" />
                         Google Play
                     </a>
                     <a href="https://apps.apple.com/apps" className="apple-btn">
-                        <img src="https://img.icons8.com/ios-filled/30/000000/mac-os.png" alt="Apple Store" />
+                       <img src={appleicon} alt="Apple Store" />
                         Apple Store
                     </a>
                 </div>

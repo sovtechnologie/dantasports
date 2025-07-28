@@ -1,6 +1,9 @@
 import React from 'react';
 import './Stylesheets/AppDownloadBanner.css'; // Adjust the path as needed
 import waveImage from '../assets/WaveLogo.png'; // Adjust the path as needed
+import appleicon from '/Users/admin/Desktop/DantaSport/src/assets/appleicon.png';
+import googleplaystoreicon from '/Users/admin/Desktop/DantaSport/src/assets/google-play-icon.png';
+
 
 const AppDownloadBanner = () => {
     return (
@@ -11,11 +14,11 @@ const AppDownloadBanner = () => {
                 </div>
                 <div className="banner-buttons">
                     <a href='https://play.google.com/store/apps' className="store-button">
-                        <img src="https://img.icons8.com/color/48/000000/google-play.png" alt="Google Play" />
+                         <img src={googleplaystoreicon} alt="Google Play" />
                         Google Play
                     </a>
                     <a href='https://apps.apple.com/apps' className="store-button">
-                        <img src="https://img.icons8.com/ios-filled/30/000000/mac-os.png" alt="Apple Store" />
+                        <img src={appleicon} alt="Apple Store" />
                         Apple Store
                     </a>
                 </div>
