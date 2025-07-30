@@ -319,7 +319,7 @@ function VenueDetailsPage() {
                         </div>
 
                         <div className="venue-actions">
-                            <button className="venue-action-btn" onClick={Share} ><img src={ShareIcon} alt='share' className="venue-icon" style={{ marginLeft: "50px" }} />Share</button>
+                            <button className="venue-action-btn" onClick={Share} ><img src={ShareIcon} alt='share' className="venue-icon" />Share</button>
                             <button className="venue-action-btn" onClick={() => handleClickLike(venue)}><img src={venue.favourite ? HeartFilled : LikeIcon} alt='like' className="venue-icon" /> Favourite</button>
                         </div>
 
