@@ -1,8 +1,8 @@
 import React from 'react';
 import './Stylesheets/AppDownloadBanner.css'; // Adjust the path as needed
 import waveImage from '../assets/WaveLogo.png'; // Adjust the path as needed
-import appleicon from '/Users/admin/Desktop/DantaSport/src/assets/appleicon.png';
-import googleplaystoreicon from '/Users/admin/Desktop/DantaSport/src/assets/google-play-icon.png';
+import appleicon from '../../../assets/appleicon.png';
+import googleplaystoreicon from '../../../assets/googleicon.png';
 
 
 const AppDownloadBanner = () => {
