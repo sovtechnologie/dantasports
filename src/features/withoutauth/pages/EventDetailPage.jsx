@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../Stylesheets/EventDetailPage.css";
 import ReviewCard from "../components/ReviewCard";
+import Gallery from "../components/Gallery";
 
 const fullText = `cvdc bcdbiw biwo bbwoe cnowe ndowh jie nc bidwu 
     bdbdi hjh u bcjdc bjoc lorem ipsum dolor sit amet, consectetur adipiscing elit, 
@@ -16,18 +17,20 @@ Unauthorized resale is strictly prohibited and may
 `;
 
 const reviews = [
-  {
-    id: 1,
-    rating: 4.5,
-    userName: "Aarav Mehta",
-    comment: "Amazing experience! The trek was well organized and the guides were really helpful."
-  },
-  {
-    id: 2,
-    rating: 4.0,
-    userName: "Priya Sharma",
-    comment: "Beautiful views and great atmosphere. A bit tiring but worth every step."
-  },
+    {
+        id: 1,
+        rating: 4.5,
+        userName: "Aarav Mehta",
+        comment: "Amazing experience! The trek was well organized and the guides were really helpful.",
+        date: "3 day ago"
+    },
+    {
+        id: 2,
+        rating: 4.0,
+        userName: "Priya Sharma",
+        comment: "Beautiful views and great atmosphere. A bit tiring but worth every step.",
+        date: "3 day ago"
+    },
 ]
 
 const guide = {
@@ -116,20 +119,19 @@ export default function EventDetailPage() {
                             </button>
                         </div>
 
-                      <div className="event-term_policy">
-                          <div className="event-section terms">Terms & Conditions</div>
-                          <div className="event-section policy">Cancellation Policy</div>
-                      </div>
+                        <div className="event-term_policy">
+                            <div className="event-section terms">Terms & Conditions</div>
+                            <div className="event-section policy">Cancellation Policy</div>
+                        </div>
 
-                      <div className="event-review">
-                        <div className="event-review-heading">Rating & Reviews</div>
-                           <div className="review-carousel-container">
+                        <div className="event-review">
+                            <div className="event-review-heading">Rating & Reviews</div>
+                            <div className="event-review-container">
                                 {reviews.map((review) => (
                                     <ReviewCard key={review.id} review={review} />
                                 ))}
                             </div>
-                      </div>
-
+                        </div>
                     </div>
 
 
@@ -137,6 +139,7 @@ export default function EventDetailPage() {
                         event -right
                     </div>
                 </div>
+                 <Gallery/>
             </div>
 
         </>

@@ -1,0 +1,28 @@
+.gallery-wrapper {
+  padding: 0px;
+}
+
+.gallery-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 12px;
+}
+
+.gallery-masonry {
+  display: flex;
+  margin-left: -12px; /* gutter size offset */
+  width: auto;
+}
+
+.gallery-column {
+  padding-left: 12px; /* gutter size */
+  background-clip: padding-box;
+}
+
+.gallery-img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  object-fit: cover;
+}

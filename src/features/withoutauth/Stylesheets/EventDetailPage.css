@@ -184,3 +184,9 @@ body {
     letter-spacing: 0%;
     color: #172A39;
 }
+.event-review-container{
+    display: flex;
+    flex-direction: row;
+    gap:10px;
+    margin-top: 1rem;
+}
