@@ -10,7 +10,7 @@ import DownloadAppSection from "../components/DownloadAppSection";
 
 const Home = () =>{
     return(
-        <div className="main-container">
+        <div className="main-Home-container">
             <Hero />
             <PopularSports />
             <EventCarousel/>

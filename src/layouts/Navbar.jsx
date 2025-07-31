@@ -14,6 +14,8 @@ import LoginModal from "../features/auth/components/loginModal";
 function Navbar() {
   const location = useLocation();
   const isHome = location.pathname === '/';
+  const isActive = (path) => location.pathname === path;
+
 
   const userId = useSelector((state) => state.auth?.id);
   const token = Cookies.get('token');
@@ -50,9 +52,26 @@ function Navbar() {
         </Link>
 
         <div className="navbar-actions">
-          <Link to="/CorporateBooking" className="navbar-link">Corporate Booking</Link>
-          <Link to="/Partner" className="navbar-link">Become a Partner</Link>
-          <button className="app-btn" onClick={handleClick}>Get the App<img src={arrowlogo}  width={25} style={{ verticalAlign: 'middle' }} alt="Arrow" /></button>
+          {isHome?(
+            <>
+             <Link to="/CorporateBooking" className="navbar-link">Corporate Booking</Link>
+             <Link to="/Partner" className="navbar-link">Become a Partner</Link>
+             <button className="app-btn" onClick={handleClick}>Get the App<img src={arrowlogo}  width={25} style={{ verticalAlign: 'middle' }} alt="Arrow" /></button>
+            </>
+          ):(
+            <>
+            <div className='nav-Filter-wrapper'>
+            <Link to="/venue"  className={`nav-Filter-link ${isActive('/venue') ? 'active-link' : ''}`}>Book</Link>
+            <Link to="/Host" className={`nav-Filter-link ${isActive('/Host') ? 'active-link' : ''}`}>Host/Play</Link>
+            <Link to="/Run" className={`nav-Filter-link ${isActive('/Run') ? 'active-link' : ''}`}>Run</Link>
+            <Link to="/Coach" className={`nav-Filter-link ${isActive('/Coach') ? 'active-link' : ''}`}>Coach</Link>
+            <Link to="/Events" className={`nav-Filter-link ${isActive('/Events') ? 'active-link' : ''}`}>Events</Link>
+            <Link to="/Gym" className={`nav-Filter-link ${isActive('/Gym') ? 'active-link' : ''}`}>Gym</Link>
+            </div>
+            </>
+          )}
+         
+          
           <Link to={userId && token ? `/profile/${userId}` : '#'} className="user-icon" onClick={handleProfileClick}>
             <img src={userLogo} alt="User Profile" />
           </Link>

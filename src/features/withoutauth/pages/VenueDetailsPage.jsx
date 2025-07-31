@@ -254,7 +254,6 @@ function VenueDetailsPage() {
                             </div>
                         </div>
                         <div className="section">
-
                             <div className="sports-wrapper">
                                 <div className="sports-header">
                                     <strong>Sports Available</strong>

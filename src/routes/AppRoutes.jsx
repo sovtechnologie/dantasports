@@ -27,6 +27,9 @@ const SucessfulBooking = lazy(()=>import('../features/auth/components/paymentSuc
 const PaymentFailed = lazy(()=>import('../features/withoutauth/components/paymentFailed'))
 const PaymentStatus = lazy(()=>import('../features/auth/components/paymentStatus'));
 
+// Filter pages
+const RunFilterPage = lazy(()=>import("../features/withoutauth/pages/FilterPages/RunFilter"));
+const EventDetailPage = lazy(()=>import("../features/withoutauth/pages/EventDetailPage"));
 
 // Private Route to protected the route
 const PrivateRoute = lazy(() => import('../features/auth/components/PrivateRoute'));
@@ -59,6 +62,15 @@ export default function AppRoutes() {
                     <Route path='/TermsAndConditions' element={<TermsAndConditions />} />
                     <Route path='/RefundPolicy' element={<RefundPolicy />} />
                     <Route path="/CommingSoon" element={<CommingSoon />} />
+
+                    {/* Filter Pages */}
+                    <Route path = '/Run' element={<RunFilterPage />} />
+                    <Route path = '/Host' element={<RunFilterPage />} />
+                    <Route path = '/Coach' element={<RunFilterPage />} />
+                    <Route path = '/Events' element={<RunFilterPage />} />
+                    <Route path = '/Gym' element={<RunFilterPage />} />
+
+                    <Route path = "/Run/:id" element={<EventDetailPage/>}/>
 
                     {/* Auth Routes */}
                     {/* <Route path="/profile/:id" element={<ProfilePage />} /> */}

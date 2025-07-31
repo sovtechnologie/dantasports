@@ -10,15 +10,7 @@ body {
   color: #333;
 }
 
-.venue-detail {
-  font-family: "Segoe UI", sans-serif;
-  padding: 20px;
-  max-width: 1200px;
-  margin: auto;
-  color: #222;
-}
-
-.venue-main-header {
+.Event-main-header {
   position: relative;
   left: 0%;
   right: 50%;
@@ -69,9 +61,6 @@ body {
 }
 
 .venue-details-container {
-  /* padding: 20px;
-  max-width: 2000px;
-  margin: auto; */
   margin: 0 auto;
   max-width: 1240px;
 }
