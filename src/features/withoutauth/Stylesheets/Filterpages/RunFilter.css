@@ -1,5 +1,13 @@
-body{
-    background-color: #ccc;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", sans-serif;
+    background-color: #f1f3f2;
+    color: #333;
 }
 
 .run-filter-container {
@@ -22,7 +30,7 @@ body{
 
 .event-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
   flex: 1;
 

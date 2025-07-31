@@ -10,7 +10,7 @@ body {
   color: #333;
 }
 
-.Event-main-header {
+.venue-main-header {
   position: relative;
   left: 0%;
   right: 50%;
@@ -69,10 +69,6 @@ body {
 .venue-wrapper {
   display: flex;
   flex-wrap: wrap;
-  /* padding: 24px;
-  max-width: 1400px;
-  margin: auto; */
-  /* gap: 24px; */
   justify-content: space-between;
 }
 

@@ -337,10 +337,8 @@ function VenueDetailsPage() {
                             <div><strong>Location:</strong></div>
                             <p>{venue.address}</p>
                             <div className="venue-map">
-
                                 <CustomMap latitude={venue.latitude} longitude={venue.longitude} />
                             </div>
-
                         </div>
 
                         <div className="btn-group">

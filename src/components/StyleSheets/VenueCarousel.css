@@ -1,11 +1,10 @@
 /* VenueCarousel.css */
 
-.venue-section {
+.venue-section-container {
   padding: 0px 100px;
   font-family: "Inter", sans-serif;
   background-color: #fff;
   overflow: hidden;
-  margin-top: 60px;
 }
 
 .venue-header {
@@ -13,6 +12,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
+  margin-top: 60px;
   flex-wrap: wrap;
 }
 

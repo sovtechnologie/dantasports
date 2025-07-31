@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import "../Stylesheets/EventDetailPage.css";
 import ReviewCard from "../components/ReviewCard";
 import Gallery from "../components/Gallery";
+import bannerImage1 from "../../../assets/EventBanner/Banner1.png";
+import bannerImage2 from "../../../assets/EventBanner/Banner2.png";
+import CustomMap from "../components/CustomMap";
+
+
+const banners = [bannerImage1, bannerImage2, bannerImage1]
 
 const fullText = `cvdc bcdbiw biwo bbwoe cnowe ndowh jie nc bidwu 
     bdbdi hjh u bcjdc bjoc lorem ipsum dolor sit amet, consectetur adipiscing elit, 
@@ -16,6 +22,11 @@ Internet or handling charges may apply; the full amount will be shown at checkou
 Unauthorized resale is strictly prohibited and may
 `;
 
+const options = [
+    { value: "IN", label: "India" },
+    { value: "US", label: "United States" },
+    { value: "CA", label: "Canada" }
+  ];
 const reviews = [
     {
         id: 1,
@@ -101,7 +112,7 @@ export default function EventDetailPage() {
                                     </div>
                                 </div>
                                 <div className="guide-item">
-                                    <div className="guide-label">Add difficulty?</div>
+                                    <div className="guide-label">Difficulty?</div>
                                     <div className='guide-value'>{guide.difficulty}</div>
                                 </div>
                             </div>
@@ -136,10 +147,45 @@ export default function EventDetailPage() {
 
 
                     <div className="event-right">
-                        event -right
+                        <div className="event-right-section">
+                            <div className="event-heading"><strong>Location</strong></div>
+                            <p>PSA Ground Next To Shreeji Lawns Ganga Dham
+                                Road Bibwewadi Pune 411037</p>
+                            <div className="venue-map">
+                                <CustomMap latitude={93.40166} longitude={62.90311} />
+                            </div>
+
+                        </div>
+
+                        <div className="event-right-section">
+                            <div className="event-heading"><strong>Meetup Point</strong></div>
+                            <div className="meetup-time-dropdown">
+                                <select
+                                    value={'delhi'}
+                                    className="meetup-select"
+                                >
+                                    <option value="">Select Meetup pint</option>
+                                    {options.map((opt) => (
+                                        <option key={opt.value} value={opt.value}>
+                                            {opt.label}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                 <Gallery/>
+                <Gallery />
+                <div className='event-banner-container'>
+                    <h2 className='event-banner-heading'>Ongoing Events</h2>
+                    <div className="event-banner-wrapper">
+                        {banners.map((item, i) => (
+                            <div key={i} className="event-banner">
+                                <img src={item} alt="Event" className="event-banner-img" />
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
 
         </>

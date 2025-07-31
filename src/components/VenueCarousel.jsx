@@ -42,7 +42,7 @@ const VenueCarousel = () => {
     if (error) return <p>Error loading venues: {error.message}</p>;
 
     return (
-        <div className="venue-section">
+        <div className="venue-section-container">
             <div className="venue-header">
                 <h3>Book Venues</h3>
                 <Link to="/venue" className="see-all">
