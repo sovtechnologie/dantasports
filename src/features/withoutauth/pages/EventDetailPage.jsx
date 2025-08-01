@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import "../Stylesheets/EventDetails.css"
 import ReviewCard from "../components/ReviewCard";
 import Gallery from "../components/Gallery";
@@ -62,6 +62,13 @@ const reviews = [
         comment: "Beautiful views and great atmosphere. A bit tiring but worth every step.",
         date: "3 day ago"
     },
+    {
+        id: 3,
+        rating: 2.0,
+        userName: "Sanjay Sharma",
+        comment: "Beautiful views and great atmosphere. A bit tiring but worth every step.",
+        date: "3 day ago"
+    },
 ]
 
 const guide = {
@@ -76,7 +83,7 @@ const guide = {
 export default function EventDetailPage() {
     const [expandedSection, setExpandedSection] = useState(null);
     const [selectedDate, setSelectedDate] = useState(null);
-    const [openModal,setOpenModal] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
 
     const toggleSection = (sectionName) => {
         setExpandedSection(prev => (prev === sectionName ? null : sectionName));
@@ -94,6 +101,17 @@ export default function EventDetailPage() {
     const handleBookPop = () => {
         setOpenModal(true);
     }
+
+    const [start, setStart] = useState(0);
+        const prev = () => setStart((prev) => Math.max(prev - 1, 0));
+        const next = () =>
+            setStart((prev) =>
+                Math.min(prev + 1, reviews.length + 1 - visibleCount)
+            );
+    
+        const visibleCount = useMemo(() => {
+            return window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3;
+        }, []);
 
     return (
         <>
@@ -194,7 +212,7 @@ export default function EventDetailPage() {
                             <div className="event-section event-carry">
                                 <div className="event-heading"><strong>Things to Carry</strong></div>
                                 <div className="carry-list">
-                                     <ol>
+                                    <ol>
                                         <li>Torch per person with extra batteries</li>
                                         <li>Government ID Card</li>
                                         <li>Sports Shoes or trekking shoes</li>
@@ -202,10 +220,10 @@ export default function EventDetailPage() {
                                         <li>2 litre water bottle per person</li>
                                         <li>Energy bars & drinks</li>
                                         <li>Track pants & cotton T-shirt</li>
-                                     </ol>
+                                    </ol>
                                 </div>
                             </div>
-                             <div className="event-section event-pickPoints">
+                            <div className="event-section event-pickPoints">
                                 <div className="event-heading"><strong>Pick Points</strong></div>
                                 <div className="carry-list">
                                     <ol>
@@ -217,9 +235,9 @@ export default function EventDetailPage() {
                                         <li>Jayanagar (06:30 PM) </li>
                                         <li>Sarjapur Road (07:00 PM)</li>
                                     </ol>
-                                    
+
                                 </div>
-                             </div>
+                            </div>
 
                         </div>
 
@@ -281,14 +299,28 @@ export default function EventDetailPage() {
                             <button className="event-btn" onClick={handleBookPop}>Book Tickets</button>
                         </div>
                         {
-                            openModal?(
-                                <BookingPopupCard/>
-                            ):""
+                            openModal ? (
+                                <BookingPopupCard />
+                            ) : ""
                         }
 
                     </div>
                 </div>
                 <Gallery />
+
+                    <div className="ratings-carousel">
+                        <h2 className="review-heading">Ratings & Reviews</h2>
+                        <div className="review-carousel-container">
+                            {reviews.slice(start, start + visibleCount).map((review) => (
+                                <ReviewCard key={review.id} review={review} />
+                            ))}
+                        </div>
+                        <div className="carousel-buttons">
+                            <button onClick={prev}>←</button>
+                            <button onClick={next}>→</button>
+                        </div>
+                    </div>
+
                 <div className='event-banner-container'>
                     <h2 className='event-banner-heading'>Ongoing Events</h2>
                     <div className="event-banner-wrapper">

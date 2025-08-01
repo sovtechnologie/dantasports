@@ -244,6 +244,50 @@ body {
 
 /* Reviews */
 
+.ratings-carousel {
+  font-family: "Lato", sans-serif;
+}
+
+.review-heading{
+  font-size: 24px;
+  font-weight: 500;
+  color: #172A39;
+  margin-bottom: 20px;
+}
+
+.review-carousel-container {
+  display: flex;
+  /* gap: 20px; */
+  overflow: hidden;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  padding-bottom: 10px;
+}
+
+.carousel-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.carousel-buttons button {
+  width: 60px;
+  height: 60px;
+  background-color: #1163c7;
+  border: none;
+  color: #ffffff;
+  border-radius: 50%;
+  font-size: 35px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+
+/* banners
+ */
 .event-banner-container {
     margin: 2rem 0rem;
 }
