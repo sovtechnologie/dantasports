@@ -311,3 +311,81 @@ body {
  
 
 }
+
+
+.primary-btn-one, .secondary-btn-two {
+    /* padding: 12px 20px; */
+    border-radius: 50px;
+    border: 1px solid #1163C7;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    /* height: 58px; */
+    font-family: "Poppins";
+    font-size: 20px;
+    padding: 5px 22px;
+    font-weight: 400;
+}
+
+
+
+
+.primary-btn-one {
+  background-color: #1163C7;
+  color: white;
+}
+
+.primary-btn-one:hover {
+  background-color: #0d4da0;
+}
+
+.secondary-btn-two {
+  background-color: white;
+  color: #1163C7;
+}
+
+.secondary-btn-two:hover {
+  background-color: #e6f0fd;
+}
+
+.header-right {
+  /* flex: 1; */
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.carousel-img {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 16px;
+  object-fit: cover;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.pagination-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background-color: #ccc;
+  border-radius: 50%;
+  margin: 0 4px;
+  transition: background-color 0.3s ease;
+}
+
+.dot.active {
+  background-color: #1163C7;
+}
+.zero-banner-wrapper {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  padding: 0 100px;
+}
