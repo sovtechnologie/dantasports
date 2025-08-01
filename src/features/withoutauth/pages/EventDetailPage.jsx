@@ -5,9 +5,22 @@ import Gallery from "../components/Gallery";
 import bannerImage1 from "../../../assets/EventBanner/Banner1.png";
 import bannerImage2 from "../../../assets/EventBanner/Banner2.png";
 import CustomMap from "../components/CustomMap";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import RunImage from "../assets/RunImage.svg";
+import { EventCalandar } from "../components/EventCalandar";
+import TicketSelector from "../components/TicketSelector";
+import CheckoutPricing from "../components/CheckoutPricing";
 
 
-const banners = [bannerImage1, bannerImage2, bannerImage1]
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+
+
+const banners = [bannerImage1, bannerImage2, bannerImage1];
+const imagelist = [RunImage, RunImage]
 
 const fullText = `cvdc bcdbiw biwo bbwoe cnowe ndowh jie nc bidwu 
     bdbdi hjh u bcjdc bjoc lorem ipsum dolor sit amet, consectetur adipiscing elit, 
@@ -21,12 +34,18 @@ All registrations are final entries and are non-transferable, non-refundable, an
 Internet or handling charges may apply; the full amount will be shown at checkout.
 Unauthorized resale is strictly prohibited and may
 `;
+const initialTickets = [
+    { id: 1, label: '5Km Run', price: 999 },
+    { id: 2, label: '10Km Run', price: 999 },
+    { id: 3, label: '15Km Run', price: 999 },
+    { id: 4, label: '20Km Run', price: 999 },
+];
 
 const options = [
     { value: "IN", label: "India" },
     { value: "US", label: "United States" },
     { value: "CA", label: "Canada" }
-  ];
+];
 const reviews = [
     {
         id: 1,
@@ -55,9 +74,19 @@ const guide = {
 
 export default function EventDetailPage() {
     const [expandedSection, setExpandedSection] = useState(null);
+    const [selectedDate, setSelectedDate] = useState(null);
 
     const toggleSection = (sectionName) => {
         setExpandedSection(prev => (prev === sectionName ? null : sectionName));
+    };
+
+    const [ticketCounts, setTicketCounts] = useState(
+        Array(initialTickets.length).fill(0)
+    );
+
+    const handleTicketChange = (updatedCounts) => {
+        setTicketCounts(updatedCounts);
+        console.log('Ticket Counts:', updatedCounts);
     };
 
     return (
@@ -78,6 +107,31 @@ export default function EventDetailPage() {
                 <div className="event-wrapper">
 
                     <div className="event-left">
+
+                        <div className="event-image-carosal">
+                            <Swiper
+                                spaceBetween={30}
+                                centeredSlides={true}
+                                autoplay={{
+                                    delay: 2500,
+                                    disableOnInteraction: false,
+                                }}
+                                pagination={{
+                                    clickable: true,
+                                }}
+                                navigation={true}
+                                modules={[Autoplay, Pagination, Navigation]}
+                                className="mySwiper"
+                            >
+                                {imagelist.map((img, index) => (
+                                    <SwiperSlide key={index}>
+                                        <img src={img} alt={`event-image-${index}`} />
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
+                        </div>
+
+
                         <div className="event-section">
                             <div className="event-heading"><strong>About the Event</strong></div>
                             <div className="event-description">
@@ -164,7 +218,7 @@ export default function EventDetailPage() {
                                     value={'delhi'}
                                     className="meetup-select"
                                 >
-                                    <option value="">Select Meetup pint</option>
+                                    <option value="">Indiranagar metro station (05:00 PM)</option>
                                     {options.map((opt) => (
                                         <option key={opt.value} value={opt.value}>
                                             {opt.label}
@@ -173,6 +227,30 @@ export default function EventDetailPage() {
                                 </select>
                             </div>
                         </div>
+
+                        <div className="event-right-section">
+                            <div className="event-heading"><strong>Select Date:</strong></div>
+                            <EventCalandar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+                        </div>
+
+                        <div className="event-right-section">
+                            <div className="event-heading"><strong>Chosse Tickets :</strong></div>
+                            <TicketSelector
+                                tickets={initialTickets}
+                                counts={ticketCounts}
+                                onChange={handleTicketChange}
+                            />
+                        </div>
+
+                        <div className="event-right-section">
+                            <div className="event-heading"><strong>Price details</strong></div>
+                            <CheckoutPricing />
+                        </div>
+
+                        <div className="event-right-section-button">
+                            <button className="event-btn">Book Tickets</button>
+                        </div>
+
                     </div>
                 </div>
                 <Gallery />

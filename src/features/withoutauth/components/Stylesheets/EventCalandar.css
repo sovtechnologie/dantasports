@@ -1,0 +1,76 @@
+.Event-calendar-container {
+    background: white;
+    max-width: 100%;
+}
+
+
+.calendar-week {
+    display: flex;
+    gap:20px;
+    flex-wrap: nowrap;
+}
+
+.calendar-day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    cursor: pointer;
+    padding: 6px;
+    color: #999;
+    transition: all 0.2s;
+    height: fit-content;
+    border: 1px solid #ccc;
+    height: 70px;
+}
+
+.calendar-day:hover {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    height: 70px;
+
+}
+
+.calendar-day.active {
+    background-color: #1163C7;
+    color: white;
+    font-weight: bold;
+    height: 70px;
+}
+
+.calendar-day.today {
+    font-weight: bold;
+    height: 70px;
+}
+
+.calendar-day.disabled {
+    color: #ccc;
+    pointer-events: none;
+}
+
+.calendar-day-number {
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    font-size: 18.6px;
+    line-height: 26.87px;
+    letter-spacing: 0;
+}
+
+.calendar-day-label {
+    font-size: 0.8rem;
+}
+
+/* Responsive */
+@media screen and (max-width: 500px) {
+    .calendar-day-number {
+        font-size: 0.9rem;
+    }
+
+    .calendar-day-label {
+        font-size: 0.7rem;
+    }
+
+    .calendar-header span {
+        font-size: 1rem;
+    }
+}
