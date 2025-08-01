@@ -1,7 +1,7 @@
 
 .event-card {
     width: 330px;
-    height: 435px;
+    height: 440px;
     border: 1px solid #e1e4e8;
     border-radius: 14px;
     overflow: hidden;
@@ -9,6 +9,7 @@
     background-color: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     position: relative;
+    text-decoration: none;
 }
 
 .event-image-section {
@@ -57,7 +58,7 @@
 }
 
 .event-title {
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 600;
     margin: 0 0 4px;
 }
@@ -83,7 +84,7 @@
     margin-bottom: 6px;
 }
 
-.event-time img {
+.event-time-img {
     width: 16px;
     height: 16px;
 }
@@ -102,13 +103,6 @@
     border-top: 1px solid #2971AC;
     padding-top: 8px;
     font-size: 13px;
-}
-
-.event-join {
-    text-decoration: none;
-    color: #1163c7;
-    font-weight: 600;
-    cursor: pointer;
 }
 
 .event-offer {

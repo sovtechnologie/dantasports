@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import '../../Stylesheets/Filterpages/RunFilter.css';
-import EventCard from '../../components/EventCard';
+import RunCard from '../../components/RunCard.jsx';
 import SortSection from '../../components/SortSection';
 import AppDownloadBanner from '../../components/AppDownloadBanner.jsx';
 import eventImage from '../../assets/EventImage.svg';
@@ -33,7 +33,7 @@ export default function RunFilterPage() {
     return (
         <>
             <div className="run-filter-container">
-                <aside className="filter-sidebar">
+                <aside className="run-filter-sidebar">
                     <SortSection
                         filters={filters}
                         setFilters={setFilters}
@@ -44,9 +44,9 @@ export default function RunFilterPage() {
 
                 </aside>
 
-                <section className="event-grid">
+                <section className="run-grid">
                     {events.map((event) => (
-                        <EventCard key={event.id} event={event} />
+                        <RunCard key={event.id} event={event} />
                     ))}
                 </section>
             </div>

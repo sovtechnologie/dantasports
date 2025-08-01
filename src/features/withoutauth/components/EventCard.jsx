@@ -8,7 +8,7 @@ import LocationIcon from "../assets/LocationLogo.svg";
 
 export default function EventCard({ event }) {
     return (
-        <div className="event-card">
+        <Link to={`/Events/${event.id}`} className="event-card">
             <div className="event-image-section">
                 <img src={event.image} alt="Marathon" className="event-img" />
                 <div className="icon-top-right">
@@ -28,26 +28,24 @@ export default function EventCard({ event }) {
                     </div>
                 </div>
 
-                <div className="event-time">
-                  <img src={CalandarIcon} alt='Calandar icon'/> <span>{event.date}</span>
+               
+                <div className='events-middle'>
+                     <div className="event-time">
+                    {/* <img src={CalandarIcon} alt='Calandar icon' className='event-time-img' /> */}
+                     <span>{event.date}</span>
+                </div>
+                    <div className="event-location">
+                        {/* <img src={LocationIcon} alt='location icon' className='event-time-img' />  */}
+                        {event.location}
+                    </div>
                 </div>
 
-               <div className='events-middle'>
-                  <div className="event-location">
-                    <img src={LocationIcon} alt='location icon'/> {event.location}
-                </div>
-                 {/* 🔗 Link to Detail Page */}
-                    <Link to={`/Run/${event.id}`} className="event-join">
-                        Join Now
-                    </Link>
-               </div>
-                
 
-                <div className="event-footer"> 
+                <div className="event-footer">
                     <span className="event-offer">{event.offer}</span>
                     <span className="event-price">{event.price}</span>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 }

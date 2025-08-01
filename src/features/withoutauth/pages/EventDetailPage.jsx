@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../Stylesheets/EventDetailPage.css";
+import "../Stylesheets/EventDetails.css"
 import ReviewCard from "../components/ReviewCard";
 import Gallery from "../components/Gallery";
 import bannerImage1 from "../../../assets/EventBanner/Banner1.png";
@@ -7,10 +7,11 @@ import bannerImage2 from "../../../assets/EventBanner/Banner2.png";
 import CustomMap from "../components/CustomMap";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-import RunImage from "../assets/RunImage.svg";
+import RunImage from "../assets/EventImage1.svg";
 import { EventCalandar } from "../components/EventCalandar";
 import TicketSelector from "../components/TicketSelector";
 import CheckoutPricing from "../components/CheckoutPricing";
+import BookingPopupCard from '../../auth/components/BookingPopupCard';
 
 
 // Import Swiper styles
@@ -75,6 +76,7 @@ const guide = {
 export default function EventDetailPage() {
     const [expandedSection, setExpandedSection] = useState(null);
     const [selectedDate, setSelectedDate] = useState(null);
+    const [openModal,setOpenModal] = useState(false);
 
     const toggleSection = (sectionName) => {
         setExpandedSection(prev => (prev === sectionName ? null : sectionName));
@@ -88,6 +90,10 @@ export default function EventDetailPage() {
         setTicketCounts(updatedCounts);
         console.log('Ticket Counts:', updatedCounts);
     };
+
+    const handleBookPop = () => {
+        setOpenModal(true);
+    }
 
     return (
         <>
@@ -124,8 +130,8 @@ export default function EventDetailPage() {
                                 className="mySwiper"
                             >
                                 {imagelist.map((img, index) => (
-                                    <SwiperSlide key={index}>
-                                        <img src={img} alt={`event-image-${index}`} />
+                                    <SwiperSlide key={index} className="event-swiperslide">
+                                        <img src={img} alt={`event-image-${index}`} className="event-swiperslide-img" />
                                     </SwiperSlide>
                                 ))}
                             </Swiper>
@@ -184,18 +190,42 @@ export default function EventDetailPage() {
                             </button>
                         </div>
 
+                        <div className="event-carry-point">
+                            <div className="event-section event-carry">
+                                <div className="event-heading"><strong>Things to Carry</strong></div>
+                                <div className="carry-list">
+                                     <ol>
+                                        <li>Torch per person with extra batteries</li>
+                                        <li>Government ID Card</li>
+                                        <li>Sports Shoes or trekking shoes</li>
+                                        <li>Backpack</li>
+                                        <li>2 litre water bottle per person</li>
+                                        <li>Energy bars & drinks</li>
+                                        <li>Track pants & cotton T-shirt</li>
+                                     </ol>
+                                </div>
+                            </div>
+                             <div className="event-section event-pickPoints">
+                                <div className="event-heading"><strong>Pick Points</strong></div>
+                                <div className="carry-list">
+                                    <ol>
+                                        <li>Indiranagar metro station (05:00 PM)</li>
+                                        <li>Bremen Chowk (05:30 PM) </li>
+                                        <li>Ashok Nagar (06:00 PM)</li>
+                                        <li>Jayanagar (06:30 PM) </li>
+                                        <li>Sarjapur Road (07:00 PM)</li>
+                                        <li>Jayanagar (06:30 PM) </li>
+                                        <li>Sarjapur Road (07:00 PM)</li>
+                                    </ol>
+                                    
+                                </div>
+                             </div>
+
+                        </div>
+
                         <div className="event-term_policy">
                             <div className="event-section terms">Terms & Conditions</div>
                             <div className="event-section policy">Cancellation Policy</div>
-                        </div>
-
-                        <div className="event-review">
-                            <div className="event-review-heading">Rating & Reviews</div>
-                            <div className="event-review-container">
-                                {reviews.map((review) => (
-                                    <ReviewCard key={review.id} review={review} />
-                                ))}
-                            </div>
                         </div>
                     </div>
 
@@ -248,8 +278,13 @@ export default function EventDetailPage() {
                         </div>
 
                         <div className="event-right-section-button">
-                            <button className="event-btn">Book Tickets</button>
+                            <button className="event-btn" onClick={handleBookPop}>Book Tickets</button>
                         </div>
+                        {
+                            openModal?(
+                                <BookingPopupCard/>
+                            ):""
+                        }
 
                     </div>
                 </div>
