@@ -1,12 +1,17 @@
 import React from "react";
 import "./Stylesheets/CoachCard.css";
 import LocationIcon from "../assets/LocationLogo.svg";
+import { useNavigate } from "react-router-dom";
 
-const CoachCard = ({
-    coach
-}) => {
+const CoachCard = ({ coach }) => {
+    const navigate = useNavigate();
+    
+    const handleClick = () => {
+        navigate(`/Coach/${coach?.id}`);
+    };
+
     return (
-        <div className="coach-card">
+        <div className="coach-card" onClick={handleClick} style={{ cursor: "pointer" }}>
             <div className="coach-card-image-wrapper">
                 <img src={coach?.image} alt={coach?.name} className="coach-card-image" />
                 <div className="coach-card-tag">{coach?.tag}</div>
