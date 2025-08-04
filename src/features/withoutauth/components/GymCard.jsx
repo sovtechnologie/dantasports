@@ -2,11 +2,18 @@ import React from "react";
 import "./Stylesheets/GymCard.css";
 import heartIcon from '../assets/VenueCardLogo/LikeLogo.png';
 import shareIcon from '../assets/VenueCardLogo/ShareLogo.png';
+import { useNavigate } from "react-router-dom";
 
-const GymCard = ({ gym
-}) => {
+const GymCard = ({ gym}) => {
+  const navigate = useNavigate();
+     
+     const handleClick = () => {
+         navigate(`/Gym/${gym?.id}`);
+     };
+ 
+
     return (
-        <div className="gym-card">
+        <div className="gym-card" onClick={handleClick}>
             <img src={gym.image} alt={gym.title} className="gym-image" />
             <div className="icon-top-right">
                 <img src={heartIcon} alt="like" className="icon-img-btn" />

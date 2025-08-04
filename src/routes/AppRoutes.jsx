@@ -35,6 +35,7 @@ const EventDetailPage = lazy(()=>import("../features/withoutauth/pages/EventDeta
 const CoachFilterPage = lazy(()=>import("../features/withoutauth/pages/FilterPages/CoachFilter"));
 const CoachDetailPage = lazy(()=>import("../features/withoutauth/pages/CoachDetailPage"))
 const GymFilterPage = lazy(()=>import("../features/withoutauth/pages/FilterPages/GymFilter"))
+const GymDetailPage = lazy(()=>import("../features/withoutauth/pages/GymDetailPage"));
 
 // Private Route to protected the route
 const PrivateRoute = lazy(() => import('../features/auth/components/PrivateRoute'));
@@ -77,9 +78,8 @@ export default function AppRoutes() {
 
                     <Route path = "/Run/:id" element={<RunDetailPage/>}/>
                     <Route path = "/Events/:id" element={<EventDetailPage/>}/>
+                    <Route path = '/Gym/:id' element={<GymDetailPage/>} />
                     <Route path='/Coach/:id' element={<CoachDetailPage />} />
-                    {/* <Route path = "/Coach/trainer/:id" element={<></>} />
-                    <Route path = "/Coach/academy/:id" element={<></>} /> */}
 
                     {/* Auth Routes */}
                     {/* <Route path="/profile/:id" element={<ProfilePage />} /> */}

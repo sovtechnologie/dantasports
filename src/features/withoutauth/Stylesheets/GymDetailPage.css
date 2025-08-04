@@ -1,0 +1,51 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", sans-serif;
+    background-color: #f1f3f2;
+    color: #333;
+}
+
+.Gym-main-header {
+    position: relative;
+    left: 0%;
+    right: 50%;
+    width: 100%;
+    background-color: #ffffff;
+    margin-bottom: 25px;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+    height: 208px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0px 100px;
+    justify-content: center;
+}
+
+.breadcrumb {
+    font-size: 16px;
+    font-weight: 500;
+    color: #6b7280;
+    font-family: "DM Sans", Arial, sans-serif;
+}
+
+.gympage-name {
+    color: #000000;
+    font-family: "Lato", sans-serif;
+    font-weight: 700;
+    font-size: 44px;
+}
+
+.gym-location-rating {
+    display: flex;
+    gap: 20px;
+    color: #172a39;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: "DM Sans", Arial, sans-serif;
+}
