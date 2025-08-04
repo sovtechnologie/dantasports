@@ -14,6 +14,7 @@ import CheckoutPricing from "../components/CheckoutPricing";
 import BookingPopupCard from '../../auth/components/BookingPopupCard';
 
 
+
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';

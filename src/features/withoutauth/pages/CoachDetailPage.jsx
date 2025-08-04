@@ -15,6 +15,9 @@ import locationlogo from "../assets/LocationLogo.svg";
 import certificatlogo from "../assets/Certificatelogo.svg"
 import ReviewCard from "../components/ReviewCard";
 import EnquiryModal from "../components/EnquiryModal";
+import { useParams } from "react-router-dom";
+import CoachImage from "../assets/CoachesImage.svg"
+import footballIcon from "../assets/sport-list/Football-Icon.png"
 
 const imagelist = [RunImage, RunImage];
 
@@ -69,11 +72,24 @@ const reviews = [
     },
 ]
 
+const coaches = [
+    { name: "Yogesh Kumar", title: "Head Trainer", image: CoachImage },
+    { name: "Yogesh Kumar", title: "Head Trainer", image: CoachImage },
+    { name: "Yogesh Kumar", title: "Head Trainer", image: CoachImage },
+];
+const sports = [
+    { name: "Football", icon: footballIcon },
+    { name: "Football", icon: footballIcon },
+    { name: "Football", icon: footballIcon },
+    { name: "Football", icon: footballIcon },
+    
+];
 
 export default function CoachDetailPage() {
     const [expandedSection, setExpandedSection] = useState(null);
     const [start, setStart] = useState(0);
     const [showModal, setShowModal] = useState(false)
+    const { id } = useParams();
 
     const toggleSection = (sectionName) => {
         setExpandedSection(prev => (prev === sectionName ? null : sectionName));
@@ -178,6 +194,35 @@ export default function CoachDetailPage() {
                             </div>
 
                         </div>
+
+                        {id === 'Academy' && (
+                            <div className="coach-carry-point">
+                                <div className="coach-section coach-pickPoints">
+                                    <div className="coach-heading"><strong>Coaches</strong></div>
+                                    <div className="coaches-list">
+                                        {coaches.map((coach, index) => (
+                                            <div className="coach-card" key={index}>
+                                                <img src={coach.image} alt={coach.name} className="coach-image" />
+                                                <p className="coach-name">{coach.name}</p>
+                                                <p className="coach-title">{coach.title}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="coach-section coach-pickPoints">
+                                    <div className="coach-heading"><strong>Sports</strong></div>
+                                    <div className="sports-list">
+                                        {sports.map((sport, index) => (
+                                            <div className="sport-card" key={index}>
+                                                <img src={sport.icon} alt={sport.name} className="sport-icon" />
+                                                <p className="sport-name">{sport.name}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+
+                        )}
 
                     </div>
 

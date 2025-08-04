@@ -7,7 +7,7 @@ const CoachCard = ({ coach }) => {
     const navigate = useNavigate();
     
     const handleClick = () => {
-        navigate(`/Coach/${coach?.id}`);
+        navigate(`/Coach/${coach?.tag}`);
     };
 
     return (

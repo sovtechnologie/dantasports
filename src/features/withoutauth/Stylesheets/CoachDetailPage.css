@@ -172,6 +172,62 @@ body {
     flex-direction: row;   
     gap: 10px;
 }
+.coaches-list {
+  display: flex;
+  gap: 32px;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.coach-card {
+  text-align: center;
+}
+
+.coach-image {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 8px;
+}
+
+.coach-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.coach-title {
+  font-size: 12px;
+  font-weight: 400;
+  color: #a0a0a0;
+  margin: 0;
+}
+.sports-list {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.sport-card {
+  text-align: center;
+}
+
+.sport-icon {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 8px;
+}
+
+.sport-name {
+  font-size: 14px;
+  color: #4f4f4f;
+  margin: 0;
+}
 
 
 
