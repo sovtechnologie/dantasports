@@ -144,8 +144,8 @@ export default function EventDetailPage() {
                                 pagination={{
                                     clickable: true,
                                 }}
-                                navigation={true}
-                                modules={[Autoplay, Pagination, Navigation]}
+                                // navigation={true}
+                                modules={[Autoplay, Pagination]}
                                 className="mySwiper"
                             >
                                 {imagelist.map((img, index) => (

@@ -112,7 +112,7 @@ export default function CoachDetailPage() {
                     <span>Coach &gt; Bibwewadi &gt; Kalsubai Monsoon Trek</span>
                 </div>
 
-                <h1 className="coach-name">Kalsubai Monsoon Trek</h1>
+                <h1 className="coachpage-name">Kalsubai Monsoon Trek</h1>
                 <div className="coach-location-rating">
                     <span>Bibwewadi</span>
                     <span>⭐ {4.3} (234 ratings)</span>
@@ -136,8 +136,8 @@ export default function CoachDetailPage() {
                                 pagination={{
                                     clickable: true,
                                 }}
-                                navigation={true}
-                                modules={[Autoplay, Pagination, Navigation]}
+                                // navigation={true}
+                                modules={[Autoplay, Pagination,]}
                                 className="mySwiper"
                             >
                                 {imagelist.map((img, index) => (
@@ -201,7 +201,7 @@ export default function CoachDetailPage() {
                                     <div className="coach-heading"><strong>Coaches</strong></div>
                                     <div className="coaches-list">
                                         {coaches.map((coach, index) => (
-                                            <div className="coach-card" key={index}>
+                                            <div className="coaches-card" key={index}>
                                                 <img src={coach.image} alt={coach.name} className="coach-image" />
                                                 <p className="coach-name">{coach.name}</p>
                                                 <p className="coach-title">{coach.title}</p>
@@ -213,8 +213,8 @@ export default function CoachDetailPage() {
                                     <div className="coach-heading"><strong>Sports</strong></div>
                                     <div className="sports-list">
                                         {sports.map((sport, index) => (
-                                            <div className="sport-card" key={index}>
-                                                <img src={sport.icon} alt={sport.name} className="sport-icon" />
+                                            <div className="sportes-card" key={index}>
+                                                <img src={sport.icon} alt={sport.name} className="sports-img" />
                                                 <p className="sport-name">{sport.name}</p>
                                             </div>
                                         ))}
