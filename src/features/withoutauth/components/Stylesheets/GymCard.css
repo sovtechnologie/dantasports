@@ -1,0 +1,98 @@
+.gym-card {
+    width: 300px;
+    border-radius: 12px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
+    background-color: white;
+    overflow: hidden;
+    font-family: sans-serif;
+    border: 1px solid #e5e5e5;
+    position: relative;
+}
+
+.gym-image {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    padding: 5px;
+    border-radius: 18px;
+}
+.icon-top-right {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    gap: 6px;
+}
+.icon-img-btn {
+    width: 30px;
+    height: 30px;
+    background: #00000080;
+    border-radius: 50%;
+    padding: 6px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.card-content {
+    padding: 12px 14px;
+}
+
+.title-rating {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.gym-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0;
+    flex: 1;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    font-size: 13px;
+}
+
+.star {
+    color: #1ab546;
+    font-size: 14px;
+}
+
+.rating-value {
+    font-weight: 600;
+    color: #333;
+}
+
+.rating-count {
+    color: #777;
+    margin-left: 2px;
+}
+
+.gym-location {
+    font-size: 13px;
+    color: #777;
+    margin: 4px 0 12px;
+}
+
+.gym-footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #2971AC;
+    padding-top: 8px;
+    font-size: 13px;
+}
+
+.discount {
+    color: #f97316;
+    font-weight: 500;
+}
+
+.price {
+    color: #0078ff;
+    font-weight: 500;
+}
