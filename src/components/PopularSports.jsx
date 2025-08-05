@@ -3,7 +3,7 @@ import './StyleSheets/PopularSports.css'; // Assuming you have a CSS file for st
 // import sports from "../StaticData/PopularSporsData" // your data file or replace with static list
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, A11y } from 'swiper/modules';
+import { Navigation, A11y } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -13,9 +13,6 @@ import { fetchSportList } from "../services/withoutLoginApi/SportListApi/endpoin
 import Football from "../assets/PopularSportLogo/Football.png";
 
 const PopularSports = () => {
-
-  console.log("Running PopularSports component");
-
   const { data, isLoading, isError } = useQuery({
     queryKey: ['sports'],
     queryFn: () => fetchSportList(),
@@ -35,12 +32,14 @@ const PopularSports = () => {
       <h3 className="section-title">Popular Sport Collections</h3>
       <Swiper
         modules={[Navigation, A11y]}
+        navigation
+        observer={true}
+        observeParents={true}
         spaceBetween={10}
         slidesPerView={4}
-        navigation
         watchOverflow={true}
-        allowTouchMove={true}         // ✅ Ensure touch is enabled
-        grabCursor={true}
+        allowTouchMove
+        grabCursor
         breakpoints={{
           480: { slidesPerView: 1 },
           768: { slidesPerView: 2 },

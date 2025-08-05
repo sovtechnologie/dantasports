@@ -75,12 +75,6 @@ const Hero = () => {
           <div className="hero-content">
             <h1 className={animate ? "heading-animate" : "heading-nonAnimate"}>{headings[headingIndex]}</h1>
             <div className="hero-search">
-              {/* <input type="text" placeholder="Search Venue Name/Sports" />
-              <select>
-                <option>Location</option>
-                <option>Delhi</option>
-                <option>Mumbai</option>
-              </select> */}
               <div className="search-input-wrapper">
                 <img src={searchlogo} height={35} width={35} alt='searchlogo' />
                 <input

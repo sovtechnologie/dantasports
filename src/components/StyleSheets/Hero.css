@@ -5,7 +5,7 @@
   color: white;
   overflow: hidden;
   border-radius: 0 0 40px 40px;
-  height: 571px;
+  height: fit-content;
 }
 
 .hero-background {

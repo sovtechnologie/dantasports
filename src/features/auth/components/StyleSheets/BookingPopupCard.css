@@ -82,13 +82,14 @@
 
 .event-cards {
   display: flex;
-  gap: 0px;
+  gap: 20px;
   flex-wrap: wrap;
+  margin-bottom: 10px;
 }
 
 .event-card {
   width: 100%;
-  max-width: 300px;
+  max-width: 280px;
   border-radius: 12px;
   overflow: hidden;
   flex: 1 1 50%;

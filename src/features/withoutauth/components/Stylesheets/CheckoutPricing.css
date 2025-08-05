@@ -1,0 +1,59 @@
+.checkout-box {
+    background-color: white;
+    font-family: sans-serif;
+    color: #333;
+}
+
+.section-title {
+    font-size: 16px;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 14px;
+}
+
+.insurance-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #eee;
+    margin-top: 10px;
+    padding: 10px 0px;
+}
+
+.insurance-row input {
+    margin-right: 6px;
+}
+
+.coupon {
+    color: orange;
+    font-size: 14px;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    border-top: 1px solid #eee;
+}
+
+.arrow {
+    font-weight: bold;
+}
+
+.total {
+    border-top: 1px solid #eee;
+    margin-top: 10px;
+    padding-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.total-amount {
+    color: #0078ff;
+}

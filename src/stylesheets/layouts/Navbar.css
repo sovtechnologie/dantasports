@@ -58,6 +58,28 @@
   letter-spacing: 0;
   text-align: center;
 }
+.nav-Filter-wrapper{
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  margin-right: 50px;
+}
+
+.nav-Filter-link{
+  text-decoration: none;
+  color: #0a0a0a;
+  font-family: "DM Sans", Arial, sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: 0;
+  text-align: center;
+}
+.nav-Filter-link.active-link {
+  color: #1163C7; /* Ant Design primary blue */
+  font-weight: 600;
+}
+
 
 .navbar-actions {
   display: flex;

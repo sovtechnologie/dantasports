@@ -1,0 +1,59 @@
+.ticket-box {
+  background: white;
+  font-family: 'Segoe UI', sans-serif;
+}
+.ticket-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.ticket-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.ticket-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.ticket-price {
+  font-size: 13px;
+  color: #0077ff;
+}
+
+.ticket-counter {
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  gap: 8px;
+  padding: 4px 8px;
+  border: 1px solid #ccc ;
+}
+
+.ticket-counter button {
+  background-color: #fff;
+  border: 1px solid #0077ff;
+  color: #0077ff;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.ticket-counter button:hover {
+  background-color: #0077ff;
+  color: #fff;
+}
+
+.ticket-counter span {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+}
