@@ -84,7 +84,7 @@ function VenuePage() {
     // Handle venueList data by react-Query
 
     const auth = useSelector((state) => state.auth);
-    const { data: AllVenuedata, isLoading, isError, error, isFetching } = useFetchVenue(auth?.id || null);
+    const { data: AllVenuedata, isLoading, isError, error } = useFetchVenue(auth?.id || null);
 
 
     const {

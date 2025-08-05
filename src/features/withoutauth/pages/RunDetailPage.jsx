@@ -99,7 +99,7 @@ export default function EventDetailPage() {
         <>
             <div className='Event-main-header'>
                 <div className="breadcrumb">
-                    <span>Event &gt; Bibwewadi &gt; Kalsubai Monsoon Trek</span>
+                    <span>Run &gt; Bibwewadi &gt; Kalsubai Monsoon Trek</span>
                 </div>
 
                 <h1 className="event-name">Kalsubai Monsoon Trek</h1>

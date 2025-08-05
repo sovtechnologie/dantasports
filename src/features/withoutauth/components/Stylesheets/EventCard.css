@@ -37,6 +37,8 @@
     bottom: 15px;
     left: 8px;
     display: flex;
+    flex-direction: row;
+    gap: 2px;
 }
 
 .icon-img-btn {
@@ -47,7 +49,9 @@
     padding: 6px;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
     cursor: pointer;
+    object-fit: contain;
 }
+
 
 .event-content {
     padding: 12px;
