@@ -89,6 +89,8 @@ const mapEventData = (apiData) => {
         location: apiData?.locations[0]?.area || "Unknown Area",
         about: apiData?.about_event || "No description available for this venue.",
         rating: parseFloat(apiData?.average_rating) || 0,
+        startDate:apiData?.start_date,
+        endDate:apiData?.end_date,
         reviewcount: apiData?.review_count || 0,
         timing: `${formatTime(apiData?.start_time || '06:00:00')} - ${formatTime(apiData?.end_time || '22:00:00')}`,
         price: parseFloat(apiData?.pricing) || 0,
@@ -96,7 +98,7 @@ const mapEventData = (apiData) => {
             || "Not Available",
         images: Array.isArray(apiData?.event_gallery)
             ? apiData.event_gallery.map((img) => img.image_url)
-            : [RunImage,RunImage, RunImage, RunImage],
+            : [RunImage, RunImage, RunImage, RunImage],
         sports: Array.isArray(apiData?.sports)
             ? apiData.sports.map((sport) => ({
                 sportId: sport.id,
@@ -149,21 +151,21 @@ export default function EventDetailPage() {
     }
 
     const [start, setStart] = useState(0);
-        const prev = () => setStart((prev) => Math.max(prev - 1, 0));
-        const next = () =>
-            setStart((prev) =>
-                Math.min(prev + 1, reviews.length + 1 - visibleCount)
-            );
-    
-        const visibleCount = useMemo(() => {
-            return window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3;
-        }, []);
+    const prev = () => setStart((prev) => Math.max(prev - 1, 0));
+    const next = () =>
+        setStart((prev) =>
+            Math.min(prev + 1, reviews.length + 1 - visibleCount)
+        );
 
-        const { data:EventDetails, isLoading:eventLoading, error:eventError} = useFetchSingleEvent(id);
-        const event = Array.isArray(EventDetails?.result) && EventDetails.result.length > 0
-                ? mapEventData(EventDetails.result[0])
-                : '';
-        console.log("eventDetail",event);
+    const visibleCount = useMemo(() => {
+        return window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3;
+    }, []);
+
+    const { data: EventDetails, isLoading: eventLoading, error: eventError } = useFetchSingleEvent(id);
+    const event = Array.isArray(EventDetails?.result) && EventDetails.result.length > 0
+        ? mapEventData(EventDetails.result[0])
+        : '';
+    console.log("eventDetail", event);
 
     return (
         <>
@@ -329,7 +331,11 @@ export default function EventDetailPage() {
 
                         <div className="event-right-section">
                             <div className="event-heading"><strong>Select Date:</strong></div>
-                            <EventCalandar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+                            <EventCalandar
+                                selectedDate={selectedDate}
+                                setSelectedDate={setSelectedDate}
+                                startDateProp={event?.startDate}
+                                endDateProp={event?.endDate} />
                         </div>
 
                         <div className="event-right-section">
@@ -359,18 +365,18 @@ export default function EventDetailPage() {
                 </div>
                 <Gallery />
 
-                    <div className="ratings-carousel">
-                        <h2 className="review-heading">Ratings & Reviews</h2>
-                        <div className="review-carousel-container">
-                            {reviews.slice(start, start + visibleCount).map((review) => (
-                                <ReviewCard key={review.id} review={review} />
-                            ))}
-                        </div>
-                        <div className="carousel-buttons">
-                            <button onClick={prev}>←</button>
-                            <button onClick={next}>→</button>
-                        </div>
+                <div className="ratings-carousel">
+                    <h2 className="review-heading">Ratings & Reviews</h2>
+                    <div className="review-carousel-container">
+                        {reviews.slice(start, start + visibleCount).map((review) => (
+                            <ReviewCard key={review.id} review={review} />
+                        ))}
                     </div>
+                    <div className="carousel-buttons">
+                        <button onClick={prev}>←</button>
+                        <button onClick={next}>→</button>
+                    </div>
+                </div>
 
                 <div className='event-banner-container'>
                     <h2 className='event-banner-heading'>Ongoing Events</h2>
