@@ -7,6 +7,13 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store, persistor } from './redux/store'; // <-- Updated import
 import { PersistGate } from 'redux-persist/integration/react';
+if (process.env.NODE_ENV === 'production') {
+  console.log = () => {};
+  console.info = () => {};
+  console.debug = () => {};
+  // Note: console.error / console.warn often still useful
+}
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -12,13 +12,16 @@ import { EventCalandar } from "../components/EventCalandar";
 import TicketSelector from "../components/TicketSelector";
 import CheckoutPricing from "../components/CheckoutPricing";
 import BookingPopupCard from '../../auth/components/BookingPopupCard';
-
+import { useFetchSingleEvent } from "../../../hooks/EventList/useFetchSingleEvent";
 
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import { useParams } from "react-router-dom";
+import { formatTime } from "../../../utils/formatTime";
+import { formatDate } from "../../../utils/formatDate";
 
 
 const banners = [bannerImage1, bannerImage2, bannerImage1];
@@ -80,8 +83,50 @@ const guide = {
     difficulty: 'easy'
 };
 
+const mapEventData = (apiData) => {
+    return {
+        name: apiData?.event_title || "Unknown Venue",
+        location: apiData?.locations[0]?.area || "Unknown Area",
+        about: apiData?.about_event || "No description available for this venue.",
+        rating: parseFloat(apiData?.average_rating) || 0,
+        reviewcount: apiData?.review_count || 0,
+        timing: `${formatTime(apiData?.start_time || '06:00:00')} - ${formatTime(apiData?.end_time || '22:00:00')}`,
+        price: parseFloat(apiData?.pricing) || 0,
+        address: `${apiData?.locations[0]?.full_address || ''}`.trim().replace(/^,|,$/g, '')
+            || "Not Available",
+        images: Array.isArray(apiData?.event_gallery)
+            ? apiData.event_gallery.map((img) => img.image_url)
+            : [RunImage,RunImage, RunImage, RunImage],
+        sports: Array.isArray(apiData?.sports)
+            ? apiData.sports.map((sport) => ({
+                sportId: sport.id,
+                name: sport.name,
+                icon: sport.image
+            }))
+            : '',
+        amenities: Array.isArray(apiData?.amenities)
+            ? apiData.amenities.map((a) => a.name)
+            : ["Not Available"],
+        latitude: apiData?.latitude || 0,
+        longitude: apiData?.longitude || 0,
+        favourite: apiData?.favourite,
+        favourite_venue_id: apiData?.favourite_venue_id,
+        reviews: Array.isArray(apiData?.reviews)
+            ? apiData.reviews.map((review) => ({
+                id: review.id,
+                userName: review.user_name || "Anonymous",
+                rating: review.rating || 0,
+                comment: review.comment || "No comment provided",
+                date: formatDate(review.createdAt) || new Date().toISOString().split('T')[0],
+            }))
+            : [{ comment: "Not Available" }], // Default to first 5 reviews if not available
+    };
+};
+
 
 export default function EventDetailPage() {
+    const { id } = useParams();
+
     const [expandedSection, setExpandedSection] = useState(null);
     const [selectedDate, setSelectedDate] = useState(null);
     const [openModal, setOpenModal] = useState(false);
@@ -114,16 +159,22 @@ export default function EventDetailPage() {
             return window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3;
         }, []);
 
+        const { data:EventDetails, isLoading:eventLoading, error:eventError} = useFetchSingleEvent(id);
+        const event = Array.isArray(EventDetails?.result) && EventDetails.result.length > 0
+                ? mapEventData(EventDetails.result[0])
+                : '';
+        console.log("eventDetail",event);
+
     return (
         <>
             <div className='Event-main-header'>
                 <div className="breadcrumb">
-                    <span>Event &gt; Bibwewadi &gt; Kalsubai Monsoon Trek</span>
+                    <span>Event &gt; {event.location} &gt; {event.name}</span>
                 </div>
 
-                <h1 className="event-name">Kalsubai Monsoon Trek</h1>
+                <h1 className="event-name">{event.name}</h1>
                 <div className="event-location-rating">
-                    <span>Bibwewadi</span>
+                    <span>{event.location}</span>
                     <span>⭐ {4.3} (234 ratings)</span>
                 </div>
             </div>
@@ -148,7 +199,7 @@ export default function EventDetailPage() {
                                 modules={[Autoplay, Pagination]}
                                 className="mySwiper"
                             >
-                                {imagelist.map((img, index) => (
+                                {event?.images?.map((img, index) => (
                                     <SwiperSlide key={index} className="event-swiperslide">
                                         <img src={img} alt={`event-image-${index}`} className="event-swiperslide-img" />
                                     </SwiperSlide>
@@ -161,8 +212,8 @@ export default function EventDetailPage() {
                             <div className="event-heading"><strong>About the Event</strong></div>
                             <div className="event-description">
                                 {expandedSection === "about"
-                                    ? fullText
-                                    : `${fullText.substring(0, 100)}...`}
+                                    ? event.about
+                                    : `${event?.about?.substring(0, 100)}...`}
                             </div>
                             <button onClick={() => toggleSection("about")} className="read-more-btn">
                                 {expandedSection === "about" ? "Read less" : "Read more"}
@@ -252,8 +303,7 @@ export default function EventDetailPage() {
                     <div className="event-right">
                         <div className="event-right-section">
                             <div className="event-heading"><strong>Location</strong></div>
-                            <p>PSA Ground Next To Shreeji Lawns Ganga Dham
-                                Road Bibwewadi Pune 411037</p>
+                            <p>{event.address}</p>
                             <div className="venue-map">
                                 <CustomMap latitude={93.40166} longitude={62.90311} />
                             </div>

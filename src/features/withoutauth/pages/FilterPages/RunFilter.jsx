@@ -8,7 +8,6 @@ import AppDownloadBanner from '../../components/AppDownloadBanner.jsx';
 import eventImage from '../../assets/EventImage.svg';
 import sportIcon from '../../assets/VenueCardLogo/CricketLogo.png';
 import { useFetchEvent } from "../../../../hooks/EventList/useFetchEvents.js";
-import { useQueryClient } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 import { VenueListShimmer } from "../../components/Shimmer/VenueListShimmer.jsx";
 
@@ -31,22 +30,21 @@ function formatTime(timeStr = "00:00") {
     });
 }
 
-const events = Array.from({ length: 12 }, (_, i) => ({
-    id: i + 1,
-    name: "Green Run Open Marathon",
-    rating: 4.7,
-    RatingCount: 173,
-    price: '₹1000 onwards',
-    offer: 'Upto 50% off',
-    location: "Palika Bazar Gate 1, Delhi–451200",
-    date: "22 Jun – 23 Jun | 6AM onwards",
-    image: eventImage, // Use a sample image path
-    sportIcon: sportIcon,
-}));
+// const events = Array.from({ length: 12 }, (_, i) => ({
+//     id: i + 1,
+//     name: "Green Run Open Marathon",
+//     rating: 4.7,
+//     RatingCount: 173,
+//     price: '₹1000 onwards',
+//     offer: 'Upto 50% off',
+//     location: "Palika Bazar Gate 1, Delhi–451200",
+//     date: "22 Jun – 23 Jun | 6AM onwards",
+//     image: eventImage, 
+//     sportIcon: sportIcon,
+// }));
 
 export default function RunFilterPage() {
     const userId = useSelector((state) => state.auth.id);
-    const queryClient = useQueryClient();
     const [runList, setRunList] = useState([]);
     const [search, setSearch] = useState('');
     const [filters, setFilters] = useState({});
@@ -67,14 +65,14 @@ export default function RunFilterPage() {
     };
 
     useEffect(() => {
-            if (AllRundata?.status == 200) {
-                setRunList(AllRundata.result);
-            }
-        }, [AllRundata]);
-        console.log(runList)
-    
-        if (isLoading) return <div> <VenueListShimmer /></div>;
-        if (isError) return <div>Error loading events: {error.message}</div>;
+        if (AllRundata?.status === 200) {
+            setRunList(AllRundata.result);
+        }
+    }, [AllRundata]);
+    console.log(runList)
+
+    if (isLoading) return <div> <VenueListShimmer /></div>;
+    if (isError) return <div>Error loading events: {error.message}</div>;
     return (
         <>
             <div className="run-filter-container">
@@ -90,9 +88,36 @@ export default function RunFilterPage() {
                 </aside>
 
                 <section className="run-grid">
-                    {events.map((event) => (
+                    {/* {events.map((event) => (
                         <RunCard key={event.id} event={event} />
-                    ))}
+                    ))} */}
+                    {runList.map((evt) => {
+                        const formattedEvent = {
+                            id: evt.id,
+                            name: evt.event_title,
+                            rating: evt.rating ?? 0,
+                            RatingCount: evt.ratingCount ?? 0,
+                            price: `₹${parseInt(evt.lowest_ticket_price)} onwards`,
+                            offer: evt.offer ?? 'No offer',
+                            location: `${evt.locations[0]?.area}, ${evt.locations[0]?.city}` || '',
+                            date: `${new Date(evt.start_date).toLocaleDateString('en-GB', {
+                                day: '2-digit', month: 'short'
+                            })} – ${new Date(evt.end_date).toLocaleDateString('en-GB', {
+                                day: '2-digit', month: 'short'
+                            })} | ${formatTime(evt.start_time)}‑${formatTime(evt.end_time.slice(0, 5))}`,
+                            image: evt.desktop_image || eventImage,
+                            sportIcon: evt.sports || ''
+                        };
+
+                        return (
+
+                            <RunCard
+                                key={evt.id}
+                                event={formattedEvent}
+                            />
+
+                        );
+                    })}
                 </section>
             </div>
             <div className='run-footer-banner'>
