@@ -25,7 +25,7 @@ const breakpoints = {
   500: 2,
 };
 
-export default function Gallery() {
+export default function Gallery({gallery}) {
   return (
     <div className="gallery-wrapper">
       <h2 className="gallery-title">Gallery</h2>

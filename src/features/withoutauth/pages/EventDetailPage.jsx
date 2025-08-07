@@ -99,6 +99,9 @@ const mapEventData = (apiData) => {
         images: Array.isArray(apiData?.event_gallery)
             ? apiData.event_gallery.map((img) => img.image_url)
             : [RunImage, RunImage, RunImage, RunImage],
+        gallery: Array.isArray(apiData?.event_gallery)
+            ? apiData.event_gallery.map((img) => img.image_url)
+            : [RunImage, RunImage, RunImage, RunImage],
         sports: Array.isArray(apiData?.sports)
             ? apiData.sports.map((sport) => ({
                 sportId: sport.id,
@@ -363,7 +366,7 @@ export default function EventDetailPage() {
 
                     </div>
                 </div>
-                <Gallery />
+                <Gallery gallery={event.gallery}/>
 
                 <div className="ratings-carousel">
                     <h2 className="review-heading">Ratings & Reviews</h2>
