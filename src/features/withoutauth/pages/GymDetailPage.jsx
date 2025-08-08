@@ -95,7 +95,7 @@ const mapGymData = (apiData) => {
                 userName: review.user_name || "Anonymous",
                 rating: review.rating || 0,
                 comment: review.comment || "No comment provided",
-                date: formatDate(review.createdAt) || new Date().toISOString().split('T')[0],
+                // date: formatDate(review.createdAt) || new Date().toISOString().split('T')[0],
             }))
             : [{ comment: "Not Available" }], // Default to first 5 reviews if not available
     };

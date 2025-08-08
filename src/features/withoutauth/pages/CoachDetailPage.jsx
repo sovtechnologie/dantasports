@@ -93,19 +93,30 @@ const mapCoachData = (apiData) => {
         name: apiData?.name || "Unknown Venue",
         location: apiData?.locations[0]?.area || "Unknown Area",
         about: apiData?.about || "",
+        type: apiData?.type,
         rating: parseFloat(apiData?.average_rating) || 0,
         reviewcount: apiData?.review_count || 0,
         address: `${apiData?.locations[0]?.full_address || ''}`.trim().replace(/^,|,$/g, '')
             || "Not Available",
-        multilocation:apiData?.locations,    
+        multilocation: apiData?.locations,
+        training_type: apiData?.training_type,
+        classes: apiData?.classes,
+        fees_and_packages: apiData?.fees_and_packages,
+        certficiates: apiData?.certficiates,
         images: Array.isArray(apiData?.gallery_images)
             ? apiData?.gallery_images.map((img) => img.image)
-            : [RunImage,RunImage,RunImage],
-        sports: Array.isArray(apiData?.sports)
-            ? apiData.sports.map((sport) => ({
+            : [RunImage, RunImage, RunImage],
+        coaches: Array.isArray(apiData?.gym_coaches)
+            ? apiData?.gym_coaches.map((coach) => ({
+                name: coach.name,
+                title: coach.type,
+                image: coach.image || CoachImage
+            })) : '',
+        sports: Array.isArray(apiData?.linked_sports)
+            ? apiData.linked_sports.map((sport) => ({
                 sportId: sport.id,
-                name: sport.name,
-                icon: sport.image
+                name: sport.sports_name,
+                icon: sport.sports_images
             }))
             : [{ name: 'Cricket', icon: footballIcon },
             { name: 'Football', icon: footballIcon },
@@ -140,7 +151,7 @@ export default function CoachDetailPage() {
     const prev = () => setStart((prev) => Math.max(prev - 1, 0));
     const next = () =>
         setStart((prev) =>
-            Math.min(prev + 1, reviews.length  - visibleCount)
+            Math.min(prev + 1, coach?.reviews?.length - visibleCount)
         );
 
     const visibleCount = useMemo(() => {
@@ -220,11 +231,11 @@ export default function CoachDetailPage() {
                                     </div>
                                     <div className="session-conatiner">
                                         <img src={adultlogo} alt="adultlogo" />
-                                        <p>Adults</p>
+                                        <p>{coach?.training_type}</p>
                                     </div>
                                     <div className="session-conatiner">
                                         <img src={sessionlogo} alt="sessionlogo" />
-                                        <p>1-on-1 Classes, Online Classes</p>
+                                        <p>{coach?.classes}</p>
                                     </div>
                                 </div>
                             </div>
@@ -233,8 +244,8 @@ export default function CoachDetailPage() {
                                 {/* <div className="carry-list"> */}
                                 <div className="coach-description" style={{ whiteSpace: "pre-wrap" }}>
                                     {expandedSection === "FreePackges"
-                                        ? FreePackges
-                                        : `${FreePackges.substring(0, 200)}...`}
+                                        ? coach?.fees_and_packages
+                                        : `${coach?.fees_and_packages?.substring(0, 200)}...`}
                                 </div>
                                 <button onClick={() => toggleSection("FreePackges")} className="read-more-btn">
                                     {expandedSection === "FreePackges" ? "Read less" : "Read more"}
@@ -245,12 +256,12 @@ export default function CoachDetailPage() {
 
                         </div>
 
-                        {id === 'Academy' && (
+                        {coach?.type === 2 && (
                             <div className="coach-carry-point">
                                 <div className="coach-section coach-pickPoints">
                                     <div className="coach-heading"><strong>Coaches</strong></div>
                                     <div className="coaches-list">
-                                        {coaches.map((coach, index) => (
+                                        {coach?.coaches?.map((coach, index) => (
                                             <div className="coaches-card" key={index}>
                                                 <img src={coach.image} alt={coach.name} className="coach-image" />
                                                 <p className="coach-name">{coach.name}</p>
@@ -262,7 +273,7 @@ export default function CoachDetailPage() {
                                 <div className="coach-section coach-pickPoints">
                                     <div className="coach-heading"><strong>Sports</strong></div>
                                     <div className="sports-list">
-                                        {sports.map((sport, index) => (
+                                        {coach?.sports?.map((sport, index) => (
                                             <div className="sportes-card" key={index}>
                                                 <img src={sport.icon} alt={sport.name} className="sports-img" />
                                                 <p className="sport-name">{sport.name}</p>
@@ -304,14 +315,20 @@ export default function CoachDetailPage() {
 
                         <div className="coach-right-section">
                             <div className="coach-heading"><strong>Awards & Recognitions</strong></div>
-                            <div className="award-wrapper">
-                                <img src={certificatlogo} alt="certificatelogo" className="certificatelogo" />
-                                <div className="award-des">
-                                    <ul>
-                                        <li>Certified Nutrition & Fitness Coach</li>
-                                    </ul>
+                            {coach?.certficiates?.map(cert => (
+                                <div className="award-wrapper" key={cert.id}>
+                                    <img
+                                        src={cert.certificate_url || certificatlogo}
+                                        alt={cert.certificate_name}
+                                        className="certificatelogo"
+                                    />
+                                    <div className="award-des">
+                                        <ul>
+                                            <li>{cert.certificate_name}</li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
+                            ))}
                         </div>
 
                         <div className="coach-right-section-button">
