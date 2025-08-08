@@ -87,7 +87,7 @@ const mapGymData = (apiData) => {
             : ["Not Available"],
         favourite: apiData?.favourite,
         favourite_venue_id: apiData?.favourite_venue_id,
-        termsAndCondition: apiData?.terms_and_condition,
+        termsAndCondition: apiData?.term_and_conditions,
         cancelPolicy: apiData?.cancellation_policy,
         reviews: Array.isArray(apiData?.reviews)
             ? apiData.reviews.map((review) => ({
@@ -123,7 +123,7 @@ export default function GymDetailPage() {
     const prev = () => setStart((prev) => Math.max(prev - 1, 0));
     const next = () =>
         setStart((prev) =>
-            Math.min(prev + 1, reviews.length - visibleCount)
+            Math.min(prev + 1, gym?.reviews?.length - visibleCount)
         );
 
     const visibleCount = useMemo(() => {
@@ -199,7 +199,7 @@ export default function GymDetailPage() {
                 <h1 className="gympage-name">{gym?.name}</h1>
                 <div className="gym-location-rating">
                     <span>{gym?.location}</span>
-                    <span>⭐ {4.3} (234 ratings)</span>
+                    <span>⭐ {gym?.rating} (234 ratings)</span>
                 </div>
             </div>
 
@@ -287,8 +287,30 @@ export default function GymDetailPage() {
                         </div>
 
                         <div className="gym-term_policy">
-                            <div className="gym-section terms">Terms & Conditions</div>
-                            <div className="gym-section policy">Cancellation Policy</div>
+                            <div className="gym-section terms">
+                                <div className="gym-heading"><strong>Terms & Conditions</strong>
+                                </div>
+                                <div className="gym-description" style={{ whiteSpace: "pre-wrap" }}>
+                                    {expandedSection === "terms"
+                                        ? gym?.termsAndCondition
+                                        : `${gym?.termsAndCondition?.substring(0, 200)}...`}
+                                </div>
+                                <button onClick={() => toggleSection("terms")} className="read-more-btn">
+                                    {expandedSection === "terms" ? "Read less" : "Read more"}
+                                </button>
+                            </div>
+                            <div className="gym-section policy">
+                                <div className="gym-heading"><strong> Cancellation Policy</strong>
+                                </div>
+                                <div className="gym-description" style={{ whiteSpace: "pre-wrap" }}>
+                                    {expandedSection === "cancel"
+                                        ? gym?.cancelPolicy
+                                        : `${gym?.cancelPolicy?.substring(0, 200)}...`}
+                                </div>
+                                <button onClick={() => toggleSection("cancel")} className="read-more-btn">
+                                    {expandedSection === "cancel" ? "Read less" : "Read more"}
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -347,7 +369,7 @@ export default function GymDetailPage() {
                 <div className="ratings-carousel">
                     <h2 className="review-heading">Ratings & Reviews</h2>
                     <div className="review-carousel-container">
-                        {reviews.slice(start, start + visibleCount).map((review) => (
+                        {gym?.reviews?.slice(start, start + visibleCount).map((review) => (
                             <ReviewCard key={review.id} review={review} />
                         ))}
                     </div>

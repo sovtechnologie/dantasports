@@ -318,7 +318,7 @@ export default function CoachDetailPage() {
                             {coach?.certficiates?.map(cert => (
                                 <div className="award-wrapper" key={cert.id}>
                                     <img
-                                        src={cert.certificate_url || certificatlogo}
+                                        src={cert.certificate_url ? `https://${cert.certificate_url}` : certificatlogo}
                                         alt={cert.certificate_name}
                                         className="certificatelogo"
                                     />
