@@ -317,22 +317,28 @@ export default function EventDetailPage() {
 
                         <div className="event-term_policy">
                             <div className="event-section terms">
-                                <div className="event-heading" onClick={() => toggleSection("terms")}><strong>Terms & Conditions</strong>
+                                <div className="event-heading"><strong>Terms & Conditions</strong>
                                 </div>
                                 <div className="event-description" style={{ whiteSpace: "pre-wrap" }}>
                                     {expandedSection === "terms"
                                         ? event?.termsAndCondition
-                                        : ''}
+                                        : `${event?.termsAndCondition?.substring(0, 200)}...`}
                                 </div>
+                                <button onClick={() => toggleSection("terms")} className="read-more-btn">
+                                    {expandedSection === "terms" ? "Read less" : "Read more"}
+                                </button>
                             </div>
                             <div className="event-section policy">
-                                <div className="event-heading" onClick={() => toggleSection("cancel")}><strong> Cancellation Policy</strong>
+                                <div className="event-heading"><strong> Cancellation Policy</strong>
                                 </div>
                                 <div className="event-description" style={{ whiteSpace: "pre-wrap" }}>
                                     {expandedSection === "cancel"
                                         ? event?.cancelPolicy
-                                        : ''}
+                                        : `${event?.cancelPolicy?.substring(0, 200)}...`}
                                 </div>
+                                <button onClick={() => toggleSection("cancel")} className="read-more-btn">
+                                    {expandedSection === "cancel" ? "Read less" : "Read more"}
+                                </button>
                             </div>
                         </div>
                     </div>

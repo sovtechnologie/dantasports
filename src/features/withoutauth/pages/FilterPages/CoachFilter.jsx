@@ -10,17 +10,6 @@ import { useFetchCoach } from "../../../../hooks/CoachList/useFetchCoach.js";
 import { VenueListShimmer } from "../../components/Shimmer/VenueListShimmer.jsx";
 
 
-const coachs = Array.from({ length: 12 }, (_, i) => ({
-    id: i + 1,
-    image: i % 2 === 0 ? coachImage : coachImage1,
-    avatar: sportIcon,
-    name: "Prerak Arya",
-    location: "Balewadi, Pune, Maharashtra",
-    rating: "4.0",
-    ratingCount: "175",
-    category: "Adults",
-    tag: i % 2 === 0 ? "Trainer" : "Academy",
-}));
 
 export default function CoachFilterPage() {
     const [coachList, setCoachList] = useState([]);
