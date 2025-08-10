@@ -25,7 +25,6 @@ const CustomMap = ({ latitude, longitude }) => {
         className="map-link"
         style={{
           display: "inline-block",
-          marginTop: "10px",
           color: "#007bff",
           textDecoration: "underline",
           lineHeight: "19.6px"

@@ -156,7 +156,7 @@ body {
   font-size: 16px;
   font-family: "DM Sans", Arial, sans-serif;
   text-transform: capitalize;
-  margin-top: 10px;
+  /* margin-top: 10px; */
 }
 
 .gym-amenities {
@@ -307,7 +307,10 @@ body {
   justify-content: center;
   gap: 20px;
   box-shadow: 0px 4.08px 4.08px 0px #1163c740;
-  /* height: 500px; */
+  max-height: 500px;
+}
+.gym-right-section:first-of-type {
+  height: 500px;
 }
 .section-group {
   display: flex;

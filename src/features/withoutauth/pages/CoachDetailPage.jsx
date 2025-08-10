@@ -12,6 +12,7 @@ import adultlogo from "../assets/adultlogo.svg";
 import sessionlogo from "../assets/Sessionlogo.svg"
 import CustomMap from "../components/CustomMap";
 import locationlogo from "../assets/LocationLogo.svg";
+import Certificate1 from "../assets/certificate-name.png";
 import certificatlogo from "../assets/Certificatelogo.svg"
 import ReviewCard from "../components/ReviewCard";
 import EnquiryModal from "../components/EnquiryModal";
@@ -244,11 +245,11 @@ export default function CoachDetailPage() {
                             <div className="coach-section coach-pickPoints">
                                 <div className="coach-heading">Fee & Packages</div>
                                 {/* <div className="carry-list"> */}
-                                <div className="coach-description" style={{ whiteSpace: "pre-wrap" }}>
+                                <p style={{ whiteSpace: "pre-wrap" }}>
                                     {expandedSection === "FreePackges"
                                         ? coach?.fees_and_packages
                                         : `${coach?.fees_and_packages?.substring(0, 200)}...`}
-                                </div>
+                                </p>
                                 <button onClick={() => toggleSection("FreePackges")} className="read-more-btn">
                                     {expandedSection === "FreePackges" ? "Read less" : "Read more"}
                                 </button>
@@ -293,7 +294,7 @@ export default function CoachDetailPage() {
 
                         <div className="coach-right-section">
                             <div className="coach-heading">Location</div>
-                            <p>{coach?.address}</p>
+                            <div className="gym-right-section-p"> <p>{coach?.address}</p></div>
                             <div className="coach-map">
                                 <CustomMap latitude={93.40166} longitude={62.90311} />
                             </div>
@@ -319,11 +320,12 @@ export default function CoachDetailPage() {
                             <div className="coach-heading">Awards & Recognitions</div>
                             {coach?.certficiates?.map(cert => (
                                 <div className="award-wrapper" key={cert.id}>
-                                    <img
+                                    {/* <img
                                         src={cert.certificate_url ? `https://${cert.certificate_url}` : certificatlogo}
                                         alt={cert.certificate_name}
                                         className="certificatelogo"
-                                    />
+                                    /> */}
+                                    <img src={Certificate1} alt="location" className="certificate"/>
                                     <div className="award-des">
                                         <ul>
                                             <li>{cert.certificate_name}</li>
