@@ -12,6 +12,8 @@ import { EventCalandar } from "../components/EventCalandar";
 import TicketSelector from "../components/TicketSelector";
 import CheckoutPricing from "../components/CheckoutPricing";
 import BookingPopupCard from '../../auth/components/BookingPopupCard';
+import leftArrow from "../assets/left-arrow.png";
+import rightArrow from "../assets/right-arrow.png";
 
 
 // Import Swiper styles
@@ -307,8 +309,8 @@ export default function EventDetailPage() {
                                 ))}
                             </div>
                             <div className="carousel-buttons">
-                                <button onClick={prev} >←</button>
-                                <button onClick={next}>→</button>
+                                <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
+                                <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
                             </div>
                         </div>
                     </div>

@@ -70,7 +70,12 @@ body {
   background-color: #f1f3f2;
   border-radius: 10px;
   border: 1px solid #f1f3f2;
-  max-width: 405px;
+  width: 403px;
+}
+.map-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .gym-image-carosal {
@@ -111,7 +116,7 @@ body {
   flex-direction: column;
   justify-content: center;
   gap: 20px;
-    /* box-shadow:
+  /* box-shadow:
     0px 4.08px 4.08px 0px #00000026,
     0px 4.54px 4.54px 0px #0000001a; */
 }
@@ -194,7 +199,7 @@ body {
   margin-bottom: 6px;
   color: #b1b1b1;
   font-size: 16px;
-  line-height: 1.4;
+  line-height: 23.4px;
   font-weight: 400;
   font-family: "DM Sans", Arial, sans-serif;
 }
@@ -211,8 +216,11 @@ body {
 
 /* Time portion styled bold or blue if needed */
 .range {
-  color: #0066cc;
-  font-weight: 500;
+  color: #1163c7;
+  font-size: 16px;
+  line-height: 23.4px;
+  font-weight: 400;
+  font-family: "DM Sans", Arial, sans-serif;
 }
 
 .coaches-list {
@@ -256,6 +264,7 @@ body {
 .gym-term_policy {
   display: flex;
   justify-content: space-between;
+
   /* flex-direction: row;
   gap: 0.5rem; */
 }
@@ -268,7 +277,21 @@ body {
   font-size: 18px;
   font-weight: 500;
   line-height: 21.67px;
-  color: #172a39;
+  /* color: #172a39;
+  position: relative;
+  background-color: #ffffff;
+  color: #1163c7; */
+  border: 2px solid transparent;
+  background-image:
+    linear-gradient(white, white),
+    linear-gradient(270deg, #1163c7, #a3d0ff, #1163c7);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  cursor: pointer;
+  background-size: 200% auto;
+  animation:
+    move-border 3s linear infinite,
+    glow-pulse 3s ease-in-out infinite;
 }
 
 /* right section */
@@ -283,8 +306,8 @@ body {
   flex-direction: column;
   justify-content: center;
   gap: 20px;
-  box-shadow: 0px 4.08px 4.08px 0px #1163C740;
-
+  box-shadow: 0px 4.08px 4.08px 0px #1163c740;
+  /* height: 500px; */
 }
 .section-group {
   display: flex;
@@ -296,6 +319,14 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.gym-right-section-p {
+  font-family: "DM Sans", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 23.4px;
+  color: #172a39;
 }
 
 .select-box label,
@@ -337,7 +368,7 @@ body {
 .btn {
   background: none;
   border: 1px solid #1163c7;
-  color: #1163C7;
+  color: #1163c7;
   font-size: 18px;
   width: 20px;
   height: 20px;
@@ -386,6 +417,7 @@ body {
 
 .ratings-carousel {
   font-family: "Lato", sans-serif;
+  margin-top: 50px
 }
 
 .review-heading {
@@ -449,15 +481,18 @@ body {
     height: 170px;
 } */
 
-
 .event-banner-container {
   overflow: hidden;
   padding: 12px;
 }
 
 .event-banner-heading {
-  margin-bottom: 10px;
   font-size: 24px;
+  font-family: "Lato", sans-serif;
+  font-weight: 500;
+  line-height: 21.67px;
+  color: #172a39;
+  margin-bottom: 30px;
 }
 
 .event-banner-carousel {
@@ -478,7 +513,7 @@ body {
 }
 
 .event-banner-img {
-  width: 300px;     /* adjust as needed */
+  width: 300px; /* adjust as needed */
   height: auto;
   border-radius: 8px;
   object-fit: cover;

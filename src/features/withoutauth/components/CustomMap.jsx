@@ -12,7 +12,7 @@ const CustomMap = ({ latitude, longitude }) => {
       <iframe
         src={embedUrl}
         width="100%"
-        height="320"
+        height="325"
         style={{ border: 0 }}
         allowFullScreen=""
         loading="lazy"
@@ -28,6 +28,7 @@ const CustomMap = ({ latitude, longitude }) => {
           marginTop: "10px",
           color: "#007bff",
           textDecoration: "underline",
+          lineHeight: "19.6px"
         }}
       >
         View on Google Maps

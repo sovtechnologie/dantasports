@@ -15,6 +15,8 @@ import BookingPopupCard from '../../auth/components/BookingPopupCard';
 import { useFetchSingleEvent } from "../../../hooks/EventList/useFetchSingleEvent";
 import { useBanner } from "../../../hooks/useBanner";
 import { useFetchSingleEventPrice } from "../../../hooks/EventList/useFetchEventPrice";
+import leftArrow from "../assets/left-arrow.png";
+import rightArrow from "../assets/right-arrow.png";
 
 
 
@@ -239,7 +241,7 @@ export default function EventDetailPage() {
 
 
                         <div className="event-section">
-                            <div className="event-heading"><strong>About the Event</strong></div>
+                            <div className="event-heading">About the Event</div>
                             <div className="event-description">
                                 {expandedSection === "about"
                                     ? event.about
@@ -276,7 +278,7 @@ export default function EventDetailPage() {
                         </div>
 
                         <div className="event-section">
-                            <div className="event-heading"><strong>Instruction</strong></div>
+                            <div className="event-heading">Instruction</div>
                             <div className="event-description" style={{ whiteSpace: "pre-wrap" }}>
                                 {expandedSection === "instruction"
                                     ? event?.instruction
@@ -314,7 +316,7 @@ export default function EventDetailPage() {
 
                         <div className="event-term_policy">
                             <div className="event-section terms">
-                                <div className="event-heading"><strong>Terms & Conditions</strong>
+                                <div className="event-heading">Terms & Conditions
                                 </div>
                                 <div className="event-description" style={{ whiteSpace: "pre-wrap" }}>
                                     {expandedSection === "terms"
@@ -326,7 +328,7 @@ export default function EventDetailPage() {
                                 </button>
                             </div>
                             <div className="event-section policy">
-                                <div className="event-heading"><strong> Cancellation Policy</strong>
+                                <div className="event-heading">Cancellation Policy
                                 </div>
                                 <div className="event-description" style={{ whiteSpace: "pre-wrap" }}>
                                     {expandedSection === "cancel"
@@ -343,8 +345,8 @@ export default function EventDetailPage() {
 
                     <div className="event-right">
                         <div className="event-right-section">
-                            <div className="event-heading"><strong>Location</strong></div>
-                            <p>{event.address}</p>
+                            <div className="event-heading">Location</div>
+                            <div className="gym-right-section-p"><p>{event.address}</p></div>
                             <div className="venue-map">
                                 <CustomMap latitude={93.40166} longitude={62.90311} />
                             </div>
@@ -370,7 +372,7 @@ export default function EventDetailPage() {
                         </div>
 
                         <div className="event-right-section">
-                            <div className="event-heading"><strong>Select Date:</strong></div>
+                            <div className="event-heading">Select Date:</div>
                             <EventCalandar
                                 selectedDate={selectedDate}
                                 setSelectedDate={setSelectedDate}
@@ -413,8 +415,8 @@ export default function EventDetailPage() {
                         ))}
                     </div>
                     <div className="carousel-buttons">
-                        <button onClick={prev}>←</button>
-                        <button onClick={next}>→</button>
+                        <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
+                        <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
                     </div>
                 </div>
 

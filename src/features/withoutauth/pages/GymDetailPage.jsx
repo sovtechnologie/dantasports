@@ -235,7 +235,7 @@ export default function GymDetailPage() {
                         </div>
 
                         <div className="gym-section">
-                            <div className="gym-heading"><strong>About Glod’s Gym</strong></div>
+                            <div className="gym-heading">About Glod’s Gym</div>
                             <div className="gym-description">
                                 {expandedSection === "about"
                                     ? gym?.about
@@ -288,7 +288,7 @@ export default function GymDetailPage() {
 
                         <div className="gym-term_policy">
                             <div className="gym-section terms">
-                                <div className="gym-heading"><strong>Terms & Conditions</strong>
+                                <div className="gym-heading">Terms & Conditions
                                 </div>
                                 <div className="gym-description" style={{ whiteSpace: "pre-wrap" }}>
                                     {expandedSection === "terms"
@@ -300,7 +300,7 @@ export default function GymDetailPage() {
                                 </button>
                             </div>
                             <div className="gym-section policy">
-                                <div className="gym-heading"><strong> Cancellation Policy</strong>
+                                <div className="gym-heading">Cancellation Policy
                                 </div>
                                 <div className="gym-description" style={{ whiteSpace: "pre-wrap" }}>
                                     {expandedSection === "cancel"
@@ -317,8 +317,8 @@ export default function GymDetailPage() {
                     <div className="gym-right">
 
                         <div className="gym-right-section">
-                            <div className="gym-heading"><strong>Location</strong></div>
-                            <p>{gym?.address}</p>
+                            <div className="gym-heading">Location</div>
+                             <div className="gym-right-section-p"><p>{gym?.address}</p></div>
                             <div className="gym-map">
                                 <CustomMap latitude={93.40166} longitude={62.90311} />
                             </div>

@@ -234,6 +234,7 @@ body {
   justify-content: center;
   gap: 20px;
   box-shadow: 0px 4.08px 4.08px 0px #1163c740;
+  max-height: 500px ;
 }
 
 .meetup-select {
@@ -248,7 +249,11 @@ body {
   height: 52px;
   font-family: "DM Sans", Arial, sans-serif;
 }
-
+.map-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 .event-right-section-button {
   border: 1px solid #1163c7;
   border-radius: 12px;
@@ -340,11 +345,16 @@ body {
 .event-banner-container {
   overflow: hidden;
   padding: 12px;
+  margin-bottom: 50px;
 }
 
 .event-banner-heading {
-  margin-bottom: 10px;
   font-size: 24px;
+  font-family: "Lato", sans-serif;
+  font-weight: 500;
+  line-height: 21.67px;
+  color: #172a39;
+  margin-bottom: 30px;
 }
 
 .event-banner-carousel {

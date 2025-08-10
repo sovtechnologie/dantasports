@@ -15,8 +15,8 @@ import {
 import { useMemo, useState } from "react";
 export const EventCalandar = ({ selectedDate, setSelectedDate, startDateProp,
     endDateProp, }) => {
-        console.log(startDateProp,
-    endDateProp)
+    console.log(startDateProp,
+        endDateProp)
     const timeZone = 'Asia/Kolkata';
     const today = new Date();
     const todayZoned = startOfDay(toZonedTime(today, timeZone));
@@ -76,26 +76,29 @@ export const EventCalandar = ({ selectedDate, setSelectedDate, startDateProp,
                         </div>
                     );
                 })} */}
-                    {dayList.map(({ full, day, monthLabel, isPast }) => {
-                        const isSelected = selectedDate
-                            ? isSameDay(full, selectedDate)
-                            : false;
-                        return (
-                            !isPast && (
-                                <div
-                                    key={full.toISOString()}
-                                    className={`calendar-day${isSelected ? ' active' : ''}`}
-                                    onClick={() => setSelectedDate(full)}
-                                >
-                                    <div className="calendar-day-number">{day}</div>
-                                    <div className="calendar-day-label">{monthLabel}</div>
-                                </div>
-                            )
-                        );
-                    })}
+                    <div className="select-date"><p>Select any date to continue</p></div>
+                    <div className="calendar">
+                        {dayList.map(({ full, day, monthLabel, isPast }) => {
+                            const isSelected = selectedDate
+                                ? isSameDay(full, selectedDate)
+                                : false;
+                            return (
+                                !isPast && (
+                                    <div
+                                        key={full.toISOString()}
+                                        className={`calendar-day${isSelected ? ' active' : ''}`}
+                                        onClick={() => setSelectedDate(full)}
+                                    >
+                                        <div className="calendar-day-number">{day}</div>
+                                        <div className="calendar-day-label">{monthLabel}</div>
+                                    </div>
+                                )
+                            );
+                        })}
+                    </div>
                 </div>
             </div>
-            <div><p>Select any date to continue</p></div>
+
         </>
     )
 }

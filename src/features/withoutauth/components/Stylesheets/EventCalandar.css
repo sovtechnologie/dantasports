@@ -2,12 +2,12 @@
   background: white;
   max-width: 100%;
 }
-
+/* 
 .calendar-week {
   display: flex;
   gap: 20px;
   flex-wrap: nowrap;
-}
+} */
 
 .calendar-day {
   display: flex;
@@ -16,12 +16,21 @@
   /* flex: 1; */
   cursor: pointer;
   padding: 6px;
-  color: #999;
+  color: #000000;
   transition: all 0.2s;
   height: fit-content;
   border: 0.5px solid #b1b1b1;
   height: 60px;
   width: 40px;
+  border-radius: 3px;
+}
+
+.select-date {
+  font-size: 14px;
+  font-family: "DM Sans", sans-serif;
+  color: #858585;
+  line-height: 19.44px;
+  font-weight: 400;
 }
 
 .calendar-day:hover {
@@ -36,7 +45,12 @@
   font-weight: bold;
   height: 60px;
 }
-
+.calendar {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+  flex-wrap: nowrap;
+}
 .calendar-day.today {
   font-weight: bold;
   height: 60px;

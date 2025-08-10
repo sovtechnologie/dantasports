@@ -21,6 +21,8 @@ import footballIcon from "../assets/sport-list/Football-Icon.png"
 import { useFetchCoachDetails } from "../../../hooks/CoachList/useFetchCoachDetail";
 import { formatTime } from "../../../utils/formatTime";
 import { formatDate } from "date-fns";
+import leftArrow from "../assets/left-arrow.png";
+import rightArrow from "../assets/right-arrow.png";
 
 const imagelist = [RunImage, RunImage];
 
@@ -210,7 +212,7 @@ export default function CoachDetailPage() {
                         </div>
 
                         <div className="coach-section">
-                            <div className="coach-heading"><strong>About {coach?.name}</strong></div>
+                            <div className="coach-heading">About {coach?.name}</div>
                             <div className="coach-description">
                                 {expandedSection === "about"
                                     ? coach?.about
@@ -223,7 +225,7 @@ export default function CoachDetailPage() {
 
                         <div className="coach-carry-point">
                             <div className="coach-section coach-carry">
-                                <div className="coach-heading"><strong>About the Sessions</strong></div>
+                                <div className="coach-heading">About the Sessions</div>
                                 <div className="session-list">
                                     <div className="session-conatiner">
                                         <img src={calandarlogo} alt="calandarlogo" />
@@ -240,7 +242,7 @@ export default function CoachDetailPage() {
                                 </div>
                             </div>
                             <div className="coach-section coach-pickPoints">
-                                <div className="coach-heading"><strong>Fee & Packages</strong></div>
+                                <div className="coach-heading">Fee & Packages</div>
                                 {/* <div className="carry-list"> */}
                                 <div className="coach-description" style={{ whiteSpace: "pre-wrap" }}>
                                     {expandedSection === "FreePackges"
@@ -259,7 +261,7 @@ export default function CoachDetailPage() {
                         {coach?.type === 2 && (
                             <div className="coach-carry-point">
                                 <div className="coach-section coach-pickPoints">
-                                    <div className="coach-heading"><strong>Coaches</strong></div>
+                                    <div className="coach-heading">Coaches</div>
                                     <div className="coaches-list">
                                         {coach?.coaches?.map((coach, index) => (
                                             <div className="coaches-card" key={index}>
@@ -271,7 +273,7 @@ export default function CoachDetailPage() {
                                     </div>
                                 </div>
                                 <div className="coach-section coach-pickPoints">
-                                    <div className="coach-heading"><strong>Sports</strong></div>
+                                    <div className="coach-heading">Sports</div>
                                     <div className="sports-list">
                                         {coach?.sports?.map((sport, index) => (
                                             <div className="sportes-card" key={index}>
@@ -290,7 +292,7 @@ export default function CoachDetailPage() {
                     <div className="coach-right">
 
                         <div className="coach-right-section">
-                            <div className="coach-heading"><strong>Location</strong></div>
+                            <div className="coach-heading">Location</div>
                             <p>{coach?.address}</p>
                             <div className="coach-map">
                                 <CustomMap latitude={93.40166} longitude={62.90311} />
@@ -299,7 +301,7 @@ export default function CoachDetailPage() {
                         </div>
 
                         <div className="coach-right-section">
-                            <div className="coach-heading"><strong>other Serviceable Location</strong></div>
+                            <div className="coach-heading">Other Serviceable Location</div>
                             {coach?.multilocation?.map((loc, index) => (
                                 <a href={loc.link} target="_blank" rel="noopener noreferrer" key={index} className="location-item">
                                     <div className="icon"><img src={locationlogo} alt="location" className="locationlogo" /></div>
@@ -314,7 +316,7 @@ export default function CoachDetailPage() {
 
 
                         <div className="coach-right-section">
-                            <div className="coach-heading"><strong>Awards & Recognitions</strong></div>
+                            <div className="coach-heading">Awards & Recognitions</div>
                             {coach?.certficiates?.map(cert => (
                                 <div className="award-wrapper" key={cert.id}>
                                     <img
@@ -348,8 +350,8 @@ export default function CoachDetailPage() {
                         ))}
                     </div>
                     <div className="carousel-buttons">
-                        <button onClick={prev}>←</button>
-                        <button onClick={next}>→</button>
+                        <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
+                        <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
                     </div>
                 </div>
             </div>

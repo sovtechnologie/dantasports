@@ -25,6 +25,7 @@ import leftArrow from "../assets/left-arrow.png";
 import rightArrow from "../assets/right-arrow.png";
 
 
+
 export const formatDate = (isoString) => {
     const date = new Date(isoString);
     return date.toLocaleDateString('en-GB', {
@@ -191,7 +192,7 @@ function VenueDetailsPage() {
     const prev = () => setStart((prev) => Math.max(prev - 1, 0));
     const next = () =>
         setStart((prev) =>
-            Math.min(prev + 1, venue?.reviews?.length +1 - visibleCount)
+            Math.min(prev + 1, venue?.reviews?.length + 1 - visibleCount)
         );
 
     const visibleCount = useMemo(() => {
@@ -358,10 +359,10 @@ function VenueDetailsPage() {
                                 ))}
                             </div>
                             <div className="carousel-buttons">
-                                <button onClick={prev}>←</button>
-                                <button onClick={next}>→</button>
+                                <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
+                                <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
                             </div>
-                          
+
                         </div>
                     </div>
 

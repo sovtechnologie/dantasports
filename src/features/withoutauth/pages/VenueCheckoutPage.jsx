@@ -18,6 +18,8 @@ import { useBanner } from '../../../hooks/useBanner.js';
 import { useSportDetails } from '../../../hooks/favouriteSport/useSportDetails.js';
 import { formatDate } from "../../../utils/formatDate.js";
 import { CheckoutModal } from "../../auth/components/Modal/CheckOutModal.jsx";
+import leftArrow from "../assets/left-arrow.png";
+import rightArrow from "../assets/right-arrow.png";
 
 
 
@@ -488,8 +490,8 @@ function VenueCheckoutPage() {
                                 ))}
                             </div>
                             <div className="carousel-buttons">
-                                <button onClick={prev}>←</button>
-                                <button onClick={next}>→</button>
+                                <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
+                                <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
                             </div>
                         </div>
                     </div>
