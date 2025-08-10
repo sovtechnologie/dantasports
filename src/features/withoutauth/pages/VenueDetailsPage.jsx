@@ -21,6 +21,8 @@ import { useSelector } from 'react-redux';
 import { useLikeVenue } from '../../../hooks/favouriteVenue/useLikeVenue.js';
 import { useUnlikeVenue } from '../../../hooks/favouriteVenue/useUnlikeVenue.js';
 import { useQueryClient } from '@tanstack/react-query';
+import leftArrow from "../assets/left-arrow.png";
+import rightArrow from "../assets/right-arrow.png";
 
 
 export const formatDate = (isoString) => {
@@ -359,6 +361,7 @@ function VenueDetailsPage() {
                                 <button onClick={prev}>←</button>
                                 <button onClick={next}>→</button>
                             </div>
+                          
                         </div>
                     </div>
 

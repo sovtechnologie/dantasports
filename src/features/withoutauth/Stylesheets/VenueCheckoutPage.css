@@ -669,8 +669,9 @@ body {
 .image-banner-wrapper {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.2rem;
+  justify-content: space-between;
+  /* gap: 1.2rem; */
+  row-gap: 20px;
   padding: 1rem 1rem 1rem 0rem;
 }
 

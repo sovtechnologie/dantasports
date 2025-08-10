@@ -1,38 +1,43 @@
 .sort-box-container {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
 }
 
 .sort-title {
   font-weight: 600;
-  font-size: 14px;
-  color: #333;
+  font-size: 20px;
+  color: #172a39;
   margin-bottom: 6px;
   display: block;
+  font-family: "Lato", sans-serif;
 }
 
 .sort-search {
-  width: 90%;
+  width: 254px;
+  height: 40px;
   padding: 8px;
-  font-size: 14px;
+  font-size: 16px;
   border-radius: 6px;
-  border: 1px solid #1163C7;
+  border: 1px solid #1163c7;
   outline: none;
   margin-bottom: 16px;
+  margin-top: 5px;
 }
 
 .sort-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin: 12px 0px;
 }
 
 .sort-reset {
-  font-size: 14px;
+  font-size: 20px;
   background: none;
   border: none;
-  color: #999;
+  color: #B1B1B1;
   cursor: pointer;
+ font-family: "Lato", Arial, sans-serif;
+ font-weight: 600;
 }
 
 .sort-reset:hover {
@@ -42,11 +47,12 @@
 .sortOption label {
   display: flex;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   font-size: 16px;
   cursor: pointer;
-  color: #172A39;
-  font-weight: 900px;
+  color: #172a39;
+  font-weight: 500;
+  font-family: "DM Sans", sans-serif;
 }
 
 .sortOption input {
@@ -54,4 +60,5 @@
   width: 16px;
   height: 16px;
   cursor: pointer;
+  /* border: 0.97px solid rgba(0, 0, 0, 0.4); */
 }

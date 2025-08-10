@@ -57,7 +57,7 @@ export const EventCalandar = ({ selectedDate, setSelectedDate }) => {
                 })}
             </div>
         </div>
-        <div><p>Select any date to continue</p></div>
+        <div className="calender-text"><p>Select any date to continue</p></div>
         </>
     )
 }

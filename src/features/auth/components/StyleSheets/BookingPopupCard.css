@@ -95,12 +95,12 @@
   flex: 1 1 50%;
   min-width: 140px;
 }
-
+/* 
 .event-card img {
   width: 100%;
   height: auto;
   display: block;
-}
+} */
 
 .button-wrapper {
   display: flex;

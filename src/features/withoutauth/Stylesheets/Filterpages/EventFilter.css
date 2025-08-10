@@ -12,7 +12,7 @@ body {
 
 .event-filter-container {
   display: flex;
-  padding: 2rem;
+  padding: 30px 100px;
   gap: 1rem;
   font-family: 'Segoe UI', sans-serif;
 
@@ -35,6 +35,6 @@ body {
   flex: 1;
 }
 
-.evnt-footer-banner{
+.event-footer-banner{
     padding: 2rem;
 }

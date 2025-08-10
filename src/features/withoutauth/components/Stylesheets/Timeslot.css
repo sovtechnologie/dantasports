@@ -3,9 +3,9 @@
   padding: 16px;
   border-radius: 12px;
   max-width: 100%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  /* box-shadow: 0.39px rgba(0, 0, 0, 0.5); */
   font-family: "DM Sans", sans-serif;
-  border: 2px solid #ddd;
+  border: 0.39px solid rgba(205, 205, 205, 1);
 }
 
 /* .time-display {

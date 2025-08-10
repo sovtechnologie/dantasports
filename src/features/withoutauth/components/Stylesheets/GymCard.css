@@ -1,0 +1,112 @@
+.gym-card {
+  width: 300px;
+  border-radius: 14.47px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.29);
+  background-color: white;
+  overflow: hidden;
+  font-family: sans-serif;
+  border: 1px solid #e5e5e5;
+  position: relative;
+  height: 222px;
+}
+
+.gym-image {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  padding: 6.63px;
+  border-radius: 18px;
+}
+.icon-top-right {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  display: flex;
+  gap: 6px;
+}
+.icon-img-btn {
+  width: 20px;
+  height: 20px;
+  background: #00000080;
+  border-radius: 50%;
+  padding: 3px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  margin-top: 8px;
+  /* margin-right: 7px; */
+}
+
+.card-content {
+  padding: 0px 6.63px 6.63px 6.63px;
+}
+
+.title-rating {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gym-title {
+  font-family: "Lato", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #272727;
+  margin: 0;
+  flex: 1;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 13px;
+}
+
+.star {
+  color: #40a040;
+  font-size: 14px;
+}
+
+.rating-value {
+  font-weight: 500;
+  font-family: "DM Sans", Arial, sans-serif;
+  font-size: 14px;
+  color: #272727;
+}
+
+.rating-count {
+  font-weight: 500;
+  font-family: "DM Sans", Arial, sans-serif;
+  font-size: 14px;
+  color: #272727;
+}
+
+.gym-location {
+  font-size: 12px;
+  font-family: "DM Sans", Arial, sans-serif;
+  color: #858585;
+  margin: 4px 0 4px;
+}
+
+.gym-footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #2971ac;
+  padding-top: 8px;
+  font-size: 13px;
+}
+
+.discount {
+  font-size: 12px;
+  font-family: "DM Sans", Arial, sans-serif;
+  color: #fc8019;
+  font-weight: 400;
+}
+
+.price {
+  font-size: 12px;
+  font-family: "DM Sans", Arial, sans-serif;
+  color: #006eff;
+  font-weight: 400;
+}

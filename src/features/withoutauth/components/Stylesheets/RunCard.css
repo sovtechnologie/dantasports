@@ -1,121 +1,144 @@
-
 .run-card {
-    width: 330px;
-    height: 435px;
-    border: 1px solid #e1e4e8;
-    border-radius: 14px;
-    overflow: hidden;
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #fff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    position: relative;
+  width: 299px;
+  height: 435px;
+  border: 1px solid #e1e4e8;
+  border-radius: 14.38px;
+  overflow: hidden;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.29);
+  position: relative;
 }
 
 .run-image-section {
-    position: relative;
+  position: relative;
+  padding: 7.7px;
 }
 
 .run-img {
-    width: 100%;
-    height: 300px;
-    object-fit:cover;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
+  width: 284.1143493652344px;
+  height: 296.77771px;
+  object-fit: cover;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-radius: 8.27px;
 }
 
 .icon-top-right {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    display: flex;
-    gap: 6px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 6px;
 }
 
 .icon-bottom-left {
-    position: absolute;
-    bottom: 15px;
-    left: 8px;
-    display: flex;
+  position: absolute;
+  bottom: 15px;
+  left: 8px;
+  display: flex;
 }
 
 .icon-img-btn {
-    width: 25px;
-    height: 25px;
-    background: #00000080;
-    border-radius: 50%;
-    padding: 6px;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
+  width: 25px;
+  height: 25px;
+  background: #00000080;
+  border-radius: 50%;
+  padding: 6px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  margin-bottom: 7px;
+  margin-left: 7px;
 }
 
 .run-content {
-    padding: 12px;
+  padding: 12px;
 }
-.runs-middle{
+.runs-middle {
   display: flex;
   justify-content: space-between;
 }
 
 .run-title {
-    font-size: 15px;
-    font-weight: 600;
-    margin: 0 0 4px;
+  font-size: 10.27px;
+  font-weight: 500;
+  margin: 0 0 4px;
+  font-family: "Lato", sans-serif;
+  color: #272727;
 }
 
 .run-rating {
-    font-size: 14px;
-    color: #4CAF50;
-    margin-bottom: 6px;
+  font-size: 10px;
+  color: #4caf50;
+  margin-bottom: 6px;
+  font-weight: 500;
+  font-family: "DM Sans", Arial, sans-serif;
 }
 
 .run-rating .light-text {
-    color: #999;
-    font-weight: 400;
-    margin-left: 4px;
+  font-weight: 500;
+  font-family: "DM Sans", Arial, sans-serif;
+  color: #272727;
+  margin-left: 4px;
 }
 
 .run-time {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    color: #333;
-    margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #858585;
+  margin-bottom: 6px;
+  font-family: "DM Sans", Arial, sans-serif;
+  font-weight: 400;
 }
 
 .run-time img {
-    width: 16px;
-    height: 16px;
+  width: 12px;
+  height: 12px;
 }
 
 .run-location {
-    font-size: 13px;
-    color: #888;
-    margin-bottom: 10px;
+  font-size: 11px;
+  color: #858585;
+  margin-bottom: 6px;
+  font-family: "DM Sans", Arial, sans-serif;
+  font-weight: 400;
+  margin-bottom: 10px;
 }
-
+.run-location img {
+  width: 12px;
+  height: 12px;
+}
 .run-footer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid #2971AC;
-    padding-top: 8px;
-    font-size: 13px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #2971ac;
+  padding-top: 8px;
+   font-family: "DM Sans", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
 }
 
 .run-join {
-    text-decoration: none;
-    color: #1163c7;
-    font-weight: 600;
-    cursor: pointer;
+  text-decoration: none;
+  color: #1163c7;
+  cursor: pointer;
+  font-family: "DM Sans", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .run-offer {
-    color: #ff5722;
+  color: #FC8019;
 }
 
 .run-price {
-    font-weight: bold;
-    color: #1163c7;
+  color: #1163c7;
+   cursor: pointer;
+  font-family: "DM Sans", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
 }

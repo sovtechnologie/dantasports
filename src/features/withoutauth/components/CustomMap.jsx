@@ -12,7 +12,7 @@ const CustomMap = ({ latitude, longitude }) => {
       <iframe
         src={embedUrl}
         width="100%"
-        height="300"
+        height="320"
         style={{ border: 0 }}
         allowFullScreen=""
         loading="lazy"

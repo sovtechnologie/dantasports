@@ -84,7 +84,7 @@ function VenuePage() {
     // Handle venueList data by react-Query
 
     const auth = useSelector((state) => state.auth);
-    const { data: AllVenuedata, isLoading, isError, error, isFetching } = useFetchVenue(auth?.id || null);
+    const { data: AllVenuedata, isLoading, isError, error } = useFetchVenue(auth?.id || null);
 
 
     const {
@@ -226,7 +226,7 @@ function VenuePage() {
         //     return newSelected;
         // });
 
-         setSelected(prev => (prev === optionId ? null : optionId));
+        setSelected(prev => (prev === optionId ? null : optionId));
 
         try {
             const { lat, lng } = await getUserLocation();
@@ -297,7 +297,7 @@ function VenuePage() {
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
-                        <img src={locationlogo} height={30} width={30} alt='locationlogo'/>
+                        <img src={locationlogo} height={30} width={30} alt='locationlogo' />
                     </div>
 
 
@@ -339,30 +339,31 @@ function VenuePage() {
 
                     <aside className='left-section'>
                         <div className='filters'>
-                            <div className="filter-header">
-                                <h3>Filter</h3>
-                                <button className="reset-btns" onClick={handleReset}>Reset</button>
-                            </div>
-
-                            <div className="filter-sec1">
-                                <label>Sports</label>
-                                <div className="search-input-container">
-                                    <img src={SearchIcon} alt="search" className="search-icon" />
-                                    <input
-                                        type="text"
-                                        placeholder="Search..."
-
-                                    />
+                            <div className='filters-one'>
+                                <div className="filter-header">
+                                    <h3>Filter</h3>
+                                    <button className="reset-btns" onClick={handleReset}>Reset</button>
                                 </div>
-                            </div>
 
-                            <div className="filter-sec1">
-                                <div className="carousel-navigation">
-                                    <button className="nav-arrow left" onClick={scrollLeft}>&lt;</button>
+                                <div className="filter-sec1">
+                                    <label>Sports</label>
+                                    <div className="search-input-container">
+                                        <img src={SearchIcon} alt="search" className="search-icon" />
+                                        <input
+                                            type="text"
+                                            placeholder="Search..."
 
-                                    <div className="sports-scroll-wrapper">
-                                        <div className="">
-                                            {/* {paginatedSports.map((sport, id) => (
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="filter-sec1">
+                                    <div className="carousel-navigation">
+                                        <button className="nav-arrow left" onClick={scrollLeft}>&lt;</button>
+
+                                        <div className="sports-scroll-wrapper">
+                                            <div className="">
+                                                {/* {paginatedSports.map((sport, id) => (
                                                 <div
                                                     className={`sport-item ${selectedSport === sport.sports_name ? 'active-sport' : ''}`}
                                                     key={id}
@@ -372,22 +373,23 @@ function VenuePage() {
                                                     <span>{sport.sports_name}</span>
                                                 </div>
                                             ))} */}
-                                            <FilterSportSwipper
-                                                SportsData={paginatedSports}
-                                                selectedSport={selectedSport}
-                                                setSelectedSport={setSelectedSport}
-                                            />
+                                                <FilterSportSwipper
+                                                    SportsData={paginatedSports}
+                                                    selectedSport={selectedSport}
+                                                    setSelectedSport={setSelectedSport}
+                                                />
 
+                                            </div>
                                         </div>
+
+                                        <button className="nav-arrow right" onClick={scrollRight}>&gt;</button>
                                     </div>
 
-                                    <button className="nav-arrow right" onClick={scrollRight}>&gt;</button>
-                                </div>
-
-                                <div className="pagination-dots">
-                                    {Array.from({ length: totalPageSport }).map((_, i) => (
-                                        <span key={i} className={`dot ${i === activeIndex ? "active" : ""}`} />
-                                    ))}
+                                    <div className="pagination-dots">
+                                        {Array.from({ length: totalPageSport }).map((_, i) => (
+                                            <span key={i} className={`dot ${i === activeIndex ? "active" : ""}`} />
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                             {selectedSport ? (
@@ -437,7 +439,7 @@ function VenuePage() {
                                         <input
                                             type="checkbox"
                                             // checked={selected.includes(id)}
-                                            checked ={ selected === id}
+                                            checked={selected === id}
                                             onChange={() => handleVenueSort(id)}
                                         />
                                         <span>{label}</span>

@@ -19,7 +19,6 @@ function Navbar() {
 
   const userId = useSelector((state) => state.auth?.id);
   const token = Cookies.get('token');
-  console.log("User in Naber:", userId, token)
   const [showLoginModal, setShowLoginModal] = useState(false);
 
   const handleClick = () => {

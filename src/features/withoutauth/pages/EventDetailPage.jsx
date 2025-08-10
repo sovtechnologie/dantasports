@@ -12,6 +12,8 @@ import { EventCalandar } from "../components/EventCalandar";
 import TicketSelector from "../components/TicketSelector";
 import CheckoutPricing from "../components/CheckoutPricing";
 import BookingPopupCard from '../../auth/components/BookingPopupCard';
+import leftArrow from "../assets/left-arrow.png";
+import rightArrow from "../assets/right-arrow.png";
 
 
 // Import Swiper styles
@@ -103,15 +105,15 @@ export default function EventDetailPage() {
     }
 
     const [start, setStart] = useState(0);
-        const prev = () => setStart((prev) => Math.max(prev - 1, 0));
-        const next = () =>
-            setStart((prev) =>
-                Math.min(prev + 1, reviews.length + 1 - visibleCount)
-            );
-    
-        const visibleCount = useMemo(() => {
-            return window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3;
-        }, []);
+    const prev = () => setStart((prev) => Math.max(prev - 1, 0));
+    const next = () =>
+        setStart((prev) =>
+            Math.min(prev + 1, reviews.length + 1 - visibleCount)
+        );
+
+    const visibleCount = useMemo(() => {
+        return window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3;
+    }, []);
 
     return (
         <>
@@ -143,8 +145,8 @@ export default function EventDetailPage() {
                                 pagination={{
                                     clickable: true,
                                 }}
-                                navigation={true}
-                                modules={[Autoplay, Pagination, Navigation]}
+                                // navigation={true}
+                                modules={[Autoplay, Pagination]}
                                 className="mySwiper"
                             >
                                 {imagelist.map((img, index) => (
@@ -157,19 +159,21 @@ export default function EventDetailPage() {
 
 
                         <div className="event-section">
-                            <div className="event-heading"><strong>About the Event</strong></div>
-                            <div className="event-description">
-                                {expandedSection === "about"
-                                    ? fullText
-                                    : `${fullText.substring(0, 100)}...`}
+                            <div className="event-heading">About the Event</div>
+                            <div>
+                                <div className="event-description">
+                                    {expandedSection === "about"
+                                        ? fullText
+                                        : `${fullText.substring(0, 200)}`}
+                                </div>
+                                <button onClick={() => toggleSection("about")} className="read-more-btn">
+                                    {expandedSection === "about" ? "Read less" : "Read more"}
+                                </button>
                             </div>
-                            <button onClick={() => toggleSection("about")} className="read-more-btn">
-                                {expandedSection === "about" ? "Read less" : "Read more"}
-                            </button>
                         </div>
 
                         <div className="event-section">
-                            <div className="event-heading"><strong>Event Guide</strong></div>
+                            <div className="event-heading">Event Guide</div>
                             <div className="event-guide-content">
                                 <div className="guide-item">
                                     <div className="guide-label">Tickets Needed For</div>
@@ -197,9 +201,9 @@ export default function EventDetailPage() {
                         </div>
 
                         <div className="event-section">
-                            <div className="event-heading"><strong>Instruction</strong></div>
-                            <div className="event-description" style={{ whiteSpace: "pre-wrap" }}>
-                                {expandedSection === "instruction"
+                            <div className="event-heading">Instruction</div>
+                            <div className="event-description" style={{ whiteSpace: "pre-wrap", color:"#B1B1B1" }}>
+                                {expandedSection === "instruction" 
                                     ? instructiontext
                                     : `${instructiontext.substring(0, 200)}...`}
                             </div>
@@ -210,7 +214,7 @@ export default function EventDetailPage() {
 
                         <div className="event-carry-point">
                             <div className="event-section event-carry">
-                                <div className="event-heading"><strong>Things to Carry</strong></div>
+                                <div className="event-heading">Things to Carry</div>
                                 <div className="carry-list">
                                     <ol>
                                         <li>Torch per person with extra batteries</li>
@@ -224,7 +228,7 @@ export default function EventDetailPage() {
                                 </div>
                             </div>
                             <div className="event-section event-pickPoints">
-                                <div className="event-heading"><strong>Pick Points</strong></div>
+                                <div className="event-heading">Pick Points</div>
                                 <div className="carry-list">
                                     <ol>
                                         <li>Indiranagar metro station (05:00 PM)</li>
@@ -250,8 +254,8 @@ export default function EventDetailPage() {
 
                     <div className="event-right">
                         <div className="event-right-section">
-                            <div className="event-heading"><strong>Location</strong></div>
-                            <p>PSA Ground Next To Shreeji Lawns Ganga Dham
+                            <div className="event-heading">Location</div>
+                            <p style={{ fontFamily: "DM Sans", fontSize: "16px", fontWeight: "400", lineHeight: "23.4px" }}>PSA Ground Next To Shreeji Lawns Ganga Dham
                                 Road Bibwewadi Pune 411037</p>
                             <div className="venue-map">
                                 <CustomMap latitude={93.40166} longitude={62.90311} />
@@ -260,7 +264,7 @@ export default function EventDetailPage() {
                         </div>
 
                         <div className="event-right-section">
-                            <div className="event-heading"><strong>Meetup Point</strong></div>
+                            <div className="event-heading">Meetup Point</div>
                             <div className="meetup-time-dropdown">
                                 <select
                                     value={'delhi'}
@@ -277,12 +281,12 @@ export default function EventDetailPage() {
                         </div>
 
                         <div className="event-right-section">
-                            <div className="event-heading"><strong>Select Date:</strong></div>
+                            <div className="event-heading">Select Date:</div>
                             <EventCalandar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
                         </div>
 
                         <div className="event-right-section">
-                            <div className="event-heading"><strong>Chosse Tickets :</strong></div>
+                            <div className="event-heading">Chosse Tickets :</div>
                             <TicketSelector
                                 tickets={initialTickets}
                                 counts={ticketCounts}
@@ -291,7 +295,7 @@ export default function EventDetailPage() {
                         </div>
 
                         <div className="event-right-section">
-                            <div className="event-heading"><strong>Price details</strong></div>
+                            <div className="event-heading">Price details</div>
                             <CheckoutPricing />
                         </div>
 
@@ -308,18 +312,18 @@ export default function EventDetailPage() {
                 </div>
                 <Gallery />
 
-                    <div className="ratings-carousel">
-                        <h2 className="review-heading">Ratings & Reviews</h2>
-                        <div className="review-carousel-container">
-                            {reviews.slice(start, start + visibleCount).map((review) => (
-                                <ReviewCard key={review.id} review={review} />
-                            ))}
-                        </div>
-                        <div className="carousel-buttons">
-                            <button onClick={prev}>←</button>
-                            <button onClick={next}>→</button>
-                        </div>
+                <div className="ratings-carousel">
+                    <h2 className="review-heading">Ratings & Reviews</h2>
+                    <div className="review-carousel-container">
+                        {reviews.slice(start, start + visibleCount).map((review) => (
+                            <ReviewCard key={review.id} review={review} />
+                        ))}
                     </div>
+                    <div className="carousel-buttons">
+                        <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
+                        <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
+                    </div>
+                </div>
 
                 <div className='event-banner-container'>
                     <h2 className='event-banner-heading'>Ongoing Events</h2>

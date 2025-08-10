@@ -1,0 +1,450 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f1f3f2;
+  color: #333;
+}
+
+.Gym-main-header {
+  position: relative;
+  left: 0%;
+  right: 50%;
+  width: 100%;
+  background-color: #ffffff;
+  margin-bottom: 25px;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  height: 208px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 0px 100px;
+  justify-content: center;
+}
+
+.breadcrumb {
+  font-size: 16px;
+  font-weight: 500;
+  color: #6b7280;
+  font-family: "DM Sans", Arial, sans-serif;
+}
+
+.gympage-name {
+  color: #000000;
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-size: 44px;
+}
+
+.gym-location-rating {
+  display: flex;
+  gap: 20px;
+  color: #172a39;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: "DM Sans", Arial, sans-serif;
+}
+
+.gym-details-container {
+  margin: 0 auto;
+  max-width: 1240px;
+}
+.gym-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.gym-left {
+  flex: 1 1 55%;
+  position: relative;
+  max-width: 821px;
+}
+
+.gym-right {
+  background-color: #f1f3f2;
+  border-radius: 10px;
+  border: 1px solid #f1f3f2;
+  max-width: 405px;
+}
+
+.gym-image-carosal {
+  height: 500px;
+  margin-top: 1rem;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  /* padding: 1rem; */
+}
+
+.gym-swiperslide {
+  text-align: center;
+  font-size: 18px;
+  background: #444;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gym-swiperslide-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gym-section {
+  border: 1px solid #d6e4f0;
+  border-radius: 12px;
+  padding: 1rem;
+  background-color: #fff;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+    /* box-shadow:
+    0px 4.08px 4.08px 0px #00000026,
+    0px 4.54px 4.54px 0px #0000001a; */
+}
+
+.gym-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.gym-heading {
+  font-size: 18px;
+  font-family: "Lato", sans-serif;
+  font-weight: 600;
+  color: #172a39;
+  line-height: 28px;
+}
+.gym-description {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #272727;
+  font-weight: 400;
+  font-family: "DM Sans", Arial, sans-serif;
+}
+
+.read-more-btn {
+  background-color: transparent;
+  border: none;
+  color: #1163c7;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  justify-content: flex-start;
+  line-height: 21.67px;
+  font-weight: 400;
+  font-size: 16px;
+  font-family: "DM Sans", Arial, sans-serif;
+  text-transform: capitalize;
+  margin-top: 10px;
+}
+
+.gym-amenities {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.amenities_tag {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.amt-img {
+  height: 20px;
+  width: 20px;
+}
+
+.gym-carry-point {
+  display: flex;
+  justify-content: space-between;
+  /* width: 403px; */
+  /* flex-direction: row; */
+  /* gap: 0.5rem; */
+}
+.gym-carry {
+  width: 403px;
+  height: 180px;
+}
+.gym-pickPoints {
+  width: 403px;
+}
+
+.timing-list {
+  margin: 0;
+  padding-left: 16px;
+}
+
+.timing-item {
+  margin-bottom: 6px;
+  color: #b1b1b1;
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 400;
+  font-family: "DM Sans", Arial, sans-serif;
+}
+
+.timing-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Label like "Morning (Mon – Sat):" styled lighter */
+.label {
+  color: #b1b1b1;
+  margin-right: 6px;
+}
+
+/* Time portion styled bold or blue if needed */
+.range {
+  color: #0066cc;
+  font-weight: 500;
+}
+
+.coaches-list {
+  display: flex;
+  /* gap: 32px; */
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.coaches-card {
+  text-align: center;
+}
+
+.coach-image {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  /* margin-bottom: 8px; */
+}
+
+.coach-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #172a39;
+  margin: 0;
+  font-family: "DM Sans", Arial, sans-serif;
+  line-height: 19.33px;
+}
+
+.coach-title {
+  font-size: 12px;
+  font-weight: 400;
+  color: #b1b1b1;
+  font-family: "DM Sans", Arial, sans-serif;
+  line-height: 19.33px;
+  margin: 0;
+}
+
+.gym-term_policy {
+  display: flex;
+  justify-content: space-between;
+  /* flex-direction: row;
+  gap: 0.5rem; */
+}
+
+.terms,
+.policy {
+  width: 403px;
+  border: 1px solid #a3d0ffde;
+  font-family: "Lato", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 21.67px;
+  color: #172a39;
+}
+
+/* right section */
+
+.gym-right-section {
+  border: 1px solid #d6e4f0;
+  border-radius: 12px;
+  padding: 1rem;
+  background-color: #fff;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  box-shadow: 0px 4.08px 4.08px 0px #1163C740;
+
+}
+.section-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.quantity-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.select-box label,
+.quantity-box label {
+  font-size: 16px;
+  /* margin-bottom: 4px; */
+  display: block;
+  color: #172a39;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+}
+
+.dropdown {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #b1b1b1;
+  border-radius: 8px;
+  /* background: #f9f9f9; */
+  color: #999;
+  font-size: 15px;
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  height: 41px;
+}
+
+.qty-control {
+  display: inline-flex;
+  align-items: center;
+  /* background: #f9f9f9; */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px;
+  height: 41px;
+  width: 110px;
+  justify-content: space-evenly;
+}
+
+.btn {
+  background: none;
+  border: 1px solid #1163c7;
+  color: #1163C7;
+  font-size: 18px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.qty {
+  /* width: 50px; */
+  text-align: center;
+  font-size: 16.07px;
+  font-family: "DM Sans", Arial, sans-serif;
+  font-weight: 400;
+  color: #858585;
+}
+
+.gym-right-section-button {
+  border: 1px solid #1163c7;
+  border-radius: 12px;
+  padding: 1rem;
+  background-color: #1163c7;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+.gym-btn {
+  color: #ffffff;
+  background-color: #1163c7;
+  border: none;
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+/* Reviews */
+
+.ratings-carousel {
+  font-family: "Lato", sans-serif;
+}
+
+.review-heading {
+  font-size: 24px;
+  font-weight: 500;
+  color: #172a39;
+  margin-bottom: 20px;
+}
+
+.review-carousel-container {
+  display: flex;
+  /* gap: 20px; */
+  overflow: hidden;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  padding-bottom: 10px;
+}
+
+.carousel-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.carousel-buttons button {
+  width: 60px;
+  height: 60px;
+  background-color: #1163c7;
+  border: none;
+  color: #ffffff;
+  border-radius: 50%;
+  font-size: 35px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.gym-banner-container {
+  margin: 2rem 0rem;
+}
+
+.gym-banner-heading {
+  font-size: 24px;
+  font-family: "Lato", sans-serif;
+  font-weight: 500;
+  line-height: 21.67px;
+  color: #172a39;
+  margin-bottom: 30px;
+}
+
+.gym-banner-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.gym-banner-img {
+  width: 403px;
+  height: 160px;
+}

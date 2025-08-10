@@ -2,7 +2,7 @@ import React from 'react';
 import './Stylesheets/AppDownloadBanner.css'; // Adjust the path as needed
 import waveImage from '../assets/WaveLogo.png'; // Adjust the path as needed
 import appleicon from '../../../assets/appleicon.png';
-import googleplaystoreicon from '../../../assets/googleicon.png';
+import googleplaystoreicon from '../../../assets/Icon.png';
 
 
 const AppDownloadBanner = () => {

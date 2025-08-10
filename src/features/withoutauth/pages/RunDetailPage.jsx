@@ -99,7 +99,7 @@ export default function EventDetailPage() {
         <>
             <div className='Event-main-header'>
                 <div className="breadcrumb">
-                    <span>Event &gt; Bibwewadi &gt; Kalsubai Monsoon Trek</span>
+                    <span>Run &gt; Bibwewadi &gt; Kalsubai Monsoon Trek</span>
                 </div>
 
                 <h1 className="event-name">Kalsubai Monsoon Trek</h1>
@@ -125,8 +125,8 @@ export default function EventDetailPage() {
                                 pagination={{
                                     clickable: true,
                                 }}
-                                navigation={true}
-                                modules={[Autoplay, Pagination, Navigation]}
+                                // navigation={true}
+                                modules={[Autoplay, Pagination]}
                                 className="mySwiper"
                             >
                                 {imagelist.map((img, index) => (
@@ -209,7 +209,7 @@ export default function EventDetailPage() {
                     <div className="event-right">
                         <div className="event-right-section">
                             <div className="event-heading"><strong>Location</strong></div>
-                            <p>PSA Ground Next To Shreeji Lawns Ganga Dham
+                            <p style={{fontFamily:"DM Sans", fontSize:"16px", fontWeight:"400", lineHeight:"23.4px"}}>PSA Ground Next To Shreeji Lawns Ganga Dham
                                 Road Bibwewadi Pune 411037</p>
                             <div className="venue-map">
                                 <CustomMap latitude={93.40166} longitude={62.90311} />
