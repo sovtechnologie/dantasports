@@ -312,8 +312,8 @@ body {
 
 /* banners
  */
-.event-banner-container {
-  margin: 2rem 0rem;
+/* .event-banner-container {
+    margin: 2rem 0rem;
 }
 
 .event-banner-heading {
@@ -333,6 +333,50 @@ body {
 }
 
 .event-banner-img {
-  width: 403px;
-  height: 160px;
+    width: 350px;
+    height: 170px;
+} */
+
+.event-banner-container {
+  overflow: hidden;
+  padding: 12px;
+}
+
+.event-banner-heading {
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+.event-banner-carousel {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.event-banner-track {
+  display: flex;
+  width: max-content;
+  animation: scroll-left 40s linear infinite;
+}
+
+.event-banner {
+  flex: 0 0 auto;
+  margin-right: 20px; /* space between banners */
+}
+
+.event-banner-img {
+  width: 300px;     /* adjust as needed */
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Animation Keyframes */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }

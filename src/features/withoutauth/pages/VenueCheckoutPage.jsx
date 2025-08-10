@@ -209,7 +209,7 @@ function VenueCheckoutPage() {
     const prev = () => setStart((prev) => Math.max(prev - 1, 0));
     const next = () =>
         setStart((prev) =>
-            Math.min(prev + 1, reviews.length + 1 - visibleCount)
+            Math.min(prev + 1, venue?.reviews.length + 1 - visibleCount)
         );
 
     const visibleCount = window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3;
@@ -362,7 +362,7 @@ function VenueCheckoutPage() {
 
 
                     </div>
-                   
+
                     <div className="venue-right" >
 
                         {/* Calendar */}
@@ -495,7 +495,7 @@ function VenueCheckoutPage() {
                     </div>
 
                     <div className='banner-wrapper'>
-                        <div className='banner'>
+                        {/* <div className='banner'>
                             <h2 className='banner-heading'>Ongoing Events</h2>
                             <div className="image-banner-wrapper">
                                 {banners.map((item, i) => (
@@ -504,9 +504,19 @@ function VenueCheckoutPage() {
                                     </div>
                                 ))}
                             </div>
-
+                        </div> */}
+                        <div className='event-banner-container'>
+                            <h2 className='event-banner-heading'>Ongoing Events</h2>
+                            <div className="event-banner-carousel">
+                                <div className="event-banner-track">
+                                    {banners.concat(banners).map((item, i) => ( // Duplicate for seamless looping
+                                        <div key={i} className="event-banner">
+                                            <img src={item.banner_image} alt="Event" className="event-banner-img" />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
-
                     </div>
 
                 </div>

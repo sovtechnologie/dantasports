@@ -10,7 +10,7 @@ const tickets = [
 
 const TicketSelector = ({ tickets, counts, onChange }) => {
  
-
+console.log(tickets,"my tickets")
  const handleIncrement = (index) => {
     const updated = [...counts];
     updated[index]++;
@@ -27,10 +27,10 @@ const TicketSelector = ({ tickets, counts, onChange }) => {
 
   return (
     <div className="ticket-box">
-      {tickets.map((ticket, index) => (
+      {tickets?.map((ticket, index) => (
         <div className="ticket-row" key={ticket.id}>
           <div className="ticket-info">
-            <span className="ticket-label">{ticket.label}</span>
+            <span className="ticket-label">{ticket.category_name}</span>
             <span className="ticket-price">₹{ticket.price}/Person</span>
           </div>
           <div className="ticket-counter">

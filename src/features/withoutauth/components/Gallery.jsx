@@ -1,6 +1,7 @@
 import React from 'react';
 import './Stylesheets/Gallery.css';
 import Masonry from "react-masonry-css";
+import eventImage from '../assets/EventImage2.svg';
 
 
 const images = [
@@ -25,7 +26,8 @@ const breakpoints = {
   500: 2,
 };
 
-export default function Gallery() {
+export default function Gallery({gallery = []}) {
+  const sortedGallery = [...gallery].sort((a, b) => a.display_order - b.display_order);
   return (
     <div className="gallery-wrapper">
       <h2 className="gallery-title">Gallery</h2>
@@ -34,8 +36,17 @@ export default function Gallery() {
         className="gallery-masonry"
         columnClassName="gallery-column"
       >
-        {images.map((img) => (
+        {/* {images.map((img) => (
           <img key={img.id} src={img.src} alt={`img-${img.id}`} className="gallery-img" />
+        ))} */}
+        
+        {sortedGallery.map((img) => (
+          <img
+            key={img.id}
+            src={img.image_url}
+            alt={`img-${img.id}`}
+            className="gallery-img"
+          />
         ))}
       </Masonry>
     </div>

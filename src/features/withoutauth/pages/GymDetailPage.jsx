@@ -15,10 +15,12 @@ import CheckoutPricing from "../components/CheckoutPricing";
 import ReviewCard from "../components/ReviewCard";
 import bannerImage1 from "../../../assets/EventBanner/Banner1.png";
 import bannerImage2 from "../../../assets/EventBanner/Banner2.png";
-import leftArrow from "../assets/left-arrow.png";
-import rightArrow from "../assets/right-arrow.png";
-
-const fullText = `A gym, short for gymnasium, is a facility equipped with various exercise machines, free weights, and training spaces designed to help individuals improve their physical fitness. It offers a structured. `;
+import { useParams } from "react-router-dom";
+import { useFetchGymDetail } from "../../../hooks/GymList/useFetchGymDetails";
+import { formatTime } from "../../../utils/formatTime";
+import { formatDate } from "date-fns";
+import { useBanner } from "../../../hooks/useBanner";
+import { useFetchGymPrice } from "../../../hooks/GymList/useFetchGymPrice";
 
 
 const timings = [
@@ -28,18 +30,7 @@ const timings = [
 ];
 
 const imagelist = [GymImage, GymImage1];
-const amenities = ['Parking', 'Restroom', 'Changing Room', 'First Aid'];
-const options = [
-    { value: 'basic', label: 'Basic' },
-    { value: 'premium', label: 'Premium' },
-    { value: 'vip', label: 'VIP' },
-];
 
-const coaches = [
-    { name: "Yogesh Kumar", title: "Head Trainer", image: CoachImage },
-    { name: "Yogesh Kumar", title: "Head Trainer", image: CoachImage },
-    { name: "Yogesh Kumar", title: "Head Trainer", image: CoachImage },
-];
 
 
 const reviews = [
@@ -73,9 +64,47 @@ const reviews = [
     },
 ]
 
-const banners = [bannerImage1, bannerImage2, bannerImage1];
+
+
+const mapGymData = (apiData) => {
+    return {
+        name: apiData?.gym_name || "Unknown Venue",
+        location: apiData?.full_address || "Unknown Area",
+        about: apiData?.about_gym || "No description available for this venue.",
+        rating: parseFloat(apiData?.average_rating) || 0,
+        reviewcount: apiData?.review_count || 0,
+        address: `${apiData?.full_address || ''}`.trim().replace(/^,|,$/g, '')
+            || "Not Available",
+        gym_timing: Array.isArray(apiData?.gym_timing) ? apiData?.gym_timing : '',
+        coaches: Array.isArray(apiData?.gym_coaches) ? apiData?.gym_coaches : '',
+        images: Array.isArray(apiData?.event_gallery)
+            ? apiData.event_gallery.map((img) => img.image_url)
+            : [GymImage, GymImage, GymImage, GymImage],
+        latitude: apiData?.lat || 0,
+        longitude: apiData?.lng || 0,
+        amenities: Array.isArray(apiData?.amenities)
+            ? apiData?.amenities?.map((a) => a.name)
+            : ["Not Available"],
+        favourite: apiData?.favourite,
+        favourite_venue_id: apiData?.favourite_venue_id,
+        termsAndCondition: apiData?.term_and_conditions,
+        cancelPolicy: apiData?.cancellation_policy,
+        reviews: Array.isArray(apiData?.reviews)
+            ? apiData.reviews.map((review) => ({
+                id: review.id,
+                userName: review.user_name || "Anonymous",
+                rating: review.rating || 0,
+                comment: review.comment || "No comment provided",
+                // date: formatDate(review.createdAt) || new Date().toISOString().split('T')[0],
+            }))
+            : [{ comment: "Not Available" }], // Default to first 5 reviews if not available
+    };
+};
 
 export default function GymDetailPage() {
+    const { id } = useParams();
+
+
     const [expandedSection, setExpandedSection] = useState(null);
     const [start, setStart] = useState(0);
 
@@ -94,24 +123,83 @@ export default function GymDetailPage() {
     const prev = () => setStart((prev) => Math.max(prev - 1, 0));
     const next = () =>
         setStart((prev) =>
-            Math.min(prev + 1, reviews.length + 1 - visibleCount)
+            Math.min(prev + 1, gym?.reviews?.length - visibleCount)
         );
 
     const visibleCount = useMemo(() => {
         return window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3;
     }, []);
 
+    const { data: GymDetails, isLoading: GymDetailsLoading } = useFetchGymDetail(id);
+    const gym = Array.isArray(GymDetails?.result) && GymDetails?.result.length > 0
+        ? mapGymData(GymDetails?.result[0])
+        : '';
+    
+    const { data: gymPrice, isLoading: gymPriceLoading, error: gymPriceError } = useFetchGymPrice(id);
+    const GymPrice = gymPrice?.result || [];
+    console.log("gym details", GymPrice[0]?.gym_price_slot);
+    
+    const { data: bannerData, isLoading: Bannerloading, error: BannerError } = useBanner(3);
+
+    const banners = bannerData?.result || [];
+
+    // Helper to convert "HH:mm:ss" → "hh:mm AM/PM"
+    // function formatTime(timeStr) {
+    //   const [hour, minute] = timeStr.split(":");
+    //   let h = parseInt(hour, 10);
+    //   const ampm = h >= 12 ? "PM" : "AM";
+    //   h = h % 12 || 12;
+    //   return `${String(h).padStart(2, "0")}:${minute} ${ampm}`;
+    // }
+
+    // Main transformation
+    // Days in order with backend keys
+    const daysMap = [
+        { key: "monday", label: "Monday" },
+        { key: "tuesday", label: "Tuesday" },
+        { key: "wednesday", label: "Wednesday" },
+        { key: "thusday", label: "Thursday" }, // typo matches backend
+        { key: "friday", label: "Friday" },
+        { key: "saturday", label: "Saturday" },
+        { key: "sunday", label: "Sunday" }
+    ];
+
+    // Format time function
+    function formatTime(timeStr) {
+        const [hour, minute] = timeStr.split(":");
+        let h = parseInt(hour, 10);
+        const ampm = h >= 12 ? "PM" : "AM";
+        h = h % 12 || 12;
+        return `${String(h).padStart(2, "0")}:${minute} ${ampm}`;
+    }
+
+    // const gymtime = gym?.gym_timing[0];
+
+    // const timings = daysMap?.map(day => {
+    //   if (gymtime[day.key] === 1) {
+    //     return {
+    //       label: `${day.label} Open`,
+    //       range: `${formatTime(gymtime?.start_time)} – ${formatTime(gymtime?.end_time)}`
+    //     };
+    //   } else {
+    //     return {
+    //       label: `${day.label} Close`,
+    //       range: ""
+    //     };
+    //   }
+    // });
+
     return (
         <>
             <div className='Gym-main-header'>
                 <div className="breadcrumb">
-                    <span>Gym &gt; Bibwewadi &gt; Glod’s Gym Magarpatta City</span>
+                    <span>Gym &gt; {gym?.location} &gt; {gym?.name}</span>
                 </div>
 
-                <h1 className="gympage-name">Glod’s Gym Magarpatta City</h1>
+                <h1 className="gympage-name">{gym?.name}</h1>
                 <div className="gym-location-rating">
-                    <span>Bibwewadi</span>
-                    <span>⭐ {4.3} (234 ratings)</span>
+                    <span>{gym?.location}</span>
+                    <span>⭐ {gym?.rating} (234 ratings)</span>
                 </div>
             </div>
 
@@ -144,24 +232,18 @@ export default function GymDetailPage() {
                         </div>
 
                         <div className="gym-section">
-                            <div className="gym-heading">About Glod’s Gym</div>
-
-                            <div>
-                                <div className="gym-description">
-                                    {expandedSection === "about"
-                                        ? fullText
-                                        : `${fullText.substring(0, 200)}`}
-                                </div>
-                                <button onClick={() => toggleSection("about")} className="read-more-btn">
-                                    {expandedSection === "about" ? "Read less" : "Read more"}
-                                </button>
+                            <div className="gym-heading"><strong>About Glod’s Gym</strong></div>
+                            <div className="gym-description">
+                                {expandedSection === "about"
+                                    ? gym?.about
+                                    : `${gym?.about?.substring(0, 100)}...`}
                             </div>
                         </div>
 
                         <div className="gym-section">
                             <div className="gym-heading">Amenities</div>
                             <div className="gym-amenities">
-                                {amenities.map(i => (
+                                {gym?.amenities?.map(i => (
                                     <div key={i} className="amenities_tag">
                                         <img src={checkoutIcon} alt="amenities‑tag" className="amt-img" />
                                         <span>{i}</span>
@@ -189,11 +271,11 @@ export default function GymDetailPage() {
                             <div className="gym-section gym-pickPoints">
                                 <div className="gym-heading">Coaches</div>
                                 <div className="coaches-list">
-                                    {coaches.map((coach, index) => (
+                                    {gym?.coaches?.map((coach, index) => (
                                         <div className="coaches-card" key={index}>
-                                            <img src={coach.image} alt={coach.name} className="coach-image" />
+                                            <img src={coach.image || CoachImage} alt={coach.name} className="coach-image" />
                                             <p className="coach-name">{coach.name}</p>
-                                            <p className="coach-title">{coach.title}</p>
+                                            <p className="coach-title">{coach.type}</p>
                                         </div>
                                     ))}
                                 </div>
@@ -202,17 +284,38 @@ export default function GymDetailPage() {
                         </div>
 
                         <div className="gym-term_policy">
-                            <div className="gym-section terms">Terms & Conditions</div>
-                            <div className="gym-section policy">Cancellation Policy</div>
+                            <div className="gym-section terms">
+                                <div className="gym-heading"><strong>Terms & Conditions</strong>
+                                </div>
+                                <div className="gym-description" style={{ whiteSpace: "pre-wrap" }}>
+                                    {expandedSection === "terms"
+                                        ? gym?.termsAndCondition
+                                        : `${gym?.termsAndCondition?.substring(0, 200)}...`}
+                                </div>
+                                <button onClick={() => toggleSection("terms")} className="read-more-btn">
+                                    {expandedSection === "terms" ? "Read less" : "Read more"}
+                                </button>
+                            </div>
+                            <div className="gym-section policy">
+                                <div className="gym-heading"><strong> Cancellation Policy</strong>
+                                </div>
+                                <div className="gym-description" style={{ whiteSpace: "pre-wrap" }}>
+                                    {expandedSection === "cancel"
+                                        ? gym?.cancelPolicy
+                                        : `${gym?.cancelPolicy?.substring(0, 200)}...`}
+                                </div>
+                                <button onClick={() => toggleSection("cancel")} className="read-more-btn">
+                                    {expandedSection === "cancel" ? "Read less" : "Read more"}
+                                </button>
+                            </div>
                         </div>
                     </div>
 
                     <div className="gym-right">
 
                         <div className="gym-right-section">
-                            <div className="gym-heading">Location</div>
-                            <p style={{ fontFamily: "DM Sans", fontSize: "16px", fontWeight: "400", lineHeight: "23.4px" }}>PSA Ground Next To Shreeji Lawns Ganga Dham
-                                Road Bibwewadi Pune 411037</p>
+                            <div className="gym-heading"><strong>Location</strong></div>
+                            <p>{gym?.address}</p>
                             <div className="gym-map">
                                 <CustomMap latitude={93.40166} longitude={62.90311} />
                             </div>
@@ -229,8 +332,8 @@ export default function GymDetailPage() {
                                         onChange={handleSelect}
                                     >
                                         <option value="" disabled>Select Passes</option>
-                                        {options.map(opt => (
-                                            <option key={opt.value} value={opt.value}>{opt.label}</option>
+                                        {GymPrice[0]?.gym_price_slot?.map((item, index) => (
+                                            <option key={index} value={item.passes_name}>₹{item.price}/{item.passes_name}</option>
                                         ))}
                                     </select>
                                     {/* Replace above with real dropdown component if needed */}
@@ -263,7 +366,7 @@ export default function GymDetailPage() {
                 <div className="ratings-carousel">
                     <h2 className="review-heading">Ratings & Reviews</h2>
                     <div className="review-carousel-container">
-                        {reviews.slice(start, start + visibleCount).map((review) => (
+                        {gym?.reviews?.slice(start, start + visibleCount).map((review) => (
                             <ReviewCard key={review.id} review={review} />
                         ))}
                     </div>
@@ -275,7 +378,7 @@ export default function GymDetailPage() {
                 </div>
 
                 {/* Banners sections */}
-                <div className='gym-banner-container'>
+                {/* <div className='gym-banner-container'>
                     <h2 className='gym-banner-heading'>Ongoing Events</h2>
                     <div className="gym-banner-wrapper">
                         {banners.map((item, i) => (
@@ -283,6 +386,18 @@ export default function GymDetailPage() {
                                 <img src={item} alt="Gym" className="gym-banner-img" />
                             </div>
                         ))}
+                    </div>
+                </div> */}
+                <div className='event-banner-container'>
+                    <h2 className='event-banner-heading'>Ongoing Events</h2>
+                    <div className="event-banner-carousel">
+                        <div className="event-banner-track">
+                            {banners.concat(banners).map((item, i) => ( // Duplicate for seamless looping
+                                <div key={i} className="event-banner">
+                                    <img src={item.banner_image} alt="Event" className="event-banner-img" />
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
 

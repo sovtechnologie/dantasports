@@ -3,18 +3,22 @@ import "./Stylesheets/GymCard.css";
 import heartIcon from '../assets/VenueCardLogo/LikeLogo.png';
 import shareIcon from '../assets/VenueCardLogo/ShareLogo.png';
 import { useNavigate } from "react-router-dom";
+import gymImage from '../assets/GymImage.svg';
 
-const GymCard = ({ gym}) => {
-  const navigate = useNavigate();
-     
-     const handleClick = () => {
-         navigate(`/Gym/${gym?.id}`);
-     };
- 
+const GymCard = ({ gym }) => {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate(`/Gym/${gym?.id}`);
+    };
+
 
     return (
         <div className="gym-card" onClick={handleClick}>
-            <img src={gym.image} alt={gym.title} className="gym-image" />
+            <img src={gym.image} alt={gym.title} className="gym-image" onError={(e) => {
+                e.currentTarget.onerror = null;
+                e.currentTarget.src = gymImage;
+            }} />
             <div className="icon-top-right">
                 <img src={heartIcon} alt="like" className="icon-img-btn" />
                 <img src={shareIcon} alt="share" className="icon-img-btn" />

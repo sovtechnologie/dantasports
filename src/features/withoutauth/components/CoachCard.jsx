@@ -2,21 +2,37 @@ import React from "react";
 import "./Stylesheets/CoachCard.css";
 import LocationIcon from "../assets/LocationLogo.svg";
 import { useNavigate } from "react-router-dom";
+import coachImage from '../assets/CoachImage1.svg';
 
 const CoachCard = ({ coach }) => {
     const navigate = useNavigate();
     
     const handleClick = () => {
-        navigate(`/Coach/${coach?.tag}`);
+        navigate(`/Coach/${coach?.id}`);
     };
 
     return (
         <div className="coach-card" onClick={handleClick} style={{ cursor: "pointer" }}>
             <div className="coach-card-image-wrapper">
-                <img src={coach?.image} alt={coach?.name} className="coach-card-image" />
+                <img src={coach?.image} alt={coach?.name} className="coach-card-image" onError={(e) => {
+                                e.currentTarget.onerror = null;
+                                e.currentTarget.src = coachImage;
+                            }} />
                 <div className="coach-card-tag">{coach?.tag}</div>
                 <div className="icon-bottom-left">
-                    <img src={coach?.avatar} alt='sport' className='icon-img-btn' />
+                    {/* <img src={coach?.sportIcon} alt='sport' className='icon-img-btn' /> */}
+                    {coach.sportIcon?.map((sport, idx) => (
+                        <img
+                            key={sport.id || idx}
+                            src={sport.sports_images}
+                            alt={sport.sports_name}
+                            className="icon-img-btn"
+                            onError={(e) => {
+                                e.currentTarget.onerror = null;
+                                e.currentTarget.src = '/fallback-sport-icon.png';
+                            }}
+                        />
+                    ))}
                 </div>
             </div>
 

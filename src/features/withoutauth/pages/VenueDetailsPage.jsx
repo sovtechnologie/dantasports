@@ -191,7 +191,7 @@ function VenueDetailsPage() {
     const prev = () => setStart((prev) => Math.max(prev - 1, 0));
     const next = () =>
         setStart((prev) =>
-            Math.min(prev + 1, reviews.length + 1 - visibleCount)
+            Math.min(prev + 1, venue?.reviews?.length +1 - visibleCount)
         );
 
     const visibleCount = useMemo(() => {

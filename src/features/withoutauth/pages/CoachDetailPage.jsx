@@ -18,6 +18,9 @@ import EnquiryModal from "../components/EnquiryModal";
 import { useParams } from "react-router-dom";
 import CoachImage from "../assets/CoachesImage.svg"
 import footballIcon from "../assets/sport-list/Football-Icon.png"
+import { useFetchCoachDetails } from "../../../hooks/CoachList/useFetchCoachDetail";
+import { formatTime } from "../../../utils/formatTime";
+import { formatDate } from "date-fns";
 
 const imagelist = [RunImage, RunImage];
 
@@ -82,14 +85,63 @@ const sports = [
     { name: "Football", icon: footballIcon },
     { name: "Football", icon: footballIcon },
     { name: "Football", icon: footballIcon },
-    
+
 ];
 
+const mapCoachData = (apiData) => {
+    return {
+        name: apiData?.name || "Unknown Venue",
+        location: apiData?.locations[0]?.area || "Unknown Area",
+        about: apiData?.about || "",
+        type: apiData?.type,
+        rating: parseFloat(apiData?.average_rating) || 0,
+        reviewcount: apiData?.review_count || 0,
+        address: `${apiData?.locations[0]?.full_address || ''}`.trim().replace(/^,|,$/g, '')
+            || "Not Available",
+        multilocation: apiData?.locations,
+        training_type: apiData?.training_type,
+        classes: apiData?.classes,
+        fees_and_packages: apiData?.fees_and_packages,
+        certficiates: apiData?.certficiates,
+        images: Array.isArray(apiData?.gallery_images)
+            ? apiData?.gallery_images.map((img) => img.image)
+            : [RunImage, RunImage, RunImage],
+        coaches: Array.isArray(apiData?.gym_coaches)
+            ? apiData?.gym_coaches.map((coach) => ({
+                name: coach.name,
+                title: coach.type,
+                image: coach.image || CoachImage
+            })) : '',
+        sports: Array.isArray(apiData?.linked_sports)
+            ? apiData.linked_sports.map((sport) => ({
+                sportId: sport.id,
+                name: sport.sports_name,
+                icon: sport.sports_images
+            }))
+            : [{ name: 'Cricket', icon: footballIcon },
+            { name: 'Football', icon: footballIcon },
+            { name: 'Pickle Ball', icon: footballIcon }],
+        amenities: Array.isArray(apiData?.amenities)
+            ? apiData.amenities.map((a) => a.name)
+            : ["Not Available"],
+        reviews: Array.isArray(apiData?.reviews)
+            ? apiData.reviews.map((review) => ({
+                id: review.id,
+                userName: review.user_name || "Anonymous",
+                rating: review.rating || 0,
+                comment: review.comment || "No comment provided",
+                // date: formatDate(review.createdAt) || new Date().toISOString().split('T')[0],
+            }))
+            : [{ comment: "Not Available" }], // Default to first 5 reviews if not available
+    };
+};
+
 export default function CoachDetailPage() {
+    const { id } = useParams();
     const [expandedSection, setExpandedSection] = useState(null);
     const [start, setStart] = useState(0);
     const [showModal, setShowModal] = useState(false)
-    const { id } = useParams();
+
 
     const toggleSection = (sectionName) => {
         setExpandedSection(prev => (prev === sectionName ? null : sectionName));
@@ -99,23 +151,32 @@ export default function CoachDetailPage() {
     const prev = () => setStart((prev) => Math.max(prev - 1, 0));
     const next = () =>
         setStart((prev) =>
-            Math.min(prev + 1, reviews.length + 1 - visibleCount)
+            Math.min(prev + 1, coach?.reviews?.length - visibleCount)
         );
 
     const visibleCount = useMemo(() => {
         return window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3;
     }, []);
+
+    const { data: CoachDetails, isLoading: CoachDetailsLoading } = useFetchCoachDetails(id);
+    const coach = Array.isArray(CoachDetails?.result) && CoachDetails?.result.length > 0
+        ? mapCoachData(CoachDetails?.result[0])
+        : '';
+    console.log("Coaches Details", coach);
+
+
+
     return (
         <>
             <div className='Coach-main-header'>
                 <div className="breadcrumb">
-                    <span>Coach &gt; Bibwewadi &gt; Kalsubai Monsoon Trek</span>
+                    <span>Coach &gt; {coach?.location} &gt; {coach?.name}</span>
                 </div>
 
-                <h1 className="coachpage-name">Kalsubai Monsoon Trek</h1>
+                <h1 className="coachpage-name">{coach?.name}</h1>
                 <div className="coach-location-rating">
-                    <span>Bibwewadi</span>
-                    <span>⭐ {4.3} (234 ratings)</span>
+                    <span>{coach?.location}</span>
+                    <span>⭐ {coach?.rating} ({coach?.reviewcount} ratings)</span>
                 </div>
             </div>
 
@@ -140,7 +201,7 @@ export default function CoachDetailPage() {
                                 modules={[Autoplay, Pagination,]}
                                 className="mySwiper"
                             >
-                                {imagelist.map((img, index) => (
+                                {coach?.images?.map((img, index) => (
                                     <SwiperSlide key={index} className="coach-swiperslide">
                                         <img src={img} alt={`coach-image-${index}`} className="coach-swiperslide-img" />
                                     </SwiperSlide>
@@ -149,11 +210,11 @@ export default function CoachDetailPage() {
                         </div>
 
                         <div className="coach-section">
-                            <div className="coach-heading"><strong>About  Ashish Maurice</strong></div>
+                            <div className="coach-heading"><strong>About {coach?.name}</strong></div>
                             <div className="coach-description">
                                 {expandedSection === "about"
-                                    ? fullText
-                                    : `${fullText.substring(0, 100)}...`}
+                                    ? coach?.about
+                                    : `${coach?.about?.substring(0, 100)}...`}
                             </div>
                             <button onClick={() => toggleSection("about")} className="read-more-btn">
                                 {expandedSection === "about" ? "Read less" : "Read more"}
@@ -170,11 +231,11 @@ export default function CoachDetailPage() {
                                     </div>
                                     <div className="session-conatiner">
                                         <img src={adultlogo} alt="adultlogo" />
-                                        <p>Adults</p>
+                                        <p>{coach?.training_type}</p>
                                     </div>
                                     <div className="session-conatiner">
                                         <img src={sessionlogo} alt="sessionlogo" />
-                                        <p>1-on-1 Classes, Online Classes</p>
+                                        <p>{coach?.classes}</p>
                                     </div>
                                 </div>
                             </div>
@@ -183,8 +244,8 @@ export default function CoachDetailPage() {
                                 {/* <div className="carry-list"> */}
                                 <div className="coach-description" style={{ whiteSpace: "pre-wrap" }}>
                                     {expandedSection === "FreePackges"
-                                        ? FreePackges
-                                        : `${FreePackges.substring(0, 200)}...`}
+                                        ? coach?.fees_and_packages
+                                        : `${coach?.fees_and_packages?.substring(0, 200)}...`}
                                 </div>
                                 <button onClick={() => toggleSection("FreePackges")} className="read-more-btn">
                                     {expandedSection === "FreePackges" ? "Read less" : "Read more"}
@@ -195,12 +256,12 @@ export default function CoachDetailPage() {
 
                         </div>
 
-                        {id === 'Academy' && (
+                        {coach?.type === 2 && (
                             <div className="coach-carry-point">
                                 <div className="coach-section coach-pickPoints">
                                     <div className="coach-heading"><strong>Coaches</strong></div>
                                     <div className="coaches-list">
-                                        {coaches.map((coach, index) => (
+                                        {coach?.coaches?.map((coach, index) => (
                                             <div className="coaches-card" key={index}>
                                                 <img src={coach.image} alt={coach.name} className="coach-image" />
                                                 <p className="coach-name">{coach.name}</p>
@@ -212,7 +273,7 @@ export default function CoachDetailPage() {
                                 <div className="coach-section coach-pickPoints">
                                     <div className="coach-heading"><strong>Sports</strong></div>
                                     <div className="sports-list">
-                                        {sports.map((sport, index) => (
+                                        {coach?.sports?.map((sport, index) => (
                                             <div className="sportes-card" key={index}>
                                                 <img src={sport.icon} alt={sport.name} className="sports-img" />
                                                 <p className="sport-name">{sport.name}</p>
@@ -230,8 +291,7 @@ export default function CoachDetailPage() {
 
                         <div className="coach-right-section">
                             <div className="coach-heading"><strong>Location</strong></div>
-                            <p style={{fontFamily:"DM Sans", fontSize:"16px", fontWeight:"400", lineHeight:"23.4px"}}>PSA Ground Next To Shreeji Lawns Ganga Dham
-                                Road Bibwewadi Pune 411037</p>
+                            <p>{coach?.address}</p>
                             <div className="coach-map">
                                 <CustomMap latitude={93.40166} longitude={62.90311} />
                             </div>
@@ -240,11 +300,11 @@ export default function CoachDetailPage() {
 
                         <div className="coach-right-section">
                             <div className="coach-heading"><strong>other Serviceable Location</strong></div>
-                            {locations.map((loc, index) => (
+                            {coach?.multilocation?.map((loc, index) => (
                                 <a href={loc.link} target="_blank" rel="noopener noreferrer" key={index} className="location-item">
                                     <div className="icon"><img src={locationlogo} alt="location" className="locationlogo" /></div>
                                     <div className="location-text">
-                                        <div className="address">{loc.address}</div>
+                                        <div className="address">{loc.area}</div>
                                         <div className="subtext">Click to view on map</div>
                                     </div>
                                     <div className="arrow">&#8250;</div>
@@ -255,14 +315,20 @@ export default function CoachDetailPage() {
 
                         <div className="coach-right-section">
                             <div className="coach-heading"><strong>Awards & Recognitions</strong></div>
-                            <div className="award-wrapper">
-                                <img src={certificatlogo} alt="certificatelogo" className="certificatelogo" />
-                                <div className="award-des">
-                                    <ul>
-                                        <li>Certified Nutrition & Fitness Coach</li>
-                                    </ul>
+                            {coach?.certficiates?.map(cert => (
+                                <div className="award-wrapper" key={cert.id}>
+                                    <img
+                                        src={cert.certificate_url ? `https://${cert.certificate_url}` : certificatlogo}
+                                        alt={cert.certificate_name}
+                                        className="certificatelogo"
+                                    />
+                                    <div className="award-des">
+                                        <ul>
+                                            <li>{cert.certificate_name}</li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
+                            ))}
                         </div>
 
                         <div className="coach-right-section-button">
@@ -277,7 +343,7 @@ export default function CoachDetailPage() {
                 <div className="ratings-carousel">
                     <h2 className="review-heading">Ratings & Reviews</h2>
                     <div className="review-carousel-container">
-                        {reviews.slice(start, start + visibleCount).map((review) => (
+                        {coach?.reviews?.slice(start, start + visibleCount).map((review) => (
                             <ReviewCard key={review.id} review={review} />
                         ))}
                     </div>
