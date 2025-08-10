@@ -329,7 +329,7 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  /* gap: 2rem; */
+ gap: 2rem; 
 }
 
 .event-banner-img {

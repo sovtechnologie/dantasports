@@ -21,6 +21,9 @@ import { formatTime } from "../../../utils/formatTime";
 import { formatDate } from "date-fns";
 import { useBanner } from "../../../hooks/useBanner";
 import { useFetchGymPrice } from "../../../hooks/GymList/useFetchGymPrice";
+import leftArrow from "../assets/left-arrow.png";
+import rightArrow from "../assets/right-arrow.png";
+
 
 
 const timings = [
