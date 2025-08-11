@@ -365,16 +365,7 @@ export default function EventDetailPage() {
                     </div>
                 </div>
 
-                {/* <div className='event-banner-container'>
-                    <h2 className='event-banner-heading'>Ongoing Events</h2>
-                    <div className="event-banner-wrapper">
-                        {banners.map((item, i) => (
-                            <div key={i} className="event-banner">
-                                <img src={item.banner_image} alt="Event" className="event-banner-img" />
-                            </div>
-                        ))}
-                    </div>
-                </div> */}
+                
                 <div className='event-banner-container'>
                     <h2 className='event-banner-heading'>Ongoing Events</h2>
                     <div className="event-banner-carousel">

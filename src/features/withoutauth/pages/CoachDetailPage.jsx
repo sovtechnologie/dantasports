@@ -261,12 +261,12 @@ export default function CoachDetailPage() {
                             <div className="coach-heading">Awards & Recognitions</div>
                             {coach?.certficiates?.map(cert => (
                                 <div className="award-wrapper" key={cert.id}>
-                                    {/* <img
-                                        src={cert.certificate_url ? `https://${cert.certificate_url}` : certificatlogo}
+                                    <img
+                                        src={cert.certificate_url ? cert.certificate_url : certificatlogo}
                                         alt={cert.certificate_name}
                                         className="certificatelogo"
-                                    /> */}
-                                    <img src={Certificate1} alt="location" className="certificate"/>
+                                    />
+                                    {/* <img src={Certificate1} alt="location" className="certificate"/> */}
                                     <div className="award-des">
                                         <ul>
                                             <li>{cert.certificate_name}</li>
