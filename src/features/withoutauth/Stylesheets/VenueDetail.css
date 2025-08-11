@@ -83,7 +83,7 @@ body {
   position: relative;
   overflow: hidden;
   border-radius: 11px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 
 .venue-icon-topwrapper {
@@ -93,11 +93,10 @@ body {
   display: flex;
   gap: 8px;
 }
-.venue-icon-btns{
+.venue-icon-btns {
   background-color: transparent;
   border: none;
 }
-
 
 /* .carousel-image {
   width: 100%;
@@ -148,7 +147,7 @@ body {
 
 .swiper {
   width: 100%;
-  height: 100%;
+  height: 500px;
   border-radius: 12px;
   /* padding: 1rem; */
 }
@@ -185,9 +184,17 @@ body {
 }
 
 .sports-header {
-  display: flex;
+ display: flex;
   flex-wrap: wrap;
   align-items: center;
+  gap: 0.5rem;
+  align-items: center;
+  color: #172a39;
+  display: flex;
+  flex-wrap: wrap;
+  font-family: Lato, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
   gap: 0.5rem;
   /* margin-bottom: 1rem; */
 }
@@ -256,6 +263,9 @@ body {
   border-radius: 10px;
   border: 1px solid #f1f3f2;
   max-width: 405px;
+    display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .venue-right h2 {
@@ -320,13 +330,15 @@ body {
 
   /* Gradient border */
   border: 2px solid transparent;
-  background-image:
-    linear-gradient(#ffffff, #ffffff),
-    /* inner background */
-    linear-gradient(90deg, #1163c7, #a3d0ff);
+  /* background-image: */
+  /* linear-gradient(#ffffff, #ffffff),
+  
+    linear-gradient(90deg, #1163c7, #a3d0ff); */
   /* border gradient */
   background-origin: border-box;
+  box-shadow: 0px 4.08px 4.08px 0px #1163c740;
   background-clip: padding-box, border-box;
+  border: 1px solid #d6e4f0;
 }
 
 .venue-location {
@@ -334,14 +346,21 @@ body {
   border-radius: 11px;
   padding: 1rem;
   font-size: 14px;
-  margin-top: 20px;
+  
+  /* margin-top: 20px; */
 
   /* Gradient border */
   border: 2px solid transparent;
-  background-image:
-    linear-gradient(#fff, #fff), linear-gradient(90deg, #1163c7, #a3d0ff);
+  /* background-image:
+    linear-gradient(#fff, #fff), linear-gradient(90deg, #1163c7, #a3d0ff); */
   background-origin: border-box;
   background-clip: padding-box, border-box;
+  box-shadow: 0px 4.08px 4.08px 0px #1163c740;
+  border: 1px solid #d6e4f0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 500px;
 }
 
 .venue-location p {
@@ -379,8 +398,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-bottom: 20px;
-  margin-top: 20px;
+  /* margin-bottom: 20px; */
+  /* margin-top: 20px; */
 }
 
 .btn-primary,
@@ -409,7 +428,7 @@ body {
   background-color: #ffffff;
   color: #1163c7;
   border: 2px solid transparent;
-  background-image:
+  /* background-image:
     linear-gradient(white, white),
     linear-gradient(270deg, #1163c7, #a3d0ff, #1163c7);
   background-origin: border-box;
@@ -418,7 +437,9 @@ body {
   background-size: 200% auto;
   animation:
     move-border 3s linear infinite,
-    glow-pulse 3s ease-in-out infinite;
+    glow-pulse 3s ease-in-out infinite; */
+  box-shadow: 0px 4.08px 4.08px 0px #1163c740;
+  border: 1px solid #d6e4f0;
 }
 
 /* Gradient border animation */
@@ -450,9 +471,9 @@ body {
 }
 
 /* Sections (Sports, Amenities) */
-.section {
+/* .section {
   margin-top: 20px;
-}
+} */
 
 .section h4 {
   font-size: 16px;
@@ -636,7 +657,6 @@ body {
   gap: 3rem;
   margin-top: 70px;
   width: 1240px;
-
 }
 
 .ratings-carousel {
@@ -644,7 +664,6 @@ body {
   /* margin: auto; */
   font-family: "Lato", sans-serif;
 }
-
 
 .banner {
   margin-bottom: 75px;
@@ -654,9 +673,8 @@ body {
 .banner-heading {
   font-size: 24px;
   font-weight: 500;
-  color: #172A39;
+  color: #172a39;
   margin-bottom: 20px;
-
 }
 
 .review-carousel-container {
@@ -726,7 +744,6 @@ body {
   }
 }
 
-
 .banner {
   margin-bottom: 75px;
 }
@@ -790,7 +807,6 @@ body {
   }
 }
 
-
 /* Responsive */
 @media (max-width: 768px) {
   .image-banner {
@@ -838,7 +854,6 @@ body {
 }
 
 @media (max-width: 600px) {
-
   /* General Padding */
   .venue-wrapper {
     padding: 0px;
@@ -952,4 +967,13 @@ body {
     justify-content: center;
     gap: 10px;
   }
+}
+
+
+.gym-right-section-p {
+    font-family: "DM Sans", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 23.4px;
+    color: #172a39;
 }

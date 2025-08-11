@@ -91,7 +91,7 @@ body {
   position: relative;
   overflow: hidden;
   border-radius: 11px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 /* 
 .carousel-image {
@@ -184,6 +184,15 @@ body {
   flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem;
+  align-items: center;
+  color: #172a39;
+  display: flex;
+  flex-wrap: wrap;
+  font-family: Lato, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  gap: 0.5rem;
+  
   /* margin-bottom: 1rem; */
 }
 
@@ -263,6 +272,9 @@ body {
   border-radius: 10px;
   border: 1px solid #f1f3f2;
   max-width: 405px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .vb-calendar {
@@ -402,9 +414,9 @@ body {
 }
 
 /* Sections (Sports, Amenities) */
-.section {
+/* .section {
   margin-top: 20px;
-}
+} */
 
 .section h4 {
   font-size: 16px;
@@ -801,3 +813,13 @@ body {
   color: #007aff;
   cursor: pointer;
 }
+
+
+.gym-right-section-p {
+    font-family: "DM Sans", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 23.4px;
+    color: #172a39;
+}
+
