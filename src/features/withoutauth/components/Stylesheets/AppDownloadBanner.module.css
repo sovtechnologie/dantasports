@@ -1,4 +1,4 @@
-.app-banner {
+.appbanner {
   background-color: #1163c7;
   color: white;
   border-radius: 16px;
@@ -11,7 +11,7 @@
   margin: 40px 0;
 }
 
-.banner-content {
+.bannercontent {
   display: flex;
   /* flex-direction: column; */
   align-items: center;
@@ -22,7 +22,7 @@
   width: 70%;
 }
 
-.banner-text h2 {
+.bannertext h2 {
   font-family: "Lato", Arial, sans-serif;
   font-weight: 700;
   font-size: 32px;
@@ -33,7 +33,7 @@
   max-width: 400px;
 }
 
-.banner-buttons {
+.bannerbuttons {
   display: flex;
   gap: 12px;
   justify-content: center;
@@ -43,7 +43,7 @@
   /* Add some space above the buttons */
 }
 
-.store-button {
+.storebutton {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -61,11 +61,11 @@
   text-decoration: none;
 }
 
-.store-button img {
+.storebutton img {
   height: 20px;
 }
 
-.banner-bg {
+.bannerbg {
   position: absolute;
   right: -70px;
   bottom: 0;
@@ -75,7 +75,7 @@
 }
 
 @media (max-width: 768px) {
-  .app-banner {
+  .appbanner {
     flex-direction: column;
     align-items: flex-start;
     padding: 20px 16px;
@@ -84,19 +84,19 @@
     gap: 16px;
   }
 
-  .banner-content {
+  .bannercontent {
     align-items: flex-start;
     width: 100%;
   }
 
-  .banner-text h2 {
+  .bannertext h2 {
     font-size: 24px;
     line-height: 32px;
     max-width: 100%;
     margin-bottom: 12px;
   }
 
-  .banner-buttons {
+  .bannerbuttons {
     flex-direction: row;
     align-items: stretch;
     width: 100%;
@@ -104,18 +104,18 @@
     margin-top: 0;
   }
 
-  .store-button {
+  .storebutton {
     width: 40%;
     justify-content: center;
     font-size: 10px;
     padding: 10px;
   }
 
-  .store-button img {
+  .storebutton img {
     height: 18px;
   }
 
-  .banner-bg {
+  .bannerbg {
     display: none; /* Hide decorative background on small screens */
   }
 }

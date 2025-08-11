@@ -237,7 +237,7 @@ function VenueDetailsPage() {
                         <div className="section">
                             <div className="sports-wrapper">
                                 <div className="sports-header">
-                                    <strong>Sports Available</strong>
+                                    Sports Available
                                     <span className="note">(Click on sports to view price chart)</span>
                                 </div>
                                 <div className="sports-grid">
@@ -267,7 +267,7 @@ function VenueDetailsPage() {
                         <div className='section'>
                             <div className='sports-wrapper'>
                                 <div className="sports-header">
-                                    <strong>About</strong>
+                                    About
                                 </div>
                                 <p>{venue.about}</p>
                             </div>
@@ -275,7 +275,7 @@ function VenueDetailsPage() {
                         <div className="section">
                             <div className='sports-wrapper'>
                                 <div className="sports-header">
-                                    <strong>Amenities</strong>
+                                    Amenities
                                 </div>
                                 <div className="amenities-tags">
                                     {venue.amenities.map((item) => (
@@ -294,33 +294,41 @@ function VenueDetailsPage() {
                     </div>
                     <div className="venue-right">
 
-                        <div className="btn-group" style={{ marginTop: "0px" }}>
-                            <Link to={`/venueCheckout/${id}#bookingnow`} style={{ textDecoration: "none", color: "inherit" }}><button className="btn-primary" >Book Now</button></Link>
-                        </div>
 
                         {/* <div className="venue-actions">
                             <button className="venue-action-btn" onClick={Share} ><img src={ShareIcon} alt='share' className="venue-icon" />Share</button>
                             <button className="venue-action-btn" onClick={() => handleClickLike(venue)}><img src={venue.favourite ? HeartFilled : LikeIcon} alt='like' className="venue-icon" /> Favourite</button>
                         </div> */}
 
-                        <div className="venue-timing-price">
-                            <div>
-                                <strong>Timing</strong>
-                                <p>{venue.timing}</p>
-                            </div>
-                            <div>
-                                <strong>Price</strong>
-                                <p>₹{venue.price} onwards</p>
-                            </div>
-                        </div>
+
 
                         <div className="venue-location">
-                            <div><strong>Location:</strong></div>
-                            <p>{venue.address}</p>
+                            <div className="sports-header">Location:</div>
+
+                            <div className="gym-right-section-p"><p>{venue.address}</p></div>
                             <div className="venue-map">
                                 <CustomMap latitude={venue.latitude} longitude={venue.longitude} />
                             </div>
                         </div>
+
+
+
+
+                        <div className="btn-group" style={{ marginTop: "0px" }}>
+                            <Link to={`/venueCheckout/${id}#bookingnow`} style={{ textDecoration: "none", color: "inherit" }}><button className="btn-primary" >Book Now</button></Link>
+                        </div>
+
+                        <div className="venue-timing-price">
+                            <div className="sports-header">
+                                Timing
+                                <p>{venue.timing}</p>
+                            </div>
+                            <div className="sports-header">
+                                Price
+                                <p>₹{venue.price} onwards</p>
+                            </div>
+                        </div>
+
 
                         <div className="btn-group">
                             <Link to="/CorporateBooking" style={{ textDecoration: "none", color: "inherit" }}> <button className="btn-secondary">Corporate Booking</button>

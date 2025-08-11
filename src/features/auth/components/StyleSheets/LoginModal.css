@@ -13,16 +13,27 @@
   /* background: #fff; */
   border-radius: 10px;
   /* padding: 2rem; */
-  max-width: 600px;
+  max-width: 500px;
   width: 100%;
 }
 
 .login-modal-close {
   position: absolute;
-  right: 30px;
-  top: 25px;
+  right: 40px;
+  height: 35px;
+  width: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* top: 25px; */
+  top: 40px;
   background: none;
   border: none;
   font-size: 40px;
   cursor: pointer;
+  border-radius: 50%;
+}
+
+.login-modal-close:hover {
+  background-color: gainsboro;
 }
