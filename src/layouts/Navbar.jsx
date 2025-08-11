@@ -61,7 +61,7 @@ function Navbar() {
             <>
             <div className='nav-Filter-wrapper'>
             <Link to="/venue"  className={`nav-Filter-link ${isActive('/venue') ? 'active-link' : ''}`}>Book</Link>
-            <Link to="/Host" className={`nav-Filter-link ${isActive('/Host') ? 'active-link' : ''}`}>Host/Play</Link>
+            <Link to="/CommingSoon" className={`nav-Filter-link ${isActive('/CommingSoon') ? 'active-link' : ''}`}>Host/Play</Link>
             <Link to="/Run" className={`nav-Filter-link ${isActive('/Run') ? 'active-link' : ''}`}>Run</Link>
             <Link to="/Coach" className={`nav-Filter-link ${isActive('/Coach') ? 'active-link' : ''}`}>Coach</Link>
             <Link to="/Events" className={`nav-Filter-link ${isActive('/Events') ? 'active-link' : ''}`}>Events</Link>

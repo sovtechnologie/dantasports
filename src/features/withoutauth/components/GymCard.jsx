@@ -1,15 +1,33 @@
 import React from "react";
 import "./Stylesheets/GymCard.css";
-import heartIcon from '../assets/VenueCardLogo/LikeLogo.png';
+import HeartOutline from "../assets/VenueCardLogo/LikeLogo.png";
+import HeartFilled from "../assets/VenueCardLogo/heartfilled.png";
 import shareIcon from '../assets/VenueCardLogo/ShareLogo.png';
 import { useNavigate } from "react-router-dom";
 import gymImage from '../assets/GymImage.svg';
+import { Share } from '../../../utils/share';
 
-const GymCard = ({ gym }) => {
+const GymCard = ({ gym, isLiked, onLikeToggle }) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
         navigate(`/Gym/${gym?.id}`);
+    };
+
+    const handleLikeClick = (e) => {
+        console.log("EventCard like")
+        e.preventDefault();
+        e.stopPropagation();
+        onLikeToggle(); // Call parent toggle
+    };
+
+
+    const handleShareClick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log("Shared venue:", gym.id);
+        Share(); // Call the share function from utils
+        // Implement share logic
     };
 
 
@@ -20,8 +38,15 @@ const GymCard = ({ gym }) => {
                 e.currentTarget.src = gymImage;
             }} />
             <div className="icon-top-right">
-                <img src={heartIcon} alt="like" className="icon-img-btn" />
-                <img src={shareIcon} alt="share" className="icon-img-btn" />
+                <button className="icon-btns" onClick={handleLikeClick}>
+                    <img src={isLiked ? HeartFilled : HeartOutline} alt="like" className="icon-img-btn" />
+                </button>
+
+
+                <button className="icon-btns" onClick={handleShareClick}>
+                    <img src={shareIcon} alt="share" className="icon-img-btn" />
+                </button>
+
             </div>
             <div className="card-content">
                 <div className="title-rating">

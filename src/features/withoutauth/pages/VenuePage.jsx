@@ -84,7 +84,18 @@ function VenuePage() {
     // Handle venueList data by react-Query
 
     const auth = useSelector((state) => state.auth);
-    const { data: AllVenuedata, isLoading, isError, error } = useFetchVenue(auth?.id || null);
+    const [coords, setCoords] = useState({ lat: null, lng: null, userId:auth?.id});
+
+    useEffect(() => {
+        async function fetchLongLat() {
+            const { lat, lng } = await getUserLocation();
+            console.log("my lat and long", lat, lng);
+            setCoords({ lat, lng });
+        }
+        fetchLongLat();
+    }, []);
+
+    const { data: AllVenuedata, isLoading, isError, error } = useFetchVenue(coords);
 
 
     const {

@@ -497,16 +497,7 @@ function VenueCheckoutPage() {
                     </div>
 
                     <div className='banner-wrapper'>
-                        {/* <div className='banner'>
-                            <h2 className='banner-heading'>Ongoing Events</h2>
-                            <div className="image-banner-wrapper">
-                                {banners.map((item, i) => (
-                                    <div key={i} className="image-banner">
-                                        <img src={item.banner_image} alt="Event" />
-                                    </div>
-                                ))}
-                            </div>
-                        </div> */}
+                       
                         <div className='event-banner-container'>
                             <h2 className='event-banner-heading'>Ongoing Events</h2>
                             <div className="event-banner-carousel">

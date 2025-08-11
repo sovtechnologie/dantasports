@@ -1,20 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import VenueCard from "./VenueCard.jsx";
 import './StyleSheets/VenueCarousel.css'; // Assuming you have a CSS file for styling
 // import venues from '../StaticData/VenueCarouselData.js'; // Your data file or replace with static list
 import leftArrow from "../assets/VenueImage/left-arrow.png";
 import rightArrow from "../assets/VenueImage/right-arrow.png";
 import cursorArrow from "../assets/cursorArrow.png";
 import { useFetchVenue } from '../hooks/VenueList/useFetchVenue.js';
+import VenueCardHome from './VenueCardHome.jsx';
+import { getUserLocation } from '../utils/getUserLocation.js';
 
 const VenueCarousel = () => {
     const [index, setIndex] = useState(0);
+    const [coords, setCoords] = useState({ lat: null, lng: null, userId:null });
     const [lastClicked, setLastClicked] = useState(null); // 'prev' | 'next' | null
     const [hoveredArrow, setHoveredArrow] = useState(null); // 'prev' | 'next' | null
     const visibleCount = 4;
 
-    const { data, isLoading, error } = useFetchVenue();
+
+    useEffect(() => {
+        async function fetchLongLat() {
+            const { lat, lng } = await getUserLocation();
+            console.log("my lat and long", lat, lng);
+            setCoords({ lat, lng });
+        }
+        fetchLongLat();
+    }, []);
+
+    const { data, isLoading, error } = useFetchVenue(coords);
 
     const venues = data?.result || [];
 
@@ -41,13 +53,15 @@ const VenueCarousel = () => {
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>Error loading venues: {error.message}</p>;
 
+
+
     return (
         <div className="venue-section-container">
-            <div className="venue-header">
+            <div className="venues-header">
                 <h3>Book Venues</h3>
                 <Link to="/venue" className="see-all">
                     See All
-                    <img src={cursorArrow}  style={{ marginLeft: "8px", width:"auto" }}  alt='cursorArrow'/>
+                    <img src={cursorArrow} style={{ marginLeft: "8px", width: "auto" }} alt='cursorArrow' />
                 </Link>
             </div>
 
@@ -65,12 +79,12 @@ const VenueCarousel = () => {
                         }
                         return (
 
-                            <VenueCard
+                            <VenueCardHome
                                 key={venue.id}
                                 id={venue.id}
                                 name={venue.venue_name}
-                                rating={venue.average_rating||0} // If your API has no rating, use a static or calculated value
-                                reviews={venue.review_count ||0} // Similarly, static if not provided
+                                rating={venue.average_rating || 0} // If your API has no rating, use a static or calculated value
+                                reviews={venue.review_count || 0} // Similarly, static if not provided
                                 distance="1.2 km" // You could calculate from lat/lng
                                 sports={["Football", "Cricket"]} // Use real sports if available
                                 image={venue.cover_image}
@@ -94,7 +108,7 @@ const VenueCarousel = () => {
                         onMouseEnter={() => setHoveredArrow('next')}
                         onMouseLeave={() => setHoveredArrow(null)}
                     >
-                        <img src={rightArrow} alt='rightArrow'/>
+                        <img src={rightArrow} alt='rightArrow' />
                     </button>
                 </div>
             </div>

@@ -7,21 +7,14 @@ import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { useFetchGym } from "../../../../hooks/GymList/useFetchGym.js"
 import { VenueListShimmer } from "../../components/Shimmer/VenueListShimmer.jsx";
+import { useLikeGym } from "../../../../hooks/FavouriteGym/useLikeGym.js";
+import { useUnlikeGym } from "../../../../hooks/FavouriteGym/useUnlikeGym.js";
+import { useQueryClient } from "@tanstack/react-query";
 
-const gyms = Array.from({ length: 12 }, (_, i) => ({
-    id: 1 + i,
-    image: gymImage,
-    title: "Gold's Gym Magarpatta City",
-    location: "Magarpatta City",
-    distance: "0.7",
-    rating: "4.0",
-    ratingCount: "175",
-    discountText: "Upto 50% off",
-    priceText: "1000 onwards",
-}));
 
 export default function GymFilterPage() {
     const userId = useSelector((state) => state.auth.id);
+    const queryClient = useQueryClient();
     const [gymList, setGymList] = useState([]);
     const [search, setSearch] = useState('');
     const [filters, setFilters] = useState({});
@@ -33,6 +26,46 @@ export default function GymFilterPage() {
         userId: userId || null,
     }
     const { data: AllGymdata, isLoading, isError, error } = useFetchGym(payload);
+    const likeGym = useLikeGym();
+    const unlikeGym = useUnlikeGym();
+
+    const toggleFavourite = (gym) => {
+        const gymId = gym.id;
+
+        setGymList((prevList) =>
+            prevList.map((v) =>
+                v.id === gymId ? { ...v, favourite: !v.favourite } : v
+            )
+        );
+
+        if (!gym.favourite) {
+            likeGym.mutate({ gymId, userId: userId }, {
+                onSuccess: async () => {
+                    await queryClient.invalidateQueries(['GymList', userId || null]);
+                },
+                onError: () => {
+                    setGymList((prevList) =>
+                        prevList.map((v) =>
+                            v.id === gymId ? { ...v, favourite: false } : v
+                        )
+                    );
+                },
+            });
+        } else {
+            unlikeGym.mutate({ gymFavouriteId: gym.favouriteId }, {
+                onSuccess: async () => {
+                    await queryClient.invalidateQueries(['GymList', userId || null]);
+                },
+                onError: () => {
+                    setGymList((prevList) =>
+                        prevList.map((v) =>
+                            v.id === gymId ? { ...v, favourite: true } : v
+                        )
+                    );
+                },
+            });
+        }
+    };
 
     const handleReset = () => {
         setSearch('');
@@ -82,11 +115,14 @@ export default function GymFilterPage() {
                 </aside>
 
                 <section className="gym-grid">
-                    {/* {gyms.map((gym) => (
-                        <GymCard key={gym.id} gym={gym} />
-                    ))} */}
+
                     {formattedGymList.map((gym) => (
-                        <GymCard key={gym.id} gym={gym} />
+                        <GymCard
+                            key={gym.id}
+                            gym={gym}
+                            isLiked={gym?.favourite}
+                            onLikeToggle={() => toggleFavourite(gym)}
+                        />
                     ))}
                 </section>
             </div>

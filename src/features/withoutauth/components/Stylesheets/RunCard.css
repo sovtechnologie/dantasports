@@ -51,6 +51,11 @@
   margin-left: 7px;
 }
 
+.icon-btns{
+  background: none;
+  border: none;
+}
+
 .run-content {
   padding: 12px;
 }

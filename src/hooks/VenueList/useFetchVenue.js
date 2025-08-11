@@ -4,14 +4,14 @@ import {
   fetchVenueListByUserId,
 } from "../../services/withoutLoginApi/VenueListApi/endpointApi";
 
-export const useFetchVenue = (userId = null) => {
+export const useFetchVenue = (payload) => {
   return useQuery({
-    queryKey: ["venueList", userId],
+    queryKey: ["venueList", payload.userId],
     queryFn: () => {
-      if (userId) {
-        return fetchVenueListByUserId(userId);
+      if (payload.userId) {
+        return fetchVenueListByUserId(payload);
       } else {
-        return fetchVenueList();
+        return fetchVenueList(payload);
       }
     },
   });
