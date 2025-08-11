@@ -704,6 +704,9 @@ body {
   height: 180px;
   object-fit: cover;
 }
+.venue-nav button img {
+  display: flex;
+}
 
 /* Responsive */
 @media (max-width: 768px) {

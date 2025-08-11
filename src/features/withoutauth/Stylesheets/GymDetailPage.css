@@ -487,6 +487,7 @@ body {
 .event-banner-container {
   overflow: hidden;
   padding: 12px;
+  margin-bottom: 50px;
 }
 
 .event-banner-heading {

@@ -301,18 +301,7 @@ export default function EventDetailPage() {
                             </div>
                         </div>
 
-                        <div className="event-review">
-                            <div className="event-review-heading">Rating & Reviews</div>
-                            <div className="event-review-container">
-                                {event?.reviews?.slice(start, start + visibleCount).map((review) => (
-                                    <ReviewCard key={review.id} review={review} />
-                                ))}
-                            </div>
-                            <div className="carousel-buttons">
-                                <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
-                                <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
-                            </div>
-                        </div>
+                        
                     </div>
 
 
@@ -377,6 +366,19 @@ export default function EventDetailPage() {
 
                     </div>
                 </div>
+
+                <div className="event-review">
+                            <div className="event-review-heading">Rating & Reviews</div>
+                            <div className="event-review-container">
+                                {event?.reviews?.slice(start, start + visibleCount).map((review) => (
+                                    <ReviewCard key={review.id} review={review} />
+                                ))}
+                            </div>
+                            <div className="carousel-buttons">
+                                <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
+                                <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
+                            </div>
+                        </div>
                 <Gallery gallery={event.gallery} />
                 {/* <div className='event-banner-container'>
                     <h2 className='event-banner-heading'>Ongoing Events</h2>

@@ -14,7 +14,7 @@
   padding: 6px;
 }
 .venue-nav button img {
-  display: flex;
+  display: flex !important;
 }
 
 .venue-image {
