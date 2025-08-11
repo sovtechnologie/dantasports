@@ -449,9 +449,15 @@ body {
   flex: 0 1 calc(33.333% - 11px);
   box-sizing: border-box;
 } */
+
+.venue-nav button img {
+  display: flex;
+}
 .venue-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 0fr));
+
   gap: 30px;
   padding: 0 20px;
   margin: 30px 0 40px;

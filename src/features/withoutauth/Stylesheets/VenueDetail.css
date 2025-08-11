@@ -755,6 +755,9 @@ body {
   border-radius: 8px;
   object-fit: cover;
 }
+.venue-nav button img {
+  display: flex;
+}
 
 /* Animation Keyframes */
 @keyframes scroll-left {

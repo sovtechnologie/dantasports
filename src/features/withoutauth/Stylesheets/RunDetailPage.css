@@ -191,6 +191,17 @@ body {
   font-size: 18px;
   font-weight: 500;
   line-height: 21px;
+   border: 2px solid transparent;
+  background-image:
+    linear-gradient(white, white),
+    linear-gradient(270deg, #1163c7, #a3d0ff, #1163c7);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  cursor: pointer;
+  background-size: 200% auto;
+  animation:
+    move-border 3s linear infinite,
+    glow-pulse 3s ease-in-out infinite;
 }
 
 /* right section */
@@ -203,6 +214,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  box-shadow: 0px 4.08px 4.08px 0px #1163c740;
   gap: 20px;
 }
 .event-right-section-p {
@@ -245,7 +257,7 @@ body {
 /* Reviews */
 
 .event-review {
-  margin: 1rem 0rem;
+  margin-top: 50px;
 }
 
 .event-review-heading {

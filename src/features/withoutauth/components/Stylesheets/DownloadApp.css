@@ -25,6 +25,8 @@
 .text-content > *:not(:last-child) {
   margin-bottom: 18px;
   /* Adjust as needed for spacing between tagline, heading, subtext, buttons */
+  height: 60px;
+
 }
 
 .tagline {
