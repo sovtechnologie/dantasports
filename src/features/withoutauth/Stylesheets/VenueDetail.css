@@ -86,6 +86,19 @@ body {
   margin-bottom: 50px;
 }
 
+.venue-icon-topwrapper {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  gap: 8px;
+}
+.venue-icon-btns{
+  background-color: transparent;
+  border: none;
+}
+
+
 /* .carousel-image {
   width: 100%;
   height: 461px;
@@ -210,7 +223,7 @@ body {
   transition: transform 0.2s ease;
   border: none;
   border: 1px solid #ececec;
-   display: flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
@@ -222,7 +235,7 @@ body {
 }
 
 .sport-card img {
-   height: 54px;
+  height: 54px;
   width: 54px;
   /* margin-bottom: 0.5rem; */
 }
@@ -309,7 +322,8 @@ body {
   border: 2px solid transparent;
   background-image:
     linear-gradient(#ffffff, #ffffff),
-    /* inner background */ linear-gradient(90deg, #1163c7, #a3d0ff);
+    /* inner background */
+    linear-gradient(90deg, #1163c7, #a3d0ff);
   /* border gradient */
   background-origin: border-box;
   background-clip: padding-box, border-box;
@@ -602,6 +616,7 @@ body {
   color: #1163c7;
   font-weight: bold;
 }
+
 .owner-info {
   margin-top: 10px;
   font-size: 14px;
@@ -631,9 +646,10 @@ body {
 }
 
 
-.banner{
+.banner {
   margin-bottom: 75px;
 }
+
 .review-heading,
 .banner-heading {
   font-size: 24px;
@@ -711,11 +727,12 @@ body {
 }
 
 
-.banner{
+.banner {
   margin-bottom: 75px;
 }
-.banner-wrapper{
-   max-width: 100%;
+
+.banner-wrapper {
+  max-width: 100%;
 }
 
 .event-banner-container {
@@ -746,15 +763,18 @@ body {
 
 .event-banner {
   flex: 0 0 auto;
-  margin-right: 20px; /* space between banners */
+  margin-right: 20px;
+  /* space between banners */
 }
 
 .event-banner-img {
-  width: 300px;     /* adjust as needed */
+  width: 300px;
+  /* adjust as needed */
   height: auto;
   border-radius: 8px;
   object-fit: cover;
 }
+
 .venue-nav button img {
   display: flex;
 }
@@ -764,6 +784,7 @@ body {
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -817,6 +838,7 @@ body {
 }
 
 @media (max-width: 600px) {
+
   /* General Padding */
   .venue-wrapper {
     padding: 0px;
@@ -827,6 +849,7 @@ body {
   .venue-right {
     flex: 1 1 100%;
   }
+
   /* .carousel {
     width: 300px;
   } */
