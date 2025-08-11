@@ -126,9 +126,9 @@ function VenueDetailsPage() {
     // Replace with actual data fetching logic
 
 
-   
 
-   
+
+
 
 
 
@@ -227,6 +227,10 @@ function VenueDetailsPage() {
                             >
                                 {venue?.images?.map((img, index) => (
                                     <SwiperSlide key={index} className="venue-swiperslide">
+                                        <div className="venue-icon-topwrapper">
+                                            <button className="venue-icon-btns" onClick={Share} ><img src={ShareIcon} alt='share' className="" /></button>
+                                            <button className="venue-icon-btns" onClick={() => handleClickLike(venue)}><img src={venue.favourite ? HeartFilled : LikeIcon} alt='like' className="like-icon" /></button>
+                                        </div>
                                         <img src={img} alt={`event-image-${index}`} className="venue-swiperslide-img" />
                                     </SwiperSlide>
                                 ))}
@@ -296,10 +300,10 @@ function VenueDetailsPage() {
                             <Link to={`/venueCheckout/${id}#bookingnow`} style={{ textDecoration: "none", color: "inherit" }}><button className="btn-primary" >Book Now</button></Link>
                         </div>
 
-                        <div className="venue-actions">
+                        {/* <div className="venue-actions">
                             <button className="venue-action-btn" onClick={Share} ><img src={ShareIcon} alt='share' className="venue-icon" />Share</button>
                             <button className="venue-action-btn" onClick={() => handleClickLike(venue)}><img src={venue.favourite ? HeartFilled : LikeIcon} alt='like' className="venue-icon" /> Favourite</button>
-                        </div>
+                        </div> */}
 
                         <div className="venue-timing-price">
                             <div>
