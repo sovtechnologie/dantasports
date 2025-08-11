@@ -10,13 +10,14 @@
 
 .calendar-header {
     display: flex;
-    /* justify-content: center; */
+    justify-content: center;
     align-items: center;
     font-weight: bold;
     /* gap: 1rem; */
     margin-bottom: 0.5rem;
     color: #1163C7;
     font-size: 16px;
+    gap:20px
 }
 
 .calendar-header button {
