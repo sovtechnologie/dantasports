@@ -79,7 +79,7 @@ const mapVenueData = (apiData) => {
                 comment: review.comment || "No comment provided",
                 date: formatDate(review.createdAt) || new Date().toISOString().split('T')[0],
             }))
-            : [{ comment: "Not Available" }], // Default to first 5 reviews if not available
+            : [], // Default to first 5 reviews if not available
     };
 };
 
@@ -93,9 +93,7 @@ function VenueDetailsPage() {
     const likeVenue = useLikeVenue();
     const unlikeVenue = useUnlikeVenue();
     const [selectedSportId, setSelectedSportId] = useState(null);
-    const [imageIndex, setImageIndex] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [slideInterval, setSlideInterval] = useState(null);
     const pageNo = 3; // Pass dynamic page number as needed
     const { data, loading, error } = useFetchSingleVenue(id, userId);
     const venue = Array.isArray(data?.result) && data.result.length > 0
@@ -330,21 +328,26 @@ function VenueDetailsPage() {
                         </div>
                     </div>
 
-                    <div className='rating-wrapper'>
-                        <div className="ratings-carousel">
-                            <h2 className="review-heading">Ratings & Reviews</h2>
-                            <div className="review-carousel-container">
-                                {venue.reviews.slice(start, start + visibleCount).map((review) => (
-                                    <ReviewCard key={review.id} review={review} />
-                                ))}
-                            </div>
-                            <div className="carousel-buttons">
-                                <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
-                                <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
-                            </div>
+                    {venue?.reviews?.length > 0 && (
+                        <div className='rating-wrapper'>
+                            <div className="ratings-carousel">
+                                <h2 className="review-heading">Ratings & Reviews</h2>
+                                <div className="review-carousel-container">
+                                    {venue.reviews.slice(start, start + visibleCount).map((review) => (
+                                        <ReviewCard key={review.id} review={review} />
+                                    ))}
+                                </div>
+                                <div className="carousel-buttons">
+                                    <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
+                                    <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
+                                </div>
 
+                            </div>
                         </div>
-                    </div>
+                    )}
+
+
+
 
                     <div className='banner-wrapper'>
                         <div className='event-banner-container'>

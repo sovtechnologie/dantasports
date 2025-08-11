@@ -122,7 +122,7 @@ export default function EventDetailPage() {
             Math.min(prev + 1, event?.reviews.length - visibleCount)
         );
 
-    const visibleCount = window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 2;
+    const visibleCount = window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 3 : 3;
 
     const { data: EventDetails, isLoading: eventLoading, error: eventError } = useFetchSingleEvent(id);
     const event = Array.isArray(EventDetails?.result) && EventDetails.result.length > 0

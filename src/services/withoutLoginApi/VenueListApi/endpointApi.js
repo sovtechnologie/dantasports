@@ -10,9 +10,9 @@ export const fetchVenueList = async (payload) => {
   }
 };
 
-export const fetchVenueListByUserId = async (userId) => {
+export const fetchVenueListByUserId = async (payload) => {
   try {
-    const response = await api.post("home/venueList", { userId });
+    const response = await api.post("home/venueList", payload);
     return response.data;
   } catch (error) {
     console.error("Failed to fetch Venue list with favourite Venue:", error);
@@ -31,31 +31,3 @@ export const fetchVenueById = async (venueId, userId) => {
     throw error;
   }
 };
-
-// export const fetchVenueById = async (venueId) => {
-//   try {
-//     const formData = new URLSearchParams();
-//     formData.append('venueId', venueId);
-
-//     const response = await api.gpost('/home/getSingleVenue', formData, {
-//       headers: {
-//         'Content-Type': 'application/x-www-form-urlencoded',
-//       },
-//     });
-
-//     return response.data;
-//   } catch (error) {
-//     console.error("❌ Failed to fetch venue:", error);
-//     throw error;
-//   }
-// };
-
-// export const fetchVenueById = async (venueId) => {
-//   try {
-//     const response = await api.get(`/home/getSingleVenue?venueId=${venueId}`);
-//     return response.data;
-//   } catch (error) {
-//     console.error("❌ Failed to fetch venue:", error);
-//     throw error;
-//   }
-// };

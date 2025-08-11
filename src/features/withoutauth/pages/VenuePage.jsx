@@ -13,8 +13,6 @@ import rightArrow from "../assets/right-arrow.png";
 import AppDownloadBanner from '../components/AppDownloadBanner.jsx';
 import Timeslot from '../components/Timeslot.jsx';
 import SearchIcon from "../assets/Search-icon.png";
-import CricketLogo from "../assets/VenueCardLogo/CricketLogo.png";
-import FootballLogo from "../assets/VenueCardLogo/FootballLogo.png";
 import DeskTopFilterCalendar from '../components/DeskTopFilterCalendar.jsx';
 import FilterSportSwipper from "../components/FilterSportSwipper.jsx"
 import { format } from 'date-fns';
@@ -84,13 +82,13 @@ function VenuePage() {
     // Handle venueList data by react-Query
 
     const auth = useSelector((state) => state.auth);
-    const [coords, setCoords] = useState({ lat: null, lng: null, userId:auth?.id});
+    const [coords, setCoords] = useState({ lat: null, lng: null, userId: auth?.id });
 
     useEffect(() => {
         async function fetchLongLat() {
             const { lat, lng } = await getUserLocation();
             console.log("my lat and long", lat, lng);
-            setCoords({ lat, lng });
+            setCoords({ lat, lng, userId: auth?.id });
         }
         fetchLongLat();
     }, []);
@@ -190,11 +188,14 @@ function VenuePage() {
         // );
         // setFilteredData(filtered);
     };
-
+    const [searchQuery, setSearchQuery] = useState("");
     const itemsPerPage = 6;
 
-
-    const totalPageSport = Math.ceil(sportsData.length / itemsPerPage);
+    // Filter sports based on search query
+    const filteredSports = sportsData.filter(sport =>
+        sport?.sports_name?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    const totalPageSport = Math.ceil(filteredSports.length / itemsPerPage);
 
     const scrollLeft = () => {
         setActiveIndex(prev => Math.max(prev - 1, 0));
@@ -204,12 +205,16 @@ function VenuePage() {
         setActiveIndex(prev => Math.min(prev + 1, totalPageSport - 1));
     };
 
-    const paginatedSports = sportsData.slice(
+    const paginatedSports = filteredSports.slice(
         activeIndex * itemsPerPage,
         (activeIndex + 1) * itemsPerPage
-    );
+    )
 
 
+    // Reset to first page when search changes
+    useEffect(() => {
+        setActiveIndex(0);
+    }, [searchQuery]);
 
 
     const pageSize = 12; // Number of cards per page
@@ -276,6 +281,7 @@ function VenuePage() {
         setSelectedSport(null);
         setSelectedDate(new Date());
         setSelectedTime(null);
+        setSearchQuery("")
     }
 
     useEffect(() => {
@@ -363,27 +369,29 @@ function VenuePage() {
                                         <input
                                             type="text"
                                             placeholder="Search..."
-
+                                            value={searchQuery}
+                                            onChange={(e) => setSearchQuery(e.target.value)}
                                         />
+                                        {searchQuery && (
+                                            <button
+                                                type="button"
+                                                className="clear-search-btn"
+                                                onClick={() => setSearchQuery("")}
+                                            >
+                                                &times;
+                                            </button>
+                                        )}
                                     </div>
                                 </div>
 
                                 <div className="filter-sec1">
                                     <div className="carousel-navigation">
-                                        <button className="nav-arrow left" onClick={scrollLeft}>&lt;</button>
+                                        {totalPageSport > 1 && (
+                                            <button className="nav-arrow left" onClick={scrollLeft}>&lt;</button>
+                                        )}
 
                                         <div className="sports-scroll-wrapper">
                                             <div className="">
-                                                {/* {paginatedSports.map((sport, id) => (
-                                                <div
-                                                    className={`sport-item ${selectedSport === sport.sports_name ? 'active-sport' : ''}`}
-                                                    key={id}
-                                                    onClick={() => setSelectedSport(sport.sports_name)}
-                                                >
-                                                    <img src={sport.sports_images || Football} alt={sport.sports_name} />
-                                                    <span>{sport.sports_name}</span>
-                                                </div>
-                                            ))} */}
                                                 <FilterSportSwipper
                                                     SportsData={paginatedSports}
                                                     selectedSport={selectedSport}
@@ -393,14 +401,17 @@ function VenuePage() {
                                             </div>
                                         </div>
 
-                                        <button className="nav-arrow right" onClick={scrollRight}>&gt;</button>
+                                        {totalPageSport > 1 && (
+                                            <button className="nav-arrow right" onClick={scrollRight}>&gt;</button>
+                                        )}
                                     </div>
-
-                                    <div className="pagination-dots">
-                                        {Array.from({ length: totalPageSport }).map((_, i) => (
-                                            <span key={i} className={`dot ${i === activeIndex ? "active" : ""}`} />
-                                        ))}
-                                    </div>
+                                    {totalPageSport > 1 && (
+                                        <div className="pagination-dots">
+                                            {Array.from({ length: totalPageSport }).map((_, i) => (
+                                                <span key={i} className={`dot ${i === activeIndex ? "active" : ""}`} />
+                                            ))}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                             {selectedSport ? (

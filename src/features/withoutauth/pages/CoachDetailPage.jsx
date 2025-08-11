@@ -33,7 +33,22 @@ import { useCreateQuery } from "../../../hooks/CoachList/useCreateQuery";
 
 
 const mapCoachData = (apiData) => {
+    const daysMap = [
+        { key: "monday", label: "Monday" },
+        { key: "tuesday", label: "Tuesday" },
+        { key: "wednesday", label: "Wednesday" },
+        { key: "thursday", label: "Thursday" },
+        { key: "friday", label: "Friday" },
+        { key: "saturday", label: "Saturday" },
+        { key: "sunday", label: "Sunday" },
+    ];
+
+    const availableDays = daysMap
+        .filter(day => apiData?.[day.key] === 1)
+        .map(day => day.label)
+        .join(", ") || "Not Available";
     return {
+        id: apiData?.id,
         name: apiData?.name || "Unknown Venue",
         location: apiData?.locations[0]?.area || "Unknown Area",
         about: apiData?.about || "",
@@ -46,6 +61,7 @@ const mapCoachData = (apiData) => {
         training_type: apiData?.training_type,
         classes: apiData?.classes,
         fees_and_packages: apiData?.fees_and_packages,
+        available_days: availableDays,
         certficiates: apiData?.certficiates,
         images: Array.isArray(apiData?.gallery_images)
             ? apiData?.gallery_images.map((img) => img.image)
@@ -85,7 +101,7 @@ export default function CoachDetailPage() {
     const [expandedSection, setExpandedSection] = useState(null);
     const [start, setStart] = useState(0);
     const [showModal, setShowModal] = useState(false)
-
+    const createQueryMutation = useCreateQuery();
 
     const toggleSection = (sectionName) => {
         setExpandedSection(prev => (prev === sectionName ? null : sectionName));
@@ -106,7 +122,20 @@ export default function CoachDetailPage() {
     const coach = Array.isArray(CoachDetails?.result) && CoachDetails?.result.length > 0
         ? mapCoachData(CoachDetails?.result[0])
         : '';
-    console.log("Coaches Details", coach);
+
+    const handleEnquiry = (id) => {
+        createQueryMutation.mutate(
+            { academyCoachesId: id },
+            {
+                onSuccess: () => {
+                    setShowModal(true);
+                },
+                onError: (error) => {
+                    console.error("Failed to create query:", error);
+                },
+            }
+        );
+    }
 
 
 
@@ -171,7 +200,7 @@ export default function CoachDetailPage() {
                                 <div className="session-list">
                                     <div className="session-conatiner">
                                         <img src={calandarlogo} alt="calandarlogo" />
-                                        <p>Monday, Tuesday, Wednesday, Thursday, Friday, Sunday</p>
+                                        <p>{coach.available_days}</p>
                                     </div>
                                     <div className="session-conatiner">
                                         <img src={adultlogo} alt="adultlogo" />
@@ -244,16 +273,29 @@ export default function CoachDetailPage() {
 
                         <div className="coach-right-section">
                             <div className="coach-heading">Other Serviceable Location</div>
-                            {coach?.multilocation?.map((loc, index) => (
-                                <a href={loc.link} target="_blank" rel="noopener noreferrer" key={index} className="location-item">
-                                    <div className="icon"><img src={locationlogo} alt="location" className="locationlogo" /></div>
-                                    <div className="location-text">
-                                        <div className="address">{loc.area}</div>
-                                        <div className="subtext">Click to view on map</div>
-                                    </div>
-                                    <div className="arrow">&#8250;</div>
-                                </a>
-                            ))}
+                            {coach?.multilocation?.map((loc, index) => {
+                                const mapLink = `https://www.google.com/maps?q=${loc.lat},${loc.lng}`;
+
+                                return (
+                                    <a
+                                        href={mapLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        key={index}
+                                        className="location-item"
+                                    >
+                                        <div className="icon">
+                                            <img src={locationlogo} alt="location" className="locationlogo" />
+                                        </div>
+                                        <div className="location-text">
+                                            <div className="address">{loc.area}</div>
+                                            <div className="subtext">Click to view on map</div>
+                                        </div>
+                                        <div className="arrow">&#8250;</div>
+                                    </a>
+                                );
+                            })}
+
                         </div>
 
 
@@ -266,7 +308,6 @@ export default function CoachDetailPage() {
                                         alt={cert.certificate_name}
                                         className="certificatelogo"
                                     />
-                                    {/* <img src={Certificate1} alt="location" className="certificate"/> */}
                                     <div className="award-des">
                                         <ul>
                                             <li>{cert.certificate_name}</li>
@@ -277,7 +318,7 @@ export default function CoachDetailPage() {
                         </div>
 
                         <div className="coach-right-section-button">
-                            <button className="coach-btn" onClick={() => setShowModal(true)} >Enquired now</button>
+                            <button className="coach-btn" onClick={() => handleEnquiry(coach?.id)} >{createQueryMutation.isLoading ? "Processing..." : "Enquire now"}</button>
                             {showModal && <EnquiryModal onClose={() => setShowModal(false)} />}
                         </div>
 
