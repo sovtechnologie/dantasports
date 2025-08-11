@@ -21,7 +21,7 @@ const VenueCardHome = ({ id, name, rating, reviews, distance, sports = [], image
           <span className="count">({reviews})</span>
           <span className="distance">~{distance}</span>
         </p>
-        <p className="sports">{Array.isArray(sports) ? sports.join(', ') : sports}</p>
+        <p className="sports">{Array.isArray(sports) ? sports.map((item) => item.name).join(', ') : sports}</p>
       </div>
     </Link>
   );

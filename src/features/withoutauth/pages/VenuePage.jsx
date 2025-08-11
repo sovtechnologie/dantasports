@@ -483,7 +483,7 @@ function VenuePage() {
                                                 const formattedVenue = {
                                                     id: venue.id,
                                                     image: venue.cover_image,
-                                                    sportsIcons: [CricketLogo, FootballLogo],
+                                                    sportsIcons: venue?.sports,
                                                     name: venue.venue_name,
                                                     about: venue.about_venue,
                                                     rating: 4.5,

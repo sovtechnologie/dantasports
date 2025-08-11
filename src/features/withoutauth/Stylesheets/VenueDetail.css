@@ -86,13 +86,13 @@ body {
   margin-bottom: 50px;
 }
 
-.carousel-image {
+/* .carousel-image {
   width: 100%;
   height: 461px;
   border-radius: 11px;
   object-fit: fill;
-}
-
+} */
+/* 
 .carousel-hover {
   position: absolute;
   top: 0;
@@ -130,6 +130,30 @@ body {
 
 .dot.active {
   background-color: #007bff;
+}
+ */
+
+.swiper {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  /* padding: 1rem; */
+}
+
+.venue-swiperslide {
+  text-align: center;
+  font-size: 18px;
+  background: #444;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.venue-swiperslide-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .sports-wrapper {

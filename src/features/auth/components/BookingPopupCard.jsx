@@ -105,7 +105,7 @@ const BookingPopupCard = ({
           </div>
         </div>
         <div className='button-wrapper'>
-          <button className="home-btn"  >BACK TO HOME</button>
+          <button className="home-btn" >BACK TO HOME</button>
         </div>
       </div>
     </div>

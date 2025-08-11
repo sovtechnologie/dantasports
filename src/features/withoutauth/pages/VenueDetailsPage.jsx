@@ -22,6 +22,12 @@ import { useUnlikeVenue } from '../../../hooks/favouriteVenue/useUnlikeVenue.js'
 import { useQueryClient } from '@tanstack/react-query';
 import leftArrow from "../assets/left-arrow.png";
 import rightArrow from "../assets/right-arrow.png";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 
 
@@ -120,36 +126,9 @@ function VenueDetailsPage() {
     // Replace with actual data fetching logic
 
 
-    const startPrevSlide = () => {
-        if (slideInterval) return;
-        const interval = setInterval(prevSlide, 3000); // adjust speed as needed
-        setSlideInterval(interval);
-    };
+   
 
-    const startNextSlide = () => {
-        if (slideInterval) return;
-        const interval = setInterval(nextSlide, 3000); // adjust speed as needed
-        setSlideInterval(interval);
-    };
-
-    const stopSlide = () => {
-        if (slideInterval) {
-            clearInterval(slideInterval);
-            setSlideInterval(null);
-        }
-    };
-
-    const nextSlide = () => {
-        setImageIndex((prev) => (prev + 1) % venue.images.length);
-    };
-
-    const prevSlide = () => {
-        setImageIndex((prev) => (prev - 1 + venue.images.length) % venue.images.length);
-    };
-
-    const goToSlide = (index) => {
-        setImageIndex(index);
-    };
+   
 
 
 
@@ -232,28 +211,26 @@ function VenueDetailsPage() {
                 <div className="venue-wrapper">
                     <div className="venue-left">
                         <div className="carousel">
-                            <img src={venue.images[imageIndex]} alt="venue" className="carousel-image" onError={(e) => (e.target.src = venueImage)} />
-                            {/* <div className="carousel-controls"> */}
-                            <div
-                                className="carousel-hover left"
-                                onMouseEnter={startPrevSlide}
-                                onMouseLeave={stopSlide}
-                            />
-                            <div
-                                className="carousel-hover right"
-                                onMouseEnter={startNextSlide}
-                                onMouseLeave={stopSlide}
-                            />
-                            {/* </div> */}
-                            <div className="carousel-dots">
-                                {venue.images.map((_, idx) => (
-                                    <span
-                                        key={idx}
-                                        className={`dot ${idx === imageIndex ? 'active' : ''}`}
-                                        onClick={() => goToSlide(idx)}
-                                    />
+                            <Swiper
+                                spaceBetween={30}
+                                centeredSlides={true}
+                                autoplay={{
+                                    delay: 2500,
+                                    disableOnInteraction: false,
+                                }}
+                                pagination={{
+                                    clickable: true,
+                                }}
+                                // navigation={true}
+                                modules={[Autoplay, Pagination]}
+                                className="mySwiper"
+                            >
+                                {venue?.images?.map((img, index) => (
+                                    <SwiperSlide key={index} className="venue-swiperslide">
+                                        <img src={img} alt={`event-image-${index}`} className="venue-swiperslide-img" />
+                                    </SwiperSlide>
                                 ))}
-                            </div>
+                            </Swiper>
                         </div>
                         <div className="section">
                             <div className="sports-wrapper">

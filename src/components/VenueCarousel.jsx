@@ -86,7 +86,7 @@ const VenueCarousel = () => {
                                 rating={venue.average_rating || 0} // If your API has no rating, use a static or calculated value
                                 reviews={venue.review_count || 0} // Similarly, static if not provided
                                 distance="1.2 km" // You could calculate from lat/lng
-                                sports={["Football", "Cricket"]} // Use real sports if available
+                                sports={venue?.sports} // Use real sports if available
                                 image={venue.cover_image}
                                 className={extraClass}
                             />
