@@ -1,8 +1,8 @@
 import api from "../../api";
 
-export const fetchVenueList = async () => {
+export const fetchVenueList = async (payload) => {
   try {
-    const response = await api.post("home/venueList");
+    const response = await api.post("home/venueList",payload);
     return response.data;
   } catch (error) {
     console.error("Failed to fetch Venue list:", error);

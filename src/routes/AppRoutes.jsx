@@ -60,7 +60,7 @@ export default function AppRoutes() {
                     <Route path="/venue/:id" element={<VenueDetailsPage />} />
                     <Route path="/venueCheckout/:id" element={<VenueCheckoutPage />} />
                     <Route path='/CorporateBooking' element={<CorporateBookingPage />} />
-                    <Route path='/payment-sucesss/:id' element={<SucessfulBooking />} />
+                    <Route path='/payment-sucesss' element={<SucessfulBooking />} />
                     <Route path='/payment-failed/:id' element={<PaymentFailed/>} />
                     <Route path='/payment-status/:id' element={<PaymentStatus />}/>
                     <Route path='/Partner' element={<PartnerPage />} />
@@ -100,3 +100,4 @@ export default function AppRoutes() {
         </div>
     );
 }
+

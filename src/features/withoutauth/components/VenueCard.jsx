@@ -60,7 +60,7 @@ const VenueCard = ({ venue, isLiked, onLikeToggle }) => {
             <h4>{venue.name}</h4>
             <p className="venue-rating">
 
-              <span className="star">★</span>
+              <span className="venue-star">★</span>
               {venue.rating} ({venue.reviews})
             </p>
           </div>

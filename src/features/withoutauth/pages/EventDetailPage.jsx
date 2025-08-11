@@ -29,21 +29,6 @@ import { formatTime } from "../../../utils/formatTime";
 import { formatDate } from "../../../utils/formatDate";
 
 
-const banners = [bannerImage1, bannerImage2, bannerImage1];
-const imagelist = [RunImage, RunImage]
-
-const fullText = `cvdc bcdbiw biwo bbwoe cnowe ndowh jie nc bidwu 
-    bdbdi hjh u bcjdc bjoc lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`;
-
-const instructiontext = `Eligibility & Age
-Participants must be at least 5 years old for the 5 km event and 18 years or older for the 10 km and 21 km races.
-
-Registration & Ticketing
-All registrations are final entries and are non-transferable, non-refundable, and cannot be modified post-booking.
-Internet or handling charges may apply; the full amount will be shown at checkout.
-Unauthorized resale is strictly prohibited and may
-`;
 const initialTickets = [
     { id: 1, label: '5Km Run', price: 999 },
     { id: 2, label: '10Km Run', price: 999 },
@@ -51,48 +36,8 @@ const initialTickets = [
     { id: 4, label: '20Km Run', price: 999 },
 ];
 
-const options = [
-    { value: "IN", label: "India" },
-    { value: "US", label: "United States" },
-    { value: "CA", label: "Canada" }
-];
-const reviews = [
-    {
-        id: 1,
-        rating: 4.5,
-        userName: "Aarav Mehta",
-        comment: "Amazing experience! The trek was well organized and the guides were really helpful.",
-        date: "3 day ago"
-    },
-    {
-        id: 2,
-        rating: 4.0,
-        userName: "Priya Sharma",
-        comment: "Beautiful views and great atmosphere. A bit tiring but worth every step.",
-        date: "3 day ago"
-    },
-    {
-        id: 3,
-        rating: 2.0,
-        userName: "Sanjay Sharma",
-        comment: "Beautiful views and great atmosphere. A bit tiring but worth every step.",
-        date: "3 day ago"
-    },
-    {
-        id: 4,
-        rating: 2.0,
-        userName: "Sanjay Sharma",
-        comment: "Beautiful views and great atmosphere. A bit tiring but worth every step.",
-        date: "3 day ago"
-    },
-    {
-        id: 5,
-        rating: 2.0,
-        userName: "Sanjay Sharma",
-        comment: "Beautiful views and great atmosphere. A bit tiring but worth every step.",
-        date: "3 day ago"
-    },
-]
+
+
 
 
 
@@ -420,16 +365,7 @@ export default function EventDetailPage() {
                     </div>
                 </div>
 
-                {/* <div className='event-banner-container'>
-                    <h2 className='event-banner-heading'>Ongoing Events</h2>
-                    <div className="event-banner-wrapper">
-                        {banners.map((item, i) => (
-                            <div key={i} className="event-banner">
-                                <img src={item.banner_image} alt="Event" className="event-banner-img" />
-                            </div>
-                        ))}
-                    </div>
-                </div> */}
+                
                 <div className='event-banner-container'>
                     <h2 className='event-banner-heading'>Ongoing Events</h2>
                     <div className="event-banner-carousel">

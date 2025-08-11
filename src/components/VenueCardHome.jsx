@@ -4,13 +4,14 @@ import VenueImage1 from '../assets/VenueImage/Venue-image1.png';
 import { Link } from 'react-router-dom';
 
 
-const VenueCard = ({ id, name, rating, reviews, distance, sports = [], image, className = '' }) => {
+const VenueCardHome = ({ id, name, rating, reviews, distance, sports = [], image, className = '' }) => {
   return (
     <Link to={`/venue/${id}`} className={`venue-card ${className}`}>
       <img
         src={image || VenueImage1}
         alt={name}
         onError={(e) => (e.target.src = VenueImage1)}
+        className='venuehome-img'
       />
       <div className="venue-info">
         <h4>{name}</h4>
@@ -26,7 +27,7 @@ const VenueCard = ({ id, name, rating, reviews, distance, sports = [], image, cl
   );
 };
 
-export default VenueCard;
+export default VenueCardHome;
 
 
 

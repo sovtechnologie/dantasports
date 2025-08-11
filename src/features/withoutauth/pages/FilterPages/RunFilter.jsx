@@ -7,9 +7,12 @@ import SortSection from '../../components/SortSection';
 import AppDownloadBanner from '../../components/AppDownloadBanner.jsx';
 import eventImage from '../../assets/EventImage.svg';
 import sportIcon from '../../assets/VenueCardLogo/CricketLogo.png';
+import { useQueryClient } from '@tanstack/react-query';
 import { useFetchEvent } from "../../../../hooks/EventList/useFetchEvents.js";
 import { useSelector } from 'react-redux';
 import { VenueListShimmer } from "../../components/Shimmer/VenueListShimmer.jsx";
+import { useUnlikeEvent } from "../../../../hooks/favouriteEvent/useUnLikeEvent.js";
+import { useLikeEvent } from "../../../../hooks/favouriteEvent/useLikeEvent.js";
 
 // Formats "15:00", "15:00:30" → "03:00 PM"
 function formatTime(timeStr = "00:00") {
@@ -30,20 +33,10 @@ function formatTime(timeStr = "00:00") {
     });
 }
 
-// const events = Array.from({ length: 12 }, (_, i) => ({
-//     id: i + 1,
-//     name: "Green Run Open Marathon",
-//     rating: 4.7,
-//     RatingCount: 173,
-//     price: '₹1000 onwards',
-//     offer: 'Upto 50% off',
-//     location: "Palika Bazar Gate 1, Delhi–451200",
-//     date: "22 Jun – 23 Jun | 6AM onwards",
-//     image: eventImage, 
-//     sportIcon: sportIcon,
-// }));
+
 
 export default function RunFilterPage() {
+    const queryClient = useQueryClient();
     const userId = useSelector((state) => state.auth.id);
     const [runList, setRunList] = useState([]);
     const [search, setSearch] = useState('');
@@ -57,6 +50,48 @@ export default function RunFilterPage() {
         type: 2
     }
     const { data: AllRundata, isLoading, isError, error } = useFetchEvent(payload);
+     const likeEvent = useLikeEvent();
+        const unlikeEvent = useUnlikeEvent();
+    
+        const toggleFavourite = (event) => {
+            const eventId = event.id;
+            const type = event?.type;
+            console.log("toggle")
+    
+            setRunList((prevList) =>
+                prevList.map((v) =>
+                    v.id === eventId ? { ...v, favourite: !v.favourite } : v
+                )
+            );
+    
+            if (!event.favourite) {
+                likeEvent.mutate({ eventId, userId: userId ,type}, {
+                    onSuccess: async () => {
+                        await queryClient.invalidateQueries(['EventList', userId || null]);
+                    },
+                    onError: () => {
+                        setRunList((prevList) =>
+                            prevList.map((v) =>
+                                v.id === eventId ? { ...v, favourite: false } : v
+                            )
+                        );
+                    },
+                });
+            } else {
+                unlikeEvent.mutate({ favouriteEventId: event.favourite_event_id }, {
+                    onSuccess: async () => {
+                        await queryClient.invalidateQueries(['EventList', userId || null]);
+                    },
+                    onError: () => {
+                        setRunList((prevList) =>
+                            prevList.map((v) =>
+                                v.id === eventId ? { ...v, favourite: true } : v
+                            )
+                        );
+                    },
+                });
+            }
+        };
 
 
     const handleReset = () => {
@@ -96,9 +131,12 @@ export default function RunFilterPage() {
                             id: evt.id,
                             name: evt.event_title,
                             rating: evt.rating ?? 0,
+                            type:evt?.event_type,
                             RatingCount: evt.ratingCount ?? 0,
                             price: `₹${parseInt(evt.lowest_ticket_price)} onwards`,
                             offer: evt.offer ?? 'No offer',
+                            favourite: evt?.favourite,
+                            favourite_event_id:evt?.favourite_event_id,
                             location: `${evt.locations[0]?.area}, ${evt.locations[0]?.city}` || '',
                             date: `${new Date(evt.start_date).toLocaleDateString('en-GB', {
                                 day: '2-digit', month: 'short'
@@ -114,6 +152,8 @@ export default function RunFilterPage() {
                             <RunCard
                                 key={evt.id}
                                 event={formattedEvent}
+                                isLiked={formattedEvent.favourite}
+                                onLikeToggle={() => toggleFavourite(evt)}
                             />
 
                         );

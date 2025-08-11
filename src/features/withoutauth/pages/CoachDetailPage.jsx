@@ -24,72 +24,13 @@ import { formatTime } from "../../../utils/formatTime";
 import { formatDate } from "date-fns";
 import leftArrow from "../assets/left-arrow.png";
 import rightArrow from "../assets/right-arrow.png";
+import { useCreateQuery } from "../../../hooks/CoachList/useCreateQuery";
 
-const imagelist = [RunImage, RunImage];
 
-const fullText = `Hi I am Ashish & I have 6 years of experience in fitness & nutritional coaching. Worked in corporate sector for 18 years. Now fully into MPT from Dr. D.Y. Patil College and BPT from Tilak Maharashtra Vidyapeeth, with internships across 10 hospitals in Pune. Certified in Matrix Rhythm Therapy..........`;
 
-const FreePackges = `Personal Coaching & Lifestyle Best Practices
-Time Frame Price Price/Session
-1 Month (12 sessions) 14,400 1,200
-2 Month (24 Sessions) 28,800 1,200
-3 Months (36 sessions) 40,000 933
-6 Months (72 sessions) 50,000 343
-12 Months (ullimited session) 1,00,000 22 
-`
-const locations = [
-    {
-        address: "5P4F+HR4, Adoor Bypass Road, Adoor, Kerala",
-        link: "https://maps.google.com?q=5P4F+HR4",
-    },
-    {
-        address: "5P4F+HR4, Adoor Bypass Road, Adoor, Kerala",
-        link: "https://maps.google.com?q=5P4F+HR4",
-    },
-];
-const reviews = [
-    {
-        id: 1,
-        rating: 4.5,
-        userName: "Aarav Mehta",
-        comment: "Amazing experience! The trek was well organized and the guides were really helpful.",
-        date: "3 day ago"
-    },
-    {
-        id: 2,
-        rating: 4.0,
-        userName: "Priya Sharma",
-        comment: "Beautiful views and great atmosphere. A bit tiring but worth every step.",
-        date: "3 day ago"
-    },
-    {
-        id: 3,
-        rating: 2.0,
-        userName: "Sanjay Sharma",
-        comment: "Beautiful views and great atmosphere. A bit tiring but worth every step.",
-        date: "3 day ago"
-    },
-    {
-        id: 4,
-        rating: 2.0,
-        userName: "Harsh Sharma",
-        comment: "Beautiful views and great atmosphere. A bit tiring but worth every step.",
-        date: "3 day ago"
-    },
-]
 
-const coaches = [
-    { name: "Yogesh Kumar", title: "Head Trainer", image: CoachImage },
-    { name: "Yogesh Kumar", title: "Head Trainer", image: CoachImage },
-    { name: "Yogesh Kumar", title: "Head Trainer", image: CoachImage },
-];
-const sports = [
-    { name: "Football", icon: footballIcon },
-    { name: "Football", icon: footballIcon },
-    { name: "Football", icon: footballIcon },
-    { name: "Football", icon: footballIcon },
 
-];
+
 
 const mapCoachData = (apiData) => {
     return {
@@ -320,12 +261,12 @@ export default function CoachDetailPage() {
                             <div className="coach-heading">Awards & Recognitions</div>
                             {coach?.certficiates?.map(cert => (
                                 <div className="award-wrapper" key={cert.id}>
-                                    {/* <img
-                                        src={cert.certificate_url ? `https://${cert.certificate_url}` : certificatlogo}
+                                    <img
+                                        src={cert.certificate_url ? cert.certificate_url : certificatlogo}
                                         alt={cert.certificate_name}
                                         className="certificatelogo"
-                                    /> */}
-                                    <img src={Certificate1} alt="location" className="certificate"/>
+                                    />
+                                    {/* <img src={Certificate1} alt="location" className="certificate"/> */}
                                     <div className="award-des">
                                         <ul>
                                             <li>{cert.certificate_name}</li>

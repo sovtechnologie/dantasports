@@ -7,7 +7,7 @@
   overflow: hidden;
 }
 
-.venue-header {
+.venues-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -16,7 +16,7 @@
   flex-wrap: wrap;
 }
 
-.venue-header h3 {
+.venues-header h3 {
   font-family: "Lato", Arial, sans-serif;
   font-weight: 700;
   font-size: 32px;

@@ -41,6 +41,12 @@
   gap: 2px;
 }
 
+.icon-btns{
+  background: none;
+  border: none;
+}
+
+
 .icon-img-btn {
   width: 25px;
   height: 25px;

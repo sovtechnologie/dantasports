@@ -5,7 +5,6 @@ import venueImage from "../assets/Venue-image.png";
 import cricketIcon from "../assets/VenueDetailIcon/CricketIcon.png";
 import footballIcon from "../assets/VenueDetailIcon/Footballicon.png";
 import pickleballIcon from "../assets/VenueDetailIcon/BatmintonIcon.png";
-import reviews from "../StaticData/ReviewRatingData.js";
 import ReviewCard from '../components/ReviewCard.jsx';
 import ShareIcon from '../assets/VenueDetailIcon/shareIcon.png';
 import LikeIcon from '../assets/VenueDetailIcon/LikeIcon.png';
@@ -367,16 +366,17 @@ function VenueDetailsPage() {
                     </div>
 
                     <div className='banner-wrapper'>
-                        <div className='banner'>
-                            <h2 className='banner-heading'>Ongoing Events</h2>
-                            <div className="image-banner-wrapper">
-                                {banners.map((item, i) => (
-                                    <div key={i} className="image-banner">
-                                        <img src={item.banner_image} alt="Event" />
-                                    </div>
-                                ))}
+                        <div className='event-banner-container'>
+                            <h2 className='event-banner-heading'>Ongoing Events</h2>
+                            <div className="event-banner-carousel">
+                                <div className="event-banner-track">
+                                    {banners.concat(banners).map((item, i) => ( // Duplicate for seamless looping
+                                        <div key={i} className="event-banner">
+                                            <img src={item.banner_image} alt="Event" className="event-banner-img" />
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
-
                         </div>
 
                     </div>

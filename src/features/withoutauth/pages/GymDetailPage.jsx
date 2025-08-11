@@ -36,36 +36,7 @@ const imagelist = [GymImage, GymImage1];
 
 
 
-const reviews = [
-    {
-        id: 1,
-        rating: 4.5,
-        userName: "Aarav Mehta",
-        comment: "Amazing experience! The trek was well organized and the guides were really helpful.",
-        date: "3 day ago"
-    },
-    {
-        id: 2,
-        rating: 4.0,
-        userName: "Priya Sharma",
-        comment: "Beautiful views and great atmosphere. A bit tiring but worth every step.",
-        date: "3 day ago"
-    },
-    {
-        id: 3,
-        rating: 2.0,
-        userName: "Sanjay Sharma",
-        comment: "Beautiful views and great atmosphere. A bit tiring but worth every step.",
-        date: "3 day ago"
-    },
-    {
-        id: 4,
-        rating: 2.0,
-        userName: "Harsh Sharma",
-        comment: "Beautiful views and great atmosphere. A bit tiring but worth every step.",
-        date: "3 day ago"
-    },
-]
+
 
 
 
@@ -381,16 +352,6 @@ export default function GymDetailPage() {
                 </div>
 
                 {/* Banners sections */}
-                {/* <div className='gym-banner-container'>
-                    <h2 className='gym-banner-heading'>Ongoing Events</h2>
-                    <div className="gym-banner-wrapper">
-                        {banners.map((item, i) => (
-                            <div key={i} className="gym-banner">
-                                <img src={item} alt="Gym" className="gym-banner-img" />
-                            </div>
-                        ))}
-                    </div>
-                </div> */}
                 <div className='event-banner-container'>
                     <h2 className='event-banner-heading'>Ongoing Events</h2>
                     <div className="event-banner-carousel">

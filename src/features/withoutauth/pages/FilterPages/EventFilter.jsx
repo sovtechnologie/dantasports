@@ -9,6 +9,8 @@ import { useFetchEvent } from "../../../../hooks/EventList/useFetchEvents.js";
 import { useQueryClient } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 import { VenueListShimmer } from "../../components/Shimmer/VenueListShimmer.jsx";
+import { useUnlikeEvent } from "../../../../hooks/favouriteEvent/useUnLikeEvent.js";
+import { useLikeEvent } from "../../../../hooks/favouriteEvent/useLikeEvent.js";
 
 
 
@@ -31,18 +33,7 @@ function formatTime(timeStr = "00:00") {
     });
 }
 
-const events = Array.from({ length: 12 }, (_, i) => ({
-    id: i + 1,
-    name: "Kothaligad Fireflies Trek 2025 | Adventure Geek",
-    rating: 4.7,
-    RatingCount: 173,
-    price: '₹1000 onwards',
-    offer: 'Upto 50% off',
-    location: "Karjat Junction, Karjat",
-    date: "22 Jun – 23 Jun | 6AM -10PM",
-    image: eventImage, // Use a sample image path
-    sportIcon: sportIcon,
-}));
+
 
 export default function EventFilterPage() {
     const userId = useSelector((state) => state.auth.id);
@@ -60,6 +51,49 @@ export default function EventFilterPage() {
         type: 1
     }
     const { data: AllEventdata, isLoading, isError, error } = useFetchEvent(payload);
+    const likeEvent = useLikeEvent();
+    const unlikeEvent = useUnlikeEvent();
+
+    const toggleFavourite = (event) => {
+        const eventId = event.id;
+        const type = event?.type;
+        console.log("toggle")
+
+        setEventList((prevList) =>
+            prevList.map((v) =>
+                v.id === eventId ? { ...v, favourite: !v.favourite } : v
+            )
+        );
+
+        if (!event.favourite) {
+            likeEvent.mutate({ eventId, userId: userId ,type}, {
+                onSuccess: async () => {
+                    await queryClient.invalidateQueries(['EventList', userId || null]);
+                },
+                onError: () => {
+                    setEventList((prevList) =>
+                        prevList.map((v) =>
+                            v.id === eventId ? { ...v, favourite: false } : v
+                        )
+                    );
+                },
+            });
+        } else {
+            unlikeEvent.mutate({ favouriteEventId: event.favourite_event_id }, {
+                onSuccess: async () => {
+                    await queryClient.invalidateQueries(['EventList', userId || null]);
+                },
+                onError: () => {
+                    setEventList((prevList) =>
+                        prevList.map((v) =>
+                            v.id === eventId ? { ...v, favourite: true } : v
+                        )
+                    );
+                },
+            });
+        }
+    };
+
 
     const handleReset = () => {
         setSearch('');
@@ -95,17 +129,20 @@ export default function EventFilterPage() {
                             id: evt.id,
                             name: evt.event_title,
                             rating: evt.rating ?? 0,
+                            type:evt?.event_type,
                             RatingCount: evt.ratingCount ?? 0,
                             price: `₹${parseInt(evt.lowest_ticket_price)} onwards`,
                             offer: evt.offer ?? 'No offer',
+                            favourite: evt?.favourite,
+                            favourite_event_id:evt?.favourite_event_id,
                             location: `${evt.locations[0]?.area}, ${evt.locations[0]?.city}` || '',
                             date: `${new Date(evt.start_date).toLocaleDateString('en-GB', {
                                 day: '2-digit', month: 'short'
                             })} – ${new Date(evt.end_date).toLocaleDateString('en-GB', {
                                 day: '2-digit', month: 'short'
                             })} | ${formatTime(evt.start_time)}‑${formatTime(evt.end_time.slice(0, 5))}`,
-                            image: evt.desktop_image ||eventImage,
-                            sportIcon: evt.sports|| ''
+                            image: evt.desktop_image || eventImage,
+                            sportIcon: evt.sports || ''
                         };
 
                         return (
@@ -113,6 +150,8 @@ export default function EventFilterPage() {
                             <EventCard
                                 key={evt.id}
                                 event={formattedEvent}
+                                isLiked={formattedEvent.favourite}
+                                onLikeToggle={() => toggleFavourite(evt)}
                             />
 
                         );

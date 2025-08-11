@@ -9,9 +9,11 @@ import { useBanner } from '../../../hooks/useBanner.js';
 
 
 const BookingPopupCard = ({
- bookingId
+  bookingId,
+  amount,
+  merchantTransactionId
 }) => {
-   
+
   const bookingData = [];
   const pageNo = 4;
 
@@ -19,12 +21,10 @@ const BookingPopupCard = ({
 
 
   const {
-    referenceNumber,
     hostName = "Mohitpal",
-    amount = "123",
     paymentMethod = "Gpay",
     paymentTime = "12,2,10129",
-    location= "Delhi",
+    location = "Delhi",
     date = "12,2,30",
     time = "233.344",
   } = bookingData;
@@ -87,16 +87,25 @@ const BookingPopupCard = ({
 
         <div className="popup-events">
           <h4>Explore Nearby Events</h4>
-          <div className="event-cards">
-            {banners.slice(0,2).map((item, i) => (
+          {/* <div className="event-cards">
+            {banners?.map((item, i) => (
               <div className={`event-card ${i > 0 ? 'hide-on-mobile' : ''}`} key={i}>
                 <img src={item.banner_image} alt="Event" onError={(e) => (e.target.src = Banner)} />
               </div>
             ))}
+          </div> */}
+          <div className="event-banner-carousel">
+            <div className="event-banner-track">
+              {banners.concat(banners).map((item, i) => ( // Duplicate for seamless looping
+                <div key={i} className="event-banner">
+                  <img src={item.banner_image} alt="Event" className="event-banner-img" />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
         <div className='button-wrapper'>
-          <button className="home-btn" >BACK TO HOME</button>
+          <button className="home-btn"  >BACK TO HOME</button>
         </div>
       </div>
     </div>

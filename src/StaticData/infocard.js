@@ -26,25 +26,25 @@ const carddata = [
     title: "Coach",
     subtitle: ["Find Your Coach", "Train with Experts", "Skills Start Here"],
     image: Coach,
-    route: "/CommingSoon",
+    route: "/Coach",
   },
   {
     title: "Run",
     subtitle: ["Run Clubs Near You", "Community Runs", "Club Up.Run Free."],
     image: Run,
-    route: "/CommingSoon",
+    route: "/Run",
   },
   {
     title: "Event",
     subtitle: ["Explore Fitness Events", "Sweat in Style", "Join the Movement"],
     image: Event,
-    route: "/CommingSoon",
+    route: "/Events",
   },
   {
     title: "Gym",
     subtitle: ["Discover Nearby Gyms", "Flex Gym Access", "Book. Burn. Build."],
     image: Gym,
-    route: "/CommingSoon",
+    route: "/Gym",
   },
 ];
 
