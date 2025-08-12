@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import "./Stylesheets/CheckoutPricing.css";
 import CouponModal from "./CoupanModal";
 
-const CheckoutPricing = ({ totalPrice, convenienceFee = 10 }) => {
+const CheckoutPricing = ({ totalPrice, convenienceFee, type }) => {
   const [insuranceSelected, setInsuranceSelected] = useState(false);
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
   const [discount, setDiscount] = useState(null);
-  const [couponDetails,setCouponDetails] = useState('');
+  const [couponDetails, setCouponDetails] = useState('');
 
   // const basePrice = totalPrice;
   // const insuranceFee = 20;
@@ -19,12 +19,15 @@ const CheckoutPricing = ({ totalPrice, convenienceFee = 10 }) => {
 
   // Calculate subtotal before discount
   const subtotal =
-    basePrice + convenienceFee + (insuranceSelected ? insuranceFee : 0);
+    basePrice +
+    (basePrice > 0 ? convenienceFee : 0) +
+    (insuranceSelected ? insuranceFee : 0);
+
 
   // Calculate final total after discount
-  const totalAmount = Math.max(subtotal - (discount || 0), 0); 
+  const totalAmount = Math.max(subtotal - (discount || 0), 0);
 
-    console.log("discount and price",discount);
+  console.log("discount and price", discount);
   return (
     <div className="checkout-box">
       <div className="row">
@@ -52,7 +55,7 @@ const CheckoutPricing = ({ totalPrice, convenienceFee = 10 }) => {
         <span>Apply coupon</span>
         <span className="arrow">›</span>
       </div>
-      <span>{discount},{couponDetails.name}</span>
+      {discount && (<span>{discount},{couponDetails.name}</span>)}
       <div className="total">
         <span>Total amount</span>
         <span className="total-amount">₹{totalAmount}</span>
@@ -61,7 +64,7 @@ const CheckoutPricing = ({ totalPrice, convenienceFee = 10 }) => {
       <CouponModal
         isOpen={isCouponModalOpen}
         onClose={() => setIsCouponModalOpen(false)}
-        type={2}
+        type={type}
         totalAmount={totalAmount}
         onApply={({ coupon, apiResponse }) => {
           console.log("Applied coupon:", coupon);
