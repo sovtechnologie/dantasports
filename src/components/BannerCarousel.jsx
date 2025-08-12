@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import './StyleSheets/EventCarousel.css'; // Assuming you have a CSS file for styling
+import './StyleSheets/BannerCarousel.css'; // Assuming you have a CSS file for styling
 import Banner1 from "../assets/EventBanner/Banner1.png";
 import { useBanner } from '../hooks/useBanner';
 
 
-function EventCarousel() {
+function BannerCarouse() {
  const [currentIndex, setCurrentIndex] = useState(0);
   const pageNo = 1; // Pass dynamic page number as needed
   const { data: bannerData, isLoading, error } = useBanner(pageNo);
@@ -61,4 +61,4 @@ function EventCarousel() {
   );
 }
 
-export default EventCarousel;
+export default BannerCarouse;

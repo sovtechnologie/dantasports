@@ -1,16 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import './StyleSheets/VenueCarousel.css';
+import styled from './StyleSheets/EventCarousal.module.css';
 import leftArrow from "../assets/VenueImage/left-arrow.png";
 import rightArrow from "../assets/VenueImage/right-arrow.png";
 import cursorArrow from "../assets/cursorArrow.png";
-import { useFetchVenue } from '../hooks/VenueList/useFetchVenue.js';
-import VenueCardHome from './VenueCardHome.jsx';
 import { getUserLocation } from '../utils/getUserLocation.js';
+import { useFetchEvent } from '../hooks/EventList/useFetchEvents.js';
+import HomeEventCard from './HomeEventCard.jsx';
 
-const VenueCarousel = () => {
+// Formats "15:00", "15:00:30" → "03:00 PM"
+function formatTime(timeStr = "00:00") {
+    if (!timeStr) return "";  // Return an empty string or suitable default
+
+    const parts = timeStr.split(':');
+    const h = Number(parts[0] || 0);
+    const m = Number(parts[1] || 0);
+    const s = parts.length > 2 ? Number(parts[2]) : 0;
+
+    const dt = new Date();
+    dt.setHours(h, m, s);
+
+    return dt.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+    });
+}
+
+const EventCarousel = () => {
     const [index, setIndex] = useState(0);
-    const [coords, setCoords] = useState({ lat: null, lng: null, userId:null });
+    const [coords, setCoords] = useState({ lat: null, lng: null, type: 1, userId: null });
     const [lastClicked, setLastClicked] = useState(null); // 'prev' | 'next' | null
     const [hoveredArrow, setHoveredArrow] = useState(null); // 'prev' | 'next' | null
     const visibleCount = 4;
@@ -20,12 +39,12 @@ const VenueCarousel = () => {
         async function fetchLongLat() {
             const { lat, lng } = await getUserLocation();
             console.log("my lat and long", lat, lng);
-            setCoords({ lat, lng });
+            setCoords({ lat, lng, type: 1, userId: null });
         }
         fetchLongLat();
     }, []);
 
-    const { data, isLoading, error } = useFetchVenue(coords);
+    const { data, isLoading, error } = useFetchEvent(coords);
 
     const venues = data?.result || [];
 
@@ -55,20 +74,20 @@ const VenueCarousel = () => {
 
 
     return (
-        <div className="venue-section-container">
-            <div className="venues-header">
-                <h3>Book Venues</h3>
-                <Link to="/venue" className="see-all">
+        <div className={styled.eventsectioncontainer}>
+            <div className={styled.eventsheader}>
+                <h3>Book Event</h3>
+                <Link to="/Events" className={styled.seeall}>
                     See All
                     <img src={cursorArrow} style={{ marginLeft: "8px", width: "auto" }} alt='cursorArrow' />
                 </Link>
             </div>
 
-            <div className="venue-carousel-wrapper">
+            <div className={styled.eventcarouselwrapper}>
                 <div
-                    className="venue-carousel-track"
+                    className={styled.eventcarouseltrack}
                 >
-                    {venues.slice(index, index + visibleCount).map((venue, i) => {
+                    {venues.slice(index, index + visibleCount).map((evt, i) => {
                         let extraClass = "";
                         if (hoveredArrow === "prev" && i === 0 && index > 0) {
                             extraClass = "hover-effect";
@@ -76,23 +95,36 @@ const VenueCarousel = () => {
                         if (hoveredArrow === "next" && i === visibleCount - 1 && index < venues.length - visibleCount) {
                             extraClass = "hover-effect";
                         }
+                        const formattedEvent = {
+                            id: evt.id,
+                            name: evt.event_title,
+                            rating: evt.rating ?? 0,
+                            type: evt?.event_type,
+                            RatingCount: evt.ratingCount ?? 0,
+                            price: `₹${parseInt(evt.lowest_ticket_price)} onwards`,
+                            offer: evt.offer ?? 'No offer',
+                            favourite: evt?.favourite,
+                            favourite_event_id: evt?.favourite_event_id,
+                            location: `${evt.locations[0]?.area}, ${evt.locations[0]?.city}` || '',
+                            date: `${new Date(evt.start_date).toLocaleDateString('en-GB', {
+                                day: '2-digit', month: 'short'
+                            })} – ${new Date(evt.end_date).toLocaleDateString('en-GB', {
+                                day: '2-digit', month: 'short'
+                            })} | ${formatTime(evt.start_time)}‑${formatTime(evt.end_time.slice(0, 5))}`,
+                            image: evt.desktop_image ,
+                            sportIcon: evt.sports || ''
+                        };
+
                         return (
 
-                            <VenueCardHome
-                                key={venue.id}
-                                id={venue.id}
-                                name={venue.venue_name}
-                                rating={venue.average_rating || 0} // If your API has no rating, use a static or calculated value
-                                reviews={venue.review_count || 0} // Similarly, static if not provided
-                                distance="1.2 km" // You could calculate from lat/lng
-                                sports={venue?.sports} // Use real sports if available
-                                image={venue.cover_image}
-                                className={extraClass}
+                            <HomeEventCard
+                                key={evt.id}
+                                event={formattedEvent}
                             />
                         );
                     })}
                 </div>
-                <div className="venue-nav">
+                <div className={styled.eventnav}>
                     <button
                         onClick={prev}
                         disabled={index === 0}
@@ -115,4 +147,4 @@ const VenueCarousel = () => {
     );
 };
 
-export default VenueCarousel;
+export default EventCarousel;

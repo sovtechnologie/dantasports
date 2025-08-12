@@ -20,6 +20,7 @@ import rightArrow from "../assets/right-arrow.png";
 
 
 
+
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';

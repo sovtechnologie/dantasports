@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "./Stylesheets/CheckoutPricing.css";
+import CouponModal from "./CoupanModal";
 
 const CheckoutPricing = () => {
   const [insuranceSelected, setInsuranceSelected] = useState(false);
+  const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
   const basePrice = 1290;
   const convenienceFee = 100;
   const insuranceFee = 20;
@@ -31,7 +33,9 @@ const CheckoutPricing = () => {
         </label>
         <span>₹{insuranceFee}</span>
       </div>
-      <div className="coupon">
+      <div className="coupon"
+        onClick={() => setIsCouponModalOpen(true)}
+        style={{ cursor: "pointer" }}>
         <span>Apply coupon</span>
         <span className="arrow">›</span>
       </div>
@@ -39,6 +43,12 @@ const CheckoutPricing = () => {
         <span>Total amount</span>
         <span className="total-amount">₹{totalAmount}</span>
       </div>
+      {/* Coupon Modal */}
+      <CouponModal
+        isOpen={isCouponModalOpen}
+        onClose={() => setIsCouponModalOpen(false)}
+        type={2}
+      />
     </div>
   );
 };
