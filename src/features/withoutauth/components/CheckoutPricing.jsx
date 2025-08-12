@@ -2,16 +2,29 @@ import React, { useState } from "react";
 import "./Stylesheets/CheckoutPricing.css";
 import CouponModal from "./CoupanModal";
 
-const CheckoutPricing = () => {
+const CheckoutPricing = ({ totalPrice, convenienceFee = 10 }) => {
   const [insuranceSelected, setInsuranceSelected] = useState(false);
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
-  const basePrice = 1290;
-  const convenienceFee = 100;
+  const [discount, setDiscount] = useState(null);
+  const [couponDetails,setCouponDetails] = useState('');
+
+  // const basePrice = totalPrice;
+  // const insuranceFee = 20;
+
+  // const totalAmount =
+  //   basePrice + convenienceFee + (insuranceSelected ? insuranceFee : 0);
+
+  const basePrice = totalPrice;
   const insuranceFee = 20;
 
-  const totalAmount =
+  // Calculate subtotal before discount
+  const subtotal =
     basePrice + convenienceFee + (insuranceSelected ? insuranceFee : 0);
 
+  // Calculate final total after discount
+  const totalAmount = Math.max(subtotal - (discount || 0), 0); 
+
+    console.log("discount and price",discount);
   return (
     <div className="checkout-box">
       <div className="row">
@@ -39,6 +52,7 @@ const CheckoutPricing = () => {
         <span>Apply coupon</span>
         <span className="arrow">›</span>
       </div>
+      <span>{discount},{couponDetails.name}</span>
       <div className="total">
         <span>Total amount</span>
         <span className="total-amount">₹{totalAmount}</span>
@@ -48,6 +62,13 @@ const CheckoutPricing = () => {
         isOpen={isCouponModalOpen}
         onClose={() => setIsCouponModalOpen(false)}
         type={2}
+        totalAmount={totalAmount}
+        onApply={({ coupon, apiResponse }) => {
+          console.log("Applied coupon:", coupon);
+          console.log("Server says:", apiResponse);
+          setCouponDetails(coupon);
+          setDiscount(apiResponse?.discount_amount);
+        }}
       />
     </div>
   );

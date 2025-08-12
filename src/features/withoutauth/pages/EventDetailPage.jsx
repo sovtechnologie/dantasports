@@ -103,6 +103,7 @@ export default function EventDetailPage() {
     const [selectedArea, setSelectedArea] = useState('');
     const [selectedDate, setSelectedDate] = useState(null);
     const [openModal, setOpenModal] = useState(false);
+    const [totalPrice, setTotalPrice] = useState(null);
 
     const toggleSection = (sectionName) => {
         setExpandedSection(prev => (prev === sectionName ? null : sectionName));
@@ -137,7 +138,7 @@ export default function EventDetailPage() {
 
     const { data: eventPrice, isLoading: eventPriceLoading, error: eventPriceError } = useFetchSingleEventPrice(id);
     const EventPrice = eventPrice?.result || [];
-    console.log("in event details price", EventPrice)
+    const ConvenienceFee = EventPrice[0]?.convension_fees;
     const { data: bannerData, isLoading: Bannerloading, error: BannerError } = useBanner(3);
 
     const banners = bannerData?.result || [];
@@ -332,12 +333,13 @@ export default function EventDetailPage() {
                                 tickets={EventPrice[0]?.tickets}
                                 counts={ticketCounts}
                                 onChange={handleTicketChange}
+                                setTotalPrice={setTotalPrice}
                             />
                         </div>
 
                         <div className="event-right-section">
                             <div className="event-heading">Price details</div>
-                            <CheckoutPricing />
+                            <CheckoutPricing totalPrice={totalPrice} convenienceFee={ConvenienceFee} />
                         </div>
 
                         <div className="event-right-section-button">
@@ -366,7 +368,7 @@ export default function EventDetailPage() {
                     </div>
                 </div>
 
-                
+
                 <div className='event-banner-container'>
                     <h2 className='event-banner-heading'>Ongoing Events</h2>
                     <div className="event-banner-carousel">

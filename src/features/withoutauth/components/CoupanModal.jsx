@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styles from "./Stylesheets/CouponModal.module.css";
 import { useFetchCoupan } from "../../../hooks/Coupans/useFetchCoupan";
+import { useApplyCoupan } from "../../../hooks/Coupans/useApplyCoupan";
+import { useSelector } from "react-redux";
 
 const mapCoupanData = (apiData) => {
     // Format discount text based on type
@@ -37,7 +39,8 @@ const mapCoupanData = (apiData) => {
 
 
 
-export default function CouponModal({ isOpen, onClose,type }) {
+export default function CouponModal({ isOpen, onClose, type, totalAmount ,onApply }) {
+    const userId = useSelector((state) => state.auth?.id);
     const [selected, setSelected] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
     const { data: coupanlistdata } = useFetchCoupan({ type: type })
@@ -50,6 +53,34 @@ export default function CouponModal({ isOpen, onClose,type }) {
     const filteredCoupons = coupons?.filter(coupon =>
         coupon?.name?.toLowerCase().includes(searchTerm.toLowerCase())
     );
+    const { mutateAsync: applyCoupan, isLoading, error } = useApplyCoupan();
+
+    // Handle Apply button click
+    const handleApply = async () => {
+        if (!selected) return;
+        const couponToApply = coupons.find((c) => c.id === selected);
+        if (!couponToApply) return;
+
+        const payload = {
+            userId,
+            totalAmount,
+            couponCode: couponToApply.name,
+            sportsIdArrays: couponToApply.sportsIds,
+            type,
+        };
+
+        try {
+            const response = await applyCoupan(payload);
+             if (onApply) onApply({ coupon: couponToApply, apiResponse: response?.result[0] });
+            onClose();
+        } catch (e) {
+            console.error("Failed to apply coupon", e);
+        }
+    };
+
+
+
+
     if (!isOpen) return null;
 
 
@@ -60,37 +91,37 @@ export default function CouponModal({ isOpen, onClose,type }) {
             <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.inputWrapper}>
                     <input
-                    type="text"
-                    placeholder="Enter Coupon"
-                    className={styles.couponInput}
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    style={{ paddingRight: "24px" }}
-                />
-                {searchTerm && (
-                    <button
-                        onClick={() => setSearchTerm("")}
-                        style={{
-                            position: "absolute",
-                            right: "50%",
-                            top: "40%",
-                            transform: "translateY(-50%)",
-                            background: "transparent",
-                            border: "none",
-                            fontSize: "20px",
-                            cursor: "pointer",
-                            color: "#666",
-                            padding: 0,
-                            lineHeight: 1,
-                        }}
-                        aria-label="Clear search"
-                        type="button"
-                    >
-                        &times;
-                    </button>
-                )}
+                        type="text"
+                        placeholder="Enter Coupon"
+                        className={styles.couponInput}
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        style={{ paddingRight: "24px" }}
+                    />
+                    {searchTerm && (
+                        <button
+                            onClick={() => setSearchTerm("")}
+                            style={{
+                                position: "absolute",
+                                right: "50%",
+                                top: "40%",
+                                transform: "translateY(-50%)",
+                                background: "transparent",
+                                border: "none",
+                                fontSize: "20px",
+                                cursor: "pointer",
+                                color: "#666",
+                                padding: 0,
+                                lineHeight: 1,
+                            }}
+                            aria-label="Clear search"
+                            type="button"
+                        >
+                            &times;
+                        </button>
+                    )}
                 </div>
-                
+
 
                 {/* Scrollable area */}
                 <div className={styles.couponList}>
@@ -126,9 +157,14 @@ export default function CouponModal({ isOpen, onClose,type }) {
 
                 </div>
 
-                <button className={styles.applyBtn} onClick={onClose}>
-                    APPLY
+                <button
+                    className={styles.applyBtn}
+                    onClick={handleApply}
+                    disabled={!selected || isLoading}
+                    aria-disabled={!selected || isLoading}>
+                    {isLoading ? "Applying..." : "APPLY"}
                 </button>
+                {error && <p className={styles.errorText}>Failed to apply coupon. Please try again.</p>}
             </div>
         </div>
 

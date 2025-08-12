@@ -1,16 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Stylesheets/TicketSelector.css';
 
-const tickets = [
-  { id: 1, label: '5Km Run', price: 999 },
-  { id: 2, label: '10Km Run', price: 999 },
-  { id: 3, label: '15Km Run', price: 999 },
-  { id: 4, label: '20Km Run', price: 999 },
-];
-
-const TicketSelector = ({ tickets, counts, onChange }) => {
+const TicketSelector = ({ tickets, counts, onChange,setTotalPrice }) => {
  
-console.log(tickets,"my tickets")
  const handleIncrement = (index) => {
     const updated = [...counts];
     updated[index]++;
@@ -24,6 +16,16 @@ console.log(tickets,"my tickets")
       onChange(updated);
     }
   };
+
+
+   // Calculate total price inside useEffect to avoid infinite loops
+  useEffect(() => {
+    const totalPrice = tickets?.reduce((total, ticket, idx) => {
+      return total + ticket.price * (counts[idx] || 0);
+    }, 0);
+    setTotalPrice(totalPrice);
+    console.log("my event price", totalPrice);
+  }, [counts, tickets, setTotalPrice]);
 
   return (
     <div className="ticket-box">
