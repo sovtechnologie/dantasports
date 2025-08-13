@@ -2,7 +2,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 60px 120px;
+  padding: clamp(1rem, -0.2555rem + 7.2993vw, 5rem)
+    clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
   background-color: white;
   flex-wrap: wrap;
   position: relative;
@@ -13,9 +14,9 @@
 .text-content {
   max-width: 700px;
   z-index: 2;
-  margin-top: -200px;
+  /* margin-top: -200px; */
   /* Remove if you want it flush with the top */
-  padding-top: 20px;
+  /* padding-top: 20px; */
   /* Add some space from the top if needed */
   display: flex;
   flex-direction: column;
@@ -25,7 +26,7 @@
 .text-content > *:not(:last-child) {
   margin-bottom: 18px;
   /* Adjust as needed for spacing between tagline, heading, subtext, buttons */
-  height: 60px;
+  /* height: 60px; */
 }
 
 .tagline {
@@ -33,15 +34,18 @@
   font-weight: 600;
   font-size: 28px;
   line-height: 39.2px;
+  font-size: clamp(1rem, 0.7646rem + 1.0949vw, 1.75rem);
   letter-spacing: 0;
   color: #172a39;
-  margin-top: 60px;
+  /* margin-top: 60px; */
+  margin: 0px;
 }
 
 .heading {
   font-family: "Lato", Arial, sans-serif;
   font-weight: 700;
   font-size: 50px;
+  font-size: clamp(2rem, 1.6469rem + 1.6423vw, 3.125rem);
   line-height: 70px;
   letter-spacing: 0;
   color: #1163c7;
@@ -52,7 +56,8 @@
 .subtext {
   font-family: "DM Sans", Arial, sans-serif;
   font-weight: 600;
-  font-size: 28px;
+  font-size: clamp(1rem, 0.7646rem + 1.0949vw, 1.75rem);
+  
   line-height: 39.2px;
   letter-spacing: 0;
   color: #172a39;
@@ -62,6 +67,7 @@
     transform 0.4s;
   white-space: normal;
   word-break: break-word;
+  height: 60px;
 }
 .subtext-animate {
   opacity: 0;
@@ -72,6 +78,7 @@
   display: flex;
   gap: 16px;
   margin-top: 30px;
+  max-height: 60px !important;
 }
 
 .google-btn,
@@ -80,23 +87,24 @@
   align-items: center;
   gap: 8px;
   text-decoration: none;
-  padding: 10px 20px;
+  padding: clamp(0.8rem, 0.7567rem + 0.2015vw, 0.938rem)
+    clamp(1rem, 0.7646rem + 1.0949vw, 1.75rem);
   border-radius: 9999px;
   font-weight: 600;
-  font-size: 15px;
+  /* font-size: 15px; */
+  font-size: clamp(0.75rem, 0.7007rem + 0.2632vw, 0.9375rem);
   line-height: 28px;
   letter-spacing: 0;
-  height: 40px;
-  width: 137px;
+  max-height: 60px !important;
+  max-width: 177px;
   font-family: "Poppins";
   justify-content: center;
-
-
+  min-width: 120px;
 }
-.apple-btn img{
+.apple-btn img {
   width: 25px;
 }
-.google-btn img{
+.google-btn img {
   width: 25px;
 }
 .google-btn {
@@ -140,8 +148,8 @@
 }
 
 .big-blob {
-  width: 340px;
-  height: 340px;
+  width: clamp(11.25rem, 8.1113rem + 14.5985vw, 21.25rem);
+  height: clamp(11.25rem, 8.1113rem + 14.5985vw, 21.25rem);
   background-color: #1163c7;
   border-radius: 50%;
   top: 136px;
@@ -231,10 +239,11 @@
 @media (max-width: 768px) {
   .download-app-section {
     flex-direction: column;
-    padding: 40px 20px;
+    padding: 20px 20px;
     align-items: center;
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+    margin-top: 20px;
   }
 
   .text-content {
