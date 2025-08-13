@@ -86,13 +86,28 @@ export default function GymDetailPage() {
         setExpandedSection(prev => (prev === sectionName ? null : sectionName));
     };
 
-    const [selectedPass, setSelectedPass] = useState('');
+    const [selectedPass, setSelectedPass] = useState(null);
     const [quantity, setQuantity] = useState(0);
 
-    const handleSelect = (e) => setSelectedPass(e.target.value);
+    // const handleSelect = (e) => setSelectedPass(e.target.value);
+    const handleSelect = (e) => {
+        const selectedValue = e.target.value;
+        const selectedItem = GymPrice[0]?.gym_price_slot?.find(
+            (item) => item.passes_name === selectedValue
+        );
+        if (selectedItem) {
+            setSelectedPass({
+                name: selectedItem.passes_name,
+                price: selectedItem.price
+            });
+            setQuantity(0);
+        }
+    }
 
     const decrement = () => setQuantity(q => Math.max(0, q - 1));
     const increment = () => setQuantity(q => q + 1);
+    const totalAmount = selectedPass ? selectedPass.price * quantity : 0;
+
 
     const prev = () => setStart((prev) => Math.max(prev - 1, 0));
     const next = () =>
@@ -108,11 +123,12 @@ export default function GymDetailPage() {
     const gym = Array.isArray(GymDetails?.result) && GymDetails?.result.length > 0
         ? mapGymData(GymDetails?.result[0])
         : '';
-    
+
     const { data: gymPrice, isLoading: gymPriceLoading, error: gymPriceError } = useFetchGymPrice(id);
     const GymPrice = gymPrice?.result || [];
+    const ConvenienceFee = GymPrice[0]?.convension_fees;
     console.log("gym details", GymPrice[0]?.gym_price_slot);
-    
+
     const { data: bannerData, isLoading: Bannerloading, error: BannerError } = useBanner(3);
 
     const banners = bannerData?.result || [];
@@ -289,7 +305,7 @@ export default function GymDetailPage() {
 
                         <div className="gym-right-section">
                             <div className="gym-heading">Location</div>
-                             <div className="gym-right-section-p"><p>{gym?.address}</p></div>
+                            <div className="gym-right-section-p"><p>{gym?.address}</p></div>
                             <div className="gym-map">
                                 <CustomMap latitude={93.40166} longitude={62.90311} />
                             </div>
@@ -302,7 +318,7 @@ export default function GymDetailPage() {
                                     <label>Passes*</label>
                                     <select
                                         className="dropdown"
-                                        value={selectedPass}
+                                        value={selectedPass?.name || ""}
                                         onChange={handleSelect}
                                     >
                                         <option value="" disabled>Select Passes</option>
@@ -325,7 +341,7 @@ export default function GymDetailPage() {
 
                         <div className="gym-right-section">
                             <div className="gym-heading">Price details</div>
-                            <CheckoutPricing />
+                            <CheckoutPricing totalPrice={totalAmount} convenienceFee={ConvenienceFee} type={3} />
                         </div>
 
                         <div className="gym-right-section-button">
@@ -348,7 +364,7 @@ export default function GymDetailPage() {
                         <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
                         <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
                     </div>
-                   
+
                 </div>
 
                 {/* Banners sections */}

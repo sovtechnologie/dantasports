@@ -339,7 +339,7 @@ export default function EventDetailPage() {
 
                         <div className="event-right-section">
                             <div className="event-heading">Price details</div>
-                            <CheckoutPricing totalPrice={totalPrice} convenienceFee={ConvenienceFee} />
+                            <CheckoutPricing totalPrice={totalPrice} convenienceFee={ConvenienceFee} type={2} />
                         </div>
 
                         <div className="event-right-section-button">
