@@ -6,7 +6,7 @@ export const useCreatePayment = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (bookingId) => createPayment(bookingId),
+    mutationFn: (bookingId) => createPayment({ bookingId }),
     onSuccess: (data, bookingId) => {
       console.log("Payment created for booking:", bookingId, data);
 

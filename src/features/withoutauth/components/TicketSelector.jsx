@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './Stylesheets/TicketSelector.css';
 
-const TicketSelector = ({ tickets, counts, onChange,setTotalPrice }) => {
- 
- const handleIncrement = (index) => {
+const TicketSelector = ({ tickets, counts, onChange, setTotalPrice, setTickets }) => {
+
+  const handleIncrement = (index) => {
     const updated = [...counts];
     updated[index]++;
     onChange(updated);
@@ -18,14 +18,21 @@ const TicketSelector = ({ tickets, counts, onChange,setTotalPrice }) => {
   };
 
 
-   // Calculate total price inside useEffect to avoid infinite loops
+  // Calculate total price inside useEffect to avoid infinite loops
   useEffect(() => {
     const totalPrice = tickets?.reduce((total, ticket, idx) => {
       return total + ticket.price * (counts[idx] || 0);
     }, 0);
     setTotalPrice(totalPrice);
-    console.log("my event price", totalPrice);
-  }, [counts, tickets, setTotalPrice]);
+    // 2️⃣ Build tickets array for backend
+    const selectedTickets = tickets?.map((ticket, idx) => ({
+      ticketsId: ticket.id, // make sure this matches backend field name
+      quantity: counts[idx] || 0
+    }))
+      .filter(t => t.quantity > 0); // send only selected ones
+
+    setTickets(selectedTickets);
+  }, [counts, tickets, setTotalPrice, setTickets]);
 
   return (
     <div className="ticket-box">
@@ -36,7 +43,7 @@ const TicketSelector = ({ tickets, counts, onChange,setTotalPrice }) => {
             <span className="ticket-price">₹{ticket.price}/Person</span>
           </div>
           <div className="ticket-counter">
-            <button onClick={() =>  handleDecrement(index)}>-</button>
+            <button onClick={() => handleDecrement(index)}>-</button>
             <span>{counts[index]}</span>
             <button onClick={() => handleIncrement(index)}>+</button>
           </div>

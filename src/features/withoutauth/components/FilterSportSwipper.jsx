@@ -8,7 +8,7 @@ import 'swiper/css/navigation';
 
 
 
-export default function FilterSportSwipper({ SportsData, selectedSport, setSelectedSport }) {
+export default function FilterSportSwipper({ SportsData, selectedSport, setSelectedSport, setSportId }) {
     return (
         <Swiper
             modules={[Pagination, Grid, Navigation]}
@@ -27,7 +27,10 @@ export default function FilterSportSwipper({ SportsData, selectedSport, setSelec
             {SportsData.map((sport, id) => (
                 <SwiperSlide key={id}>
                     <div className={`sport-item ${selectedSport === sport.sports_name ? 'active-sport' : ''}`}
-                        onClick={() => setSelectedSport(sport.sports_name)}>
+                        onClick={() => {
+                            setSelectedSport(sport.sports_name)
+                            setSportId(sport.id)
+                        }}>
                         <img src={sport.sports_images} alt={sport.sports_name} />
                         <p className='filter-sport-name'>{sport.sports_name}</p>
                     </div>

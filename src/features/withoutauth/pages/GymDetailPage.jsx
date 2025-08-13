@@ -13,16 +13,14 @@ import { useMemo, useState } from "react";
 import CustomMap from "../components/CustomMap";
 import CheckoutPricing from "../components/CheckoutPricing";
 import ReviewCard from "../components/ReviewCard";
-import bannerImage1 from "../../../assets/EventBanner/Banner1.png";
-import bannerImage2 from "../../../assets/EventBanner/Banner2.png";
 import { useParams } from "react-router-dom";
 import { useFetchGymDetail } from "../../../hooks/GymList/useFetchGymDetails";
-import { formatTime } from "../../../utils/formatTime";
-import { formatDate } from "date-fns";
+import { useBookGym } from "../../../hooks/GymList/useBookGym";
 import { useBanner } from "../../../hooks/useBanner";
 import { useFetchGymPrice } from "../../../hooks/GymList/useFetchGymPrice";
 import leftArrow from "../assets/left-arrow.png";
 import rightArrow from "../assets/right-arrow.png";
+import { useCreateVenueBooking } from "../../../hooks/BookingVenue/useCreateVenueBooking";
 
 
 
@@ -88,6 +86,8 @@ export default function GymDetailPage() {
 
     const [selectedPass, setSelectedPass] = useState(null);
     const [quantity, setQuantity] = useState(0);
+    const [passess, setPassess] = useState([{ passId: null, quantity: null }])
+    const [bookingId , setBookingId]  = useState(null);
 
     // const handleSelect = (e) => setSelectedPass(e.target.value);
     const handleSelect = (e) => {
@@ -101,11 +101,27 @@ export default function GymDetailPage() {
                 price: selectedItem.price
             });
             setQuantity(0);
+            // also update passess with passId and quantity
+            setPassess({
+                passId: selectedItem.id, // assuming `id` exists in the object
+                quantity: 0
+            });
         }
     }
 
-    const decrement = () => setQuantity(q => Math.max(0, q - 1));
-    const increment = () => setQuantity(q => q + 1);
+    const decrement = () => setQuantity(q => {
+        const newQty = Math.max(0, q - 1);
+        setPassess(prev => ({ ...prev, quantity: newQty }));
+        return newQty;
+    });
+
+    const increment = () => setQuantity(q => {
+        const newQty = q + 1;
+        setPassess(prev => ({ ...prev, quantity: newQty }));
+        return newQty;
+    });
+
+    console.log("passes", passess);
     const totalAmount = selectedPass ? selectedPass.price * quantity : 0;
 
 
@@ -178,6 +194,32 @@ export default function GymDetailPage() {
     //     };
     //   }
     // });
+
+    const {
+        mutate: BookGym,
+        isLoading: bookingLoading,
+        error: bookingError
+    } = useBookGym();
+
+    const handleProceed = () => {
+        const bookingPayload = {
+            isInsuranceSelected: true,
+            gymId: 1,
+            passess: [passess]
+        }
+
+
+        BookGym(bookingPayload, {
+            onSuccess: (data) => {
+                const id = data?.result;
+                setBookingId(id);
+                // setBookingId(data?.result?.insertId);
+                console.log("My Booking Id", data?.result);
+            },
+            onError: (error) => alert('Booking failed. ' + (error.message || '')),
+        });
+
+    }
 
     return (
         <>
@@ -345,7 +387,7 @@ export default function GymDetailPage() {
                         </div>
 
                         <div className="gym-right-section-button">
-                            <button className="gym-btn" >Proceed</button>
+                            <button className="gym-btn" onClick={handleProceed}>Proceed</button>
                         </div>
 
 

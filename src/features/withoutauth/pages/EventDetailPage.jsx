@@ -17,6 +17,7 @@ import { useBanner } from "../../../hooks/useBanner";
 import { useFetchSingleEventPrice } from "../../../hooks/EventList/useFetchEventPrice";
 import leftArrow from "../assets/left-arrow.png";
 import rightArrow from "../assets/right-arrow.png";
+import { useBookEvent } from "../../../hooks/EventList/useBookEvent";
 
 
 
@@ -101,9 +102,11 @@ export default function EventDetailPage() {
 
     const [expandedSection, setExpandedSection] = useState(null);
     const [selectedArea, setSelectedArea] = useState('');
+    const [locationId, setLocationId] = useState(null);
     const [selectedDate, setSelectedDate] = useState(null);
-    const [openModal, setOpenModal] = useState(false);
     const [totalPrice, setTotalPrice] = useState(null);
+    const [bookingId, setBookingId] = useState(null);
+    const [tickets,setTickets] = useState({ ticketsId: null, quantity: null })
 
     const toggleSection = (sectionName) => {
         setExpandedSection(prev => (prev === sectionName ? null : sectionName));
@@ -112,15 +115,43 @@ export default function EventDetailPage() {
     const [ticketCounts, setTicketCounts] = useState(
         Array(initialTickets.length).fill(0)
     );
+    console.log("tickets quentity",tickets);
 
     const handleTicketChange = (updatedCounts) => {
         setTicketCounts(updatedCounts);
         console.log('Ticket Counts:', updatedCounts);
     };
+    const {
+        mutate: BookEvent,
+        isLoading: bookingLoading,
+        error: bookingError
+    } = useBookEvent();
 
-    const handleBookPop = () => {
-        setOpenModal(true);
+
+    const handleBookEvent = () => {
+
+        const bookingPayload = {
+            locationId: 1,
+            bookingDate: "12-10-2024",
+            eventId: 1,
+            tickets: [
+                { ticketsId: 1, quantity: 1 },
+            ]
+        }
+
+
+        BookEvent(bookingPayload, {
+            onSuccess: (data) => {
+                const id = data?.result;
+                setBookingId(id);
+                // setBookingId(data?.result?.insertId);
+                console.log("My Booking Id", data?.result);
+            },
+            onError: (error) => alert('Booking failed. ' + (error.message || '')),
+        });
+
     }
+    console.log("eventBookingId", bookingId);
 
     const [start, setStart] = useState(0);
     const prev = () => setStart((prev) => Math.max(prev - 1, 0));
@@ -334,6 +365,7 @@ export default function EventDetailPage() {
                                 counts={ticketCounts}
                                 onChange={handleTicketChange}
                                 setTotalPrice={setTotalPrice}
+                                setTickets={setTickets}
                             />
                         </div>
 
@@ -343,13 +375,8 @@ export default function EventDetailPage() {
                         </div>
 
                         <div className="event-right-section-button">
-                            <button className="event-btn" onClick={handleBookPop}>Book Tickets</button>
+                            <button className="event-btn" onClick={handleBookEvent}>Book Tickets</button>
                         </div>
-                        {
-                            openModal ? (
-                                <BookingPopupCard />
-                            ) : ""
-                        }
 
                     </div>
                 </div>

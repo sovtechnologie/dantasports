@@ -9,6 +9,7 @@ import rightArrow from "../assets/right-arrow.png";
 import data from "../StaticData/infocard.js";
 import InfoCard from './InfoCard';
 import searchlogo from "../assets/Search.png";
+import { getUserLocation } from '../utils/getUserLocation.js';
 
 
 const headings = [
@@ -25,13 +26,21 @@ const Hero = () => {
   const [startIndex, setStartIndex] = useState(0);
   const [hoveredArrow, setHoveredArrow] = useState(null); // 'left' | 'right' | null
   const [visibleCount, setVisibleCount] = useState(4);
-  const [searchTerm, setSearchTerm] = useState("");
-  // const visibleCount = 4;
+  const [coords, setCoords] = useState({ lat: null, lng: null,});
   const totalCards = data.carddata.length;
   const [predictions, setPredictions] = useState([]);
   const [search, setSearch] = useState("");
   const [service, setService] = useState(null);
   const inputRef = useRef(null);
+
+   useEffect(() => {
+          async function fetchLongLat() {
+              const { lat, lng } = await getUserLocation();
+              console.log("my lat and long", lat, lng);
+              setCoords({ lat, lng });
+          }
+          fetchLongLat();
+      }, []);
 
   useEffect(() => {
     const loadPlaces = async () => {
@@ -43,25 +52,82 @@ const Hero = () => {
     loadPlaces();
   }, []);
 
-  const handleInput = (e) => {
-    const value = e.target.value;
-    setSearch(value);
+  // const handleInput = (e) => {
+  //   const value = e.target.value;
+  //   setSearch(value);
 
-    if (value && service) {
-      service.getPlacePredictions(
-        {
-          input: value,
-          componentRestrictions: { country: "in" },
-          types: ["(cities)"], // Or "geocode"
-        },
-        (preds) => {
-          setPredictions(preds || []);
+  //   if (value && service) {
+  //     service.getPlacePredictions(
+  //       {
+  //         input: value,
+  //         componentRestrictions: { country: "in" },
+  //         types: ["(cities)"], // Or "geocode"
+  //       },
+  //       (preds) => {
+  //         setPredictions(preds || []);
+  //       }
+  //     );
+  //   } else {
+  //     setPredictions([]);
+  //   }
+  // };
+
+  useEffect(() => {
+  async function fetchLongLatAndCity() {
+    const { lat, lng } = await getUserLocation();
+    setCoords({ lat, lng });
+
+    // Fetch city name from Google Geocoding API
+    const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+    if (lat && lng && apiKey) {
+      try {
+        const res = await fetch(
+          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`
+        );
+        const data = await res.json();
+        if (data.status === "OK" && data.results.length > 0) {
+          // Find city name
+          const cityComponent = data.results[0].address_components.find(comp =>
+            comp.types.includes("locality")
+          );
+          const cityName = cityComponent
+            ? cityComponent.long_name
+            : data.results[0].formatted_address;
+
+          setSearch(cityName); // ✅ Auto-fill the search input
         }
-      );
-    } else {
-      setPredictions([]);
+      } catch (err) {
+        console.error("Error fetching city:", err);
+      }
     }
-  };
+  }
+
+  fetchLongLatAndCity();
+}, []);
+
+
+  const handleInput = (e) => {
+  const value = e.target.value;
+  setSearch(value);
+
+  if (value && service && coords.lat && coords.lng) {
+    service.getPlacePredictions(
+      {
+        input: value,
+        componentRestrictions: { country: "in" },
+        location: new window.google.maps.LatLng(coords.lat, coords.lng),
+        radius: 50000, // 50 km
+        types: ["(cities)"],
+      },
+      (preds) => {
+        setPredictions(preds || []);
+      }
+    );
+  } else {
+    setPredictions([]);
+  }
+};
+
 
   const handleSelect = (prediction) => {
     setSearch(prediction.description);
@@ -83,75 +149,6 @@ const Hero = () => {
     );
   };
 
-  //   useEffect(() => {
-  //   const initAutocomplete = async () => {
-  //     await googleMapsLoader.importLibrary("maps");
-  //     await googleMapsLoader.importLibrary("places");
-
-  //     if (window.google && inputRef.current) {
-  //       const autocomplete = new window.google.maps.places.Autocomplete(
-  //         inputRef.current,
-  //         {
-  //           types: ["(cities)"],
-  //           componentRestrictions: { country: "in" },
-  //         }
-  //       );
-
-  //       autocomplete.addListener("place_changed", () => {
-  //         const place = autocomplete.getPlace();
-  //         if (!place.geometry) return;
-
-  //         const lat = place.geometry.location.lat();
-  //         const lng = place.geometry.location.lng();
-
-  //         console.log("Selected Place:", place.formatted_address || place.name);
-  //         console.log("Latitude:", lat);
-  //         console.log("Longitude:", lng);
-
-  //         setSearchTerm(place.formatted_address || place.name);
-  //       });
-  //     }
-  //   };
-
-  //   initAutocomplete();
-  // }, []);
-
-  //  useEffect(() => {
-  //   const initAutocomplete = async () => {
-
-  //     // Make sure base google object exists
-  //     await  googleMapsLoader.importLibrary("maps");
-  //     // Load Places API
-  //     await  googleMapsLoader.importLibrary("places");
-  //     console.log("search",inputRef.current)
-
-  //     if (window.google && inputRef.current) {
-  //       const autocomplete = new window.google.maps.places.Autocomplete(
-  //         inputRef.current,
-  //         {
-  //           types: ["(cities)"], // or 'geocode'
-  //           componentRestrictions: { country: "in" },
-  //         }
-  //       );
-
-  //       autocomplete.addListener("place_changed", () => {
-  //         const place = autocomplete.getPlace();
-  //         if (!place.geometry) return;
-
-  //         const lat = place.geometry.location.lat();
-  //         const lng = place.geometry.location.lng();
-
-  //         console.log("Selected Place:", place.formatted_address || place.name);
-  //         console.log("Latitude:", lat);
-  //         console.log("Longitude:", lng);
-
-  //         setSearchTerm(place.formatted_address || place.name);
-  //       });
-  //     }
-  //   };
-
-  //   initAutocomplete();
-  // }, []);
 
   useEffect(() => {
     const handleResize = () => {

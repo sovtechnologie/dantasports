@@ -1,4 +1,5 @@
 import styled from "./StyleSheets/UpcommingVenue.module.css";
+import Cookies from "js-cookie";
 import { useGetAllBooking } from "../hooks/BookingVenue/useGetAllBooking";
 import UpCommingCard from "./UpCommingCard";
 import { useState } from "react";
@@ -22,12 +23,13 @@ function formatTime(timeStr, durationMinutes) {
 }
 
 export const UpcommingVenues = () => {
+    const token = Cookies.get("token");
     const [index, setIndex] = useState(0);
     const [lastClicked, setLastClicked] = useState(null); // 'prev' | 'next' | null
     const [hoveredArrow, setHoveredArrow] = useState(null); // 'prev' | 'next' | null
     const visibleCount = 3;
 
-    const { data: Bookingdata, isLoading, isError } = useGetAllBooking();
+    const { data: Bookingdata, isLoading, isError } = useGetAllBooking(!!token);
     const venues = Bookingdata?.result || [];
     
 

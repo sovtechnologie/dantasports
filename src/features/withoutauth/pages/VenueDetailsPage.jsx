@@ -34,6 +34,7 @@ import { useSportDetails } from '../../../hooks/favouriteSport/useSportDetails.j
 import { CheckoutModal } from '../../auth/components/Modal/CheckOutModal.jsx';
 import ConfirmSlotCard from '../components/ConfirmSlotCard.jsx';
 import CheckoutPricing from '../components/CheckoutPricing.jsx';
+import { useCreateVenueBooking } from '../../../hooks/BookingVenue/useCreateVenueBooking.js';
 
 
 
@@ -44,6 +45,12 @@ export const formatDate = (isoString) => {
         month: 'short',
         year: 'numeric',
     });
+};
+
+const getLocalIsoDate = date => {
+    const d = new Date(date);
+    d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+    return d.toISOString().split('T')[0];
 };
 
 
@@ -209,7 +216,6 @@ function VenueDetailsPage() {
 
 
     const handleSportClick = (sportId) => {
-        console.log("Selected Sport ID:", sportId);
         setSelectedSportId(sportId);
     };
 
@@ -235,7 +241,41 @@ function VenueDetailsPage() {
         }
     }
 
-   
+    const {
+        mutate: createBooking,
+        isLoading: bookingLoading,
+        error: bookingError
+    } = useCreateVenueBooking();
+    const timeRead = selectedTime?.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+    });
+
+    const bookVenue = (courtId) => {
+        setSelectedPitch(courtId);
+
+        // const bookingPayload = {
+        //     sportId: selectedSportId,
+        //     venueId: 1,
+        //     date: getLocalIsoDate(selectedDate),
+        //     startTime: timeRead,
+        //     duration: selectedDuration,
+        //     courtId: selectedPitch,
+        // };
+
+        // createBooking(bookingPayload, {
+        //     onSuccess: (data) => {
+        //         const id = data?.result?.insertId;
+        //         setBookingId(id);
+        //         // setBookingId(data?.result?.insertId);
+        //         console.log("My Booking Id", data?.result?.insertId);
+        //     },
+        //     onError: (error) => alert('Booking failed. ' + (error.message || '')),
+        // });
+    };
+
+
 
     const [start, setStart] = useState(0);
 
@@ -252,7 +292,7 @@ function VenueDetailsPage() {
 
 
 
-    console.log("my review", venue.reviews);
+
 
 
 
@@ -344,12 +384,12 @@ function VenueDetailsPage() {
                                     <span className="note">(Click on sports to view price chart)</span>
                                 </div>
                                 <div className="sports-grid">
-                                    {venue.sports.map((sport) => (
+                                    {venue?.sports?.map((sport) => (
                                         <button
                                             className="sport-card"
                                             key={sport.name}
                                             type="button"
-                                            onClick={() => handleSportClick(sport.sportId)}
+                                            onClick={() => handleSportClick(sport?.sportId)}
                                         >
                                             <img src={sport.icon} alt={sport.name} />
                                             <p>{sport.name}</p>
@@ -369,7 +409,6 @@ function VenueDetailsPage() {
 
                     </div>
                     <div className="venue-right">
-
 
 
 
@@ -432,7 +471,7 @@ function VenueDetailsPage() {
                                             key={court.id}
                                             type="button"
                                             className={`vb-pitch-btn ${selectedPitch === court.id ? 'active' : ''}`}
-                                            onClick={() => setSelectedPitch(court.id)}
+                                            onClick={() => bookVenue(court.id)}
                                         >
                                             {court.court_name}
                                         </button>

@@ -98,6 +98,7 @@ export default function EventDetailPage() {
     const [selectedDate, setSelectedDate] = useState(null);
     const [openModal, setOpenModal] = useState(false);
     const [totalPrice, setTotalPrice] = useState(null);
+    const [tickets, setTickets] = useState({ ticketsId: null, quantity: null })
 
     const toggleSection = (sectionName) => {
         setExpandedSection(prev => (prev === sectionName ? null : sectionName));
@@ -106,6 +107,7 @@ export default function EventDetailPage() {
     const [ticketCounts, setTicketCounts] = useState(
         Array(initialTickets.length).fill(0)
     );
+  console.log("run ticket",tickets)
 
     const handleTicketChange = (updatedCounts) => {
         setTicketCounts(updatedCounts);
@@ -260,7 +262,7 @@ export default function EventDetailPage() {
                             </div>
                         </div>
 
-                        
+
                     </div>
 
 
@@ -307,12 +309,13 @@ export default function EventDetailPage() {
                                 counts={ticketCounts}
                                 onChange={handleTicketChange}
                                 setTotalPrice={setTotalPrice}
+                                setTickets={setTickets}
                             />
                         </div>
 
                         <div className="event-right-section">
                             <div className="event-heading"><strong>Price details</strong></div>
-                             <CheckoutPricing totalPrice={totalPrice} convenienceFee={ConvenienceFee}  type={2}/>
+                            <CheckoutPricing totalPrice={totalPrice} convenienceFee={ConvenienceFee} type={2} />
                         </div>
 
                         <div className="event-right-section-button">
@@ -328,19 +331,19 @@ export default function EventDetailPage() {
                 </div>
 
                 <div className="event-review">
-                            <div className="event-review-heading">Rating & Reviews</div>
-                            <div className="event-review-container">
-                                {event?.reviews?.slice(start, start + visibleCount).map((review) => (
-                                    <ReviewCard key={review.id} review={review} />
-                                ))}
-                            </div>
-                            <div className="carousel-buttons">
-                                <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
-                                <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
-                            </div>
-                        </div>
+                    <div className="event-review-heading">Rating & Reviews</div>
+                    <div className="event-review-container">
+                        {event?.reviews?.slice(start, start + visibleCount).map((review) => (
+                            <ReviewCard key={review.id} review={review} />
+                        ))}
+                    </div>
+                    <div className="carousel-buttons">
+                        <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
+                        <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
+                    </div>
+                </div>
                 <Gallery gallery={event.gallery} />
-    
+
                 <div className='event-banner-container'>
                     <h2 className='event-banner-heading'>Ongoing Events</h2>
                     <div className="event-banner-carousel">

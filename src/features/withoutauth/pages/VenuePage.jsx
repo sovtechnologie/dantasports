@@ -24,6 +24,7 @@ import { useFetchVenue } from '../../../hooks/VenueList/useFetchVenue.js';
 import { useQueryClient } from '@tanstack/react-query';
 import { VenueListShimmer } from '../components/Shimmer/VenueListShimmer.jsx';
 import { useSortVenue } from '../../../hooks/SortAndFilter/useSortVenue.js';
+import { useFilterVenue } from '../../../hooks/SortAndFilter/useFilterVenue.js';
 import { getUserLocation } from '../../../utils/getUserLocation.js';
 
 
@@ -33,6 +34,13 @@ const sortOptions = [
     { id: 3, label: "Favorites" },
     { id: 4, label: "Price: Low to High" }
 ];
+
+const formatTimeHHMMSS = (timeStr) => {
+    if (!timeStr) return "";
+    const date = new Date(`1970-01-01T${timeStr}`);
+    return date.toLocaleTimeString("en-GB", { hour12: false }); // "HH:mm:ss"
+};
+
 
 
 function formatDate(dateStr) {
@@ -68,6 +76,7 @@ function VenuePage() {
     const queryClient = useQueryClient();
     const [venueList, setVenueList] = useState([]);
     const [selectedSport, setSelectedSport] = useState(null);
+    const [selectedSportId, setSelectedSportId] = useState(null);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [selectedTime, setSelectedTime] = useState(null);
     const [filteredData, setFilteredData] = useState([]);
@@ -111,6 +120,7 @@ function VenuePage() {
     const likeVenue = useLikeVenue();
     const unlikeVenue = useUnlikeVenue();
     const sortVenue = useSortVenue();
+    const FilterVenue = useFilterVenue();
     const userId = useSelector((state) => state.auth?.id);
 
     const toggleFavourite = (venue) => {
@@ -277,8 +287,42 @@ function VenuePage() {
         });
     };
 
+    // State for filtered venues
+    const [filteredVenues, setFilteredVenues] = useState([]);
+
+    const filterVenues = (sportId, date, time) => {
+        if (!sportId || !date || !time) return;
+
+        const formattedTime = formatTimeHHMMSS(time);
+        console.log("Filtering with:", { sportsId: sportId, date: date, time: time });
+
+        try {
+            FilterVenue.mutate({ sportsId: sportId, date: date, time: formattedTime }, {
+                onSuccess: (data) => {
+                    if (Array.isArray(data?.result)) {
+                        setVenueList(data?.result);
+                    } else {
+                        queryClient.invalidateQueries(['venueList', userId || null]);
+                    }
+                },
+                onError: err => console.error("filter failed:", err)
+            });
+        } catch (err) {
+            console.error("Location error:", err);
+        }
+
+        // Replace with real API
+
+    };
+
+    useEffect(() => {
+        filterVenues(selectedSportId, selectedDate, selectedTime);
+    }, [selectedSport, selectedDate, selectedTime]);
+
+
     const handleReset = () => {
         setSelectedSport(null);
+        setSelectedSportId(null);
         setSelectedDate(new Date());
         setSelectedTime(null);
         setSearchQuery("")
@@ -290,6 +334,7 @@ function VenuePage() {
         }
     }, [AllVenuedata]);
     console.log("venueList", venueList)
+
 
 
     if (isLoading) return <div> <VenueListShimmer /></div>;
@@ -396,6 +441,7 @@ function VenuePage() {
                                                     SportsData={paginatedSports}
                                                     selectedSport={selectedSport}
                                                     setSelectedSport={setSelectedSport}
+                                                    setSportId={setSelectedSportId}
                                                 />
 
                                             </div>

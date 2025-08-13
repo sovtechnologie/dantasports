@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../stylesheets/layouts/Home.css"; // Assuming you have a CSS file for styling
 import Hero from "../components/Hero";
 import PopularSports from "../components/PopularSports";
@@ -12,15 +12,17 @@ import { UpcommingVenues } from "../components/UpcommingVenue";
 
 
 const Home = () => {
+     const [coords, setCoords] = useState({ lat: null, lng: null,});  
+
     return (
         <div className="main-Home-container">
-            <Hero />
+            <Hero setCoords={setCoords} />
             <PopularSports />
             <BannerCarousel />
             <UpcommingVenues />
-            <VenueCarousel />
-            <EventCarousel />
-            <RunCarousel />
+            <VenueCarousel coords={coords} />
+            <EventCarousel coords={coords} />
+            <RunCarousel  coords={coords}/>
             {/*
                 
                 <CoachCarousal />

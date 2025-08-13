@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./Stylesheets/CheckoutPricing.css";
 import CouponModal from "./CoupanModal";
+import toggleIcon from "../assets/toggleIcon.png";
 
-const CheckoutPricing = ({ totalPrice, convenienceFee, type }) => {
+const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10 }) => {
   const [insuranceSelected, setInsuranceSelected] = useState(false);
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
   const [discount, setDiscount] = useState(null);
@@ -31,11 +32,19 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type }) => {
   return (
     <div className="checkout-box">
       <div className="row">
-        <span>Passes price x 10</span>
+        <div style={{ display:"flex",justifyContent:"space-between" ,gap:"20px"}}>
+           <span>Passes price x {count}</span>
+           <img src={toggleIcon} alt="toggleicon" style={{ height: "15px", width: "15px" }} />
+        </div>
+       
         <span>₹{basePrice}</span>
       </div>
       <div className="row">
-        <span>Convenience fee</span>
+        <div style={{ display:"flex",justifyContent:"space-between" ,gap:"20px"}}>
+          <span>Convenience fee</span>
+          <img src={toggleIcon} alt="toggleicon" style={{ height: "15px", width: "15px" }} />
+        </div>
+
         <span>₹{convenienceFee}</span>
       </div>
       <div className="row insurance-row">

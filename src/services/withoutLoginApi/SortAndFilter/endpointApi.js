@@ -11,3 +11,13 @@ export const Sort = async (payload) => {
         throw error;
     }
 }
+
+export const venueFilter = async(payload) =>{
+    try {
+        const response = await api.post("user/home/getAvailableVenue",payload);
+        return response?.data;
+    } catch (error) {
+        console.error("Failed to Filter venues", error);
+        throw error;
+    }
+}
