@@ -1,7 +1,7 @@
 
 .mainEvent-carousel-container{
   background-color: #ffffff;
-  padding: 0px 100px;
+    padding: 0px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
 }
 
 .Eventcarousel-container {
@@ -23,18 +23,20 @@
 
 }
 
+
 .Eventcarousel-slide {
- min-width: calc(50% - 13px);
+ /* min-width: calc(50% - 13px); */
   /* Show 2 slides at a time */
   box-sizing: border-box;
 
 }
 
 .Eventcarousel-image{
-  width: 100%;
+  /* width: 100%; */
   border-radius: 16px;
   object-fit: cover;
-  width: 612px;
+  /* width: 612px; */
+  width: 330px;
 }
 
 .Eventcarousel-dots {
@@ -56,3 +58,5 @@
 .Eventdot.active {
   background: #409eff;
 }
+
+

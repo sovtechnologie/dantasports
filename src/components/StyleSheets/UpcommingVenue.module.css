@@ -9,8 +9,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
-  margin-top: 60px;
+  margin-bottom: 2rem;
+ /* margin-top: 60px; */
+  margin-top: clamp(0.625rem, -0.1974rem + 4.386vw, 3.75rem);
   flex-wrap: wrap;
 }
 
@@ -21,6 +22,8 @@
   line-height: 130%;
   letter-spacing: -1%;
   color: #172a39;
+    /* margin: 20px 0px; */
+  margin: 0px;
 }
 
 .eventcarouselwrapper {
@@ -93,7 +96,7 @@
   }
 
   .eventsheader {
-    flex-direction: column;
+    /* flex-direction: column; */
     align-items: flex-start;
     position: relative;
     gap: 0.5rem;
@@ -104,7 +107,7 @@
     line-height: 120%;
   }
   .seeall {
-    position: absolute;
+    /* position: absolute; */
     top: 28px;
     right: 0;
     font-size: 18px;

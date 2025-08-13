@@ -1,18 +1,20 @@
 /* VenueCarousel.css */
 
 .eventsectioncontainer {
-  padding: 0px 100px;
+  padding: 0px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
   font-family: "Inter", sans-serif;
   background-color: #fff;
   overflow: hidden;
+  margin-top: 40px;
 }
 
 .eventsheader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
-  margin-top: 60px;
+  margin-bottom: 2rem;
+  /* margin-top: 60px; */
+  margin-top: clamp(0.625rem, -0.1974rem + 4.386vw, 3.75rem);
   flex-wrap: wrap;
 }
 
@@ -23,6 +25,8 @@
   line-height: 130%;
   letter-spacing: -1%;
   color: #172a39;
+  /* margin: 20px 0px; */
+  margin: 0px;
 }
 
 .seeall {
@@ -74,7 +78,7 @@
   transition: background-color 0.3s ease;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
-.eventnav  button img {
+.eventnav button img {
   display: flex;
 }
 .eventnav .hover-effect {
@@ -105,14 +109,13 @@
   }
 }
 
-
 @media (max-width: 768px) {
   .eventsection {
     padding: 2rem 1rem;
   }
 
   .eventsheader {
-    flex-direction: column;
+    /* flex-direction: column; */
     align-items: flex-start;
     position: relative;
     gap: 0.5rem;
@@ -123,7 +126,7 @@
     line-height: 120%;
   }
   .seeall {
-    position: absolute;
+    /* position: absolute; */
     top: 28px;
     right: 0;
     font-size: 18px;
