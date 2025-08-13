@@ -6,6 +6,7 @@ import BannerCarousel from "../components/BannerCarousel";
 import VenueCarousel from "../components/VenueCarousel";
 import DownloadAppSection from "../components/DownloadAppSection";
 import EventCarousel from "../components/EventCarousal";
+import RunCarousel from "../components/RunCarousal";
 
 
 
@@ -17,8 +18,9 @@ const Home = () => {
             <BannerCarousel />
             <VenueCarousel />
             <EventCarousel />
+            <RunCarousel />
             {/*
-                <RunCarousal />
+                
                 <CoachCarousal />
                 <GymCarousal />
             */}
