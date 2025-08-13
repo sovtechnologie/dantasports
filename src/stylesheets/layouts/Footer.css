@@ -4,17 +4,17 @@
 body {
   font-family: "Plus Jakarta Sans", sans-serif;
 }
-#root {
+/* #root {
   max-width: 1440px;
   margin: 0 auto;
-}
+} */
 .footer {
   background-color: #ffffff;
   font-family: sans-serif;
   border-top: 0.0625rem solid #eee; /* 1px */
   border-radius: clamp(1.5rem, 1.3431rem + 0.9124vw, 2rem)  clamp(1.5rem, 1.3431rem + 0.9124vw, 2rem)  0 0; /* 40px */
   box-shadow: 0 -0.25rem 1.25rem rgba(17, 99, 199, 0.25);
-  max-width: 1440px;
+  /* max-width: 1440px; */
   padding: clamp(1rem, -0.2555rem + 7.2993vw, 5rem)
    clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
   margin: 0 auto;

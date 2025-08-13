@@ -22,8 +22,8 @@ const ConfirmSlotCard = ({ onClose, onSuccess, payload }) => {
     error: bookingError
   } = useCreateVenueBooking();
 
-  const timeOnly = selectedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  const timeRead = selectedTime.toLocaleTimeString([], {
+  const timeOnly = selectedTime?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const timeRead = selectedTime?.toLocaleTimeString([], {
     hour: '2-digit',
     minute: '2-digit',
     hour12: false
@@ -70,11 +70,11 @@ const ConfirmSlotCard = ({ onClose, onSuccess, payload }) => {
         <h2>Confirm Your Slots</h2>
         <div className="slot-details">
           <p>Venue:<span>{venueName}</span></p>
-          <p>sport:<span>{selectedSport.name}</span></p>
+          <p>sport:<span>{selectedSport?.name}</span></p>
           <p>Day & Date: <span>{getLocalIsoDate(selectedDate)}</span></p>
           <p>Duration: <span>{`${selectedDuration}min`}</span></p>
           <p>Time: <span>{timeOnly}</span></p>
-          <p>Court: <span>{selectedCourt.court_name}</span></p>
+          <p>Court: <span>{selectedCourt?.court_name}</span></p>
         </div>
 
         <button className="proceed-btn"

@@ -5,7 +5,6 @@ import venueImage from "../assets/Venue-image.png";
 import cricketIcon from "../assets/VenueDetailIcon/CricketIcon.png";
 import footballIcon from "../assets/VenueDetailIcon/Footballicon.png";
 import pickleballIcon from "../assets/VenueDetailIcon/BatmintonIcon.png";
-import reviews from "../StaticData/ReviewRatingData.js";
 import PriceChart from '../components/PriceChart.jsx';
 import ReviewCard from '../components/ReviewCard.jsx';
 import Calendar from '../components/Calendar.jsx';
@@ -74,7 +73,6 @@ function VenueCheckoutPage() {
     const location = useLocation();
     const sportIdFromLink = location.state?.sportId;
     const pageNo = 3;
-    const [imageIndex, setImageIndex] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedSportId, setSelectedSportId] = useState(null);
     const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
@@ -84,7 +82,6 @@ function VenueCheckoutPage() {
     const [selectedTime, setSelectedTime] = useState(null);
     const [selectedDuration, setSelectedDuration] = useState(1);
     const [selectedPitch, setSelectedPitch] = useState('');
-    const [slideInterval, setSlideInterval] = useState(null);
     const [bookingId, setBookingId] = useState(null);
     const [start, setStart] = useState(0);
     const [errors, setErrors] = useState({

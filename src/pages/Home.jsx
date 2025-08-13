@@ -7,6 +7,7 @@ import VenueCarousel from "../components/VenueCarousel";
 import DownloadAppSection from "../components/DownloadAppSection";
 import EventCarousel from "../components/EventCarousal";
 import RunCarousel from "../components/RunCarousal";
+import { UpcommingVenues } from "../components/UpcommingVenue";
 
 
 
@@ -16,6 +17,7 @@ const Home = () => {
             <Hero />
             <PopularSports />
             <BannerCarousel />
+            <UpcommingVenues />
             <VenueCarousel />
             <EventCarousel />
             <RunCarousel />

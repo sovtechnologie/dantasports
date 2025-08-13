@@ -22,6 +22,9 @@
   display: flex;
   justify-content: center;
 }
+.swiper-slide {
+  height: fit-content;
+}
 
 .sport-button {
   display: flex;

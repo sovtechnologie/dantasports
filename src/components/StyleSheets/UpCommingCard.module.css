@@ -1,0 +1,52 @@
+.booking_card_container {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid #dcdcdc;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  margin: 1rem 0;
+  background-color: white;
+  width: 500px;
+  height: fit-content;
+  /* transition: transform 0.2s ease-in-out; */
+}
+
+
+
+.booking_card_image {
+  width: 40%;
+  object-fit: cover;
+}
+
+.booking_card_details {
+  flex: 1;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.booking_title {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: #222;
+}
+
+.booking_type {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 0.8rem;
+}
+
+.booking_date_time {
+  font-size: 0.95rem;
+  margin-bottom: 0.3rem;
+  color: #333;
+}
+
+.booking_ref {
+  font-size: 0.85rem;
+  color: #aaa;
+  margin-bottom: 1rem;
+}

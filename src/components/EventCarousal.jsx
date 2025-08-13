@@ -84,9 +84,7 @@ const EventCarousel = () => {
             </div>
 
             <div className={styled.eventcarouselwrapper}>
-                <div
-                    className={styled.eventcarouseltrack}
-                >
+                <div  className={styled.eventcarouseltrack} >
                     {venues.slice(index, index + visibleCount).map((evt, i) => {
                         let extraClass = "";
                         if (hoveredArrow === "prev" && i === 0 && index > 0) {

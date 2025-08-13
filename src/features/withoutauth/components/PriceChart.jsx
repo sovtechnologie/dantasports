@@ -57,7 +57,7 @@ function transformPriceChartData(apiData) {
   return apiData.result.map(court => {
     const slots = court.time_slots.map(slot => {
       const dayLabel = groupDays(getDaysFromSlot(slot));
-      const time = `${formatTime(slot.start_time)} – ${formatTime(slot.end_time)}`;
+      const time = `${formatTime(slot?.start_time)} – ${formatTime(slot?.end_time)}`;
       const price = `₹${slot.price}/Hr`;
       return { day: dayLabel, time, price };
     });
@@ -74,7 +74,7 @@ function transformPriceChartData(apiData) {
 
 
 
-function PriceChart({ onClose, venueId, sportId }) {
+function PriceChart({venueId, sportId }) {
 
   const [showNoDataMessage, setShowNoDataMessage] = useState(false);
   const { data, isLoading, error } = useSportPriceChart(sportId, venueId);
@@ -109,12 +109,10 @@ function PriceChart({ onClose, venueId, sportId }) {
 
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()} >
+   
         <div className="price-chart">
           <div className="header">
             <h2>Price Chart</h2>
-            <span className="close-icon" onClick={onClose}>✕</span>
           </div>
           <p className="notes">Pricing is subjected to change and is controlled by venue</p>
 
@@ -138,8 +136,6 @@ function PriceChart({ onClose, venueId, sportId }) {
           </div>
 
         </div>
-      </div>
-    </div>
   )
 }
 

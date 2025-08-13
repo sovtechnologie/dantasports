@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import "./StyleSheets/Hero.css"; // Assuming you have a CSS file for styling
+
+import { googleMapsLoader } from "../utils/locationSearch.js"
 import leftCharacters from "../assets/heroImages/character-left.png";
 import rightCharacters from "../assets/heroImages/character-right.png"
 import leftArrow from "../assets/left-arrow.png";
@@ -26,6 +28,130 @@ const Hero = () => {
   const [searchTerm, setSearchTerm] = useState("");
   // const visibleCount = 4;
   const totalCards = data.carddata.length;
+  const [predictions, setPredictions] = useState([]);
+  const [search, setSearch] = useState("");
+  const [service, setService] = useState(null);
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    const loadPlaces = async () => {
+      await googleMapsLoader.importLibrary("places");
+      if (window.google) {
+        setService(new window.google.maps.places.AutocompleteService());
+      }
+    };
+    loadPlaces();
+  }, []);
+
+  const handleInput = (e) => {
+    const value = e.target.value;
+    setSearch(value);
+
+    if (value && service) {
+      service.getPlacePredictions(
+        {
+          input: value,
+          componentRestrictions: { country: "in" },
+          types: ["(cities)"], // Or "geocode"
+        },
+        (preds) => {
+          setPredictions(preds || []);
+        }
+      );
+    } else {
+      setPredictions([]);
+    }
+  };
+
+  const handleSelect = (prediction) => {
+    setSearch(prediction.description);
+    setPredictions([]);
+
+    // Optional: Get lat/lng from Place Details
+    const placesService = new window.google.maps.places.PlacesService(
+      document.createElement("div")
+    );
+    placesService.getDetails(
+      { placeId: prediction.place_id, fields: ["geometry", "formatted_address"] },
+      (place) => {
+        if (place && place.geometry) {
+          console.log("Selected:", place.formatted_address);
+          console.log("Lat:", place.geometry.location.lat());
+          console.log("Lng:", place.geometry.location.lng());
+        }
+      }
+    );
+  };
+
+  //   useEffect(() => {
+  //   const initAutocomplete = async () => {
+  //     await googleMapsLoader.importLibrary("maps");
+  //     await googleMapsLoader.importLibrary("places");
+
+  //     if (window.google && inputRef.current) {
+  //       const autocomplete = new window.google.maps.places.Autocomplete(
+  //         inputRef.current,
+  //         {
+  //           types: ["(cities)"],
+  //           componentRestrictions: { country: "in" },
+  //         }
+  //       );
+
+  //       autocomplete.addListener("place_changed", () => {
+  //         const place = autocomplete.getPlace();
+  //         if (!place.geometry) return;
+
+  //         const lat = place.geometry.location.lat();
+  //         const lng = place.geometry.location.lng();
+
+  //         console.log("Selected Place:", place.formatted_address || place.name);
+  //         console.log("Latitude:", lat);
+  //         console.log("Longitude:", lng);
+
+  //         setSearchTerm(place.formatted_address || place.name);
+  //       });
+  //     }
+  //   };
+
+  //   initAutocomplete();
+  // }, []);
+
+  //  useEffect(() => {
+  //   const initAutocomplete = async () => {
+
+  //     // Make sure base google object exists
+  //     await  googleMapsLoader.importLibrary("maps");
+  //     // Load Places API
+  //     await  googleMapsLoader.importLibrary("places");
+  //     console.log("search",inputRef.current)
+
+  //     if (window.google && inputRef.current) {
+  //       const autocomplete = new window.google.maps.places.Autocomplete(
+  //         inputRef.current,
+  //         {
+  //           types: ["(cities)"], // or 'geocode'
+  //           componentRestrictions: { country: "in" },
+  //         }
+  //       );
+
+  //       autocomplete.addListener("place_changed", () => {
+  //         const place = autocomplete.getPlace();
+  //         if (!place.geometry) return;
+
+  //         const lat = place.geometry.location.lat();
+  //         const lng = place.geometry.location.lng();
+
+  //         console.log("Selected Place:", place.formatted_address || place.name);
+  //         console.log("Latitude:", lat);
+  //         console.log("Longitude:", lng);
+
+  //         setSearchTerm(place.formatted_address || place.name);
+  //       });
+  //     }
+  //   };
+
+  //   initAutocomplete();
+  // }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -65,6 +191,9 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, []);
 
+
+
+
   return (
     <>
       <section className="hero-section">
@@ -77,12 +206,63 @@ const Hero = () => {
             <div className="hero-search">
               <div className="search-input-wrapper">
                 <img src={searchlogo} height={35} width={35} alt='searchlogo' />
-                <input
+                {/* <input
+                  ref={inputRef}
                   type="text"
                   placeholder="Search by venue, sport or location"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                />
+                /> */}
+                <div style={{ width: "100%", position: "relative" }}>
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    value={search}
+                    onChange={handleInput}
+                    placeholder="Search by venue, sport or location"
+                    style={{
+                      width: "100%",
+                      border: "none",
+                      borderRadius: "4px",
+                    }}
+                  />
+                  {predictions.length > 0 && (
+                    <ul
+                      style={{
+                        position: "absolute",
+                        top: "100%",
+                        left: 0,
+                        right: 0,
+                        background: "#fff",
+                        border: "1px solid #ccc",
+                        borderTop: "none",
+                        listStyle: "none",
+                        margin: 0,
+                        padding: 0,
+                        maxHeight: "200px",
+                        overflowY: "auto",
+                        zIndex: 9999,
+                      }}
+                    >
+                      {predictions.map((p) => (
+                        <li
+                          key={p.place_id}
+                          onClick={() => handleSelect(p)}
+                          style={{
+                            padding: "8px",
+                            cursor: "pointer",
+                            borderBottom: "1px solid #eee",
+                            color:"#333"
+                          }}
+                          onMouseEnter={(e) => (e.target.style.background = "#f0f0f0")}
+                          onMouseLeave={(e) => (e.target.style.background = "transparent")}
+                        >
+                          {p.description}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
               </div>
             </div>
 

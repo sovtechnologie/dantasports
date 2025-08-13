@@ -28,6 +28,12 @@ import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import Calendar from '../components/Calendar.jsx';
+import TimeSelector from '../components/TimeSelector.jsx';
+import { useSportDetails } from '../../../hooks/favouriteSport/useSportDetails.js';
+import { CheckoutModal } from '../../auth/components/Modal/CheckOutModal.jsx';
+import ConfirmSlotCard from '../components/ConfirmSlotCard.jsx';
+import CheckoutPricing from '../components/CheckoutPricing.jsx';
 
 
 
@@ -93,6 +99,19 @@ function VenueDetailsPage() {
     const likeVenue = useLikeVenue();
     const unlikeVenue = useUnlikeVenue();
     const [selectedSportId, setSelectedSportId] = useState(null);
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [selectedTime, setSelectedTime] = useState(null);
+    const [selectedDuration, setSelectedDuration] = useState(1);
+    const [selectedPitch, setSelectedPitch] = useState('');
+    const [selectedSport, setSelectedSport] = useState('');
+    const [showPopup, setShowPopup] = useState(false);
+    const [bookingId, setBookingId] = useState(null);
+    const [errors, setErrors] = useState({
+        sport: '',
+        date: '',
+        time: '',
+        court: '',
+    });
     const [isModalOpen, setIsModalOpen] = useState(false);
     const pageNo = 3; // Pass dynamic page number as needed
     const { data, loading, error } = useFetchSingleVenue(id, userId);
@@ -112,17 +131,76 @@ function VenueDetailsPage() {
             reviews: [],
         };
 
+    const { data: sportDetails, isLoading: sportDetailsLoading, error: sportDetailsError } = useSportDetails(selectedSport);
+    if (sportDetails && sportDetails.result) {
+        console.log("Sport Details:", sportDetails.result[0]);
+    }
+
+    const sportDetailsData = sportDetails?.result ? sportDetails.result[0] : null;
 
     const { data: bannerData, isLoading: Bannerloading, error: BannerError } = useBanner(pageNo);
 
     const banners = bannerData?.result || [];
 
 
+    const handleProceedClick = () => {
+        const newErrors = { sport: '', date: '', time: '', court: '' };
+        let hasError = false;
 
+        // 1️⃣ Date check
+        if (!selectedDate) {
+            newErrors.date = "Please select a date.";
+            hasError = true;
+
+            // 2️⃣ Sport check
+        } else if (!selectedSport) {
+            newErrors.sport = "Please select a sport.";
+            hasError = true;
+
+            // 3️⃣ Time check
+        } else if (!selectedTime) {
+            newErrors.time = "Please select a time slot.";
+            hasError = true;
+
+        } else {
+            // 4️⃣ Courts availability check
+            const courts = sportDetailsData?.courts;
+            if (!courts || courts.length === 0) {
+                newErrors.court = "No courts available for this sport/date.";
+                hasError = true;
+
+                // 5️⃣ Specific pitch selection check
+            } else if (!courts.some(c => c.id === selectedPitch)) {
+                newErrors.court = "Please select a valid court.";
+                hasError = true;
+            }
+        }
+
+        setErrors(newErrors);
+
+        if (hasError) {
+            // Clear error after 3 seconds
+            setTimeout(() => {
+                setErrors({ sport: '', date: '', time: '', court: '' });
+            }, 3000);
+            return;
+        }
+
+        // ✅ All validations passed
+        setIsModalOpen(true);
+    };
 
 
     // Replace with actual data fetching logic
 
+    const myBookingPayload = {
+        sportId: selectedSport,
+        venueId: id,
+        selectedDate: selectedDate, // or format as needed
+        selectedDuration: selectedDuration * 60,
+        selectedTime,
+        selectedPitch,
+    };
 
 
 
@@ -133,7 +211,6 @@ function VenueDetailsPage() {
     const handleSportClick = (sportId) => {
         console.log("Selected Sport ID:", sportId);
         setSelectedSportId(sportId);
-        setIsModalOpen(true);
     };
 
     const handleClickLike = (venue) => {
@@ -158,9 +235,7 @@ function VenueDetailsPage() {
         }
     }
 
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
+   
 
     const [start, setStart] = useState(0);
 
@@ -234,35 +309,7 @@ function VenueDetailsPage() {
                                 ))}
                             </Swiper>
                         </div>
-                        <div className="section">
-                            <div className="sports-wrapper">
-                                <div className="sports-header">
-                                    Sports Available
-                                    <span className="note">(Click on sports to view price chart)</span>
-                                </div>
-                                <div className="sports-grid">
-                                    {venue.sports.map((sport) => (
-                                        <button
-                                            className="sport-card"
-                                            key={sport.name}
-                                            type="button"
-                                            onClick={() => handleSportClick(sport.sportId)}
-                                        >
-                                            <img src={sport.icon} alt={sport.name} />
-                                            <p>{sport.name}</p>
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
 
-                            {/* PriceChart Model */}
-                            {isModalOpen && (
-                                <PriceChart
-                                    onClose={closeModal}
-                                    venueId={id}
-                                    sportId={selectedSportId} />
-                            )}
-                        </div>
 
                         <div className='section'>
                             <div className='sports-wrapper'>
@@ -290,15 +337,41 @@ function VenueDetailsPage() {
                             </div>
                         </div>
 
+                        <div className="section">
+                            <div className="sports-wrapper">
+                                <div className="sports-header">
+                                    Sports Available
+                                    <span className="note">(Click on sports to view price chart)</span>
+                                </div>
+                                <div className="sports-grid">
+                                    {venue.sports.map((sport) => (
+                                        <button
+                                            className="sport-card"
+                                            key={sport.name}
+                                            type="button"
+                                            onClick={() => handleSportClick(sport.sportId)}
+                                        >
+                                            <img src={sport.icon} alt={sport.name} />
+                                            <p>{sport.name}</p>
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* PriceChart Model */}
+
+                            <PriceChart
+                                venueId={id}
+                                sportId={selectedSportId || venue?.sports[0]?.sportId} />
+                        </div>
+
+
 
                     </div>
                     <div className="venue-right">
 
 
-                        {/* <div className="venue-actions">
-                            <button className="venue-action-btn" onClick={Share} ><img src={ShareIcon} alt='share' className="venue-icon" />Share</button>
-                            <button className="venue-action-btn" onClick={() => handleClickLike(venue)}><img src={venue.favourite ? HeartFilled : LikeIcon} alt='like' className="venue-icon" /> Favourite</button>
-                        </div> */}
+
 
 
 
@@ -310,30 +383,117 @@ function VenueDetailsPage() {
                                 <CustomMap latitude={venue.latitude} longitude={venue.longitude} />
                             </div>
                         </div>
+                        {/* Calendar */}
 
+                        <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
 
-
-
-                        <div className="btn-group" style={{ marginTop: "0px" }}>
-                            <Link to={`/venueCheckout/${id}#bookingnow`} style={{ textDecoration: "none", color: "inherit" }}><button className="btn-primary" >Book Now</button></Link>
-                        </div>
-
-                        <div className="venue-timing-price">
-                            <div className="sports-header">
-                                Timing
-                                <p>{venue.timing}</p>
+                        {/* Sports Selector */}
+                        <div className="vb-section">
+                            <label>Select Sports:</label>
+                            <div className="vb-sport-options">
+                                {venue.sports.map((sport) => (
+                                    <button
+                                        key={sport.sportId}
+                                        className={`vb-sport-btn ${selectedSport === sport.sportId ? 'active' : ''}`}
+                                        onClick={() => {
+                                            setSelectedSport(sport.sportId);
+                                            setSelectedDuration(1);
+                                            setSelectedTime(null);
+                                        }}
+                                    >
+                                        {sport.name}
+                                    </button>
+                                ))}
                             </div>
-                            <div className="sports-header">
-                                Price
-                                <p>₹{venue.price} onwards</p>
+                            {errors.sport && <p className="form-error">{errors.sport}</p>}
+                        </div>
+
+                        <TimeSelector
+                            selectedDate={selectedDate}
+                            selectedTime={selectedTime}
+                            setSelectedTime={setSelectedTime}
+                            selectedDuration={selectedDuration}
+                            setSelectedDuration={setSelectedDuration}
+                            sportId={selectedSport}
+
+                        />
+                        {errors.time && <p className="form-error">{errors.time}</p>}
+
+                        {/* Pitch Selection */}
+
+
+                        <div className="vb-section vb-pitch-options">
+                            <label>Court:</label>
+
+                            {selectedTime ? (
+                                sportDetailsData?.courts?.length > 0 ? (
+                                    sportDetailsData.courts.map(court => (
+                                        <button
+                                            key={court.id}
+                                            type="button"
+                                            className={`vb-pitch-btn ${selectedPitch === court.id ? 'active' : ''}`}
+                                            onClick={() => setSelectedPitch(court.id)}
+                                        >
+                                            {court.court_name}
+                                        </button>
+                                    ))
+                                ) : (
+                                    <p>No courts available for this sport/date.</p>
+                                )
+                            ) : (
+                                <p className="court-placeholder">Select a timeslots to see available courts</p>
+                            )}
+
+                            {errors.court && <p className="form-error">{errors.court}</p>}
+                        </div>
+
+                        <div className="venue-right-section">
+                            <div className="venue-heading">Price details</div>
+                            <CheckoutPricing totalPrice={1000} convenienceFee={100} type={1} />
+                        </div>
+
+                        <button className="vb-proceed-btn" onClick={handleProceedClick}>PROCEED</button>
+
+                        {isModalOpen && (
+                            <div className="modal-overlay" onClick={(e) => {
+                                // Only close if overlay itself is clicked
+                                if (e.target === e.currentTarget) {
+                                    setIsModalOpen(false);
+                                }
+                            }}>
+                                <div className="modal-content" onClick={(e) => e.stopPropagation()} >
+                                    <ConfirmSlotCard
+                                        payload={myBookingPayload} // ✅ Your payload here
+                                        onClose={() => {
+                                            setIsModalOpen(false)
+                                            setSelectedSport('');
+                                            setSelectedDuration(1);
+                                            setSelectedTime(null);
+                                            setSelectedPitch('');
+                                        }
+                                        }
+                                        onSuccess={(id) => {
+                                            // ✅ To verify
+                                            setBookingId(id)
+                                            setShowPopup(true);
+                                            setIsModalOpen(false);
+                                            setSelectedSport('');
+                                            setSelectedDuration(1);
+                                            setSelectedTime(null);
+                                            setSelectedPitch('');
+                                        }}
+                                        setBookingId={setBookingId}
+                                    />
+
+                                </div>
                             </div>
-                        </div>
+                        )}
+                        <CheckoutModal
+                            isOpen={showPopup}
+                            bookingId={bookingId}
+                            onClose={() => setShowPopup(false)}
+                        />
 
-
-                        <div className="btn-group">
-                            <Link to="/CorporateBooking" style={{ textDecoration: "none", color: "inherit" }}> <button className="btn-secondary">Corporate Booking</button>
-                            </Link>
-                        </div>
                     </div>
 
                     {venue?.reviews?.length > 0 && (
