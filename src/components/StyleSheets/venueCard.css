@@ -112,7 +112,7 @@
 
 @media (max-width: 768px) {
   .venue-card {
-    max-width: 90%;
+    max-width: 95%;
     height: auto;
     margin: 0 auto;
   }

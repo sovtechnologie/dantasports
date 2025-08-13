@@ -1,18 +1,20 @@
 /* VenueCarousel.css */
 
 .venue-section-container {
-  padding: 0px 100px;
+  padding: 0px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
   font-family: "Inter", sans-serif;
   background-color: #fff;
   overflow: hidden;
+  margin-top: 40px;
 }
 
 .venues-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
-  margin-top: 60px;
+  margin-bottom: 2rem;
+  /* margin-top: 60px; */
+  margin-top: clamp(0.625rem, -0.1974rem + 4.386vw, 3.75rem);
   flex-wrap: wrap;
 }
 
@@ -23,6 +25,8 @@
   line-height: 130%;
   letter-spacing: -1%;
   color: #172a39;
+  /* margin: 20px 0px; */
+  margin: 0px;
 }
 
 .see-all {
@@ -128,18 +132,18 @@
   }
 
   .venue-header {
-    flex-direction: column;
+    /* flex-direction: column; */
     align-items: flex-start;
     position: relative;
     gap: 0.5rem;
   }
 
-  .venue-header h3 {
+.venues-header h3 {
     font-size: 24px;
     line-height: 120%;
   }
   .see-all {
-    position: absolute;
+    /* position: absolute; */
     top: 28px;
     right: 0;
     font-size: 18px;
