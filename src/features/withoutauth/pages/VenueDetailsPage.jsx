@@ -111,6 +111,7 @@ function VenueDetailsPage() {
     const [selectedDuration, setSelectedDuration] = useState(1);
     const [selectedPitch, setSelectedPitch] = useState('');
     const [selectedSport, setSelectedSport] = useState('');
+    const [finalAmount,setFinalAmount] = useState(null);
     const [showPopup, setShowPopup] = useState(false);
     const [bookingId, setBookingId] = useState(null);
     const [errors, setErrors] = useState({
@@ -488,7 +489,12 @@ function VenueDetailsPage() {
 
                         <div className="venue-right-section">
                             <div className="venue-heading">Price details</div>
-                            <CheckoutPricing totalPrice={1000} convenienceFee={100} type={1} />
+                            <CheckoutPricing
+                                totalPrice={1000}
+                                convenienceFee={100}
+                                type={1}
+                                setFinalAmount={setFinalAmount}
+                            />
                         </div>
 
                         <button className="vb-proceed-btn" onClick={handleProceedClick}>PROCEED</button>

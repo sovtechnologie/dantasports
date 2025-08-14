@@ -18,7 +18,7 @@ import { useFetchSingleEventPrice } from "../../../hooks/EventList/useFetchEvent
 import leftArrow from "../assets/left-arrow.png";
 import rightArrow from "../assets/right-arrow.png";
 import { useBookEvent } from "../../../hooks/EventList/useBookEvent";
-import { useCreatePayment } from "../../../hooks/Payments/useCreatePayment";
+import { useCreateBookingPayment } from "../../../hooks/Payments/useCreateBookingPayement";
 
 
 
@@ -106,7 +106,7 @@ export default function EventDetailPage() {
     const [locationId, setLocationId] = useState(null);
     const [selectedDate, setSelectedDate] = useState(null);
     const [totalPrice, setTotalPrice] = useState(null);
-    const [bookingId, setBookingId] = useState(null);
+    const [finalAmount, setFinalAmount] = useState(null);
     const [tickets, setTickets] = useState({ ticketsId: null, quantity: null })
 
     const { data: EventDetails, isLoading: eventLoading, error: eventError } = useFetchSingleEvent(id);
@@ -129,7 +129,7 @@ export default function EventDetailPage() {
         console.log('Ticket Counts:', updatedCounts);
     };
 
-    const { mutate: CreatePayment, isLoading: paymentLoading } = useCreatePayment();
+    const { mutate: CreateBookingPayment, isLoading: paymentLoading } = useCreateBookingPayment();
     const {
         mutate: BookEvent,
         isLoading: bookingLoading,
@@ -160,47 +160,8 @@ export default function EventDetailPage() {
 
     // }
 
-    const handleBookEvent = () => {
-        const bookingPayload = {
-            locationId: 1,
-            bookingDate: "12-10-2024",
-            eventId: 1,
-            tickets: tickets,
-        };
 
-        BookEvent(bookingPayload, {
-            onSuccess: (data) => {
-                const bookingId = data?.result;
-                // If your API returns "insertId" or something else, change this accordingly
-                console.log("My Booking Id", bookingId);
 
-                // Call createPayment with that bookingId
-                CreatePayment({
-                    bookingId,
-                    amount: totalPrice, // example amount
-                    type: type, // or "UPI" etc.
-                }, {
-                    onSuccess: (paymentData) => {
-                        console.log("Payment created:", paymentData);
-
-                        // If API returns paymentUrl, redirect
-                        if (paymentData?.url) {
-                            window.open(paymentData.url, "_blank", "noopener,noreferrer");
-                        }
-
-                    },
-                    onError: (error) => {
-                        alert("Payment creation failed: " + (error.message || ""));
-                    },
-                });
-            },
-            onError: (error) => {
-                alert("Booking failed: " + (error.message || ""));
-            },
-        });
-    };
-
-    console.log("eventBookingId", bookingId);
 
     const [start, setStart] = useState(0);
     const prev = () => setStart((prev) => Math.max(prev - 1, 0));
@@ -220,6 +181,47 @@ export default function EventDetailPage() {
 
     const banners = bannerData?.result || [];
     console.log("eventDetail", event);
+
+
+    const handleBookEvent = () => {
+        const bookingPayload = {
+            locationId: 1,
+            bookingDate: selectedDate,
+            eventId: id,
+            tickets: tickets,
+        };
+
+        BookEvent(bookingPayload, {
+            onSuccess: (data) => {
+                const bookingId = data?.result;
+                // If your API returns "insertId" or something else, change this accordingly
+                console.log("My Booking Id", bookingId);
+
+                // Call createPayment with that bookingId
+                CreateBookingPayment({
+                    bookingId,
+                    amount: finalAmount, // example amount
+                    type: type, // or "UPI" etc.
+                }, {
+                    onSuccess: (paymentData) => {
+                        console.log("Payment created:", paymentData);
+
+                        // If API returns paymentUrl, redirect
+                        if (paymentData?.result) {
+                            window.open(paymentData.result, "_blank", "noopener,noreferrer");
+                        }
+
+                    },
+                    onError: (error) => {
+                        alert("Payment creation failed: " + (error.message || ""));
+                    },
+                });
+            },
+            onError: (error) => {
+                alert("Booking failed: " + (error.message || ""));
+            },
+        });
+    };
 
     return (
         <>
@@ -417,7 +419,11 @@ export default function EventDetailPage() {
 
                         <div className="event-right-section">
                             <div className="event-heading">Price details</div>
-                            <CheckoutPricing totalPrice={totalPrice} convenienceFee={ConvenienceFee} type={2} setTotalPrice={setTotalPrice} />
+                            <CheckoutPricing
+                                totalPrice={totalPrice}
+                                convenienceFee={ConvenienceFee}
+                                type={type}
+                                setFinalAmount={setFinalAmount} />
                         </div>
 
                         <div className="event-right-section-button">

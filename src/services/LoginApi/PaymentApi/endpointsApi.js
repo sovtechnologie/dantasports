@@ -35,3 +35,14 @@ export const CancelBooking = async (bookingId) => {
     throw error;
   }
 };
+
+
+export const CreateBookingPayment = async(payload) =>{
+  try {
+    const response  = await api.post("user/payment/createBookingPayments",payload);
+    return response?.data;
+  } catch (error) {
+    console.error("Failed to create booking payments",error);
+    throw error;
+  }
+}

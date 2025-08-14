@@ -3,7 +3,7 @@ import "./Stylesheets/CheckoutPricing.css";
 import CouponModal from "./CoupanModal";
 import toggleIcon from "../assets/toggleIcon.png";
 
-const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setTotalPrice }) => {
+const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFinalAmount }) => {
   const [insuranceSelected, setInsuranceSelected] = useState(false);
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
   const [discount, setDiscount] = useState(null);
@@ -29,10 +29,10 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setTota
   const totalAmount = Math.max(subtotal - (discount || 0), 0);
 
   useEffect(() => {
-    if (setTotalPrice) {
-      setTotalPrice(totalAmount);
+    if (totalAmount) {
+      setFinalAmount(totalAmount);
     }
-  }, []);
+  }, [setFinalAmount,totalAmount]);
 
   console.log("discount and price", discount);
   return (
