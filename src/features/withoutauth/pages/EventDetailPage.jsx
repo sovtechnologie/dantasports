@@ -70,8 +70,8 @@ const mapEventData = (apiData) => {
                 categoryId: sport.category_id
             }))
             : '',
-        latitude: apiData?.locations?.lat || 0,
-        longitude: apiData?.locations?.lng || 0,
+        latitude: apiData?.locations[0]?.lat || 0,
+        longitude: apiData?.locations[0]?.lng || 0,
         carrything: apiData?.things_to_carry,
         instruction: apiData?.instruction,
         tickets: apiData?.ticket_need_for || "10 years & above",
@@ -326,7 +326,7 @@ export default function EventDetailPage() {
                             <div className="event-heading">Location</div>
                             <div className="gym-right-section-p"><p>{event.address}</p></div>
                             <div className="venue-map">
-                                <CustomMap latitude={93.40166} longitude={62.90311} />
+                                <CustomMap latitude={event?.latitude} longitude={event?.longitude} />
                             </div>
 
                         </div>

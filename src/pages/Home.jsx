@@ -20,9 +20,9 @@ const Home = () => {
             <PopularSports />
             <BannerCarousel />
             <UpcommingVenues />
-            <VenueCarousel coords={coords} />
-            <EventCarousel coords={coords} />
-            <RunCarousel  coords={coords}/>
+            <VenueCarousel />
+            <EventCarousel/>
+            <RunCarousel />
             {/*
                 
                 <CoachCarousal />

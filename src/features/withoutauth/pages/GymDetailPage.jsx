@@ -349,7 +349,7 @@ export default function GymDetailPage() {
                             <div className="gym-heading">Location</div>
                             <div className="gym-right-section-p"><p>{gym?.address}</p></div>
                             <div className="gym-map">
-                                <CustomMap latitude={93.40166} longitude={62.90311} />
+                                <CustomMap latitude={gym?.latitude} longitude={gym?.longitude} />
                             </div>
                         </div>
 

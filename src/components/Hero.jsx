@@ -10,6 +10,8 @@ import data from "../StaticData/infocard.js";
 import InfoCard from './InfoCard';
 import searchlogo from "../assets/Search.png";
 import { getUserLocation } from '../utils/getUserLocation.js';
+import { setLocation } from '../redux/Slices/locationSlice.js';
+import { useSelector, useDispatch } from 'react-redux';
 
 
 const headings = [
@@ -20,27 +22,30 @@ const headings = [
 ];
 
 const Hero = () => {
+  const { lat, lng } = useSelector((state) => state.location);
+  const dispatch = useDispatch();
 
   const [headingIndex, setHeadingIndex] = useState(0);
   const [animate, setAnimate] = useState(false);
   const [startIndex, setStartIndex] = useState(0);
   const [hoveredArrow, setHoveredArrow] = useState(null); // 'left' | 'right' | null
   const [visibleCount, setVisibleCount] = useState(4);
-  const [coords, setCoords] = useState({ lat: null, lng: null,});
+  const [coords, setCoords] = useState({ lat: null, lng: null, });
   const totalCards = data.carddata.length;
   const [predictions, setPredictions] = useState([]);
   const [search, setSearch] = useState("");
   const [service, setService] = useState(null);
   const inputRef = useRef(null);
 
-   useEffect(() => {
-          async function fetchLongLat() {
-              const { lat, lng } = await getUserLocation();
-              console.log("my lat and long", lat, lng);
-              setCoords({ lat, lng });
-          }
-          fetchLongLat();
-      }, []);
+  useEffect(() => {
+    async function fetchLongLat() {
+      const { lat, lng } = await getUserLocation();
+      console.log("my lat and long", lat, lng);
+      setCoords({ lat, lng });
+      dispatch(setLocation({lat:lat,lng,lng}));
+    }
+    fetchLongLat();
+  }, []);
 
   useEffect(() => {
     const loadPlaces = async () => {
@@ -73,60 +78,60 @@ const Hero = () => {
   // };
 
   useEffect(() => {
-  async function fetchLongLatAndCity() {
-    const { lat, lng } = await getUserLocation();
-    setCoords({ lat, lng });
+    async function fetchLongLatAndCity() {
+      const { lat, lng } = await getUserLocation();
+      setCoords({ lat, lng });
 
-    // Fetch city name from Google Geocoding API
-    const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
-    if (lat && lng && apiKey) {
-      try {
-        const res = await fetch(
-          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`
-        );
-        const data = await res.json();
-        if (data.status === "OK" && data.results.length > 0) {
-          // Find city name
-          const cityComponent = data.results[0].address_components.find(comp =>
-            comp.types.includes("locality")
+      // Fetch city name from Google Geocoding API
+      const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+      if (lat && lng && apiKey) {
+        try {
+          const res = await fetch(
+            `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`
           );
-          const cityName = cityComponent
-            ? cityComponent.long_name
-            : data.results[0].formatted_address;
+          const data = await res.json();
+          if (data.status === "OK" && data.results.length > 0) {
+            // Find city name
+            const cityComponent = data.results[0].address_components.find(comp =>
+              comp.types.includes("locality")
+            );
+            const cityName = cityComponent
+              ? cityComponent.long_name
+              : data.results[0].formatted_address;
 
-          setSearch(cityName); // ✅ Auto-fill the search input
+            setSearch(cityName); // ✅ Auto-fill the search input
+          }
+        } catch (err) {
+          console.error("Error fetching city:", err);
         }
-      } catch (err) {
-        console.error("Error fetching city:", err);
       }
     }
-  }
 
-  fetchLongLatAndCity();
-}, []);
+    fetchLongLatAndCity();
+  }, []);
 
 
   const handleInput = (e) => {
-  const value = e.target.value;
-  setSearch(value);
+    const value = e.target.value;
+    setSearch(value);
 
-  if (value && service && coords.lat && coords.lng) {
-    service.getPlacePredictions(
-      {
-        input: value,
-        componentRestrictions: { country: "in" },
-        location: new window.google.maps.LatLng(coords.lat, coords.lng),
-        radius: 50000, // 50 km
-        types: ["(cities)"],
-      },
-      (preds) => {
-        setPredictions(preds || []);
-      }
-    );
-  } else {
-    setPredictions([]);
-  }
-};
+    if (value && service || coords.lat && coords.lng) {
+      service.getPlacePredictions(
+        {
+          input: value,
+          componentRestrictions: { country: "in" },
+          location: new window.google.maps.LatLng(coords.lat, coords.lng),
+          radius: 50000, // 50 km
+          types: ["(cities)"],
+        },
+        (preds) => {
+          setPredictions(preds || []);
+        }
+      );
+    } else {
+      setPredictions([]);
+    }
+  };
 
 
   const handleSelect = (prediction) => {
@@ -142,6 +147,7 @@ const Hero = () => {
       (place) => {
         if (place && place.geometry) {
           console.log("Selected:", place.formatted_address);
+          dispatch(setLocation({lat:place.geometry.location.lat(),lng:place.geometry.location.lng()}));
           console.log("Lat:", place.geometry.location.lat());
           console.log("Lng:", place.geometry.location.lng());
         }
@@ -249,7 +255,7 @@ const Hero = () => {
                             padding: "8px",
                             cursor: "pointer",
                             borderBottom: "1px solid #eee",
-                            color:"#333"
+                            color: "#333"
                           }}
                           onMouseEnter={(e) => (e.target.style.background = "#f0f0f0")}
                           onMouseLeave={(e) => (e.target.style.background = "transparent")}
