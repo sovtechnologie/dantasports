@@ -455,6 +455,7 @@ function VenueDetailsPage() {
                             selectedDuration={selectedDuration}
                             setSelectedDuration={setSelectedDuration}
                             sportId={selectedSport}
+                            venueId={id}
 
                         />
                         {errors.time && <p className="form-error">{errors.time}</p>}

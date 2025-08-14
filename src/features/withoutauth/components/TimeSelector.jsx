@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import './Stylesheets/TimeSelector.css';
 import { useSportDetails } from '../../../hooks/favouriteSport/useSportDetails.js';
+import { useFetchTimeslotForVenue } from '../../../hooks/VenueList/useFetchTimingSlots.js';
 import TimeslotShimmer from "./Shimmer/TimeslotShimmer.jsx";
 
 const generateTimeSlots = (start, end, interval) => {
@@ -28,8 +29,25 @@ const TimeSelector = ({
   setSelectedDuration,
   selectedTime,
   setSelectedTime,
-  sportId = null
+  sportId = null,
+  venueId
 }) => {
+
+  const payload = {
+    date: "2025-08-14",
+    sportsId: 2,
+    venueId: 1
+  };
+
+  const {
+    data: timeslotData,
+    isLoading: timeslotLoading,
+    isError: timeslotError,
+    error:timeslotMessage
+  } =  useFetchTimeslotForVenue(payload);
+  console.log("timeslots",timeslotData?.result[0]);
+
+
 
   const { data, isLoading, error } = useSportDetails(sportId);
   const sport = data?.result?.[0] || {};
@@ -216,7 +234,7 @@ const TimeSelector = ({
 
 
 
-     {sportId ? (<div className="ts-slots">
+      {sportId ? (<div className="ts-slots">
         {timeSlots.map((slot, index) => (
           <button
             key={index}
@@ -226,10 +244,10 @@ const TimeSelector = ({
             {slot.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
           </button>
         ))}
-      </div>):(
+      </div>) : (
         <p>Select a sport to see available slots</p>
       )}
-      
+
 
     </div>
   );

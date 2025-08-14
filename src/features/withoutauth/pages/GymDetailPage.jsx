@@ -82,7 +82,6 @@ export default function GymDetailPage() {
     const [quantity, setQuantity] = useState(0);
     const [passess, setPassess] = useState([{ passId: null, quantity: null }])
     const [finalAmount, setFinalAmount] = useState(null);
-    const [bookingId, setBookingId] = useState(null);
 
     const { data: GymDetails, isLoading: GymDetailsLoading } = useFetchGymDetail(id);
     const gym = Array.isArray(GymDetails?.result) && GymDetails?.result.length > 0
@@ -229,6 +228,13 @@ export default function GymDetailPage() {
                         // If API returns paymentUrl, redirect
                         if (paymentData?.result) {
                             window.open(paymentData.result, "_blank", "noopener,noreferrer");
+
+                            // reset the fields
+                            setPassess([]);
+                            setSelectedPass(null)
+                            setQuantity(0);
+                            setFinalAmount(0);
+                        
                         }
 
                     },
@@ -413,7 +419,7 @@ export default function GymDetailPage() {
                         </div>
 
                         <div className="gym-right-section-button">
-                            <button className="gym-btn" onClick={handleProceed}>Proceed</button>
+                            <button className="gym-btn" onClick={handleProceed} disabled={bookingLoading || paymentLoading}>{bookingLoading || paymentLoading ? "Processing..." : "Proceed"}</button>
                         </div>
 
 

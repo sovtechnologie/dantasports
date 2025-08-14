@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './StyleSheets/BookingPopupCard.css';
 import checkIcon from "../assets/Checkicon.png";
 import Banner from "../assets/venue-banner.png";
@@ -11,9 +12,13 @@ import { useBanner } from '../../../hooks/useBanner.js';
 const BookingPopupCard = ({
   bookingId,
   amount,
-  merchantTransactionId
+  merchantTransactionId,
+  date,
+  hostName,
+  venueName,
+  bookingdate=null
 }) => {
-
+   const navigate = useNavigate();
   const bookingData = [];
   const pageNo = 4;
 
@@ -21,11 +26,7 @@ const BookingPopupCard = ({
 
 
   const {
-    hostName = "Mohitpal",
     paymentMethod = "Gpay",
-    paymentTime = "12,2,10129",
-    location = "Delhi",
-    date = "12,2,30",
     time = "233.344",
   } = bookingData;
   const banners = bannerData?.result || [];
@@ -41,8 +42,8 @@ const BookingPopupCard = ({
           <img src={checkIcon} alt="success" className="check-icon" /> {/* Replace with your green tick image */}
           <p className="confirmation-text">
             Thank you for your reservation.<br />
-            You have a football reservation at <strong>{location}</strong> on<br />
-            <strong>{date}</strong>, from <strong>{time}</strong>
+            You have a reservation at <strong>{venueName}</strong> on<br />
+            <strong>{bookingdate}</strong>, from <strong>{time}</strong>
           </p>
         </div>
 
@@ -68,7 +69,7 @@ const BookingPopupCard = ({
               </div>
               <div>
                 <p className="ref-label">Payment Time</p>
-                <p className="ref-value">{paymentTime}</p>
+                <p className="ref-value">{date}</p>
               </div>
             </div>
           </div>
@@ -87,13 +88,6 @@ const BookingPopupCard = ({
 
         <div className="popup-events">
           <h4>Explore Nearby Events</h4>
-          {/* <div className="event-cards">
-            {banners?.map((item, i) => (
-              <div className={`event-card ${i > 0 ? 'hide-on-mobile' : ''}`} key={i}>
-                <img src={item.banner_image} alt="Event" onError={(e) => (e.target.src = Banner)} />
-              </div>
-            ))}
-          </div> */}
           <div className="event-banner-carousel">
             <div className="event-banner-track">
               {banners.concat(banners).map((item, i) => ( // Duplicate for seamless looping
@@ -105,7 +99,7 @@ const BookingPopupCard = ({
           </div>
         </div>
         <div className='button-wrapper'>
-          <button className="home-btn" >BACK TO HOME</button>
+          <button className="home-btn" onClick={() => navigate('/')} >BACK TO HOME</button>
         </div>
       </div>
     </div>

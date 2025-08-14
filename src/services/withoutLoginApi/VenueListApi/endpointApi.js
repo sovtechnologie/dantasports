@@ -31,3 +31,14 @@ export const fetchVenueById = async (venueId, userId) => {
     throw error;
   }
 };
+
+
+export const fetchTimingslotVenues = async(payload) => {
+  try {
+    const response = await api.post("user/bookings/getAvalableTimingsInVenues",payload);
+    return response?.data;
+  } catch (error) {
+    console.error("failed to fetch avalable timeslots in Veneue",error);
+    throw error;
+  }
+}

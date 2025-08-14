@@ -177,6 +177,14 @@ export default function EventDetailPage() {
                         // If API returns paymentUrl, redirect
                         if (paymentData?.result) {
                             window.open(paymentData.result, "_blank", "noopener,noreferrer");
+
+                            // reset the field
+                            setSelectedArea('');
+                            setSelectedDate(null);
+                            setFinalAmount(null);
+                            setTotalPrice(0);
+                            setTickets([]);
+                             
                         }
 
                     },
