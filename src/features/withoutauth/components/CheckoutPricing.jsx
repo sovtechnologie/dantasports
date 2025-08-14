@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Stylesheets/CheckoutPricing.css";
 import CouponModal from "./CoupanModal";
 import toggleIcon from "../assets/toggleIcon.png";
 
-const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10 }) => {
+const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setTotalPrice }) => {
   const [insuranceSelected, setInsuranceSelected] = useState(false);
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
   const [discount, setDiscount] = useState(null);
@@ -28,19 +28,25 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10 }) => {
   // Calculate final total after discount
   const totalAmount = Math.max(subtotal - (discount || 0), 0);
 
+  useEffect(() => {
+    if (setTotalPrice) {
+      setTotalPrice(totalAmount);
+    }
+  }, []);
+
   console.log("discount and price", discount);
   return (
     <div className="checkout-box">
       <div className="row">
-        <div style={{ display:"flex",justifyContent:"space-between" ,gap:"20px"}}>
-           <span>Passes price x {count}</span>
-           <img src={toggleIcon} alt="toggleicon" style={{ height: "15px", width: "15px" }} />
+        <div style={{ display: "flex", justifyContent: "space-between", gap: "20px" }}>
+          <span>Passes price x {count}</span>
+          <img src={toggleIcon} alt="toggleicon" style={{ height: "15px", width: "15px" }} />
         </div>
-       
+
         <span>₹{basePrice}</span>
       </div>
       <div className="row">
-        <div style={{ display:"flex",justifyContent:"space-between" ,gap:"20px"}}>
+        <div style={{ display: "flex", justifyContent: "space-between", gap: "20px" }}>
           <span>Convenience fee</span>
           <img src={toggleIcon} alt="toggleicon" style={{ height: "15px", width: "15px" }} />
         </div>

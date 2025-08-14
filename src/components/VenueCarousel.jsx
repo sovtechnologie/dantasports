@@ -16,6 +16,16 @@ const VenueCarousel = () => {
     const [hoveredArrow, setHoveredArrow] = useState(null); // 'prev' | 'next' | null
     const visibleCount = 4;
 
+       // Sync local coords state with lat/lng from Redux store on change to trigger refetch
+    useEffect(() => {
+      setCoords((prevCoords) => {
+        if (prevCoords.lat !== lat || prevCoords.lng !== lng) {
+          return { ...prevCoords, lat, lng };
+        }
+        return prevCoords;
+      });
+    }, [lat, lng]);
+
     const { data, isLoading, error } = useFetchVenue(coords);
 
     const venues = data?.result || [];

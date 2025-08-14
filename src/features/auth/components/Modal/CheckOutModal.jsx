@@ -86,7 +86,7 @@ export function CheckoutModal({ isOpen, onClose, bookingId }) {
     const handlePay = () => {
         if (!bookingId)
             return;
-        createPayment(bookingId);
+        createPayment({bookingId});
     }
 
     const paymentUrl = paymentResponse?.url;

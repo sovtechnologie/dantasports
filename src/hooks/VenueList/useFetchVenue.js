@@ -6,7 +6,7 @@ import {
 
 export const useFetchVenue = (payload) => {
   return useQuery({
-    queryKey: ["venueList", payload.userId],
+    queryKey: ["venueList", payload.userId,payload.lat, payload.lng],
     queryFn: () => {
       if (payload.userId) {
         return fetchVenueListByUserId(payload);
@@ -14,5 +14,6 @@ export const useFetchVenue = (payload) => {
         return fetchVenueList(payload);
       }
     },
+    enabled: Boolean(payload.lat && payload.lng),
   });
 };

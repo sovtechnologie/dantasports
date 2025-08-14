@@ -37,15 +37,26 @@ const Hero = () => {
   const [service, setService] = useState(null);
   const inputRef = useRef(null);
 
+
+  // Unified location update helper
+  const updateLocation = (newLat, newLng) => {
+    setCoords({ lat: newLat, lng: newLng });
+    dispatch(setLocation({ lat: newLat, lng: newLng }));
+  };
+
+  // On mount, get initial user location and update state + Redux
   useEffect(() => {
     async function fetchLongLat() {
       const { lat, lng } = await getUserLocation();
-      console.log("my lat and long", lat, lng);
-      setCoords({ lat, lng });
-      dispatch(setLocation({lat:lat,lng,lng}));
+      updateLocation(lat, lng);
     }
+
     fetchLongLat();
-  }, []);
+
+    // Optional: if you want to refresh location periodically (for moving users)
+    const interval = setInterval(fetchLongLat, 30000);
+    return () => clearInterval(interval);
+  }, [dispatch]);
 
   useEffect(() => {
     const loadPlaces = async () => {
@@ -146,10 +157,9 @@ const Hero = () => {
       { placeId: prediction.place_id, fields: ["geometry", "formatted_address"] },
       (place) => {
         if (place && place.geometry) {
-          console.log("Selected:", place.formatted_address);
-          dispatch(setLocation({lat:place.geometry.location.lat(),lng:place.geometry.location.lng()}));
-          console.log("Lat:", place.geometry.location.lat());
-          console.log("Lng:", place.geometry.location.lng());
+          const newLat = place.geometry.location.lat();
+          const newLng = place.geometry.location.lng();
+          updateLocation(newLat, newLng);
         }
       }
     );

@@ -18,7 +18,7 @@ import { useFetchSingleEventPrice } from "../../../hooks/EventList/useFetchEvent
 import leftArrow from "../assets/left-arrow.png";
 import rightArrow from "../assets/right-arrow.png";
 import { useBookEvent } from "../../../hooks/EventList/useBookEvent";
-
+import { useCreatePayment } from "../../../hooks/Payments/useCreatePayment";
 
 
 
@@ -46,6 +46,7 @@ const initialTickets = [
 const mapEventData = (apiData) => {
     return {
         name: apiData?.event_title || "Unknown Venue",
+        type: apiData?.event_type,
         location: apiData?.locations[0]?.area || "Unknown Area",
         meetupPoints: apiData?.locations || '',
         about: apiData?.about_event || "No description available for this venue.",
@@ -106,7 +107,13 @@ export default function EventDetailPage() {
     const [selectedDate, setSelectedDate] = useState(null);
     const [totalPrice, setTotalPrice] = useState(null);
     const [bookingId, setBookingId] = useState(null);
-    const [tickets,setTickets] = useState({ ticketsId: null, quantity: null })
+    const [tickets, setTickets] = useState({ ticketsId: null, quantity: null })
+
+    const { data: EventDetails, isLoading: eventLoading, error: eventError } = useFetchSingleEvent(id);
+    const event = Array.isArray(EventDetails?.result) && EventDetails.result.length > 0
+        ? mapEventData(EventDetails.result[0])
+        : '';
+    const type = event?.type;
 
     const toggleSection = (sectionName) => {
         setExpandedSection(prev => (prev === sectionName ? null : sectionName));
@@ -115,12 +122,14 @@ export default function EventDetailPage() {
     const [ticketCounts, setTicketCounts] = useState(
         Array(initialTickets.length).fill(0)
     );
-    console.log("tickets quentity",tickets);
+    console.log("tickets quentity", tickets);
 
     const handleTicketChange = (updatedCounts) => {
         setTicketCounts(updatedCounts);
         console.log('Ticket Counts:', updatedCounts);
     };
+
+    const { mutate: CreatePayment, isLoading: paymentLoading } = useCreatePayment();
     const {
         mutate: BookEvent,
         isLoading: bookingLoading,
@@ -128,29 +137,69 @@ export default function EventDetailPage() {
     } = useBookEvent();
 
 
-    const handleBookEvent = () => {
 
+    // const handleBookEvent = () => {
+    //     const bookingPayload = {
+    //         locationId: 1,
+    //         bookingDate: "12-10-2024",
+    //         eventId: 1,
+    //         tickets: [
+    //             { ticketsId: 1, quantity: 1 },
+    //         ]
+    //     }
+
+    //     BookEvent(bookingPayload, {
+    //         onSuccess: (data) => {
+    //             const id = data?.result;
+    //             setBookingId(id);
+    //             // setBookingId(data?.result?.insertId);
+    //             console.log("My Booking Id", data?.result);
+    //         },
+    //         onError: (error) => alert('Booking failed. ' + (error.message || '')),
+    //     });
+
+    // }
+
+    const handleBookEvent = () => {
         const bookingPayload = {
             locationId: 1,
             bookingDate: "12-10-2024",
             eventId: 1,
-            tickets: [
-                { ticketsId: 1, quantity: 1 },
-            ]
-        }
-
+            tickets: tickets,
+        };
 
         BookEvent(bookingPayload, {
             onSuccess: (data) => {
-                const id = data?.result;
-                setBookingId(id);
-                // setBookingId(data?.result?.insertId);
-                console.log("My Booking Id", data?.result);
-            },
-            onError: (error) => alert('Booking failed. ' + (error.message || '')),
-        });
+                const bookingId = data?.result;
+                // If your API returns "insertId" or something else, change this accordingly
+                console.log("My Booking Id", bookingId);
 
-    }
+                // Call createPayment with that bookingId
+                CreatePayment({
+                    bookingId,
+                    amount: totalPrice, // example amount
+                    type: type, // or "UPI" etc.
+                }, {
+                    onSuccess: (paymentData) => {
+                        console.log("Payment created:", paymentData);
+
+                        // If API returns paymentUrl, redirect
+                        if (paymentData?.url) {
+                            window.open(paymentData.url, "_blank", "noopener,noreferrer");
+                        }
+
+                    },
+                    onError: (error) => {
+                        alert("Payment creation failed: " + (error.message || ""));
+                    },
+                });
+            },
+            onError: (error) => {
+                alert("Booking failed: " + (error.message || ""));
+            },
+        });
+    };
+
     console.log("eventBookingId", bookingId);
 
     const [start, setStart] = useState(0);
@@ -162,10 +211,7 @@ export default function EventDetailPage() {
 
     const visibleCount = window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3;
 
-    const { data: EventDetails, isLoading: eventLoading, error: eventError } = useFetchSingleEvent(id);
-    const event = Array.isArray(EventDetails?.result) && EventDetails.result.length > 0
-        ? mapEventData(EventDetails.result[0])
-        : '';
+
 
     const { data: eventPrice, isLoading: eventPriceLoading, error: eventPriceError } = useFetchSingleEventPrice(id);
     const EventPrice = eventPrice?.result || [];
@@ -371,11 +417,11 @@ export default function EventDetailPage() {
 
                         <div className="event-right-section">
                             <div className="event-heading">Price details</div>
-                            <CheckoutPricing totalPrice={totalPrice} convenienceFee={ConvenienceFee} type={2} />
+                            <CheckoutPricing totalPrice={totalPrice} convenienceFee={ConvenienceFee} type={2} setTotalPrice={setTotalPrice} />
                         </div>
 
                         <div className="event-right-section-button">
-                            <button className="event-btn" onClick={handleBookEvent}>Book Tickets</button>
+                            <button className="event-btn" onClick={handleBookEvent} disabled={bookingLoading || paymentLoading}> {bookingLoading || paymentLoading ? "Processing..." : "Book Tickets"}</button>
                         </div>
 
                     </div>

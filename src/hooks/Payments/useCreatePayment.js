@@ -6,15 +6,20 @@ export const useCreatePayment = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (bookingId) => createPayment({ bookingId }),
-    onSuccess: (data, bookingId) => {
-      console.log("Payment created for booking:", bookingId, data);
+    mutationFn: ({ bookingId, amount, type }) => createPayment({ bookingId, amount, type }),
+    onSuccess: (data, variables) => {
+      console.log("Payment created for booking:", variables.bookingId, data);
+
+      // Example: redirect if paymentUrl present
+      if (data?.paymentUrl) {
+        window.location.href = data.paymentUrl;
+      }
 
       // Optionally invalidate or refetch relevant query to update UI
-      queryClient.invalidateQueries(["PaymentAndBookingDetails", bookingId]);
+      queryClient.invalidateQueries(["PaymentAndBookingDetails", variables.bookingId]);
     },
-    onError: (error, bookingId) => {
-      console.error("Payment creation failed for booking:", bookingId, error);
+    onError: (error, variables) => {
+      console.error("Payment creation failed for booking:", variables.bookingId, error);
       // Optional: display toast or notification
     },
   });

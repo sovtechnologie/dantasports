@@ -45,6 +45,7 @@ const ConfirmSlotCard = ({ onClose, onSuccess, payload }) => {
     const bookingPayload = {
       sportId: sportId,
       venueId: 1,
+      duration: selectedDuration,
       date: getLocalIsoDate(selectedDate),
       startTime: timeRead,
       courtId: selectedPitch,
