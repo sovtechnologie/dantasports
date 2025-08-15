@@ -17,7 +17,8 @@ import { useBanner } from "../../../hooks/useBanner";
 import { useFetchSingleEventPrice } from "../../../hooks/EventList/useFetchEventPrice";
 import leftArrow from "../assets/left-arrow.png";
 import rightArrow from "../assets/right-arrow.png";
-
+import { useBookEvent } from "../../../hooks/EventList/useBookEvent";
+import { useCreateBookingPayment } from "../../../hooks/Payments/useCreateBookingPayement";
 
 
 
@@ -45,6 +46,7 @@ const initialTickets = [
 const mapEventData = (apiData) => {
     return {
         name: apiData?.event_title || "Unknown Venue",
+        type: apiData?.event_type,
         location: apiData?.locations[0]?.area || "Unknown Area",
         meetupPoints: apiData?.locations || '',
         about: apiData?.about_event || "No description available for this venue.",
@@ -69,8 +71,8 @@ const mapEventData = (apiData) => {
                 categoryId: sport.category_id
             }))
             : '',
-        latitude: apiData?.locations?.lat || 0,
-        longitude: apiData?.locations?.lng || 0,
+        latitude: apiData?.locations[0]?.lat || 0,
+        longitude: apiData?.locations[0]?.lng || 0,
         carrything: apiData?.things_to_carry,
         instruction: apiData?.instruction,
         tickets: apiData?.ticket_need_for || "10 years & above",
@@ -101,9 +103,17 @@ export default function EventDetailPage() {
 
     const [expandedSection, setExpandedSection] = useState(null);
     const [selectedArea, setSelectedArea] = useState('');
+    const [locationId, setLocationId] = useState(null);
     const [selectedDate, setSelectedDate] = useState(null);
-    const [openModal, setOpenModal] = useState(false);
     const [totalPrice, setTotalPrice] = useState(null);
+    const [finalAmount, setFinalAmount] = useState(null);
+    const [tickets, setTickets] = useState({ ticketsId: null, quantity: null })
+
+    const { data: EventDetails, isLoading: eventLoading, error: eventError } = useFetchSingleEvent(id);
+    const event = Array.isArray(EventDetails?.result) && EventDetails.result.length > 0
+        ? mapEventData(EventDetails.result[0])
+        : '';
+    const type = event?.type;
 
     const toggleSection = (sectionName) => {
         setExpandedSection(prev => (prev === sectionName ? null : sectionName));
@@ -112,15 +122,45 @@ export default function EventDetailPage() {
     const [ticketCounts, setTicketCounts] = useState(
         Array(initialTickets.length).fill(0)
     );
+  
 
     const handleTicketChange = (updatedCounts) => {
         setTicketCounts(updatedCounts);
-        console.log('Ticket Counts:', updatedCounts);
     };
 
-    const handleBookPop = () => {
-        setOpenModal(true);
-    }
+    const { mutate: CreateBookingPayment, isLoading: paymentLoading } = useCreateBookingPayment();
+    const {
+        mutate: BookEvent,
+        isLoading: bookingLoading,
+        error: bookingError
+    } = useBookEvent();
+
+
+
+    // const handleBookEvent = () => {
+    //     const bookingPayload = {
+    //         locationId: 1,
+    //         bookingDate: "12-10-2024",
+    //         eventId: 1,
+    //         tickets: [
+    //             { ticketsId: 1, quantity: 1 },
+    //         ]
+    //     }
+
+    //     BookEvent(bookingPayload, {
+    //         onSuccess: (data) => {
+    //             const id = data?.result;
+    //             setBookingId(id);
+    //             // setBookingId(data?.result?.insertId);
+    //             console.log("My Booking Id", data?.result);
+    //         },
+    //         onError: (error) => alert('Booking failed. ' + (error.message || '')),
+    //     });
+
+    // }
+
+
+
 
     const [start, setStart] = useState(0);
     const prev = () => setStart((prev) => Math.max(prev - 1, 0));
@@ -131,10 +171,7 @@ export default function EventDetailPage() {
 
     const visibleCount = window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3;
 
-    const { data: EventDetails, isLoading: eventLoading, error: eventError } = useFetchSingleEvent(id);
-    const event = Array.isArray(EventDetails?.result) && EventDetails.result.length > 0
-        ? mapEventData(EventDetails.result[0])
-        : '';
+
 
     const { data: eventPrice, isLoading: eventPriceLoading, error: eventPriceError } = useFetchSingleEventPrice(id);
     const EventPrice = eventPrice?.result || [];
@@ -142,7 +179,55 @@ export default function EventDetailPage() {
     const { data: bannerData, isLoading: Bannerloading, error: BannerError } = useBanner(3);
 
     const banners = bannerData?.result || [];
-    console.log("eventDetail", event);
+    console.log("eventDetail", selectedArea,locationId);
+
+
+    const handleBookEvent = () => {
+        const bookingPayload = {
+            locationId: 1,
+            bookingDate: selectedDate,
+            eventId: id,
+            tickets: tickets,
+        };
+
+        BookEvent(bookingPayload, {
+            onSuccess: (data) => {
+                const bookingId = data?.result;
+                // If your API returns "insertId" or something else, change this accordingly
+                console.log("My Booking Id", bookingId);
+
+                // Call createPayment with that bookingId
+                CreateBookingPayment({
+                    bookingId,
+                    amount: finalAmount, // example amount
+                    type: type, // or "UPI" etc.
+                }, {
+                    onSuccess: (paymentData) => {
+                        console.log("Payment created:", paymentData);
+
+                        // If API returns paymentUrl, redirect
+                        if (paymentData?.result) {
+                            window.open(paymentData.result, "_blank", "noopener,noreferrer");
+
+                            // reset the Fieids
+                            setSelectedArea('');
+                            setSelectedDate(null);
+                            setFinalAmount(null);
+                            setTotalPrice(0);
+                            setTickets([]);
+                        }
+
+                    },
+                    onError: (error) => {
+                        alert("Payment creation failed: " + (error.message || ""));
+                    },
+                });
+            },
+            onError: (error) => {
+                alert("Booking failed: " + (error.message || ""));
+            },
+        });
+    };
 
     return (
         <>
@@ -295,7 +380,7 @@ export default function EventDetailPage() {
                             <div className="event-heading">Location</div>
                             <div className="gym-right-section-p"><p>{event.address}</p></div>
                             <div className="venue-map">
-                                <CustomMap latitude={93.40166} longitude={62.90311} />
+                                <CustomMap latitude={event?.latitude} longitude={event?.longitude} />
                             </div>
 
                         </div>
@@ -306,7 +391,11 @@ export default function EventDetailPage() {
                                 <select
                                     value={selectedArea || ''}
                                     className="meetup-select"
-                                    onChange={(e) => setSelectedArea(e.target.value)}
+                                    onChange={(e) => {
+                                        setSelectedArea(e.target.value)
+                                        setLocationId(e.target.key);
+                                        
+                                    }}
                                 >
                                     {event?.meetupPoints?.map((item, index) => (
                                         <option key={index} value={item.area}>
@@ -334,22 +423,22 @@ export default function EventDetailPage() {
                                 counts={ticketCounts}
                                 onChange={handleTicketChange}
                                 setTotalPrice={setTotalPrice}
+                                setTickets={setTickets}
                             />
                         </div>
 
                         <div className="event-right-section">
                             <div className="event-heading">Price details</div>
-                            <CheckoutPricing totalPrice={totalPrice} convenienceFee={ConvenienceFee} type={2} />
+                            <CheckoutPricing
+                                totalPrice={totalPrice}
+                                convenienceFee={ConvenienceFee}
+                                type={type}
+                                setFinalAmount={setFinalAmount} />
                         </div>
 
                         <div className="event-right-section-button">
-                            <button className="event-btn" onClick={handleBookPop}>Book Tickets</button>
+                            <button className="event-btn" onClick={handleBookEvent} disabled={bookingLoading || paymentLoading}> {bookingLoading || paymentLoading ? "Processing..." : "Book Tickets"}</button>
                         </div>
-                        {
-                            openModal ? (
-                                <BookingPopupCard />
-                            ) : ""
-                        }
 
                     </div>
                 </div>

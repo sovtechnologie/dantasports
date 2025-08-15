@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchCoachList } from "../../services/withoutLoginApi/CoachListApi/endpointApi";
 
-export const useFetchCoach = () => {
+export const useFetchCoach = (payload) => {
     return useQuery({
-        queryKey: ["CoachList"],
+        queryKey: ["CoachList", payload.lat, payload.lng],
         queryFn: () => {
-           return fetchCoachList();
+            return fetchCoachList();
         },
+        enabled: Boolean(payload.lat && payload.lng),
     });
 };

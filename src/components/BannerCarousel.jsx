@@ -19,7 +19,7 @@ function BannerCarouse() {
     if (banners.length === 0) return;
 
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev === banners.length - 2 ? 0 : prev + 1));
+      setCurrentIndex((prev) => (prev === banners.length - 3 ? 0 : prev + 1));
     }, 4000);
 
     return () => clearInterval(interval);
@@ -36,7 +36,7 @@ function BannerCarouse() {
         className="Eventcarousel-track"
         style={{ transform: `translateX(-${currentIndex * 50}%)` }}
       >
-        {banners.map((item, i) => (
+        {banners.concat(banners).map((item, i) => (
           <div className="Eventcarousel-slide" key={i}>
            <img
                 src={item.banner_image }

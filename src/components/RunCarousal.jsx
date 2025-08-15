@@ -7,6 +7,7 @@ import cursorArrow from "../assets/cursorArrow.png";
 import { getUserLocation } from '../utils/getUserLocation.js';
 import { useFetchEvent } from '../hooks/EventList/useFetchEvents.js';
 import HomeRunCard from './HomeRunCard.jsx';
+import { useSelector } from 'react-redux';
 
 // Formats "15:00", "15:00:30" → "03:00 PM"
 function formatTime(timeStr = "00:00") {
@@ -28,21 +29,22 @@ function formatTime(timeStr = "00:00") {
 }
 
 const RunCarousel = () => {
+     const { lat, lng } = useSelector((state) => state.location);
     const [index, setIndex] = useState(0);
-    const [coords, setCoords] = useState({ lat: null, lng: null, type: 2, userId: null });
+    const [coords, setCoords] = useState({ lat: lat, lng: lng, type: 2, userId: null });
     const [lastClicked, setLastClicked] = useState(null); // 'prev' | 'next' | null
     const [hoveredArrow, setHoveredArrow] = useState(null); // 'prev' | 'next' | null
     const visibleCount = 4;
 
 
-    useEffect(() => {
-        async function fetchLongLat() {
-            const { lat, lng } = await getUserLocation();
-            console.log("my lat and long", lat, lng);
-            setCoords({ lat, lng, type: 2, userId: null });
-        }
-        fetchLongLat();
-    }, []);
+    // useEffect(() => {
+    //     async function fetchLongLat() {
+    //         const { lat, lng } = await getUserLocation();
+    //         console.log("my lat and long", lat, lng);
+    //         setCoords({ lat, lng, type: 2, userId: null });
+    //     }
+    //     fetchLongLat();
+    // }, []);
 
     const { data, isLoading, error } = useFetchEvent(coords);
 

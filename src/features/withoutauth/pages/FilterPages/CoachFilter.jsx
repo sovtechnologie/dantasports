@@ -8,16 +8,18 @@ import sportIcon from '../../assets/VenueCardLogo/CricketLogo.png';
 import { useState, useEffect, useMemo } from "react";
 import { useFetchCoach } from "../../../../hooks/CoachList/useFetchCoach.js";
 import { VenueListShimmer } from "../../components/Shimmer/VenueListShimmer.jsx";
+import { useSelector } from "react-redux";
 
 
 
 export default function CoachFilterPage() {
+    const { lat, lng } = useSelector((state) => state.location);
     const [coachList, setCoachList] = useState([]);
     const [search, setSearch] = useState('');
     const [filters, setFilters] = useState({});
 
 
-    const { data: AllCoachdata, isLoading, isError, error } = useFetchCoach();
+    const { data: AllCoachdata, isLoading, isError, error } = useFetchCoach({lat,lng});
 
     const handleReset = () => {
         setSearch('');

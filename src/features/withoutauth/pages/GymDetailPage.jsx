@@ -13,16 +13,15 @@ import { useMemo, useState } from "react";
 import CustomMap from "../components/CustomMap";
 import CheckoutPricing from "../components/CheckoutPricing";
 import ReviewCard from "../components/ReviewCard";
-import bannerImage1 from "../../../assets/EventBanner/Banner1.png";
-import bannerImage2 from "../../../assets/EventBanner/Banner2.png";
 import { useParams } from "react-router-dom";
 import { useFetchGymDetail } from "../../../hooks/GymList/useFetchGymDetails";
-import { formatTime } from "../../../utils/formatTime";
-import { formatDate } from "date-fns";
+import { useBookGym } from "../../../hooks/GymList/useBookGym";
 import { useBanner } from "../../../hooks/useBanner";
 import { useFetchGymPrice } from "../../../hooks/GymList/useFetchGymPrice";
 import leftArrow from "../assets/left-arrow.png";
 import rightArrow from "../assets/right-arrow.png";
+import { useCreateVenueBooking } from "../../../hooks/BookingVenue/useCreateVenueBooking";
+import { useCreateBookingPayment } from "../../../hooks/Payments/useCreateBookingPayement";
 
 
 
@@ -77,17 +76,21 @@ const mapGymData = (apiData) => {
 
 export default function GymDetailPage() {
     const { id } = useParams();
-
-
     const [expandedSection, setExpandedSection] = useState(null);
     const [start, setStart] = useState(0);
+    const [selectedPass, setSelectedPass] = useState(null);
+    const [quantity, setQuantity] = useState(0);
+    const [passess, setPassess] = useState([{ passId: null, quantity: null }])
+    const [finalAmount, setFinalAmount] = useState(null);
+
+    const { data: GymDetails, isLoading: GymDetailsLoading } = useFetchGymDetail(id);
+    const gym = Array.isArray(GymDetails?.result) && GymDetails?.result.length > 0
+        ? mapGymData(GymDetails?.result[0])
+        : '';
 
     const toggleSection = (sectionName) => {
         setExpandedSection(prev => (prev === sectionName ? null : sectionName));
     };
-
-    const [selectedPass, setSelectedPass] = useState(null);
-    const [quantity, setQuantity] = useState(0);
 
     // const handleSelect = (e) => setSelectedPass(e.target.value);
     const handleSelect = (e) => {
@@ -101,11 +104,27 @@ export default function GymDetailPage() {
                 price: selectedItem.price
             });
             setQuantity(0);
+            // also update passess with passId and quantity
+            setPassess({
+                passId: selectedItem.id, // assuming `id` exists in the object
+                quantity: 0
+            });
         }
     }
 
-    const decrement = () => setQuantity(q => Math.max(0, q - 1));
-    const increment = () => setQuantity(q => q + 1);
+    const decrement = () => setQuantity(q => {
+        const newQty = Math.max(0, q - 1);
+        setPassess(prev => ({ ...prev, quantity: newQty }));
+        return newQty;
+    });
+
+    const increment = () => setQuantity(q => {
+        const newQty = q + 1;
+        setPassess(prev => ({ ...prev, quantity: newQty }));
+        return newQty;
+    });
+
+    console.log("passes", passess);
     const totalAmount = selectedPass ? selectedPass.price * quantity : 0;
 
 
@@ -119,10 +138,8 @@ export default function GymDetailPage() {
         return window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3;
     }, []);
 
-    const { data: GymDetails, isLoading: GymDetailsLoading } = useFetchGymDetail(id);
-    const gym = Array.isArray(GymDetails?.result) && GymDetails?.result.length > 0
-        ? mapGymData(GymDetails?.result[0])
-        : '';
+
+
 
     const { data: gymPrice, isLoading: gymPriceLoading, error: gymPriceError } = useFetchGymPrice(id);
     const GymPrice = gymPrice?.result || [];
@@ -178,6 +195,58 @@ export default function GymDetailPage() {
     //     };
     //   }
     // });
+    const type = 3;
+    const { mutate: CreateBookingPayment, isLoading: paymentLoading } = useCreateBookingPayment();
+    const {
+        mutate: BookGym,
+        isLoading: bookingLoading,
+        error: bookingError
+    } = useBookGym();
+
+    const handleProceed = () => {
+        const bookingPayload = {
+            isInsuranceSelected: true,
+            gymId: id,
+            passess: [passess]
+        }
+
+
+        BookGym(bookingPayload, {
+            onSuccess: (data) => {
+                const bookingId = data?.result;
+
+                console.log("My Booking Id", data?.result);
+                // Call createPayment with that bookingId
+                CreateBookingPayment({
+                    bookingId,
+                    amount: finalAmount, // example amount
+                    type: type, // or "UPI" etc.
+                }, {
+                    onSuccess: (paymentData) => {
+                        console.log("Payment created:", paymentData);
+
+                        // If API returns paymentUrl, redirect
+                        if (paymentData?.result) {
+                            window.open(paymentData.result, "_blank", "noopener,noreferrer");
+
+                            // reset the fields
+                            setPassess([]);
+                            setSelectedPass(null)
+                            setQuantity(0);
+                            setFinalAmount(0);
+                        
+                        }
+
+                    },
+                    onError: (error) => {
+                        alert("Payment creation failed: " + (error.message || ""));
+                    },
+                });
+            },
+            onError: (error) => alert('Booking failed. ' + (error.message || '')),
+        });
+
+    }
 
     return (
         <>
@@ -307,7 +376,7 @@ export default function GymDetailPage() {
                             <div className="gym-heading">Location</div>
                             <div className="gym-right-section-p"><p>{gym?.address}</p></div>
                             <div className="gym-map">
-                                <CustomMap latitude={93.40166} longitude={62.90311} />
+                                <CustomMap latitude={gym?.latitude} longitude={gym?.longitude} />
                             </div>
                         </div>
 
@@ -341,11 +410,16 @@ export default function GymDetailPage() {
 
                         <div className="gym-right-section">
                             <div className="gym-heading">Price details</div>
-                            <CheckoutPricing totalPrice={totalAmount} convenienceFee={ConvenienceFee} type={3} />
+                            <CheckoutPricing
+                                totalPrice={totalAmount}
+                                convenienceFee={ConvenienceFee}
+                                type={3}
+                                setFinalAmount={setFinalAmount}
+                            />
                         </div>
 
                         <div className="gym-right-section-button">
-                            <button className="gym-btn" >Proceed</button>
+                            <button className="gym-btn" onClick={handleProceed} disabled={bookingLoading || paymentLoading}>{bookingLoading || paymentLoading ? "Processing..." : "Proceed"}</button>
                         </div>
 
 

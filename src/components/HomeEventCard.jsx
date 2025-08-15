@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import CalandarIcon from "../features/withoutauth/assets/Calandarlogo.svg"
 import LocationIcon from "../features/withoutauth/assets/LocationLogo.svg";
 import eventImage from '../features/withoutauth/assets/EventImage2.svg';
+import defaultSport from "../assets/PopularSportLogo/Cricket.png"
 
 export default function HomeEventCard({ event }) {
 
@@ -18,12 +19,12 @@ export default function HomeEventCard({ event }) {
                     {event.sportIcon?.map((sport, idx) => (
                         <img
                             key={sport.id || idx}
-                            src={sport.image}
+                            src={sport.image || defaultSport}
                             alt={sport.name}
                             className={styled.icon_img_btn}
                             onError={(e) => {
                                 e.currentTarget.onerror = null;
-                                e.currentTarget.src = '/fallback-sport-icon.png';
+                                e.currentTarget.src = defaultSport;
                             }}
                         />
                     ))}

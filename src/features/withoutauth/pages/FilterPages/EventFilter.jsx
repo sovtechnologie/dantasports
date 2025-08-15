@@ -37,6 +37,7 @@ function formatTime(timeStr = "00:00") {
 
 export default function EventFilterPage() {
     const userId = useSelector((state) => state.auth.id);
+    const { lat,lng} = useSelector((state) =>state.location)
     const queryClient = useQueryClient();
     const [eventList, setEventList] = useState([]);
     const [search, setSearch] = useState('');
@@ -45,8 +46,8 @@ export default function EventFilterPage() {
 
     // fetch eventlist
     const payload = {
-        lat: null,
-        lng: null,
+        lat: lat,
+        lng: lng,
         userId: userId || null,
         type: 1
     }

@@ -51,6 +51,8 @@ const mapCoachData = (apiData) => {
         id: apiData?.id,
         name: apiData?.name || "Unknown Venue",
         location: apiData?.locations[0]?.area || "Unknown Area",
+        latitude: apiData?.locations[0]?.lat || 0,
+        longitude: apiData?.locations[0]?.lng || 0,
         about: apiData?.about || "",
         type: apiData?.type,
         rating: parseFloat(apiData?.average_rating) || 0,
@@ -266,7 +268,7 @@ export default function CoachDetailPage() {
                             <div className="coach-heading">Location</div>
                             <div className="gym-right-section-p"> <p>{coach?.address}</p></div>
                             <div className="coach-map">
-                                <CustomMap latitude={93.40166} longitude={62.90311} />
+                                <CustomMap latitude={coach?.latitude} longitude={coach?.longitude} />
                             </div>
 
                         </div>

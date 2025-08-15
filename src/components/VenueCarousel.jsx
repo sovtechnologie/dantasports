@@ -6,24 +6,25 @@ import rightArrow from "../assets/VenueImage/right-arrow.png";
 import cursorArrow from "../assets/cursorArrow.png";
 import { useFetchVenue } from '../hooks/VenueList/useFetchVenue.js';
 import VenueCardHome from './VenueCardHome.jsx';
-import { getUserLocation } from '../utils/getUserLocation.js';
+import { useSelector } from 'react-redux';
 
 const VenueCarousel = () => {
+    const { lat, lng } = useSelector((state) => state.location);
     const [index, setIndex] = useState(0);
-    const [coords, setCoords] = useState({ lat: null, lng: null, userId:null });
+    const [coords, setCoords] = useState({ lat: lat, lng: lng, userId:null });
     const [lastClicked, setLastClicked] = useState(null); // 'prev' | 'next' | null
     const [hoveredArrow, setHoveredArrow] = useState(null); // 'prev' | 'next' | null
     const visibleCount = 4;
 
-
+       // Sync local coords state with lat/lng from Redux store on change to trigger refetch
     useEffect(() => {
-        async function fetchLongLat() {
-            const { lat, lng } = await getUserLocation();
-            console.log("my lat and long", lat, lng);
-            setCoords({ lat, lng });
+      setCoords((prevCoords) => {
+        if (prevCoords.lat !== lat || prevCoords.lng !== lng) {
+          return { ...prevCoords, lat, lng };
         }
-        fetchLongLat();
-    }, []);
+        return prevCoords;
+      });
+    }, [lat, lng]);
 
     const { data, isLoading, error } = useFetchVenue(coords);
 

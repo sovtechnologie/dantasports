@@ -13,6 +13,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage
 import { combineReducers } from 'redux';
 import authReducer from './Slices/authSlice.js';
+import locationReducer from "./Slices/locationSlice.js"
 // import createEncryptor from 'redux-persist-transform-encrypt';
 
 
@@ -28,13 +29,14 @@ import authReducer from './Slices/authSlice.js';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth'], // Only persist the auth slice
+  whitelist: ['auth','location'], // Only persist the auth slice
   // transforms: [encryptor],
 };
 
 // Combine reducers if you have more slices
 const rootReducer = combineReducers({
   auth: authReducer,
+  location:locationReducer,
   // other reducers...
 });
 

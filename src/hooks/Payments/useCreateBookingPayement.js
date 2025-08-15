@@ -1,14 +1,14 @@
 // src/hooks/Payments/useCreatePayment.js
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createPayment } from "../../services/LoginApi/PaymentApi/endpointsApi";
+import { CreateBookingPayment } from "../../services/LoginApi/PaymentApi/endpointsApi";
 
-export const useCreatePayment = () => {
+export const useCreateBookingPayment = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (bookingId) => createPayment(bookingId),
-    onSuccess: (data, bookingId) => {
-      console.log("Payment created for booking:", bookingId, data);
+    mutationFn: ({ bookingId, amount, type }) => CreateBookingPayment({ bookingId, amount, type }),
+    onSuccess: (data, variables) => {
+      console.log("Payment created for booking:", variables.bookingId, data);
 
       // Example: redirect if paymentUrl present
       if (data?.paymentUrl) {
@@ -16,9 +16,10 @@ export const useCreatePayment = () => {
       }
 
       // Optionally invalidate or refetch relevant query to update UI
-      queryClient.invalidateQueries(["PaymentAndBookingDetails", bookingId]);
+      //   queryClient.invalidateQueries(["PaymentAndBookingDetails", variables.bookingId]);
     },
-    onError: (error, bookingId) => {
+    onError: (error, variables) => {
+     
       let errMsg = "Payment creation failed.";
       if (error.response?.data?.message) {
         errMsg = error.response.data.message;
@@ -26,8 +27,7 @@ export const useCreatePayment = () => {
         errMsg = error.message;
       }
       alert("error",errMsg);
-      console.error("Payment creation failed for booking:", bookingId, error);
-
+       console.error("Payment creation failed for booking:", variables.bookingId, error);
       // Optional: display toast or notification
     },
   });

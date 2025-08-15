@@ -15,7 +15,7 @@ export const getUserLocation = () => {
        
         console.error('Geolocation error code:', error.code);
         console.error('Geolocation error message:', error.message);
-        reject(error);
+        // reject(error);
       },
       { timeout: 10000 }
     );

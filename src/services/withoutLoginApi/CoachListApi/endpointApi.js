@@ -1,8 +1,8 @@
 import api from "../../api";
 
-export const fetchCoachList = async () => {
+export const fetchCoachList = async (payload) => {
     try {
-        const response = await api.post("user/academyCoaches/getAcademyCoachesList");
+        const response = await api.post("user/academyCoaches/getAcademyCoachesList",payload);
         return response.data;
     } catch (error) {
         console.error("Failed to fetch Coach list:", error);

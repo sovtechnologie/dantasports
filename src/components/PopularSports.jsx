@@ -23,7 +23,6 @@ const PopularSports = () => {
 
 
   if (isLoading) return <p>Loading sports...</p>;
-  console.log("error", isError);
   if (isError) return <p>Error loading sports data.</p>;
 
   return (

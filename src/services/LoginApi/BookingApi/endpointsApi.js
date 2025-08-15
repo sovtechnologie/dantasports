@@ -1,6 +1,6 @@
 import api from "../../api";
 
-export const createBooking = async ({ payload }) => {
+export const createBooking = async (payload) => {
   try {
     console.log("in api section payload", payload);
     const response = await api.post("user/bookings/createBookings", payload);

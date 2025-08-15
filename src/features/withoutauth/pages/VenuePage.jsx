@@ -24,6 +24,7 @@ import { useFetchVenue } from '../../../hooks/VenueList/useFetchVenue.js';
 import { useQueryClient } from '@tanstack/react-query';
 import { VenueListShimmer } from '../components/Shimmer/VenueListShimmer.jsx';
 import { useSortVenue } from '../../../hooks/SortAndFilter/useSortVenue.js';
+import { useFilterVenue } from '../../../hooks/SortAndFilter/useFilterVenue.js';
 import { getUserLocation } from '../../../utils/getUserLocation.js';
 
 
@@ -33,6 +34,13 @@ const sortOptions = [
     { id: 3, label: "Favorites" },
     { id: 4, label: "Price: Low to High" }
 ];
+
+const formatTimeHHMMSS = (timeStr) => {
+    if (!timeStr) return "";
+    const date = new Date(`1970-01-01T${timeStr}`);
+    return date.toLocaleTimeString("en-GB", { hour12: false }); // "HH:mm:ss"
+};
+
 
 
 function formatDate(dateStr) {
@@ -66,8 +74,11 @@ function formatTime(timeStr = "00:00") {
 
 function VenuePage() {
     const queryClient = useQueryClient();
+    const auth = useSelector((state) => state.auth);
+    const { lat, lng } = useSelector((state) => state.location);
     const [venueList, setVenueList] = useState([]);
     const [selectedSport, setSelectedSport] = useState(null);
+    const [selectedSportId, setSelectedSportId] = useState(null);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [selectedTime, setSelectedTime] = useState(null);
     const [filteredData, setFilteredData] = useState([]);
@@ -81,18 +92,7 @@ function VenuePage() {
 
     // Handle venueList data by react-Query
 
-    const auth = useSelector((state) => state.auth);
-    const [coords, setCoords] = useState({ lat: null, lng: null, userId: auth?.id });
-
-    useEffect(() => {
-        async function fetchLongLat() {
-            const { lat, lng } = await getUserLocation();
-            console.log("my lat and long", lat, lng);
-            setCoords({ lat, lng, userId: auth?.id });
-        }
-        fetchLongLat();
-    }, []);
-
+    const [coords, setCoords] = useState({ lat: lat, lng: lng, userId: auth?.id });
     const { data: AllVenuedata, isLoading, isError, error } = useFetchVenue(coords);
 
 
@@ -111,6 +111,7 @@ function VenuePage() {
     const likeVenue = useLikeVenue();
     const unlikeVenue = useUnlikeVenue();
     const sortVenue = useSortVenue();
+    const FilterVenue = useFilterVenue();
     const userId = useSelector((state) => state.auth?.id);
 
     const toggleFavourite = (venue) => {
@@ -164,7 +165,7 @@ function VenuePage() {
         if (timeslot === selectedTime) return;
         setSelectedTime(timeslot);
     }, [selectedTime]);
-    console.log("Selectedtime and date in filter", selectedTime)
+
 
 
     // Handle date selection from calendar
@@ -245,7 +246,6 @@ function VenuePage() {
         setSelected(prev => (prev === optionId ? null : optionId));
 
         try {
-            const { lat, lng } = await getUserLocation();
             sortVenue.mutate({ sortByType: optionId, lat, lng }, {
                 onSuccess: (data) => {
                     if (Array.isArray(data?.result)) {
@@ -265,8 +265,6 @@ function VenuePage() {
 
 
 
-    console.log("sortedIds", selected);
-
     const handleSortReset = () => {
         setSelected([]); // Clear selected sort IDs
         if (AllVenuedata?.result) setVenueList(AllVenuedata.result);
@@ -277,11 +275,51 @@ function VenuePage() {
         });
     };
 
+    // State for filtered venues
+    const [filteredVenues, setFilteredVenues] = useState([]);
+
+    const filterVenues = (sportId, date, time) => {
+        if (!sportId || !date || !time) return;
+
+        const formattedTime = formatTimeHHMMSS(time);
+        // console.log("Filtering with:", { sportsId: sportId, date: date, time: time });
+
+        try {
+            FilterVenue.mutate({ sportsId: sportId, date: date, time: formattedTime }, {
+                onSuccess: (data) => {
+                    if (Array.isArray(data?.result)) {
+                        setVenueList(data?.result);
+                    } else {
+                        queryClient.invalidateQueries(['venueList', userId || null]);
+                    }
+                },
+                onError: err => console.error("filter failed:", err)
+            });
+        } catch (err) {
+            console.error("Location error:", err);
+        }
+
+        // Replace with real API
+
+    };
+
+    useEffect(() => {
+        filterVenues(selectedSportId, selectedDate, selectedTime);
+    }, [selectedSport, selectedDate, selectedTime]);
+
+
     const handleReset = () => {
         setSelectedSport(null);
+        setSelectedSportId(null);
         setSelectedDate(new Date());
         setSelectedTime(null);
-        setSearchQuery("")
+        setSearchQuery("");
+        if (AllVenuedata?.result) setVenueList(AllVenuedata.result);
+
+        queryClient.invalidateQueries({
+            queryKey: ['venueList', auth?.id || null],
+            refetchType: 'all', // ensures even inactive queries are considered
+        });
     }
 
     useEffect(() => {
@@ -289,7 +327,7 @@ function VenuePage() {
             setVenueList(AllVenuedata.result);
         }
     }, [AllVenuedata]);
-    console.log("venueList", venueList)
+
 
 
     if (isLoading) return <div> <VenueListShimmer /></div>;
@@ -327,7 +365,6 @@ function VenuePage() {
                             <FilterPopup
                                 onClose={() => setShowFilter(false)}
                                 onApply={(sort) => {
-                                    console.log("Applied Filter:", sort);
                                     setShowFilter(false);
                                 }}
                             />
@@ -396,6 +433,7 @@ function VenuePage() {
                                                     SportsData={paginatedSports}
                                                     selectedSport={selectedSport}
                                                     setSelectedSport={setSelectedSport}
+                                                    setSportId={setSelectedSportId}
                                                 />
 
                                             </div>
