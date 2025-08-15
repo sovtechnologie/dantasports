@@ -1,8 +1,8 @@
 .appbanner {
   background-color: #1163c7;
   color: white;
-  border-radius: 16px;
-  padding: 24px 32px;
+  border-radius: clamp(10px, 1.111vw, 16px);
+  padding: clamp(12px, 1.667vw, 28px) clamp(10px, 2.222vw, 40px);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -13,34 +13,30 @@
 
 .bannercontent {
   display: flex;
-  /* flex-direction: column; */
   align-items: center;
-  /* align-items: flex-start; */
-  /* Align content to the left */
   z-index: 1;
   justify-content: space-between;
-  width: 70%;
+  width: 75%;
 }
 
 .bannertext h2 {
   font-family: "Lato", Arial, sans-serif;
   font-weight: 700;
   font-size: 32px;
+  /* font-size: clamp(1rem, 0.797rem + 1.0025vw, 2rem); */
+  font-size: clamp(20px, 2.222vw, 40px);
   line-height: 36px;
   letter-spacing: 0;
   color: #fff;
   margin: 0 0 16px;
-  max-width: 400px;
+  /* max-width: 328px; */
+  width: clamp(210px, 22.778vw, 400px);
 }
 
 .bannerbuttons {
   display: flex;
   gap: 12px;
   justify-content: center;
-  /* Center buttons horizontally */
-  /* width: 100%; */
-  /* margin-top: -56px; */
-  /* Add some space above the buttons */
 }
 
 .storebutton {
@@ -51,10 +47,12 @@
   color: #1163c7;
   border: none;
   border-radius: 9999px;
-  padding: 10px 20px;
+  /* padding: 10px 20px; */
+  padding: clamp(6px, 0.694vw, 12px) clamp(12px, 1.389vw, 24px);
   font-weight: 600;
   cursor: pointer;
-  font-size: 15px;
+  /* font-size: 15px; */
+  font-size: clamp(0.625rem, 0.5616rem + 0.3133vw, 0.9375rem);
   line-height: 28px;
   font-family: "Poppins", Arial, sans-serif;
   letter-spacing: 0;
@@ -67,7 +65,7 @@
 
 .bannerbg {
   position: absolute;
-  right: -70px;
+  right: -125px;
   bottom: 0;
   height: 100%;
   object-fit: cover;
@@ -75,47 +73,37 @@
 }
 
 @media (max-width: 768px) {
-  .appbanner {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 20px 16px;
-    border-radius: 12px;
-    margin: 24px 0;
-    gap: 16px;
+  .bannerbg {
+    display: none; /* Hide decorative background on small screens */
+  }
+}
+
+@media (max-width: 850px) {
+  .bannerbg {
+    display: none;
   }
 
   .bannercontent {
-    align-items: flex-start;
-    width: 100%;
+    width: 100% !important;
   }
+}
 
+@media (max-width: 1044px) {
+  .bannercontent {
+    width: 68%;
+  }
+}
+
+@media (max-width: 585px) {
   .bannertext h2 {
-    font-size: 24px;
-    line-height: 32px;
-    max-width: 100%;
-    margin-bottom: 12px;
-  }
-
-  .bannerbuttons {
-    flex-direction: row;
-    align-items: stretch;
     width: 100%;
-    gap: 10px;
-    margin-top: 0;
+    text-align: center;
+  }
+  .bannercontent {
+    flex-direction: column;
   }
 
   .storebutton {
-    width: 40%;
-    justify-content: center;
-    font-size: 10px;
-    padding: 10px;
-  }
-
-  .storebutton img {
-    height: 18px;
-  }
-
-  .bannerbg {
-    display: none; /* Hide decorative background on small screens */
+    padding: clamp(6px, 0.694vw, 12px) clamp(17px, 1.389vw, 24px);
   }
 }

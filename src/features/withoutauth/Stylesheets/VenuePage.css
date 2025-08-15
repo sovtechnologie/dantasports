@@ -110,6 +110,7 @@ body {
 
 .venue-card-wrapper {
   width: 298px;
+  /* height: 320px !important; */
   border-radius: 1rem;
   overflow: hidden;
   background: white;

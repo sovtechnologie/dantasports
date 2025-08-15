@@ -7,7 +7,7 @@
   font-family: sans-serif;
   border: 1px solid #e5e5e5;
   position: relative;
-  height: 222px;
+  height: 222px !important;
 }
 
 .gym-image {

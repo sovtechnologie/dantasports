@@ -11,7 +11,7 @@ const AppDownloadBanner = () => {
         <div className={styled.appbanner}>
             <div className={styled.bannercontent}>
                 <div   className={styled.bannertext}>
-                    <h2>Get the Danta app for a seamless experience!</h2>
+                    <h2>Get the Danta app for a  seamless experience!</h2>
                 </div>
                 <div className={styled.bannerbuttons}>
                     <a href='https://play.google.com/store/apps'  className={styled.storebutton}>

@@ -1,5 +1,6 @@
 .coach-card {
-  width: 300px;
+  /* width: 300px;
+  width: clamp(280px, 20.833vw, 360px); */
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.29);

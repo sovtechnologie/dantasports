@@ -1,6 +1,6 @@
 .venue-card-wrapper {
   width: 298px;
-  height: 320px;
+  /* height: 320px !important; */
   border-radius: 1rem;
   overflow: hidden;
   background: white;
@@ -122,7 +122,7 @@
   border-top: 0.58px solid;
   border-image: linear-gradient(180deg, #2971ac 0%, #031b2e 100%);
   border-image-slice: 1;
-  padding: 10px 0px;
+  padding: 5px 0px;
   width: 100%;
   box-sizing: border-box;
 }
