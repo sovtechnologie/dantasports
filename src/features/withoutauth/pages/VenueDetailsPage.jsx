@@ -491,8 +491,9 @@ function VenueDetailsPage() {
                         <div className="venue-right-section">
                             <div className="venue-heading">Price details</div>
                             <CheckoutPricing
-                                totalPrice={1000}
+                                totalPrice={venue?.price}
                                 convenienceFee={100}
+                                count={1}
                                 type={1}
                                 setFinalAmount={setFinalAmount}
                             />

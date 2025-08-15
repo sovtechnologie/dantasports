@@ -68,25 +68,7 @@ const Hero = () => {
     loadPlaces();
   }, []);
 
-  // const handleInput = (e) => {
-  //   const value = e.target.value;
-  //   setSearch(value);
-
-  //   if (value && service) {
-  //     service.getPlacePredictions(
-  //       {
-  //         input: value,
-  //         componentRestrictions: { country: "in" },
-  //         types: ["(cities)"], // Or "geocode"
-  //       },
-  //       (preds) => {
-  //         setPredictions(preds || []);
-  //       }
-  //     );
-  //   } else {
-  //     setPredictions([]);
-  //   }
-  // };
+  
 
   useEffect(() => {
     async function fetchLongLatAndCity() {
@@ -333,3 +315,62 @@ const Hero = () => {
 };
 
 export default Hero;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const handleInput = async (e) => {
+//   const value = e.target.value;
+//   setSearch(value);
+
+//   if (value && window.google && coords.lat && coords.lng) {
+//     try {
+//       const response = await window.google.maps.places.AutocompleteSuggestion.request({
+//         input: value,
+//         sessionToken: new window.google.maps.places.AutocompleteSessionToken(),
+//         componentRestrictions: { country: "in" },
+//         location: new window.google.maps.LatLng(coords.lat, coords.lng),
+//         radius: 50000,
+//         types: ["(cities)"],
+//       });
+//       setPredictions(response?.predictions || []);
+//     } catch (error) {
+//       console.error("AutocompleteSuggestion request error: ", error);
+//       setPredictions([]);
+//     }
+//   } else {
+//     setPredictions([]);
+//   }
+// };
+
+
+// const handleInput = (e) => {
+  //   const value = e.target.value;
+  //   setSearch(value);
+
+  //   if (value && service) {
+  //     service.getPlacePredictions(
+  //       {
+  //         input: value,
+  //         componentRestrictions: { country: "in" },
+  //         types: ["(cities)"], // Or "geocode"
+  //       },
+  //       (preds) => {
+  //         setPredictions(preds || []);
+  //       }
+  //     );
+  //   } else {
+  //     setPredictions([]);
+  //   }
+  // };

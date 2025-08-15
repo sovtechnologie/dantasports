@@ -16,10 +16,18 @@ export const useCreateBookingPayment = () => {
       }
 
       // Optionally invalidate or refetch relevant query to update UI
-    //   queryClient.invalidateQueries(["PaymentAndBookingDetails", variables.bookingId]);
+      //   queryClient.invalidateQueries(["PaymentAndBookingDetails", variables.bookingId]);
     },
     onError: (error, variables) => {
-      console.error("Payment creation failed for booking:", variables.bookingId, error);
+     
+      let errMsg = "Payment creation failed.";
+      if (error.response?.data?.message) {
+        errMsg = error.response.data.message;
+      } else if (error.message) {
+        errMsg = error.message;
+      }
+      alert("error",errMsg);
+       console.error("Payment creation failed for booking:", variables.bookingId, error);
       // Optional: display toast or notification
     },
   });

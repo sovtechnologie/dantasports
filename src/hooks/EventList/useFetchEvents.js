@@ -5,8 +5,8 @@ export const useFetchEvent = (payload) => {
   return useQuery({
     queryKey:
       payload.type === 1
-        ? ["EventList", payload.userId]
-        : ["RunList", payload.userId],
+        ? ["EventList", payload.userId,payload.lat, payload.lng]
+        : ["RunList", payload.userId,payload.lat, payload.lng],
     queryFn: () => {
       if (payload.userId) {
         return fetchEventRunListById(payload);
@@ -14,5 +14,6 @@ export const useFetchEvent = (payload) => {
         return fetchEventRunList(payload);
       }
     },
+    enabled: Boolean(payload.lat && payload.lng),
   });
 };

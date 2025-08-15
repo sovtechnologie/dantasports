@@ -35,7 +35,7 @@ const DeskTopFilterCalendar = ({ selectedDate, onDateChange }) => {
     }
   };
 
-  console.log("Selected Date!!!!!!");
+ 
 
   // Prevent navigating to months/years where all dates would be in the past
   const handleMonthSelection = (month) => {

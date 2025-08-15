@@ -14,6 +14,7 @@ import { useQueryClient } from "@tanstack/react-query";
 
 export default function GymFilterPage() {
     const userId = useSelector((state) => state.auth.id);
+    const {lat,lng} = useSelector((state)=>state.location);
     const queryClient = useQueryClient();
     const [gymList, setGymList] = useState([]);
     const [search, setSearch] = useState('');
@@ -21,8 +22,8 @@ export default function GymFilterPage() {
 
     // fetch eventlist
     const payload = {
-        lat: null,
-        lng: null,
+        lat: lat,
+        lng: lng,
         userId: userId || null,
     }
     const { data: AllGymdata, isLoading, isError, error } = useFetchGym(payload);

@@ -3,7 +3,7 @@ import { fetchGymList,fetchGymListById } from "../../services/withoutLoginApi/Gy
 
 export const useFetchGym = (payload) => {
   return useQuery({
-    queryKey: ["GymList", payload.userId],
+    queryKey: ["GymList", payload.userId,payload.lat, payload.lng],
     queryFn: () => {
       if (payload.userId) {
         return fetchGymListById(payload);
@@ -11,5 +11,6 @@ export const useFetchGym = (payload) => {
         return fetchGymList(payload);
       }
     },
+    enabled: Boolean(payload.lat && payload.lng),
   });
 };

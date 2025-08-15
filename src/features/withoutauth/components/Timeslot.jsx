@@ -15,11 +15,11 @@ function formatTo24HourString(date) {
 function Timeslot({ selectedTime, onTimeSlotChange }) {
   const [time, setTime] = useState(selectedTime || null);
 
-  const handleChange = (newValue) => {
-    setTime(newValue);
-    const formatted = formatTo24HourString(newValue);
-    onTimeSlotChange(formatted);
-  }
+  // const handleChange = (newValue) => {
+  //   setTime(newValue);
+  //   const formatted = formatTo24HourString(newValue);
+  //   onTimeSlotChange(formatted);
+  // }
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -27,20 +27,14 @@ function Timeslot({ selectedTime, onTimeSlotChange }) {
         <DesktopTimePicker
           label="Select Time"
           value={time}
-          onChange={handleChange}
+          onChange={(newValue) => setTime(newValue)} // update local state on every change (optional)
+          onAccept={(selectedDate) => {
+            const formatted = formatTo24HourString(selectedDate);
+            onTimeSlotChange(formatted);
+          }}
           ampm
           renderInput={(params) => <TextField {...params} />}
         />
-        {/* <div className="time-display">
-          Selected:{" "}
-          {time
-            ? time.toLocaleTimeString(undefined, {
-              hour: "2-digit",
-              minute: "2-digit",
-              hour12: true,
-            })
-            : "--:--"}
-        </div> */}
       </div>
     </LocalizationProvider>
   );

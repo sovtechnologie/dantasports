@@ -34,7 +34,7 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFina
     }
   }, [setFinalAmount,totalAmount]);
 
-  console.log("discount and price", discount);
+  
   return (
     <div className="checkout-box">
       <div className="row">
@@ -82,8 +82,6 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFina
         type={type}
         totalAmount={totalAmount}
         onApply={({ coupon, apiResponse }) => {
-          console.log("Applied coupon:", coupon);
-          console.log("Server says:", apiResponse);
           setCouponDetails(coupon);
           setDiscount(apiResponse?.discount_amount);
         }}

@@ -213,7 +213,7 @@ export default TimeSelector;
 // const generateTimeSlots = (start, end, interval) => {
 //   const slots = [];
 //   let current = new Date(start);
-//   while (current <= end) {
+//   while (current < end) {
 //     slots.push(new Date(current));
 //     current.setMinutes(current.getMinutes() + interval);
 //   }

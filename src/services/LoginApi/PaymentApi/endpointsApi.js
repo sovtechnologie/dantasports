@@ -1,8 +1,8 @@
 import api from "../../api";
 
-export const createPayment = async (payload) => {
+export const createPayment = async (bookingId) => {
   try {
-    const response = await api.post("user/payment/createPayment", payload);
+    const response = await api.post("user/payment/createPayment", {bookingId});
     return response?.data;
   } catch (error) {
     console.error("Failed to create payment");

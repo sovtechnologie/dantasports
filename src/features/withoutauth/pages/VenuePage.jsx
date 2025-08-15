@@ -73,8 +73,9 @@ function formatTime(timeStr = "00:00") {
 
 
 function VenuePage() {
-    const { lat, lng } = useSelector((state) => state.location);
     const queryClient = useQueryClient();
+    const auth = useSelector((state) => state.auth);
+    const { lat, lng } = useSelector((state) => state.location);
     const [venueList, setVenueList] = useState([]);
     const [selectedSport, setSelectedSport] = useState(null);
     const [selectedSportId, setSelectedSportId] = useState(null);
@@ -90,8 +91,7 @@ function VenuePage() {
     const [searchTerm, setSearchTerm] = useState("");
 
     // Handle venueList data by react-Query
-    console.log("my redux lat and long",lat,lng);
-    const auth = useSelector((state) => state.auth);
+
     const [coords, setCoords] = useState({ lat: lat, lng: lng, userId: auth?.id });
     const { data: AllVenuedata, isLoading, isError, error } = useFetchVenue(coords);
 
@@ -165,7 +165,7 @@ function VenuePage() {
         if (timeslot === selectedTime) return;
         setSelectedTime(timeslot);
     }, [selectedTime]);
-    
+
 
 
     // Handle date selection from calendar

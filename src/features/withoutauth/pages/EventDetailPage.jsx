@@ -122,11 +122,10 @@ export default function EventDetailPage() {
     const [ticketCounts, setTicketCounts] = useState(
         Array(initialTickets.length).fill(0)
     );
-    console.log("tickets quentity", tickets);
+  
 
     const handleTicketChange = (updatedCounts) => {
         setTicketCounts(updatedCounts);
-        console.log('Ticket Counts:', updatedCounts);
     };
 
     const { mutate: CreateBookingPayment, isLoading: paymentLoading } = useCreateBookingPayment();
@@ -180,7 +179,7 @@ export default function EventDetailPage() {
     const { data: bannerData, isLoading: Bannerloading, error: BannerError } = useBanner(3);
 
     const banners = bannerData?.result || [];
-    console.log("eventDetail", event);
+    console.log("eventDetail", selectedArea,locationId);
 
 
     const handleBookEvent = () => {
@@ -392,7 +391,11 @@ export default function EventDetailPage() {
                                 <select
                                     value={selectedArea || ''}
                                     className="meetup-select"
-                                    onChange={(e) => setSelectedArea(e.target.value)}
+                                    onChange={(e) => {
+                                        setSelectedArea(e.target.value)
+                                        setLocationId(e.target.key);
+                                        
+                                    }}
                                 >
                                     {event?.meetupPoints?.map((item, index) => (
                                         <option key={index} value={item.area}>
