@@ -31,7 +31,12 @@ export const UpcommingVenues = () => {
 
     const { data: Bookingdata, isLoading, isError } = useGetAllBooking(!!token);
     const venues = Bookingdata?.result || [];
-    
+
+      // If no token present, do not show anything
+    if (!token) {
+        return null; // or return <p>Please log in to see your upcoming bookings</p>;
+    }
+
 
     const prev = () => {
         setIndex((prevIndex) => {
@@ -53,12 +58,12 @@ export const UpcommingVenues = () => {
         });
     };
 
-     if (venues.length === 0) {
+    if (venues.length === 0) {
         return null; // or return <p>No upcoming bookings</p>;
     }
 
     return (
-        
+
         <div className={styled.upcomingVenuecontainer}>
             <div className={styled.eventsheader}>
                 <h3>UpComming Booking</h3>
