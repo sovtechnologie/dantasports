@@ -9,6 +9,8 @@ import blueLogo from "../assets/sportdantaLogo/blueLogo.png";
 import userLogo from "../assets/UserLogo.png";
 import arrowlogo from "../assets/arrowlogo.png";
 import LoginModal from "../features/auth/components/loginModal";
+import { FaBars, FaTimes } from 'react-icons/fa'; // if not already imported
+
 
 
 function Navbar() {
@@ -39,6 +41,9 @@ function Navbar() {
     }
   };
 
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+
   return (
     <nav className={`navbar ${isHome ? 'home' : ''}`}>
       <div className="navbar-container">
@@ -49,8 +54,13 @@ function Navbar() {
             className="navbar-logo"
           />
         </Link>
+        <div className="hamburger" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          {mobileMenuOpen ? <FaTimes /> : <FaBars />}
+        </div>
 
-        <div className="navbar-actions">
+
+        {/* WRAP the nav and user icon in a collapsible container */}
+        <div className={`navbar-actions ${mobileMenuOpen ? 'active' : ''}`}>
           {isHome ? (
             <>
               <div className='nav-Filter-wrapper'>
