@@ -1,25 +1,37 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: "Segoe UI", sans-serif;
-    background-color: #f1f3f2;
-    color: #333;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f1f3f2;
+  color: #333;
 }
 
 .gym-filter-container {
   display: flex;
   padding: 30px 100px;
+  padding: 0px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
   gap: 1rem;
-  font-family: 'Segoe UI', sans-serif;
-
+  font-family: "Segoe UI", sans-serif;
+  padding-top: 20px;
 }
 
+.gym-card {
+  width: 300px;
+  border-radius: 14.47px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.29);
+  background-color: white;
+  overflow: hidden;
+  font-family: sans-serif;
+  border: 1px solid #e5e5e5;
+  position: relative;
+  height: 222px !important;
+} 
 .gym-filter-sidebar {
-  border: 1px solid #1163C7;
+  border: 1px solid #1163c7;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
   width: 295px;
   height: 318px;
@@ -36,6 +48,37 @@ body {
   flex: 1;
 }
 
-.gym-footer-banner{
-    padding: 2rem;
+.gym-footer-banner {
+  padding: 0px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
+}
+
+@media (max-width: 607px) {
+  .gym-filter-container {
+    flex-direction: column;
+  }
+  .gym-grid {
+    display: flex;
+    overflow-x: auto;
+    flex-wrap: nowrap; /* Prevent wrapping */
+    gap: 16px;
+    padding-bottom: 10px;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Hide scrollbar for webkit browsers */
+  .gym-grid ::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.gym-grid {
+  min-width: 250px;
+  flex: 0 0 auto; /* Prevent flex-grow and shrink */
+}
+
+@media (max-width: 450px) {
+ .gym-filter-sidebar {
+    width: 100%;
+  }
 }

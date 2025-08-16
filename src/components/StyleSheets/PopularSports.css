@@ -1,5 +1,5 @@
 .popular-sports {
-  padding: 50px 100px;
+  padding: 50px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
   background-color: #ffffff;
   position: relative;
 }

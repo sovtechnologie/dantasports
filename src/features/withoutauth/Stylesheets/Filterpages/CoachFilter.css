@@ -1,25 +1,26 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: "Segoe UI", sans-serif;
-    background-color: #f1f3f2;
-    color: #333;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f1f3f2;
+  color: #333;
 }
 
 .coach-filter-container {
   display: flex;
-  padding: 32px 100px;
+  padding: 30px 100px;
+  padding: 0px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
   gap: 1rem;
-  font-family: 'Segoe UI', sans-serif;
-
+  font-family: "Segoe UI", sans-serif;
+  padding-top: 20px;
 }
 
 .coach-filter-sidebar {
-  border: 1px solid #1163C7;
+  border: 1px solid #1163c7;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
   width: 295px;
   height: 318px;
@@ -36,6 +37,39 @@ body {
   flex: 1;
 }
 
-.coach-footer-banner{
-    padding: 2rem;
+.coach-footer-banner {
+  padding: 0px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
+}
+
+@media (max-width: 607px) {
+  .coach-filter-container {
+    flex-direction: column;
+  }
+
+  .coach-grid {
+    display: flex;
+    overflow-x: auto;
+    flex-wrap: nowrap; /* Prevent wrapping */
+    gap: 16px;
+    padding-bottom: 10px;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Hide scrollbar for webkit browsers */
+  .coach-grid::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.coach-card {
+  min-width: 250px;
+  max-width: 300px;
+  flex: 0 0 auto; /* Prevent flex-grow and shrink */
+}
+
+@media (max-width: 450px) {
+  .coach-filter-sidebar {
+    width: 100%;
+  }
 }
