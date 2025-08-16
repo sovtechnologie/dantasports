@@ -11,8 +11,8 @@ export const useCreatePayment = () => {
       console.log("Payment created for booking:", bookingId, data);
 
       // Example: redirect if paymentUrl present
-      if (data?.paymentUrl) {
-        window.location.href = data.paymentUrl;
+      if (data?.url) {
+         window.open(data?.url, "_blank");
       }
 
       // Optionally invalidate or refetch relevant query to update UI
