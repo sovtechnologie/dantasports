@@ -1,8 +1,16 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import Cookies from 'js-cookie';
 import './Stylesheets/TimeSelector.css';
 import { useSportDetails } from '../../../hooks/favouriteSport/useSportDetails.js';
 import { useFetchTimeslotForVenue } from '../../../hooks/VenueList/useFetchTimingSlots.js';
 import TimeslotShimmer from "./Shimmer/TimeslotShimmer.jsx";
+import { useCreateVenueBooking } from '../../../hooks/BookingVenue/useCreateVenueBooking.js';
+
+const getLocalIsoDate = date => {
+    const d = new Date(date);
+    d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+    return d.toISOString().split('T')[0];
+};
 
 const generateTimeSlots = (start, end, interval) => {
   const slots = [];
@@ -23,6 +31,11 @@ const parseTime = (baseDate, timeStr) => {
   return date;
 };
 
+// Overlap check for two [start, end) intervals
+const isOverlap = (startA, endA, startB, endB) => {
+  return startA < endB && endA > startB;
+};
+
 const TimeSelector = ({
   selectedDate,
   selectedDuration,
@@ -30,13 +43,19 @@ const TimeSelector = ({
   selectedTime,
   setSelectedTime,
   sportId = null,
-  venueId
+  venueId,
+  selectedPitch,
+  setSelectedPitch,
+  courtError,
+  bookingId,
+  setBookingId
 }) => {
-  const[errorMessage,setErrorMessage] = useState("");
+   const isLoggedIn = Boolean(Cookies.get('token'));
+  const [errorMessage, setErrorMessage] = useState("");
   const payload = {
-    date: selectedDate,
-    sportsId: sportId,
-    venueId: venueId
+    date: "2025-08-14",
+    sportsId: 2,
+    venueId: 1
   };
 
   const {
@@ -45,7 +64,7 @@ const TimeSelector = ({
     isError: timeslotError,
     error: timeslotMessage
   } = useFetchTimeslotForVenue(payload);
-  console.log("timeslots", timeslotData?.result[0]);
+
   const slottime = timeslotData?.result?.[0] || {};
 
   const { start_time = '00:00:00', end_time = '00:00:00' } = slottime;
@@ -53,11 +72,10 @@ const TimeSelector = ({
   const { data, isLoading, error } = useSportDetails(sportId);
   const sport = data?.result?.[0] || {};
 
-  // const [timeSlots, setTimeSlots] = useState([]);
   const {
     minimum_booking_duration = 0,
     slots_duration = 0,
-    courts
+    courts = []
   } = sport;
 
   const slotMinDurationHr = minimum_booking_duration / 60;
@@ -89,7 +107,7 @@ const TimeSelector = ({
     const end = new Date(selectedTime);
     end.setHours(eh, em, 0, 0);
     const diffHr = (end - selectedTime) / (1000 * 60 * 60);
-    console.log("slecte duration ,diffHr");
+    // console.log("slecte duration ,diffHr");
     const diff = diffHr / slotMinDurationHr;
     return diff * slotMinDurationHr;
   }, [selectedTime, end_time, slotMinDurationHr]);
@@ -108,10 +126,6 @@ const TimeSelector = ({
     });
   }, [selectedTime, getMaxDuration, setSelectedDuration, slotMinDurationHr]);
 
-  // const handleTimeClick = useCallback((slot) => {
-  //   setSelectedTime(slot);
-  //   setSelectedDuration(slotMinDurationHr);
-  // }, [setSelectedTime, setSelectedDuration, slotMinDurationHr]);
 
   const cutoffHour = 23; // 11 PM
   const cutoffMinute = 0;
@@ -134,8 +148,11 @@ const TimeSelector = ({
 
     if (bookingEnd > cutoff) {
       setErrorMessage('Selected time exceeds daily cutoff (11:00 PM)')
+      setSelectedTime(null);
       return;
     }
+    // 🆕 Reset selected court when switching times
+    setSelectedPitch(null);
 
     setSelectedTime(slot);
     setSelectedDuration(slotMinDurationHr);
@@ -149,6 +166,75 @@ const TimeSelector = ({
       setSelectedTime(null);
     }
   }, [sportId, setSelectedDuration, setSelectedTime]);
+
+  // === Extract booking array from API result ===
+  const bookingArray = useMemo(
+    () => timeslotData?.result?.[0]?.booking_Time || [],
+    [timeslotData]
+  );
+  // === Filter available courts for current [selectedTime, selectedTime+duration] ===
+  const availableCourtsForSelectedTime = useMemo(() => {
+    if (!selectedTime || !Array.isArray(courts) || courts.length === 0) return [];
+
+    const slotStart = selectedTime;
+    const durationInMs = (selectedDuration || slotMinDurationHr) * 60 * 60 * 1000;
+    const slotEnd = new Date(slotStart.getTime() + durationInMs);
+
+    return courts.filter((court) => {
+      // True = court is booked for this slot, so we want those that are NOT booked
+      const isBooked = bookingArray.some((booking) => {
+        if (booking.court_id !== court.id) return false;
+        // Optionally only block on status === 1 (if desired)
+        // if (booking.status !== 1) return false;
+
+        const bookingStart = parseTime(new Date(selectedDate), booking.start_time.split('.')[0]);
+        const bookingEnd = new Date(bookingStart.getTime() + booking.duration * 60 * 1000);
+
+        return isOverlap(slotStart, slotEnd, bookingStart, bookingEnd);
+      });
+      return !isBooked;
+    });
+  }, [selectedTime, selectedDuration, courts, bookingArray, selectedDate, slotMinDurationHr]);
+
+  const {
+    mutate: createBooking,
+    isLoading: bookingLoading,
+    error: bookingError
+  } = useCreateVenueBooking();
+  const timeRead = selectedTime?.toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false
+  });
+
+  const bookVenue = (courtId) => {
+
+      if (!isLoggedIn) {
+      alert('Please log in to proceed.')
+      return;
+    }
+    setSelectedPitch(courtId);
+
+    const bookingPayload = {
+      sportId: sportId,
+      venueId: venueId,
+      date: getLocalIsoDate(selectedDate),
+      startTime: timeRead,
+      duration: selectedDuration,
+      courtId: courtId,
+    };
+
+    createBooking(bookingPayload, {
+      onSuccess: (data) => {
+        const id = data?.result?.insertId;
+        setBookingId(id);
+        // setBookingId(data?.result?.insertId);
+        console.log("My Booking Id", data?.result?.insertId);
+      },
+      onError: (error) => alert('Booking failed. ' + (error.message || '')),
+    });
+  }
+  console.log("bookingid",bookingId);
 
 
   if (isLoading) return <div><TimeslotShimmer /></div>;
@@ -170,37 +256,132 @@ const TimeSelector = ({
               <span>{selectedDuration} hr</span>
               <button onClick={() => handleDuration(slotDurationHr)} disabled={!selectedTime}>+</button>
             </div>
+          </div>
+        </div>
 
+
+        {sportId ? (
+          <div className="ts-slots">
+            {timeSlots?.map((slot, index) => {
+              const slotStart = slot;
+              const slotDurationMs = slotMinDurationHr * 60 * 60 * 1000;
+              const slotEnd = new Date(slotStart.getTime() + slotDurationMs);
+
+
+              // Check if ALL courts are booked for this [slotStart, slotEnd)
+              const allCourtsBooked =
+                Array.isArray(courts) && courts.length > 0 &&
+                courts?.every((court) =>
+                  bookingArray.some((booking) => {
+                    if (booking.court_id !== court.id) return false;
+                    // Only mark as booked if this slot's minimal duration is unavailable!
+                    const bookingStart = parseTime(
+                      new Date(selectedDate),
+                      booking.start_time.split('.')[0]
+                    );
+                    const bookingEnd = new Date(
+                      bookingStart.getTime() + booking.duration * 60 * 1000
+                    );
+                    return isOverlap(slotStart, slotEnd, bookingStart, bookingEnd);
+                  })
+                );
+
+
+
+              const isSelected = selectedTime?.getTime() === slotStart.getTime();
+
+              return (
+                <button
+                  key={index}
+                  disabled={allCourtsBooked}
+                  className={`ts-slot${isSelected ? ' active' : ''}`}
+                  style={{
+                    backgroundColor: isSelected
+                      ? "#007bff"
+                      : allCourtsBooked
+                        ? "red"
+                        : "",
+                    color: allCourtsBooked ? "white" : isSelected ? "white" : "black"
+                  }}
+                  onClick={() => !allCourtsBooked && handleTimeClick(slotStart)}
+                >
+                  {slotStart.toLocaleTimeString([], {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                  })}
+                </button>
+              );
+            })}
           </div>
 
-        </div>
-
-
-
-        {sportId ? (<>
-          <div className="ts-slots">
-          {timeSlots.map((slot, index) => (
-            <button
-              key={index}
-              className={`ts-slot ${selectedTime?.getTime() === slot.getTime() ? 'active' : ''}`}
-              onClick={() => handleTimeClick(slot)}
-            >
-              {slot.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-            </button>
-          ))}        
-        </div>
-        <div>{errorMessage && <p style={{ color:"red"}}>{errorMessage}</p>}</div></>
         ) : (
           <p>Select a sport to see available slots</p>
         )}
-
-
+        <div>{errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}</div>
+        {courtError.time && <p className="form-error">{courtError.time}</p>}
       </div>
+
+      <div className="vb-section vb-pitch-options">
+        <label>Court:</label>
+
+        {selectedTime ? (
+          availableCourtsForSelectedTime.length > 0 ? (
+            availableCourtsForSelectedTime.map(court => (
+              <button
+                key={court.id}
+                type="button"
+                className={`vb-pitch-btn ${selectedPitch === court.id ? 'active' : ''}`}
+                onClick={() => bookVenue(court.id)}
+              >
+                {court.court_name}
+              </button>
+            ))
+          ) : (
+            <p>No courts available for this sport/date.</p>
+          )
+        ) : (
+          <p className="court-placeholder">Select a timeslots to see available courts</p>
+        )}
+
+        {courtError.court && <p className="form-error">{courtError.court}</p>}
+      </div>
+
     </>
   );
 };
 
 export default TimeSelector;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // import React, { useState, useEffect, useMemo, useCallback } from 'react';

@@ -1,16 +1,15 @@
-import React, { useMemo, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import "../Stylesheets/VenueDetail.css";
 import venueImage from "../assets/Venue-image.png";
-import cricketIcon from "../assets/VenueDetailIcon/CricketIcon.png";
-import footballIcon from "../assets/VenueDetailIcon/Footballicon.png";
-import pickleballIcon from "../assets/VenueDetailIcon/BatmintonIcon.png";
 import ReviewCard from '../components/ReviewCard.jsx';
 import ShareIcon from '../assets/VenueDetailIcon/shareIcon.png';
 import LikeIcon from '../assets/VenueDetailIcon/LikeIcon.png';
 import PriceChart from '../components/PriceChart.jsx';
 import checkitIcon from "../assets/Checkitcon.png";
 import { useFetchSingleVenue } from '../../../hooks/VenueList/useFetchSingleVenue.js';
+import { usePaymentDetails } from '../../../hooks/Payments/usePaymentDetails.js';
+import { useCreatePayment } from '../../../hooks/Payments/useCreatePayment.js';
 import { formatTime } from '../../../utils/formatTime.js';
 import CustomMap from '../components/CustomMap.jsx';
 import { useBanner } from '../../../hooks/useBanner.js';
@@ -31,11 +30,8 @@ import 'swiper/css/navigation';
 import Calendar from '../components/Calendar.jsx';
 import TimeSelector from '../components/TimeSelector.jsx';
 import { useSportDetails } from '../../../hooks/favouriteSport/useSportDetails.js';
-import { CheckoutModal } from '../../auth/components/Modal/CheckOutModal.jsx';
-import ConfirmSlotCard from '../components/ConfirmSlotCard.jsx';
 import CheckoutPricing from '../components/CheckoutPricing.jsx';
-import { useCreateVenueBooking } from '../../../hooks/BookingVenue/useCreateVenueBooking.js';
-
+import Spinner from '../../../components/Spinner.jsx';
 
 
 export const formatDate = (isoString) => {
@@ -45,12 +41,6 @@ export const formatDate = (isoString) => {
         month: 'short',
         year: 'numeric',
     });
-};
-
-const getLocalIsoDate = date => {
-    const d = new Date(date);
-    d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
-    return d.toISOString().split('T')[0];
 };
 
 
@@ -74,13 +64,13 @@ const mapVenueData = (apiData) => {
                 name: sport.name,
                 icon: sport.image
             }))
-            : [{ name: 'Cricket', icon: cricketIcon },
-            { name: 'Football', icon: footballIcon },
-            { name: 'Pickle Ball', icon: pickleballIcon }],
+            : [],
         amenities: Array.isArray(apiData?.amenities)
             ? apiData.amenities.map((a) => a.name)
             : ["Not Available"],
         latitude: apiData?.latitude || 0,
+        rules: apiData?.rules_and_regulations,
+        booking_policy: apiData?.booking_policy,
         longitude: apiData?.longitude || 0,
         favourite: apiData?.favourite,
         favourite_venue_id: apiData?.favourite_venue_id,
@@ -111,8 +101,8 @@ function VenueDetailsPage() {
     const [selectedDuration, setSelectedDuration] = useState(1);
     const [selectedPitch, setSelectedPitch] = useState('');
     const [selectedSport, setSelectedSport] = useState('');
-    const [finalAmount,setFinalAmount] = useState(null);
-    const [showPopup, setShowPopup] = useState(false);
+    const [totalPrice, setTotalPrice] = useState(0);
+    const [finalAmount, setFinalAmount] = useState(0);
     const [bookingId, setBookingId] = useState(null);
     const [errors, setErrors] = useState({
         sport: '',
@@ -120,7 +110,6 @@ function VenueDetailsPage() {
         time: '',
         court: '',
     });
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const pageNo = 3; // Pass dynamic page number as needed
     const { data, loading, error } = useFetchSingleVenue(id, userId);
     const venue = Array.isArray(data?.result) && data.result.length > 0
@@ -151,6 +140,70 @@ function VenueDetailsPage() {
     const banners = bannerData?.result || [];
 
 
+
+    const handleSportClick = (sportId) => {
+        setSelectedSportId(sportId);
+    };
+
+
+    // get payment price detail
+    const { data: BookingPriceDetails, error: BookingPriceError, isLoading: BookingPriceLoading } = usePaymentDetails(bookingId);
+    const response = BookingPriceDetails?.result?.[0];
+    let convenienceFee = 0;
+
+
+
+    const handleClickLike = (venue) => {
+        if (!venue.favourite) {
+            likeVenue.mutate({ id, userId }, {
+                onSuccess: async () => {
+                    await queryClient.invalidateQueries(["fetchSingleVenue", id, userId]);
+                },
+                onError: () => {
+                    console.error("Failed to like the button")
+                },
+            })
+        } else {
+            unlikeVenue.mutate({ favouriteVenueId: venue.favourite_venue_id }, {
+                onSuccess: async () => {
+                    await queryClient.invalidateQueries(["fetchSingleVenue", id, userId]);
+                },
+                onError: () => {
+                    console.error("Failed to unlike the button ")
+                }
+            })
+        }
+    }
+
+
+
+
+    const [start, setStart] = useState(0);
+    const prev = () => setStart((prev) => Math.max(prev - 1, 0));
+    const next = () =>
+        setStart((prev) =>
+            Math.min(prev + 1, venue?.reviews?.length + 1 - visibleCount)
+        );
+
+    const visibleCount = useMemo(() => {
+        return window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3;
+    }, []);
+
+    useEffect(() => {
+        setTotalPrice(response?.total_price);
+        convenienceFee = response?.convenience_fee;
+    }, [response]);
+
+    // create payments
+    const {
+        mutate: createPayment,
+        data: paymentResponse,
+        isLoading: paymentLoading,
+        isError: paymentError
+    } = useCreatePayment();
+
+
+    //    Payement Processs function
     const handleProceedClick = () => {
         const newErrors = { sport: '', date: '', time: '', court: '' };
         let hasError = false;
@@ -195,105 +248,10 @@ function VenueDetailsPage() {
         }
 
         // ✅ All validations passed
-        setIsModalOpen(true);
+        if (!bookingId)
+            return;
+        createPayment(bookingId);
     };
-
-
-    // Replace with actual data fetching logic
-
-    const myBookingPayload = {
-        sportId: selectedSport,
-        venueId: id,
-        selectedDate: selectedDate, // or format as needed
-        selectedDuration: selectedDuration * 60,
-        selectedTime,
-        selectedPitch,
-    };
-
-
-
-
-
-
-
-    const handleSportClick = (sportId) => {
-        setSelectedSportId(sportId);
-    };
-
-    const handleClickLike = (venue) => {
-        if (!venue.favourite) {
-            likeVenue.mutate({ id, userId }, {
-                onSuccess: async () => {
-                    await queryClient.invalidateQueries(["fetchSingleVenue", id, userId]);
-                },
-                onError: () => {
-                    console.error("Failed to like the button")
-                },
-            })
-        } else {
-            unlikeVenue.mutate({ favouriteVenueId: venue.favourite_venue_id }, {
-                onSuccess: async () => {
-                    await queryClient.invalidateQueries(["fetchSingleVenue", id, userId]);
-                },
-                onError: () => {
-                    console.error("Failed to unlike the button ")
-                }
-            })
-        }
-    }
-
-    const {
-        mutate: createBooking,
-        isLoading: bookingLoading,
-        error: bookingError
-    } = useCreateVenueBooking();
-    const timeRead = selectedTime?.toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false
-    });
-
-    const bookVenue = (courtId) => {
-        setSelectedPitch(courtId);
-
-        // const bookingPayload = {
-        //     sportId: selectedSportId,
-        //     venueId: 1,
-        //     date: getLocalIsoDate(selectedDate),
-        //     startTime: timeRead,
-        //     duration: selectedDuration,
-        //     courtId: selectedPitch,
-        // };
-
-        // createBooking(bookingPayload, {
-        //     onSuccess: (data) => {
-        //         const id = data?.result?.insertId;
-        //         setBookingId(id);
-        //         // setBookingId(data?.result?.insertId);
-        //         console.log("My Booking Id", data?.result?.insertId);
-        //     },
-        //     onError: (error) => alert('Booking failed. ' + (error.message || '')),
-        // });
-    };
-
-
-
-    const [start, setStart] = useState(0);
-
-
-    const prev = () => setStart((prev) => Math.max(prev - 1, 0));
-    const next = () =>
-        setStart((prev) =>
-            Math.min(prev + 1, venue?.reviews?.length + 1 - visibleCount)
-        );
-
-    const visibleCount = useMemo(() => {
-        return window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3;
-    }, []);
-
-
-
-
 
 
 
@@ -409,11 +367,9 @@ function VenueDetailsPage() {
 
 
                     </div>
+
+
                     <div className="venue-right">
-
-
-
-
 
                         <div className="venue-location">
                             <div className="sports-header">Location:</div>
@@ -456,90 +412,31 @@ function VenueDetailsPage() {
                             setSelectedDuration={setSelectedDuration}
                             sportId={selectedSport}
                             venueId={id}
-
+                            selectedPitch={selectedPitch}
+                            setSelectedPitch={setSelectedPitch}
+                            courtError={errors}
+                            bookingId={bookingId}
+                            setBookingId={setBookingId}
                         />
-                        {errors.time && <p className="form-error">{errors.time}</p>}
-
-                        {/* Pitch Selection */}
-
-
-                        <div className="vb-section vb-pitch-options">
-                            <label>Court:</label>
-
-                            {selectedTime ? (
-                                sportDetailsData?.courts?.length > 0 ? (
-                                    sportDetailsData.courts.map(court => (
-                                        <button
-                                            key={court.id}
-                                            type="button"
-                                            className={`vb-pitch-btn ${selectedPitch === court.id ? 'active' : ''}`}
-                                            onClick={() => bookVenue(court.id)}
-                                        >
-                                            {court.court_name}
-                                        </button>
-                                    ))
-                                ) : (
-                                    <p>No courts available for this sport/date.</p>
-                                )
-                            ) : (
-                                <p className="court-placeholder">Select a timeslots to see available courts</p>
-                            )}
-
-                            {errors.court && <p className="form-error">{errors.court}</p>}
-                        </div>
 
                         <div className="venue-right-section">
                             <div className="venue-heading">Price details</div>
-                            <CheckoutPricing
-                                totalPrice={venue?.price}
-                                convenienceFee={100}
-                                count={1}
-                                type={1}
-                                setFinalAmount={setFinalAmount}
-                            />
+                            {BookingPriceLoading ? (
+                                <div className="price-loader">
+                                   <Spinner size={38} color="#1163c7" />
+                                </div>
+                            ) : (
+                                <CheckoutPricing
+                                    totalPrice={totalPrice || 0}
+                                    convenienceFee={convenienceFee}
+                                    count={1}
+                                    type={1}
+                                    setFinalAmount={setFinalAmount}
+                                />
+                            )}
                         </div>
 
-                        <button className="vb-proceed-btn" onClick={handleProceedClick}>PROCEED</button>
-
-                        {isModalOpen && (
-                            <div className="modal-overlay" onClick={(e) => {
-                                // Only close if overlay itself is clicked
-                                if (e.target === e.currentTarget) {
-                                    setIsModalOpen(false);
-                                }
-                            }}>
-                                <div className="modal-content" onClick={(e) => e.stopPropagation()} >
-                                    <ConfirmSlotCard
-                                        payload={myBookingPayload} // ✅ Your payload here
-                                        onClose={() => {
-                                            setIsModalOpen(false)
-                                            setSelectedSport('');
-                                            setSelectedDuration(1);
-                                            setSelectedTime(null);
-                                            setSelectedPitch('');
-                                        }
-                                        }
-                                        onSuccess={(id) => {
-                                            // ✅ To verify
-                                            setBookingId(id)
-                                            setShowPopup(true);
-                                            setIsModalOpen(false);
-                                            setSelectedSport('');
-                                            setSelectedDuration(1);
-                                            setSelectedTime(null);
-                                            setSelectedPitch('');
-                                        }}
-                                        setBookingId={setBookingId}
-                                    />
-
-                                </div>
-                            </div>
-                        )}
-                        <CheckoutModal
-                            isOpen={showPopup}
-                            bookingId={bookingId}
-                            onClose={() => setShowPopup(false)}
-                        />
+                        <button className="vb-proceed-btn" onClick={handleProceedClick}>{paymentLoading ? 'Processing...' : 'PROCEED'}</button>
 
                     </div>
 

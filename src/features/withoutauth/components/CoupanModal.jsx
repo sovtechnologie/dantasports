@@ -49,7 +49,7 @@ export default function CouponModal({ isOpen, onClose, type, totalAmount, onAppl
     const coupons = Array.isArray(coupanlistdata?.result) && coupanlistdata.result.length > 0
         ? coupanlistdata.result.map(mapCoupanData)
         : [];
-    console.log("coupanlist", coupons);
+    
 
     const filteredCoupons = coupons?.filter(coupon =>
         coupon?.name?.toLowerCase().includes(searchTerm.toLowerCase())
