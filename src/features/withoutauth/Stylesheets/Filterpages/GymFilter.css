@@ -29,7 +29,7 @@ body {
   border: 1px solid #e5e5e5;
   position: relative;
   height: 222px !important;
-} 
+}
 .gym-filter-sidebar {
   border: 1px solid #1163c7;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
@@ -78,7 +78,8 @@ body {
 }
 
 @media (max-width: 450px) {
- .gym-filter-sidebar {
+  .gym-filter-sidebar {
     width: 100%;
   }
 }
+

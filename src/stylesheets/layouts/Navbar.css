@@ -105,7 +105,7 @@
 
 .app-btn {
   /* padding: 7px 17px; */
-  padding: clamp(5px, 0.486vw, 10px) clamp(12px, 1.181vw, 24px);
+  padding: clamp(3px, 0.486vw, 10px) clamp(8px, 1.181vw, 24px);
   border-radius: 30px;
   border: 1px solid #1163c7;
   background-color: transparent;
@@ -117,8 +117,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
-  margin-right: 20px;
+  gap: clamp(8px, 0.5556vw, 8px);
+  margin-right: clamp(13px, 1.389vw, 24px);
 }
 
 .user-icon {
@@ -149,13 +149,16 @@
 .navbar.home .app-btn {
   background-color: white;
   color: #172a39;
+  /* border: 1px solid #1163c7; */
 }
 
 .navbar.home .user-icon {
   background-color: white;
+  border: 1px solid #1163c7;
   color: #1163c7;
 }
 
+<<<<<<< HEAD
 .location-search-container {
   display: flex;
   align-items: center;
@@ -181,5 +184,77 @@
   margin-left: 8px;
   cursor: pointer;
   user-select: none;
+=======
+.navbar.home .app-btn img {
+  height: clamp(20px, 1.7361vw, 25px);
+  width: clamp(20px, 1.7361vw, 25px);
+>>>>>>> a96388eb6185028d4de8f6413acb689065e2f60e
 }
 
+/* Hamburger icon - hidden by default */
+.hamburger {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+/* Show hamburger and make menu collapsible on small screens */
+@media (max-width: 600px) {
+  .hamburger {
+    display: block;
+  }
+  .nav-Filter-links {
+    color: #0a0a0a;
+    font-size: 15px;
+  }
+  .navbar-actions {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: white !important;
+    position: absolute;
+    padding: 10px 0px;
+    top: 64px; /* adjust according to your navbar height */
+    left: 0;
+    /* padding: 16px; */
+    z-index: 998;
+  }
+
+  .navbar-actions.active {
+    display: flex;
+  }
+
+  .nav-Filter-wrapper {
+    flex-direction: column;
+    /* align-items: flex-start; */
+    gap: 12px;
+    margin: 0;
+  }
+  .navbar.home .app-btn {
+    border: 1px solid #1163c7;
+    color: #0a0a0a;
+    font-size: 15px;
+    padding: 6px 12px;
+  }
+
+  .app-btn {
+    width: 100%;
+    margin: 0px 0;
+    margin-top: 12px;
+    border: 1px solid #1163c7;
+    max-width: fit-content;
+    color: #0a0a0a;
+  }
+
+  .user-icon {
+    margin-top: 12px;
+  }
+
+  .navbar {
+    background-color: #1163c7 !important;
+  }
+  .navbar-logo {
+    filter: brightness(0) invert(1);
+  }
+}
