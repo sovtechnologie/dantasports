@@ -35,11 +35,7 @@ export default function Gallery({gallery = []}) {
         breakpointCols={breakpoints}
         className="gallery-masonry"
         columnClassName="gallery-column"
-      >
-        {/* {images.map((img) => (
-          <img key={img.id} src={img.src} alt={`img-${img.id}`} className="gallery-img" />
-        ))} */}
-        
+      > 
         {sortedGallery.map((img) => (
           <img
             key={img.id}

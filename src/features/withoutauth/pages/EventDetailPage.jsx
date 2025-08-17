@@ -1,9 +1,7 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import "../Stylesheets/EventDetails.css"
 import ReviewCard from "../components/ReviewCard";
 import Gallery from "../components/Gallery";
-import bannerImage1 from "../../../assets/EventBanner/Banner1.png";
-import bannerImage2 from "../../../assets/EventBanner/Banner2.png";
 import CustomMap from "../components/CustomMap";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
@@ -11,7 +9,6 @@ import RunImage from "../assets/EventImage1.svg";
 import { EventCalandar } from "../components/EventCalandar";
 import TicketSelector from "../components/TicketSelector";
 import CheckoutPricing from "../components/CheckoutPricing";
-import BookingPopupCard from '../../auth/components/BookingPopupCard';
 import { useFetchSingleEvent } from "../../../hooks/EventList/useFetchSingleEvent";
 import { useBanner } from "../../../hooks/useBanner";
 import { useFetchSingleEventPrice } from "../../../hooks/EventList/useFetchEventPrice";
@@ -122,7 +119,7 @@ export default function EventDetailPage() {
     const [ticketCounts, setTicketCounts] = useState(
         Array(initialTickets.length).fill(0)
     );
-  
+
 
     const handleTicketChange = (updatedCounts) => {
         setTicketCounts(updatedCounts);
@@ -179,7 +176,7 @@ export default function EventDetailPage() {
     const { data: bannerData, isLoading: Bannerloading, error: BannerError } = useBanner(3);
 
     const banners = bannerData?.result || [];
-    console.log("eventDetail", selectedArea,locationId);
+    console.log("eventDetail", selectedArea, locationId);
 
 
     const handleBookEvent = () => {
@@ -394,7 +391,7 @@ export default function EventDetailPage() {
                                     onChange={(e) => {
                                         setSelectedArea(e.target.value)
                                         setLocationId(e.target.key);
-                                        
+
                                     }}
                                 >
                                     {event?.meetupPoints?.map((item, index) => (
@@ -443,7 +440,6 @@ export default function EventDetailPage() {
                     </div>
                 </div>
                 <Gallery gallery={event.gallery} />
-
                 <div className="ratings-carousel">
                     <h2 className="review-heading">Ratings & Reviews</h2>
                     <div className="review-carousel-container">

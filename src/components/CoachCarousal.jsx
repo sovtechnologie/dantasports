@@ -1,42 +1,23 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import styled from './StyleSheets/CoachCarousal.module.css';
+import HomeCoachCard from "./HomeCoachCard.jsx"
 import { Link } from 'react-router-dom';
-import styled from './StyleSheets/RunCarousal.module.css';
 import leftArrow from "../assets/VenueImage/left-arrow.png";
 import rightArrow from "../assets/VenueImage/right-arrow.png";
 import cursorArrow from "../assets/cursorArrow.png";
-import { useFetchEvent } from '../hooks/EventList/useFetchEvents.js';
-import HomeRunCard from './HomeRunCard.jsx';
-import { useSelector } from 'react-redux';
+import { useFetchCoach } from '../hooks/CoachList/useFetchCoach.js';;
 
-// Formats "15:00", "15:00:30" → "03:00 PM"
-function formatTime(timeStr = "00:00") {
-    if (!timeStr) return "";  // Return an empty string or suitable default
 
-    const parts = timeStr.split(':');
-    const h = Number(parts[0] || 0);
-    const m = Number(parts[1] || 0);
-    const s = parts.length > 2 ? Number(parts[2]) : 0;
-
-    const dt = new Date();
-    dt.setHours(h, m, s);
-
-    return dt.toLocaleTimeString('en-US', {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: true
-    });
-}
-
-const RunCarousel = () => {
-     const { lat, lng } = useSelector((state) => state.location);
+const CoachCarousel = () => {
+    const { lat, lng } = useSelector((state) => state.location);
     const [index, setIndex] = useState(0);
-    const [coords, setCoords] = useState({ lat: lat, lng: lng, type: 2, userId: null });
     const [lastClicked, setLastClicked] = useState(null); // 'prev' | 'next' | null
     const [hoveredArrow, setHoveredArrow] = useState(null); // 'prev' | 'next' | null
     const visibleCount = 4;
-    const { data, isLoading, error } = useFetchEvent(coords);
+    const { data: AllCoachdata, isLoading, isError, error } = useFetchCoach({ lat, lng });
 
-    const venues = data?.result || [];
+    const venues = AllCoachdata?.result || [];
 
     const prev = () => {
         setIndex((prevIndex) => {
@@ -59,15 +40,15 @@ const RunCarousel = () => {
     };
 
     if (isLoading) return <p>Loading...</p>;
-    if (error) return <p>Error loading venues: {error.message}</p>;
+    if (error) return <p>Error loading coaches: {error.message}</p>;
 
 
 
     return (
         <div className={styled.eventsectioncontainer}>
             <div className={styled.eventsheader}>
-                <h3>Book Run</h3>
-                <Link to="/Run" className={styled.seeall}>
+                <h3>Book Coach</h3>
+                <Link to="/Coach" className={styled.seeall}>
                     See All
                     <img src={cursorArrow} style={{ marginLeft: "8px", width: "auto" }} alt='cursorArrow' />
                 </Link>
@@ -77,7 +58,7 @@ const RunCarousel = () => {
                 <div
                     className={styled.eventcarouseltrack}
                 >
-                    {venues.slice(index, index + visibleCount).map((evt, i) => {
+                    {venues.slice(index, index + visibleCount).map((coach, i) => {
                         let extraClass = "";
                         if (hoveredArrow === "prev" && i === 0 && index > 0) {
                             extraClass = "hover-effect";
@@ -86,29 +67,21 @@ const RunCarousel = () => {
                             extraClass = "hover-effect";
                         }
                         const formattedEvent = {
-                            id: evt.id,
-                            name: evt.event_title,
-                            rating: evt.rating ?? 0,
-                            type: evt?.event_type,
-                            RatingCount: evt.ratingCount ?? 0,
-                            price: `₹${parseInt(evt.lowest_ticket_price)} onwards`,
-                            offer: evt.offer ?? 'No offer',
-                            favourite: evt?.favourite,
-                            favourite_event_id: evt?.favourite_event_id,
-                            location: `${evt.locations[0]?.area}, ${evt.locations[0]?.city}` || '',
-                            date: `${new Date(evt.start_date).toLocaleDateString('en-GB', {
-                                day: '2-digit', month: 'short'
-                            })} – ${new Date(evt.end_date).toLocaleDateString('en-GB', {
-                                day: '2-digit', month: 'short'
-                            })} | ${formatTime(evt.start_time)}‑${formatTime(evt.end_time.slice(0, 5))}`,
-                            image: evt.desktop_image,
-                            sportIcon: evt.sports || ''
+                            id: coach.id,
+                            image: coach.desktop_image || coach.mobile_image,
+                            name: coach.name,
+                            location: `${coach.locations?.area},${coach.locations?.city}`,
+                            rating: coach.average_rating || 0,
+                            ratingCount: coach.review_count || 0,
+                            sportIcon: coach.linked_sports,
+                            category: coach.training_type,
+                            tag: coach.type === 1 ? "Trainer" : "Academy",
                         };
 
                         return (
-                            <HomeRunCard
-                                key={evt.id}
-                                event={formattedEvent} />
+                            <HomeCoachCard
+                                key={coach.id}
+                                coach={formattedEvent} />
                         );
                     })}
                 </div>
@@ -135,4 +108,4 @@ const RunCarousel = () => {
     );
 };
 
-export default RunCarousel;
+export default CoachCarousel;
