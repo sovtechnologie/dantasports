@@ -13,7 +13,7 @@ function RefundPolicy() {
                 <p>Users can initiate cancellations directly from their booking ticket under the "My Bookings" section. The applicable refund amount, if any, will be clearly displayed before you confirm the cancellation.</p>
             </section>
 
-            <section>
+            <section style={{marginBottom:"50px"}}>
                 <p>Refunds, if eligible, will be processed to the original payment method used during the booking. It may take 5–7 working days for the amount to reflect in your account after the cancellation is confirmed.</p>
             </section>
 

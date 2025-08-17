@@ -17,18 +17,22 @@ body {
   width: 100%;
   background-color: #ffffff;
   margin-bottom: 25px;
-  border-bottom-left-radius: 50px;
-  border-bottom-right-radius: 50px;
+  /* border-bottom-left-radius: 50px; */
+  border-bottom-left-radius: clamp(30px, 11.3636vw, 50px);
+  /* border-bottom-right-radius: 50px; */
+  border-bottom-right-radius: clamp(30px, 11.3636vw, 50px);
   height: 208px;
   display: flex;
   flex-direction: column;
   gap: 15px;
-  padding: 0px 100px;
+  /* padding: 0px 100px; */
+  padding: 0px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
   justify-content: center;
 }
 
 .breadcrumb {
-  font-size: 16px;
+  /* font-size: 16px; */
+  font-size: clamp(14px, 3.6364vw, 16px);
   font-weight: 500;
   color: #6b7280;
   font-family: "DM Sans", Arial, sans-serif;
@@ -39,24 +43,26 @@ body {
   font-family: "Lato", sans-serif;
   font-weight: 700;
   font-size: 44px;
+    font-size: clamp(20px, 6vw, 44px);
 }
 
 .gym-location-rating {
   display: flex;
   gap: 20px;
   color: #172a39;
-  font-size: 16px;
+  /* font-size: 16px; */
+  font-size: clamp(14px, 3.6364vw, 16px);
   font-weight: 500;
   font-family: "DM Sans", Arial, sans-serif;
 }
 
 .gym-details-container {
-  margin: 0 auto;
-  max-width: 1240px;
+  padding: 0px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
 }
 .gym-wrapper {
   display: flex;
   flex-wrap: wrap;
+  gap: 10px;
   justify-content: space-between;
 }
 
@@ -64,22 +70,27 @@ body {
   flex: 1 1 55%;
   position: relative;
   max-width: 821px;
+  width: clamp(300px, 57.0139vw, 821px);
 }
 
 .gym-right {
   background-color: #f1f3f2;
   border-radius: 10px;
   border: 1px solid #f1f3f2;
-  width: 403px;
+  /* width: 403px; */
+  width: clamp(200px, 27.9861vw, 403px);
 }
 .map-container {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-
+.map-container iframe {
+  height: clamp(200px, 22.5694vw, 325px);
+}
 .gym-image-carosal {
   height: 500px;
+  height: clamp(200px, 34.7222vw, 500px);
   margin-top: 1rem;
 }
 
@@ -178,16 +189,19 @@ body {
 .gym-carry-point {
   display: flex;
   justify-content: space-between;
+  gap: 10px;
   /* width: 403px; */
   /* flex-direction: row; */
   /* gap: 0.5rem; */
 }
 .gym-carry {
-  width: 403px;
+  /* width: 403px; */
+  width: clamp(200px, 28.9861vw, 403px);
   height: 180px;
 }
 .gym-pickPoints {
-  width: 403px;
+  /* width: 403px; */
+  width: clamp(200px, 28.9861vw, 403px);
 }
 
 .timing-list {
@@ -198,7 +212,7 @@ body {
 .timing-item {
   margin-bottom: 6px;
   color: #b1b1b1;
-  font-size: 16px;
+  font-size: clamp(14px, 1.1111vw, 16px);
   line-height: 23.4px;
   font-weight: 400;
   font-family: "DM Sans", Arial, sans-serif;
@@ -217,7 +231,7 @@ body {
 /* Time portion styled bold or blue if needed */
 .range {
   color: #1163c7;
-  font-size: 16px;
+  font-size: clamp(14px, 1.1111vw, 16px);
   line-height: 23.4px;
   font-weight: 400;
   font-family: "DM Sans", Arial, sans-serif;
@@ -264,14 +278,14 @@ body {
 .gym-term_policy {
   display: flex;
   justify-content: space-between;
-
+  gap: 10px;
   /* flex-direction: row;
   gap: 0.5rem; */
 }
 
 .terms,
 .policy {
-  width: 403px;
+  /* width: 403px; */
   border: 1px solid #a3d0ffde;
   font-family: "Lato", sans-serif;
   font-size: 18px;
@@ -292,6 +306,7 @@ body {
   animation:
     move-border 3s linear infinite,
     glow-pulse 3s ease-in-out infinite;
+  width: clamp(200px, 28.9861vw, 403px);
 }
 
 /* right section */
@@ -305,12 +320,14 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 20px;
+  gap: clamp(10px, 0.3889vw, 20px);
   box-shadow: 0px 4.08px 4.08px 0px #1163c740;
   max-height: 500px;
+  /* height: clamp(200px, 34.7222vw, 500px); */
 }
 .gym-right-section:first-of-type {
   height: 500px;
+  height: clamp(200px, 34.7222vw, 500px);
 }
 .section-group {
   display: flex;
@@ -420,7 +437,7 @@ body {
 
 .ratings-carousel {
   font-family: "Lato", sans-serif;
-  margin-top: 50px
+  margin-top: 50px;
 }
 
 .review-heading {
@@ -434,7 +451,7 @@ body {
   display: flex;
   /* gap: 20px; */
   overflow: hidden;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   justify-content: space-between;
   margin-bottom: 40px;
   padding-bottom: 10px;
@@ -444,13 +461,14 @@ body {
   display: flex;
   justify-content: center;
   gap: 30px;
+  gap: clamp(10px, 2.0833vw, 30px);
   margin-top: 20px;
   margin-bottom: 50px;
 }
 
 .carousel-buttons button {
-  width: 60px;
-  height: 60px;
+  width: clamp(50px, 4.1667vw, 60px);
+  height: clamp(50px, 4.1667vw, 60px);
   background-color: #1163c7;
   border: none;
   color: #ffffff;
@@ -459,30 +477,6 @@ body {
   cursor: pointer;
   transition: background 0.3s ease;
 }
-/* 
-.gym-banner-container {
-  margin: 2rem 0rem;
-}
-
-.gym-banner-heading {
-  font-size: 24px;
-  font-family: "Lato", sans-serif;
-  font-weight: 500;
-  line-height: 21.67px;
-  color: #172a39;
-  margin-bottom: 30px;
-}
-
-.gym-banner-wrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.gym-banner-img {
-    width: 350px;
-    height: 170px;
-} */
 
 .event-banner-container {
   overflow: hidden;
@@ -518,7 +512,8 @@ body {
 
 .event-banner-img {
   width: 300px; /* adjust as needed */
-  height: auto;
+  /* height: auto; */
+  height: 160px;
   border-radius: 8px;
   object-fit: cover;
 }
@@ -530,5 +525,81 @@ body {
   }
   100% {
     transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 1200px) {
+  .gym-term_policy {
+    flex-direction: column;
+    gap: 0px;
+  }
+  .gym-carry-point {
+    flex-direction: column;
+    gap: 0px;
+  }
+  .gym-carry,
+  .gym-pickPoints,
+  .terms,
+  .policy {
+    width: 100%;
+  }
+  .gym-carry {
+    height: auto;
+  }
+  .timing-item,
+  .range {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 945px) {
+  .gym-wrapper {
+    flex-direction: column;
+  }
+  .gym-left,
+  .gym-right {
+    width: 100%;
+  }
+
+  .gym-carry-point {
+    flex-direction: column;
+  }
+  .gym-right-section {
+    gap: 20px;
+  }
+
+  .gym-right-section:first-of-type {
+    height: 500px;
+  }
+  .map-container iframe {
+    height: 325px;
+  }
+}
+
+@media (max-width: 440px) {
+  .timing-item,
+  .range {
+    font-size: clamp(12px, 3.1818vw, 14px);
+  }
+  .coach-name {
+    font-size: clamp(12px, 3.1818vw, 14px);
+  }
+  .coach-title {
+    font-size: clamp(11px, 2.7273vw, 12px);
+  }
+  .gym-description {
+    font-size: clamp(15px, 3.6364vw, 16px);
+  }
+
+  .amenities_tag {
+    gap: 2px;
+    font-size: clamp(12px, 3.6364vw, 16px);
+  }
+  .gym-amenities {
+    gap: 10px;
+  }
+  .amt-img {
+    width: clamp(10px, 4.5455vw, 20px);
+    height: clamp(10px, 4.5455vw, 20px);
   }
 }

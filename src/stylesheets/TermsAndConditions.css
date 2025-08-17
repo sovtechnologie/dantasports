@@ -1,14 +1,17 @@
 .Terms-container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 20px;
+  /* max-width: 1200px; */
+  /* margin: auto; */
+  /* padding: 20px; */
+  padding: 0px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
   font-family: sans-serif;
   line-height: 1.6;
-  
+  margin-top: clamp(90px, 8.3333vw, 160px);
+  /* font-size: clamp(24px, 2.2222vw, 40px); */
 }
 
 .Terms-container h1 {
-  margin-bottom: 0.5em;
+  margin: 16px 0px;
+  font-size: clamp(27px, 2.2222vw, 40px);
 }
 
 .Terms-container section {
@@ -20,3 +23,13 @@
   list-style-type: disc;
 }
 
+h2 {
+  font-size: clamp(18px, 1.8056vw, 26px);
+  margin: 0px;
+}
+p {
+  text-align: justify;
+}
+dd {
+  margin-inline-start: clamp(20px, 2.7778vw, 40px);
+}
