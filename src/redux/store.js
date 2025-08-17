@@ -1,12 +1,5 @@
 // src/redux/store.js
-// import { configureStore } from '@reduxjs/toolkit';
-// import authReducer from './Slices/authSlice.js';
 
-// export const store = configureStore({
-//   reducer: {
-//     auth: authReducer,
-//   },
-// });
 
 import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';

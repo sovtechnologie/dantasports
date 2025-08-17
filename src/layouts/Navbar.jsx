@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Cookies from 'js-cookie';
 import "../stylesheets/layouts/Navbar.css";
 import { isIOS, isAndroid } from 'react-device-detect';
@@ -12,19 +12,26 @@ import LoginModal from "../features/auth/components/loginModal";
 import locationlogo from "../features/withoutauth/assets/locationlogo.png";
 import { getCityName } from '../utils/getCityName';
 import { FaBars, FaTimes } from 'react-icons/fa';
-
+import { setLocation } from '../redux/Slices/locationSlice';
+import { googleMapsLoader } from "../utils/locationSearch.js";
 
 
 
 function Navbar() {
-  const { lat, lng } = useSelector((state) => state.location);
+  const { lat, lng,} = useSelector((state) => state.location);
+  const dispatch = useDispatch();
   const location = useLocation();
   const isHome = location.pathname === '/';
   const isActive = (path) => location.pathname === path;
   const userId = useSelector((state) => state.auth?.id);
   const token = Cookies.get('token');
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [predictions, setPredictions] = useState([]);
+  const [service, setService] = useState(null);
+  const inputRef = useRef(null);
+
 
   const handleClick = () => {
     const url = isAndroid
@@ -46,7 +53,79 @@ function Navbar() {
     getCityName(lat, lng).then(city => setSearchTerm(city));
   }, [lat, lng])
 
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  useEffect(() => {
+    const loadPlaces = async () => {
+      await googleMapsLoader.importLibrary("places");
+      if (window.google) {
+        setService(new window.google.maps.places.AutocompleteService());
+      }
+    };
+    loadPlaces();
+  }, []);
+
+  const handleInput = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+
+    // Only trigger predictions with active service and Redux location
+    if (value && service && lat && lng) {
+      service.getPlacePredictions(
+        {
+          input: value,
+          componentRestrictions: { country: "in" },
+          location: new window.google.maps.LatLng(lat, lng),
+          radius: 50000,
+          types: ["(cities)"],
+        },
+        (preds) => {
+          setPredictions(preds || []);
+        }
+      );
+    } else {
+      setPredictions([]);
+    }
+  };
+
+  const handleSelect = (prediction) => {
+    setSearchTerm(prediction.description);
+    setPredictions([]);
+
+    const placesService = new window.google.maps.places.PlacesService(
+      document.createElement("div")
+    );
+    placesService.getDetails(
+      { placeId: prediction.place_id, fields: ["geometry", "formatted_address"] },
+      (place) => {
+        if (place && place.geometry) {
+          const newLat = place.geometry.location.lat();
+          const newLng = place.geometry.location.lng();
+
+          // Get the city name from address_components
+          let cityName = "";
+          if (place.address_components) {
+            const localityComp = place.address_components.find(comp =>
+              comp.types.includes("locality")
+            );
+            cityName = localityComp
+              ? localityComp.long_name
+              : (
+                // fallback: use administrative_area_level_2 or formatted_address
+                place.address_components.find(comp =>
+                  comp.types.includes("administrative_area_level_2")
+                )?.long_name || place.formatted_address
+              );
+          }
+          setSearchTerm(cityName); // Set only the city name in input box
+          setPredictions([]);
+          // Dispatch to Redux & set autoDetect false
+          dispatch(setLocation({ lat: newLat, lng: newLng, autoDetect: false }));
+        }
+      }
+    );
+  };
+
+
+
 
 
   return (
@@ -82,8 +161,49 @@ function Navbar() {
             <>
               <div className='nav-Filter-wrapper'>
                 <div className="location-search-container">
-                  <input type="text" placeholder="Search by location" className="location_Search_Input" value={searchTerm} />
+                  <input type="text"
+                    placeholder="Search by location"
+                    className="location_Search_Input"
+                    value={searchTerm}
+                    onChange={handleInput}
+                    ref={inputRef}
+                  />
                   <img src={locationlogo} alt="locationlogo" />
+                  {predictions.length > 0 && (
+                    <ul
+                      style={{
+                        position: "absolute",
+                        top: "100%",
+                        left: 0,
+                        right: 0,
+                        background: "#fff",
+                        border: "1px solid #ccc",
+                        borderTop: "none",
+                        listStyle: "none",
+                        margin: 0,
+                        padding: 0,
+                        maxHeight: "200px",
+                        overflowY: "auto",
+                        zIndex: 999,
+                      }}>
+                      {predictions.map((p) => (
+                        <li
+                          key={p.place_id}
+                          onClick={() => handleSelect(p)}
+                          style={{
+                            padding: "8px",
+                            cursor: "pointer",
+                            borderBottom: "1px solid #eee",
+                            color: "#333"
+                          }}
+                          onMouseEnter={(e) => (e.target.style.background = "#f0f0f0")}
+                          onMouseLeave={(e) => (e.target.style.background = "transparent")}
+                        >
+                          {p.description}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
                 <Link to="/venue" className={`nav-Filter-link ${isActive('/venue') ? 'active-link' : ''}`}>Book</Link>
                 <Link to="/CommingSoon" className={`nav-Filter-link ${isActive('/CommingSoon') ? 'active-link' : ''}`}>Host/Play</Link>

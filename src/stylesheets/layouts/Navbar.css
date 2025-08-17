@@ -166,6 +166,7 @@
   padding: 0px 10px;
   width: 250px; /* adjust as needed */
   background-color: white;
+  position: relative;
 }
 
 .location-search-container input.location_Search_Input {
