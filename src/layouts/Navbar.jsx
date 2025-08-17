@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Cookies from 'js-cookie';
@@ -9,9 +9,14 @@ import blueLogo from "../assets/sportdantaLogo/blueLogo.png";
 import userLogo from "../assets/UserLogo.png";
 import arrowlogo from "../assets/arrowlogo.png";
 import LoginModal from "../features/auth/components/loginModal";
+import locationlogo from "../features/withoutauth/assets/locationlogo.png";
+import { getCityName } from '../utils/getCityName';
+
+
 
 
 function Navbar() {
+  const { lat,lng } = useSelector((state)=>state.location) 
   const location = useLocation();
   const isHome = location.pathname === '/';
   const isActive = (path) => location.pathname === path;
@@ -20,6 +25,7 @@ function Navbar() {
   const userId = useSelector((state) => state.auth?.id);
   const token = Cookies.get('token');
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [searchTerm,setSearchTerm] = useState('');
 
   const handleClick = () => {
     const url = isAndroid
@@ -38,6 +44,10 @@ function Navbar() {
       setShowLoginModal(true);
     }
   };
+  useEffect(()=>{
+    getCityName(lat,lng).
+    then(city=>setSearchTerm(city));
+  },[lat,lng])
 
   return (
     <nav className={`navbar ${isHome ? 'home' : ''}`}>
@@ -66,6 +76,10 @@ function Navbar() {
           ) : (
             <>
               <div className='nav-Filter-wrapper'>
+                <div className="location-search-container">
+                  <input type="text" placeholder="Search by location" className="location_Search_Input" value={searchTerm} />
+                  <img src={locationlogo} alt="locationlogo" />
+                </div>
                 <Link to="/venue" className={`nav-Filter-link ${isActive('/venue') ? 'active-link' : ''}`}>Book</Link>
                 <Link to="/CommingSoon" className={`nav-Filter-link ${isActive('/CommingSoon') ? 'active-link' : ''}`}>Host/Play</Link>
                 <Link to="/Run" className={`nav-Filter-link ${isActive('/Run') ? 'active-link' : ''}`}>Run</Link>
