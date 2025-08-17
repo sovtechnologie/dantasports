@@ -17,13 +17,16 @@ body {
   width: 100%;
   background-color: #ffffff;
   margin-bottom: 25px;
-  border-bottom-left-radius: 50px;
-  border-bottom-right-radius: 50px;
+  /* border-bottom-left-radius: 50px; */
+  border-bottom-left-radius: clamp(30px, 11.3636vw, 50px);
+  /* border-bottom-right-radius: 50px; */
+  border-bottom-right-radius: clamp(30px, 11.3636vw, 50px);
   height: 208px;
   display: flex;
   flex-direction: column;
   gap: 15px;
-  padding: 0px 100px;
+  /* padding: 0px 100px; */
+  padding: 0px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
   justify-content: center;
 }
 
@@ -39,6 +42,7 @@ body {
   font-family: "Lato", sans-serif;
   font-weight: 700;
   font-size: 44px;
+    font-size: clamp(20px, 6vw, 44px);
 }
 
 .event-location-rating {
@@ -51,13 +55,13 @@ body {
 }
 
 .event-details-container {
-  margin: 0 auto;
-  max-width: 1240px;
+  padding: 0px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
 }
 
 .event-wrapper {
   display: flex;
   flex-wrap: wrap;
+  gap: 10px;
   justify-content: space-between;
 }
 
@@ -65,18 +69,24 @@ body {
   flex: 1 1 55%;
   position: relative;
   max-width: 821px;
+  width: clamp(300px, 57.0139vw, 821px);
 }
 
 .event-right {
   background-color: #f1f3f2;
   border-radius: 10px;
   border: 1px solid #f1f3f2;
-  max-width: 405px;
+  /* width: 403px; */
+  width: clamp(200px, 27.9861vw, 403px);
 }
 
 .event-image-carosal {
   height: 500px;
+  height: clamp(200px, 34.7222vw, 500px);
   margin-top: 1rem;
+}
+.map-container iframe {
+  height: clamp(200px, 22.5694vw, 325px);
 }
 
 .swiper {
@@ -156,7 +166,7 @@ body {
 .event-guide-content {
   display: flex;
   justify-content: flex-start;
-  gap: 40px;
+  gap: clamp(16px, 2.7778vw, 40px);
   flex-wrap: wrap;
 }
 
@@ -188,8 +198,10 @@ body {
 .event-carry-point {
   display: flex;
   justify-content: space-between;
-  flex-direction: row;
-  gap: 0.5rem;
+  gap: 10px;
+  /* width: 403px; */
+  /* flex-direction: row; */
+  /* gap: 0.5rem; */
 }
 .event-carry,
 .event-pickPoints {
@@ -207,8 +219,9 @@ body {
 .event-term_policy {
   display: flex;
   justify-content: space-between;
-  flex-direction: row;
-  gap: 0.5rem;
+  gap: 10px;
+  /* flex-direction: row;
+  gap: 0.5rem; */
 }
 
 .terms,
@@ -220,7 +233,7 @@ body {
   font-weight: 500;
   line-height: 21.67px;
   color: #172a39;
-   border: 2px solid transparent;
+  border: 2px solid transparent;
   background-image:
     linear-gradient(white, white),
     linear-gradient(270deg, #1163c7, #a3d0ff, #1163c7);
@@ -243,9 +256,9 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 20px;
+  gap: clamp(6px, 0.3889vw, 20px);
   box-shadow: 0px 4.08px 4.08px 0px #1163c740;
-  max-height: 500px ;
+  max-height: 500px;
 }
 
 .meetup-select {
@@ -263,7 +276,7 @@ body {
 .map-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: clamp(10px, 0.3889vw, 20px);
 }
 .event-right-section-button {
   border: 1px solid #1163c7;
@@ -276,6 +289,11 @@ body {
   justify-content: center;
   gap: 20px;
 }
+
+.event-right-section:first-of-type {
+  height: 500px;
+  height: clamp(200px, 34.7222vw, 500px);
+}
 .event-btn {
   color: #ffffff;
   background-color: #1163c7;
@@ -287,6 +305,7 @@ body {
 
 .ratings-carousel {
   font-family: "Lato", sans-serif;
+  margin-top: 50px;
 }
 
 .review-heading {
@@ -300,7 +319,7 @@ body {
   display: flex;
   /* gap: 20px; */
   overflow: hidden;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   justify-content: space-between;
   margin-bottom: 40px;
   padding-bottom: 10px;
@@ -310,13 +329,14 @@ body {
   display: flex;
   justify-content: center;
   gap: 30px;
+  gap: clamp(10px, 2.0833vw, 30px);
   margin-top: 20px;
   margin-bottom: 50px;
 }
 
 .carousel-buttons button {
-  width: 60px;
-  height: 60px;
+  width: clamp(50px, 4.1667vw, 60px);
+  height: clamp(50px, 4.1667vw, 60px);
   background-color: #1163c7;
   border: none;
   color: #ffffff;
@@ -386,8 +406,9 @@ body {
 }
 
 .event-banner-img {
-  width: 300px;     /* adjust as needed */
-  height: auto;
+  width: 300px; /* adjust as needed */
+  /* height: auto; */
+  height: 160px;
   border-radius: 8px;
   object-fit: cover;
 }
@@ -399,5 +420,87 @@ body {
   }
   100% {
     transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 1200px) {
+  .event-term_policy {
+    flex-direction: column;
+    gap: 0px;
+  }
+  .event-carry-point {
+    flex-direction: column;
+    gap: 0px;
+  }
+  .gym-carry,
+  .gym-pickPoints,
+  .terms,
+  .policy {
+    width: 100%;
+  }
+  .gym-carry {
+    height: auto;
+  }
+  .timing-item,
+  .range {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 945px) {
+  .gym-wrapper {
+    flex-direction: column;
+  }
+  .event-left,
+  .event-right {
+    width: 100%;
+  }
+
+  .event-carry-point {
+    flex-direction: column;
+  }
+  .event-right-section {
+    gap: 20px;
+  }
+
+  .event-right-section:first-of-type {
+    height: 500px;
+  }
+  .map-container iframe {
+    height: 325px;
+  }
+  .map-container {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 440px) {
+  .event-description {
+    font-size: clamp(15px, 3.6364vw, 16px);
+  }
+}
+
+
+@media (max-width: 1400px) {
+  /* Container for all review cards */
+  .gallery-masonry {
+    display: flex;
+    overflow-x: auto;
+    flex-wrap: nowrap; /* Prevent wrapping */
+    gap: 16px;
+    padding-bottom: 10px;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Hide scrollbar for webkit browsers */
+  .gallery-masonry::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Make sure cards don’t shrink */
+  .gallery-column {
+    flex: 0 0 auto;
+    /* existing styles */
   }
 }

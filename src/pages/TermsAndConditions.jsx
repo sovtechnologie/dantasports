@@ -185,7 +185,7 @@ function TermsAndConditions() {
                     <h2>XIV.	GOVERNING LAW AND DISPUTE RESOLUTION </h2>
                     <p>The laws of India apply to these Terms of Use. The courts in Bangalore, India, will have jurisdiction over any action, suit, or other legal proceeding that is started to settle any dispute originating under or connected to the Danta Sports Platform or these Terms of Use.</p>
                 </section>
-                <section>
+                <section style={{marginBottom:"50px"}}>
                     <h2>XV.	CONTACT US</h2>
                     <p>Please contact us for any questions or comments regarding the Terms of Use and other policies governing the Danta Sports Platform by e-mail at <a href="mailto:contact@dantasports.com" target="_blank" rel="noopener noreferrer">contact@dantasports.com</a></p>
                 </section>

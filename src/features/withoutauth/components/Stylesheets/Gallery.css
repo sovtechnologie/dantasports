@@ -14,7 +14,7 @@
 
 .gallery-masonry {
   display: flex;
-  margin-left: -12px; /* gutter size offset */
+  /* margin-left: -12px;  */
   width: auto;
   margin-bottom: 50px;
   display: flex;
@@ -22,10 +22,10 @@
   max-width: 1200px;
 }
 
-.gallery-column {
-  padding-left: 12px; /* gutter size */
+/* .gallery-column {
+  padding-left: 12px; 
   background-clip: padding-box;
-}
+} */
 
 .gallery-img {
   /* width: 100%; */
@@ -33,4 +33,9 @@
   border-radius: 12px;
   margin-bottom: 12px;
   object-fit: cover;
+}
+
+.gallery-img image{
+  width: 240px;
+
 }

@@ -98,7 +98,8 @@
 
 .event-banner-img {
   width: 300px;     /* adjust as needed */
-  height: auto;
+  /* height: auto; */
+  height: 160px;
   border-radius: 8px;
   object-fit: cover;
 }
@@ -299,10 +300,10 @@
     display: none !important;
   }
 
-  .event-card {
+  /* .event-card {
     flex: 1 1 100%;
     max-width: 100%;
-  }
+  } */
 
   .home-btn {
     width: 40%;
