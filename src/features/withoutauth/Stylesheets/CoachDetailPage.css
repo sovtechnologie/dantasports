@@ -42,7 +42,7 @@ body {
   font-family: "Lato", sans-serif;
   font-weight: 700;
   font-size: 44px;
-    font-size: clamp(20px, 6vw, 44px);
+    font-size: clamp(20px, 5vw, 44px);
 }
 
 .coach-location-rating {
@@ -339,7 +339,7 @@ body {
   font-weight: 400;
   font-family: "DM Sans", Arial, sans-serif;
   color: #858585;
-  line-height: 22.39px;
+  line-height: 22.39px !important;
 }
 
 .arrow {
@@ -468,4 +468,10 @@ body {
   .coach-title {
     font-size: clamp(11px, 2.7273vw, 12px);
   }
+}
+
+
+.award-wrapper img{
+  width: clamp(191px, 13.2639vw, 191px);
+  height: clamp(114px, 7.9167vw, 114px);
 }

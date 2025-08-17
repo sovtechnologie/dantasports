@@ -163,8 +163,8 @@
   align-items: center;
   border: 1px solid #ccc;
   border-radius: 10px;
-  padding: 0px 10px;
-  width: 250px; /* adjust as needed */
+  /* padding: 0px 10px; */
+  max-width: 250px; 
   background-color: white;
 }
 
@@ -181,6 +181,7 @@
   width: 22px;
   height: 22px;
   margin-left: 8px;
+  margin-right: 8px;
   cursor: pointer;
   user-select: none;
 }
@@ -194,7 +195,7 @@
 }
 
 /* Show hamburger and make menu collapsible on small screens */
-@media (max-width: 600px) {
+@media (max-width: 750px) {
   .hamburger {
     display: block;
   }
@@ -223,7 +224,7 @@
     flex-direction: column;
     /* align-items: flex-start; */
     gap: 12px;
-    margin: 0;
+    margin: 0 auto;
   }
   .navbar.home .app-btn {
     border: 1px solid #1163c7;
@@ -250,5 +251,8 @@
   }
   .navbar-logo {
     filter: brightness(0) invert(1);
+  }
+  .location-search-container img {
+    margin-left: 0px;
   }
 }

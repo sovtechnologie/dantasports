@@ -42,7 +42,7 @@ body {
   font-family: "Lato", sans-serif;
   font-weight: 700;
   font-size: 44px;
-    font-size: clamp(20px, 6vw, 44px);
+    font-size: clamp(20px, 5vw, 44px);
 }
 
 .event-location-rating {
