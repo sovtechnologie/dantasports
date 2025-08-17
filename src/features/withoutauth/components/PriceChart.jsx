@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import "./Stylesheets/PriceChart.css"
 import priceData from '../StaticData/PriceChart'
-import { useSportPriceChart } from '../../../hooks/favouriteSport/useSportPriceChart'
+import { useSportPriceChart } from '../../../hooks/favouriteSport/useSportPriceChart';
+import Spinner from '../../../components/Spinner';
 
 
 
@@ -86,20 +87,17 @@ function PriceChart({ venueId, sportId }) {
   useEffect(() => {
     if (!isLoading && (!data || data.result.length === 0)) {
       setShowNoDataMessage(true);
-      const timer = setTimeout(() => {
-        setShowNoDataMessage(false);
-      }, 5000);
-      return () => clearTimeout(timer);
+      // const timer = setTimeout(() => {
+      //   setShowNoDataMessage(false);
+      // }, 5000);
+      // return () => clearTimeout(timer);
     }
   }, [data, isLoading]);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
   if (error) {
     return <div>Error loading price chart: {error.message}</div>;
   }
-  
+
 
 
   return (
@@ -109,35 +107,36 @@ function PriceChart({ venueId, sportId }) {
         <h2>Price Chart</h2>
       </div>
       <p className="notes">Pricing is subjected to change and is controlled by venue</p>
-      {!hasValidData && showNoDataMessage ? (
-        <div className="no-data-message" style={{ padding: "1rem", textAlign: "center" }}>
-          No price data available for this sport.
+      {isLoading ? (
+        <div className="price-chart-spinner-wrapper" style={{ display: 'flex', justifyContent: 'center', padding: '2rem' }}>
+          <Spinner />
         </div>
-      ) : (
+      ) :
+        !hasValidData && showNoDataMessage ? (
+          <div className="no-data-message" style={{ padding: "1rem", textAlign: "center" ,color:"red"}}>
+            No price data available for this sport.
+          </div>
+        ) : (
 
-        <div className="columns">
-          {transformedPriceData.map((column) => (
-            <div key={column.title} className="column">
-              <h5>{column.title}</h5>
-              {Object.entries(column.slotsByDay ||{}).map(([day, slots]) => (
-                <div key={day} className="day-group">
-                  <strong>{day}</strong>
-                  {slots.map((slot, i) => (
-                    <div key={i} className="time-price">
-                      <span>{slot.time}</span>
-                      <span className="price">{slot.price}</span>
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-      )}
-
-
-
-
+          <div className="columns">
+            {transformedPriceData.map((column) => (
+              <div key={column.title} className="column">
+                <h5>{column.title}</h5>
+                {Object.entries(column.slotsByDay || {}).map(([day, slots]) => (
+                  <div key={day} className="day-group">
+                    <strong>{day}</strong>
+                    {slots.map((slot, i) => (
+                      <div key={i} className="time-price">
+                        <span>{slot.time}</span>
+                        <span className="price">{slot.price}</span>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        )}
     </div>
   )
 }

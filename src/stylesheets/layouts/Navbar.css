@@ -158,9 +158,31 @@
   color: #1163c7;
 }
 
-.navbar.home .app-btn img {
-  height: clamp(20px, 1.7361vw, 25px);
-  width: clamp(20px, 1.7361vw, 25px);
+.location-search-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 0px 10px;
+  width: 250px; /* adjust as needed */
+  background-color: white;
+}
+
+.location-search-container input.location_Search_Input {
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  padding: 10px;
+  border-radius: 10px 0 0 10px;
+  font-size: 14px;
+}
+
+.location-search-container img {
+  width: 22px;
+  height: 22px;
+  margin-left: 8px;
+  cursor: pointer;
+  user-select: none;
 }
 
 /* Hamburger icon - hidden by default */

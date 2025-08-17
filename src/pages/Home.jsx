@@ -12,11 +12,9 @@ import { UpcommingVenues } from "../components/UpcommingVenue";
 
 
 const Home = () => {
-     const [coords, setCoords] = useState({ lat: null, lng: null,});  
-
     return (
         <div className="main-Home-container">
-            <Hero setCoords={setCoords} />
+            <Hero />
             <PopularSports />
             <BannerCarousel />
             <UpcommingVenues />

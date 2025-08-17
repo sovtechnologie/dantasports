@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import "../Stylesheets/VenuePage.css";
 import searchlogo from "../assets/Searchlogo.png";
-import locationlogo from "../assets/locationlogo.png";
 import { useQuery } from '@tanstack/react-query';
 import SortFilterPopup from '../components/SortFilterPopup.jsx';
 import FilterPopup from '../components/FilterPopup.jsx';
@@ -25,7 +24,8 @@ import { useQueryClient } from '@tanstack/react-query';
 import { VenueListShimmer } from '../components/Shimmer/VenueListShimmer.jsx';
 import { useSortVenue } from '../../../hooks/SortAndFilter/useSortVenue.js';
 import { useFilterVenue } from '../../../hooks/SortAndFilter/useFilterVenue.js';
-import { getUserLocation } from '../../../utils/getUserLocation.js';
+
+
 
 
 const sortOptions = [
@@ -152,10 +152,6 @@ function VenuePage() {
             });
         }
     };
-
-
-
-
 
 
 
@@ -328,6 +324,7 @@ function VenuePage() {
         }
     }, [AllVenuedata]);
 
+  
 
 
     if (isLoading) return <div> <VenueListShimmer /></div>;
@@ -348,11 +345,10 @@ function VenuePage() {
                         <img src={searchlogo} height={30} width={30} alt='searchlogo' />
                         <input
                             type="text"
-                            placeholder="Search by venue, location"
+                            placeholder="Search by venue"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
-                        <img src={locationlogo} height={30} width={30} alt='locationlogo' />
                     </div>
 
 
