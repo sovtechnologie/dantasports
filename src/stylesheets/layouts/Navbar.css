@@ -158,7 +158,6 @@
   color: #1163c7;
 }
 
-<<<<<<< HEAD
 .location-search-container {
   display: flex;
   align-items: center;
@@ -184,11 +183,6 @@
   margin-left: 8px;
   cursor: pointer;
   user-select: none;
-=======
-.navbar.home .app-btn img {
-  height: clamp(20px, 1.7361vw, 25px);
-  width: clamp(20px, 1.7361vw, 25px);
->>>>>>> a96388eb6185028d4de8f6413acb689065e2f60e
 }
 
 /* Hamburger icon - hidden by default */

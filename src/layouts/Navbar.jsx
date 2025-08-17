@@ -9,27 +9,22 @@ import blueLogo from "../assets/sportdantaLogo/blueLogo.png";
 import userLogo from "../assets/UserLogo.png";
 import arrowlogo from "../assets/arrowlogo.png";
 import LoginModal from "../features/auth/components/loginModal";
-<<<<<<< HEAD
 import locationlogo from "../features/withoutauth/assets/locationlogo.png";
 import { getCityName } from '../utils/getCityName';
+import { FaBars, FaTimes } from 'react-icons/fa';
 
-=======
-import { FaBars, FaTimes } from 'react-icons/fa'; // if not already imported
->>>>>>> a96388eb6185028d4de8f6413acb689065e2f60e
 
 
 
 function Navbar() {
-  const { lat,lng } = useSelector((state)=>state.location) 
+  const { lat, lng } = useSelector((state) => state.location);
   const location = useLocation();
   const isHome = location.pathname === '/';
   const isActive = (path) => location.pathname === path;
-
-
   const userId = useSelector((state) => state.auth?.id);
   const token = Cookies.get('token');
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [searchTerm,setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleClick = () => {
     const url = isAndroid
@@ -43,15 +38,13 @@ function Navbar() {
 
   const handleProfileClick = (e) => {
     if (!userId || !token) {
-
       e.preventDefault();
       setShowLoginModal(true);
     }
   };
-  useEffect(()=>{
-    getCityName(lat,lng).
-    then(city=>setSearchTerm(city));
-  },[lat,lng])
+  useEffect(() => {
+    getCityName(lat, lng).then(city => setSearchTerm(city));
+  }, [lat, lng])
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
