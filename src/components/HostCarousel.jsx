@@ -1,12 +1,15 @@
-import React, {  useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import styled from './StyleSheets/RunCarousal.module.css';
+import styled from './StyleSheets/HostCarousal.module.css';
 import leftArrow from "../assets/VenueImage/left-arrow.png";
 import rightArrow from "../assets/VenueImage/right-arrow.png";
 import cursorArrow from "../assets/cursorArrow.png";
-import { useFetchEvent } from '../hooks/EventList/useFetchEvents.js';
-import HomeRunCard from './HomeRunCard.jsx';
+import { useFetchHostList } from '../hooks/Hostlist/useFetchHostList.jsx';
 import { useSelector } from 'react-redux';
+import { HostCard } from './HostCard.jsx';
+import gameImage from "../features/withoutauth/assets/gameImage.png";
+import gameImage1 from "../features/withoutauth/assets/gameImage1.png";
+
 
 // Formats "15:00", "15:00:30" → "03:00 PM"
 function formatTime(timeStr = "00:00") {
@@ -27,14 +30,14 @@ function formatTime(timeStr = "00:00") {
     });
 }
 
-const RunCarousel = () => {
-     const { lat, lng } = useSelector((state) => state.location);
+
+const HostCarousel = () => {
+    const { lat, lng } = useSelector((state) => state.location);
     const [index, setIndex] = useState(0);
-    const [coords, setCoords] = useState({ lat: lat, lng: lng, type: 2, userId: null });
     const [lastClicked, setLastClicked] = useState(null); // 'prev' | 'next' | null
     const [hoveredArrow, setHoveredArrow] = useState(null); // 'prev' | 'next' | null
     const visibleCount = 4;
-    const { data, isLoading, error } = useFetchEvent(coords);
+    const { data, isLoading, error } = useFetchHostList({ lat, lng });
 
     const venues = data?.result || [];
 
@@ -66,8 +69,8 @@ const RunCarousel = () => {
     return (
         <div className={styled.eventsectioncontainer}>
             <div className={styled.eventsheader}>
-                <h3>Book Run</h3>
-                <Link to="/Run" className={styled.seeall}>
+                <h3>Book Game</h3>
+                <Link to="/Host" className={styled.seeall}>
                     See All
                     <img src={cursorArrow} style={{ marginLeft: "8px", width: "auto" }} alt='cursorArrow' />
                 </Link>
@@ -77,7 +80,7 @@ const RunCarousel = () => {
                 <div
                     className={styled.eventcarouseltrack}
                 >
-                    {venues.slice(index, index + visibleCount).map((evt, i) => {
+                    {venues.slice(index, index + visibleCount).map((host, i) => {
                         let extraClass = "";
                         if (hoveredArrow === "prev" && i === 0 && index > 0) {
                             extraClass = "hover-effect";
@@ -85,30 +88,31 @@ const RunCarousel = () => {
                         if (hoveredArrow === "next" && i === visibleCount - 1 && index < venues.length - visibleCount) {
                             extraClass = "hover-effect";
                         }
-                        const formattedEvent = {
-                            id: evt.id,
-                            name: evt.event_title,
-                            rating: evt.rating ?? 0,
-                            type: evt?.event_type,
-                            RatingCount: evt.ratingCount ?? 0,
-                            price: `₹${parseInt(evt.lowest_ticket_price)} onwards`,
-                            offer: evt.offer ?? 'No offer',
-                            favourite: evt?.favourite,
-                            favourite_event_id: evt?.favourite_event_id,
-                            location: `${evt.locations[0]?.area}, ${evt.locations[0]?.city}` || '',
-                            date: `${new Date(evt.start_date).toLocaleDateString('en-GB', {
+                        const formatttedHost = {
+                            id: host?.id,
+                            type: host?.activity_type,
+                            host: host?.host_name,
+                            hostImage: host?.host_image,
+                            address: host?.full_address,
+                            distance: host?.distance_km,
+                            city: host?.city,
+                            state: host?.state,
+                            totalPlayer: host?.total_players,
+                            startTime: host?.start_time,
+                            endTime: host?.end_time,
+                            attendees: host?.going,
+                            date: `${new Date(host?.date).toLocaleDateString('en-GB', {
                                 day: '2-digit', month: 'short'
-                            })} – ${new Date(evt.end_date).toLocaleDateString('en-GB', {
-                                day: '2-digit', month: 'short'
-                            })} | ${formatTime(evt.start_time)}‑${formatTime(evt.end_time.slice(0, 5))}`,
-                            image: evt.desktop_image,
-                            sportIcon: evt.sports || ''
+                            })} | ${formatTime(host?.start_time)}‑${formatTime(host?.end_time.slice(0, 5))}`,
+                            skill: host?.game_skill,
+                            attendeesAvatars: host?.userProfile_image || [{ profile_image: gameImage }, { profile_image: gameImage1 }]
+
                         };
 
                         return (
-                            <HomeRunCard
-                                key={evt.id}
-                                event={formattedEvent} />
+                            <HostCard
+                                key={host.id}
+                                host={formatttedHost} />
                         );
                     })}
                 </div>
@@ -135,4 +139,4 @@ const RunCarousel = () => {
     );
 };
 
-export default RunCarousel;
+export default HostCarousel;

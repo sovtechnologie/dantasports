@@ -12,7 +12,6 @@ const Register = lazy(() => import('../features/auth/pages/Register'));
 
 const VenuePage = lazy(() => import('../features/withoutauth/pages/VenuePage'));
 const VenueDetailsPage = lazy(() => import('../features/withoutauth/pages/VenueDetailsPage'));
-const VenueCheckoutPage = lazy(() => import('../features/withoutauth/pages/VenueCheckoutPage'));
 const ProfilePage = lazy(() => import('../features/auth/pages/ProfilePage'));
 const MyBooking = lazy(() => import("../features/auth/pages/MyBooking"));
 const Favorites = lazy(() => import('../features/auth/pages/Favorites'));
@@ -25,7 +24,6 @@ const RefundPolicy = lazy(() => import('../pages/RefundPolicy'));
 const CommingSoon = lazy(() => import('../pages/CommingSoon'));
 const SucessfulBooking = lazy(()=>import('../features/auth/components/paymentSuccess'));
 const PaymentFailed = lazy(()=>import('../features/withoutauth/components/paymentFailed'))
-const PaymentStatus = lazy(()=>import('../features/auth/components/paymentStatus'));
 
 // Filter pages
 const RunFilterPage = lazy(()=>import("../features/withoutauth/pages/FilterPages/RunFilter"));
@@ -36,6 +34,7 @@ const CoachFilterPage = lazy(()=>import("../features/withoutauth/pages/FilterPag
 const CoachDetailPage = lazy(()=>import("../features/withoutauth/pages/CoachDetailPage"))
 const GymFilterPage = lazy(()=>import("../features/withoutauth/pages/FilterPages/GymFilter"))
 const GymDetailPage = lazy(()=>import("../features/withoutauth/pages/GymDetailPage"));
+const HostFilterPage = lazy(()=>import("../features/withoutauth/pages/FilterPages/HostPlayFilter"))
 
 // Private Route to protected the route
 const PrivateRoute = lazy(() => import('../features/auth/components/PrivateRoute'));
@@ -58,11 +57,9 @@ export default function AppRoutes() {
 
                     <Route path="/venue" element={<VenuePage key={location.pathname} />} />
                     <Route path="/venue/:id" element={<VenueDetailsPage />} />
-                    <Route path="/venueCheckout/:id" element={<VenueCheckoutPage />} />
                     <Route path='/CorporateBooking' element={<CorporateBookingPage />} />
                     <Route path='/payment-sucesss' element={<SucessfulBooking />} />
-                    <Route path='/payment-failed/:id' element={<PaymentFailed/>} />
-                    <Route path='/payment-status/:id' element={<PaymentStatus />}/>
+                    <Route path='/payment-failed' element={<PaymentFailed/>} />
                     <Route path='/Partner' element={<PartnerPage />} />
                     <Route path='/PrivacyAndPolicy' element={<PrivacyAndPolicy />} />
                     <Route path='/TermsAndConditions' element={<TermsAndConditions />} />
@@ -71,7 +68,7 @@ export default function AppRoutes() {
 
                     {/* Filter Pages */}
                     <Route path = '/Run' element={<RunFilterPage />} />
-                    <Route path = '/Host' element={<></>} />
+                    <Route path = '/Host' element={<HostFilterPage/>} />
                     <Route path = '/Coach' element={<CoachFilterPage/>} />
                     <Route path = '/Events' element={<EventFilterPage />} />
                     <Route path = '/Gym' element={<GymFilterPage/>} />

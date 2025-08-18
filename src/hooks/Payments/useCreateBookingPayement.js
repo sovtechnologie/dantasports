@@ -9,10 +9,9 @@ export const useCreateBookingPayment = () => {
     mutationFn: ({ bookingId, amount, type }) => CreateBookingPayment({ bookingId, amount, type }),
     onSuccess: (data, variables) => {
       console.log("Payment created for booking:", variables.bookingId, data);
-
       // Example: redirect if paymentUrl present
-      if (data?.paymentUrl) {
-        window.location.href = data.paymentUrl;
+      if (data?.result) {
+         window.open(data?.result, "_blank");
       }
 
       // Optionally invalidate or refetch relevant query to update UI

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import "../Stylesheets/RunDetailPage.css";
+import Cookies from 'js-cookie'
 import ReviewCard from "../components/ReviewCard";
 import Gallery from "../components/Gallery";
-import bannerImage1 from "../../../assets/EventBanner/Banner1.png";
-import bannerImage2 from "../../../assets/EventBanner/Banner2.png";
 import CustomMap from "../components/CustomMap";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
@@ -11,7 +10,6 @@ import RunImage from "../assets/RunImage.svg";
 import { EventCalandar } from "../components/EventCalandar";
 import TicketSelector from "../components/TicketSelector";
 import CheckoutPricing from "../components/CheckoutPricing";
-import BookingPopupCard from '../../auth/components/BookingPopupCard';
 import leftArrow from "../assets/left-arrow.png";
 import rightArrow from "../assets/right-arrow.png";
 
@@ -95,7 +93,7 @@ const mapEventData = (apiData) => {
 
 export default function EventDetailPage() {
     const { id } = useParams();
-
+    const isLoggedIn = Boolean(Cookies.get('token'));
     const [expandedSection, setExpandedSection] = useState(null);
     const [selectedArea, setSelectedArea] = useState('')
     const [locationId, setLocationId] = useState(null);
@@ -152,6 +150,11 @@ export default function EventDetailPage() {
     const banners = bannerData?.result || [];
 
     const handleBookEvent = () => {
+       if (!isLoggedIn) {
+            alert('Please log in to proceed.')
+            return;
+        }
+
         const bookingPayload = {
             locationId: 1,
             bookingDate: selectedDate,

@@ -20,7 +20,7 @@ const carddata = [
       "Your Game,Tour Crew",
     ],
     image: Host,
-    route: "/CommingSoon",
+    route: "/Host",
   },
   {
     title: "Coach",

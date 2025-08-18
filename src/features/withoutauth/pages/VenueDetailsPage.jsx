@@ -32,6 +32,7 @@ import TimeSelector from '../components/TimeSelector.jsx';
 import { useSportDetails } from '../../../hooks/favouriteSport/useSportDetails.js';
 import CheckoutPricing from '../components/CheckoutPricing.jsx';
 import Spinner from '../../../components/Spinner.jsx';
+import { useCreateBookingPayment } from '../../../hooks/Payments/useCreateBookingPayement.js';
 
 
 export const formatDate = (isoString) => {
@@ -98,7 +99,7 @@ function VenueDetailsPage() {
     const [selectedSportId, setSelectedSportId] = useState(null);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [selectedTime, setSelectedTime] = useState(null);
-    const [selectedDuration, setSelectedDuration] = useState(1);
+    const [selectedDuration, setSelectedDuration] = useState(0);
     const [selectedPitch, setSelectedPitch] = useState('');
     const [selectedSport, setSelectedSport] = useState('');
     const [totalPrice, setTotalPrice] = useState(0);
@@ -195,13 +196,14 @@ function VenueDetailsPage() {
     }, [response]);
 
     // create payments
-    const {
-        mutate: createPayment,
-        data: paymentResponse,
-        isLoading: paymentLoading,
-        isError: paymentError
-    } = useCreatePayment();
+    // const {
+    //     mutate: createPayment,
+    //     data: paymentResponse,
+    //     isLoading: paymentLoading,
+    //     isError: paymentError
+    // } = useCreatePayment();
 
+    const { mutate: CreateBookingPayment, isLoading: paymentLoading } = useCreateBookingPayment();
 
     //    Payement Processs function
     const handleProceedClick = () => {
@@ -250,7 +252,16 @@ function VenueDetailsPage() {
         // ✅ All validations passed
         if (!bookingId)
             return;
-        createPayment(bookingId);
+        CreateBookingPayment({ bookingId, amount: finalAmount, type: 1 }, {
+            onSuccess: () => {
+                setSelectedSport('');
+                setSelectedDuration(0);
+                setSelectedTime(null);
+                setSelectedPitch('');
+                setFinalAmount(null);
+                setTotalPrice(0);
+            }
+        });
     };
 
 
@@ -423,7 +434,7 @@ function VenueDetailsPage() {
                             <div className="venue-heading">Price details</div>
                             {BookingPriceLoading ? (
                                 <div className="price-loader">
-                                   <Spinner size={38} color="#1163c7" />
+                                    <Spinner size={38} color="#1163c7" />
                                 </div>
                             ) : (
                                 <CheckoutPricing

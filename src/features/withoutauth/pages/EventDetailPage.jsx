@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../Stylesheets/EventDetails.css"
+import Cookies from 'js-cookie';
 import ReviewCard from "../components/ReviewCard";
 import Gallery from "../components/Gallery";
 import CustomMap from "../components/CustomMap";
@@ -97,7 +98,7 @@ const mapEventData = (apiData) => {
 
 export default function EventDetailPage() {
     const { id } = useParams();
-
+    const isLoggedIn = Boolean(Cookies.get('token'));
     const [expandedSection, setExpandedSection] = useState(null);
     const [selectedArea, setSelectedArea] = useState('');
     const [locationId, setLocationId] = useState(null);
@@ -133,32 +134,6 @@ export default function EventDetailPage() {
     } = useBookEvent();
 
 
-
-    // const handleBookEvent = () => {
-    //     const bookingPayload = {
-    //         locationId: 1,
-    //         bookingDate: "12-10-2024",
-    //         eventId: 1,
-    //         tickets: [
-    //             { ticketsId: 1, quantity: 1 },
-    //         ]
-    //     }
-
-    //     BookEvent(bookingPayload, {
-    //         onSuccess: (data) => {
-    //             const id = data?.result;
-    //             setBookingId(id);
-    //             // setBookingId(data?.result?.insertId);
-    //             console.log("My Booking Id", data?.result);
-    //         },
-    //         onError: (error) => alert('Booking failed. ' + (error.message || '')),
-    //     });
-
-    // }
-
-
-
-
     const [start, setStart] = useState(0);
     const prev = () => setStart((prev) => Math.max(prev - 1, 0));
     const next = () =>
@@ -176,10 +151,14 @@ export default function EventDetailPage() {
     const { data: bannerData, isLoading: Bannerloading, error: BannerError } = useBanner(3);
 
     const banners = bannerData?.result || [];
-    console.log("eventDetail", selectedArea, locationId);
+    // console.log("eventDetail", selectedArea, locationId);
 
 
     const handleBookEvent = () => {
+        if (!isLoggedIn) {
+            alert('Please log in to proceed.')
+            return;
+        }
         const bookingPayload = {
             locationId: 1,
             bookingDate: selectedDate,
@@ -191,8 +170,6 @@ export default function EventDetailPage() {
             onSuccess: (data) => {
                 const bookingId = data?.result;
                 // If your API returns "insertId" or something else, change this accordingly
-                console.log("My Booking Id", bookingId);
-
                 // Call createPayment with that bookingId
                 CreateBookingPayment({
                     bookingId,
@@ -200,7 +177,7 @@ export default function EventDetailPage() {
                     type: type, // or "UPI" etc.
                 }, {
                     onSuccess: (paymentData) => {
-                        console.log("Payment created:", paymentData);
+                        // console.log("Payment created:", paymentData);
 
                         // If API returns paymentUrl, redirect
                         if (paymentData?.result) {

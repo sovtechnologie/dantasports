@@ -53,7 +53,7 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFina
 
         <span>₹{convenienceFee}</span>
       </div>
-      <div className="row insurance-row">
+      {/* <div className="row insurance-row">
         <label>
           <input
             type="checkbox"
@@ -63,7 +63,7 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFina
           Insurance cover fee (₹ 20/person)
         </label>
         <span>₹{insuranceFee}</span>
-      </div>
+      </div> */}
       <div className="coupon"
         onClick={() => setIsCouponModalOpen(true)}
         style={{ cursor: "pointer" }}>

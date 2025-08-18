@@ -13,7 +13,7 @@ const getLocalIsoDate = date => {
 
 const ConfirmSlotCard = ({ onClose, onSuccess, payload }) => {
   const { sportId, venueId, selectedDate, selectedDuration, selectedTime, selectedPitch } = payload;
-  console.log("in my confirsmSlotCard", selectedDate)
+  console.log("in my confirsmSlotCard", selectedDate,selectedDuration)
   const isLoggedIn = Boolean(Cookies.get('token'));
   console.log("myPayload", payload)
   const {

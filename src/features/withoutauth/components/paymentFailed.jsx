@@ -1,7 +1,16 @@
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 export default function PaymentFailed() {
-    const { bookingId } = useParams();
+    const { search } = useLocation();
+    const queryParams = new URLSearchParams(search);
+    const bookingId = queryParams.get("bookingId");
+    // const merchantTransactionId = queryParams.get("merchantTransactionId");
+    // const date = queryParams.get("date");
+    // const amount = queryParams.get("amount");
+
+    // const hostName = queryParams.get("hostName");
+    // const venueName = queryParams.get("venueName");
+    // const bookingdate = queryParams.get("bookingDate")
 
     return (
         <div style={{ textAlign: "center", padding: "2rem" }}>
@@ -11,3 +20,5 @@ export default function PaymentFailed() {
         </div>
     );
 }
+
+

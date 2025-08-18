@@ -1,4 +1,5 @@
 import "../Stylesheets/GymDetailPage.css";
+import Cookies from 'js-cookie'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import GymImage from "../assets/mygym.svg"
@@ -76,6 +77,7 @@ const mapGymData = (apiData) => {
 
 export default function GymDetailPage() {
     const { id } = useParams();
+    const isLoggedIn = Boolean(Cookies.get('token'));
     const [expandedSection, setExpandedSection] = useState(null);
     const [start, setStart] = useState(0);
     const [selectedPass, setSelectedPass] = useState(null);
@@ -204,6 +206,10 @@ export default function GymDetailPage() {
     } = useBookGym();
 
     const handleProceed = () => {
+        if (!isLoggedIn) {
+            alert('Please log in to proceed.')
+            return;
+        }
         const bookingPayload = {
             isInsuranceSelected: true,
             gymId: id,
@@ -234,7 +240,7 @@ export default function GymDetailPage() {
                             setSelectedPass(null)
                             setQuantity(0);
                             setFinalAmount(0);
-                        
+
                         }
 
                     },
@@ -258,7 +264,7 @@ export default function GymDetailPage() {
                 <h1 className="gympage-name">{gym?.name}</h1>
                 <div className="gym-location-rating">
                     <span>{gym?.location}</span>
-                    <span>⭐ {gym?.rating} (234 ratings)</span>
+                    <span>⭐ {gym?.rating} ({gym?.reviewcount}ratings)</span>
                 </div>
             </div>
 

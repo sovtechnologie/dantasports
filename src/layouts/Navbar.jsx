@@ -149,7 +149,7 @@ function Navbar() {
             <>
               <div className='nav-Filter-wrapper'>
                 <Link to="/venue" className={`nav-Filter-links ${isActive('/venue') ? 'active-link' : ''}`}>Book</Link>
-                <Link to="/CommingSoon" className={`nav-Filter-links ${isActive('/CommingSoon') ? 'active-link' : ''}`}>Host/Play</Link>
+                <Link to="/Host" className={`nav-Filter-links ${isActive('/CommingSoon') ? 'active-link' : ''}`}>Host/Play</Link>
                 <Link to="/Run" className={`nav-Filter-links ${isActive('/Run') ? 'active-link' : ''}`}>Run</Link>
                 <Link to="/Coach" className={`nav-Filter-links ${isActive('/Coach') ? 'active-link' : ''}`}>Coach</Link>
                 <Link to="/Events" className={`nav-Filter-links ${isActive('/Events') ? 'active-link' : ''}`}>Events</Link>
@@ -206,7 +206,7 @@ function Navbar() {
                   )}
                 </div>
                 <Link to="/venue" className={`nav-Filter-link ${isActive('/venue') ? 'active-link' : ''}`}>Book</Link>
-                <Link to="/CommingSoon" className={`nav-Filter-link ${isActive('/CommingSoon') ? 'active-link' : ''}`}>Host/Play</Link>
+                <Link to="/Host" className={`nav-Filter-link ${isActive('/CommingSoon') ? 'active-link' : ''}`}>Host/Play</Link>
                 <Link to="/Run" className={`nav-Filter-link ${isActive('/Run') ? 'active-link' : ''}`}>Run</Link>
                 <Link to="/Coach" className={`nav-Filter-link ${isActive('/Coach') ? 'active-link' : ''}`}>Coach</Link>
                 <Link to="/Events" className={`nav-Filter-link ${isActive('/Events') ? 'active-link' : ''}`}>Events</Link>

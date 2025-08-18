@@ -6,6 +6,16 @@ import { useFetchTimeslotForVenue } from '../../../hooks/VenueList/useFetchTimin
 import TimeslotShimmer from "./Shimmer/TimeslotShimmer.jsx";
 import { useCreateVenueBooking } from '../../../hooks/BookingVenue/useCreateVenueBooking.js';
 
+export const formatDate = (isoString) => {
+    const date = new Date(isoString);
+    return date.toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+    });
+};
+
+
 const getLocalIsoDate = date => {
     const d = new Date(date);
     d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
@@ -15,7 +25,7 @@ const getLocalIsoDate = date => {
 const generateTimeSlots = (start, end, interval) => {
   const slots = [];
   let current = new Date(start);
-  while (current <= end) {
+  while (current < end) {
     slots.push(new Date(current));
     current.setMinutes(current.getMinutes() + interval);
   }
@@ -53,9 +63,9 @@ const TimeSelector = ({
    const isLoggedIn = Boolean(Cookies.get('token'));
   const [errorMessage, setErrorMessage] = useState("");
   const payload = {
-    date: "2025-08-14",
-    sportsId: 2,
-    venueId: 1
+    date: getLocalIsoDate(selectedDate),
+    sportsId: sportId,
+    venueId: venueId
   };
 
   const {
@@ -218,9 +228,9 @@ const TimeSelector = ({
     const bookingPayload = {
       sportId: sportId,
       venueId: venueId,
-      date: getLocalIsoDate(selectedDate),
+      date:  getLocalIsoDate(selectedDate),
       startTime: timeRead,
-      duration: selectedDuration,
+      duration: selectedDuration * 60,
       courtId: courtId,
     };
 
