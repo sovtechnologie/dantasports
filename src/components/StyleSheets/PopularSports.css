@@ -60,8 +60,8 @@
 .popular-sports .swiper-pagination-bullet-active {
   background: #1163c7;
 }
+/* 
 
-/* Responsive adjustments */
 @media (max-width: 1023px) {
   .popular-sports {
     padding: 24px 16px;
@@ -77,7 +77,7 @@
   }
 }
 
-/* Remove arrows on mobile */
+
 @media (max-width: 767px) {
   .popular-sports .swiper-button-prev,
   .popular-sports .swiper-button-next {
@@ -87,4 +87,4 @@
   .section-title {
     font-size: 1.5rem;
   }
-}
+} */

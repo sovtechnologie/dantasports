@@ -18,7 +18,7 @@
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
-  margin: 25px 12px 0px 12px;
+  /* margin: 25px 12px 0px 12px; */
   height: 203px;
   width: 296px;
 }
@@ -105,6 +105,9 @@
   transform: translateY(-30px);
 }
 
+
+
+/* 
 @media (max-width: 768px) {
   .info-card {
     width: 100%;
@@ -114,7 +117,7 @@
   }
 
   .video-wrapper {
-    padding-top: 70.25%; /* Still 16:9 */
+    padding-top: 70.25%; 
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
   }
@@ -135,9 +138,5 @@
     font-size: 8px;
   }
 
-  /* .info-card:hover,
-  .info-card.hover-effect {
-    transform: none;
-    box-shadow: 0 4px 12px rgba(17, 99, 199, 0.12);
-  } */
-}
+
+} */

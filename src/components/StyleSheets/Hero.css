@@ -1,38 +1,41 @@
 .hero-section {
   position: relative;
   background-color: #1163c7;
-  padding: 100px 20px 80px;
+  padding: clamp(36px, 5.9vw, 85px) 0px 0px 0px;
   color: white;
   overflow: hidden;
   border-radius: 0 0 40px 40px;
   height: fit-content;
 }
 
-.hero-background {
+/* .hero-background {
   position: relative;
   max-width: 100%;
   height: 80vh;
   margin: auto;
-}
+} */
 
 .hero-left-img {
   position: absolute;
-  width: 489px;
+  /* width: 489px;
   height: 400px;
   top: -50px;
-  left: -4em;
+  left: -4em; */
   object-fit: contain;
   z-index: 1;
+  width: clamp(120px, 28.47vw, 410px);
 }
 
 .hero-right-img {
   position: absolute;
-  width: 489px;
+  /* width: 489px;
   height: 400px;
-  top: -50px;
-  right: -4.2rem;
+  top: -50px; */
+  /* right: -4.2rem; */
+  right: 0px;
   object-fit: contain;
   z-index: 1;
+  width: clamp(120px, 28.47vw, 410px);
 }
 
 .hero-content {
@@ -43,7 +46,7 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  padding: 0 20px;
+  padding: 0 clamp(28px, 3vw, 60px);
   text-align: center;
 
 }
@@ -69,11 +72,13 @@
   justify-content: center; /* Optional: center horizontally */
   font-family: "Lato", Arial, sans-serif;
   font-weight: 700;
-  font-size: 2rem;
-  line-height: 70px;
+ font-size: clamp(24px, 3.46vw, 50px);
+  /* line-height: 70px; */
   letter-spacing: 0;
-  margin-bottom: 20px;
-  margin-top: 137px;
+  max-width: clamp(200px, 41.67vw, 600px);
+  margin-bottom: 0px;
+  margin-top: clamp(36px, 5.42vw, 78px);
+  height: 70px;
   /* margin-top: -1rem; */
   /* Ensure it has height or fills parent */
 }
@@ -82,6 +87,7 @@
    display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  margin-top: 50px;
   /* margin-bottom: 40px; */
 }
 
@@ -90,13 +96,14 @@
 .search-input-wrapper {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: clamp(12px, 1.48vw, 30px);
   background-color: transparent;
   border: 1.2px solid #ffffff;
   border-radius: 15px;
   padding: 10px 16px;
-  width: 35vw;
+  width: 42vw;
   height: 68px;
+  min-width: 310px;
   box-sizing: border-box;
 }
 /* Input Styling */
@@ -106,6 +113,9 @@
   border: none;
   background-color: transparent;
   color: #ffffff;
+   font-family: "DM Sans", sans-serif;
+   font-weight: 400;
+   letter-spacing: 0.18px;
 }
 
 .search-input-wrapper input::placeholder {
@@ -152,22 +162,23 @@ input:focus {
   justify-content: center;
   align-items: center;
   position: relative;
-  margin-top: 6rem;
+  margin-top: clamp(48px, 10vw, 144px);
   box-sizing: border-box;
-  padding: 0 40px; /* Space for arrow buttons */
+  /* padding: 0 40px;  */
 }
 
 .card-list {
   display: flex;
-  /* gap: 20px; */
+  gap: 20px;
   overflow-x: auto;
   scroll-behavior: smooth;
   flex: 1;
   justify-content: center;
-  padding: 30px 0;
+  /* padding: 30px 0; */
   position: relative;
   height: 296px;
   width: 203px;
+  margin: 0px 20px;
 }
 
 .card-list::-webkit-scrollbar {
@@ -176,7 +187,7 @@ input:focus {
 
 .nav-btn {
   position: absolute;
-  top: 50%;
+  /* top: 50%; */
   transform: translateY(-50%);
   background: transparent;
   border: none;
@@ -202,6 +213,15 @@ input:focus {
 
 }
 
+@media (max-width: 978px) {
+
+.hero-left-img,
+  .hero-right-img {
+    display: none;
+  
+  }
+}
+/* 
 @media (max-width: 768px) {
   .hero-section {
     padding: 60px 16px 40px;
@@ -215,7 +235,7 @@ input:focus {
   .hero-left-img,
   .hero-right-img {
     display: none;
-    /* Hide side images on small screens */
+  
   }
 
   .hero-content h1 {
@@ -242,10 +262,7 @@ input:focus {
     padding: 10px 14px;
   }
 
-  /* .hero-cards {
-    flex-direction: row;
-    overflow-x: auto;
-  } */
+  
 }
 
 @media (max-width: 768px) {
@@ -258,16 +275,16 @@ input:focus {
   .card-list {
     padding: 0;
     gap: 16px;
-    justify-content: flex-start; /* better UX on small screens */
+    justify-content: flex-start; 
     overflow-x: auto;
   }
 
   .nav-btn {
-    display: none; /* hide arrows on mobile */
+    display: none; 
   }
 
   .hero-arrow {
     width: 30px;
     height: 30px;
   }
-}
+} */
