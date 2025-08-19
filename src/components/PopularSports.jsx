@@ -41,7 +41,7 @@ const PopularSports = () => {
         grabCursor
         breakpoints={{
           480: { slidesPerView: 1 },
-          768: { slidesPerView: 2 },
+          768: { slidesPerView: 4 },
           1024: { slidesPerView: 8 },
         }}
       >
