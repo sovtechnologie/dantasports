@@ -12,6 +12,7 @@ const Register = lazy(() => import('../features/auth/pages/Register'));
 
 const VenuePage = lazy(() => import('../features/withoutauth/pages/VenuePage'));
 const VenueDetailsPage = lazy(() => import('../features/withoutauth/pages/VenueDetailsPage'));
+
 const ProfilePage = lazy(() => import('../features/auth/pages/ProfilePage'));
 const MyBooking = lazy(() => import("../features/auth/pages/MyBooking"));
 const Favorites = lazy(() => import('../features/auth/pages/Favorites'));
