@@ -24,6 +24,7 @@
 }
 .swiper-slide {
   height: fit-content;
+  margin-right: 0px !important;
 }
 
 .sport-button {
@@ -34,14 +35,15 @@
   border: 3px solid transparent;
   cursor: pointer;
   color: #272727;
-  font-size: 16px;
+  font-size: clamp(10px, 1.11vw, 1.125rem);
   font-family: 'DM Sans', sans-serif;
   font-weight: 400;
+  white-space: nowrap;
 }
 
 .sport-button img {
-  height: 85px;
-  width: 85px;
+  height: clamp(40px, 5.9vw, 85px);
+  width: clamp(40px, 5.9vw, 85px);
   object-fit: contain;
   margin-bottom: 8px;
   filter: brightness(0) saturate(100%) invert(26%) sepia(96%) saturate(1660%)

@@ -40,9 +40,10 @@ const PopularSports = () => {
         allowTouchMove
         grabCursor
         breakpoints={{
-          480: { slidesPerView: 1 },
-          768: { slidesPerView: 4 },
-          1024: { slidesPerView: 8 },
+          480: { slidesPerView: 4 },
+          768: { slidesPerView: 5 },
+          1024: { slidesPerView: 6 },
+           1200: { slidesPerView: 9 },
         }}
       >
         <div className="sport-buttons">
