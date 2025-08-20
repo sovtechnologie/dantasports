@@ -18,7 +18,7 @@ body {
   /* width: 100%; */
   /* border-radius: 0 0 60px 60px; */
   padding: clamp(30px, 3.47vw, 50px) clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
-gap: clamp(6px, 0.694vw, 10px);
+  gap: clamp(6px, 0.694vw, 10px);
   border-top: 2px solid #1163c7;
   flex-wrap: nowrap;
   /* Prevent wrapping unless on smaller screens */
@@ -71,7 +71,7 @@ gap: clamp(6px, 0.694vw, 10px);
   height: clamp(32px, 4.03vw, 58px);
   width: clamp(106px, 11.67vw, 168px);
   font-family: "Poppins";
-  font-size:clamp(12px, 1.39vw, 20px);
+  font-size: clamp(12px, 1.39vw, 20px);
   font-weight: 400;
 }
 
@@ -141,17 +141,19 @@ gap: clamp(6px, 0.694vw, 10px);
   background-color: #fff;
 }
 
-.container {
+/* .container {
   max-width: 1400px;
   margin: 0 auto;
-}
+} */
 
 .content-block {
   display: flex;
   align-items: center;
-  margin-bottom: 60px;
-  gap: clamp(12px, 1.39vw, 20px) ;
-  flex-wrap: wrap;
+  margin-bottom: clamp(24px, 4.17vw, 60px);
+  gap: clamp(12px, 1.39vw, 20px);
+  /* flex-wrap: wrap; */
+    /* padding: 0px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem); */
+
 }
 
 .content-block.reverse {
@@ -159,29 +161,23 @@ gap: clamp(6px, 0.694vw, 10px);
 }
 
 .content-image {
-  flex: 1 1 400px;
-  /* max-width: 500px; */
   border-radius: 12px;
   object-fit: cover;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  height: clamp(240px, 27.01vw, 389px);
-  width: clamp(400px, 42.5vw, 612px);
+  height: clamp(160px, 27.01vw, 389px);
+  width: clamp(200px, 42.5vw, 612px);
 }
 
-.text-block {
-  /* flex: 1 1 400px; */
-  width: 607px;
-}
 
 .text-block h3 {
   font-family: "Lato", sans-serif;
   font-weight: 700;
   font-size: clamp(28px, 3.33vw, 48px);
-  line-height: 80.6px;
-  letter-spacing: 0.41px;
+  line-height: clamp(24px, 5.59vw, 80.6px);
+  letter-spacing: clamp(0.2px, 0.0285vw, 0.41px);
   vertical-align: middle;
   /* margin-bottom: 16px; */
-  margin-top: 45px;
+  margin-top: clamp(16px, 3.13vw, 45px);
   margin-bottom: 9px;
   color: #000;
 }
@@ -194,23 +190,32 @@ gap: clamp(6px, 0.694vw, 10px);
   font-family: "DM Sans", sans-serif;
   font-weight: 400;
   font-size: clamp(12px, 1.67vw, 24px);
-  line-height: 180%;
-  letter-spacing: 0.41px;
+  line-height: clamp(1rem, 2.25vw, 1.8rem);
+  letter-spacing: clamp(0.2px, 0.0285vw, 0.41px);
+
   vertical-align: middle;
   color: #333; /* or any preferred color */
   margin: 0;
 }
 
 @media (max-width: 530px) {
-.Corporate-header {
- flex-direction: column;
- gap: 20px;
-}
+  .Corporate-header {
+    flex-direction: column;
+    gap: 20px;
+  }
 
-.carousel-img {
-width: 100%;
-max-width: 100%;
-height: clamp(200px, 26.7vw, 385px);
+  .carousel-img {
+    width: 100%;
+    max-width: 100%;
+    height: clamp(200px, 26.7vw, 385px);
+  }
+  .content-block {
+    flex-direction: column;
+  }
+  .content-block.reverse {
+    flex-direction: column;
+  }
+  .content-image {
+    width: 100%;
+  }
 }
-}
-  

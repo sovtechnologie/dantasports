@@ -7,11 +7,12 @@
 .section-title {
   font-family: "Lato", Arial, sans-serif;
   font-weight: 700;
-  font-size: clamp(1.5rem, 2vw, 2rem);
+  font-size: clamp(20px, 2vw, 32px);
   line-height: 130%;
   margin-bottom: 24px;
   color: #172a39;
-  font-size: 32px;
+  /* font-size: 32px; */
+  margin:clamp(16px, 1.39vw, 20px) 0px;
 }
 
 .popular-sports .swiper {

@@ -8,6 +8,8 @@
   /* height: 198px; */
   position: relative;
   padding: 7.7px;
+  min-width: 250px;
+  max-width: 300px;
 }
 
 .coach-card-image-wrapper {
