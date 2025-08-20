@@ -48,7 +48,7 @@ const testimonials = [
 const Testimonials = () => {
 
       const [currentIndex, setCurrentIndex] = useState(0);
-  const visibleCards = window.innerWidth <= 600 ? 1 : 3;
+  const visibleCards = window.innerWidth <= 600 ? 1 : 3; 
 
   const next = () => {
     setCurrentIndex((prev) =>

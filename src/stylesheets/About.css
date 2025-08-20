@@ -132,8 +132,7 @@ body {
 .datastat-wrapper {
   margin-top: 40px;
   margin-bottom: 40px;
-  padding: 0 100px;
-  /* background: url(../assets/datasat-wrapper.png) no-repeat center center; */
+  padding: 0px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
 }
 
 .mission-vision-section {

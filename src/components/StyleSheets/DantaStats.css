@@ -6,10 +6,9 @@
   text-align: center;
   overflow: hidden;
   border-radius: 30px;
-  min-height: 274px;
+  /* min-height: 274px; */
   /* background: url(../assets/datasat-wrapper.png) no-repeat center center; */
   background: url(../../assets/datasat-wrapper.png) no-repeat center center;
-
 }
 
 .danta-stats .danta-overlay {
@@ -20,14 +19,14 @@
 }
 
 .danta-stats .stats-heading {
-  font-size: 37.13px;
+  font-size: clamp(20px, 3.58vw, 37.13px);
   font-weight: 700;
   /* margin-bottom: 10px; */
   font-family: "Lato", sans-serif;
 }
 
 .danta-stats .stats-subheading {
-  font-size: 18.56px;
+  font-size: clamp(14px, 1.29vw, 18.56px);
   font-weight: 500;
   /* margin-bottom: 50px; */
   color: #ffffff;
@@ -44,12 +43,12 @@
   max-width: 740px;
   justify-content: center;
   margin: 0 auto;
-  margin-top: 32px;
+  margin-top: clamp(16px, 1.7vw, 32px);
 }
 
 .stat-item {
   flex: 1;
-  min-width: 150px;
+  min-width: 50px;
   position: relative;
 }
 
@@ -65,14 +64,14 @@
 }
 
 .stat-item h3 {
-  font-size: 37.13px;
+  font-size: clamp(16px, 2.58vw, 37.13px);
   font-weight: 700;
   margin-bottom: 8px;
   font-family: "Lato", sans-serif;
 }
 
 .stat-item p {
-  font-size: 14.85px;
+  font-size: clamp(12px, 1.03vw, 14.85px);
   line-height: 1.4;
   color: #ffffff;
   font-weight: 400;
@@ -84,34 +83,50 @@
 .danta-stats img:last-of-type {
   position: absolute;
   top: -13px;
-  /* height: 274px; */
-  height: 96%;
-  max-height: 100%;
+  height: clamp(100px, 19.03vw, 274px);
+  /* height: 96%; */
+  /* max-height: 100%; */
   object-fit: contain;
   z-index: 1;
   pointer-events: none;
 }
 
 .danta-stats img:first-of-type {
-  left: -108px;
+  left: clamp(-50px, -7.5vw, -108px);
 }
 
 .danta-stats img:last-of-type {
-    right: -105px;
+  right: clamp(-50px, -7.5vw, -108px);
+}
+
+@media (max-width: 650px) {
+  .stats-grid {
+    gap: 0px;
+  }
+  .danta-stats img:first-of-type,
+  .danta-stats img:last-of-type {
+    top: -3px;
+  }
+
+  /* .danta-stats .stats-subheading {
+    max-width: 250px;
+    margin: 0 auto;
+  } */
 }
 
 /* Responsive Tweaks */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .stats-grid {
     flex-direction: column;
-    gap: 30px;
   }
 
   .stat-item:not(:last-child)::after {
     display: none;
   }
-
-  .stat-item h3 {
-    font-size: 24px;
+  .danta-stats {
+    padding: 10px 30px;
+  }
+  .stat-item p{
+    margin-top: 0px;
   }
 }

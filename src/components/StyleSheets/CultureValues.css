@@ -6,12 +6,11 @@
 }
 
 .culture-heading {
-  font-size: 48px;
+  font-size: clamp(28px, 3.33vw, 48px);
   font-weight: 700;
-  margin-bottom: 40px;
   font-family: "Lato", sans-serif;
   margin: 0px;
-  margin-bottom: 50px;
+  margin-bottom: clamp(20px, calc(2.68vw + 11.43px), 50px);
 }
 
 .highlight {
@@ -43,12 +42,12 @@
   justify-content: center;
   align-items: center;
   gap: clamp(8px, 1.11vw, 16px);
-  border: 0.5px solid #9B9B9B;
+  border: 0.5px solid #9b9b9b;
 }
 
 .value-card img {
-  width: clamp(16px, 5.69vw, 82px);
-  height: clamp(16px, 5.69vw, 82px);
+  width: clamp(40px, 5.69vw, 82px);
+  height: clamp(40px, 5.69vw, 82px);
   /* margin-bottom: 20px; */
 }
 
@@ -75,6 +74,31 @@
   text-align: center;
   vertical-align: middle;
   /* width: 328px; */
-  margin: 0px
- 
+  margin: 0px;
+}
+
+@media (max-width: 1150px) {
+  .values-grid {
+    display: flex;
+  }
+  .values-grid {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    gap: 16px;
+    padding-bottom: 10px;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .values-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .value-card {
+    max-width: 363px;
+    min-width: 250px;
+    min-height: 150px;
+    flex: 0 0 auto;
+    gap: 16px;
+  }
 }
