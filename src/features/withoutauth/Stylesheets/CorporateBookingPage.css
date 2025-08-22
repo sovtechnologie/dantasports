@@ -367,7 +367,7 @@ gap: clamp(6px, 0.694vw, 10px);
   background-color: #1163c7;
 }
 .zero-banner-wrapper {
-  margin-top: 40px;
-  margin-bottom: 40px;
-  padding: 0 100px;
+  margin-top: clamp(16px, 2.78vw, 40px);
+  margin-bottom: clamp(16px, 2.78vw, 40px);
+  padding: 0 clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
 }

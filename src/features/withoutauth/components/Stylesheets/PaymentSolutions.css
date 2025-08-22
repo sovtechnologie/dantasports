@@ -1,10 +1,10 @@
 .payment-section {
-  padding: 50px 100px;
+  padding: clamp(30px, 3.47vw, 50px) clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
   text-align: center;
 }
 
 .payment-title {
-  font-size: 48px;
+ font-size: clamp(27px, 3.33vw, 48px);
   font-weight: 700;
   margin-bottom: 20px;
   font-family: "Lato", sans-serif;
@@ -17,7 +17,7 @@
   margin-bottom: 0px;
   margin-top: 12px;
   font-family: "DM Sans", sans-serif;
-  font-size: 24px;
+  font-size: clamp(16px, 1.67vw, 24px);
   font-weight: 400;
 }
 
@@ -32,24 +32,24 @@
 .payment-card {
   border-radius: 20px;
   /* padding: 20px; */
-  width: 403px;
+  width: clamp(260px, 24.9861vw, 403px);
   transition: all 0.3s ease;
   text-align: center;
-  height: 323px;
+  height: clamp(258px, 22.43vw, 387px);
 }
 
 .payment-card img {
   /* width: 100%; */
   border-radius: 10px;
-  height: 226px;
-  width: 403px;
+  height: clamp(181px, 15.69vw, 226px);
+  width: clamp(280px, 24.9861vw, 403px);
 }
 
 .payment-card h3 {
-  font-size: 20px;
+  font-size: clamp(16px, 1.39vw, 20px);
   font-weight: 700;
   color: #1163c7;
-  margin-top: 22px;
+  margin-top: clamp(12px, 1.53vw, 22px);
   margin-bottom: 8px;
   font-family: "Lato", sans-serif;
 }
@@ -61,5 +61,25 @@
   color: #172a39;
   line-height: 1.5;
   margin: 0px;
-  padding: 0 39px;
+  /* padding: 0 39px; */
+}
+
+@media (max-width: 1096px) {
+  .payment-cards {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    gap: 16px;
+    padding-bottom: 10px;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .payment-cards::-webkit-scrollbar {
+    display: none;
+  }
+
+  .payment-card {
+min-width: 290px;
+    flex: 0 0 auto;
+  }
 }

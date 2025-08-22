@@ -1,6 +1,6 @@
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background: #F1F3F2;
+  font-family: "Segoe UI", sans-serif;
+  background: #f1f3f2;
   color: #333;
   margin: 0;
   padding: 0;
@@ -18,14 +18,12 @@ body {
   flex-direction: row;
   background-color: #ffffff;
   /* width: 100%; */
-  border-radius: 0 0 60px 60px;
-  padding: 50px 100px;
-  border-top: 2px solid #1163C7;
+  border-radius: 0 0 clamp(30px, 4.17vw, 60px) clamp(30px, 4.17vw, 60px);
+  padding: clamp(30px, 3.47vw, 50px) clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
+  border-top: 2px solid #1163c7;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-  /* gap: 20px; */
-  /* Optional spacing between left and right */
+  gap: clamp(6px, 0.694vw, 10px);
   flex-wrap: nowrap;
-  /* Prevent wrapping unless on smaller screens */
 }
 
 .header-left {
@@ -34,59 +32,52 @@ body {
   /* padding-left: 78px; */
 }
 
-
-
-
-
 .header-left h1 {
-  font-size: 51px;
+  font-size: clamp(24px, 4.44vw, 64px);
   font-weight: 700;
-  color: #172A39;
+  color: #172a39;
   font-family: "Lato", Arial, sans-serif;
 }
 
 .header-left h1 span {
-  color: #1163C7;
+  color: #1163c7;
 }
 
 .header-left p {
- font-size: 18px;
-  margin-top: 10px;
   color: #757575;
   font-weight: 400;
-  max-width: 576px;
+  max-width: 558px;
   letter-spacing: 0.41px;
- font-family: "DM Sans", sans-serif;
-
+  font-family: "DM Sans", sans-serif;
+  font-size: clamp(12px, 1.25vw, 18px);
+  margin-top: clamp(6px, 0.694vw, 10px);
+  margin-bottom: clamp(6px, 0.694vw, 10px);
 }
 
 .button-group {
-  margin-top: 50px;
+  margin-top: clamp(10px, 2.47vw, 50px);
   display: flex;
-  gap: 12px;
+  gap: clamp(8px, 0.83vw, 14px);
   flex-wrap: wrap;
-
 }
-.primary-btn-one, .secondary-btn-two {
-    /* padding: 12px 20px; */
-    border-radius: 50px;
-    border: 1px solid #1163C7;
-    cursor: pointer;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    /* height: 58px; */
-    font-family: "Poppins";
-    font-size: 20px;
-    padding: 5px 22px;
-    font-weight: 400;
+.primary-btn-one,
+.secondary-btn-two {
+  /* padding: 12px 20px; */
+  border-radius: 50px;
+  border: 1px solid #1163c7;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  /* height: 58px; */
+  font-family: "Poppins";
+  font-size: clamp(10px, 1.39vw, 20px);
+  padding: clamp(4px, 0.35vw, 6px) clamp(12px, 1.53vw, 26px);
+  font-weight: 400;
 }
-
-
-
 
 .primary-btn-one {
-  background-color: #1163C7;
+  background-color: #1163c7;
   color: white;
 }
 
@@ -96,7 +87,7 @@ body {
 
 .secondary-btn-two {
   background-color: white;
-  color: #1163C7;
+  color: #1163c7;
 }
 
 .secondary-btn-two:hover {
@@ -114,7 +105,8 @@ body {
 
 .carousel-img {
   width: 100%;
-  max-width: 500px;
+  max-width: clamp(200px, 34.72vw, 500px);
+
   border-radius: 16px;
   object-fit: cover;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
@@ -136,10 +128,38 @@ body {
 }
 
 .dot.active {
-  background-color: #1163C7;
+  background-color: #1163c7;
 }
 .zero-banner-wrapper {
-  margin-top: 40px;
-  margin-bottom: 40px;
-  padding: 0 100px;
+ margin-top: clamp(25px, 2.78vw, 40px);
+  margin-bottom: clamp(25px, 2.78vw, 40px);
+  padding: 0 clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
+}
+@media (max-width: 530px) {
+  .Partner-header {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .carousel-img {
+    width: 100%;
+    max-width: 100%;
+    height: clamp(200px, 26.7vw, 385px);
+  }
+  .primary-btn-one,
+  .secondary-btn-two {
+  gap: clamp(4px, 0.83vw, 14px);
+    font-size: clamp(12px, 1.39vw, 20px);
+    /* padding: clamp(4px, 0.35vw, 6px) clamp(18px, 1.53vw, 26px); */
+  }
+
+  .content-block {
+    flex-direction: column;
+  }
+  .content-block.reverse {
+    flex-direction: column;
+  }
+  .content-image {
+    width: 100%;
+  }
 }

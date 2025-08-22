@@ -9,7 +9,7 @@
   justify-content: center;
   padding: 20px;
   box-sizing: border-box;
-  background-color: #1163C7;
+  background-color: #1163c7;
 }
 
 .zero-banner-content {
@@ -18,11 +18,12 @@
 }
 
 .zero-banner-content h2 {
-  font-size: 37.13px;
+  font-size: clamp(20px, 3.58vw, 37.13px);
+
   font-weight: 700;
   margin: 0;
-  width: 644px;
-font-family: "Lato", sans-serif;
+  max-width: 644px;
+  font-family: "Lato", sans-serif;
 }
 
 .zero-banner-content h2 span {
@@ -30,23 +31,9 @@ font-family: "Lato", sans-serif;
 }
 
 .zero-banner-content p {
-  font-size: 18.56px;
+  font-size: clamp(14px, 1.29vw, 18.56px);
   margin-top: 8px;
   font-weight: 500;
-  font-family: 'DM Sans', sans-serif;
+  font-family: "DM Sans", sans-serif;
 }
 
-@media (max-width: 768px) {
-  .zero-banner {
-    height: auto;
-    padding: 30px 15px;
-  }
-
-  .zero-banner-content h2 {
-    font-size: 20px;
-  }
-
-  .zero-banner-content p {
-    font-size: 14px;
-  }
-}

@@ -21,7 +21,6 @@ body {
   gap: clamp(6px, 0.694vw, 10px);
   border-top: 2px solid #1163c7;
   flex-wrap: nowrap;
-  /* Prevent wrapping unless on smaller screens */
 }
 
 .header-left {
@@ -48,7 +47,7 @@ body {
   margin-bottom: clamp(6px, 0.694vw, 10px);
   color: #757575;
   font-weight: 400;
-  max-width: 500px;
+  max-width: 558px;
   letter-spacing: 0.41px;
 }
 

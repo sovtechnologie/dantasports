@@ -1,13 +1,14 @@
 /* Container styling */
 .solutions-wrapper {
-  padding: 10px 120px;
+  padding: 10px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
+  text-align: center;
   text-align: center;
   margin-top: 80px;
 }
 
 /* Heading */
 .solutions-heading {
-  font-size: 48px;
+  font-size: clamp(27px, 3.33vw, 48px);
   font-weight: 700;
   margin-bottom: 20px;
   font-family: "Lato", sans-serif;
@@ -27,7 +28,7 @@
   color: #000000;
   margin-bottom: 40px;
   font-family: "DM Sans", sans-serif;
-  font-size: 24px;
+  font-size: clamp(16px, 1.67vw, 24px);
   font-weight: 400;
   margin: 0;
 }
@@ -38,28 +39,28 @@
   /* grid-template-columns: repeat(auto-fit, minmax(700px, 1fr)); */
   grid-template-columns: repeat(2, 1fr);
   padding: 38px 0px;
- gap: 24px;
+  gap: clamp(16px, 1.67vw, 24px);
   justify-items: center;
 }
 
 /* Individual card */
 .solution-card {
   display: flex;
-  /* align-items: flex-start; */
-  gap: 20px;
+  align-items: center;
+  gap: clamp(12px, 1.39vw, 20px);
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(17, 99, 199, 0.1);
-  padding: 20px;
-  max-width: 530px;
-  height: 78px;
+  padding: clamp(16px, 1.39vw, 20px);
+  max-width: clamp(350px, 36.78vw, 530px);
+  height: 84px;
   width: 100%;
 }
 
 /* Icon image styling */
 .solution-icon {
-  width: 60px;
-  height: 60px;
+  width: clamp(30px, 4.17vw, 60px);
+  height: clamp(30px, 4.17vw, 60px);
   background-color: #e6f0ff;
   border-radius: 50%;
   padding: 10px;
@@ -71,7 +72,7 @@
 .solution-title {
   display: flex;
   align-items: flex-start;
-  font-size: 24px;
+  font-size: clamp(16px, 1.67vw, 24px);
   font-weight: 600;
   color: #1163c7;
   margin: 0;
@@ -90,5 +91,16 @@
   font-size: 16px;
   font-weight: 400;
   text-align: left;
-  width: 381px;
+  /* width: clamp(305px, 26.45vw, 381px) */
+}
+
+@media (max-width: 900px) {
+.solutions-grid {
+  display: flex;
+    flex-direction: column;
+  }
+  .solution-card {
+    width: 100%;
+    max-width: 100%;
+  }
 }

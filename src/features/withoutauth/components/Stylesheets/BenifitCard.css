@@ -1,7 +1,10 @@
 .carousel-card-container {
   width: 100%;
   overflow: hidden;
-  padding: 20px;
+  /* padding: 20px; */
+  padding: 0 clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
+  margin-top: clamp(25px, 2.78vw, 40px);
+  margin-bottom: clamp(25px, 2.78vw, 40px);
   box-sizing: border-box;
 }
 
@@ -17,14 +20,13 @@
   /* max-width: 300px; */
   background: white;
   border: 1px solid #ccc;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   border-radius: 12px;
   padding: 10px;
   text-align: center;
   flex-shrink: 0;
-  height: 194px;
-  width: 277px;
+  height: clamp(155px, 13.46vw, 194px);
+  width: clamp(220px, 19.24vw, 277px);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -33,8 +35,8 @@
 }
 
 .card-icon {
-  width: 68px;
-  height: 68px;
+  width: clamp(54px, 4.72vw, 68px);
+  height: clamp(54px, 4.72vw, 68px);
   /* height: 40px; */
   /* margin-bottom: 16px; */
 }
@@ -42,7 +44,7 @@
 .card-title {
   font-family: "Lato", sans-serif;
   font-weight: 700;
-  font-size: 22px;
+  font-size: clamp(18px, 1.53vw, 24px);
   line-height: 120%; /* or line-height: 1.2; */
   letter-spacing: 0.35px;
   text-align: center;
@@ -53,14 +55,14 @@
 .card-subtitle {
   font-family: "DM Sans", sans-serif;
   font-weight: 400;
-  font-size: 14px;
+  font-size: clamp(10px, 0.97vw, 14px);
   line-height: 140%; /* or line-height: 1.4; */
   letter-spacing: 0.35px;
   text-align: center;
   vertical-align: middle;
   color: #172a39;
   margin: 0px;
-  width: 273px;
+  width: 100%;
 }
 
 .highlight {
@@ -81,7 +83,7 @@
 }
 
 /* Desktop view — no scroll */
-@media (min-width: 769px) {
+@media (min-width: 870px) {
   .carousel {
     overflow-x: hidden;
     justify-content: center;
