@@ -3,10 +3,9 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 50px 100px;
+  padding: clamp(30px, 3.47vw, 50px) clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
   box-sizing: border-box;
 }
-
 
 .sport-card-list-container {
   display: grid;
@@ -28,7 +27,7 @@
 
   padding: 20px;
   text-align: center;
-  width: 361px;
+  width: clamp(260px, 22.069vw, 361px);
   height: 140px;
   display: flex;
   flex-direction: column;
@@ -37,29 +36,27 @@
   align-items: center;
 }
 
-
 .sport-card-icon {
-  width: 82px;
-  height: 82px;
-  /* margin-bottom: 6px; */
+  width: clamp(40px, 5.69vw, 82px);
+  height: clamp(40px, 5.69vw, 82px);
 }
 
 .sport-card-title {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   font-weight: 700;
-  font-size: 32px;
-  line-height: 120%;           /* Or use: line-height: 1.2; */
+  font-size: clamp(16px, 1.7vw, 32px);
+  line-height: 120%; /* Or use: line-height: 1.2; */
   letter-spacing: 0.41px;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #172A39;
+  color: #172a39;
   margin: 0px;
 }
 
 /* 📱 Mobile: scrollable */
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
   .sport-card-list-container {
     display: flex;
     overflow-x: auto;
@@ -75,7 +72,7 @@
     display: none; /* Chrome/Safari */
   }
   .sport-card {
-    flex: 0 0 80%;
-    scroll-snap-align: start;
+    flex: 0 0 auto;
+    /* scroll-snap-align: start; */
   }
 }

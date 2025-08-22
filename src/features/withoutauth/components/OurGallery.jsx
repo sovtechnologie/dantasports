@@ -46,7 +46,7 @@ const OurGallery = () => {
                 ))}
             </div>
 
-            <hr style={{width:'1240px'}} />
+            <hr style={{width:"100%" }} />
             <div className="gallery-footer">
                 <div className="gallery-page-indicator">
                     <span className="page-number">{String(currentPage).padStart(2, '0')}</span> of {totalPages}

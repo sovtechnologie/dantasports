@@ -106,7 +106,6 @@ body {
 .carousel-img {
   width: 100%;
   max-width: clamp(200px, 34.72vw, 500px);
-
   border-radius: 16px;
   object-fit: cover;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);

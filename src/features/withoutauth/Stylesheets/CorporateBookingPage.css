@@ -15,32 +15,23 @@ body {
 
 .Corporate-header {
   display: flex;
-gap: clamp(6px, 0.694vw, 10px);
+  gap: clamp(6px, 0.694vw, 10px);
   flex-direction: row;
   background-color: #ffffff;
   /* width: 100%; */
-  border-radius: 0 0 60px 60px;
+  border-radius: 0 0 clamp(30px, 4.17vw, 60px) clamp(30px, 4.17vw, 60px);
   padding: clamp(30px, 3.47vw, 50px) clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
   border-top: 2px solid #1163c7;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-  /* gap: 20px; */
-  /* Optional spacing between left and right */
   flex-wrap: nowrap;
-  /* Prevent wrapping unless on smaller screens */
-}
-
-.header-left {
-  flex: 1;
-  min-width: 0;
-  /* padding-left: 70px; */
 }
 
 .header-left h1 {
-  font-size: clamp(24px, 4.44vw, 64px);
+  font-size: clamp(27px, 4.44vw, 64px);
   font-weight: 700;
   color: #172a39;
   font-family: "Lato", Arial, sans-serif;
-  margin: clamp(12px, 1.39vw, 20px) 0px;
+  margin: clamp(10px, 1.39vw, 20px) 0px;
 }
 
 .header-left h1 span {
@@ -48,17 +39,17 @@ gap: clamp(6px, 0.694vw, 10px);
 }
 
 .header-left p {
-  font-size:clamp(12px, 1.25vw, 18px);
+  font-size: clamp(12px, 1.25vw, 18px);
   margin-top: clamp(6px, 0.694vw, 10px);
   margin-bottom: clamp(6px, 0.694vw, 10px);
   color: #757575;
   font-weight: 400;
-  max-width: 500px;
+  max-width: 350px;
   letter-spacing: 0.41px;
 }
 
 .button-group {
-  margin-top: 50px;
+  margin-top: clamp(5px, 2.5vw + 14px, 50px);
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
@@ -105,12 +96,12 @@ gap: clamp(6px, 0.694vw, 10px);
   display: flex;
   flex-direction: column;
   align-items: center;
-   padding-top: clamp(12px, 1.39vw, 20px);
+  padding-top: clamp(12px, 1.39vw, 20px);
 }
 
 .carousel-img {
   width: 100%;
-  max-width: 500px;
+  max-width: clamp(200px, 34.72vw, 500px);
   border-radius: 16px;
   object-fit: cover;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
@@ -137,14 +128,11 @@ gap: clamp(6px, 0.694vw, 10px);
 
 .corporate-booking h1 {
   text-align: center;
-  /* Center text inside h1 */
   margin: 20px 0;
-  /* Top and bottom margin */
   font-family: "Lato", sans-serif;
   font-weight: 700;
-  font-size: 48px;
+  font-size: clamp(27px, 4.33vw, 48px);
   line-height: 120%;
-  /* or line-height: 1.2; */
   letter-spacing: 0.41px;
   vertical-align: middle;
 }
@@ -158,15 +146,11 @@ gap: clamp(6px, 0.694vw, 10px);
   display: flex;
   flex-direction: row;
   background-color: #ffffff;
-  /* width: 100%; */
-  /* border-radius: 0 0 60px 60px; */
-  padding: 50px 95px;
-  /* margin-bottom: 20px; */
+  padding: 50px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-  /* gap: 20px; */
-  /* Optional spacing between left and right */
   flex-wrap: nowrap;
   justify-content: space-between;
+  gap: 10px;
 }
 
 .left-sport-event {
@@ -175,14 +159,12 @@ gap: clamp(6px, 0.694vw, 10px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* padding-top: 20px; */
-  /* padding-left: 10px; */
 }
 
 .carousel-sport-img {
   width: 100%;
-  max-width: 612px;
-  height: 395px;
+  height: clamp(160px, 27.01vw, 389px);
+  width: clamp(200px, 42.5vw, 612px);
   border-radius: 16px;
   object-fit: cover;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
@@ -197,14 +179,9 @@ gap: clamp(6px, 0.694vw, 10px);
 
 .right-sport-event h1 {
   font-family: "Lato", sans-serif;
-  font-size: 48px;
+  font-size: clamp(20px, 3.33vw, 48px);
   font-weight: 700;
   color: #1d2b4f;
-  /* white-space: nowrap;
-  /* Prevent line breaks */
-  /* overflow: hidden; */
-  /* Hide overflowing content */
-  /* text-overflow: ellipsis; */
 }
 
 .right-sport-event h1 span {
@@ -215,12 +192,12 @@ gap: clamp(6px, 0.694vw, 10px);
   font-size: 1.1rem;
   margin-top: 10px;
   color: #000000;
-  max-width: 607px;
+  max-width: clamp(200px, 42vw, 607px);
   font-family: DM Sans;
   font-weight: 400;
-  font-size: 24px;
-  line-height: 180%;
-  letter-spacing: 0.41px;
+  font-size: clamp(16px, 1.67vw, 24px);
+  line-height: clamp(10px, 3.25vw, 1.8rem);
+  letter-spacing: clamp(0.2px, 0.0285vw, 0.41px);
   vertical-align: middle;
 }
 
@@ -233,13 +210,13 @@ gap: clamp(6px, 0.694vw, 10px);
   text-align: center;
   margin: 20px 0;
   /* Top and bottom margin */
-  padding: 20px;
+  padding: 20px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
 }
 
 .corporate-service-container h1 {
   font-family: "Lato", sans-serif;
   font-weight: 700;
-  font-size: 48px;
+  font-size: clamp(27px, 3.33vw, 48px);
   line-height: 120%;
   letter-spacing: 0.41px;
   vertical-align: middle;
@@ -250,51 +227,6 @@ gap: clamp(6px, 0.694vw, 10px);
 .corporate-service-container h1 span {
   color: #1163c7;
   /* Blue color for span */
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .Corporate-header {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    font-size: 20px;
-  }
-
-  .header-left,
-  .header-right {
-    flex: 1 1 100%;
-    padding: 10px 0;
-  }
-
-  .carousel-img {
-    width: 100%;
-  }
-
-  .corporate-booking {
-    font-size: 20px;
-    font-weight: 400px;
-  }
-
-  .Corporate-sport-event {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    font-size: 20px;
-  }
-
-  .left-sport-event .right-sport-event {
-    flex: 1 1 100%;
-    padding: 10px 0;
-  }
-
-  .left-sport-event h1 {
-    font-size: 30px;
-  }
-
-  .carousel-sport-img {
-    width: 100%;
-  }
 }
 
 .primary-btn-one,
@@ -308,8 +240,8 @@ gap: clamp(6px, 0.694vw, 10px);
   text-transform: uppercase;
   /* height: 58px; */
   font-family: "Poppins";
-  font-size: 20px;
-  padding: 5px 22px;
+  font-size: clamp(10px, 1.39vw, 20px);
+  padding: clamp(4px, 0.35vw, 6px) clamp(12px, 1.53vw, 26px);
   font-weight: 400;
 }
 
@@ -342,7 +274,7 @@ gap: clamp(6px, 0.694vw, 10px);
 
 .carousel-img {
   width: 100%;
-  max-width: 500px;
+  max-width: clamp(200px, 34.72vw, 500px);
   border-radius: 16px;
   object-fit: cover;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
@@ -370,4 +302,62 @@ gap: clamp(6px, 0.694vw, 10px);
   margin-top: clamp(16px, 2.78vw, 40px);
   margin-bottom: clamp(16px, 2.78vw, 40px);
   padding: 0 clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
+}
+
+@media (max-width: 530px) {
+  .Corporate-header {
+    flex-direction: column;
+  }
+  .right-sport-event p {
+    max-width: 100%;
+    font-size: 16px;
+  }
+  .carousel-sport-img {
+    width: 100%;
+  }
+  .header-right img {
+    width: 100%;
+    max-width: 100%;
+    max-height: 200px;
+  }
+
+  .Corporate-sport-event {
+    flex-direction: column;
+    padding-bottom: 20px;
+  }
+  .left-sport-event img {
+    max-width: 100%;
+    height: clamp(200px, 26.7vw, 385px);
+  }
+  .right-sport-event p {
+    max-width: 100%;
+    font-size: 16px;
+    line-height: normal;
+  }
+  .carousel-sport-img {
+    width: 100%;
+  }
+  .gallery-container{
+    padding-top: 0px !important;
+  }
+
+    
+}
+
+/* Desktop view — no scroll */
+@media (min-width: 1200px) {
+  .carousel {
+    overflow-x: hidden;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  /* Hide scrollbar */
+  .carousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .card {
+    /* flex: 0 0 22%;  */
+    margin-bottom: 20px;
+  }
 }

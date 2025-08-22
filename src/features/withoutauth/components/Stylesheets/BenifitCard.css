@@ -26,7 +26,7 @@
   text-align: center;
   flex-shrink: 0;
   height: clamp(155px, 13.46vw, 194px);
-  width: clamp(220px, 19.24vw, 277px);
+  width: clamp(220px, 15.24vw, 277px);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -44,7 +44,7 @@
 .card-title {
   font-family: "Lato", sans-serif;
   font-weight: 700;
-  font-size: clamp(18px, 1.53vw, 24px);
+  font-size: clamp(16px, 1.53vw, 24px);
   line-height: 120%; /* or line-height: 1.2; */
   letter-spacing: 0.35px;
   text-align: center;
@@ -73,21 +73,21 @@
   border: 2px solid #007bff;
 } */
 
-/* Hide scrollbar */
-.carousel::-webkit-scrollbar {
-  display: none;
-}
 .carousel {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
 /* Desktop view — no scroll */
-@media (min-width: 870px) {
+@media (min-width: 1200px) {
   .carousel {
     overflow-x: hidden;
     justify-content: center;
     flex-wrap: wrap;
+  }
+  /* Hide scrollbar */
+  .carousel::-webkit-scrollbar {
+    display: none;
   }
 
   .card {

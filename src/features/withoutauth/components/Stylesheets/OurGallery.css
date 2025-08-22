@@ -6,7 +6,7 @@
 }
 
 .gallery-heading {
-  font-size: 48px;
+  font-size: clamp(27px, 3.33vw, 48px);
   font-weight: 700;
   margin-bottom: 30px;
   font-family: "Lato", sans-serif;
@@ -20,16 +20,16 @@
 .gallery-cards {
   display: flex;
   justify-content: space-between;
-  /* gap: 24px; */
+  gap: 10px;
   flex-wrap: wrap;
   margin-bottom: 20px;
-  padding: 20px 100px;
+  padding: 20px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
 }
 
 .gallery-card {
   width: 100%;
-  max-width: 399px;
-  height: 454px;
+  max-width: clamp(300px, 26.708vw, 399px);
+  height: clamp(380px, 31.53vw, 454px);
   background-size: cover;
   background-position: center;
   border-radius: 20px;
@@ -49,7 +49,7 @@
 
 .gallery-overlay h3 {
   margin: 0;
-  font-size: 32px;
+  font-size: clamp(20px, 2vw, 32px);
   font-weight: 500;
   font-family: "Urbanist", sans-serif;
   text-align: left !important;
@@ -59,7 +59,7 @@
 .gallery-overlay p {
   align-items: flex-start;
   margin: 5px 0 0;
-  font-size: 24px;
+  font-size: clamp(16px, 1.67vw, 24px);
   font-weight: 300 !important;
   font-family: "Urbanist", sans-serif;
   text-align: left !important;
@@ -71,7 +71,7 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 16px;
-  padding: 0 100px;
+  padding: 0 clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
   flex-wrap: wrap;
 }
 
@@ -94,7 +94,7 @@
 
 .nav-btn {
   background: none;
-  border: 1px solid #1163C7;
+  border: 1px solid #1163c7;
   color: #172a39;
   border-radius: 50%;
   width: 44px;
@@ -109,15 +109,25 @@
   color: white;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
   .gallery-cards {
-    flex-direction: column;
-    align-items: center;
+    display: flex;
+    overflow-x: auto;
+    flex-wrap: nowrap; /* Prevent wrapping */
+    gap: 16px;
+    padding-bottom: 10px;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  /* Hide scrollbar */
+  .gallery-cards::-webkit-scrollbar {
+    display: none;
   }
 
-  .gallery-footer {
-    flex-direction: column;
-    gap: 10px;
+  .gallery-card {
+    flex: 0 0 auto;
+    /* min-width: 300px; */
+    margin-bottom: 20px;
+    /* max-width: 400px; */
   }
 }
