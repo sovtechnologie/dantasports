@@ -32,13 +32,13 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFina
     if (totalAmount) {
       setFinalAmount(totalAmount);
     }
-  }, [setFinalAmount,totalAmount]);
+  }, [setFinalAmount, totalAmount]);
 
-  
+
   return (
     <div className="checkout-box">
       <div className="row">
-        <div style={{ display: "flex", justifyContent: "space-between", gap: "20px" }}>
+        <div className="toggleicon">
           <span>Passes price x {count}</span>
           <img src={toggleIcon} alt="toggleicon" style={{ height: "15px", width: "15px" }} />
         </div>
@@ -46,7 +46,8 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFina
         <span>₹{basePrice}</span>
       </div>
       <div className="row">
-        <div style={{ display: "flex", justifyContent: "space-between", gap: "20px" }}>
+        <div className="toggleicon">
+
           <span>Convenience fee</span>
           <img src={toggleIcon} alt="toggleicon" style={{ height: "15px", width: "15px" }} />
         </div>

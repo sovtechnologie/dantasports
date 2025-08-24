@@ -88,3 +88,10 @@ label {
   display: flex;
   align-items: center;
 }
+
+.toggleicon{
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  max-width: 300px;
+}

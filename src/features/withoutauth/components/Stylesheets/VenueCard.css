@@ -1,5 +1,5 @@
 .venue-card-wrapper {
-  width: 298px;
+  width: clamp(220px, 18.7vw, 298px);
   /* height: 320px !important; */
   border-radius: 1rem;
   overflow: hidden;
@@ -138,7 +138,7 @@
   color: #006eff;
   font-weight: 400;
 }
-
+/* 
 @media (max-width: 768px) {
   .venue-card-wrapper {
     width: 100%;
@@ -197,4 +197,4 @@
   .venue-price {
     font-size: 12px;
   }
-}
+} */

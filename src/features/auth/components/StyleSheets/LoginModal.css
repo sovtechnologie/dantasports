@@ -13,7 +13,7 @@
   /* background: #fff; */
   border-radius: 10px;
   /* padding: 2rem; */
-  max-width: 500px;
+  max-width: clamp(320px, 34.7222vw, 500px);
   width: 100%;
 }
 

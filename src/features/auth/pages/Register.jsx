@@ -216,48 +216,53 @@ const Register = ({ isModal = false, onClose = () => { }, onSuccess = () => { },
             )}
 
             <form onSubmit={handleSubmit}>
-
-              <label htmlFor="name">Enter Full Name</label>
-              <input name="name" id="name" value={form.name} onChange={handleChange} required className='main-input' />
-
-              <label htmlFor="phone">Enter Mobile Number</label>
-              <div className="phone-input">
-                <div className="country-code">
-                  <img src="https://flagcdn.com/in.svg" alt="India" />
-                  <span>+91</span>
-                </div>
-                <input
-                  type="tel"
-                  name="phone"
-                  id="phone"
-                  maxLength="10"
-                  value={form.phone}
-                  onChange={handleChange}
-                  placeholder="Enter number"
-
-                  required
-                  disabled={otpSent}
-                />
-                <button type="button" onClick={handleSendOtp} disabled={isSendingOtp || otpSent} className="otp-btn">
-                  {isSendingOtp && !otpSent ? 'Sending...' : 'Send OTP'}
-                </button>
+              <div>
+                <label htmlFor="name">Enter Full Name</label>
+                <input name="name" id="name" value={form.name} onChange={handleChange} required className='main-input' />
               </div>
 
 
+              <div>
+                <label htmlFor="phone">Enter Mobile Number</label>
+                <div className="phone-input">
+                  <div className="country-code">
+                    <img src="https://flagcdn.com/in.svg" alt="India" />
+                    <span>+91</span>
+                  </div>
+                  <input
+                    type="tel"
+                    name="phone"
+                    id="phone"
+                    maxLength="10"
+                    value={form.phone}
+                    onChange={handleChange}
+                    placeholder="Enter number"
 
-              <label htmlFor="gender">Gender</label>
-              <select name="gender" id="gender" value={form.gender} onChange={handleChange} required>
-                <option value="">Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-              </select>
+                    required
+                    disabled={otpSent}
+                  />
+                  <button type="button" onClick={handleSendOtp} disabled={isSendingOtp || otpSent} className="otp-btn">
+                    {isSendingOtp && !otpSent ? 'Sending...' : 'Send OTP'}
+                  </button>
+                </div>
+              </div>
 
-              <label htmlFor="email">Email address</label>
-              <input name="email" id="email" value={form.email} onChange={handleChange} type="email" className='main-input' />
-
-              <label htmlFor="referralCode">Referral Code (Optional)</label>
-              <input name="referralCode" id="referralCode" value={form.referralCode} onChange={handleChange} className='main-input' />
-
+              <div>
+                <label htmlFor="gender">Gender</label>
+                <select name="gender" id="gender" value={form.gender} onChange={handleChange} required>
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+              <div>
+                <label htmlFor="email">Email address</label>
+                <input name="email" id="email" value={form.email} onChange={handleChange} type="email" className='main-input' />
+              </div>
+              <div>
+                <label htmlFor="referralCode">Referral Code (Optional)</label>
+                <input name="referralCode" id="referralCode" value={form.referralCode} onChange={handleChange} className='main-input' />
+              </div>
               {otpSent && (
                 <>
                   <label htmlFor="otp">Enter OTP</label>

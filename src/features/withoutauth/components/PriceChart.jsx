@@ -103,8 +103,8 @@ function PriceChart({ venueId, sportId }) {
   return (
 
     <div className="price-chart">
-      <div className="header">
-        <h2>Price Chart</h2>
+      <div className="sports-header">
+       Price Chart
       </div>
       <p className="notes">Pricing is subjected to change and is controlled by venue</p>
       {isLoading ? (
@@ -124,7 +124,7 @@ function PriceChart({ venueId, sportId }) {
                 <h5>{column.title}</h5>
                 {Object.entries(column.slotsByDay || {}).map(([day, slots]) => (
                   <div key={day} className="day-group">
-                    <strong>{day}</strong>
+                    <p>{day}</p>
                     {slots.map((slot, i) => (
                       <div key={i} className="time-price">
                         <span>{slot.time}</span>

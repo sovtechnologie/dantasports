@@ -323,8 +323,8 @@ function VenueCheckoutPage() {
                                 <div className="sports-header">
                                     <strong>About</strong>
 
-                                </div>
-                                <p>{venue.about}</p>
+                                </div >
+                                <div className="event-description">{venue.about}</div>
                             </div>
                         </div>
 
@@ -335,10 +335,10 @@ function VenueCheckoutPage() {
                                 </div>
                                 <div className="amenity-tags">
                                     {venue.amenities.map((item) => (
-                                        <span className="amenity-tag" key={item}>
-                                            <span className="check-icon">
-                                                <img src={checkitIcon} alt="check" />
-                                            </span>
+                                        <span className="amenities-tag" key={item}>
+                                            {/* <span className="check-icon"> */}
+                                            <img src={checkoutIcon} alt="check" className="amt-img" />
+                                            {/* </span> */}
                                             <span className="check-label">{item}</span>
                                         </span>
                                     ))}

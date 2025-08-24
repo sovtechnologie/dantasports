@@ -17,7 +17,7 @@ body {
   width: 100%;
   background-color: #ffffff;
   margin-bottom: 25px;
- /* border-bottom-left-radius: 50px; */
+  /* border-bottom-left-radius: 50px; */
   border-bottom-left-radius: clamp(30px, 11.3636vw, 50px);
   /* border-bottom-right-radius: 50px; */
   border-bottom-right-radius: clamp(30px, 11.3636vw, 50px);
@@ -34,9 +34,6 @@ body {
   font-size: 16px;
   font-weight: 500;
   color: #6b7280;
-  /* margin-bottom: 10px; */
-  /* margin-left: 5rem; */
-  /* padding-top: 20px; */
   font-family: "DM Sans", Arial, sans-serif;
 }
 
@@ -44,20 +41,14 @@ body {
   color: #000000;
   font-family: "Lato", sans-serif;
   font-weight: 700;
-  font-size: 44px;
+  /* font-size: 44px; */
+  font-size: clamp(20px, 5vw, 44px);
 }
-
-/* h1 {
-  margin-left: 5rem;
-  margin-bottom: 15px;
-} */
 
 .location-rating {
   display: flex;
   gap: 20px;
   color: #172a39;
-  /* margin-bottom: 15px; */
-  /* margin-left: 5rem; */
   font-size: 16px;
   font-weight: 500;
   font-family: "DM Sans", Arial, sans-serif;
@@ -67,16 +58,16 @@ body {
   padding: 0px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
 }
 
-/* Wrapper */
 .venue-wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  gap: 10px;
 }
 
 /* Left Side (Image Carousel) */
 .venue-left {
-   flex: 1 1 55%;
+  flex: 1 1 55%;
   position: relative;
   max-width: 821px;
   width: clamp(300px, 57.0139vw, 821px);
@@ -87,8 +78,15 @@ body {
   overflow: hidden;
   border-radius: 11px;
   margin-bottom: 20px;
+  height: clamp(200px, 34.7222vw, 500px);
 }
-
+.venue-location:first-of-type {
+  height: 500px;
+  height: clamp(200px, 34.7222vw, 500px);
+}
+.map-container iframe {
+  height: clamp(200px, 22.5694vw, 325px);
+}
 .venue-icon-topwrapper {
   position: absolute;
   top: 12px;
@@ -100,8 +98,6 @@ body {
   background-color: transparent;
   border: none;
 }
-
-
 
 .swiper {
   width: 100%;
@@ -124,6 +120,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  height: clamp(200px, 34.7222vw, 500px);
 }
 
 .sports-wrapper {
@@ -142,19 +139,11 @@ body {
 }
 
 .sports-header {
- display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem;
-  align-items: center;
-  color: #172a39;
-  display: flex;
-  flex-wrap: wrap;
-  font-family: Lato, sans-serif;
   font-size: 18px;
+  font-family: "Lato", sans-serif;
   font-weight: 600;
-  gap: 0.5rem;
-  /* margin-bottom: 1rem; */
+  color: #172a39;
+  line-height: clamp(6.04px, 1.8889vw, 27.2px);
 }
 
 .sports-header strong {
@@ -164,10 +153,13 @@ body {
 }
 
 .sports-header .note {
-  font-size: 16px;
+  font-size: 18px;
+  font-family: "Lato", sans-serif;
+  font-weight: 600;
+  color: #172a39;
+  line-height: clamp(6.04px, 1.8889vw, 27.2px);
   color: #858585;
-  font-family: "DM Sans", Arial, sans-serif;
-  font-weight: 400;
+  margin-left: 10px;
 }
 
 .sports-grid {
@@ -221,10 +213,10 @@ body {
   border-radius: 10px;
   border: 1px solid #f1f3f2;
   max-width: 405px;
-    display: flex;
+  display: flex;
   flex-direction: column;
-  gap: 20px;
-   background-color: #f1f3f2;
+  gap: 1rem;
+  background-color: #f1f3f2;
   border-radius: 10px;
   border: 1px solid #f1f3f2;
   /* width: 403px; */
@@ -309,26 +301,15 @@ body {
   border-radius: 11px;
   padding: 1rem;
   font-size: 14px;
-  
-  /* margin-top: 20px; */
-
-  /* Gradient border */
   border: 2px solid transparent;
-  /* background-image:
-    linear-gradient(#fff, #fff), linear-gradient(90deg, #1163c7, #a3d0ff); */
   background-origin: border-box;
   background-clip: padding-box, border-box;
   box-shadow: 0px 4.08px 4.08px 0px #1163c740;
   border: 1px solid #d6e4f0;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: clamp(6px, 0.3889vw, 20px);
   max-height: 500px;
-}
-
-.venue-location p {
-  margin: 0.5rem 0;
-  color: #333;
 }
 
 .venue-map iframe {
@@ -356,24 +337,25 @@ body {
   justify-content: center;
 }
 
-
 .vb-section {
   display: flex;
   align-items: center;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 0.75rem;
-  margin-bottom: 1rem;
-  margin-top: 20px;
   border-radius: 10px;
   background-color: #ffffff;
   padding: 20px;
   border: 1px solid #e0e0e0;
+  box-shadow: 0px 4.08px 4.08px 0px #1163c740;
 }
 
 .vb-section label {
-  font-weight: bold;
-  display: block;
+  font-size: 18px;
+  font-family: "Lato", sans-serif;
+  font-weight: 600;
+  color: #172a39;
+  line-height: clamp(6.04px, 1.8889vw, 27.2px);
   margin-bottom: 0.3rem;
 }
 .vb-sport-options,
@@ -383,6 +365,9 @@ body {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
+}
+.vb-pitch-options {
+  box-shadow: 0px 4.08px 4.08px 0px #1163c740;
 }
 
 .vb-sport-btn {
@@ -499,13 +484,13 @@ body {
   border-radius: 12px;
   padding: 1rem;
   background-color: #fff;
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 20px;
   box-shadow: 0px 4.08px 4.08px 0px #1163c740;
-  max-height: 500px ;
+  max-height: 500px;
 }
 .venue-heading {
   display: flex;
@@ -596,11 +581,6 @@ body {
   }
 }
 
-/* Sections (Sports, Amenities) */
-/* .section {
-  margin-top: 20px;
-} */
-
 .section h4 {
   font-size: 16px;
   margin-bottom: 10px;
@@ -622,45 +602,37 @@ body {
 }
 
 /* Responsive Styles */
-@media (max-width: 1024px) {
+@media (max-width: 945px) {
   .venue-wrapper {
     flex-direction: column;
+  }
+  .venue-location {
+    gap: 20px;
+  }
+  .sports-header {
+    line-height: 27.2px;
   }
 
   .venue-left,
   .venue-right {
     flex: 1 1 100%;
+    width: 100%;
+    max-width: 100%;
+  }
+  .venue-location:first-of-type {
+    height: 500px;
+  }
+  .gym-right-section-p {
+    font-size: 16px !important;
+    line-height: 23.4px !important;
+  }
+  .map-container iframe {
+    height: 325px;
+  }
+  .map-container {
+    gap: 20px;
   }
 }
-
-/* @media (max-width: 600px) {
-  .venue-wrapper {
-    padding: 16px;
-  }
-
-  .venue-right h2 {
-    font-size: 20px;
-  }
-
-  .btn-group {
-    flex-direction: column;
-  }
-
-  .carousel-controls button {
-    width: 28px;
-    height: 28px;
-    font-size: 14px;
-  }
-
-  .tags {
-    gap: 8px;
-  }
-
-  .tag {
-    font-size: 12px;
-    padding: 5px 10px;
-  }
-} */
 
 .amenities-wrapper-container {
   display: flex;
@@ -693,10 +665,15 @@ body {
 
 .amenities-tags {
   display: flex;
-  flex-wrap: wrap;
-  gap: 45px;
+  flex-direction: row;
+  gap: 20px;
 }
 
+.map-container {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 0.3889vw, 20px);
+}
 .amenities-tag {
   font-family: "Figtree", Arial, sans-serif;
   font-weight: 400;
@@ -713,17 +690,6 @@ body {
   align-items: center;
   justify-content: center;
 }
-
-/* .check-icon img {
-  width: 18px;
-  height: 18px;
-  display: inline-block;
-}
-
-.check-label {
-  display: inline;
-  font-size: 14px;
-} */
 
 .rules-boxContainer {
   background-color: #fff;
@@ -778,16 +744,10 @@ body {
 }
 
 .rating-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  margin-top: 70px;
-  width: 1240px;
+  width: 100%;
+  margin-top: 50px;
 }
-
-.ratings-carousel {
-  /* min-width: 1200px; */
-  /* margin: auto; */
+x .ratings-carousel {
   font-family: "Lato", sans-serif;
   margin-top: 50px;
 }
@@ -815,7 +775,7 @@ body {
 }
 
 .carousel-buttons {
-   display: flex;
+  display: flex;
   justify-content: center;
   gap: 30px;
   gap: clamp(10px, 2.0833vw, 30px);
@@ -833,21 +793,6 @@ body {
   font-size: 35px;
   cursor: pointer;
   transition: background 0.3s ease;
-}
-
-/* Responsive Behavior */
-@media (max-width: 1024px) {
-  .review-carousel-container {
-    flex-direction: row;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-  }
-
-  .review-card {
-    flex: 0 0 auto;
-    scroll-snap-align: center;
-  }
 }
 
 @media (max-width: 768px) {
@@ -924,7 +869,15 @@ body {
 .venue-nav button img {
   display: flex;
 }
-
+.amenities_tag {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.amt-img {
+  height: 20px;
+  width: 20px;
+}
 /* Animation Keyframes */
 @keyframes scroll-left {
   0% {
@@ -1077,7 +1030,7 @@ body {
   /* Ratings Carousel */
   .ratings-carousel {
     min-width: 100%;
-    padding: 0 1rem;
+    /* padding: 0 1rem; */
   }
 
   .review-carousel-container {
@@ -1098,18 +1051,15 @@ body {
   }
 }
 
-
 .gym-right-section-p {
-    font-family: "DM Sans", sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 23.4px;
-    color: #172a39;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 400;
+  font-size: clamp(3.56px, 1.1111vw, 16px);
+  line-height: clamp(5.2px, 1.63vw, 23.4px);
+  color: #172a39;
 }
 
-
 @media (max-width: 1200px) {
-
   .gym-carry-point {
     flex-direction: column;
     gap: 0px;
@@ -1170,4 +1120,3 @@ body {
     height: clamp(10px, 4.5455vw, 20px);
   }
 }
-

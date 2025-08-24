@@ -43,7 +43,7 @@ body {
   font-family: "Lato", sans-serif;
   font-weight: 700;
   font-size: 44px;
-    font-size: clamp(20px, 5vw, 44px);
+  font-size: clamp(20px, 5vw, 44px);
 }
 
 .gym-location-rating {
@@ -83,7 +83,7 @@ body {
 .map-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: clamp(10px, 0.3889vw, 20px);
 }
 .map-container iframe {
   height: clamp(200px, 22.5694vw, 325px);
@@ -344,8 +344,8 @@ body {
 .gym-right-section-p {
   font-family: "DM Sans", sans-serif;
   font-weight: 400;
-  font-size: 16px;
-  line-height: 23.4px;
+  font-size: clamp(3.56px, 1.1111vw, 16px);
+  line-height: clamp(5.2px, 1.63vw, 23.4px);
   color: #172a39;
 }
 
@@ -573,6 +573,12 @@ body {
   }
   .map-container iframe {
     height: 325px;
+  }
+
+  .gym-right-section-p{
+    font-size: 16px !important;
+    line-height: 23.4px !important;
+  
   }
 }
 

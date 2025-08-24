@@ -154,7 +154,7 @@ const Login = ({ isModal = false, onSuccess = () => { }, onSwitchToRegister = ()
           {/* Phone Number Input */}
           <label>Enter Mobile Number</label>
           <div className="input-group">
-            <span className="country-code">🇮🇳 +91</span>
+            <span className="country-code-login">🇮🇳 +91</span>
             <input
               type="tel"
               maxLength="10"

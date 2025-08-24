@@ -53,7 +53,6 @@ export const HostCard = ({ host }) => {
           color: SKILL_MAP[host?.skill]?.color || "#d99312",
           fontWeight: 500,
           fontSize: 15,
-          marginTop: 12,
           display: "inline-block"
         }}
       >

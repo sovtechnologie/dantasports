@@ -261,6 +261,11 @@ body {
   font-size: large;
 }
 
+.map-container {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 0.3889vw, 20px);
+}
 /* Reviews */
 
 .event-review {

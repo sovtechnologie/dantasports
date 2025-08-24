@@ -6,7 +6,6 @@ import ReviewCard from '../components/ReviewCard.jsx';
 import ShareIcon from '../assets/VenueDetailIcon/shareIcon.png';
 import LikeIcon from '../assets/VenueDetailIcon/LikeIcon.png';
 import PriceChart from '../components/PriceChart.jsx';
-import checkitIcon from "../assets/Checkitcon.png";
 import { useFetchSingleVenue } from '../../../hooks/VenueList/useFetchSingleVenue.js';
 import { usePaymentDetails } from '../../../hooks/Payments/usePaymentDetails.js';
 import { useCreatePayment } from '../../../hooks/Payments/useCreatePayment.js';
@@ -33,6 +32,8 @@ import { useSportDetails } from '../../../hooks/favouriteSport/useSportDetails.j
 import CheckoutPricing from '../components/CheckoutPricing.jsx';
 import Spinner from '../../../components/Spinner.jsx';
 import { useCreateBookingPayment } from '../../../hooks/Payments/useCreateBookingPayement.js';
+import checkoutIcon from "../assets/checkOutIcon.png";
+
 
 
 export const formatDate = (isoString) => {
@@ -326,7 +327,7 @@ function VenueDetailsPage() {
                                 <div className="sports-header">
                                     About
                                 </div>
-                                <p>{venue.about}</p>
+                             <div className="event-description">{venue.about}</div>
                             </div>
                         </div>
                         <div className="section">
@@ -337,9 +338,9 @@ function VenueDetailsPage() {
                                 <div className="amenities-tags">
                                     {venue.amenities.map((item) => (
                                         <span className="amenities-tag" key={item}>
-                                            <span className="check-icon">
-                                                <img src={checkitIcon} alt="check" />
-                                            </span>
+                                            {/* <span className="check-icon"> */}
+                                                <img src={checkoutIcon} alt="check" className="amt-img"/>
+                                            {/* </span> */}
                                             <span className="check-label">{item}</span>
                                         </span>
                                     ))}

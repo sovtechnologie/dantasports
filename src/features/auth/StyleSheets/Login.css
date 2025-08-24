@@ -1,159 +1,3 @@
-/* 
-.login-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 40px;
-  min-height: 100vh;
-  background-color: #ffffff;
-  font-family: 'DM Sans', sans-serif;
-  flex-wrap: wrap;
-}
-
-.login-box {
-  flex: 1;
-  max-width: 480px;
-  padding: 30px;
-  border-radius: 12px;
-}
-
-.login-title {
-  font-size: 36px;
-  font-weight: 700;
-  color: #000000;
-}
-  .login-title {
-  font-size: 36px;
-  font-weight: 700;
-  color: #000000;
-}
-
-
-.login-subtitle {
-  font-size: 20px;
-  color: #6b7280;
-  margin-bottom: 24px;
-}
-
-.input-group {
-  margin-bottom: 20px;
-}
-
-.input-group label {
-  font-weight: 500;
-  margin-bottom: 6px;
-  display: block;
-  font-size: 16px;
-}
-
-.input-field {
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-}
-
-.otp-button,
-.verify-button {
-  margin-left: 10px;
-  background: none;
-  border: none;
-  color: #007bff;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.login-btn {
-  background-color: #0052cc;
-  color: white;
-  border: none;
-  padding: 14px 0;
-  font-size: 18px;
-  width: 100%;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 20px;
-  font-weight: bold;
-}
-
-.login-btn:hover {
-  background-color: #003d99;
-}
-
-.whatsapp-check {
-  display: flex;
-  align-items: center;
-  margin-top: 12px;
-}
-
-.whatsapp-check input {
-  margin-right: 10px;
-}
-
-.signup-link {
-  margin-top: 24px;
-  text-align: center;
-  font-size: 15px;
-  color: #555;
-}
-
-.signup-link a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-.signup-link a:hover {
-  text-decoration: underline;
-}
-
-
-.qr-box {
-  flex: 1;
-  max-width: 420px;
-  padding: 30px;
-  text-align: center;
-}
-
-.qr-box img {
-  width: 240px;
-  height: 240px;
-  margin-bottom: 24px;
-}
-
-.qr-title {
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 10px;
-  color: #1f2937;
-}
-
-.qr-desc {
-  color: #6b7280;
-  font-size: 16px;
-}
-
-@media (max-width: 768px) {
-  .login-container {
-    flex-direction: column;
-    padding: 20px;
-  }
-
-  .login-box,
-  .qr-box {
-    max-width: 100%;
-    padding: 20px 0;
-  }
-
-  .qr-box img {
-    width: 180px;
-    height: 180px;
-  }
-} */
-
-/* Login.css */
-
 .login-container {
   display: flex;
   justify-content: center;
@@ -177,7 +21,7 @@
 .left-panel,
 .right-panel {
   flex: 1;
-  padding: 40px;
+  padding: clamp(24px, 2.7778vw, 40px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -196,14 +40,18 @@
 
 h2 {
   align-items: center;
-  font-size: 32px;
+  font-size: clamp(24px, 2.22vw, 32px);
+  /* font-size: 32px; */
   font-weight: bold;
   margin-bottom: 8px;
+  font-family: "DM Sans", sans-serif;
+
 }
 
 .subtitle {
   align-items: center;
-  font-size: 16px;
+  /* font-size: 16px; */
+  font-size: clamp(15px, 1.1111vw, 16px);
   margin-bottom: 35px;
   color: #858585;
 }
@@ -212,7 +60,7 @@ label {
   margin-bottom: 5px;
   color: #858585 !important;
   font-family: "DM Sans", sans-serif;
-  font-size: 16px;
+  font-size: clamp(12px, 1.1111vw, 16px);
   font-weight: 400;
 }
 
@@ -223,42 +71,43 @@ label {
   border-radius: 12px;
   padding: 8px 12px;
   width: 100%;
-  /* max-width: 480px; */
   box-sizing: border-box;
   margin-bottom: 20px;
-  height: 56px;
-  gap: 16px;
+  height:clamp(40px, 3.8889vw, 56px);
+  gap: clamp(12px, 1.1111vw, 18px);
+  max-width: clamp(270px, 28.7222vw, 400px);
+
 }
 
 .input-group input {
   flex: 1;
   border: none;
   outline: none;
-  font-size: 16px;
+  font-size: clamp(12px, 1.1111vw, 16px);
   background: transparent;
   font-family: "DM Sans", sans-serif;
-  font-size: 16px;
   font-weight: 400;
   color: #6d6c6c;
 }
 
-.country-code {
+.country-code-login {
   font-family: "DM Sans", sans-serif;
-  font-size: 16px;
+   font-size: clamp(12px, 1.1111vw, 16px) !important;
   font-weight: 400;
   color: #6d6c6c;
   /* margin-right: 8px; */
+  padding: 0px !important;
+  white-space: nowrap;
 }
 
 .otp-button {
   background: none;
   border: none;
   color: #007bff;
-  font-size: 14px;
   cursor: pointer;
   white-space: nowrap;
   font-family: "DM Sans", sans-serif;
-  font-size: 16px;
+  font-size: clamp(12px, 1.1111vw, 18px);
   font-weight: 400;
 
   /* padding-left: 8px; */
@@ -275,12 +124,12 @@ label {
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 22px;
+  font-size: clamp(18px, 1.5278vw, 22px);
   cursor: pointer;
   margin-top: 10px;
   font-family: "Poppins";
   font-weight: 500;
-  height: 64px;
+  height: clamp(48px, 4.4444vw, 64px);
 }
 
 .login-button:disabled {
@@ -368,21 +217,6 @@ label {
   font-size: 14px;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .login-box {
-    flex-direction: column;
-  }
-
-  .left-panel,
-  .right-panel {
-    padding: 20px;
-  }
-
-  .right-panel {
-    display: none;
-  }
-}
 
 /* tempory otp code */
 .otp-popup-overlay {

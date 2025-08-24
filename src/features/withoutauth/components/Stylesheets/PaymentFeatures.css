@@ -53,7 +53,7 @@
   box-shadow: 0 4px 16px rgba(17, 99, 199, 0.1);
   padding: clamp(8px, 1.39vw, 20px);
   max-width: clamp(350px, 36.78vw, 530px);
-  height: 84px;
+  /* height: 84px; */
   /* width: 100%; */
 }
 

@@ -18,11 +18,11 @@ export default function FilterSportSwipper({ SportsData, selectedSport, setSelec
             pagination={{ clickable: true }}
             // navigation={{ nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev', disabledClass: 'swiper-button-disabled' }}
             // watchOverflow={true}
-            breakpoints={{
-                0: { slidesPerView: 1, grid: { rows: 2 } },
-                640: { slidesPerView: 2, grid: { rows: 2 } },
-                1024: { slidesPerView: 3, grid: { rows: 2 } },
-            }}
+            // breakpoints={{
+            //     0: { slidesPerView: 1, grid: { rows: 2 } },
+            //     640: { slidesPerView: 2, grid: { rows: 2 } },
+            //     1024: { slidesPerView: 3, grid: { rows: 2 } },
+            // }}
         >
             {SportsData.map((sport, id) => (
                 <SwiperSlide key={id}>

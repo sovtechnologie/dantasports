@@ -6,17 +6,20 @@
   min-width: 220px;
   font-family: "Segoe UI", Arial, sans-serif;
   position: relative;
-  max-width: 260px;
+  max-width: 298px;
+  max-height: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4.44px, 1.3889vw, 20px);
 }
 
 .type {
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 600;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 500;
   font-style: normal;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 19.33px;
   letter-spacing: 0;
-  margin-bottom: 10px;
   color: #000000;
   display: block;
 }
@@ -24,7 +27,7 @@
 .avatarRow {
   display: flex;
   align-items: center;
-  margin: 7px 0 10px 0;
+  font-family: "DM Sans", sans-serif;
 }
 
 .avatar {
@@ -47,32 +50,31 @@
   vertical-align: middle;
 }
 
-
 .going {
   font-size: 16px;
-  color: #262626;
+  color: #000000;
   font-weight: 500;
   margin-left: -20px;
 }
 
 .hostBy {
-  font-size: 15px;
-  margin-bottom: 8px;
-  color: #262626;
+  font-size: 17px;
+  color: #000000;
+  font-family: "DM Sans", sans-serif;
   font-weight: 500;
 }
 
 .host {
-  color: #262626;
+  color: #000000;
   font-weight: 500;
+  font-family: "DM Sans", sans-serif;
 }
 
 .detailRow {
   display: flex;
   align-items: center;
-  font-size: 15px;
+  font-size: 16px;
   color: #8b8b8b;
-  margin-bottom: 10px;
 }
 
 .icon {
@@ -83,6 +85,8 @@
 }
 
 .detailText {
+  font-weight: 400;
+  font-family: "DM Sans", sans-serif;
   font-size: 15px;
 }
 
@@ -92,4 +96,15 @@
   font-weight: 500;
   margin-top: 12px;
   display: inline-block;
+}
+
+.card {
+  min-width: 270px;
+  max-width: 280px;
+  /* flex: 0 0 auto; */
+}
+@media (max-width: 970px) {
+  .card {
+    gap: 20px !important;
+  }
 }

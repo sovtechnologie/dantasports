@@ -1,42 +1,70 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: "Segoe UI", sans-serif;
-    background-color: #f1f3f2;
-    color: #333;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f1f3f2;
+  color: #333;
 }
 
-
 .host_filter_container {
-    display: flex;
-    padding: 30px 100px;
-    padding: 0px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
-    gap: 1rem;
-    font-family: "Segoe UI", sans-serif;
-    padding-top: 20px;
+  display: flex;
+  padding: 30px 100px;
+  padding: 0px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
+  gap: 1rem;
+  font-family: "Segoe UI", sans-serif;
+  padding-top: 20px;
 }
 
 .event_filter_sidebar {
-    border: 1px solid #1163c7;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
-    width: 295px;
-    height: 318px;
-    padding: 1rem;
-    border-radius: 8px;
-    background-color: #fff;
+  border: 1px solid #1163c7;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
+  width: 295px;
+  height: 318px;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: #fff;
 }
 
 .host_grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 40px;
-    flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  flex: 1;
 }
 
 .event_footer_banner {
-    padding: 0px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
+  padding: 0px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
+}
+
+@media (max-width: 970px) {
+  .host_filter_container {
+    display: flex;
+    flex-direction: column;
+  }
+  .host_grid {
+    display: flex;
+    /* flex-direction: column; */
+  }
+
+  .host_grid {
+    display: flex;
+    overflow-x: auto;
+    flex-wrap: nowrap; /* Prevent wrapping */
+    gap: 16px;
+    padding-bottom: 10px;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Hide scrollbar for webkit browsers */
+  .host_grid::-webkit-scrollbar {
+    display: none;
+  }
+  .card {
+    gap: 20px;
+  };
 }
