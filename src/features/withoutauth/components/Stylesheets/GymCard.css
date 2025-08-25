@@ -36,7 +36,7 @@
   margin-top: 8px;
   /* margin-right: 7px; */
 }
-.icon-btns{
+.icon-btns {
   background: none;
   border: none;
 }
@@ -114,4 +114,19 @@
   font-family: "DM Sans", Arial, sans-serif;
   color: #006eff;
   font-weight: 400;
+}
+
+@media (max-width: 500px) {
+  .gym-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: 100% !important;
+  }
+
+  .gym-image {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+  }
 }

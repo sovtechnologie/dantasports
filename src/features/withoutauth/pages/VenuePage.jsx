@@ -476,7 +476,7 @@ function VenuePage() {
                                 </div>
                             ) : (
                                 <div className='filter-sec2 no-sport-msg'>
-                                    <p>Please select a sport first to choose availability (date & time).</p>
+                                    {/* <p>Please select a sport first to choose availability (date & time).</p> */}
                                 </div>
                             )}
 

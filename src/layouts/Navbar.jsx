@@ -18,7 +18,7 @@ import { googleMapsLoader } from "../utils/locationSearch.js";
 
 
 function Navbar() {
-  const { lat, lng,} = useSelector((state) => state.location);
+  const { lat, lng, } = useSelector((state) => state.location);
   const dispatch = useDispatch();
   const location = useLocation();
   const isHome = location.pathname === '/';
@@ -123,8 +123,13 @@ function Navbar() {
       }
     );
   };
+  const handleNavLinkClick = () => {
+    setMobileMenuOpen(false);
+  };
 
-
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
 
 
 
@@ -148,13 +153,20 @@ function Navbar() {
           {isHome ? (
             <>
               <div className='nav-Filter-wrapper'>
-                <Link to="/venue" className={`nav-Filter-links ${isActive('/venue') ? 'active-link' : ''}`}>Book</Link>
-                <Link to="/Host" className={`nav-Filter-links ${isActive('/CommingSoon') ? 'active-link' : ''}`}>Host/Play</Link>
-                <Link to="/Run" className={`nav-Filter-links ${isActive('/Run') ? 'active-link' : ''}`}>Run</Link>
-                <Link to="/Coach" className={`nav-Filter-links ${isActive('/Coach') ? 'active-link' : ''}`}>Coach</Link>
-                <Link to="/Events" className={`nav-Filter-links ${isActive('/Events') ? 'active-link' : ''}`}>Events</Link>
-                <Link to="/Gym" className={`nav-Filter-links ${isActive('/Gym') ? 'active-link' : ''}`}>Gym</Link>
+                <Link to="/venue" onClick={handleNavLinkClick} className={`nav-Filter-links ${isActive('/venue') ? 'active-link' : ''}`}>Book</Link>
+                <Link to="/Host" onClick={handleNavLinkClick} className={`nav-Filter-links ${isActive('/CommingSoon') ? 'active-link' : ''}`}>Host/Play</Link>
+                <Link to="/Run" onClick={handleNavLinkClick} className={`nav-Filter-links ${isActive('/Run') ? 'active-link' : ''}`}>Run</Link>
+                <Link to="/Coach" onClick={handleNavLinkClick} className={`nav-Filter-links ${isActive('/Coach') ? 'active-link' : ''}`}>Coach</Link>
+                <Link to="/Events" onClick={handleNavLinkClick} className={`nav-Filter-links ${isActive('/Events') ? 'active-link' : ''}`}>Events</Link>
+                <Link to="/Gym" onClick={handleNavLinkClick} className={`nav-Filter-links ${isActive('/Gym') ? 'active-link' : ''}`}>Gym</Link>
               </div>
+              {/* <div className='nav-Filter-wrapper'>
+                <Link to="/Host" onClick={handleNavLinkClick} className={`nav-Filter-link ${isActive('/CommingSoon') ? 'active-link' : ''}`}>Host/Play</Link>
+                <Link to="/Run" onClick={handleNavLinkClick} className={`nav-Filter-link ${isActive('/Run') ? 'active-link' : ''}`}>Run</Link>
+                <Link to="/Coach" onClick={handleNavLinkClick} className={`nav-Filter-link ${isActive('/Coach') ? 'active-link' : ''}`}>Coach</Link>
+                <Link to="/Events" onClick={handleNavLinkClick} className={`nav-Filter-link ${isActive('/Events') ? 'active-link' : ''}`}>Events</Link>
+                <Link to="/Gym" onClick={handleNavLinkClick} className={`nav-Filter-link ${isActive('/Gym') ? 'active-link' : ''}`}>Gym</Link>
+              </div> */}
               <button className="app-btn" onClick={handleClick}>Get the App<img src={arrowlogo} width={25} style={{ verticalAlign: 'middle' }} alt="Arrow" /></button>
             </>
           ) : (

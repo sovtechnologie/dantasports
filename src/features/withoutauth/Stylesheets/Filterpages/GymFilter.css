@@ -77,7 +77,7 @@ body {
   flex: 0 0 auto; /* Prevent flex-grow and shrink */
 }
 
-@media (max-width: 450px) {
+@media (max-width: 500px) {
   .gym-filter-sidebar {
     width: 100%;
   }

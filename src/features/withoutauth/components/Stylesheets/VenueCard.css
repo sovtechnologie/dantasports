@@ -138,63 +138,9 @@
   color: #006eff;
   font-weight: 400;
 }
-/* 
-@media (max-width: 768px) {
+@media (min-width: 768px) {
   .venue-card-wrapper {
-    width: 100%;
-    margin-bottom: 20px;
-    border-radius: 12px;
+    width: 100% !important;
   }
-
-  .venue-image-container {
-    height: 180px;
-  }
-
-  .sport-icon {
-    width: 20px;
-    height: 20px;
-    padding: 3px;
-  }
-
-  .venue-top-icons {
-    position: absolute;
-    top: 8px;
-    right: 2rem;
-    display: flex;
-    gap: 4px;
-  }
-
-  .icon-btns {
-    padding: 5px;
-  }
-
-  .venue-details {
-    padding: 10px 14px;
-  }
-
-  .venue-header h4 {
-    font-size: 14px;
-    line-height: 20px;
-  }
-
-  .venue-rating {
-    font-size: 14px;
-  }
-
-  .venue-locations {
-    font-size: 12px;
-    line-height: 18px;
-  }
-
-  .venue-footer {
-    padding-top: 8px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-  }
-
-  .venue-discount,
-  .venue-price {
-    font-size: 12px;
-  }
-} */
+  
+}

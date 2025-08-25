@@ -5,6 +5,7 @@
   padding: 18px 17px 12px 17px;
   min-width: 220px;
   font-family: "Segoe UI", Arial, sans-serif;
+  border: 1px solid #ded9d9;
   position: relative;
   max-width: 298px;
   max-height: 300px;
@@ -106,5 +107,7 @@
 @media (max-width: 970px) {
   .card {
     gap: 20px !important;
+    width: 100%;
+    max-width: 100%;
   }
 }

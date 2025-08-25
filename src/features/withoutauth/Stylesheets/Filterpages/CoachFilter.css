@@ -40,7 +40,7 @@ body {
 .coach-footer-banner {
   padding: 0px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
 }
-
+/* 
 @media (max-width: 607px) {
   .coach-filter-container {
     flex-direction: column;
@@ -49,18 +49,17 @@ body {
   .coach-grid {
     display: flex;
     overflow-x: auto;
-    flex-wrap: nowrap; /* Prevent wrapping */
+    flex-wrap: nowrap; 
     gap: 16px;
     padding-bottom: 10px;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
   }
 
-  /* Hide scrollbar for webkit browsers */
   .coach-grid::-webkit-scrollbar {
     display: none;
   }
-}
+} */
 
 .coach-card {
   min-width: 250px;
@@ -68,8 +67,15 @@ body {
   flex: 0 0 auto; /* Prevent flex-grow and shrink */
 }
 
-@media (max-width: 450px) {
+@media (max-width: 607px) {
+  .coach-filter-container {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 500px) {
   .coach-filter-sidebar {
     width: 100%;
   }
 }
+
