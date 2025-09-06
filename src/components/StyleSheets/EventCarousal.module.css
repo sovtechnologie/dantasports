@@ -14,14 +14,14 @@
   align-items: center;
   margin-bottom: 2rem;
   /* margin-top: 60px; */
-  margin-top: clamp(0.625rem, -0.1974rem + 4.386vw, 3.75rem);
+  /* margin-top: clamp(0.625rem, -0.1974rem + 4.386vw, 3.75rem); */
   flex-wrap: wrap;
 }
 
 .eventsheader h3 {
   font-family: "Lato", Arial, sans-serif;
   font-weight: 700;
-  font-size: 32px;
+  font-size: 24px;
   line-height: 130%;
   letter-spacing: -1%;
   color: #172a39;
@@ -32,7 +32,7 @@
 .seeall {
   font-family: "Lato", Arial, sans-serif;
   font-weight: 400;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 130%;
   letter-spacing: -1%;
   color: #1b1f2b;

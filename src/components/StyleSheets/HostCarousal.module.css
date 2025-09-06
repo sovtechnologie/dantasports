@@ -14,7 +14,7 @@
   align-items: center;
   margin-bottom: 2rem;
   /* margin-top: 60px; */
-  margin-top: clamp(0.625rem, -0.1974rem + 4.386vw, 3.75rem);
+  /* margin-top: clamp(0.625rem, -0.1974rem + 4.386vw, 3.75rem); */
   flex-wrap: wrap;
 }
 
@@ -129,7 +129,7 @@
     /* position: absolute; */
     top: 28px;
     right: 0;
-    font-size: 18px;
+    font-size:20px;
   }
 
   .eventcarouseltrack {

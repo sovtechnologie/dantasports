@@ -101,7 +101,7 @@ body {
 
 .swiper {
   width: 100%;
-  height: 500px;
+  /* height: 500px; */
   border-radius: 12px;
   /* padding: 1rem; */
 }
@@ -285,13 +285,8 @@ body {
 
   /* Gradient border */
   border: 2px solid transparent;
-  /* background-image: */
-  /* linear-gradient(#ffffff, #ffffff),
-  
-    linear-gradient(90deg, #1163c7, #a3d0ff); */
-  /* border gradient */
   background-origin: border-box;
-  box-shadow: 0px 4.08px 4.08px 0px #1163c740;
+  /* box-shadow: 0px 4.08px 4.08px 0px #1163c740; */
   background-clip: padding-box, border-box;
   border: 1px solid #d6e4f0;
 }
@@ -304,7 +299,7 @@ body {
   border: 2px solid transparent;
   background-origin: border-box;
   background-clip: padding-box, border-box;
-  box-shadow: 0px 4.08px 4.08px 0px #1163c740;
+  /* box-shadow: 0px 4.08px 4.08px 0px #1163c740; */
   border: 1px solid #d6e4f0;
   display: flex;
   flex-direction: column;
@@ -347,7 +342,7 @@ body {
   background-color: #ffffff;
   padding: 20px;
   border: 1px solid #e0e0e0;
-  box-shadow: 0px 4.08px 4.08px 0px #1163c740;
+  /* box-shadow: 0px 4.08px 4.08px 0px #1163c740; */
 }
 
 .vb-section label {
@@ -367,7 +362,7 @@ body {
   flex-wrap: wrap;
 }
 .vb-pitch-options {
-  box-shadow: 0px 4.08px 4.08px 0px #1163c740;
+  /* box-shadow: 0px 4.08px 4.08px 0px #1163c740; */
 }
 
 .vb-sport-btn {
@@ -489,7 +484,7 @@ body {
   flex-direction: column;
   justify-content: center;
   gap: 20px;
-  box-shadow: 0px 4.08px 4.08px 0px #1163c740;
+  /* box-shadow: 0px 4.08px 4.08px 0px #1163c740; */
   max-height: 500px;
 }
 .venue-heading {
@@ -539,17 +534,7 @@ body {
   background-color: #ffffff;
   color: #1163c7;
   border: 2px solid transparent;
-  /* background-image:
-    linear-gradient(white, white),
-    linear-gradient(270deg, #1163c7, #a3d0ff, #1163c7);
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
-  cursor: pointer;
-  background-size: 200% auto;
-  animation:
-    move-border 3s linear infinite,
-    glow-pulse 3s ease-in-out infinite; */
-  box-shadow: 0px 4.08px 4.08px 0px #1163c740;
+  /* box-shadow: 0px 4.08px 4.08px 0px #1163c740; */
   border: 1px solid #d6e4f0;
 }
 

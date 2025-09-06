@@ -31,6 +31,7 @@ body {
 .logo-section {
   display: flex;
   gap: 10px;
+  align-items: center;
 }
 
 .footer-brand {
@@ -49,7 +50,7 @@ body {
 }
 
 .footer-brand h2 {
-  margin-top: 20px;
+  /* margin-top: 20px; */
   margin-bottom: 0px;
   font-size: 1.3rem;
   font-family: "Plus Jakarta Sans";
@@ -79,8 +80,8 @@ body {
   color: #0a66c2;
 }
 .footer-socials img {
-  height: 24px;
-  width: 24px;
+  height: 30px;
+  width: 30px;
 }
 
 .footer-links {
@@ -171,5 +172,10 @@ body {
   .footer-bottom {
     flex-direction: column-reverse;
     gap: 30px;
+  }
+
+  .footer-top {
+    gap: 20px;
+    margin-bottom: 20px;
   }
 }

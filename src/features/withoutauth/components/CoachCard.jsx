@@ -6,7 +6,7 @@ import coachImage from '../assets/CoachImage1.svg';
 
 const CoachCard = ({ coach }) => {
     const navigate = useNavigate();
-    
+
     const handleClick = () => {
         navigate(`/Coach/${coach?.id}`);
     };
@@ -15,9 +15,9 @@ const CoachCard = ({ coach }) => {
         <div className="coach-card" onClick={handleClick} style={{ cursor: "pointer" }}>
             <div className="coach-card-image-wrapper">
                 <img src={coach?.image} alt={coach?.name} className="coach-card-image" onError={(e) => {
-                                e.currentTarget.onerror = null;
-                                e.currentTarget.src = coachImage;
-                            }} />
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = coachImage;
+                }} />
                 <div className="coach-card-tag">{coach?.tag}</div>
                 <div className="icon-bottom-left">
                     {/* <img src={coach?.sportIcon} alt='sport' className='icon-img-btn' /> */}
@@ -49,7 +49,7 @@ const CoachCard = ({ coach }) => {
                     </div>
                 </div>
                 <div className="coach-raw-footer">
-                    <div className="coach-card-location"><img src={LocationIcon} alt='location icon' className='event-time-img' />{coach?.location}</div>
+                    <div className="coach-card-location"><img src={LocationIcon} alt='location icon' className='event-time-img' /><span>{coach?.location}</span></div>
                     <div className="coach-card-category">{coach?.category}</div>
                 </div>
 

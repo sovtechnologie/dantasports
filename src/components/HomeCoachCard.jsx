@@ -48,7 +48,7 @@ const CoachCard = ({ coach }) => {
                     </div>
                 </div>
                 <div className="coach-raw-footer">
-                    <div className="coach-card-location"><img src={LocationIcon} alt='location icon' className='event-time-img' />{coach?.location}</div>
+                    <div className="coach-card-location"><img src={LocationIcon} alt='location icon' className='event-time-img' /><span>{coach?.location}</span></div>
                     <div className="coach-card-category">{coach?.category}</div>
                 </div>
 

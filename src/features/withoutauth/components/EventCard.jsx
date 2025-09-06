@@ -69,7 +69,7 @@ export default function EventCard({ event, isLiked, onLikeToggle }) {
                 </div>
 
 
-                <div className='events-middle' style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div className='events-middle' style={{ display: 'flex', justifyContent: 'space-between', flexDirection:"column" }}>
                     <div className="event-time">
                         <img src={CalandarIcon} alt='Calandar icon' className='event-time-img' />
                         <span>{event.date}</span>

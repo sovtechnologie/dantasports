@@ -1,6 +1,7 @@
 .run_card {
   width: 299px;
-  height: 435px;
+  /* height: 435px; */
+  height: auto;
   border: 1px solid #e1e4e8;
   border-radius: 14.38px;
   overflow: hidden;
@@ -57,26 +58,32 @@
 }
 
 .run_content {
-  padding: 12px;
+  padding: 7.7px;
 }
 .runs_middle {
   display: flex;
   justify-content: space-between;
+  gap: 3px;
 }
 
 .run_title {
-  font-size: 10.27px;
+  font-size: 17px;
   font-weight: 500;
   margin: 0 0 4px;
-  font-family: "Lato", sans-serif;
-  color: #272727;
+  color: #000000;
+  font-family: "DM Sans", sans-serif;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 190px;
+  display: block;
 }
 
 .run_rating {
-  font-size: 10px;
+  font-size: 17px;
+  font-weight: 500;
   color: #4caf50;
   margin-bottom: 6px;
-  font-weight: 500;
   font-family: "DM Sans", Arial, sans-serif;
 }
 
@@ -90,30 +97,48 @@
 .run_time {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 11px;
+  font-size: 15px;
   color: #858585;
-  margin-bottom: 6px;
   font-family: "DM Sans", Arial, sans-serif;
   font-weight: 400;
+  margin-bottom: 8px;
+}
+.run_time span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .run_time img {
-  width: 12px;
-  height: 12px;
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
 }
 
 .run_location {
-  font-size: 11px;
+  display: flex;
+  align-items: center;
+  font-size: 15px;
   color: #858585;
-  margin-bottom: 6px;
   font-family: "DM Sans", Arial, sans-serif;
   font-weight: 400;
-  margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 8px;
+  width: 160px;
 }
+
+.run_location span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .run_location img {
-  width: 12px;
-  height: 12px;
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
 }
 .run_footer {
   display: flex;
@@ -131,21 +156,35 @@
   text-decoration: none;
   color: #1163c7;
   cursor: pointer;
+  font-size: 15px;
   font-family: "DM Sans", Arial, sans-serif;
-  font-size: 12px;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .run_offer {
   color: #fc8019;
+  font-size: 15px;
+  font-family: "DM Sans", Arial, sans-serif;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 140px;
+  display: block;
 }
 
 .run_price {
   color: #1163c7;
   cursor: pointer;
+  font-size: 15px;
   font-family: "DM Sans", Arial, sans-serif;
-  font-size: 12px;
   font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: right;
+  text-overflow: ellipsis;
+  width: 140px;
+  display: block;
 }
 
 @media (max-width: 440px) {

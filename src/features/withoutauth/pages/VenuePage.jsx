@@ -554,10 +554,10 @@ function VenuePage() {
 
                                         </div>
                                     </div>
-                                    <div className="venue-nav">
+                                    {/* <div className="venue-nav">
                                         <button onClick={handlePrev} disabled={page === 0}><img src={leftArrow} alt='left arrow' /></button>
                                         <button onClick={handleNext} disabled={page >= totalPages - 1}><img src={rightArrow} alt='right-arrow' /></button>
-                                    </div>
+                                    </div> */}
                                 </>
                             )
                         }

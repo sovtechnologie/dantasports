@@ -14,7 +14,7 @@
   align-items: center;
   margin-bottom: 2rem;
   /* margin-top: 60px; */
-  margin-top: clamp(0.625rem, -0.1974rem + 4.386vw, 3.75rem);
+  /* margin-top: clamp(0.625rem, -0.1974rem + 4.386vw, 3.75rem); */
   flex-wrap: wrap;
 }
 
@@ -110,22 +110,6 @@
   }
 }
 
-/* @media (max-width: 768px) {
-  .venue-card {
-    min-width: 170px;
-    max-width: 170px;
-  }
-
-  .venue-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .venue-nav {
-    gap: 0.75rem;
-  }
-} */
-
 @media (max-width: 1440px) {
   .venue-section {
     padding: 2rem 1rem;
@@ -138,7 +122,7 @@
     gap: 0.5rem;
   }
 
-.venues-header h3 {
+  .venues-header h3 {
     font-size: 24px;
     line-height: 120%;
   }
@@ -146,7 +130,7 @@
     /* position: absolute; */
     top: 28px;
     right: 0;
-    font-size: 18px;
+    font-size: 20px;
   }
 
   .venue-carousel-track {

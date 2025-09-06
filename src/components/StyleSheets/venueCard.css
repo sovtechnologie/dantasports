@@ -13,7 +13,7 @@
     box-shadow 0.3s ease;
   font-family: "Inter", sans-serif;
   position: relative;
-  height: 335px;
+  /* height: 335px; */
   width: 296px;
   border-radius: 29.6px;
 }
@@ -44,22 +44,22 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   /* margin: 0 8px 8px 8px; Optional: add margin for spacing from card edges */
   z-index: 1;
-  height: 400px;
+  height: 350px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 7.4px;
+  /* gap: 7.4px; */
   padding: 20px;
 }
 
 .venue-info h4 {
-  font-size: 25.9px;
+  font-size: 17px;
   font-weight: 600;
   margin: 0 0 0.3rem;
   color: #1b1f2b;
-  font-family: "Lato", Arial, sans-serif;
+  font-family: "DM Sans", sans-serif;
   font-weight: 500;
-  color: #272727;
+  color: #000000;
 }
 
 .rating {
@@ -69,7 +69,7 @@
   font-size: 12px;
   color: #6b7280;
   margin: 0px;
-  
+
   /* margin-bottom: 4px; */
 }
 
@@ -83,7 +83,7 @@
   font-weight: 500;
   color: #272727;
   margin-right: 2px;
-  font-size: 22.2px;
+  font-size: 15px;
   font-family: "DM Sans", sans-serif;
 }
 
@@ -91,21 +91,21 @@
   font-weight: 500;
   margin-right: 6px;
   color: #272727;
-  font-size: 22.2px;
+  font-size: 15px;
   font-family: "DM Sans", sans-serif;
 }
 
 .rating .distance {
   color: #858585;
   font-weight: 400;
-  font-size: 22.2px;
+  font-size: 15px;
   font-family: "DM Sans", sans-serif;
 }
 
 .sports {
   color: #858585;
   font-weight: 400;
-  font-size: 22.2px;
+  font-size: 15px;
   font-family: "DM Sans", sans-serif;
   margin: 0px;
 }

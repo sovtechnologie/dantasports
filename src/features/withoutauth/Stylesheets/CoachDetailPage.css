@@ -287,7 +287,7 @@ body {
   gap: 20px;
   gap: clamp(6px, 0.3889vw, 20px);
   /* max-height: 500px; */
-  box-shadow: 0px 4.08px 4.08px 0px #1163c740;
+  /* box-shadow: 0px 4.08px 4.08px 0px #1163c740; */
 }
 
 .coach-right-section:first-of-type {

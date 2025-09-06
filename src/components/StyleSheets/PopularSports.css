@@ -43,8 +43,8 @@
 }
 
 .sport-button img {
-  height: clamp(40px, 5.9vw, 85px);
-  width: clamp(40px, 5.9vw, 85px);
+  height: clamp(60px, 5.9vw, 85px);
+  width: clamp(60px, 5.9vw, 85px);
   object-fit: contain;
   margin-bottom: 8px;
   filter: brightness(0) saturate(100%) invert(26%) sepia(96%) saturate(1660%)
@@ -63,31 +63,3 @@
 .popular-sports .swiper-pagination-bullet-active {
   background: #1163c7;
 }
-/* 
-
-@media (max-width: 1023px) {
-  .popular-sports {
-    padding: 24px 16px;
-  }
-
-  .sport-button img {
-    width: 80px;
-    height: 80px;
-  }
-
-  .sport-button {
-    font-size: 12px;
-  }
-}
-
-
-@media (max-width: 767px) {
-  .popular-sports .swiper-button-prev,
-  .popular-sports .swiper-button-next {
-    display: none;
-  }
-
-  .section-title {
-    font-size: 1.5rem;
-  }
-} */

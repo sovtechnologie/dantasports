@@ -72,7 +72,7 @@ const EventCarousel = () => {
                 <h3>Book Event</h3>
                 <Link to="/Events" className={styled.seeall}>
                     See All
-                    <img src={cursorArrow} style={{ marginLeft: "8px", width: "auto" }} alt='cursorArrow' />
+                    <img src={cursorArrow} style={{ marginLeft: "8px", width: "10px" }} alt='cursorArrow' />
                 </Link>
             </div>
 
@@ -116,7 +116,7 @@ const EventCarousel = () => {
                     })}
                 </div>
                 <div className={styled.eventnav}>
-                    <button
+                    {/* <button
                         onClick={prev}
                         disabled={index === 0}
                         onMouseEnter={() => setHoveredArrow('prev')}
@@ -131,7 +131,7 @@ const EventCarousel = () => {
                         onMouseLeave={() => setHoveredArrow(null)}
                     >
                         <img src={rightArrow} alt='rightArrow' />
-                    </button>
+                    </button> */}
                 </div>
             </div>
         </div>

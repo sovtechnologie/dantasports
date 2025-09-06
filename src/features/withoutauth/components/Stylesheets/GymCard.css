@@ -7,7 +7,7 @@
   font-family: sans-serif;
   border: 1px solid #e5e5e5;
   position: relative;
-  max-height: 230px !important;
+  max-height: 240px !important;
 }
 
 .gym-image {
@@ -52,12 +52,18 @@
 }
 
 .gym-title {
-  font-family: "Lato", sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  color: #272727;
   margin: 0;
   flex: 1;
+  font-size: 17px;
+  font-weight: 500;
+  margin: 0 0 4px;
+  color: #000000;
+  font-family: "DM Sans", sans-serif;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 190px;
+  display: block;
 }
 
 .rating {
@@ -87,10 +93,13 @@
 }
 
 .gym-location {
-  font-size: 12px;
+  font-size: 15px;
   font-family: "DM Sans", Arial, sans-serif;
   color: #858585;
   margin: 4px 0 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .gym-footer-row {
@@ -99,21 +108,32 @@
   align-items: center;
   border-top: 1px solid #2971ac;
   padding: 8px 0px;
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .discount {
-  font-size: 12px;
+  font-size: 15px;
   font-family: "DM Sans", Arial, sans-serif;
   color: #fc8019;
   font-weight: 400;
+    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 140px;
+  display: block;
 }
 
 .price {
-  font-size: 12px;
+  font-size: 15px;
   font-family: "DM Sans", Arial, sans-serif;
   color: #006eff;
   font-weight: 400;
+    white-space: nowrap;
+  overflow: hidden;
+  text-align: right;
+  text-overflow: ellipsis;
+  width: 140px;
+  display: block;
 }
 
 @media (max-width: 500px) {

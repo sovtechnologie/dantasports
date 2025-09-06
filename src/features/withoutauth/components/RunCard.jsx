@@ -75,7 +75,8 @@ export default function RunCard({ event, isLiked, onLikeToggle }) {
 
                 <div className='runs-middle'>
                     <div className="run-location">
-                        <img src={LocationIcon} alt='location icon' /> {event.location}
+                        <img src={LocationIcon} alt='location icon' />
+                         <span>{event.location}</span>
                     </div>
                     {/* 🔗 Link to Detail Page */}
                     <Link to={`/Run/${event.id}`} className="run-join">
