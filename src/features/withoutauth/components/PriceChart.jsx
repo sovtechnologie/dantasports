@@ -22,7 +22,7 @@ function getDaysFromSlot(slot) {
     wednesday: 'Wednesday',
     thursday: 'Thursday',
     friday: 'Friday',
-    staurday: 'Saturday',
+    saturday: 'Saturday',
     sunday: 'Sunday',
   };
 
@@ -54,14 +54,38 @@ function groupSlotsByDay(slots) {
   }, {});
 }
 
+// function transformPriceChartData(apiData) {
+//   return apiData.result.map(court => {
+//     const slots = court.time_slots.map(slot => {
+//       const dayLabel = groupDays(getDaysFromSlot(slot));
+//       const time = `${formatTime(slot?.start_time)} – ${formatTime(slot?.end_time)}`;
+//       const price = `₹${slot.price}/Hr`;
+//       return { day: dayLabel, time, price };
+//     });
+//     const slotsByDay = groupSlotsByDay(slots);
+
+//     return {
+//       title: court.court_name,
+//       slotsByDay,
+//     };
+//   });
+// }
+
 function transformPriceChartData(apiData) {
-  return apiData.result.map(court => {
-    const slots = court.time_slots.map(slot => {
-      const dayLabel = groupDays(getDaysFromSlot(slot));
-      const time = `${formatTime(slot?.start_time)} – ${formatTime(slot?.end_time)}`;
-      const price = `₹${slot.price}/Hr`;
-      return { day: dayLabel, time, price };
-    });
+  const { price, courts } = apiData.result;
+
+  return courts.map(court => {
+    // filter only the prices belonging to this court (or global ones where court_id is null)
+    const slots = price
+      // .filter(slot => slot.court_id === null || slot.court_id === court.id)
+      .map(slot => {
+        const dayLabel = groupDays(getDaysFromSlot(slot));
+        const time = `${formatTime(slot?.start_time)} – ${formatTime(slot?.end_time)}`;
+        const formattedPrice = `₹${slot.price}/Hr`;
+
+        return { day: dayLabel, time, price: formattedPrice };
+      });
+
     const slotsByDay = groupSlotsByDay(slots);
 
     return {
@@ -75,12 +99,13 @@ function transformPriceChartData(apiData) {
 
 
 
+
 function PriceChart({ venueId, sportId }) {
 
   const [showNoDataMessage, setShowNoDataMessage] = useState(false);
   const { data, isLoading, error } = useSportPriceChart(sportId, venueId);
 
-  const hasValidData = data && Array.isArray(data.result) && data.result.length > 0;
+  const hasValidData = data && Array.isArray(data.result.courts) && data.result.courts.length > 0;
   const transformedPriceData = data && data.result ? transformPriceChartData(data) : priceData;
 
 

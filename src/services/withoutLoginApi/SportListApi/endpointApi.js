@@ -12,7 +12,7 @@ export const fetchSportList = async () => {
 
 export const fetchSportPriceChart = async (sportId, venueId) => {
   try {
-    const response = await api.post("user/home/getPriceListBySports", {
+    const response = await api.post("user/home/getPriceListBySportsV2", {
       sportId,
       venueId,
     });
