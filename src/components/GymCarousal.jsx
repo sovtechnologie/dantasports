@@ -1,44 +1,30 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import styled from './StyleSheets/GymCarousal.module.css';
+import HomeGymCard from "./HomeGymCard.jsx"
 import { Link } from 'react-router-dom';
-import styled from './StyleSheets/EventCarousal.module.css';
 import leftArrow from "../assets/VenueImage/left-arrow.png";
 import rightArrow from "../assets/VenueImage/right-arrow.png";
 import cursorArrow from "../assets/cursorArrow.png";
-import { useFetchEvent } from '../hooks/EventList/useFetchEvents.js';
-import HomeEventCard from './HomeEventCard.jsx';
-import { useSelector } from 'react-redux';
+import { useFetchGym } from '../hooks/GymList/useFetchGym.js';
 
-// Formats "15:00", "15:00:30" → "03:00 PM"
-function formatTime(timeStr = "00:00") {
-    if (!timeStr) return "";  // Return an empty string or suitable default
 
-    const parts = timeStr.split(':');
-    const h = Number(parts[0] || 0);
-    const m = Number(parts[1] || 0);
-    const s = parts.length > 2 ? Number(parts[2]) : 0;
 
-    const dt = new Date();
-    dt.setHours(h, m, s);
-
-    return dt.toLocaleTimeString('en-US', {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: true
-    });
-}
-
-const EventCarousel = () => {
+const GymCarousel = () => {
+    const userId = useSelector((state) => state.auth.id);
     const { lat, lng } = useSelector((state) => state.location);
     const [index, setIndex] = useState(0);
-    const [coords, setCoords] = useState({ lat: lat, lng: lng, type: 1, userId: null });
     const [lastClicked, setLastClicked] = useState(null); // 'prev' | 'next' | null
     const [hoveredArrow, setHoveredArrow] = useState(null); // 'prev' | 'next' | null
     const visibleCount = 4;
+    const payload = {
+        lat: lat,
+        lng: lng,
+        userId: userId || null,
+    }
+    const { data: AllGymdata, isLoading, isError, error } = useFetchGym(payload);
 
-
-    const { data, isLoading, error } = useFetchEvent(coords);
-
-    const venues = data?.result || [];
+    const venues = AllGymdata?.result || [];
 
     const prev = () => {
         setIndex((prevIndex) => {
@@ -61,23 +47,25 @@ const EventCarousel = () => {
     };
 
     if (isLoading) return <p>Loading...</p>;
-    if (error) return <p>Error loading venues: {error.message}</p>;
+    if (error) return <p>Error loading coaches: {error.message}</p>;
 
 
 
     return (
         <div className={styled.eventsectioncontainer}>
             <div className={styled.eventsheader}>
-                <h3>Book Event</h3>
-                <Link to="/Events" className={styled.seeall}>
+                <h3>Book Gym</h3>
+                <Link to="/Coach" className={styled.seeall}>
                     See All
-                    <img src={cursorArrow} style={{ marginLeft: "8px", width: "10px" }} alt='cursorArrow' />
+                    <img src={cursorArrow} style={{ marginLeft: "8px", width: "auto" }} alt='cursorArrow' />
                 </Link>
             </div>
 
             <div className={styled.eventcarouselwrapper}>
-                <div  className={styled.eventcarouseltrack} >
-                    {venues.slice(index, index + visibleCount).map((evt, i) => {
+                <div
+                    className={styled.eventcarouseltrack}
+                >
+                    {venues.slice(index, index + visibleCount).map((gym, i) => {
                         let extraClass = "";
                         if (hoveredArrow === "prev" && i === 0 && index > 0) {
                             extraClass = "hover-effect";
@@ -86,31 +74,22 @@ const EventCarousel = () => {
                             extraClass = "hover-effect";
                         }
                         const formattedEvent = {
-                            id: evt.id,
-                            name: evt.event_title,
-                            rating: evt.rating ?? 0,
-                            type: evt?.event_type,
-                            RatingCount: evt.ratingCount ?? 0,
-                            price: `₹${parseInt(evt.lowest_ticket_price)} onwards`,
-                            offer: evt.offer ?? 'No offer',
-                            favourite: evt?.favourite,
-                            favourite_event_id: evt?.favourite_event_id,
-                            location: `${evt.locations[0]?.area}, ${evt.locations[0]?.city}` || '',
-                            date: `${new Date(evt.start_date).toLocaleDateString('en-GB', {
-                                day: '2-digit', month: 'short'
-                            })} – ${new Date(evt.end_date).toLocaleDateString('en-GB', {
-                                day: '2-digit', month: 'short'
-                            })} | ${formatTime(evt.start_time)}‑${formatTime(evt.end_time.slice(0, 5))}`,
-                            image: evt.desktop_image ,
-                            sportIcon: evt.sports || ''
+                            id: gym.Id,
+                            image: gym.desktop_image || gym.mobile_image,
+                            title: gym.gym_name,
+                            location: gym.full_address,
+                            distance: gym.distance || 0,
+                            rating: gym.rating || 0,
+                            ratingCount: gym.ratingCount || 0,
+                            discountText: gym.discountText || 'Upto 50% off',
+                            priceText: gym.priceText || '1000 onwards',
+                            vendorId: gym.vendor_id,
                         };
 
                         return (
-
-                            <HomeEventCard
-                                key={evt.id}
-                                event={formattedEvent}
-                            />
+                            <HomeGymCard
+                                key={gym.id}
+                                gym={formattedEvent} />
                         );
                     })}
                 </div>
@@ -137,4 +116,4 @@ const EventCarousel = () => {
     );
 };
 
-export default EventCarousel;
+export default GymCarousel;
