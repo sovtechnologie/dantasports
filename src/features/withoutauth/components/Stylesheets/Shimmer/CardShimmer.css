@@ -1,0 +1,23 @@
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.card-img {
+  width: 100%;
+  padding-top: 60%;
+} /* square cards */
+.card-title {
+  width: 70%;
+  height: 16px;
+  margin: 8px 0;
+}
+.card-text {
+  width: 50%;
+  height: 14px;
+  margin-bottom: 8px;
+}

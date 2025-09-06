@@ -7,6 +7,7 @@ import cursorArrow from "../assets/cursorArrow.png";
 import { useFetchVenue } from '../hooks/VenueList/useFetchVenue.js';
 import VenueCardHome from './VenueCardHome.jsx';
 import { useSelector } from 'react-redux';
+import { CardShimmer } from '../features/withoutauth/components/Shimmer/CardShimmer.jsx';
 
 const VenueCarousel = () => {
     const { lat, lng } = useSelector((state) => state.location);
@@ -50,7 +51,7 @@ const VenueCarousel = () => {
         });
     };
 
-    if (isLoading) return <p>Loading...</p>;
+    if (isLoading) return <p><CardShimmer /></p>;
     if (error) return <p>Error loading venues: {error.message}</p>;
 
 

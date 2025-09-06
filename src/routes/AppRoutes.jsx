@@ -50,7 +50,7 @@ export default function AppRoutes() {
 
                 <ScrollToTop />
                 <Routes>
-                    <Route path="*" element={<NotFound />} />
+                    <Route path="*" element={<NotFound />} />s
                     <Route path="/" element={<Home />} />
                     <Route path='/about' element={<About />} />
                     {/* <Route path="/login" element={<Login />} /> */}
