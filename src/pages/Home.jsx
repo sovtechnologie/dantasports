@@ -9,6 +9,7 @@ import RunCarousel from "../components/RunCarousal";
 import { UpcommingVenues } from "../components/UpcommingVenue";
 import CoachCarousel from "../components/CoachCarousal";
 import HostCarousel from "../components/HostCarousel";
+import GymCarousal from "../components/GymCarousal"
 
 
 
@@ -21,13 +22,11 @@ const Home = () => {
             <UpcommingVenues />
             <VenueCarousel />
             <HostCarousel />
-            <EventCarousel/>
+            <EventCarousel />
             <RunCarousel />
-            <CoachCarousel/>
-            
-            {/*
-                <GymCarousal />
-            */}
+            <CoachCarousel />
+            <GymCarousal />
+
             <DownloadAppSection />
         </div>
     )
