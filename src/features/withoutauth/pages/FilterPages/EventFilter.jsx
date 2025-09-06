@@ -37,7 +37,7 @@ function formatTime(timeStr = "00:00") {
 
 export default function EventFilterPage() {
     const userId = useSelector((state) => state.auth.id);
-    const { lat,lng} = useSelector((state) =>state.location)
+    const { lat, lng } = useSelector((state) => state.location)
     const queryClient = useQueryClient();
     const [eventList, setEventList] = useState([]);
     const [search, setSearch] = useState('');
@@ -67,7 +67,7 @@ export default function EventFilterPage() {
         );
 
         if (!event.favourite) {
-            likeEvent.mutate({ eventId, userId: userId ,type}, {
+            likeEvent.mutate({ eventId, userId: userId, type }, {
                 onSuccess: async () => {
                     await queryClient.invalidateQueries(['EventList', userId || null]);
                 },
@@ -129,13 +129,13 @@ export default function EventFilterPage() {
                         const formattedEvent = {
                             id: evt.id,
                             name: evt.event_title,
-                            rating: evt.rating ?? 0,
-                            type:evt?.event_type,
-                            RatingCount: evt.ratingCount ?? 0,
+                            rating: evt.average_rating ?? 0,
+                            type: evt?.event_type,
+                            RatingCount: evt.review_count ?? 0,
                             price: `₹${parseInt(evt.lowest_ticket_price)} onwards`,
                             offer: evt.offer ?? 'No offer',
                             favourite: evt?.favourite,
-                            favourite_event_id:evt?.favourite_event_id,
+                            favourite_event_id: evt?.favourite_event_id,
                             location: `${evt.locations[0]?.area}, ${evt.locations[0]?.city}` || '',
                             date: `${new Date(evt.start_date).toLocaleDateString('en-GB', {
                                 day: '2-digit', month: 'short'

@@ -164,11 +164,13 @@
   border: 1px solid #ccc;
   border-radius: 10px;
   /* padding: 0px 10px; */
-  max-width: 250px; 
+  max-width: 250px;
   background-color: white;
   position: relative;
 }
-
+.location-search-container input {
+  height: auto;
+}
 .location-search-container input.location_Search_Input {
   flex-grow: 1;
   border: none;

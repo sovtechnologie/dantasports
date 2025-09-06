@@ -162,24 +162,23 @@
   background: transparent;
   border: none;
   cursor: pointer;
+  margin-top: 30px;
   z-index: 10;
-  padding: 10px;
+  /* padding: 10px; */
   border-radius: 50%;
   /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); */
 }
 
 .nav-btn.left {
-  left: 10px;
+  left: 0px;
 }
 
 .nav-btn.right {
-  right: 3rem;
+  right: 4rem;
 }
 
 .hero-arrow {
-  /* width: 60px;
-  height: 60px; */
-  margin-left: 3rem;
+  margin-left:  4rem;
 }
 
 @media (max-width: 978px) {

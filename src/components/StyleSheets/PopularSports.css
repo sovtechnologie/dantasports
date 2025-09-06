@@ -43,12 +43,12 @@
 }
 
 .sport-button img {
-  height: clamp(60px, 5.9vw, 85px);
-  width: clamp(60px, 5.9vw, 85px);
+  height: clamp(60px, 4vw, 85px);
+  width: clamp(60px, 4vw, 85px);
   object-fit: contain;
   margin-bottom: 8px;
-  filter: brightness(0) saturate(100%) invert(26%) sepia(96%) saturate(1660%)
-    hue-rotate(214deg) brightness(102%) contrast(96%);
+  /* filter: brightness(0) saturate(100%) invert(26%) sepia(96%) saturate(1660%)
+    hue-rotate(214deg) brightness(102%) contrast(96%); */
 }
 
 .sport-button:hover {

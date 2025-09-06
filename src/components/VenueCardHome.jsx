@@ -4,7 +4,7 @@ import VenueImage1 from '../assets/VenueImage/Venue-image1.png';
 import { Link } from 'react-router-dom';
 
 
-const VenueCardHome = ({ id, name, rating, reviews, distance, sports = [], image, className = '' }) => {
+const VenueCardHome = ({ id, name, rating, reviews, distance,address, sports = [], image, className = '' }) => {
   return (
     <Link to={`/venue/${id}`} className={`venue-card ${className}`}>
       <img
@@ -21,6 +21,7 @@ const VenueCardHome = ({ id, name, rating, reviews, distance, sports = [], image
           <span className="count">({reviews})</span>
           <span className="distance">~{distance}</span>
         </p>
+        <p className='sports' style={{ marginTop:'4px'}}><span className='address'>{address}</span></p>
         <p className="sports">{Array.isArray(sports) ? sports.map((item) => item.name).join(', ') : sports}</p>
       </div>
     </Link>

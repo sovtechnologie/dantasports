@@ -88,9 +88,9 @@ const RunCarousel = () => {
                         const formattedEvent = {
                             id: evt.id,
                             name: evt.event_title,
-                            rating: evt.rating ?? 0,
+                            rating: evt.average_rating ?? 0,
                             type: evt?.event_type,
-                            RatingCount: evt.ratingCount ?? 0,
+                            RatingCount: evt.review_count ?? 0,
                             price: `₹${parseInt(evt.lowest_ticket_price)} onwards`,
                             offer: evt.offer ?? 'No offer',
                             favourite: evt?.favourite,

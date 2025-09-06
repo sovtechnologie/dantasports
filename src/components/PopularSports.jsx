@@ -3,7 +3,7 @@ import './StyleSheets/PopularSports.css'; // Assuming you have a CSS file for st
 // import sports from "../StaticData/PopularSporsData" // your data file or replace with static list
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, A11y } from 'swiper/modules';
+import { Navigation, A11y, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -30,12 +30,20 @@ const PopularSports = () => {
     <section className="popular-sports">
       <h3 className="section-title">Popular Sport Collections</h3>
       <Swiper
-        modules={[Navigation, A11y]}
-        navigation
-        observer={true}
-        observeParents={true}
+        // modules={[Navigation, A11y]}
+        // navigation
+        centeredSlides={true}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        pagination={{
+          clickable: true,
+        }}
+        // observer={true}
+        // observeParents={true}
         spaceBetween={10}
-        slidesPerView={4}
+        // slidesPerView={4}
         watchOverflow={true}
         allowTouchMove
         grabCursor
@@ -43,8 +51,10 @@ const PopularSports = () => {
           480: { slidesPerView: 4 },
           768: { slidesPerView: 5 },
           1024: { slidesPerView: 6 },
-           1200: { slidesPerView: 9 },
+          1200: { slidesPerView: 9 },
         }}
+        modules={[Autoplay, Pagination]}
+        className='swi'
       >
         <div className="sport-buttons">
           {sports.map((sport, index) => (

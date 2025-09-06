@@ -47,7 +47,7 @@ export const HostCard = ({ host }) => {
       </div>
       <div className={styles.detailRow}>
         <img src={locationIcon} alt="Location" className={styles.icon} />
-        <span className={styles.detailText}>{host?.fullAddress || "Chandhe Patil Sports Zone, Aundh"}, (~{host?.distance}Km)</span>
+        <span className={styles.detailText}>{host?.address || host?.city}, (~{host?.distance}Km)</span>
       </div>
       <span
         style={{

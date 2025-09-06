@@ -73,16 +73,20 @@ const GymCarousel = () => {
                         if (hoveredArrow === "next" && i === visibleCount - 1 && index < venues.length - visibleCount) {
                             extraClass = "hover-effect";
                         }
+
+                        const minPriceObj = gym.gym_price_slot.reduce((min, curr) =>
+                            curr.price < min.price ? curr : min
+                        );
                         const formattedEvent = {
                             id: gym.Id,
                             image: gym.desktop_image || gym.mobile_image,
                             title: gym.gym_name,
                             location: gym.full_address,
-                            distance: gym.distance || 0,
-                            rating: gym.rating || 0,
-                            ratingCount: gym.ratingCount || 0,
+                            distance: Math.floor(gym.distance) || 0,
+                            rating: gym.average_rating || 0,
+                            ratingCount: gym.review_count || 0,
                             discountText: gym.discountText || 'Upto 50% off',
-                            priceText: gym.priceText || '1000 onwards',
+                            priceText: `${minPriceObj.price} onwards` || '0 onwards',
                             vendorId: gym.vendor_id,
                         };
 

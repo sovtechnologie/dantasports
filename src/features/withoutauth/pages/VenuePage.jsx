@@ -531,10 +531,10 @@ function VenuePage() {
                                                     sportsIcons: venue?.sports,
                                                     name: venue.venue_name,
                                                     about: venue.about_venue,
-                                                    rating: 4.5,
-                                                    reviews: 20,
+                                                    rating: venue.average_rating,
+                                                    reviews: venue.review_count,
                                                     address: `${venue.area}, ${venue.city}`,
-                                                    distance: "3",
+                                                    distance: Math.floor(venue.distance_km,2),
                                                     offer: "10% Off",
                                                     price: `₹${venue.pricing}`,
                                                     favourite: venue.favourite
