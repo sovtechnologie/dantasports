@@ -19,8 +19,8 @@
     transform 0.3s ease,
     box-shadow 0.3s ease;
   /* margin: 25px 12px 0px 12px; */
-  height: 203px;
-  width: 296px;
+  height: 195px;
+  width: 250px;
   margin-top: 20px;
 }
 
@@ -55,7 +55,7 @@
   object-fit: cover;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-  height: 116px;
+  /* height: 116px; */
 }
 
 .info-card-content {
@@ -74,7 +74,7 @@
   color: #172a39;
   text-align: left;
   font-family: "Lato", Arial, sans-serif;
-  margin-left: 20px;
+  /* margin-left: 20px; */
 
 }
 
@@ -84,7 +84,8 @@
   color: #858585;
   font-family: "DM Sans", Arial, sans-serif;
   font-weight: 400;
-  margin-left: 20px;
+  /* margin-left: 20px; */
+  line-height: normal;
 }
 
 .subtext {

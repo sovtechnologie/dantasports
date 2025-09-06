@@ -227,23 +227,23 @@ body {
 .terms,
 .policy {
   width: 403px;
-  /* border: 1px solid #a3d0ffde; */
+  border: 1px solid #d6e4f0;
   font-family: "Lato", sans-serif;
   font-size: 18px;
   font-weight: 500;
   line-height: 21.67px;
   color: #172a39;
   border: 2px solid transparent;
-  background-image:
+  /* background-image:
     linear-gradient(white, white),
-    linear-gradient(270deg, #1163c7, #a3d0ff, #1163c7);
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
+    linear-gradient(270deg, #1163c7, #a3d0ff, #1163c7); */
+  /* background-origin: border-box;
+  background-clip: padding-box, border-box; */
   cursor: pointer;
-  background-size: 200% auto;
+  /* background-size: 200% auto;
   animation:
     move-border 3s linear infinite,
-    glow-pulse 3s ease-in-out infinite;
+    glow-pulse 3s ease-in-out infinite; */
 }
 
 /* right section */
@@ -257,7 +257,7 @@ body {
   flex-direction: column;
   justify-content: center;
   gap: clamp(6px, 0.3889vw, 20px);
-  box-shadow: 0px 4.08px 4.08px 0px #1163c740;
+  /* box-shadow: 0px 4.08px 4.08px 0px #1163c740; */
   max-height: 500px;
 }
 

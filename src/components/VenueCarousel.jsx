@@ -61,7 +61,7 @@ const VenueCarousel = () => {
                 <h3>Book Venues</h3>
                 <Link to="/venue" className="see-all">
                     See All
-                    <img src={cursorArrow} style={{ marginLeft: "8px", width: "auto" }} alt='cursorArrow' />
+                    <img src={cursorArrow} style={{ marginLeft: "8px", width: "10px" }} alt='cursorArrow' />
                 </Link>
             </div>
 
@@ -94,7 +94,7 @@ const VenueCarousel = () => {
                     })}
                 </div>
                 <div className="venue-nav">
-                    <button
+                    {/* <button
                         onClick={prev}
                         disabled={index === 0}
                         onMouseEnter={() => setHoveredArrow('prev')}
@@ -109,7 +109,7 @@ const VenueCarousel = () => {
                         onMouseLeave={() => setHoveredArrow(null)}
                     >
                         <img src={rightArrow} alt='rightArrow' />
-                    </button>
+                    </button> */}
                 </div>
             </div>
         </div>

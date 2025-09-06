@@ -41,7 +41,7 @@ export default function HomeEventCard({ event }) {
                 </div>
 
 
-                <div className={styled.events_middle} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div className={styled.events_middle} style={{ display: 'flex', justifyContent: 'space-between', flexDirection:"column" }}>
                     <div className={styled.event_time}>
                         <img src={CalandarIcon} alt='Calandar icon' className={styled.event_time_img} />
                         <span>{event.date}</span>

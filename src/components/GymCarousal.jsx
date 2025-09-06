@@ -94,7 +94,7 @@ const GymCarousel = () => {
                     })}
                 </div>
                 <div className={styled.eventnav}>
-                    <button
+                    {/* <button
                         onClick={prev}
                         disabled={index === 0}
                         onMouseEnter={() => setHoveredArrow('prev')}
@@ -109,7 +109,7 @@ const GymCarousel = () => {
                         onMouseLeave={() => setHoveredArrow(null)}
                     >
                         <img src={rightArrow} alt='rightArrow' />
-                    </button>
+                    </button> */}
                 </div>
             </div>
         </div>

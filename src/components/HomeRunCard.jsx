@@ -41,12 +41,14 @@ export default function HomeRunCard({ event}) {
                 </div>
 
                 <div className={styled.run_time}>
-                    <img src={CalandarIcon} alt='Calandar icon' /> <span>{event.date}</span>
+                    <img src={CalandarIcon} alt='Calandar icon' /> 
+                    <span>{event.date}</span>
                 </div>
 
                 <div className={styled.runs_middle}>
                     <div className={styled.run_location}>
-                        <img src={LocationIcon} alt='location icon' /> {event.location}
+                        <img src={LocationIcon} alt='location icon' /> 
+                        <span>{event.location}</span>
                     </div>
                     {/* 🔗 Link to Detail Page */}
                     <Link to={`/Run/${event.id}`} className={styled.run_join}>
