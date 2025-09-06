@@ -149,7 +149,7 @@ const Login = ({ isModal = false, onSuccess = () => { }, onSwitchToRegister = ()
         {/* Left Side */}
         <div className="left-panel">
           <h2>Welcome back</h2>
-          <p className="subtitle">You're Almost There!</p>
+          {/* <p className="subtitle">You're Almost There!</p> */}
 
           {/* Phone Number Input */}
           <label>Enter Mobile Number</label>

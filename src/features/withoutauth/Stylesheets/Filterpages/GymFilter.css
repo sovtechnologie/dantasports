@@ -28,7 +28,9 @@ body {
   font-family: sans-serif;
   border: 1px solid #e5e5e5;
   position: relative;
-  max-height: 240px !important;
+  height: auto;
+  max-height: 260px !important;
+
 }
 .gym-filter-sidebar {
   border: 1px solid #1163c7;

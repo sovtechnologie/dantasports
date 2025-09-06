@@ -17,11 +17,11 @@ const Footer = () => {
       <div className="footer-top">
         <div className="footer-brand">
           <div className='logo-section'>
-          <img src={logo} alt="Danta Sports Logo" className="footer-logo" />
-          <h2>Danta Sports</h2>
+            <img src={logo} alt="Danta Sports Logo" className="footer-logo" />
+            <h2>Danta Sports</h2>
           </div>
           <div className='icon-section-footer'>
-            
+
             <p>India's Leading<br />Sports Venue Booking App</p>
             <div className="footer-socials">
               <a href="https://www.facebook.com/profile.php?id=61555453983938" target="_blank" rel="noopener noreferrer">
@@ -45,6 +45,17 @@ const Footer = () => {
 
         <div className="footer-links">
           <div>
+            <h4>Services</h4>
+            <ul>
+              <li><Link to="/venue">Book</Link></li>
+              <li><Link to="/Host">Host/Play</Link></li>
+              <li><Link to="/Run">Run</Link></li>
+              <li><Link to="/Coach">Coach</Link></li>
+              <li><Link to="/Events">Events</Link></li>
+              <li><Link to="/Gym">Gym</Link></li>
+            </ul>
+          </div>
+          <div>
             <h4>Company</h4>
             <ul>
               <li><Link to="/about">About us</Link></li>
@@ -53,17 +64,7 @@ const Footer = () => {
               <li><Link to="CorporateBooking">Corporate Booking</Link></li>
             </ul>
           </div>
-          <div>
-            {/* <h4>Services</h4> */}
-            <ul>
-              {/* <li><Link to="/Book">Book</Link></li>
-              <li><Link to="/host-play">Host/Play</Link></li>
-              <li><Link to="/run">Run</Link></li>
-              <li><Link to="/coach">Coach</Link></li>
-              <li><Link to="/events">Events</Link></li>
-              <li><Link to="/gym">Gym</Link></li> */}
-            </ul>
-          </div>
+
           {/* <div>
             <h4>Our communities</h4>
             <ul>
