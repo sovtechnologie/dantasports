@@ -24,8 +24,8 @@
 
 .icon-top-right {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 8px !important;
+  right: 8px !important;
   display: flex;
   /* gap: 6px; */
   padding: 8px;
@@ -46,8 +46,8 @@
 }
 
 .icon-img-btn {
-  width: 20px !important;
-  height: 20px !important;
+  width: 25px !important;
+  height: 25px !important;
   background: #00000080;
   border-radius: 50%;
   padding: 3px !important;
@@ -55,6 +55,7 @@
   cursor: pointer;
   margin-bottom: 0px;
   margin-left: 2px;
+  margin-top: 0px;
 }
 
 .event-content {

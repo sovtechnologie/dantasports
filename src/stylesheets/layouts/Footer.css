@@ -86,7 +86,7 @@ body {
 
 .footer-links {
   display: flex;
-  gap: 2rem; /* 40px */
+  gap: 3rem; /* 40px */
   flex-wrap: wrap;
 }
 
