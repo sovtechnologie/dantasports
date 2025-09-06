@@ -28,15 +28,15 @@
 
 .venue-sports-icons {
   position: absolute;
-  bottom: 16px;
-  left: 16px;
+  bottom: 15px;
+  left: 12px;
   display: flex;
   gap: 4px;
 }
 
 .sport-icon {
-  width: 24px;
-  height: 24px;
+  width: 12px;
+  height: 12px;
   background: rgba(0, 0, 0, 0.5);
   padding: 4px;
   border-radius: 50%;
