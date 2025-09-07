@@ -48,10 +48,12 @@ body {
 
 .gym-location-rating {
   display: flex;
-  gap: 20px;
+  /* gap: 20px; */
   color: #172a39;
   /* font-size: 16px; */
-  font-size: clamp(14px, 3.6364vw, 16px);
+  align-items: center;
+  font-size: clamp(14px, 3.6364vw, 17px);
+  align-items: center;
   font-weight: 500;
   font-family: "DM Sans", Arial, sans-serif;
 }
@@ -114,6 +116,7 @@ body {
   display: block;
   width: 100%;
   height: 100%;
+  height: 500px;
   object-fit: cover;
 }
 

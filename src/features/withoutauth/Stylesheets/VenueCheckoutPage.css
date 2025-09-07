@@ -209,7 +209,7 @@ body {
 }
 
 .sport-card {
-  width: 93px;
+  /* width: 93px; */
   height: 93px;
   border-radius: 4px;
   background-color: #fff;
@@ -232,8 +232,8 @@ body {
 }
 
 .sport-card img {
-  height: 54px;
-  width: 54px;
+  height: 45px;
+  width: 45px;
   /* margin-bottom: 0.5rem; */
 }
 

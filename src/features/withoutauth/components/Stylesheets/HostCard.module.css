@@ -8,7 +8,7 @@
   border: 1px solid #ded9d9;
   position: relative;
   max-width: 298px;
-  max-height: 300px;
+height: min-content;
   display: flex;
   flex-direction: column;
   /* gap: clamp(4.44px, 1.3889vw, 20px); */

@@ -35,7 +35,7 @@
 
 .icon_bottom_left {
   position: absolute;
-  bottom: 20px;
+  bottom: 16px;
   left: 12px;
   display: flex;
 }
@@ -70,7 +70,7 @@
   font-size: 17px;
   font-weight: 500;
   margin: 0 0 4px;
-  color: #000000;
+  color: #272727;
   font-family: "DM Sans", sans-serif;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -82,7 +82,7 @@
 .run_rating {
   font-size: 17px;
   font-weight: 500;
-  color: #4caf50;
+  color: #272727;
   margin-bottom: 6px;
   font-family: "DM Sans", Arial, sans-serif;
 }
@@ -91,9 +91,11 @@
   font-weight: 500;
   font-family: "DM Sans", Arial, sans-serif;
   color: #272727;
-  margin-left: 4px;
+  /* margin-left: 4px; */
 }
-
+.star {
+    color: #006eff;
+}
 .run_time {
   display: flex;
   align-items: center;

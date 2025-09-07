@@ -264,7 +264,7 @@ export default function GymDetailPage() {
                 <h1 className="gympage-name">{gym?.name}</h1>
                 <div className="gym-location-rating">
                     <span>{gym?.location}</span>
-                    <span>⭐ {gym?.rating} ({gym?.reviewcount}ratings)</span>
+                    <span className="star" style={{marginLeft:"20px", marginRight:"5px"}}>★</span><span className="light-text"> {gym?.rating}</span><span style={{marginLeft:"5px"}}>({gym?.reviewcount}ratings)</span>
                 </div>
             </div>
 
@@ -440,10 +440,10 @@ export default function GymDetailPage() {
                             <ReviewCard key={review.id} review={review} />
                         ))}
                     </div>
-                    <div className="carousel-buttons">
+                    {/* <div className="carousel-buttons">
                         <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
                         <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
-                    </div>
+                    </div> */}
 
                 </div>
 

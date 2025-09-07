@@ -22,7 +22,7 @@ export default function SortSection({ filters, setFilters, search, setSearch, ha
         <button className="sort-reset" onClick={handleReset}>Reset</button>
       </div>
 
-      <div className="sortOption">
+      <div className="sortOption1">
         <label><input type="checkbox" name="popularity" checked={filters.popularity || false} onChange={handleCheckbox} /> Popularity</label>
         <label><input type="checkbox" name="nearby" checked={filters.nearby || false} onChange={handleCheckbox} /> Near By</label>
         <label><input type="checkbox" name="favorites" checked={filters.favorites || false} onChange={handleCheckbox} /> Favorites</label>

@@ -34,9 +34,9 @@
   gap: 4px;
 }
 
-.sport-icon {
-  width: 15px !important;
-  height: 15px !important;
+.sport-iconvenue{
+  width: 20px !important;
+  height: 20px !important;
   background: rgba(0, 0, 0, 0.5);
   padding: 3px !important;
   border-radius: 50%;
@@ -71,20 +71,21 @@
   border-radius: 50%;
 }
 .venue-details {
-  padding: 4.94px 6.63px;
+padding: 6px;
 }
 
 .venue-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-height: 30px;
+  margin-bottom: 8px;
+  max-height: 18px;
 }
 
 .venue-header h4 {
-  font-family: "Lato", Arial, sans-serif;
+  font-family: "DM Sans", sans-serif;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 17px;
   line-height: 22.52px;
   letter-spacing: 0;
   vertical-align: middle;
@@ -97,16 +98,19 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  color: #10b981;
+  color: #006eff;
+}
+.value {
+  color: #272727;
 }
 
 .venue-about {
+  font-size: 15px;
+  color: #858585;
   font-family: "DM Sans", Arial, sans-serif;
-  font-size: 14px;
   font-weight: 400;
-  color: #4b5563;
-  margin: 4px 0;
-  height: 38px;
+  margin-bottom: 8px;
+  height: 20px;
   /* Limit height */
   overflow: hidden;
   text-overflow: ellipsis;
@@ -114,16 +118,23 @@
   -webkit-line-clamp: 2;
   /* show only 2 lines */
   -webkit-box-orient: vertical;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .venue-locations {
+  font-size: 15px;
+  color: #858585;
   font-family: "DM Sans", Arial, sans-serif;
   font-weight: 400;
-  font-size: 12px;
   line-height: 22.52px;
   letter-spacing: 0;
-  color: #858585;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   margin: 0px;
+  margin-bottom: 8px;
 }
 
 .venue-footer {
@@ -140,9 +151,10 @@
 }
 
 .venue-discount {
-  font-size: 12px;
-  color: #fc8019;
+  font-size: 15px;
+  font-family: "DM Sans", Arial, sans-serif;
   font-weight: 400;
+  color: #fc8019;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -151,9 +163,10 @@
 }
 
 .venue-price {
-  font-size: 12px;
-  color: #006eff;
+  font-size: 15px;
+  font-family: "DM Sans", Arial, sans-serif;
   font-weight: 400;
+  color: #006eff;
   white-space: nowrap;
   overflow: hidden;
   text-align: right;

@@ -2,6 +2,11 @@
   overflow-x: hidden;
 } */
 
+#root{
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
 .navbar {
   /* width: 100%; */
   position: fixed;
@@ -15,6 +20,8 @@
   transition: background-color 0.3s ease;
   background-color: white;
   /* box-shadow: 0 4px 12px rgba(17, 99, 199, 0.08); */
+  max-width: 1920px;
+  margin: 0 auto;
 }
 
 .navbar.home {

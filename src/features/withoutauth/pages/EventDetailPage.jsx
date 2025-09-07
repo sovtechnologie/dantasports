@@ -213,7 +213,7 @@ export default function EventDetailPage() {
                 <h1 className="event-name">{event.name}</h1>
                 <div className="event-location-rating">
                     <span>{event.location}</span>
-                    <span>⭐ {event?.rating} ({event?.reviewcount} ratings)</span>
+                    <span className="star" style={{marginLeft:"20px"}}>★</span> <span className="light-text"style={{marginLeft:"5px"}}>{event?.rating}({event?.reviewcount} ratings)</span>
                 </div>
             </div>
 
@@ -424,10 +424,10 @@ export default function EventDetailPage() {
                             <ReviewCard key={review.id} review={review} />
                         ))}
                     </div>
-                    <div className="carousel-buttons">
+                    {/* <div className="carousel-buttons">
                         <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
                         <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
-                    </div>
+                    </div> */}
                 </div>
 
 

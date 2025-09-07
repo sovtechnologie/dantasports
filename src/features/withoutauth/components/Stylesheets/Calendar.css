@@ -30,11 +30,12 @@
 }
 
 .calendar-week {
-  display: flex;
+  display: flex !important;
   justify-content: space-between;
   flex-wrap: nowrap;
   flex-direction: row;
   align-items: center;
+  gap: 5px;
 }
 
 .calendar-day {
@@ -44,18 +45,20 @@
   /* flex: 1; */
   cursor: pointer;
   padding: 0.4rem 0;
-  border-radius: 10px;
+  border-radius: 3px;
   color: #999;
   transition: all 0.2s;
-  height: 55px;
+  height: 60px;
+  width: 40px;
+  border: 0.5px solid #b1b1b1;
 }
 
 .calendar-day:hover {
   background-color: #f2f2f2;
   font-weight: bold;
-  border-radius: 18px;
-  width: clamp(13.96px, 4.3611vw, 62.8206px);
-  height: clamp(20.8px, 6.504vw, 93.6382px);
+  border-radius: 3px;
+  /* width: clamp(13.96px, 4.3611vw, 62.8206px); */
+  /* height: clamp(20.8px, 6.504vw, 93.6382px); */
   align-items: center;
   justify-content: center;
 }
@@ -64,11 +67,7 @@
   background-color: #1163c7;
   color: white !important;
   font-weight: bold;
-  border-radius: 18px;
-  width: clamp(13.96px, 4.3611vw, 62.8206px);
-  height: clamp(20.8px, 6.504vw, 93.6382px);
-  align-items: center;
-  justify-content: center;
+  height: 60px;
 }
 
 .calendar-day.disabled {
@@ -77,24 +76,22 @@
 }
 
 .calendar-day-number {
-  font-family: "DM Sans", Arial, sans-serif;
-  font-weight: 600;
-  font-size: clamp(4.51px, 1.4104vw, 20.31px);
-  line-height: 30.82px;
-  letter-spacing: 0.36px;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 26.87px;
+  letter-spacing: 0;
   /* color: rgba(0, 0, 0, 0.4); */
 }
 
 .calendar-day-label {
-  font-size: clamp(3.51px, 1.0965vw, 15.79px);
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
 }
 
 @media (max-width: 945px) {
-  .calendar-day.active {
-    width: 62.8206px;
-    height: 93.6382px;
-    border-radius: 12px;
-  }
+
   .calendar-day-number {
     font-size: 20.31px;
   }

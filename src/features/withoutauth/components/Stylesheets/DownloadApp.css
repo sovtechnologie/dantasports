@@ -99,6 +99,7 @@
   font-family: "Poppins";
   min-width: 120px;
   justify-content: center;
+  white-space: nowrap;
 }
 
 .google-btn {

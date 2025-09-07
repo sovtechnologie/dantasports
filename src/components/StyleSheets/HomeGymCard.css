@@ -7,7 +7,7 @@
   font-family: sans-serif;
   border: 1px solid #e5e5e5;
   position: relative;
-  height: auto;
+  height: max-content;
   padding: 6.63px;
 }
 
@@ -15,13 +15,13 @@
   width: 100%;
   height: 140px;
   object-fit: cover;
-  border-radius: 18px;
+  border-radius: 8px;
   cursor: pointer;
 }
 .icon-top-right {
   position: absolute;
-  top: 8px;
-  right: 16px;
+ top: 12px !important;
+  right: 10px !important;
   display: flex;
   gap: 2px;
 }
@@ -70,25 +70,25 @@
   display: flex;
   align-items: center;
   gap: 2px;
-  font-size: 13px;
+  font-size: 17px;
 }
 
 .star {
-  color: #40a040;
-  font-size: 14px;
+  color: #006eff;
+  font-size: 17px;
 }
 
 .rating-value {
   font-weight: 500;
   font-family: "DM Sans", Arial, sans-serif;
-  font-size: 14px;
+  font-size: 17px;
   color: #272727;
 }
 
 .rating-count {
   font-weight: 500;
   font-family: "DM Sans", Arial, sans-serif;
-  font-size: 14px;
+  font-size: 17px;
   color: #272727;
 }
 
@@ -108,6 +108,7 @@
   align-items: center;
   border-top: 1px solid #2971ac;
   padding: 8px 0px;
+  padding-bottom: 0px;
   font-size: 15px;
 }
 

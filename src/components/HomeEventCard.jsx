@@ -36,7 +36,7 @@ export default function HomeEventCard({ event }) {
                 <div className={styled.events_middle}>
                     <h3 className={styled.event_title}>{event.name}</h3>
                     <div className={styled.event_rating}>
-                        <span className={styled.star}>⭐</span> {event.rating} <span className={styled.light_text}>({event.RatingCount})</span>
+                        <span className={styled.star}>★</span> {event.rating} <span className={styled.light_text}>({event.RatingCount})</span>
                     </div>
                 </div>
 

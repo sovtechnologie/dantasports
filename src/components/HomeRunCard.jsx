@@ -36,7 +36,7 @@ export default function HomeRunCard({ event}) {
                 <div className={styled.runs_middle}>
                     <h3 className={styled.run_title}>{event.name}</h3>
                     <div className={styled.run_rating}>
-                        <span className={styled.star}>⭐</span> {event.rating} <span className={styled.light_text}>({event.RatingCount})</span>
+                        <span className={styled.star}>★</span> {event.rating} <span className={styled.light_text}>({event.RatingCount})</span>
                     </div>
                 </div>
 

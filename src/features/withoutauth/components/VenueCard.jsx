@@ -37,7 +37,7 @@ const VenueCard = ({ venue, isLiked, onLikeToggle }) => {
 
           <div className="venue-sports-icons">
             {venue?.sportsIcons?.map((icon, idx) => (
-              <img src={icon?.image} key={idx} alt="sport" className="sport-icon" />
+              <img src={icon?.image} key={idx} alt="sport" className="sport-iconvenue" />
             ))}
           </div>
 
@@ -61,7 +61,9 @@ const VenueCard = ({ venue, isLiked, onLikeToggle }) => {
             <p className="venue-rating">
 
               <span className="venue-star">★</span>
+              <span className='value'>
               {venue.rating} ({venue.reviews})
+              </span>
             </p>
           </div>
           <p className="venue-about">{venue.about}</p>

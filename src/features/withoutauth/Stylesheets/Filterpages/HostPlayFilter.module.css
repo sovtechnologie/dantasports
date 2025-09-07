@@ -40,34 +40,7 @@ body {
 .event_footer_banner {
   padding: 0px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
 }
-/* 
-@media (max-width: 970px) {
-  .host_filter_container {
-    display: flex;
-    flex-direction: column;
-  }
-  .host_grid {
-    display: flex;
-  }
 
-  .host_grid {
-    display: flex;
-    overflow-x: auto;
-    flex-wrap: nowrap; 
-    gap: 16px;
-    padding-bottom: 10px;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-  }
-
-
-  .host_grid::-webkit-scrollbar {
-    display: none;
-  }
-  .card {
-    gap: 20px;
-  };
-} */
 
 @media (max-width: 970px) {
   .host_filter_container {

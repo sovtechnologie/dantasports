@@ -24,17 +24,16 @@
 
 .icon-top-right {
   position: absolute;
-  top: 8px !important;
-  right: 8px !important;
+ top: 12px !important;
+  right: 10px !important;
   display: flex;
-  /* gap: 6px; */
-  padding: 8px;
+
 }
 
-.icon-bottom-left {
+.icon-bottomleft {
   position: absolute;
-  bottom: 15px;
-  left: 8px;
+  bottom: 18px;
+  margin-left:  14px;
   display: flex;
   flex-direction: row;
   gap: 2px;
@@ -45,7 +44,7 @@
   border: none;
 }
 
-.icon-img-btn {
+.icon-imgbtn {
   width: 25px !important;
   height: 25px !important;
   background: #00000080;
@@ -54,7 +53,7 @@
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   margin-bottom: 0px;
-  margin-left: 2px;
+  margin-left:2px;
   margin-top: 0px;
 }
 
@@ -81,20 +80,23 @@
 }
 
 .event-rating {
-  font-size: 13px;
+  font-size: 17px;
   color: #272727;
   margin-bottom: 6px;
   font-family: "DM Sans", Arial, sans-serif;
   font-weight: 500;
 }
+.star {
+  color: #006eff;
+}
 
 .event-rating .light-text {
-  font-size: 13px;
+  font-size: 17px;
   color: #272727;
   margin-bottom: 6px;
   font-family: "DM Sans", Arial, sans-serif;
   font-weight: 500;
-  margin-left: 4px;
+  /* margin-left: 4px; */
 }
 
 .event-time {

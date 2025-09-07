@@ -108,15 +108,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 64px;
+  /* min-width: 64px; */
   cursor: pointer;
   user-select: none;
   scroll-snap-align: start;
 }
 
 .sport-item img {
-  height: 40px;
-  width: 40px;
+  height:35px !important; 
+  width: 35px !important;
 }
 
 .sport-item span {

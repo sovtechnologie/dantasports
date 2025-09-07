@@ -27,8 +27,8 @@
 
 .icon-top-right {
   position: absolute;
-  top: 12px;
-  right: 10px;
+  top: 12px !important;
+  right: 10px !important;
   display: flex;
   gap: 2px;
   padding: 0px !important;
@@ -37,7 +37,7 @@
 .icon-bottom-left {
   position: absolute;
   bottom: 15px;
-  left: 8px;
+  margin-left:  8px;
   display: flex;
 }
 
@@ -49,7 +49,7 @@
   padding: 3px !important;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  margin-bottom: 0px;
+  margin-bottom: 2px;
   margin-left: 2px;
 }
 
@@ -82,16 +82,19 @@
 .run-rating {
   font-size: 17px;
   font-weight: 500;
-  color: #4caf50;
+  color: #272727;
   margin-bottom: 6px;
   font-family: "DM Sans", Arial, sans-serif;
+}
+.star {
+  color: #1163c7;
 }
 
 .run-rating .light-text {
   font-weight: 500;
   font-family: "DM Sans", Arial, sans-serif;
   color: #272727;
-  margin-left: 4px;
+  /* margin-left: 4px; */
 }
 
 .run-time {

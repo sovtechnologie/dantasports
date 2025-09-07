@@ -4,6 +4,7 @@ import analyticsImage from "../assets/facilitylogo/Phone-two-image.png"; // adju
 import bookingIcon from "../assets/facilitylogo/Slot-Icon-image.png"; // replace with actual icons
 import reportIcon from "../assets/facilitylogo/Role-Icon-image.png";
 import insightsIcon from "../assets/facilitylogo/Dashboard-Icon-image.png";
+import phonesImage2 from "../assets/facilitylogo/Phone_image_2.png"; 
 
 const analyticsFeatures = [
     {
@@ -27,7 +28,7 @@ const AnalyticsCapabilities = () => {
     return (
         <section className="analytics-section">
             <div className="analytics-image">
-                <img src={analyticsImage} alt="Analytics App Preview" />
+                <img src={phonesImage2} alt="Analytics App Preview" />
             </div>
             <div className="analytics-content">
                 <h2>

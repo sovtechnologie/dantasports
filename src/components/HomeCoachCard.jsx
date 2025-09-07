@@ -25,7 +25,7 @@ const CoachCard = ({ coach }) => {
                             key={sport.id || idx}
                             src={sport.sports_images}
                             alt={sport.sports_name}
-                            className="icon-img-btn"
+                            className="icon_img_btn-coach"
                             onError={(e) => {
                                 e.currentTarget.onerror = null;
                                 e.currentTarget.src = '/fallback-sport-icon.png';

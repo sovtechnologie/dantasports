@@ -44,11 +44,11 @@
 .icon-bottom-left {
   position: absolute;
   bottom: 15px;
-  left:  8px;
+  margin-left:  8px;
   display: flex;
 }
 
-.icon-img-btn {
+.icon_img_btn-coach {
   width: 20px !important;
   height: 20px !important;
   background: #00000080;
@@ -121,12 +121,12 @@
 }
 
 .coach-card-star {
-  color: #1ab546;
+  color: #006eff;
   margin-right: 2px;
 }
 
 .coach-card-rating-count {
-  color: #777;
+  color: #272727;
   margin-left: 2px;
 }
 

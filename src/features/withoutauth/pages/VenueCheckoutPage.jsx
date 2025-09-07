@@ -238,7 +238,7 @@ function VenueCheckoutPage() {
                 <h1 className="venue-name">{venue.name}</h1>
                 <div className="location-rating">
                     <span>{venue.location}</span>
-                    <span>⭐ {venue.rating} ({venue.reviewcount} ratings)</span>
+                    <span className="star">★{venue.rating} ({venue.reviewcount} ratings)</span>
                 </div>
             </div>
 
@@ -473,10 +473,10 @@ function VenueCheckoutPage() {
                                     <ReviewCard key={review.id} review={review} />
                                 ))}
                             </div>
-                            <div className="carousel-buttons">
+                            {/* <div className="carousel-buttons">
                                 <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
                                 <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
 

@@ -18,7 +18,7 @@ function SportEventCardList() {
     <div className='sport-event-card-wrapper'>
      <div className="sport-card-list-container">
       {cardData.map((item) => (
-        <div className="sport-card" key={item.id}>
+        <div className="sport-card-cb" key={item.id}>
           <img src={item.icon} alt={item.title} className="sport-card-icon" />
           <p className="sport-card-title">{item.title}</p>
         </div>

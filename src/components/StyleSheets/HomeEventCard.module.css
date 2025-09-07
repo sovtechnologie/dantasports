@@ -71,9 +71,11 @@
   width: 190px;
   display: block;
 }
-
+.star {
+  color: #006eff;
+}
 .event_rating {
-  font-size: 13px;
+  font-size: 17px;
   color: #272727;
   margin-bottom: 6px;
   font-family: "DM Sans", Arial, sans-serif;
@@ -81,12 +83,12 @@
 }
 
 .event_rating .light_text {
-  font-size: 13px;
+  font-size: 17px;
   color: #272727;
   margin-bottom: 6px;
   font-family: "DM Sans", Arial, sans-serif;
   font-weight: 500;
-  margin-left: 4px;
+  /* margin-left: 4px; */
 }
 
 .event_time {

@@ -57,7 +57,7 @@ const GymCarousel = () => {
                 <h3>Book Gym</h3>
                 <Link to="/Coach" className={styled.seeall}>
                     See All
-                    <img src={cursorArrow} style={{ marginLeft: "8px", width: "auto" }} alt='cursorArrow' />
+                    <img src={cursorArrow} style={{ marginLeft: "8px", width: "10px" }} alt='cursorArrow' />
                 </Link>
             </div>
 

@@ -20,7 +20,7 @@
 }
 
 .rating {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 400;
   color: #272727;
   display: flex;
@@ -30,8 +30,8 @@
 }
 
 .star {
-  color: green;
-  font-size: 18px;
+  color: #006eff;
+  font-size: 17px;
 }
 
 .text {

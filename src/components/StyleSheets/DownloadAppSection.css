@@ -100,6 +100,7 @@
   font-family: "Poppins";
   justify-content: center;
   min-width: 120px;
+  white-space: nowrap;
 }
 .apple-btn img {
   width: 25px;

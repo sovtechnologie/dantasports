@@ -105,7 +105,8 @@
   .form-card {
     flex-direction: column;
   /* margin: clamp(20px, 2.778vw, 40px); */
-  padding: 0px;
+  padding: 20px;
+  width: 100%;
 
   }
 
@@ -116,7 +117,7 @@ select,
 textarea {
   width: 100%;
   max-width: 729px;
-  min-width: 100px;
+  /* min-width: 100px; */
   padding: 21px;
   border: 1px solid #ccc;
   border-radius: 11.27px;

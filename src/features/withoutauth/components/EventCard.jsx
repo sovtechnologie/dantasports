@@ -18,13 +18,13 @@ export default function EventCard({ event, isLiked, onLikeToggle }) {
         onLikeToggle(); // Call parent toggle
     };
 
- const handleShareClick = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log("Shared venue:", event.id);
-    Share(); // Call the share function from utils
-    // Implement share logic
-  };
+    const handleShareClick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log("Shared venue:", event.id);
+        Share(); // Call the share function from utils
+        // Implement share logic
+    };
 
     return (
         <Link to={`/Events/${event.id}`} className="event-card">
@@ -37,19 +37,19 @@ export default function EventCard({ event, isLiked, onLikeToggle }) {
                     <button className="icon-btns" onClick={handleLikeClick}>
                         <img src={isLiked ? HeartFilled : HeartOutline} alt="like" className="icon-img-btn" />
                     </button>
-                      
-                      <button  className="icon-btns" onClick={handleShareClick}>
+
+                    <button className="icon-btns" onClick={handleShareClick}>
                         <img src={shareIcon} alt="share" className="icon-img-btn" />
-                      </button>
-                    
+                    </button>
+
                 </div>
-                <div className="icon-bottom-left">
+                <div className="icon-bottomleft">
                     {event.sportIcon?.map((sport, idx) => (
                         <img
                             key={sport.id || idx}
                             src={sport.image}
                             alt={sport.name}
-                            className="icon-img-btn"
+                            className="icon-imgbtn"
                             onError={(e) => {
                                 e.currentTarget.onerror = null;
                                 e.currentTarget.src = '/fallback-sport-icon.png';
@@ -64,12 +64,12 @@ export default function EventCard({ event, isLiked, onLikeToggle }) {
                 <div className='events-middle'>
                     <h3 className="event-title">{event.name}</h3>
                     <div className="event-rating">
-                        <span className="star">⭐</span> {event.rating} <span className="light-text">({event.RatingCount})</span>
+                        <span className="star" >★</span> <span className="light-text">{event.rating} ({event.RatingCount})</span>
                     </div>
                 </div>
 
 
-                <div className='events-middle' style={{ display: 'flex', justifyContent: 'space-between', flexDirection:"column" }}>
+                <div className='events-middle' style={{ display: 'flex', justifyContent: 'space-between', flexDirection: "column" }}>
                     <div className="event-time">
                         <img src={CalandarIcon} alt='Calandar icon' className='event-time-img' />
                         <span>{event.date}</span>

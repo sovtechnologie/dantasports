@@ -312,8 +312,8 @@ body {
 }
 
 .sport-item img {
-  height: 30px;
-  width: 30px;
+  height: 35px !important;
+  width: 35px !important;
 }
 
 .filter-sport-name {
@@ -321,6 +321,7 @@ body {
   font-family: "DM Sans", Arial, sans-serif;
   font-weight: 400;
   color: #272727;
+  white-space: nowrap;
 }
 
 .sport-item:hover {
@@ -396,9 +397,11 @@ body {
   cursor: pointer;
   font-family: "Lato", sans-serif;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 18px;
 }
-
+.reset-btns:hover {
+  color: #007bff;
+}
 .checkbox-list {
   display: flex;
   flex-direction: column;

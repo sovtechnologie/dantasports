@@ -65,7 +65,7 @@ export default function RunCard({ event, isLiked, onLikeToggle }) {
                 <div className='runs-middle'>
                     <h3 className="run-title">{event.name}</h3>
                     <div className="run-rating">
-                        <span className="star">⭐</span> {event.rating} <span className="light-text">({event.RatingCount})</span>
+                        <span className="star">★</span> {event.rating} <span className="light-text">({event.RatingCount})</span>
                     </div>
                 </div>
 

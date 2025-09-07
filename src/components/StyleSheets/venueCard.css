@@ -66,24 +66,24 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  font-size: 12px;
-  color: #6b7280;
+  font-size: 17px;
+  color: #272727;
   margin: 0px;
 
   /* margin-bottom: 4px; */
 }
 
 .rating .star {
-  color: #28c76f;
-  font-size: 20px;
-  margin-right: 4px;
+  color: #006eff;
+  font-size: 17px;
+  /* margin-right: 4px; */
 }
 
 .rating .value {
   font-weight: 500;
   color: #272727;
   margin-right: 2px;
-  font-size: 15px;
+  font-size: 17px;
   font-family: "DM Sans", sans-serif;
 }
 
@@ -91,21 +91,21 @@
   font-weight: 500;
   margin-right: 6px;
   color: #272727;
-  font-size: 15px;
+  font-size: 17px;
   font-family: "DM Sans", sans-serif;
 }
 
 .rating .distance {
-  color: #858585;
+  color: #272727;
   font-weight: 400;
-  font-size: 15px;
+  font-size: 17px;
   font-family: "DM Sans", sans-serif;
 }
 
 .sports {
   color: #858585;
   font-weight: 400;
-  font-size: 15px;
+  font-size: 17px;
   font-family: "DM Sans", sans-serif;
   margin: 0px;
 }

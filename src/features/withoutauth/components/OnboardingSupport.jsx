@@ -4,7 +4,7 @@ import phonesImage from "../assets/facilitylogo/Phone_image.png"; // adjust path
 import slotIcon from "../assets/facilitylogo/Slot-Icon-image.png"; // replace with actual icon paths
 import rolesIcon from "../assets/facilitylogo/Role-Icon-image.png";
 import dashboardIcon from "../assets/facilitylogo/Dashboard-Icon-image.png";
-
+import phonesImage3 from "../assets/facilitylogo/Phone_image_3.png"; 
 const features = [
     {
         icon: slotIcon,
@@ -46,7 +46,7 @@ const OnboardingSupport = () => {
 
             </div>
             <div className="facility-image">
-                <img src={phonesImage} alt="Facility Management App Preview" />
+                <img src={phonesImage3} alt="Facility Management App Preview" />
             </div>
         </section>
     );
