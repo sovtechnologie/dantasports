@@ -14,10 +14,6 @@
 .text-content {
   max-width: 700px;
   z-index: 2;
-  /* margin-top: -200px; */
-  /* Remove if you want it flush with the top */
-  /* padding-top: 20px; */
-  /* Add some space from the top if needed */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -25,8 +21,6 @@
 
 .text-content > *:not(:last-child) {
   margin-bottom: 18px;
-  /* Adjust as needed for spacing between tagline, heading, subtext, buttons */
-  /* height: 60px; */
 }
 
 .tagline {
@@ -37,7 +31,6 @@
   font-size: clamp(1rem, 0.7646rem + 1.0949vw, 1.75rem);
   letter-spacing: 0;
   color: #172a39;
-  /* margin-top: 60px; */
   margin: 0px;
 }
 
