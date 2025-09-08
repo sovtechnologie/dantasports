@@ -26,7 +26,7 @@
   align-items: center;
   justify-content: center;
   /* top: 25px; */
-  top: 40px;
+  margin-top: clamp(20px, 2.222vw, 40px);
   background: none;
   border: none;
   font-size: 40px;

@@ -69,6 +69,13 @@
   word-break: break-word;
   height: 60px;
 }
+.subtex-one {
+  font-size: 15.47px;
+  font-weight: 400;
+  font-family: "DM Sans", Arial, sans-serif;
+  color: #858585;
+  line-height: 22.39px !important;
+}
 .subtext-animate {
   opacity: 0;
   transform: translateY(-30px);

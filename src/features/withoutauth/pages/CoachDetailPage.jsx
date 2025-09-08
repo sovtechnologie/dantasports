@@ -292,7 +292,7 @@ export default function CoachDetailPage() {
                                         </div>
                                         <div className="location-text">
                                             <div className="address">{loc.area}</div>
-                                            <div className="subtext">Click to view on map</div>
+                                            <div className="subtext-one">Click to view on map</div>
                                         </div>
                                         <div className="arrow">&#8250;</div>
                                     </a>

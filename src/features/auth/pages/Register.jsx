@@ -330,9 +330,9 @@ const Register = ({ isModal = false, onClose = () => { }, onSuccess = () => { },
 
                 <p className="login-link">
                   Already have an account?{' '}
-                  {/* <button type="button" className="link-button" onClick={handleSwitchToRegister}> */}
+                  <button type="button" className="link-button" onClick={handleSwitchToRegister}>
                   Log in
-                  {/* </button> */}
+                  </button>
                 </p>
 
               </div>

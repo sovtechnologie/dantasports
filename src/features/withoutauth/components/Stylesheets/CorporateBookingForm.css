@@ -15,6 +15,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: clamp(20px, 2.778vw, 40px);
   gap: 10px;
+  width: 100%;
 }
 
 .form-left {

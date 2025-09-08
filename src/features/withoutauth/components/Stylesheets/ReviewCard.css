@@ -5,18 +5,13 @@
     0px 4.08px 4.08px 0px #00000026,
     0px 4.54px 4.54px 0px #0000001a;
   padding: 20px;
-  /* width: 100%;
-    max-width: 100%; */
   flex: 1;
   box-sizing: border-box;
   height: 181px;
-  /* width: 403px; */
   width: clamp(340px, 27.9861vw, 403px);
-  /* max-width: 450px;  */
   max-width: 403px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .rating {
@@ -45,12 +40,14 @@
   line-height: 19.68px;
   letter-spacing: 0;
   text-transform: capitalize;
+  margin: 10px 0;
 }
 
 .review-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: auto;
 }
 
 .user {
@@ -94,7 +91,6 @@
   .review-carousel-container::-webkit-scrollbar {
     display: none;
   }
-
 
   .review-card {
     flex: 0 0 auto;

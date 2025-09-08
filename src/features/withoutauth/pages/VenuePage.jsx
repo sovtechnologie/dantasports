@@ -396,7 +396,7 @@ function VenuePage() {
                                 </div>
 
                                 <div className="filter-sec1">
-                                    <label>Sports</label>
+                                    {/* <label>Sports</label> */}
                                     <div className="search-input-container">
                                         <img src={SearchIcon} alt="search" className="search-icon" />
                                         <input

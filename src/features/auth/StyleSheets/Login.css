@@ -45,7 +45,8 @@ h2 {
   font-weight: bold;
   margin-bottom: 8px;
   font-family: "DM Sans", sans-serif;
-  margin-top: 0px;
+   margin-top: 20px;
+
 
 }
 
@@ -76,7 +77,7 @@ label {
   margin-bottom: 20px;
   height:clamp(40px, 3.8889vw, 56px);
   gap: clamp(12px, 1.1111vw, 18px);
-  max-width: clamp(270px, 28.7222vw, 400px);
+  max-width: clamp(270px, 28.7222vw, 500px);
 
 }
 

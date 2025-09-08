@@ -296,14 +296,12 @@ body {
   height: clamp(200px, 34.7222vw, 500px);
 }
 .location-item {
-  display: flex;
+  display: flex !important;
   align-items: flex-start;
   gap: 12px;
   text-decoration: none;
-  /* padding: 12px 0; */
-  /* border-bottom: 1px solid #f0f0f0; */
   color: inherit;
-  align-items: center;
+  align-items: center !important;
 }
 
 .location-item:last-child {
@@ -336,6 +334,13 @@ body {
 }
 
 .subtext {
+  font-size: 15.47px;
+  font-weight: 400;
+  font-family: "DM Sans", Arial, sans-serif;
+  color: #858585;
+  line-height: 22.39px !important;
+}
+.subtext-one {
   font-size: 15.47px;
   font-weight: 400;
   font-family: "DM Sans", Arial, sans-serif;
