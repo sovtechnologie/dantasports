@@ -2,7 +2,7 @@
   overflow-x: hidden;
 } */
 
-#root{
+#root {
   max-width: 1920px;
   margin: 0 auto;
 }
@@ -47,14 +47,11 @@
 }
 
 .navbar-logo {
-  /* width: 50px; */
-  width: clamp(32px, 3.472vw, 64px);
-  height: 50px;
-  height: clamp(32px, 3.472vw, 64px);
-  object-fit: contain;
-  position: relative;
-  /* right: 6rem; */
-  display: block;
+  width: 54px;
+  height: 54px;
+  top: 23px;
+  left: 101px;
+  opacity: 1;
 }
 
 .navbar-link {

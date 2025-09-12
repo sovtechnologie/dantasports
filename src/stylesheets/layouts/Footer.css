@@ -42,11 +42,10 @@ body {
   max-width: 17.5rem; /* 280px */
 }
 
-.footer-logo {
-  width: 3.125rem; /* 50px */
-  height: 3.125rem;
-  width: 83%;
-  height: 80px;
+.footer-logo {  
+  width: 108.6669921875;
+  height: 44.51418685913086;
+  opacity: 1;
 }
 
 .footer-brand h2 {
