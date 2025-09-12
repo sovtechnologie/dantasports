@@ -1,37 +1,34 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import Cookies from 'js-cookie';
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import Cookies from "js-cookie";
 import "../stylesheets/layouts/Navbar.css";
-import { isIOS, isAndroid } from 'react-device-detect';
+import { isIOS, isAndroid } from "react-device-detect";
 import whiteLogo from "../assets/sportdantaLogo/whiteLogo.png";
 import blueLogo from "../assets/sportdantaLogo/blueLogo.png";
 import userLogo from "../assets/UserLogo.png";
 import arrowlogo from "../assets/arrowlogo.png";
 import LoginModal from "../features/auth/components/loginModal";
 import locationlogo from "../features/withoutauth/assets/locationlogo.png";
-import { getCityName } from '../utils/getCityName';
-import { FaBars, FaTimes } from 'react-icons/fa';
-import { setLocation } from '../redux/Slices/locationSlice';
+import { getCityName } from "../utils/getCityName";
+import { FaBars, FaTimes } from "react-icons/fa";
+import { setLocation } from "../redux/Slices/locationSlice";
 import { googleMapsLoader } from "../utils/locationSearch.js";
 
-
-
 function Navbar() {
-  const { lat, lng, } = useSelector((state) => state.location);
+  const { lat, lng } = useSelector((state) => state.location);
   const dispatch = useDispatch();
   const location = useLocation();
-  const isHome = location.pathname === '/';
+  const isHome = location.pathname === "/";
   const isActive = (path) => location.pathname === path;
   const userId = useSelector((state) => state.auth?.id);
-  const token = Cookies.get('token');
+  const token = Cookies.get("token");
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [predictions, setPredictions] = useState([]);
   const [service, setService] = useState(null);
   const inputRef = useRef(null);
-
 
   const handleClick = () => {
     const url = isAndroid
@@ -50,8 +47,8 @@ function Navbar() {
     }
   };
   useEffect(() => {
-    getCityName(lat, lng).then(city => setSearchTerm(city));
-  }, [lat, lng])
+    getCityName(lat, lng).then((city) => setSearchTerm(city));
+  }, [lat, lng]);
 
   useEffect(() => {
     const loadPlaces = async () => {
@@ -94,7 +91,10 @@ function Navbar() {
       document.createElement("div")
     );
     placesService.getDetails(
-      { placeId: prediction.place_id, fields: ["geometry", "formatted_address"] },
+      {
+        placeId: prediction.place_id,
+        fields: ["geometry", "formatted_address"],
+      },
       (place) => {
         if (place && place.geometry) {
           const newLat = place.geometry.location.lat();
@@ -103,22 +103,22 @@ function Navbar() {
           // Get the city name from address_components
           let cityName = "";
           if (place.address_components) {
-            const localityComp = place.address_components.find(comp =>
+            const localityComp = place.address_components.find((comp) =>
               comp.types.includes("locality")
             );
             cityName = localityComp
               ? localityComp.long_name
-              : (
-                // fallback: use administrative_area_level_2 or formatted_address
-                place.address_components.find(comp =>
+              : // fallback: use administrative_area_level_2 or formatted_address
+                place.address_components.find((comp) =>
                   comp.types.includes("administrative_area_level_2")
-                )?.long_name || place.formatted_address
-              );
+                )?.long_name || place.formatted_address;
           }
           setSearchTerm(cityName); // Set only the city name in input box
           setPredictions([]);
           // Dispatch to Redux & set autoDetect false
-          dispatch(setLocation({ lat: newLat, lng: newLng, autoDetect: false }));
+          dispatch(
+            setLocation({ lat: newLat, lng: newLng, autoDetect: false })
+          );
         }
       }
     );
@@ -131,10 +131,8 @@ function Navbar() {
     setMobileMenuOpen(false);
   }, [location.pathname]);
 
-
-
   return (
-    <nav className={`navbar ${isHome ? 'home' : ''}`}>
+    <nav className={`navbar ${isHome ? "home" : ""}`}>
       <div className="navbar-container">
         <Link to="/" className="navbar-brand">
           <img
@@ -143,22 +141,61 @@ function Navbar() {
             className="navbar-logo"
           />
         </Link>
-        <div className="hamburger" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+        <div
+          className="hamburger"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
           {mobileMenuOpen ? <FaTimes /> : <FaBars />}
         </div>
 
-
         {/* WRAP the nav and user icon in a collapsible container */}
-        <div className={`navbar-actions ${mobileMenuOpen ? 'active' : ''}`}>
+        <div className={`navbar-actions ${mobileMenuOpen ? "active" : ""}`}>
           {isHome ? (
             <>
-              <div className='nav-Filter-wrapper'>
-                <Link to="/venue" onClick={handleNavLinkClick} className={`nav-Filter-links ${isActive('/venue') ? 'active-link' : ''}`}>Book</Link>
-                <Link to="/Host" onClick={handleNavLinkClick} className={`nav-Filter-links ${isActive('/CommingSoon') ? 'active-link' : ''}`}>Host/Play</Link>
-                <Link to="/Run" onClick={handleNavLinkClick} className={`nav-Filter-links ${isActive('/Run') ? 'active-link' : ''}`}>Run</Link>
-                <Link to="/Coach" onClick={handleNavLinkClick} className={`nav-Filter-links ${isActive('/Coach') ? 'active-link' : ''}`}>Coach</Link>
-                <Link to="/Events" onClick={handleNavLinkClick} className={`nav-Filter-links ${isActive('/Events') ? 'active-link' : ''}`}>Events</Link>
-                <Link to="/Gym" onClick={handleNavLinkClick} className={`nav-Filter-links ${isActive('/Gym') ? 'active-link' : ''}`}>Gym</Link>
+              <div className="nav-Filter-wrapper">
+                <Link
+                  to="/venue"
+                  onClick={handleNavLinkClick}
+                  className={`nav-Filter-links ${isActive("/venue") ? "active-link" : ""}`}
+                >
+                  Book
+                </Link>
+
+                <Link
+                  to="/Host"
+                  onClick={handleNavLinkClick}
+                  className={`nav-Filter-links ${isActive("/CommingSoon") ? "active-link" : ""}`}
+                >
+                  Host/Play
+                </Link>
+                <Link
+                  to="/Run"
+                  onClick={handleNavLinkClick}
+                  className={`nav-Filter-links ${isActive("/Run") ? "active-link" : ""}`}
+                >
+                  Run
+                </Link>
+                <Link
+                  to="/Coach"
+                  onClick={handleNavLinkClick}
+                  className={`nav-Filter-links ${isActive("/Coach") ? "active-link" : ""}`}
+                >
+                  Coach
+                </Link>
+                <Link
+                  to="/Events"
+                  onClick={handleNavLinkClick}
+                  className={`nav-Filter-links ${isActive("/Events") ? "active-link" : ""}`}
+                >
+                  Events
+                </Link>
+                <Link
+                  to="/Gym"
+                  onClick={handleNavLinkClick}
+                  className={`nav-Filter-links ${isActive("/Gym") ? "active-link" : ""}`}
+                >
+                  Gym
+                </Link>
               </div>
               {/* <div className='nav-Filter-wrapper'>
                 <Link to="/Host" onClick={handleNavLinkClick} className={`nav-Filter-link ${isActive('/CommingSoon') ? 'active-link' : ''}`}>Host/Play</Link>
@@ -167,13 +204,22 @@ function Navbar() {
                 <Link to="/Events" onClick={handleNavLinkClick} className={`nav-Filter-link ${isActive('/Events') ? 'active-link' : ''}`}>Events</Link>
                 <Link to="/Gym" onClick={handleNavLinkClick} className={`nav-Filter-link ${isActive('/Gym') ? 'active-link' : ''}`}>Gym</Link>
               </div> */}
-              <button className="app-btn" onClick={handleClick}>Get the App<img src={arrowlogo} width={25} style={{ verticalAlign: 'middle' }} alt="Arrow" /></button>
+              <button className="app-btn" onClick={handleClick}>
+                Get the App
+                <img
+                  src={arrowlogo}
+                  width={25}
+                  style={{ verticalAlign: "middle" }}
+                  alt="Arrow"
+                />
+              </button>
             </>
           ) : (
             <>
-              <div className='nav-Filter-wrapper'>
+              <div className="nav-Filter-wrapper">
                 <div className="location-search-container">
-                  <input type="text"
+                  <input
+                    type="text"
                     placeholder="Search by location"
                     className="location_Search_Input"
                     value={searchTerm}
@@ -197,7 +243,8 @@ function Navbar() {
                         maxHeight: "200px",
                         overflowY: "auto",
                         zIndex: 999,
-                      }}>
+                      }}
+                    >
                       {predictions.map((p) => (
                         <li
                           key={p.place_id}
@@ -206,10 +253,14 @@ function Navbar() {
                             padding: "8px",
                             cursor: "pointer",
                             borderBottom: "1px solid #eee",
-                            color: "#333"
+                            color: "#333",
                           }}
-                          onMouseEnter={(e) => (e.target.style.background = "#f0f0f0")}
-                          onMouseLeave={(e) => (e.target.style.background = "transparent")}
+                          onMouseEnter={(e) =>
+                            (e.target.style.background = "#f0f0f0")
+                          }
+                          onMouseLeave={(e) =>
+                            (e.target.style.background = "transparent")
+                          }
                         >
                           {p.description}
                         </li>
@@ -217,23 +268,60 @@ function Navbar() {
                     </ul>
                   )}
                 </div>
-                <Link to="/venue" className={`nav-Filter-link ${isActive('/venue') ? 'active-link' : ''}`}>Book</Link>
-                <Link to="/Host" className={`nav-Filter-link ${isActive('/CommingSoon') ? 'active-link' : ''}`}>Host/Play</Link>
-                <Link to="/Run" className={`nav-Filter-link ${isActive('/Run') ? 'active-link' : ''}`}>Run</Link>
-                <Link to="/Coach" className={`nav-Filter-link ${isActive('/Coach') ? 'active-link' : ''}`}>Coach</Link>
-                <Link to="/Events" className={`nav-Filter-link ${isActive('/Events') ? 'active-link' : ''}`}>Events</Link>
-                <Link to="/Gym" className={`nav-Filter-link ${isActive('/Gym') ? 'active-link' : ''}`}>Gym</Link>
+
+                <Link
+                  to="/venue"
+                  className={`nav-Filter-link ${isActive("/venue") ? "active-link" : ""}`}
+                >
+                  Book
+                </Link>
+
+                <Link
+                  to="/Host"
+                  className={`nav-Filter-link ${isActive("/Host") ? "active-link" : ""}`}
+                >
+                  Host/Play
+                </Link>
+                <Link
+                  to="/Run"
+                  className={`nav-Filter-link ${isActive("/Run") ? "active-link" : ""}`}
+                >
+                  Run
+                </Link>
+                <Link
+                  to="/Coach"
+                  className={`nav-Filter-link ${isActive("/Coach") ? "active-link" : ""}`}
+                >
+                  Coach
+                </Link>
+                <Link
+                  to="/Events"
+                  className={`nav-Filter-link ${isActive("/Events") ? "active-link" : ""}`}
+                >
+                  Events
+                </Link>
+                <Link
+                  to="/Gym"
+                  className={`nav-Filter-link ${isActive("/Gym") ? "active-link" : ""}`}
+                >
+                  Gym
+                </Link>
               </div>
             </>
           )}
 
-
-          <Link to={userId && token ? `/profile/${userId}` : '#'} className="user-icon" onClick={handleProfileClick}>
+          <Link
+            to={userId && token ? `/profile/${userId}` : "#"}
+            className="user-icon"
+            onClick={handleProfileClick}
+          >
             <img src={userLogo} alt="User Profile" />
           </Link>
         </div>
       </div>
-      {showLoginModal && <LoginModal onClose={() => setShowLoginModal(false)} />}
+      {showLoginModal && (
+        <LoginModal onClose={() => setShowLoginModal(false)} />
+      )}
     </nav>
   );
 }

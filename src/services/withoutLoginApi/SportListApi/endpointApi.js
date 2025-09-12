@@ -1,4 +1,16 @@
 import api from "../../api.js"; // Correct import (use the actual exported name)
+export const fetchGlobalSearchQuery = async (searchTerm) => {
+  try {
+    const response = await api.post("home/getGlobalSearchQuery", {
+      search: searchTerm,
+    });
+    console.log("uuuuuuuuuuuuuuuuu", response.data);
+    return response.data; // ✅ Axios use case
+  } catch (error) {
+    console.error("Failed to fetch global search:", error);
+    throw error;
+  }
+};
 
 export const fetchSportList = async () => {
   try {

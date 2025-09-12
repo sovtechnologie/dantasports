@@ -103,6 +103,7 @@
   height: 68px;
   min-width: 310px;
   box-sizing: border-box;
+  position: relative;
 }
 /* Input Styling */
 .search-input-wrapper input {
@@ -114,6 +115,18 @@
   font-family: "DM Sans", sans-serif;
   font-weight: 400;
   letter-spacing: 0.18px;
+  padding-right: 40px;
+}
+
+.search-input-wrapper img {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  height: 25px;
+  width: 25px;
+  z-index: 2; 
 }
 
 .search-input-wrapper input::placeholder {
