@@ -45,8 +45,8 @@ body {
 .footer-logo {
   width: 3.125rem; /* 50px */
   height: 3.125rem;
-  width: 53px;
-  height: 53px;
+  width: 83%;
+  height: 80px;
 }
 
 .footer-brand h2 {
