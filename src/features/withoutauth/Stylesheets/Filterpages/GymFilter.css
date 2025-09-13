@@ -76,7 +76,7 @@ body {
 
 .gym-grid {
   min-width: 250px;
-  flex: 0 0 auto; /* Prevent flex-grow and shrink */
+  /* flex: 0 0 auto; Prevent flex-grow and shrink */
 }
 
 @media (max-width: 500px) {
