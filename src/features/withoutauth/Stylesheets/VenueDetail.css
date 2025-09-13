@@ -112,6 +112,7 @@ body {
 }
 
 .venue-swiperslide {
+  width: 100% !important; /*add for ui fix*/
   text-align: center;
   font-size: 18px;
   background: #444;

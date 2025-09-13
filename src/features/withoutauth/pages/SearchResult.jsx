@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import InfoCard from "../../../components/InfoCard";
 import { fetchGlobalSearchQuery } from "../../../services/withoutLoginApi/SportListApi/endpointApi";
 import "../Stylesheets/SearchResult.css";
@@ -14,19 +14,41 @@ const SearchResult = () => {
     3: [],
   });
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState(query || "");
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   setLoading(true);
+
+  //   fetchGlobalSearchQuery(query || "")
+  //     .then((res) => {
+  //       const data = Array.isArray(res.result) ? res.result : [];
+
+  //       const grouped = {
+  //         1: [],
+  //         2: [],
+  //         3: [],
+  //       };
+
+  //       data.forEach((item) => {
+  //         if (grouped[item.type]) {
+  //           grouped[item.type].push(item);
+  //         }
+  //       });
+
+  //       setGroupedResults(grouped);
+  //     })
+  //     .catch((err) => console.error("Search failed:", err))
+  //     .finally(() => setLoading(false));
+  // }, [query]);
+  const fetchData = (keyword) => {
+    if (!keyword) return;
     setLoading(true);
 
-    fetchGlobalSearchQuery(query || "")
+    fetchGlobalSearchQuery(keyword)
       .then((res) => {
         const data = Array.isArray(res.result) ? res.result : [];
 
-        const grouped = {
-          1: [],
-          2: [],
-          3: [],
-        };
+        const grouped = { 1: [], 2: [], 3: [] };
 
         data.forEach((item) => {
           if (grouped[item.type]) {
@@ -38,6 +60,10 @@ const SearchResult = () => {
       })
       .catch((err) => console.error("Search failed:", err))
       .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    fetchData(query || "");
   }, [query]);
 
   const typeHeading = {
@@ -51,8 +77,18 @@ const SearchResult = () => {
       <div className="filter-bar">
         <h3 className="filter-title">Search by Venue, Sports, Location</h3>
         <div className="search-input">
-          <img src={searchlogo} height={20} width={20} alt="searchlogo" />
-          <input type="text" placeholder="Search Venue/Sports Location" />
+          <img
+            src={searchlogo}
+            height={20}
+            width={20}
+            alt="searchlogo"
+            onClick={() => fetchData(search)}
+          />
+          <input
+            type="text"
+            placeholder="Search Venue/Sports Location"
+            onChange={(e) => setSearch(e.target.value)}
+          />
         </div>
       </div>
 
