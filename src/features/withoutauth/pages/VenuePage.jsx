@@ -118,49 +118,10 @@ function VenuePage() {
   const FilterVenue = useFilterVenue();
   const userId = useSelector((state) => state.auth?.id);
 
-  // const toggleFavourite = (venue) => {
-  //     const venueId = venue.id;
-  //     console.log("toggle")
-
-  //     setVenueList((prevList) =>
-  //         prevList.map((v) =>
-  //             v.id === venueId ? { ...v, favourite: !v.favourite } : v
-  //         )
-  //     );
-
-  //     if (!venue.favourite) {
-  //         likeVenue.mutate({ venueId, userId: auth?.id }, {
-  //             onSuccess: async () => {
-  //                 await queryClient.invalidateQueries(['venueList', auth?.id || null]);
-  //             },
-  //             onError: () => {
-  //                 setVenueList((prevList) =>
-  //                     prevList.map((v) =>
-  //                         v.id === venueId ? { ...v, favourite: false } : v
-  //                     )
-  //                 );
-  //             },
-  //         });
-  //     } else {
-  //         unlikeVenue.mutate({ favouriteVenueId: venue.favourite_venue_id }, {
-  //             onSuccess: async () => {
-  //                 await queryClient.invalidateQueries(['venueList', auth?.id || null]);
-  //             },
-  //             onError: () => {
-  //                 setVenueList((prevList) =>
-  //                     prevList.map((v) =>
-  //                         v.id === venueId ? { ...v, favourite: true } : v
-  //                     )
-  //                 );
-  //             },
-  //         });
-  //     }
-  // };
-
-  //   Handle Time Selection from Timeslots
-
   const toggleFavourite = (venue) => {
     const venueId = venue.id;
+    console.log("toggle");
+
     setVenueList((prevList) =>
       prevList.map((v) =>
         v.id === venueId ? { ...v, favourite: !v.favourite } : v
@@ -168,11 +129,62 @@ function VenuePage() {
     );
 
     if (!venue.favourite) {
-      likeVenue.mutate({ venueId, userId: auth?.id });
+      likeVenue.mutate(
+        { venueId, userId: auth?.id },
+        {
+          onSuccess: async () => {
+            await queryClient.invalidateQueries([
+              "venueList",
+              auth?.id || null,
+            ]);
+          },
+          onError: () => {
+            setVenueList((prevList) =>
+              prevList.map((v) =>
+                v.id === venueId ? { ...v, favourite: false } : v
+              )
+            );
+          },
+        }
+      );
     } else {
-      unlikeVenue.mutate({ favouriteVenueId: venue.favourite_venue_id });
+      unlikeVenue.mutate(
+        { favouriteVenueId: venue.favourite_venue_id },
+        {
+          onSuccess: async () => {
+            await queryClient.invalidateQueries([
+              "venueList",
+              auth?.id || null,
+            ]);
+          },
+          onError: () => {
+            setVenueList((prevList) =>
+              prevList.map((v) =>
+                v.id === venueId ? { ...v, favourite: true } : v
+              )
+            );
+          },
+        }
+      );
     }
   };
+
+  // const toggleFavourite = (venue) => {
+  //   const venueId = venue.id;
+  //   setVenueList((prevList) =>
+  //     prevList.map((v) =>
+  //       v.id === venueId ? { ...v, favourite: !v.favourite } : v
+  //     )
+  //   );
+
+  //   if (!venue.favourite) {
+  //     likeVenue.mutate({ venueId, userId: auth?.id });
+  //   } else {
+  //     unlikeVenue.mutate({ favouriteVenueId: venue.favourite_venue_id });
+  //   }
+  // };
+
+  //   Handle Time Selection from Timeslots
 
   const handleTimeChange = useCallback(
     (timeslot) => {

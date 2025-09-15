@@ -15,7 +15,7 @@ const SearchResult = () => {
   });
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState(query || "");
-
+  const [error, setError] = useState("");
   // useEffect(() => {
   //   setLoading(true);
 
@@ -41,7 +41,12 @@ const SearchResult = () => {
   //     .finally(() => setLoading(false));
   // }, [query]);
   const fetchData = (keyword) => {
-    if (!keyword) return;
+    if (!keyword || keyword.trim().length < 3) {
+      setError("Please enter at least 3 characters");
+      return;
+    }
+
+    setError("");
     setLoading(true);
 
     fetchGlobalSearchQuery(keyword)
@@ -72,10 +77,17 @@ const SearchResult = () => {
     3: "Coaches",
   };
 
+  const typeRoute = {
+    1: "venue",
+    2: "Events",
+    3: "Coach",
+  };
+
   return (
     <div className="search-result-page">
       <div className="filter-bar">
         <h3 className="filter-title">Search by Venue, Sports, Location</h3>
+
         <div className="search-input">
           <img
             src={searchlogo}
@@ -86,8 +98,14 @@ const SearchResult = () => {
           />
           <input
             type="text"
-            placeholder="Search Venue/Sports Location"
-            onChange={(e) => setSearch(e.target.value)}
+            value={error ? "" : search}
+            placeholder={error || "Search Venue/Sports Location"}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              if (e.target.value.length >= 3 || e.target.value.length >= 0) {
+                setError("");
+              }
+            }}
           />
         </div>
       </div>
@@ -111,7 +129,7 @@ const SearchResult = () => {
                       title={item.name || "Untitled"}
                       subtitle={typeHeading[type]}
                       image={item.image || "defaultImage.png"}
-                      routePath={`/${typeHeading[type].toLowerCase()}/${item.id}`}
+                      routePath={`/${typeRoute[type].toLowerCase()}/${item.id}`}
                     />
                   ))
                 ) : (

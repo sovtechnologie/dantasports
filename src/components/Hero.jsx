@@ -35,13 +35,19 @@ const Hero = () => {
   const [search, setSearch] = useState("");
   const [service, setService] = useState(null);
   const inputRef = useRef(null);
+  const [error, setError] = useState("");
 
   const handleSearchClick = () => {
-    if (search.trim()) {
-      navigate(`/search/${encodeURIComponent(search)}`);
+    if (search.trim().length < 3) {
+      setError("Please type at least 3 characters to search");
+      return;
     }
+    setError("");
+    navigate(`/search/${encodeURIComponent(search)}`);
   };
-
+  if (search === " ") {
+    setError("");
+  }
   // Unified location update helper
   const updateLocation = (newLat, newLng) => {
     setCoords({ lat: newLat, lng: newLng });
@@ -214,7 +220,12 @@ const Hero = () => {
                     ref={inputRef}
                     type="text"
                     value={search}
-                    onChange={(e) => setSearch(e.target.value)}
+                    onChange={(e) => {
+                      setSearch(e.target.value);
+                      if (e.target.value.length >= 3) {
+                        setError("");
+                      }
+                    }}
                     placeholder="Search by venue, sport or location"
                     style={{
                       width: "100%",
@@ -222,6 +233,17 @@ const Hero = () => {
                       borderRadius: "4px",
                     }}
                   />
+                  {error && (
+                    <p
+                      style={{
+                        color: "red",
+                        fontSize: "12px",
+                        marginTop: "4px",
+                      }}
+                    >
+                      {error}
+                    </p>
+                  )}
 
                   {predictions.length > 0 && (
                     <ul

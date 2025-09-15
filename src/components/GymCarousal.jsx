@@ -51,7 +51,7 @@ const GymCarousel = () => {
     <div className={styled.eventsectioncontainer}>
       <div className={styled.eventsheader}>
         <h3>Book Gym</h3>
-        <Link to="/Coach" className={styled.seeall}>
+        <Link to="/Gym" className={styled.seeall}>
           See All
           <img
             src={cursorArrow}
