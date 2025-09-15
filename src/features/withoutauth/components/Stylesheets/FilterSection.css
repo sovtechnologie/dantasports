@@ -1,0 +1,32 @@
+.filter-sidebar {
+  width: 280px;
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 16px;
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+  position: relative;
+}
+
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filter-section {
+  margin-top: 20px;
+}
+
+.filter-section h4 {
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.chip-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}

@@ -72,7 +72,7 @@ const SearchResult = () => {
   }, [query]);
 
   const typeHeading = {
-    1: "Venues",
+    1: "Venue",
     2: "Events",
     3: "Coaches",
   };

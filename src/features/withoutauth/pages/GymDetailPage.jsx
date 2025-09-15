@@ -43,14 +43,14 @@ const imagelist = [GymImage, GymImage1];
 const mapGymData = (apiData) => {
     return {
         name: apiData?.gym_name || "Unknown Venue",
-        location: apiData?.full_address || "Unknown Area",
+        location: apiData?.area || "Unknown Area",
         about: apiData?.about_gym || "No description available for this venue.",
         rating: parseFloat(apiData?.average_rating) || 0,
         reviewcount: apiData?.review_count || 0,
         address: `${apiData?.full_address || ''}`.trim().replace(/^,|,$/g, '')
             || "Not Available",
         gym_timing: Array.isArray(apiData?.gym_timing) ? apiData?.gym_timing : '',
-        coaches: Array.isArray(apiData?.gym_coaches) ? apiData?.gym_coaches : '',
+        coaches: Array.isArray(apiData?.gym_coaches) ? apiData?.gym_coaches : null,
         images: Array.isArray(apiData?.event_gallery)
             ? apiData.event_gallery.map((img) => img.image_url)
             : [GymImage, GymImage, GymImage, GymImage],
@@ -90,6 +90,8 @@ export default function GymDetailPage() {
         ? mapGymData(GymDetails?.result[0])
         : '';
 
+    console.log("Gym Details", gym);
+
     const toggleSection = (sectionName) => {
         setExpandedSection(prev => (prev === sectionName ? null : sectionName));
     };
@@ -126,7 +128,7 @@ export default function GymDetailPage() {
         return newQty;
     });
 
-    console.log("passes", passess);
+
     const totalAmount = selectedPass ? selectedPass.price * quantity : 0;
 
 
@@ -137,7 +139,7 @@ export default function GymDetailPage() {
         );
 
     const visibleCount = useMemo(() => {
-        return window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3;
+        return window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 3 : 3;
     }, []);
 
 
@@ -146,7 +148,7 @@ export default function GymDetailPage() {
     const { data: gymPrice, isLoading: gymPriceLoading, error: gymPriceError } = useFetchGymPrice(id);
     const GymPrice = gymPrice?.result || [];
     const ConvenienceFee = GymPrice[0]?.convension_fees;
-    console.log("gym details", GymPrice[0]?.gym_price_slot);
+
 
     const { data: bannerData, isLoading: Bannerloading, error: BannerError } = useBanner(3);
 
@@ -221,7 +223,7 @@ export default function GymDetailPage() {
             onSuccess: (data) => {
                 const bookingId = data?.result;
 
-                console.log("My Booking Id", data?.result);
+
                 // Call createPayment with that bookingId
                 CreateBookingPayment({
                     bookingId,
@@ -229,7 +231,7 @@ export default function GymDetailPage() {
                     type: type, // or "UPI" etc.
                 }, {
                     onSuccess: (paymentData) => {
-                        console.log("Payment created:", paymentData);
+
 
                         // If API returns paymentUrl, redirect
                         if (paymentData?.result) {
@@ -264,7 +266,7 @@ export default function GymDetailPage() {
                 <h1 className="gympage-name">{gym?.name}</h1>
                 <div className="gym-location-rating">
                     <span>{gym?.location}</span>
-                    <span className="star" style={{marginLeft:"20px", marginRight:"5px"}}>★</span><span className="light-text"> {gym?.rating}</span><span style={{marginLeft:"5px"}}>({gym?.reviewcount}ratings)</span>
+                    <span className="star" style={{ marginLeft: "20px", marginRight: "5px" }}>★</span><span className="light-text"> {gym?.rating}</span><span style={{ marginLeft: "5px" }}>({gym?.reviewcount}ratings)</span>
                 </div>
             </div>
 
@@ -336,13 +338,28 @@ export default function GymDetailPage() {
                             <div className="gym-section gym-pickPoints">
                                 <div className="gym-heading">Coaches</div>
                                 <div className="coaches-list">
-                                    {gym?.coaches?.map((coach, index) => (
+                                    {/* {gym?.coaches?.map((coach, index) => (
                                         <div className="coaches-card" key={index}>
                                             <img src={coach.image || CoachImage} alt={coach.name} className="coach-image" />
                                             <p className="coach-name">{coach.name}</p>
                                             <p className="coach-title">{coach.type}</p>
                                         </div>
-                                    ))}
+                                    ))} */}
+                                    {Array.isArray(gym?.coaches) && gym.coaches.length > 0 ? (
+                                        gym.coaches.map((coach, index) => (
+                                            <div className="coaches-card" key={index}>
+                                                <img
+                                                    src={coach.image || CoachImage}
+                                                    alt={coach.name}
+                                                    className="coach-image"
+                                                />
+                                                <p className="coach-name">{coach.name}</p>
+                                                <p className="coach-title">{coach.type}</p>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <p>No coaches available</p>
+                                    )}
                                 </div>
                             </div>
 
