@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux';
 import { VenueListShimmer } from "../../components/Shimmer/VenueListShimmer.jsx";
 import { useUnlikeEvent } from "../../../../hooks/favouriteEvent/useUnLikeEvent.js";
 import { useLikeEvent } from "../../../../hooks/favouriteEvent/useLikeEvent.js";
+import FilterSidebar from '../../components/FilterSection.jsx';
 
 // Formats "15:00", "15:00:30" → "03:00 PM"
 function formatTime(timeStr = "00:00") {
@@ -113,6 +114,7 @@ export default function RunFilterPage() {
         <>
             <div className="run-filter-container">
                 <aside className="run-filter-sidebar">
+                    
                     <SortSection
                         filters={filters}
                         setFilters={setFilters}
@@ -120,6 +122,8 @@ export default function RunFilterPage() {
                         setSearch={setSearch}
                         handleReset={handleReset}
                     />
+                    {/* <FilterSidebar /> */}
+                    
 
                 </aside>
 

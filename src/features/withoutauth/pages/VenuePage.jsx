@@ -576,7 +576,7 @@ function VenuePage() {
                       return (
                         <VenueCard
                           key={venue.id}
-                          venue={venue}
+                          venue={formattedVenue}
                           isLiked={!!venue.favourite}
                           onLikeToggle={() => toggleFavourite(venue)}
                         />

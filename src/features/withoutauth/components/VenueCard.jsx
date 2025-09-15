@@ -38,7 +38,7 @@ const VenueCard = ({ venue, isLiked, onLikeToggle }) => {
           />
 
           <div className="venue-sports-icons">
-            {venue?.sportsIcons?.map((icon, idx) => (
+            {venue?.sportsIcons?.slice(0,5)?.map((icon, idx) => (
               <img
                 src={icon?.image}
                 key={idx}

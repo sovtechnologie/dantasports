@@ -7,6 +7,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store, persistor } from './redux/store'; // <-- Updated import
 import { PersistGate } from 'redux-persist/integration/react';
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 if (process.env.NODE_ENV === 'production') {
   console.log = () => {};
   console.info = () => {};
@@ -21,7 +23,9 @@ root.render(
     <BrowserRouter>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
+           <LocalizationProvider dateAdapter={AdapterDayjs}>
           <App />
+          </LocalizationProvider>
         </PersistGate>
       </Provider>
     </BrowserRouter>
