@@ -17,6 +17,7 @@ body {
   gap: 1rem;
   font-family: "Segoe UI", sans-serif;
   padding-top: 20px;
+  height: 90rem;
 }
 
 .gym-card {
@@ -33,13 +34,15 @@ body {
 
 }
 .gym-filter-sidebar {
-  border: 1px solid #1163c7;
+   border: 1px solid #1163c7;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
   width: 295px;
   height: 318px;
   padding: 1rem;
   border-radius: 8px;
   background-color: #fff;
+   flex-direction: column; 
+  gap: 1rem; 
 }
 
 .gym-grid {
@@ -68,7 +71,7 @@ body {
     -webkit-overflow-scrolling: touch;
   }
 
-  /* Hide scrollbar for webkit browsers */
+  
   .gym-grid ::-webkit-scrollbar {
     display: none;
   }

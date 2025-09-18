@@ -45,7 +45,7 @@
 
 .days-grid {
   display: grid;
-  gap: 6px;
+  /* gap: 6px; */
 }
 
 .months-grid,

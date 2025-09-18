@@ -1,0 +1,171 @@
+.advanced-filter {
+  width:295PX;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  font-family: "Lato", sans-serif;
+  margin-top: 50px;
+  border: 1px solid #1163c7;
+      margin-left: -15px;
+}
+.filter-box {
+  margin-bottom: 25px;
+  padding: 15px;              
+  border: 1px solid #ccc;     
+  border-radius: 8px;         
+  background: #fff;           
+}
+
+.age-grid label,
+.batch-grid label,
+.coach-type-grid label {
+  display: flex;
+  justify-content: space-between; /* text left, checkbox right */
+  align-items: center;
+  padding: 6px 12px;
+  cursor: pointer;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  background-color: #f5f5f5;
+  border-radius: 6px;
+}
+
+.custom-checkbox {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+}
+
+.custom-checkbox input {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
+}
+
+.custom-checkbox.active {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.difficulty-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.difficulty-row {
+  display: flex;
+  justify-content: space-between;  
+  align-items: center;
+  font-size: 15px;
+  color: #333;
+}
+
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.filter-header h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1163c7;
+}
+
+.reset-btns {
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 16px;
+  cursor: pointer;
+}
+.reset-btns:hover {
+  color: #1163c7;
+}
+
+
+
+.filter-box h4 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #172a39;
+}
+
+.filter-input {
+  width: 100%;
+  height: 42px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 0 12px;
+  margin-bottom: 15px;
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.service-btn.active,
+.amenity-btn.active,
+.difficulty-row.active {
+  background-color: #007bff;
+  color: white;
+  border-radius: 6px;
+}
+
+.service-btn {
+  padding: 10px;
+  border: 1px solid #1163c7;
+  border-radius: 8px;
+  background: #f8fbff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.service-btn:hover {
+  background: #1163c7;
+  color: #fff;
+}
+
+.price-slider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.price-slider input {
+  flex: 1;
+}
+
+.price-value {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #1163c7;
+}
+
+.amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.amenity-btn {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #f9f9f9;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.amenity-btn:hover {
+  background: #1163c7;
+  color: #fff;
+}

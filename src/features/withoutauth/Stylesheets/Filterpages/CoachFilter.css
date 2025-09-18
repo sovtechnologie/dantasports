@@ -17,6 +17,7 @@ body {
   gap: 1rem;
   font-family: "Segoe UI", sans-serif;
   padding-top: 20px;
+  height: 90rem;
 }
 
 .coach-filter-sidebar {

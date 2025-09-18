@@ -166,7 +166,7 @@ function Navbar() {
                   onClick={handleNavLinkClick}
                   className={`nav-Filter-links ${isActive("/CommingSoon") ? "active-link" : ""}`}
                 >
-                  Host/Play
+                  Play
                 </Link>
                 <Link
                   to="/Run"
@@ -280,7 +280,7 @@ function Navbar() {
                   to="/Host"
                   className={`nav-Filter-link ${isActive("/Host") ? "active-link" : ""}`}
                 >
-                  Host/Play
+                  Play
                 </Link>
                 <Link
                   to="/Run"
