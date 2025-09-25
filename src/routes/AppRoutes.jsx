@@ -95,7 +95,7 @@ export default function AppRoutes() {
           <Route path="/payment-sucesss" element={<SucessfulBooking />} />
           <Route path="/payment-failed" element={<PaymentFailed />} />
           <Route path="/Partner" element={<PartnerPage />} />
-          <Route path="/PrivacyAndPolicy" element={<PrivacyAndPolicy />} />
+          <Route path="/pp" element={<PrivacyAndPolicy />} />
           <Route path="/TermsAndConditions" element={<TermsAndConditions />} />
           <Route path="/RefundPolicy" element={<RefundPolicy />} />
           <Route path="/CommingSoon" element={<CommingSoon />} />

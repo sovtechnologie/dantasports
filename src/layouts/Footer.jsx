@@ -128,7 +128,7 @@ const Footer = () => {
         <p>© 2025 Danta Sports. All rights reserved.</p>
         <ul>
           <li>
-            <Link to="/PrivacyAndPolicy">Privacy Policy</Link>
+            <Link to="/pp">Privacy Policy</Link>
           </li>
           <li>
             <Link to="/TermsAndConditions">Terms of Use</Link>
