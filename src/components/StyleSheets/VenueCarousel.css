@@ -19,13 +19,11 @@
 }
 
 .venues-header h3 {
-  font-family: "Lato", Arial, sans-serif;
+  font-family: "Lato";
   font-weight: 700;
   font-size: 24px;
-  line-height: 130%;
-  letter-spacing: -1%;
-  color: #172a39;
-  /* margin: 20px 0px; */
+  line-height: 30px;
+  color: #1163C7;
   margin: 0px;
 }
 

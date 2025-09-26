@@ -3,8 +3,6 @@
 .testimonials-section {
   font-family: "DM Sans", sans-serif;
   padding: clamp(30px, 3.47vw, 40px) clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
-  /* max-width: 1240px;
-  margin: 0 auto; */
   text-align: left;
 }
 
@@ -28,7 +26,6 @@
   border: 1px solid #b1b1b1;
   border-radius: 10px;
   padding: 20px;
-  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); */
 }
 
 .testimonial-header {
@@ -120,4 +117,19 @@
     min-width: 230px;
     flex: 0 0 auto;
   }
+}
+
+@media screen and (max-width: 540px) {
+
+  .testimonial-controls button{
+
+    height: 40px;
+    width: 40px;
+  }
+
+      .testimonial-card {
+        max-width: 100%;
+        min-width: 100%;
+        flex: 0 0 auto;
+    }
 }

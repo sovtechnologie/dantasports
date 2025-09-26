@@ -5,6 +5,7 @@
   justify-content: center;
   padding: clamp(30px, 3.47vw, 50px) clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
   box-sizing: border-box;
+  background-color: #F1F3F2;
 }
 
 .sport-card-list-container {
@@ -25,12 +26,18 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   padding: 20px;
   text-align: center;
-  width: clamp(260px, 22.069vw, 361px);
+  /* width: clamp(260px, 22.069vw, 361px); */
   display: flex;
   flex-direction: column;
   gap: 16px;
   justify-content: center;
   align-items: center;
+}
+
+.sport-card-cb:hover{
+
+  border: 1px solid #1163c7;
+  transition: .3s ease-in-out;
 }
 
 .sport-card-icon {

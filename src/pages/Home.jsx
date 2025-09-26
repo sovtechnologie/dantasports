@@ -10,22 +10,35 @@ import { UpcommingVenues } from "../components/UpcommingVenue";
 import CoachCarousel from "../components/CoachCarousal";
 import HostCarousel from "../components/HostCarousel";
 import GymCarousal from "../components/GymCarousal"
+import HomeBanner from "../components/HomeBanner";
+import QuickBooking from "../components/QuickBooking";
+import BookVenues from "../components/BookVenues";
+import BookRun from "../components/BookRun";
+import BookEvents from "../components/BookEvents";
+import PlayHost from "../components/PlayHost";
+import BookGym from "../components/BookGym";
 
 
 
 const Home = () => {
     return (
         <div className="main-Home-container">
-            <Hero />
-            <PopularSports />
-            <BannerCarousel />
-            <UpcommingVenues />
-            <VenueCarousel />
-            <HostCarousel />
-            <EventCarousel />
-            <RunCarousel />
-            <CoachCarousel />
-            <GymCarousal />
+            {/* <Hero /> */}
+            <HomeBanner />
+            <QuickBooking/>
+            {/* <PopularSports /> */}
+            {/* <BannerCarousel /> */}
+            {/* <UpcommingVenues /> */}
+            {/* <VenueCarousel /> */}
+            <BookVenues />
+            <BookRun />
+            {/* <RunCarousel /> */}
+            <BookEvents />
+            <BookGym />
+            {/* <HostCarousel /> */}
+            {/* <CoachCarousel /> */}
+            {/* <GymCarousal /> */}
+            <PlayHost/>
 
             <DownloadAppSection />
         </div>

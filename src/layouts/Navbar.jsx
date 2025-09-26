@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import "../stylesheets/layouts/Navbar.css";
 import { isIOS, isAndroid } from "react-device-detect";
-import whiteLogo from "../assets/sportdantaLogo/whiteLogo.png";
-import blueLogo from "../assets/sportdantaLogo/blueLogo.png";
+import whiteLogo from "../assets/sportdantaLogo/whiteLogo.svg";
+import blueLogo from "../assets/sportdantaLogo/blueLogo.svg";
 import userLogo from "../assets/UserLogo.png";
 import arrowlogo from "../assets/arrowlogo.png";
 import LoginModal from "../features/auth/components/loginModal";
@@ -131,9 +131,18 @@ function Navbar() {
     setMobileMenuOpen(false);
   }, [location.pathname]);
 
+
+  
+  
   return (
-    <nav className={`navbar ${isHome ? "home" : ""}`}>
-      <div className="navbar-container">
+    <nav  id="box_shadow" className={`navbar ${isHome ? "home" : ""}`}  style={{
+    position: "sticky",
+    top: 0,
+    zIndex: 1000,
+    // background: "#1163c7"
+    // border: "1px solid red",
+  }}>
+      <div className="container nav_container">
         <Link to="/" className="navbar-brand">
           <img
             src={isHome ? whiteLogo : blueLogo}

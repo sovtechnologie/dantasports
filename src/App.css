@@ -5,6 +5,16 @@
 @import url('https://fonts.googleapis.com/css?family=DM+Sans:600&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Lato:700&display=swap');
 
+h1,h2,h3,h5,h5,h6{
+
+  font-family: 'Lato';
+}
+
+p{
+
+  font-family: 'DM Sans';
+}
+
 .App {
   text-align: center;
 }
@@ -44,3 +54,18 @@
     transform: rotate(360deg);
   }
 }
+
+
+/* ========= Comman Css Start here  */
+
+/* 
+.section_title h2 {
+
+    font-family: 'Lato';
+    font-weight: 700;
+    font-size: 32px;
+    color: #1163C7;
+    padding: 30px 0;
+
+} */
+

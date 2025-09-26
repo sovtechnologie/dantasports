@@ -1,4 +1,4 @@
-.venue-card {
+/* .venue-card {
   width: 100%;
   min-width: 240px;
   max-width: 350px;
@@ -13,10 +13,9 @@
     box-shadow 0.3s ease;
   font-family: "Inter", sans-serif;
   position: relative;
-  /* height: 335px; */
   width: 296px;
   border-radius: 29.6px;
-}
+} */
 
 .venue-card:hover {
   transform: translateY(-4px);
@@ -29,11 +28,10 @@
   object-fit: cover;
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
-  /* display: block; */
 }
 
 .venue-info {
-  position: absolute;
+  /* position: absolute; */
   left: 0;
   right: 0;
   bottom: 30px;

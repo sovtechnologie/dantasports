@@ -29,7 +29,7 @@ const DownloadApp = () => {
     }, []);
 
     return (
-        <section className="download-app-section">
+        <section className="download-app-section" style={{border: "3px solid green", padding: "10px"}}>
 
             {/* Decorative shapes */}
             <div className="shape big-blob"></div>

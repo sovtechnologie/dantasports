@@ -35,7 +35,6 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
   text-align: center;
   transition: 0.3s ease;
-  /* height: clamp(100px, 15.28vw, 220px); */
   width: clamp(200px, 24.21vw, 363px);
   display: flex;
   flex-direction: column;
@@ -45,6 +44,11 @@
   border: 0.5px solid #9b9b9b;
   /* max-height: 220px; */
   height: auto;
+}
+
+.value-card:hover{
+
+  border: .5px solid transparent;
 }
 
 .value-card img {

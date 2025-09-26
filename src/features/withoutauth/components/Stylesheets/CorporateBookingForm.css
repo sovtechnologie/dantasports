@@ -5,6 +5,7 @@
   padding: clamp(20px, 2.778vw, 40px)
     clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
   /* background-color: #f5f8fb; */
+  background-color: #F1F3F2;
 }
 
 .form-card {
@@ -51,7 +52,7 @@
 
 .form-left li {
   color: #1163c7;
-  font-size: clamp(16px, 1.389vw, 20px);
+  font-size: clamp(16px, 1.5vw, 20px);
   font-weight: 400;
   font-family: "DM Sans", sans-serif;
   display: flex;
@@ -118,15 +119,27 @@ select,
 textarea {
   width: 100%;
   max-width: 729px;
-  /* min-width: 100px; */
   padding: 21px;
   border: 1px solid #ccc;
   border-radius: 11.27px;
   font-size: 20px;
   font-family: "DM Sans", sans-serif;
   font-weight: 400;
-  height: 70px; /* consistent height for input and select */
+  height: 63px; /* consistent height for input and select */
   box-sizing: border-box;
+  border: 1.13px solid #B1B1B1
+}
+
+input{
+
+  padding: 10px 15px;
+}
+input::placeholder,
+textarea::placeholder{
+
+  font-size: 20px;
+  color: #172A39;
+  font-weight: 400;
 }
 textarea {
   height: auto;
@@ -148,7 +161,7 @@ select {
   max-width: 729px;
   min-width: 100px;
   height: 70px;
-  padding: 21px;
+  padding: 10px 15px;
   font-size: 20px;
   font-family: "DM Sans", sans-serif;
   border-radius: 11.27px;
@@ -157,9 +170,16 @@ select {
 
 
 @media (max-width: 480px) {
-  .form-left,
-  .form-right {
-    padding: 20px; /* add side padding to avoid full-width stretching */
+ 
+  input::placeholder{
+
+    font-size: 16px;
+  }
+
+
+  select{
+
+    font-size: 16px;
   }
 
   input,

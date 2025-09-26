@@ -55,8 +55,14 @@
   max-width: clamp(350px, 36.78vw, 530px);
   /* height: 84px; */
   /* width: 100%; */
+  border: 1px solid transparent;
 }
 
+.solution-card:hover{
+
+  border: 1px solid #1163c7;
+  transition: .3s ease-in-out;
+}
 /* Icon image styling */
 .solution-icon {
   width: clamp(20px, 4.17vw, 60px);

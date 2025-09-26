@@ -4,12 +4,15 @@ import Cookies from "js-cookie";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Navbar from "./layouts/Navbar";
 import Footer from "./layouts/Footer";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { scheduleAutoLogout } from "./utils/authUtils";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 
 const queryClient = new QueryClient();
 

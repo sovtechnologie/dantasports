@@ -1,10 +1,10 @@
-body {
+/* body {
   font-family: "Segoe UI", sans-serif;
   background: #f1f3f2;
   color: #333;
   margin: 0;
   padding: 0;
-}
+} */
 
 .Partner-main-Container {
   display: flex;
@@ -21,7 +21,7 @@ body {
   /* width: 100%; */
   border-radius: 0 0 clamp(30px, 4.17vw, 60px) clamp(30px, 4.17vw, 60px);
   padding: clamp(30px, 3.47vw, 50px) clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
-  border-top: 2px solid #1163c7;
+  /* border-top: 2px solid #1163c7; */
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
   gap: clamp(6px, 0.694vw, 10px);
   flex-wrap: nowrap;
@@ -132,8 +132,9 @@ body {
 }
 .zero-banner-wrapper {
  margin-top: clamp(25px, 2.78vw, 40px);
-  margin-bottom: clamp(25px, 2.78vw, 40px);
-  padding: 0 clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
+  /* margin-bottom: clamp(25px, 2.78vw, 40px); */
+  /* padding: 0 clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);/ */
+  background-color: #F1F3F2;
 }
 @media (max-width: 530px) {
   .Partner-header {
