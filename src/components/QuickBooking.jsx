@@ -18,11 +18,11 @@ function QuickBooking() {
   // Each card gets its own title, texts, and image
   const cardsData = [
     { title: "Book", texts: ["Reserve Nearby Turf", "Reserve Nearby.."], img: book },
-    { title: "Play", texts: ["Find Players", "Play with Satish"], img: play },
+    { title: "Play", texts: ["Find Players", "Play with Your Game,Tour Crew"], img: play },
     { title: "Run", texts: ["Run Clubs Near You", "Match Timings"], img: run },
     { title: "Coach", texts: ["Find Your Coach", "Find Your Teams"], img: coach },
-    { title: "Event", texts: ["Upcoming Events", "Satish Registered Event"], img: events },
-    { title: "Gym", texts: ["Flex Gym Access", "Satish Got Rewards"], img: gym },
+    { title: "Event", texts: ["Upcoming Events", " Registered Event"], img: events },
+    { title: "Gym", texts: ["Flex Gym Access", " Got Rewards"], img: gym },
   ];
 
   // Index state for each card
