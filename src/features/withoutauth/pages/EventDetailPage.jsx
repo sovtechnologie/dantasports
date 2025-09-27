@@ -17,6 +17,9 @@ import leftArrow from "../assets/left-arrow.png";
 import rightArrow from "../assets/right-arrow.png";
 import { useBookEvent } from "../../../hooks/EventList/useBookEvent";
 import { useCreateBookingPayment } from "../../../hooks/Payments/useCreateBookingPayement";
+import ShareIcon from "../assets/VenueDetailIcon/shareIcon.png";
+import LikeIcon from "../assets/VenueDetailIcon/LikeIcon.png";
+import HeartFilled from "../assets/VenueCardLogo/heartfilled.png";
 
 
 
@@ -27,6 +30,11 @@ import 'swiper/css/navigation';
 import { useParams } from "react-router-dom";
 import { formatTime } from "../../../utils/formatTime";
 import { formatDate } from "../../../utils/formatDate";
+import { useUnlikeEvent } from "../../../hooks/favouriteEvent/useUnLikeEvent";
+import { useLikeEvent } from "../../../hooks/favouriteEvent/useLikeEvent";
+import { useQueryClient } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
+import { Share } from "../../../utils/share";
 
 
 const initialTickets = [
@@ -79,7 +87,7 @@ const mapEventData = (apiData) => {
         petFriendly: apiData?.pet_friendly || "No",
         difficulty: 'easy',
         favourite: apiData?.favourite,
-        favourite_venue_id: apiData?.favourite_venue_id,
+        favourite_event_id: apiData?.favourite_event_id,
         termsAndCondition: apiData?.terms_and_condition,
         cancelPolicy: apiData?.cancellation_policy,
         reviews: Array.isArray(apiData?.reviews)
@@ -98,6 +106,8 @@ const mapEventData = (apiData) => {
 
 export default function EventDetailPage() {
     const { id } = useParams();
+    const queryClient = useQueryClient();
+    const userId = useSelector((state) => state.auth.id);
     const isLoggedIn = Boolean(Cookies.get('token'));
     const [expandedSection, setExpandedSection] = useState(null);
     const [selectedArea, setSelectedArea] = useState('');
@@ -107,7 +117,7 @@ export default function EventDetailPage() {
     const [finalAmount, setFinalAmount] = useState(null);
     const [tickets, setTickets] = useState({ ticketsId: null, quantity: null })
 
-    const { data: EventDetails, isLoading: eventLoading, error: eventError } = useFetchSingleEvent(id);
+    const { data: EventDetails, isLoading: eventLoading, error: eventError } = useFetchSingleEvent({ eventId: id, userId });
     const event = Array.isArray(EventDetails?.result) && EventDetails.result.length > 0
         ? mapEventData(EventDetails.result[0])
         : '';
@@ -116,6 +126,48 @@ export default function EventDetailPage() {
     const toggleSection = (sectionName) => {
         setExpandedSection(prev => (prev === sectionName ? null : sectionName));
     };
+
+    const likeEvent = useLikeEvent();
+    const unlikeEvent = useUnlikeEvent();
+
+    // like and unlike event
+    const handleClickLike = (event) => {
+        if (!event.favourite) {
+            likeEvent.mutate(
+                { eventId: id, userId, type: event?.type },
+                {
+                    onSuccess: async () => {
+                        await queryClient.invalidateQueries([
+                            "fetchSingleEvent",
+                            id,
+                            userId,
+                        ]);
+                    },
+                    onError: () => {
+                        console.error("Failed to like the event");
+                    },
+                }
+            );
+        } else {
+            debugger
+            unlikeEvent.mutate(
+                { favouriteEventId: event?.favourite_event_id, type: event?.type },
+                {
+                    onSuccess: async () => {
+                        await queryClient.invalidateQueries([
+                            "fetchSingleEvent",
+                            id,
+                            userId,
+                        ]);
+                    },
+                    onError: () => {
+                        console.error("Failed to unlike the event");
+                    },
+                }
+            );
+        }
+    };
+
 
     const [ticketCounts, setTicketCounts] = useState(
         Array(initialTickets.length).fill(0)
@@ -213,7 +265,23 @@ export default function EventDetailPage() {
                 <h1 className="event-name">{event.name}</h1>
                 <div className="event-location-rating">
                     <span>{event.location}</span>
-                    <span className="star" style={{marginLeft:"20px"}}>★</span> <span className="light-text"style={{marginLeft:"5px"}}>{event?.rating}({event?.reviewcount} ratings)</span>
+                    <span className="star" style={{ marginLeft: "20px" }}>★</span> <span className="light-text" style={{ marginLeft: "5px" }}>{event?.rating}({event?.reviewcount} ratings)</span>
+                </div>
+
+                <div className="event-icon-topwrapper">
+                    <button className="event-icon-btns" onClick={Share}>
+                        <img src={ShareIcon} alt="share" className="" />
+                    </button>
+                    <button
+                        className="event-icon-btns"
+                        onClick={() => handleClickLike(event)}
+                    >
+                        <img
+                            src={event.favourite ? HeartFilled : LikeIcon}
+                            alt="like"
+                            className="like-icon"
+                        />
+                    </button>
                 </div>
             </div>
 

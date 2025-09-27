@@ -99,8 +99,8 @@ body {
 }
 .venue-icon-topwrapper {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 5rem;
+  right: 7rem;
   display: flex;
   gap: 8px;
 }

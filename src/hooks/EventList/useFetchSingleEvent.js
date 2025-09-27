@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchSingleEventRunDetail } from "../../services/withoutLoginApi/Event_RunListApi/endpointApi";
 
-export const useFetchSingleEvent = (eventId) => {
+export const useFetchSingleEvent = (payload) => {
   return useQuery({
-    queryKey: ["EventDetails", eventId],
+    queryKey: ["EventDetails", payload.id],
     queryFn: () => {
-      if (eventId) {
-        return fetchSingleEventRunDetail(eventId);
+      if (payload) {
+        return fetchSingleEventRunDetail(payload);
       }
     },
   });

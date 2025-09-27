@@ -116,7 +116,7 @@ function ProfilePage() {
         <aside className="sidebar">
           <div className="user-card">
             <div className="user-card-left">
-              <img src={ProfileImage} alt="User" className="user-avatar" />
+              <img src={profile?.profile_image ||ProfileImage} alt="User" className="user-avatar" />
               <div className="user-info">
                 <div className="user-name">{profile?.full_name || "Noel Jacob"}</div>
                 <div className="user-email">{profile?.email || "noeljacob@gmail.com"}</div>

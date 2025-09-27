@@ -23,6 +23,14 @@ import leftArrow from "../assets/left-arrow.png";
 import rightArrow from "../assets/right-arrow.png";
 import { useCreateVenueBooking } from "../../../hooks/BookingVenue/useCreateVenueBooking";
 import { useCreateBookingPayment } from "../../../hooks/Payments/useCreateBookingPayement";
+import ShareIcon from "../assets/VenueDetailIcon/shareIcon.png";
+import LikeIcon from "../assets/VenueDetailIcon/LikeIcon.png";
+import HeartFilled from "../assets/VenueCardLogo/heartfilled.png";
+import { Share } from "../../../utils/share";
+import { useUnlikeGym } from "../../../hooks/FavouriteGym/useUnlikeGym";
+import { useLikeGym } from "../../../hooks/FavouriteGym/useLikeGym";
+import { useQueryClient } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
 
 
 
@@ -42,6 +50,7 @@ const imagelist = [GymImage, GymImage1];
 
 const mapGymData = (apiData) => {
     return {
+        id: apiData?.Id,
         name: apiData?.gym_name || "Unknown Venue",
         location: apiData?.area || "Unknown Area",
         about: apiData?.about_gym || "No description available for this venue.",
@@ -60,7 +69,7 @@ const mapGymData = (apiData) => {
             ? apiData?.amenities?.map((a) => a.name)
             : ["Not Available"],
         favourite: apiData?.favourite,
-        favourite_venue_id: apiData?.favourite_venue_id,
+        favourite_gym_id: apiData?.favourite_gym_id,
         termsAndCondition: apiData?.term_and_conditions,
         cancelPolicy: apiData?.cancellation_policy,
         reviews: Array.isArray(apiData?.reviews)
@@ -77,6 +86,8 @@ const mapGymData = (apiData) => {
 
 export default function GymDetailPage() {
     const { id } = useParams();
+    const queryClient = useQueryClient();
+    const userId = useSelector((state) => state.auth.id);
     const isLoggedIn = Boolean(Cookies.get('token'));
     const [expandedSection, setExpandedSection] = useState(null);
     const [start, setStart] = useState(0);
@@ -85,7 +96,7 @@ export default function GymDetailPage() {
     const [passess, setPassess] = useState([{ passId: null, quantity: null }])
     const [finalAmount, setFinalAmount] = useState(null);
 
-    const { data: GymDetails, isLoading: GymDetailsLoading } = useFetchGymDetail(id);
+    const { data: GymDetails, isLoading: GymDetailsLoading } = useFetchGymDetail({ gymId: id, userId });
     const gym = Array.isArray(GymDetails?.result) && GymDetails?.result.length > 0
         ? mapGymData(GymDetails?.result[0])
         : '';
@@ -199,6 +210,50 @@ export default function GymDetailPage() {
     //     };
     //   }
     // });
+    const likeGym = useLikeGym();
+    const unlikeGym = useUnlikeGym();
+    // like and unlike event
+
+    const handleClickLike = (gym) => {
+        const gymId = gym.id;
+        if (!gym.favourite) {
+            likeGym.mutate(
+                { gymId, userId },
+                {
+                    onSuccess: async () => {
+                        await queryClient.invalidateQueries([
+                            "fetchSingleGym",
+                            gymId,
+                            userId,
+                        ]);
+
+                    },
+                    onError: (error) => {
+                        console.error("Failed to like the gym",error);
+                    },
+                }
+            );
+        } else {
+            unlikeGym.mutate(
+                { gymFavouriteId: gym.favourite_gym_id },
+                {
+                    onSuccess: async () => {
+                        await queryClient.invalidateQueries([
+                            "fetchSingleGym",
+                            gymId,
+                            userId,
+                        ]);
+                    },
+                    onError: () => {
+                        console.error("Failed to unlike the gym");
+                    },
+                }
+            );
+        }
+    };
+
+
+
     const type = 3;
     const { mutate: CreateBookingPayment, isLoading: paymentLoading } = useCreateBookingPayment();
     const {
@@ -267,6 +322,21 @@ export default function GymDetailPage() {
                 <div className="gym-location-rating">
                     <span>{gym?.location}</span>
                     <span className="star" style={{ marginLeft: "20px", marginRight: "5px" }}>★</span><span className="light-text"> {gym?.rating}</span><span style={{ marginLeft: "5px" }}>({gym?.reviewcount}ratings)</span>
+                </div>
+                <div className="gym-icon-topwrapper">
+                    <button className="gym-icon-btns" onClick={Share}>
+                        <img src={ShareIcon} alt="share" className="" />
+                    </button>
+                    <button
+                        className="gym-icon-btns"
+                        onClick={() => handleClickLike(gym)}
+                    >
+                        <img
+                            src={gym.favourite ? HeartFilled : LikeIcon}
+                            alt="like"
+                            className="like-icon"
+                        />
+                    </button>
                 </div>
             </div>
 
