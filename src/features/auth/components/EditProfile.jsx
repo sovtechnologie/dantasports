@@ -41,6 +41,8 @@ const EditProfile = () => {
   });
   const [successMessage, setSuccessMessage] = useState('');
   const [profileImage, setProfileImage] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
+
   const profile = data?.data;
   console.log("Profile data:", profile);
 
@@ -66,48 +68,83 @@ const EditProfile = () => {
         gender: profile.gender || '',
       });
 
-      setProfileImage(profile?.profileImageUrl || null);
+      setProfileImage(profile?.profile_image || null);
     }
   }, [profile, reset]);
 
-  const onSubmit = (formData) => {
-    mutate(
-      {
-        id: user?.id,
-        fullName: formData.fullName,
-        email: formData.email,
-        dob: formatDate(formData.dob),
-        gender: formData.gender,
-        mobileNumber: profile?.mobile_number || '',
-      },
-      {
-        onSuccess: async () => {
-          await queryClient.invalidateQueries(['profile']); // Fetch updated data
-          setSuccessMessage('Profile updated successfully!');
+  // const onSubmit = (formData) => {
+  //   mutate(
+  //     {
+  //       id: user?.id,
+  //       fullName: formData.fullName,
+  //       email: formData.email,
+  //       dob: formatDate(formData.dob),
+  //       gender: formData.gender,
+  //       mobileNumber: profile?.mobile_number || '',
+  //     },
+  //     {
+  //       onSuccess: async () => {
+  //         await queryClient.invalidateQueries(['profile']); // Fetch updated data
+  //         setSuccessMessage('Profile updated successfully!');
 
-          // Optionally clear the message after 3 seconds
-          setTimeout(() => setSuccessMessage(''), 3000);
-        },
-        onError: (error) => {
-          const message = error?.response?.data?.message;
+  //         // Optionally clear the message after 3 seconds
+  //         setTimeout(() => setSuccessMessage(''), 3000);
+  //       },
+  //       onError: (error) => {
+  //         const message = error?.response?.data?.message;
 
-          if (message?.includes("Duplicate entry") && message?.includes("users.email")) {
-            setError("email", {
-              type: "manual",
-              message: "This email is already in use. Please use a different one.",
-            });
-          } else {
-            // Optional: Handle other cases like network error
-            setError("fullName", {
-              type: "manual",
-              message: "Failed to update profile. Please try again later.",
-            });
-          }
-        },
+  //         if (message?.includes("Duplicate entry") && message?.includes("users.email")) {
+  //           setError("email", {
+  //             type: "manual",
+  //             message: "This email is already in use. Please use a different one.",
+  //           });
+  //         } else {
+  //           // Optional: Handle other cases like network error
+  //           setError("fullName", {
+  //             type: "manual",
+  //             message: "Failed to update profile. Please try again later.",
+  //           });
+  //         }
+  //       },
+  //     }
+  //   );
+  // };
+
+const onSubmit = (formData) => {
+  const formPayload = new FormData();
+  formPayload.append("id", user?.id);
+  formPayload.append("fullName", formData.fullName);
+  formPayload.append("email", formData.email);
+  formPayload.append("dob", formatDate(formData.dob));
+  formPayload.append("gender", formData.gender);
+  formPayload.append("mobileNumber", profile?.mobile_number || '');
+
+  if (selectedFile) {
+    formPayload.append("profileImage", selectedFile); // Add image
+  }
+
+  mutate(formPayload, {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(['profile']);
+      setSuccessMessage('Profile updated successfully!');
+      setTimeout(() => setSuccessMessage(''), 3000);
+    },
+    onError: (error) => {
+      const message = error?.response?.data?.message;
+      if (message?.includes("Duplicate entry") && message?.includes("users.email")) {
+        setError("email", {
+          type: "manual",
+          message: "This email is already in use. Please use a different one.",
+        });
+      } else {
+        setError("fullName", {
+          type: "manual",
+          message: "Failed to update profile. Please try again later.",
+        });
       }
-    );
-  };
-
+    },
+  });
+};
 
 
   useEffect(() => {
@@ -124,6 +161,7 @@ const EditProfile = () => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+       setSelectedFile(file);
       setProfileImage(URL.createObjectURL(file));
     }
   };

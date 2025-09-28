@@ -455,7 +455,7 @@ function VenueDetailsPage() {
                     className={`vb-sport-btn ${selectedSport === sport.sportId ? "active" : ""}`}
                     onClick={() => {
                       setSelectedSport(sport.sportId);
-                      setSelectedDuration(30);
+                      setSelectedDuration(1);
                       setSelectedTime(null);
                     }}
                   >
