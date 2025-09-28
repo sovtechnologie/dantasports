@@ -136,7 +136,7 @@ const Login = ({ isModal = false, onSuccess = () => { }, onSwitchToRegister = ()
 
 
         {/* OTP Dev Popup */}
-        {showOtpPopup && (
+        {/* {showOtpPopup && (
           <div className="otp-popup-overlay">
             <div className="otp-popup">
               <h4>🔐 Dev OTP</h4>
@@ -144,7 +144,7 @@ const Login = ({ isModal = false, onSuccess = () => { }, onSwitchToRegister = ()
               <button onClick={handleCopyOtp}>Copy & Paste</button>
             </div>
           </div>
-        )}
+        )} */}
 
         {/* Left Side */}
         <div className="left-panel">
