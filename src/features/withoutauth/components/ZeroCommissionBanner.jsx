@@ -5,7 +5,7 @@ import rightsectionBanner from "../assets/rightBannerPattern.png";
 const ZeroCommissionBanner = () => {
   return (
     <div
-      className="zero-banner container"
+      className="zero-banner"
     //   style={{ backgroundImage: `url(${sectionBanner})` }}
     >
         {/* <img src={leftsectionBanner} alt='banner' style={{marginLeft:"185px",width:"494px"}}/> */}

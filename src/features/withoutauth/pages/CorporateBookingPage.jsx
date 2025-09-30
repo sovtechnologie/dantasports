@@ -6,13 +6,12 @@ import SportEventImage from "../assets/Sport-event-image.png";
 import BenefitCard from '../components/BenefitCard';
 import SportEventCardList from '../components/SportEventCardList';
 import CorporateBookingForm from '../components/CorporateBookingForm';
+import DownloadApp from "../components/DownloadApp";
 import OurGallery from '../components/OurGallery';
 import { benefits } from "../StaticData/CorportateData.js";
-import DownloadAppSection from '../../../components/DownloadAppSection.jsx';
 
 
-
-const images = [  
+const images = [
   caroselImage,
   caroselImage2,
   caroselImage,
@@ -60,7 +59,7 @@ function CorporateBookingPage() {
         <h1>Trusted by <span> the best</span></h1>
       </div>
 
-      <div className='clients-carousel corporate_events'>
+      <div className='clients-carousel'>
         <BenefitCard benefits={benefits}/>
       </div>
 
@@ -72,7 +71,7 @@ function CorporateBookingPage() {
           <h1>
             Corporate <span>Sport Events</span>
           </h1>
-          <p className='pt-lg-3'>
+          <p>
             Get ready to break a sweat and have some fun! Our events are all about bringing teams together for some friendly competition and a whole lot of good vibes.
           </p>
         </div>
@@ -87,9 +86,7 @@ function CorporateBookingPage() {
       <SportEventCardList />
       <CorporateBookingForm />
 
-      <DownloadAppSection />
-      
-      
+      <DownloadApp />
     </div>
   );
 }
