@@ -92,47 +92,21 @@
 }
 
 .danta-stats img:first-of-type {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 20ppx;
-    height: 249px;
-    width: 442px;
-    z-index: 999;
-    transform: scale(1.5);
+  left: clamp(-50px, -7.5vw, -108px);
 }
 
 .danta-stats img:last-of-type {
-  height: 300px;
-}
-
-@media screen and (max-width: 1140px) {
-
-  
-.danta-stats img:first-of-type,
-.danta-stats img:last-of-type {
-
-  display: none;
-}
-
-.stat-item {
-    margin-bottom: 10px;
-    background: #0915221a;
-    border-bottom: 1px solid white; 
-    padding: 10px 0;
-}
-  
-  
+  right: clamp(-50px, -7.5vw, -108px);
 }
 
 @media (max-width: 650px) {
   .stats-grid {
     gap: 0px;
   }
-  /* .danta-stats img:first-of-type,
+  .danta-stats img:first-of-type,
   .danta-stats img:last-of-type {
     top: -3px;
-  } */
+  }
 
  
 }

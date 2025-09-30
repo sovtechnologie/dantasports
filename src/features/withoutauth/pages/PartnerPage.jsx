@@ -38,9 +38,9 @@ function PartnerPage() {
                         Transform Your Sports <br />
                         <span>Club Digitally at Danta</span>
                     </h1>
-                    <p className='pt-lg-5'>Join the 3,000+ facilities nationwide using Dantasports.com
+                    <p>Join the 3,000+ facilities nationwide using Dantasports.com
                         Do you operate sports facilities or events? Click Become A Partner or Book a Call to find out how Dantasports can help you</p>
-                    <div className="button-group pt-lg-4">
+                    <div className="button-group">
                         <button className="primary-btn-one">Request a Demo</button>
                         <button className="secondary-btn-two">Book a Call With Us</button>
                     </div>
@@ -56,7 +56,7 @@ function PartnerPage() {
                 </div>
             </div>
 
-            <div className="zero-banner-wrapper pt-4 pt-lg-5">
+            <div className="zero-banner-wrapper">
                 <ZeroCommissionBanner />
             </div>
 
@@ -65,7 +65,7 @@ function PartnerPage() {
             </div>
             <div className='partner-facility'>
                 <FacilityManagement />
-            </div>  
+            </div>
              <div className='partner-Analytics'>
                 <AnalyticsCapabilities />
             </div>

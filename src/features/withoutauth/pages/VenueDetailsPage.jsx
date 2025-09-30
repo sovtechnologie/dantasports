@@ -332,9 +332,6 @@ function VenueDetailsPage() {
                 pagination={{
                   clickable: true,
                 }}
-                // arrow={{
-                //   dots:false,
-                // }}
                 // navigation={true}
                 modules={[Autoplay, Pagination]}
                 className="mySwiper"

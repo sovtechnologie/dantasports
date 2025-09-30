@@ -9,7 +9,7 @@
 
 .navbar {
   /* width: 100%; */
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -24,15 +24,6 @@
   margin: 0 auto;
 }
 
-.nav_container {
-
-  border: 0.5px solid #FFFFFF;
-  background: #FFFFFF26;
-  border-radius: 40px;
-  padding: 10px 20px;
-  /* margin-top: 20px; */
-
-}
 .navbar.home {
   background-color: #1163c7;
 }
@@ -56,9 +47,8 @@
 }
 
 .navbar-logo {
-  max-width: 150px;
-  width: 100%;
-  height: 60px;
+  width: 54px;
+  height: 54px;
   top: 23px;
   left: 101px;
   opacity: 1;
@@ -212,15 +202,7 @@
 }
 
 /* Show hamburger and make menu collapsible on small screens */
-
 @media (max-width: 750px) {
-
-  .nav_container {
-
-    border: transparent;
-    background-color: unset;
-    padding: 5px;
-  }
   .hamburger {
     display: block;
   }
@@ -243,7 +225,6 @@
 
   .navbar-actions.active {
     display: flex;
-    margin-top: 15px;
   }
 
   .nav-Filter-wrapper {
@@ -281,23 +262,4 @@
   .location-search-container img {
     margin-left: 0px;
   }
-}
-@media screen and (max-width: 991px) {
-
-  .navbar-container{
-
-    padding: 5px !important;
-    background-color: #1163c7 !important;
-  }
-  
-}
-
-@media screen and (max-width: 360px) {
-
-    /* .navbar-logo{
-
-        width: 110px;
-        height: 50px;
-    } */
-    
 }

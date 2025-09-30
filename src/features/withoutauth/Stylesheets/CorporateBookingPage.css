@@ -1,29 +1,11 @@
-/* body {
+body {
   font-family: "Segoe UI", sans-serif;
   background: #f1f3f2;
   color: #333;
   margin: 0;
   padding: 0;
-} */
-
-body{
-
-  overflow-x: hidden;
 }
 
-
-.corporate_events .card {
-
-  min-width: unset !important;
-
-
-}
-
-.corporate_events .card:hover{
-
-  border: 1px solid transparent;
-  transition: .3s ease-in-out;
-}
 .Corporate-main-Container {
   display: flex;
   flex-direction: column;
@@ -39,7 +21,7 @@ body{
   /* width: 100%; */
   border-radius: 0 0 clamp(30px, 4.17vw, 60px) clamp(30px, 4.17vw, 60px);
   padding: clamp(30px, 3.47vw, 50px) clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
-  /* border-top: 2px solid #1163c7; */
+  border-top: 2px solid #1163c7;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
   flex-wrap: nowrap;
 }
@@ -168,7 +150,7 @@ body{
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
   flex-wrap: nowrap;
   justify-content: space-between;
-  gap: 30px;
+  gap: 10px;
 }
 
 .left-sport-event {
@@ -211,7 +193,7 @@ body{
   margin-top: 10px;
   color: #000000;
   max-width: clamp(200px, 42vw, 607px);
-  font-family: 'DM Sans';
+  font-family: DM Sans;
   font-weight: 400;
   font-size: clamp(16px, 1.67vw, 24px);
   line-height: clamp(10px, 3.25vw, 1.8rem);

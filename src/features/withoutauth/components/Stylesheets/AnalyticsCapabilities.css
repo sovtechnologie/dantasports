@@ -25,7 +25,8 @@
 }
 
 .analytics-content h2 {
-  font-size: clamp(25px, 3.33vw, 48px);
+  font-size: clamp(27px, 3.33vw, 48px);
+  font-weight: bold;
   margin-bottom: 30px;
   font-weight: 700;
   font-family: "Lato", sans-serif;
@@ -66,7 +67,7 @@
   padding-inline-start: 10px;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 900px) {
   .analytics-section {
     flex-direction: column-reverse;
     gap: 30px;
@@ -92,21 +93,4 @@
     height: auto;
     max-height: 450px;
   }
-
-  .analytics-content h2{
-    line-height: 35px;
-  }
-      .card {
-        min-width: 250px;
-    }
-}
-
-@media screen and (max-width: 767px) {
-
-  .zero-banner{
-
-    border-radius: 0px;
-  }
-
-  
 }
