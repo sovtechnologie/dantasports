@@ -147,9 +147,7 @@ function Footer() {
                       <li>
                         <Link to="/Coach">Ahmedabad</Link>
                       </li>
-                      <li>
-                        <Link to="/Events">Events</Link>
-                      </li>
+                     
                       <li>
                         <Link to="/Gym">Nagpur</Link>
                       </li>

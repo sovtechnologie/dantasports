@@ -51,6 +51,8 @@
     position: relative;
     font-weight: 400;
     font-size: 16px;
+    border: 1px solid white;
+    color: white;
 
 }
 
@@ -63,16 +65,7 @@
 
 
 
-.get_started a:first-child {
 
-    background-color: white;
-}
-
-.get_started a:last-child{
-
-    border: 1px solid white;
-    color: white;
-}
 
 .fade-text {
   display: inline-block;

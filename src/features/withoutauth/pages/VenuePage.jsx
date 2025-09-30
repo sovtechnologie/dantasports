@@ -377,13 +377,13 @@ function VenuePage() {
       {/* filter section */}
       <div className="venue-page">
         <div className="filter-bar">
-          <h3 className="filter-title">Discover sports venues in near you:</h3>
+          {/* <h3 className="filter-title"></h3> */}
 
           <div className="search-input">
             <img src={searchlogo} height={30} width={30} alt="searchlogo" />
             <input
               type="text"
-              placeholder="Search by venue"
+              placeholder="Discover sports venues in near you:"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -531,7 +531,7 @@ function VenuePage() {
 
             <div className="sort">
               <div className="filter-header">
-                <h3 className="header-sort">Sort By</h3>
+                <h3 className="header-sort mb-0">Sort By</h3>
                 <button className="reset-btns" onClick={handleSortReset}>
                   Reset
                 </button>

@@ -49,11 +49,11 @@ const texts = ["Reserve Nearby Turfs", " Reserve Nearby Turfs 1", "Reserve Nearb
               </div>
 
               <div className="get_started mt-5 mb-5 mb-lg-0">
-                <a href="" className="get_started_btn">
+                {/* <a href="" className="get_started_btn">
                   Get Started
                   <img className="blue_arrow" src={blueArrow} alt="" />
-                </a>
-                <a href="" className="book_now ms-4">
+                </a> */}
+                <a href="" className="book_now">
                   Book a Venue{" "}
                   <img src={white} className="blue_arrow" alt="" />
                 </a>

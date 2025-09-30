@@ -81,6 +81,7 @@
   gap: clamp(15px, 2.778vw, 48px);
   margin-left: 15px;
   margin-right: clamp(15px, 2.778vw, 48px);
+  align-items: center;
 }
 .nav-Filter-links {
   text-decoration: none;
