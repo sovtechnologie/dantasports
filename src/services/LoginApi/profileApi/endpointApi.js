@@ -12,7 +12,11 @@ export const fetchProfile = async () => {
 
 export const updateProfile = async (profileData) => {
   try {
-    const response = await api.post("auth/editUserProfile", profileData);
+    const response = await api.post("auth/editUserProfile", profileData,{
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
     return response.data;
   } catch (error) {
     console.error("Failed to update profile:", error);
