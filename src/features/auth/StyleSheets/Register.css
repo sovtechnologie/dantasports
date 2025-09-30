@@ -52,11 +52,20 @@ form {
 
 .register-modal h2 {
   text-align: center;
-  font-size: clamp(24px, 2.22vw, 32px);
   font-weight: 600;
-  margin-top: 20px;
   color: #0d1b2a;
   font-family: "DM Sans", sans-serif;
+  margin-bottom: 20px;
+  line-height: 40x;
+  font-size: 20px;
+  line-height: 30px;
+}
+
+.register-modal h2 span{
+
+  color: #1163c7;
+  font-size: 25px;
+  line-height: 35px;
 }
 
 .register-modal label {
@@ -76,7 +85,7 @@ form {
   border: 1px solid #ccc;
   font-size: 14px;
   box-sizing: border-box;
-  height: 50px;
+  height: 46px;
 }
 
 .main-input:focus,
@@ -88,6 +97,7 @@ form {
   border: 1px solid #ccc;
   font-size: 14px;
   box-sizing: border-box;
+  border-color: #1163c7;
 }
 
 /* Phone input row */
@@ -195,21 +205,20 @@ form {
 .signup-btn {
   background-color: #1163c7;
   color: white;
-  padding: 12px;
+  padding: 8px;
   border: none;
   border-radius: 10px;
-  font-weight: 600;
-  font-size: 14px;
+  font-weight: 500;
+  font-size: 16px;
   cursor: pointer;
   width: 100%;
-   height: clamp(48px, 4.4444vw, 64px);
-  font-size: clamp(18px, 1.5278vw, 22px);
 
 }
 
 .submit-row p {
-  font-size: 13px;
+  font-size: 16px;
   color: #333;
+  margin-bottom: 0;
 }
 
 .submit-row a {
@@ -223,5 +232,5 @@ form {
   }
 }
 .close-button:hover {
-  background-color: gainsboro;
+  color: #1163c7;
 }

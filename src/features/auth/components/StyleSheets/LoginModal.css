@@ -35,5 +35,6 @@
 }
 
 .login-modal-close:hover {
-  background-color: gainsboro;
+  
+  color: #1163c7;
 }

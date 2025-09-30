@@ -197,13 +197,13 @@ const Register = ({ isModal = false, onClose = () => { }, onSuccess = () => { },
     <>
       {!showLoginModal && (
         <div className="overlay">
-          <div className="register-modal">
+          <div className="register-modal ">
             {isModal && (
               <button className="close-button" type="button" onClick={onClose}>
                 ×
               </button>
             )}
-            <h2>Hello! Register to get started</h2>
+            <h2>Hello! <br/> <span>Register  To Get Started</span></h2>
             {/* OTP Dev Popup */}
             {showOtp && (
               <div className="otp-popup-overlay">
@@ -216,14 +216,21 @@ const Register = ({ isModal = false, onClose = () => { }, onSuccess = () => { },
             )}
 
             <form onSubmit={handleSubmit}>
-              <div>
-                <label htmlFor="name">Enter Full Name</label>
+              <div className="d-flex">
+                <div>
+                <label htmlFor="name">Full Name</label>
                 <input name="name" id="name" value={form.name} onChange={handleChange} required className='main-input' />
+              </div>
+              <div className='ms-3'>
+                <label htmlFor="email">Email address</label>
+                <input name="email" id="email" value={form.email} onChange={handleChange} type="email" className='main-input' />
+              </div>
               </div>
 
 
-              <div>
-                <label htmlFor="phone">Enter Mobile Number</label>
+             <div className="d-flex ">
+               <div>
+                <label htmlFor="phone">Mobile Number</label>
                 <div className="phone-input">
                   <div className="country-code">
                     <img src="https://flagcdn.com/in.svg" alt="India" />
@@ -247,7 +254,7 @@ const Register = ({ isModal = false, onClose = () => { }, onSuccess = () => { },
                 </div>
               </div>
 
-              <div>
+              <div className='ms-3'>
                 <label htmlFor="gender">Gender</label>
                 <select name="gender" id="gender" value={form.gender} onChange={handleChange} required>
                   <option value="">Select Gender</option>
@@ -255,10 +262,8 @@ const Register = ({ isModal = false, onClose = () => { }, onSuccess = () => { },
                   <option value="Female">Female</option>
                 </select>
               </div>
-              <div>
-                <label htmlFor="email">Email address</label>
-                <input name="email" id="email" value={form.email} onChange={handleChange} type="email" className='main-input' />
-              </div>
+             </div>
+              
               <div>
                 <label htmlFor="referralCode">Referral Code (Optional)</label>
                 <input name="referralCode" id="referralCode" value={form.referralCode} onChange={handleChange} className='main-input' />

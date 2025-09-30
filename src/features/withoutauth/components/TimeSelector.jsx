@@ -52,7 +52,7 @@ const TimeSelector = ({
   setSelectedDuration,
   selectedTime,
   setSelectedTime,
-  sportId,
+  sportId = null,
   venueId,
   selectedPitch,
   setSelectedPitch,
@@ -68,7 +68,6 @@ const TimeSelector = ({
     venueId: venueId
   };
 
-
   const {
     data: timeslotData,
     isLoading: timeslotLoading,
@@ -76,12 +75,11 @@ const TimeSelector = ({
     error: timeslotMessage
   } = useFetchTimeslotForVenue(payload);
 
-  const slottime = timeslotData?.result[0] || {};
-  console.log("timeslotData",slottime?.end_time);
-  const { start_time='00:00:00', end_time='00:00:00'} = slottime;
+  const slottime = timeslotData?.result?.[0] || {};
 
+  const { start_time = '00:00:00', end_time = '00:00:00' } = slottime;
 
-  const { data, isLoading, error } = useSportDetails({sportId, venueId});
+  const { data, isLoading, error } = useSportDetails(sportId);
   const sport = data?.result?.[0] || {};
 
   const {
@@ -100,8 +98,8 @@ const TimeSelector = ({
     const now = new Date();
     const isToday = now.toDateString() === base.toDateString();
 
-    const start = parseTime(base,start_time);
-    const end = parseTime(base,end_time);
+    const start = parseTime(base, start_time);
+    const end = parseTime(base, end_time);
     if (isToday && start < now) {
       start.setHours(
         now.getHours(),

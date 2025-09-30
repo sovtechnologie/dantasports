@@ -86,18 +86,6 @@ body {
   margin-top: 1rem;
 }
 
-.event-icon-topwrapper {
-  position: absolute;
-  top: 5rem;
-  right: 7rem;
-  display: flex;
-  gap: 8px;
-}
-.event-icon-btns {
-  background-color: transparent;
-  border: none;
-}
-
 .swiper {
   width: 100%;
   height: 100%;

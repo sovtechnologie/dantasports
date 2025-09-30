@@ -61,10 +61,10 @@ const mapVenueData = (apiData) => {
       : [venueImage, venueImage, venueImage, venueImage],
     sports: Array.isArray(apiData?.sports)
       ? apiData.sports.map((sport) => ({
-        sportId: sport.id,
-        name: sport.name,
-        icon: sport.image,
-      }))
+          sportId: sport.id,
+          name: sport.name,
+          icon: sport.image,
+        }))
       : [],
     amenities: Array.isArray(apiData?.amenities)
       ? apiData.amenities.map((a) => a.name)
@@ -77,14 +77,14 @@ const mapVenueData = (apiData) => {
     favourite_venue_id: apiData?.favourite_venue_id,
     reviews: Array.isArray(apiData?.reviews)
       ? apiData.reviews.map((review) => ({
-        id: review.id,
-        userName: review.user_name || "Anonymous",
-        rating: review.rating || 0,
-        comment: review.comment || "No comment provided",
-        date:
-          formatDate(review.createdAt) ||
-          new Date().toISOString().split("T")[0],
-      }))
+          id: review.id,
+          userName: review.user_name || "Anonymous",
+          rating: review.rating || 0,
+          comment: review.comment || "No comment provided",
+          date:
+            formatDate(review.createdAt) ||
+            new Date().toISOString().split("T")[0],
+        }))
       : [], // Default to first 5 reviews if not available
   };
 };
@@ -116,26 +116,24 @@ function VenueDetailsPage() {
     Array.isArray(data?.result) && data.result.length > 0
       ? mapVenueData(data.result[0])
       : {
-        name: "Loading Venue...",
-        location: "",
-        rating: 0,
-        reviewcount: 0,
-        timing: "",
-        price: 0,
-        address: "",
-        images: [venueImage],
-        sports: [],
-        amenities: [],
-        reviews: [],
-      };
-
-
+          name: "Loading Venue...",
+          location: "",
+          rating: 0,
+          reviewcount: 0,
+          timing: "",
+          price: 0,
+          address: "",
+          images: [venueImage],
+          sports: [],
+          amenities: [],
+          reviews: [],
+        };
 
   const {
     data: sportDetails,
     isLoading: sportDetailsLoading,
     error: sportDetailsError,
-  } = useSportDetails({ venueId: id, sportId: selectedSport });
+  } = useSportDetails(selectedSport);
   if (sportDetails && sportDetails.result) {
     console.log("Sport Details:", sportDetails.result[0]);
   }
@@ -163,11 +161,10 @@ function VenueDetailsPage() {
   const response = BookingPriceDetails?.result?.[0];
   let convenienceFee = 0;
 
-
   const handleClickLike = (venue) => {
     if (!venue.favourite) {
       likeVenue.mutate(
-        { venueId:id, userId },
+        { id, userId },
         {
           onSuccess: async () => {
             await queryClient.invalidateQueries([
@@ -317,21 +314,6 @@ function VenueDetailsPage() {
             {venue.rating} ({venue.reviewcount} ratings)
           </span>
         </div>
-        <div className="venue-icon-topwrapper">
-          <button className="venue-icon-btns" onClick={Share}>
-            <img src={ShareIcon} alt="share" className="" />
-          </button>
-          <button
-            className="venue-icon-btns"
-            onClick={() => handleClickLike(venue)}
-          >
-            <img
-              src={venue.favourite ? HeartFilled : LikeIcon}
-              alt="like"
-              className="like-icon"
-            />
-          </button>
-        </div>
       </div>
 
       <div className="venue-details-container">
@@ -359,7 +341,21 @@ function VenueDetailsPage() {
               >
                 {venue?.images?.map((img, index) => (
                   <SwiperSlide key={index} className="venue-swiperslide">
-
+                    <div className="venue-icon-topwrapper">
+                      <button className="venue-icon-btns" onClick={Share}>
+                        <img src={ShareIcon} alt="share" className="" />
+                      </button>
+                      <button
+                        className="venue-icon-btns"
+                        onClick={() => handleClickLike(venue)}
+                      >
+                        <img
+                          src={venue.favourite ? HeartFilled : LikeIcon}
+                          alt="like"
+                          className="like-icon"
+                        />
+                      </button>
+                    </div>
                     <img
                       src={img}
                       alt={`event-image-${index}`}
@@ -455,7 +451,7 @@ function VenueDetailsPage() {
                     className={`vb-sport-btn ${selectedSport === sport.sportId ? "active" : ""}`}
                     onClick={() => {
                       setSelectedSport(sport.sportId);
-                      setSelectedDuration(30);
+                      setSelectedDuration(1);
                       setSelectedTime(null);
                     }}
                   >

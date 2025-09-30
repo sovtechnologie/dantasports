@@ -35,9 +35,11 @@ export const fetchSportPriceChart = async (sportId, venueId) => {
   }
 };
 
-export const fetchSportDetails = async (payload) => {
+export const fetchSportDetails = async (sportId) => {
   try {
-    const response = await api.post("user/bookings/getDetailsBySportId", payload);
+    const response = await api.post("user/bookings/getDetailsBySportId", {
+      sportId,
+    });
     return response.data;
   } catch (error) {
     console.error("Failed to fetch sport details:", error);

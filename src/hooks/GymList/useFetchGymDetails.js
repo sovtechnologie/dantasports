@@ -2,12 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchGymDetails } from "../../services/withoutLoginApi/GymListApi/endpointApi";
 
 
-export const useFetchGymDetail = (payload) => {
+export const useFetchGymDetail = (gymId) => {
     return useQuery({
-        queryKey: ["GymDetails", payload.gymId],
+        queryKey: ["GymDetails", gymId],
         queryFn: () => {
-            if (payload.gymId) {
-                return fetchGymDetails(payload);
+            if (gymId) {
+                return fetchGymDetails(gymId);
             }
         },
     });

@@ -29,49 +29,41 @@ function Footer() {
               </div>
               <div className="follow_us d-flex justify-content-lg-between mt-4 pe-lg-5">
                 <div className="links">
-                    <a
-                      href="https://www.facebook.com/profile.php?id=61555453983938"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img src={facebookLogo} alt="Facebook" />
-                    </a>
+                  <a
+                    href="https://www.facebook.com/profile.php?id=61555453983938"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img src={facebookLogo} alt="Facebook" />
+                  </a>
                 </div>
-                 <div className="links">
-                    <a
-                      href="https://www.facebook.com/profile.php?id=61555453983938"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img src={instagramLogo} alt="instagram" />
-                    </a>
+                <div className="links">
+                  <a
+                    href="https://www.instagram.com/dantasports/?igsh=MXRnNWg0cmNsN3BycQ%3D%3D&utm_source=qr#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img src={instagramLogo} alt="instagram" />
+                  </a>
                 </div>
-                 <div className="links">
-                    <a
-                      href="https://www.facebook.com/profile.php?id=61555453983938"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img src={googleLogo} alt="googleLogo" />
-                    </a>
+
+                <div className="links">
+                  <a
+                    href="https://x.com/dantasports"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img src={twitterLogo} alt="twitter" />
+                  </a>
                 </div>
-                 <div className="links">
-                    <a
-                      href="https://www.facebook.com/profile.php?id=61555453983938"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img src={twitterLogo} alt="twitterLogo" />
-                    </a>
-                </div>
-                 <div className="links">
-                    <a
-                      href="https://www.facebook.com/profile.php?id=61555453983938"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img src={linkedinLogo} alt="linkedinLogo" />
-                    </a>
+                <div className="links">
+                  <a
+                    href="https://www.linkedin.com/company/dantasports/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img src={linkedinLogo} alt="linkedin" />
+                  </a>
                 </div>
               </div>
             </Col>
@@ -83,20 +75,16 @@ function Footer() {
                     <li>
                       <Link to="/about">About us</Link>
                     </li>
-                    <li>
-                      <Link to="/learn">Learn</Link>
-                    </li>
+                    
                     <li>
                       <Link to="/contact">Contact</Link>
                     </li>
-                    <li>
-                      <Link to="/careers">Careers</Link>
-                    </li>
+                    
                     <li>
                       <Link to="/Partner">Partner With us</Link>
                     </li>
                     <li>
-                      <Link to="/CorporateBooking">Corporate - Booking</Link>
+                      <Link to="/CorporateBooking">Corporate Booking</Link>
                     </li>
                   </ul>
                 </div>
@@ -180,13 +168,13 @@ function Footer() {
                   <div className="d-flex">
                     <img src={phone} alt="" />
                     <li className="ps-3">
-                      <a href="">+123 456 7890</a>
+                      <a href="tel:+91-8884803877">+91-8884803877</a>
                     </li>
                   </div>
                   <div className="d-flex">
                     <img src={email} alt="" />{" "}
                     <li className="ps-3">
-                      <a href="">support@mm.com</a>
+                      <a href="mailto:contact@dantasports.com">contact@dantasports.com</a>
                     </li>
                   </div>
                 </ul>
@@ -204,16 +192,17 @@ function Footer() {
           <Col lg={6} md={6}>
             <ul className="d-flex justify-content-center flex-wrap p-0">
               <li>
-                <Link to="/PrivacyAndPolicy">Privacy Policy</Link>
+                <Link to="https://www.dantasports.com/pp">Privacy Policy</Link>
               </li>
               <li>
-                <Link to="/TermsAndConditions">Terms of Use</Link>
+                <Link to="https://www.dantasports.com/TermsAndConditions">
+                  Terms of Use
+                </Link>
               </li>
               <li>
-                <Link to="/legal">Legal</Link>
-              </li>
-              <li>
-                <Link to="site-map">Site Map</Link>
+                <Link to="https://www.dantasports.com/RefundPolicy">
+                  Refund Policy
+                </Link>
               </li>
             </ul>
           </Col>

@@ -95,17 +95,7 @@ body {
   height: clamp(200px, 34.7222vw, 500px);
   margin-top: 1rem;
 }
-.gym-icon-topwrapper {
-  position: absolute;
-  top: 5rem;
-  right: 7rem;
-  display: flex;
-  gap: 8px;
-}
-.gym-icon-btns {
-  background-color: transparent;
-  border: none;
-}
+
 .swiper {
   width: 100%;
   height: 100%;

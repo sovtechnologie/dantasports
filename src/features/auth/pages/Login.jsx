@@ -148,12 +148,12 @@ const Login = ({ isModal = false, onSuccess = () => { }, onSwitchToRegister = ()
 
         {/* Left Side */}
         <div className="left-panel">
-          <h2>Welcome back</h2>
+          <h2 className='mb-3'>Welcome back</h2>
           {/* <p className="subtitle">You're Almost There!</p> */}
 
           {/* Phone Number Input */}
-          <label>Enter Mobile Number</label>
-          <div className="input-group">
+          <label className='mb-2' >Mobile Number</label>
+          <div className="input-group align-content-around">
             <span className="country-code-login">🇮🇳 +91</span>
             <input
               type="tel"
@@ -174,7 +174,7 @@ const Login = ({ isModal = false, onSuccess = () => { }, onSwitchToRegister = ()
           {/* OTP Input */}
           {/* {otpSent && ( */}
           <>
-            <label>Enter OTP</label>
+            <label className='mb-2'>Enter OTP</label>
             <div className="input-group">
               <input
                 type="text"
@@ -195,7 +195,7 @@ const Login = ({ isModal = false, onSuccess = () => { }, onSwitchToRegister = ()
 
           {/* Login Button */}
           <button className="login-button" onClick={handlelogIn} disabled={isVerifyingOtp || !otpSent}>
-            LOG IN
+            LOGIN
           </button>
 
           {/* Whatsapp Consent */}

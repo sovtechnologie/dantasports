@@ -21,9 +21,9 @@ export const fetchGymListById = async (payload) => {
 }
 
 
-export const fetchGymDetails = async (payload) => {
+export const fetchGymDetails = async (gymId) => {
     try {
-        const response = await api.post('user/gym/getSingleGymList',payload);
+        const response = await api.post('user/gym/getSingleGymList', { gymId });
         return response.data;
     } catch (error) {
         console.error("Failed to fetch Gym Detail:", error);
