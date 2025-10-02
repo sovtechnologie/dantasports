@@ -65,12 +65,23 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFina
         </label>
         <span>₹{insuranceFee}</span>
       </div> */}
-      <div className="coupon"
+      {/* <div className="coupon"
         onClick={() => setIsCouponModalOpen(true)}
         style={{ cursor: "pointer" }}>
         <span>Apply coupon</span>
         <span className="arrow">›</span>
-      </div>
+      </div> */}
+      {subtotal > 0 ? (
+        <div className="coupon" onClick={() => setIsCouponModalOpen(true)} style={{ cursor: "pointer" }}>
+          <span>Apply coupon</span>
+          <span className="arrow">›</span>
+        </div>
+      ) : (
+        <div className="coupon disabled">
+          <span>Apply coupon (not available)</span>
+        </div>
+      )}
+
       {discount && (<span>{discount},{couponDetails.name}</span>)}
       <div className="total">
         <span>Total amount</span>
