@@ -5,21 +5,22 @@ import { useSportDetails } from '../../../hooks/favouriteSport/useSportDetails.j
 import { useFetchTimeslotForVenue } from '../../../hooks/VenueList/useFetchTimingSlots.js';
 import TimeslotShimmer from "./Shimmer/TimeslotShimmer.jsx";
 import { useCreateVenueBooking } from '../../../hooks/BookingVenue/useCreateVenueBooking.js';
+import LoginModal from '../../auth/components/loginModal.jsx';
 
 export const formatDate = (isoString) => {
-    const date = new Date(isoString);
-    return date.toLocaleDateString('en-GB', {
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric',
-    });
+  const date = new Date(isoString);
+  return date.toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  });
 };
 
 
 const getLocalIsoDate = date => {
-    const d = new Date(date);
-    d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
-    return d.toISOString().split('T')[0];
+  const d = new Date(date);
+  d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+  return d.toISOString().split('T')[0];
 };
 
 const generateTimeSlots = (start, end, interval) => {
@@ -60,8 +61,9 @@ const TimeSelector = ({
   bookingId,
   setBookingId
 }) => {
-   const isLoggedIn = Boolean(Cookies.get('token'));
+  const isLoggedIn = Boolean(Cookies.get('token'));
   const [errorMessage, setErrorMessage] = useState("");
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const payload = {
     date: getLocalIsoDate(selectedDate),
     sportsId: sportId,
@@ -77,11 +79,11 @@ const TimeSelector = ({
   } = useFetchTimeslotForVenue(payload);
 
   const slottime = timeslotData?.result[0] || {};
-  console.log("timeslotData",slottime?.end_time);
-  const { start_time='00:00:00', end_time='00:00:00'} = slottime;
+  console.log("timeslotData", slottime?.end_time);
+  const { start_time = '00:00:00', end_time = '00:00:00' } = slottime;
 
 
-  const { data, isLoading, error } = useSportDetails({sportId, venueId});
+  const { data, isLoading, error } = useSportDetails({ sportId, venueId });
   const sport = data?.result?.[0] || {};
 
   const {
@@ -100,8 +102,8 @@ const TimeSelector = ({
     const now = new Date();
     const isToday = now.toDateString() === base.toDateString();
 
-    const start = parseTime(base,start_time);
-    const end = parseTime(base,end_time);
+    const start = parseTime(base, start_time);
+    const end = parseTime(base, end_time);
     if (isToday && start < now) {
       start.setHours(
         now.getHours(),
@@ -221,8 +223,9 @@ const TimeSelector = ({
 
   const bookVenue = (courtId) => {
 
-      if (!isLoggedIn) {
-      alert('Please log in to proceed.')
+    if (!isLoggedIn) {
+      // alert('Please log in to proceed.')
+      setShowLoginModal(true);
       return;
     }
     setSelectedPitch(courtId);
@@ -230,7 +233,7 @@ const TimeSelector = ({
     const bookingPayload = {
       sportId: sportId,
       venueId: venueId,
-      date:  getLocalIsoDate(selectedDate),
+      date: getLocalIsoDate(selectedDate),
       startTime: timeRead,
       duration: selectedDuration * 60,
       courtId: courtId,
@@ -246,7 +249,7 @@ const TimeSelector = ({
       onError: (error) => alert('Booking failed. ' + (error.message || '')),
     });
   }
-  console.log("bookingid",bookingId);
+  console.log("bookingid", bookingId);
 
 
   if (isLoading) return <div><TimeslotShimmer /></div>;
@@ -356,6 +359,10 @@ const TimeSelector = ({
         )}
 
         {courtError.court && <p className="form-error">{courtError.court}</p>}
+
+        {showLoginModal && (
+          <LoginModal onClose={() => setShowLoginModal(false)} />
+        )}
       </div>
 
     </>

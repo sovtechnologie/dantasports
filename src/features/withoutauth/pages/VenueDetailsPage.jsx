@@ -34,6 +34,7 @@ import Spinner from "../../../components/Spinner.jsx";
 import { useCreateBookingPayment } from "../../../hooks/Payments/useCreateBookingPayement.js";
 import checkoutIcon from "../assets/checkOutIcon.png";
 
+
 export const formatDate = (isoString) => {
   const date = new Date(isoString);
   return date.toLocaleDateString("en-GB", {
@@ -491,6 +492,7 @@ function VenueDetailsPage() {
                   count={1}
                   type={1}
                   setFinalAmount={setFinalAmount}
+                  venueId={id}
                 />
               )}
             </div>

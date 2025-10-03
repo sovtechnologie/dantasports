@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendOtp, verifyOtp, clearError } from '../../../redux/Slices/authSlice.js';
 import { resetLoginState } from "../../../redux/Slices/authSlice.js";
 import '../StyleSheets/Login.css';
 
 const Login = ({ isModal = false, onSuccess = () => { }, onSwitchToRegister = () => { } }) => {
+
+
 
   // tempory code
   const [showOtpPopup, setShowOtpPopup] = useState(false); // new state
@@ -17,6 +19,7 @@ const Login = ({ isModal = false, onSuccess = () => { }, onSwitchToRegister = ()
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const [phone, setPhone] = useState('');
   const [otp, setOtp] = useState(null);
   const [otpVerified, setOtpVerified] = useState(false);
@@ -124,7 +127,8 @@ const Login = ({ isModal = false, onSuccess = () => { }, onSwitchToRegister = ()
 
     if (isModal && onSuccess) {
       onSuccess(); // Close modal
-      navigate('/');
+     // navigate('/');
+      navigate(location.pathname);
     }
   };
 

@@ -3,7 +3,7 @@ import "./Stylesheets/CheckoutPricing.css";
 import CouponModal from "./CoupanModal";
 import toggleIcon from "../assets/toggleIcon.png";
 
-const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFinalAmount }) => {
+const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFinalAmount,venueId }) => {
   const [insuranceSelected, setInsuranceSelected] = useState(false);
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
   const [discount, setDiscount] = useState(null);
@@ -97,6 +97,7 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFina
           setCouponDetails(coupon);
           setDiscount(apiResponse?.discount_amount);
         }}
+        venueId={venueId}
       />
     </div>
   );

@@ -39,7 +39,7 @@ const mapCoupanData = (apiData) => {
 
 
 
-export default function CouponModal({ isOpen, onClose, type, totalAmount, onApply }) {
+export default function CouponModal({ isOpen, onClose, type, totalAmount, onApply,venueId }) {
     const userId = useSelector((state) => state.auth?.id);
     const [selected, setSelected] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
@@ -78,6 +78,7 @@ export default function CouponModal({ isOpen, onClose, type, totalAmount, onAppl
             couponCode: couponToApply.name,
             sportsIdArrays: couponToApply.sportsIds,
             type,
+            venueId:parseInt(venueId)
         };
 
         try {
