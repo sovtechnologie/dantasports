@@ -44,7 +44,7 @@ export default function CouponModal({ isOpen, onClose, type, totalAmount, onAppl
     const [selected, setSelected] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
     const [validationError, setValidationError] = useState("");
-    const { data: coupanlistdata } = useFetchCoupan({ type: type })
+    const { data: coupanlistdata } = useFetchCoupan({ type: type,venueId:venueId });
 
     const coupons = Array.isArray(coupanlistdata?.result) && coupanlistdata.result.length > 0
         ? coupanlistdata.result.map(mapCoupanData)
@@ -85,7 +85,7 @@ export default function CouponModal({ isOpen, onClose, type, totalAmount, onAppl
             couponCode: couponToApply.name,
             sportsIdArrays: couponToApply.sportsIds,
             type,
-            venueId: parseInt(venueId)
+            venue_id: parseInt(venueId)
         };
 
         try {
