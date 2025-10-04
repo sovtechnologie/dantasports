@@ -39,7 +39,7 @@ const mapCoupanData = (apiData) => {
 
 
 
-export default function CouponModal({ isOpen, onClose, type, totalAmount, onApply,venueId }) {
+export default function CouponModal({ isOpen, onClose, type, totalAmount, onApply, venueId }) {
     const userId = useSelector((state) => state.auth?.id);
     const [selected, setSelected] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
@@ -49,11 +49,18 @@ export default function CouponModal({ isOpen, onClose, type, totalAmount, onAppl
     const coupons = Array.isArray(coupanlistdata?.result) && coupanlistdata.result.length > 0
         ? coupanlistdata.result.map(mapCoupanData)
         : [];
-    
 
-    const filteredCoupons = coupons?.filter(coupon =>
-        coupon?.name?.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+
+    // const filteredCoupons = coupons?.filter(coupon =>
+    //     coupon?.name?.toLowerCase().includes(searchTerm.toLowerCase())
+    // );
+    const today = new Date();
+
+    const filteredCoupons = coupons?.filter(coupon => {
+        const isNotExpired = !coupon.expiryDate || coupon.expiryDate >= today;
+        const matchesSearch = coupon?.name?.toLowerCase().includes(searchTerm.toLowerCase());
+        return isNotExpired && matchesSearch;
+    });
     const { mutateAsync: applyCoupan, isLoading, error } = useApplyCoupan();
 
     // Handle Apply button click
@@ -78,7 +85,7 @@ export default function CouponModal({ isOpen, onClose, type, totalAmount, onAppl
             couponCode: couponToApply.name,
             sportsIdArrays: couponToApply.sportsIds,
             type,
-            venueId:parseInt(venueId)
+            venueId: parseInt(venueId)
         };
 
         try {
