@@ -52,16 +52,16 @@
 }
 
 .columns {
-  display: flex;
-  flex-wrap: wrap;
+  /* display: flex; */
+  /* flex-wrap: wrap; */
   /* gap: 1.5rem; */
-  row-gap: 40px;
-  justify-content: space-between;
+  /* row-gap: 40px; */
+  /* justify-content: space-between; */
 }
 
-.column {
+/* .column {
   min-width: 250px;
-}
+} */
 
 .column h5 {
   font-weight: 500;
@@ -110,5 +110,6 @@
   .columns {
     flex-direction: column;
     gap: 2rem;
+    flex-wrap: wrap;
   }
 }

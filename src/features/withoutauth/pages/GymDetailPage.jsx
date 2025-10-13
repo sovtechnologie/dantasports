@@ -23,6 +23,13 @@ import leftArrow from "../assets/left-arrow.png";
 import rightArrow from "../assets/right-arrow.png";
 import { useCreateVenueBooking } from "../../../hooks/BookingVenue/useCreateVenueBooking";
 import { useCreateBookingPayment } from "../../../hooks/Payments/useCreateBookingPayement";
+import { Container } from "react-bootstrap";
+import arrow from "../assets/icons/arrow.svg";
+import CancellationPolicy from "../components/CancellationPolicy.jsx";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+// import TermsAndConditions from "../../../pages/TermsAndConditions.jsx";
+import TermsConditionsModal from "../components/TermsConditionsModal.jsx";
 
 
 
@@ -258,227 +265,298 @@ export default function GymDetailPage() {
 
     return (
         <>
-            <div className='Gym-main-header'>
-                <div className="breadcrumb">
-                    <span>Gym &gt; {gym?.location} &gt; {gym?.name}</span>
-                </div>
-
-                <h1 className="gympage-name">{gym?.name}</h1>
-                <div className="gym-location-rating">
-                    <span>{gym?.location}</span>
-                    <span className="star" style={{ marginLeft: "20px", marginRight: "5px" }}>★</span><span className="light-text"> {gym?.rating}</span><span style={{ marginLeft: "5px" }}>({gym?.reviewcount}ratings)</span>
-                </div>
-            </div>
-
-
-            <div className="gym-details-container">
-                <div className="gym-wrapper">
-                    <div className="gym-left">
-
-                        <div className="gym-image-carosal">
-                            <Swiper
-                                spaceBetween={30}
-                                centeredSlides={true}
-                                autoplay={{
-                                    delay: 2500,
-                                    disableOnInteraction: false,
-                                }}
-                                pagination={{
-                                    clickable: true,
-                                }}
-                                // navigation={true}
-                                modules={[Autoplay, Pagination,]}
-                                className="mySwiper"
-                            >
-                                {imagelist.map((img, index) => (
-                                    <SwiperSlide key={index} className="gym-swiperslide">
-                                        <img src={img} alt={`gym-image-${index}`} className="gym-swiperslide-img" />
-                                    </SwiperSlide>
-                                ))}
-                            </Swiper>
+            <section style={{ background: "#f1f3f2" }} className="pb-lg-5 pb-3">
+                <Container>
+                    <div className='Gym-main-header'>
+                        <div className="breadcrumb">
+                            <span>Gym &gt; {gym?.location} &gt; {gym?.name}</span>
                         </div>
 
-                        <div className="gym-section">
-                            <div className="gym-heading">About Glod’s Gym</div>
-                            <div className="gym-description">
-                                {expandedSection === "about"
-                                    ? gym?.about
-                                    : `${gym?.about?.substring(0, 100)}...`}
-                            </div>
+                        <h1 className="gympage-name">{gym?.name}</h1>
+                        <div className="gym-location-rating">
+                            <span>{gym?.location}</span>
+                            <span className="star" style={{ marginLeft: "20px", marginRight: "5px" }}>★</span><span className="light-text"> {gym?.rating}</span><span style={{ marginLeft: "5px" }}>({gym?.reviewcount}ratings)</span>
                         </div>
+                    </div>
 
-                        <div className="gym-section">
-                            <div className="gym-heading">Amenities</div>
-                            <div className="gym-amenities">
-                                {gym?.amenities?.map(i => (
-                                    <div key={i} className="amenities_tag">
-                                        <img src={checkoutIcon} alt="amenities‑tag" className="amt-img" />
-                                        <span>{i}</span>
+
+                    <div className="gym-details-container">
+                        <div className="gym-wrapper row">
+                            <div className="gym-left col-lg-8">
+
+                                <div className="gym-image-carosal">
+                                    <Swiper
+                                        spaceBetween={30}
+                                        centeredSlides={true}
+                                        autoplay={{
+                                            delay: 2500,
+                                            disableOnInteraction: false,
+                                        }}
+                                        pagination={{
+                                            clickable: true,
+                                        }}
+                                        // navigation={true}
+                                        modules={[Autoplay, Pagination,]}
+                                        className="mySwiper"
+                                    >
+                                        {imagelist.map((img, index) => (
+                                            <SwiperSlide key={index} className="gym-swiperslide">
+                                                <img src={img} alt={`gym-image-${index}`} className="gym-swiperslide-img" />
+                                            </SwiperSlide>
+                                        ))}
+                                    </Swiper>
+                                </div>
+
+                                <div className="gym-section">
+                                    <div className="gym-heading">About Glod’s Gym</div>
+                                    <div className="gym-description">
+                                        {expandedSection === "about"
+                                            ? gym?.about
+                                            : `${gym?.about?.substring(0, 100)}...`}
                                     </div>
-                                ))}
+                                </div>
 
-                            </div>
-                        </div>
+                                <div className="gym-section">
+                                    <div className="gym-heading">Amenities</div>
+                                    <div className="gym-amenities">
+                                        {gym?.amenities?.map(i => (
+                                            <div key={i} className="amenities_tag">
+                                                <img src={checkoutIcon} alt="amenities‑tag" className="amt-img" />
+                                                <span>{i}</span>
+                                            </div>
+                                        ))}
 
-                        <div className="gym-carry-point">
-                            <div className="gym-section gym-carry">
-                                <div className="gym-heading">Timing</div>
-                                <ol className="timing-list">
-                                    {timings.map((t, idx) => (
-                                        <li key={idx} className="timing-item">
-                                            <span className="label">{t.label}:</span>
-                                            {t.range && (
-                                                <span className="range">{t.range}</span>
-                                            )}
-                                        </li>
-                                    ))}
-                                </ol>
-                            </div>
+                                    </div>
+                                </div>
 
-                            <div className="gym-section gym-pickPoints">
-                                <div className="gym-heading">Coaches</div>
-                                <div className="coaches-list">
-                                    {/* {gym?.coaches?.map((coach, index) => (
+                                <div className="gym-carry-point">
+                                    <div className="gym-section gym-carry">
+                                        <div className="gym-heading">Timing</div>
+                                        <ol className="timing-list">
+                                            {timings.map((t, idx) => (
+                                                <li key={idx} className="timing-item">
+                                                    <span className="label">{t.label}:</span>
+                                                    {t.range && (
+                                                        <span className="range">{t.range}</span>
+                                                    )}
+                                                </li>
+                                            ))}
+                                        </ol>
+                                    </div>
+
+                                    <div className="gym-section gym-pickPoints">
+                                        <div className="gym-heading">Coaches</div>
+                                        <div className="coaches-list">
+                                            {/* {gym?.coaches?.map((coach, index) => (
                                         <div className="coaches-card" key={index}>
                                             <img src={coach.image || CoachImage} alt={coach.name} className="coach-image" />
                                             <p className="coach-name">{coach.name}</p>
                                             <p className="coach-title">{coach.type}</p>
                                         </div>
                                     ))} */}
-                                    {Array.isArray(gym?.coaches) && gym.coaches.length > 0 ? (
-                                        gym.coaches.map((coach, index) => (
-                                            <div className="coaches-card" key={index}>
-                                                <img
-                                                    src={coach.image || CoachImage}
-                                                    alt={coach.name}
-                                                    className="coach-image"
-                                                />
-                                                <p className="coach-name">{coach.name}</p>
-                                                <p className="coach-title">{coach.type}</p>
-                                            </div>
-                                        ))
-                                    ) : (
-                                        <p>No coaches available</p>
-                                    )}
-                                </div>
-                            </div>
+                                            {Array.isArray(gym?.coaches) && gym.coaches.length > 0 ? (
+                                                gym.coaches.map((coach, index) => (
+                                                    <div className="coaches-card" key={index}>
+                                                        <img
+                                                            src={coach.image || CoachImage}
+                                                            alt={coach.name}
+                                                            className="coach-image"
+                                                        />
+                                                        <p className="coach-name">{coach.name}</p>
+                                                        <p className="coach-title">{coach.type}</p>
+                                                    </div>
+                                                ))
+                                            ) : (
+                                                <p>No coaches available</p>
+                                            )}
+                                        </div>
+                                    </div>
 
+                                </div>
+
+                                {/* <div className="gym-term_policy">
+                                    <div className="gym-section terms">
+                                        <div className="gym-heading">Terms & Conditions
+                                        </div>
+                                        <div className="gym-description" style={{ whiteSpace: "pre-wrap" }}>
+                                            {expandedSection === "terms"
+                                                ? gym?.termsAndCondition
+                                                : `${gym?.termsAndCondition?.substring(0, 200)}...`}
+                                        </div>
+                                        <button onClick={() => toggleSection("terms")} className="read-more-btn">
+                                            {expandedSection === "terms" ? "Read less" : "Read more"}
+                                        </button>
+                                    </div>
+                                    <div className="gym-section policy">
+                                        <div className="gym-heading">Cancellation Policy
+                                        </div>
+                                        <div className="gym-description" style={{ whiteSpace: "pre-wrap" }}>
+                                            {expandedSection === "cancel"
+                                                ? gym?.cancelPolicy
+                                                : `${gym?.cancelPolicy?.substring(0, 200)}...`}
+                                        </div>
+                                        <button onClick={() => toggleSection("cancel")} className="read-more-btn">
+                                            {expandedSection === "cancel" ? "Read less" : "Read more"}
+                                        </button>
+                                    </div>
+                                </div> */}
+                                         <div class="row g-3 mt-3">
+                    <div className="col-12 col-lg-6">
+                        <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
+                        {/* <!-- Button trigger modal --> */}
+                        <div className="d-flex justify-content-between align-items-center text-center">
+                        
+                            <div className="rule">
+                            <p className="m-0">Terms & Conditions</p>
+                            </div>
+                            <div>
+                            <button type="button" class="btn border-0" data-bs-toggle="modal" data-bs-target="#RulesRegulations">
+                                <img src={arrow} alt="" />
+                            </button>
+                            </div>
                         </div>
 
-                        <div className="gym-term_policy">
-                            <div className="gym-section terms">
-                                <div className="gym-heading">Terms & Conditions
-                                </div>
-                                <div className="gym-description" style={{ whiteSpace: "pre-wrap" }}>
-                                    {expandedSection === "terms"
-                                        ? gym?.termsAndCondition
-                                        : `${gym?.termsAndCondition?.substring(0, 200)}...`}
-                                </div>
-                                <button onClick={() => toggleSection("terms")} className="read-more-btn">
-                                    {expandedSection === "terms" ? "Read less" : "Read more"}
-                                </button>
+
+                      {/* <!-- Modal --> */}
+                      <div class="modal fade" id="RulesRegulations" tabindex="-1" aria-labelledby="RulesRegulations" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content custom_modal">
+                            <div class="modal-header border-0">
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div className="gym-section policy">
-                                <div className="gym-heading">Cancellation Policy
-                                </div>
-                                <div className="gym-description" style={{ whiteSpace: "pre-wrap" }}>
-                                    {expandedSection === "cancel"
-                                        ? gym?.cancelPolicy
-                                        : `${gym?.cancelPolicy?.substring(0, 200)}...`}
-                                </div>
-                                <button onClick={() => toggleSection("cancel")} className="read-more-btn">
-                                    {expandedSection === "cancel" ? "Read less" : "Read more"}
-                                </button>
+                            <div class="modal-body">
+                              <TermsConditionsModal/>
                             </div>
+
+                          </div>
                         </div>
+                      </div>
                     </div>
-
-                    <div className="gym-right">
-
-                        <div className="gym-right-section">
-                            <div className="gym-heading">Location</div>
-                            <div className="gym-right-section-p"><p>{gym?.address}</p></div>
-                            <div className="gym-map">
-                                <CustomMap latitude={gym?.latitude} longitude={gym?.longitude} />
-                            </div>
+                  </div>
+                  <div className="col-12 col-lg-6">
+                    <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
+                      {/* <!-- Button trigger modal --> */}
+                      <div className="d-flex justify-content-between align-items-center text-center">
+                       
+                        <div className="rule">
+                          <p className="m-0">Cancellation Policy</p>
                         </div>
+                         <div>
+                          <button type="button" class="btn border-0" data-bs-toggle="modal" data-bs-target="#CancellationPolicy">
+                            <img src={arrow} alt="" />
+                          </button>
+                        </div>
+                      </div>
 
-                        <div className="gym-right-section">
-                            <div className="gym-heading">Choose Passes:</div>
-                            <div className="section-group">
-                                <div className="select-box">
-                                    <label>Passes*</label>
-                                    <select
-                                        className="dropdown"
-                                        value={selectedPass?.name || ""}
-                                        onChange={handleSelect}
-                                    >
-                                        <option value="" disabled>Select Passes</option>
-                                        {GymPrice[0]?.gym_price_slot?.map((item, index) => (
-                                            <option key={index} value={item.passes_name}>₹{item.price}/{item.passes_name}</option>
-                                        ))}
-                                    </select>
-                                    {/* Replace above with real dropdown component if needed */}
-                                </div>
-                                <div className="quantity-box">
-                                    <label>Quantity:</label>
-                                    <div className="qty-control">
-                                        <button type="button" className="btn minus" onClick={decrement}>−</button>
-                                        <span className="qty">{quantity}</span>
-                                        <button type="button" className="btn plus" onClick={increment}>+</button>
+
+                      {/* <!-- Modal --> */}
+                      <div class="modal fade" id="CancellationPolicy" tabindex="-1" aria-labelledby="CancellationPolicy" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content custom_modal">
+                            <div class="modal-header border-0">
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <CancellationPolicy/>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                
+                </div>
+                            </div>
+
+                            <div className="gym-right col-lg-4">
+
+                                <div className="gym-right-section">
+                                    <div className="gym-heading">Location</div>
+                                    <div className="gym-right-section-p"><p>{gym?.address}</p></div>
+                                    <div className="gym-map">
+                                        <CustomMap latitude={gym?.latitude} longitude={gym?.longitude} />
                                     </div>
                                 </div>
+
+                                <div className="gym-right-section">
+                                    <div className="gym-heading">Choose Passes:</div>
+                                    <div className="section-group">
+                                        <div className="select-box">
+                                            <label>Passes*</label>
+                                            <select
+                                                className="dropdown"
+                                                value={selectedPass?.name || ""}
+                                                onChange={handleSelect}
+                                            >
+                                                <option value="" disabled>Select Passes</option>
+                                                {GymPrice[0]?.gym_price_slot?.map((item, index) => (
+                                                    <option key={index} value={item.passes_name}>₹{item.price}/{item.passes_name}</option>
+                                                ))}
+                                            </select>
+                                            {/* Replace above with real dropdown component if needed */}
+                                        </div>
+                                        <div className="quantity-box">
+                                            <label>Quantity:</label>
+                                            <div className="qty-control">
+                                                <button type="button" className="btn minus" onClick={decrement}>−</button>
+                                                <span className="qty">{quantity}</span>
+                                                <button type="button" className="btn plus" onClick={increment}>+</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="gym-right-section">
+                                    <div className="gym-heading">Price details</div>
+                                    <CheckoutPricing
+                                        totalPrice={totalAmount}
+                                        convenienceFee={ConvenienceFee}
+                                        type={3}
+                                        setFinalAmount={setFinalAmount}
+                                    />
+                                </div>
+
+                                <div className="gym-right-section-button">
+                                    <button className="gym-btn" onClick={handleProceed} disabled={bookingLoading || paymentLoading}>{bookingLoading || paymentLoading ? "Processing..." : "Proceed"}</button>
+                                </div>
+
+
                             </div>
                         </div>
 
-                        <div className="gym-right-section">
-                            <div className="gym-heading">Price details</div>
-                            <CheckoutPricing
-                                totalPrice={totalAmount}
-                                convenienceFee={ConvenienceFee}
-                                type={3}
-                                setFinalAmount={setFinalAmount}
-                            />
+                        {/* review section */}
+                        <div className="ratings-carousel">
+                            <h2 className="review-heading">Ratings & Reviews</h2>
+                            <div className="review-carousel-container">
+                                {gym?.reviews?.slice(start, start + visibleCount).map((review) => (
+                                    <ReviewCard key={review.id} review={review} />
+                                ))}
+                            </div>
+                            <div className="carousel-buttons">
+                                <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
+                                <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
+                            </div>
+
                         </div>
 
-                        <div className="gym-right-section-button">
-                            <button className="gym-btn" onClick={handleProceed} disabled={bookingLoading || paymentLoading}>{bookingLoading || paymentLoading ? "Processing..." : "Proceed"}</button>
-                        </div>
-
-
-                    </div>
-                </div>
-
-                {/* review section */}
-                <div className="ratings-carousel">
-                    <h2 className="review-heading">Ratings & Reviews</h2>
-                    <div className="review-carousel-container">
-                        {gym?.reviews?.slice(start, start + visibleCount).map((review) => (
-                            <ReviewCard key={review.id} review={review} />
-                        ))}
-                    </div>
-                    {/* <div className="carousel-buttons">
-                        <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
-                        <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
-                    </div> */}
-
-                </div>
-
-                {/* Banners sections */}
-                <div className='event-banner-container'>
-                    <h2 className='event-banner-heading'>Ongoing Events</h2>
-                    <div className="event-banner-carousel">
-                        <div className="event-banner-track">
-                            {banners.concat(banners).map((item, i) => ( // Duplicate for seamless looping
-                                <div key={i} className="event-banner">
-                                    <img src={item.banner_image} alt="Event" className="event-banner-img" />
+                        {/* Banners sections */}
+                        <div className='event-banner-container'>
+                            <h2 className='event-banner-heading'>Ongoing Events</h2>
+                            <div className="event-banner-carousel">
+                                <div className="event-banner-track">
+                                    {banners.concat(banners).map((item, i) => ( // Duplicate for seamless looping
+                                        <div key={i} className="event-banner">
+                                            <img src={item.banner_image} alt="Event" className="event-banner-img" />
+                                        </div>
+                                    ))}
                                 </div>
-                            ))}
+                            </div>
                         </div>
-                    </div>
-                </div>
 
-            </div>
+                    </div>
+                </Container>
+            </section>
 
         </>
     )

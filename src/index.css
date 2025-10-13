@@ -24,3 +24,13 @@ code {
   font-family:
     source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
+
+.custm_bdr{
+
+  border: 2px solid red;
+}
+
+.bg_color{
+
+  background-color: #1163C7;
+}

@@ -7,6 +7,7 @@
   margin: 0 auto;
 }
 
+
 .navbar {
   /* width: 100%; */
   position: absolute;
@@ -24,6 +25,12 @@
   margin: 0 auto;
 }
 
+.container.nav_container{
+
+    background: #1163c7;
+    border: none;
+
+}
 .nav_container {
 
   border: 0.5px solid #FFFFFF;
@@ -98,7 +105,7 @@
 
 .nav-Filter-link {
   text-decoration: none;
-  color: #0a0a0a;
+  color: #fff;
   font-family: "DM Sans", Arial, sans-serif;
   font-weight: 500;
   /* font-size: 20px; */
@@ -108,8 +115,22 @@
   text-align: center;
 }
 .nav-Filter-link.active-link {
-  color: #1163c7; /* Ant Design primary blue */
+  /* color: black; Ant Design primary blue */
   font-weight: 600;
+  position: relative;
+}
+
+.nav-Filter-link.active-link::after{
+
+  background-color: white;
+  width: 50px;
+  height: 2px;
+  content: '';
+  position: absolute;
+  top: 30px;
+  left: 0;
+  transition: .3s ease all;
+
 }
 
 .navbar-actions {
@@ -138,6 +159,7 @@
 
 .user-icon {
   border: 1px solid #1163c7;
+  background-color: white;
   border-radius: 50%;
   /* width: 38px; */
   width: clamp(30px, 2.639vw, 48px);
@@ -180,8 +202,9 @@
   border-radius: 10px;
   /* padding: 0px 10px; */
   max-width: 250px;
-  background-color: white;
+  background-color: #347acf;
   position: relative;
+  color: white;
 }
 .location-search-container input {
   height: auto;
@@ -193,6 +216,8 @@
   padding: 10px;
   border-radius: 10px 0 0 10px;
   font-size: 14px;
+  background-color: #347acf;
+  color: white;
 }
 
 .location-search-container img {
@@ -216,6 +241,18 @@
 
 @media (max-width: 750px) {
 
+  .nav-Filter-link.active-link::after{
+
+  all: unset;
+
+}
+
+  .navbar-logo{
+
+    width: 100px;
+    height: 40px;
+  }
+
   .nav_container {
 
     border: transparent;
@@ -226,20 +263,23 @@
     display: block;
   }
   .nav-Filter-links {
-    color: #0a0a0a;
+    color: #fff;
     font-size: 15px;
   }
   .navbar-actions {
     display: none;
     flex-direction: column;
     width: 100%;
-    background-color: white !important;
+    background-color:  #347acf !important;
+    border-radius: 0 0 16px 16px; 
     position: absolute;
     padding: 10px 0px;
     top: 64px; /* adjust according to your navbar height */
     left: 0;
     /* padding: 16px; */
     z-index: 998;
+    color: white !important;
+    margin-top: -5px;
   }
 
   .navbar-actions.active {

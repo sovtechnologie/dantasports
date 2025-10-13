@@ -1,0 +1,130 @@
+.dp-wrapper {
+  position: relative;
+}
+
+
+
+h2 {
+
+   font-family: 'Lato';
+    font-weight: 500;
+    font-size: 16.25px;
+    color: #172A39;
+    margin-bottom: 1rem;
+}
+
+.dp-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+  background: #fff;
+}
+
+.dp-input-container input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+  color: #333;
+  background: transparent;
+}
+
+.dp-icon {
+  font-size: 18px;
+  color: #666;
+}
+
+.dp-calendar {
+  position: absolute;
+  top: 60px;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 12px;
+  animation: fadeIn 0.15s ease-in-out;
+  z-index: 10;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.dp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.dp-nav {
+  border: none;
+  background: none;
+  font-size: 18px;
+  color: #1976d2;
+  cursor: pointer;
+}
+
+.dp-days {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.dp-day {
+  width: 14.2%;
+  text-align: center;
+  font-size: 12px;
+  color: #777;
+}
+
+.dp-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dp-cell {
+  width: 14.2%;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dp-cell:hover {
+  background: #f2f2f2;
+}
+
+.dp-disabled {
+  color: #ccc;
+}
+
+.dp-selected {
+  background: #1976d2;
+  color: #fff;
+  font-weight: 500;
+}
+
+.dp-today {
+  background: #1976d2; /* Red background for current date */
+  color: #fff;
+  font-weight: 500;
+}

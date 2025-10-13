@@ -164,6 +164,7 @@
   background: #f9f9f9;
   cursor: pointer;
   transition: 0.3s;
+  font-size: 12px;
 }
 .amenity-btn:hover {
   background: #1163c7;

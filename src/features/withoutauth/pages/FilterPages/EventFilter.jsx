@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import "../../Stylesheets/Filterpages/EventFilter.css";
 import EventCard from "../../components/EventCard.jsx";
-import SortSection from "../../components/SortSection";
+import SortSection from "../../components/SortSection-old.jsx";
 import AppDownloadBanner from "../../components/AppDownloadBanner.jsx";
 import eventImage from "../../assets/EventImage2.svg";
 import { useQueryClient } from "@tanstack/react-query";
@@ -11,6 +11,18 @@ import { VenueListShimmer } from "../../components/Shimmer/VenueListShimmer.jsx"
 import { useUnlikeEvent } from "../../../../hooks/favouriteEvent/useUnLikeEvent.js";
 import { useLikeEvent } from "../../../../hooks/favouriteEvent/useLikeEvent.js";
 import AdvancedFilter from "../../components/AdvanceFilter.jsx";
+import { Col, Container, Row, Card } from "react-bootstrap";
+import SortBy from "../../components/SortBy.jsx";
+import FilterTow from "../../components/FilterTow.jsx";
+import EventFilter from "../../components/EventFilter.jsx";
+import map from "../../assets/icons/map.svg";
+import date from "../../assets/icons/date.svg";
+import like from "../../assets/icons/like.svg";
+import share from "../../assets/icons/share.svg";
+import events1 from "../../assets/events/events1.png"
+import SortModal from "../../components/SortModal.jsx";
+import FliterModal from "../../components/FliterModal.jsx";
+import EventPageModal from "../../components/EventPageModal.jsx";
 
 function formatTime(timeStr = "00:00") {
   if (!timeStr) return "";
@@ -200,7 +212,7 @@ export default function EventFilterPage() {
 
   return (
     <>
-      <div className="event-filter-container">
+      {/* <div className="event-filter-container">
         <aside className="event-filter-sidebar">
           <SortSection
             filters={filters}
@@ -269,10 +281,172 @@ export default function EventFilterPage() {
             <div className="no-data">No Event Data Available</div>
           )}
         </section>
-      </div>
-      <div className="event-footer-banner">
-        <AppDownloadBanner />
-      </div>
+      </div> */}
+      <section className="pt-3 pt-lg-5 pb-lg-5 pb-3" style={{ background: "#F1F3F2" }}>
+        <Container>
+          <Row>
+            <Col lg={3} md={4} className="d-none d-lg-block d-md-block">
+              <SortBy />
+              <EventFilter />
+            </Col>
+            <Col className="d-lg-none d-md-none mb-3 text-end">
+              <SortModal/>
+              <EventPageModal/>
+            </Col>
+            <Col lg={9} md={8}>
+              <div className="row g-3">
+                <div className="col-lg-4 col-md-6">
+                  <Card>
+                    <div className="card_img">
+                      <img src={events1} className="w-100" alt="" />
+                    </div>
+                    <div className="card_icons">
+                      <a href="">
+                        <img className="like" src={like} alt="like" />
+                      </a>
+                      <a href="">
+                        <img className="share" src={share} alt="like" />
+                      </a>
+                    </div>
+                    <div className="reating">
+                      <span>4.0 (126)</span>
+                    </div>
+                    <div className="easy">
+                      <span>Easy</span>
+                    </div>
+                    <div className="txt_wrapper">
+                      <div className="card_txt">
+                        <h2>Green Run Marathon</h2>
+                        <p><span><img className="pe-2" src={date} alt="" /></span>22 Jun - 23 Jun l 6AM onwards</p>
+                        <p><span><img className="pe-2" src={map} alt="" /></span>Palika Bazar Gate 1, Delhi-451200</p>
+                      </div>
+                      <div className="sports_title d-flex justify-content-between">
+                        <p>Upto 50%off</p>
+                        <p><span>₹1000 onwards</span></p>
+                      </div>
+                      <hr />
+                      <div className="offer">
+                        <a href="">Join Now</a>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+                 <div className="col-lg-4 col-md-6">
+                  <Card>
+                    <div className="card_img">
+                      <img src={events1} className="w-100" alt="" />
+                    </div>
+                    <div className="card_icons">
+                      <a href="">
+                        <img className="like" src={like} alt="like" />
+                      </a>
+                      <a href="">
+                        <img className="share" src={share} alt="like" />
+                      </a>
+                    </div>
+                    <div className="reating">
+                      <span>4.0 (126)</span>
+                    </div>
+                    <div className="easy">
+                      <span>Easy</span>
+                    </div>
+                    <div className="txt_wrapper">
+                      <div className="card_txt">
+                        <h2>Green Run Marathon</h2>
+                        <p><span><img className="pe-2" src={date} alt="" /></span>22 Jun - 23 Jun l 6AM onwards</p>
+                        <p><span><img className="pe-2" src={map} alt="" /></span>Palika Bazar Gate 1, Delhi-451200</p>
+                      </div>
+                      <div className="sports_title d-flex justify-content-between">
+                        <p>Upto 50%off</p>
+                        <p><span>₹1000 onwards</span></p>
+                      </div>
+                      <hr />
+                      <div className="offer">
+                        <a href="">Join Now</a>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+                  <div className="col-lg-4 col-md-6">
+                  <Card>
+                    <div className="card_img">
+                      <img src={events1} className="w-100" alt="" />
+                    </div>
+                    <div className="card_icons">
+                      <a href="">
+                        <img className="like" src={like} alt="like" />
+                      </a>
+                      <a href="">
+                        <img className="share" src={share} alt="like" />
+                      </a>
+                    </div>
+                    <div className="reating">
+                      <span>4.0 (126)</span>
+                    </div>
+                    <div className="easy">
+                      <span>Easy</span>
+                    </div>
+                    <div className="txt_wrapper">
+                      <div className="card_txt">
+                        <h2>Green Run Marathon</h2>
+                        <p><span><img className="pe-2" src={date} alt="" /></span>22 Jun - 23 Jun l 6AM onwards</p>
+                        <p><span><img className="pe-2" src={map} alt="" /></span>Palika Bazar Gate 1, Delhi-451200</p>
+                      </div>
+                      <div className="sports_title d-flex justify-content-between">
+                        <p>Upto 50%off</p>
+                        <p><span>₹1000 onwards</span></p>
+                      </div>
+                      <hr />
+                      <div className="offer">
+                        <a href="">Join Now</a>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+                 <div className="col-lg-4 col-md-6">
+                  <Card>
+                    <div className="card_img">
+                      <img src={events1} className="w-100" alt="" />
+                    </div>
+                    <div className="card_icons">
+                      <a href="">
+                        <img className="like" src={like} alt="like" />
+                      </a>
+                      <a href="">
+                        <img className="share" src={share} alt="like" />
+                      </a>
+                    </div>
+                    <div className="reating">
+                      <span>4.0 (126)</span>
+                    </div>
+                    <div className="easy">
+                      <span>Easy</span>
+                    </div>
+                    <div className="txt_wrapper">
+                      <div className="card_txt">
+                        <h2>Green Run Marathon</h2>
+                        <p><span><img className="pe-2" src={date} alt="" /></span>22 Jun - 23 Jun l 6AM onwards</p>
+                        <p><span><img className="pe-2" src={map} alt="" /></span>Palika Bazar Gate 1, Delhi-451200</p>
+                      </div>
+                      <div className="sports_title d-flex justify-content-between">
+                        <p>Upto 50%off</p>
+                        <p><span>₹1000 onwards</span></p>
+                      </div>
+                      <hr />
+                      <div className="offer">
+                        <a href="">Join Now</a>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              </div>
+            </Col>
+          </Row>
+          <div className="event-footer-banner">
+            <   AppDownloadBanner />
+          </div>
+        </Container>
+      </section>
     </>
   );
 }

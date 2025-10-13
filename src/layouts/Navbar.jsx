@@ -9,7 +9,7 @@ import blueLogo from "../assets/sportdantaLogo/blueLogo.svg";
 import userLogo from "../assets/UserLogo.png";
 import arrowlogo from "../assets/arrowlogo.png";
 import LoginModal from "../features/auth/components/loginModal";
-import locationlogo from "../features/withoutauth/assets/locationlogo.png";
+import locationlogo from "../features/withoutauth/assets/location.svg";
 import { getCityName } from "../utils/getCityName";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { setLocation } from "../redux/Slices/locationSlice";
@@ -29,6 +29,8 @@ function Navbar() {
   const [predictions, setPredictions] = useState([]);
   const [service, setService] = useState(null);
   const inputRef = useRef(null);
+
+  console.log(location.pathname,"testing");
 
   const handleClick = () => {
     const url = isAndroid
@@ -139,13 +141,16 @@ function Navbar() {
     position: "sticky",
     top: 0,
     zIndex: 1000,
-    // background: "#1163c7"
-    // border: "1px solid red",
+    background: "#1163c7"
+    // border: "1p",
   }}>
-      <div className="container nav_container">
+      <div className="container nav_container"    style={{
+        border: isHome ? "1px solid #fff" : "none",
+        backgroundColor: isHome ? "rgba(255, 255, 255, 0.15)" : "transparent",
+      }}>
         <Link to="/" className="navbar-brand">
           <img
-            src={isHome ? whiteLogo : blueLogo}
+            src={isHome ? whiteLogo : whiteLogo}
             alt="Danta Sport Logo"
             className="navbar-logo"
           />

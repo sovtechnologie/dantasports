@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import "../../Stylesheets/Filterpages/RunFilter.css";
 import RunCard from "../../components/RunCard.jsx";
-import SortSection from "../../components/SortSection";
+import SortSection from "../../components/SortSection-old.jsx";
 import AppDownloadBanner from "../../components/AppDownloadBanner.jsx";
 import eventImage from "../../assets/EventImage.svg";
 import { useQueryClient } from "@tanstack/react-query";
@@ -11,6 +11,16 @@ import { VenueListShimmer } from "../../components/Shimmer/VenueListShimmer.jsx"
 import { useUnlikeEvent } from "../../../../hooks/favouriteEvent/useUnLikeEvent.js";
 import { useLikeEvent } from "../../../../hooks/favouriteEvent/useLikeEvent.js";
 import AdvancedFilter from "../../components/AdvanceFilter.jsx";
+import { Container, Row, Col } from "react-bootstrap";
+import SortBy from "../../components/SortBy.jsx";
+import map from "../../assets/playhost/map.svg";
+import date from "../../assets/playhost/date.svg";
+import like from "../../assets/icons/like.svg";
+import share from "../../assets/icons/share.svg";
+import bookrun from "../../assets/bookrun/bookrun.png";
+import Filter from "../../components/Filter.jsx";
+import SortModal from "../../components/SortModal.jsx";
+import FliterModal from "../../components/FliterModal.jsx";
 
 function formatTime(timeStr = "00:00") {
   if (!timeStr) return "";
@@ -207,79 +217,188 @@ export default function RunFilterPage() {
 
   return (
     <>
-      <div className="run-filter-container">
-        <aside className="run-filter-sidebar">
-          <SortSection
-            filters={filters}
-            setFilters={setFilters}
-            search={search}
-            setSearch={setSearch}
-            handleReset={handleReset}
-            selectedEvent={selectedEvent}
-            setSelectedEvent={setSelectedEvent}
-            selectedDate={selectedDate}
-            setSelectedDate={setSelectedDate}
-            selectedTime={selectedTime}
-            setSelectedTime={setSelectedTime}
-            runList={runList}
-          />
-          <aside>
-            <AdvancedFilter
-              runList={runList}
-              filters={filters}
-              setFilters={setFilters}
-              onReset={handleReset}
-              mode={"run"}
-            />
-          </aside>
-        </aside>
+      <section className="book_venue_section pt-3 pt-lg-5 pb-lg-5 pb-3" style={{background: "#F1F3F2"}}>
+        <Container>
+          <Row>
+            <Col lg={3} md={5} className='d-none d-lg-block d-md-block'>
+              <SortBy />
+             <div className="mt-3">
+               <Filter/>
+             </div>
+            </Col>
+              <Col className='d-lg-none d-md-none text-end mb-4'>
+          <FliterModal/>
+          <SortModal/>
 
-        <section className="run-grid">
-          {filteredEvents.length > 0 ? (
-            filteredEvents.map((evt) => {
-              const formattedEvent = {
-                id: evt.id,
-                name: evt.event_title,
-                rating: evt.average_rating ?? 0,
-                type: evt?.event_type,
-                RatingCount: evt.review_count ?? 0,
-                price: `₹${parseInt(evt.lowest_ticket_price)} onwards`,
-                offer: evt.offer ?? "No offer",
-                favourite: evt?.favourite,
-                favourite_event_id: evt?.favourite_event_id,
-                location:
-                  `${evt.locations[0]?.area}, ${evt.locations[0]?.city}` || "",
-                date: `${new Date(evt.start_date).toLocaleDateString("en-GB", {
-                  day: "2-digit",
-                  month: "short",
-                })} – ${new Date(evt.end_date).toLocaleDateString("en-GB", {
-                  day: "2-digit",
-                  month: "short",
-                })} | ${formatTime(evt.start_time)}-${formatTime(
-                  evt.end_time.slice(0, 5)
-                )}`,
-                image: evt.desktop_image || eventImage,
-                sportIcon: evt.sports || "",
-                isAvailable: evt.is_available,
-              };
-
-              return (
-                <RunCard
-                  key={evt.id}
-                  event={formattedEvent}
-                  isLiked={formattedEvent.favourite}
-                  onLikeToggle={() => toggleFavourite(evt)}
-                />
-              );
-            })
-          ) : (
-            <div className="no-data">No Run Data Available</div>
-          )}
-        </section>
-      </div>
-      <div className="run-footer-banner">
-        <AppDownloadBanner />
-      </div>
+          </Col>
+            <Col lg={9} md={7}>
+              <div className="row g-3">
+                <div className="col-lg-4">
+                  <div className="card">
+                    <div className="card_img">
+                      <img src={bookrun} className="w-100" alt="" />
+                    </div>
+                    <div className="card_icons">
+                      <a href="">
+                        <img className="like" src={like} alt="like" />
+                      </a>
+                      <a href="">
+                        <img className="share" src={share} alt="like" />
+                      </a>
+                    </div>
+                    <div className="txt_wrapper">
+                      <div className="card_txt">
+                        <h2>Green Run Marathon</h2>
+                        <p>
+                          <span>
+                            <img className="pe-2" src={date} alt="" />
+                          </span>
+                          22 Jun - 23 Jun l 6AM onwards
+                        </p>
+                        <p>
+                          <span>
+                            <img className="pe-2" src={map} alt="" />
+                          </span>
+                          Palika Bazar Gate 1, Delhi-451200
+                        </p>
+                      </div>
+                      <div className="sports_title">
+                        <p>Football, Cricket</p>
+                      </div>
+                      <div className="offer d-flex justify-content-between align-items-center">
+                        <p>Upto 50%off</p>
+                        <a href="">Join Now</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-lg-4">
+                  <div className="card">
+                    <div className="card_img">
+                      <img src={bookrun} className="w-100" alt="" />
+                    </div>
+                    <div className="card_icons">
+                      <a href="">
+                        <img className="like" src={like} alt="like" />
+                      </a>
+                      <a href="">
+                        <img className="share" src={share} alt="like" />
+                      </a>
+                    </div>
+                    <div className="txt_wrapper">
+                      <div className="card_txt">
+                        <h2>Green Run Marathon</h2>
+                        <p>
+                          <span>
+                            <img className="pe-2" src={date} alt="" />
+                          </span>
+                          22 Jun - 23 Jun l 6AM onwards
+                        </p>
+                        <p>
+                          <span>
+                            <img className="pe-2" src={map} alt="" />
+                          </span>
+                          Palika Bazar Gate 1, Delhi-451200
+                        </p>
+                      </div>
+                      <div className="sports_title">
+                        <p>Football, Cricket</p>
+                      </div>
+                      <div className="offer d-flex justify-content-between align-items-center">
+                        <p>Upto 50%off</p>
+                        <a href="">Join Now</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-lg-4">
+                  <div className="card">
+                    <div className="card_img">
+                      <img src={bookrun} className="w-100" alt="" />
+                    </div>
+                    <div className="card_icons">
+                      <a href="">
+                        <img className="like" src={like} alt="like" />
+                      </a>
+                      <a href="">
+                        <img className="share" src={share} alt="like" />
+                      </a>
+                    </div>
+                    <div className="txt_wrapper">
+                      <div className="card_txt">
+                        <h2>Green Run Marathon</h2>
+                        <p>
+                          <span>
+                            <img className="pe-2" src={date} alt="" />
+                          </span>
+                          22 Jun - 23 Jun l 6AM onwards
+                        </p>
+                        <p>
+                          <span>
+                            <img className="pe-2" src={map} alt="" />
+                          </span>
+                          Palika Bazar Gate 1, Delhi-451200
+                        </p>
+                      </div>
+                      <div className="sports_title">
+                        <p>Football, Cricket</p>
+                      </div>
+                      <div className="offer d-flex justify-content-between align-items-center">
+                        <p>Upto 50%off</p>
+                        <a href="">Join Now</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-lg-4">
+                  <div className="card">
+                    <div className="card_img">
+                      <img src={bookrun} className="w-100" alt="" />
+                    </div>
+                    <div className="card_icons">
+                      <a href="">
+                        <img className="like" src={like} alt="like" />
+                      </a>
+                      <a href="">
+                        <img className="share" src={share} alt="like" />
+                      </a>
+                    </div>
+                    <div className="txt_wrapper">
+                      <div className="card_txt">
+                        <h2>Green Run Marathon</h2>
+                        <p>
+                          <span>
+                            <img className="pe-2" src={date} alt="" />
+                          </span>
+                          22 Jun - 23 Jun l 6AM onwards
+                        </p>
+                        <p>
+                          <span>
+                            <img className="pe-2" src={map} alt="" />
+                          </span>
+                          Palika Bazar Gate 1, Delhi-451200
+                        </p>
+                      </div>
+                      <div className="sports_title">
+                        <p>Football, Cricket</p>
+                      </div>
+                      <div className="offer d-flex justify-content-between align-items-center">
+                        <p>Upto 50%off</p>
+                        <a href="">Join Now</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+        <Container>
+          <div className="run-footer-banner">
+            <AppDownloadBanner />
+          </div>
+        </Container>
+      </section>
     </>
   );
 }

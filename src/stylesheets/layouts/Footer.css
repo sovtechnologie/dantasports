@@ -1,5 +1,6 @@
 .footer_section{
   background-color: white;
+  padding-top: 30px;
 }
 
 .follow_us .links {
@@ -18,7 +19,8 @@
   line-height: 19.2px;
   color: #172a39;
 }
-.sub_inner h3 {
+.sub_inner h3,
+.sub_inners h3  {
   color: #1163c7;
   font-family: "Lato";
   font-weight: 700;
@@ -26,7 +28,8 @@
   line-height: 24px;
   margin-bottom: 15px;
 }
-.sub_inner a {
+.sub_inner a,
+.sub_inners a {
   text-decoration: none;
   color: #3a3a3a;
   font-family: "DM Sans";
@@ -34,7 +37,9 @@
   font-size: 16px;
   line-height: 32px;
 }
-.sub_inner a:hover {
+
+.sub_inner a:hover,
+.sub_inners a:hover  {
   color: #1163c7;
   text-decoration: underline;
   transition: 0.3s ease-in-out;
@@ -85,10 +90,38 @@ hr {
 
 @media screen and (max-width: 767px) {
 
+  .sub_inner a, .sub_inners a{
+
+    line-height: 28px;
+  }
+
+  .sub_footer{
+
+    padding: 0 0 10px 0;
+  }
+
+  .sub_inner ul li {
+
+  position: relative;
+  padding-left: 22px !important;
+}
+.sub_inner ul li::before{
+
+  content: '';
+  position: absolute;
+  height: 8px;
+  width: 8px;
+  left: 0;
+  top: 10px;
+  background-color: #989fa961;
+  border-radius: 50%;
+  
+}
+
   .dantaspot_logo{
 
-    width: 150px;
-    height: 100px;
+    width: 100px;
+    height: 60px;
   }
 
   .dantaspot_logo img {

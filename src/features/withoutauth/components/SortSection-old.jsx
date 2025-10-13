@@ -28,7 +28,7 @@ export default function SortSection({
 
   return (
     <aside className="sort-left-section">
-      <div className="sort-filters">
+      {/* <div className="sort-filters">
         <div className="sort-filter-header">
           <h3>Search</h3>
         </div>
@@ -79,7 +79,7 @@ export default function SortSection({
             </ul>
           )}
         </div>
-      </div>
+      </div> */}
 
       <div className="sort-box">
         <div className="sort-filter-header">

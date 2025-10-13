@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import "../Stylesheets/VenueDetail.css";
 import venueImage from "../assets/Venue-image.png";
 import ReviewCard from "../components/ReviewCard.jsx";
@@ -33,6 +35,10 @@ import CheckoutPricing from "../components/CheckoutPricing.jsx";
 import Spinner from "../../../components/Spinner.jsx";
 import { useCreateBookingPayment } from "../../../hooks/Payments/useCreateBookingPayement.js";
 import checkoutIcon from "../assets/checkOutIcon.png";
+import { Container } from "react-bootstrap";
+import RulesRegulations from "../components/RulesRegulations.jsx";
+import arrow from "../assets/icons/arrow.svg";
+import CancellationPolicy from "../components/CancellationPolicy.jsx";
 
 export const formatDate = (isoString) => {
   const date = new Date(isoString);
@@ -61,10 +67,10 @@ const mapVenueData = (apiData) => {
       : [venueImage, venueImage, venueImage, venueImage],
     sports: Array.isArray(apiData?.sports)
       ? apiData.sports.map((sport) => ({
-          sportId: sport.id,
-          name: sport.name,
-          icon: sport.image,
-        }))
+        sportId: sport.id,
+        name: sport.name,
+        icon: sport.image,
+      }))
       : [],
     amenities: Array.isArray(apiData?.amenities)
       ? apiData.amenities.map((a) => a.name)
@@ -77,14 +83,14 @@ const mapVenueData = (apiData) => {
     favourite_venue_id: apiData?.favourite_venue_id,
     reviews: Array.isArray(apiData?.reviews)
       ? apiData.reviews.map((review) => ({
-          id: review.id,
-          userName: review.user_name || "Anonymous",
-          rating: review.rating || 0,
-          comment: review.comment || "No comment provided",
-          date:
-            formatDate(review.createdAt) ||
-            new Date().toISOString().split("T")[0],
-        }))
+        id: review.id,
+        userName: review.user_name || "Anonymous",
+        rating: review.rating || 0,
+        comment: review.comment || "No comment provided",
+        date:
+          formatDate(review.createdAt) ||
+          new Date().toISOString().split("T")[0],
+      }))
       : [], // Default to first 5 reviews if not available
   };
 };
@@ -116,18 +122,18 @@ function VenueDetailsPage() {
     Array.isArray(data?.result) && data.result.length > 0
       ? mapVenueData(data.result[0])
       : {
-          name: "Loading Venue...",
-          location: "",
-          rating: 0,
-          reviewcount: 0,
-          timing: "",
-          price: 0,
-          address: "",
-          images: [venueImage],
-          sports: [],
-          amenities: [],
-          reviews: [],
-        };
+        name: "Loading Venue...",
+        location: "",
+        rating: 0,
+        reviewcount: 0,
+        timing: "",
+        price: 0,
+        address: "",
+        images: [venueImage],
+        sports: [],
+        amenities: [],
+        reviews: [],
+      };
 
   const {
     data: sportDetails,
@@ -294,255 +300,333 @@ function VenueDetailsPage() {
 
   return (
     <>
-      <div className="venue-main-header">
-        <div className="breadcrumb">
-          <span>
-            Venues &gt; {venue.location} &gt; {venue.name}
-          </span>
-        </div>
+      <section style={{ background: "#F1F3F2" }} className="pb-3 pb-lg-5">
+        <Container>
+          <div className="venue-main-header pt-3 pb-3 pt-lg-5 pb-lg-5">
+            <div className="breadcrumb">
+              <span>
+                Venues &gt; {venue.location} &gt; {venue.name}
+              </span>
+            </div>
 
-        <h1 className="venue-name">{venue.name}</h1>
-        <div className="location-rating">
-          <span>{venue.location}</span>
-          <span
-            className="star"
-            style={{ marginLeft: "20px", marginRight: "5px" }}
-          >
-            ★
-          </span>
-          <span className="light-text">
-            {venue.rating} ({venue.reviewcount} ratings)
-          </span>
-        </div>
-      </div>
-
-      <div className="venue-details-container">
-        <div className="venue-wrapper">
-          <div className="venue-left">
-            <div className="carousel">
-              <Swiper
-                slidesPerView={1} /*add for fix ui*/
-                spaceBetween={0}
-                // spaceBetween={30}
-                centeredSlides={false}
-                autoplay={{
-                  delay: 2500,
-                  disableOnInteraction: false,
-                }}
-                pagination={{
-                  clickable: true,
-                }}
-                // arrow={{
-                //   dots:false,
-                // }}
-                // navigation={true}
-                modules={[Autoplay, Pagination]}
-                className="mySwiper"
+            <h1 className="venue-name">{venue.name}</h1>
+            <div className="location-rating">
+              <span>{venue.location}</span>
+              <span
+                className="star"
+                style={{ marginLeft: "20px", marginRight: "5px" }}
               >
-                {venue?.images?.map((img, index) => (
-                  <SwiperSlide key={index} className="venue-swiperslide">
-                    <div className="venue-icon-topwrapper">
-                      <button className="venue-icon-btns" onClick={Share}>
-                        <img src={ShareIcon} alt="share" className="" />
-                      </button>
-                      <button
-                        className="venue-icon-btns"
-                        onClick={() => handleClickLike(venue)}
-                      >
-                        <img
-                          src={venue.favourite ? HeartFilled : LikeIcon}
-                          alt="like"
-                          className="like-icon"
-                        />
-                      </button>
-                    </div>
-                    <img
-                      src={img}
-                      alt={`event-image-${index}`}
-                      className="venue-swiperslide-img"
-                    />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
-
-            <div className="section">
-              <div className="sports-wrapper">
-                <div className="sports-header">About</div>
-                <div className="event-description">{venue.about}</div>
-              </div>
-            </div>
-            <div className="section">
-              <div className="sports-wrapper">
-                <div className="sports-header">Amenities</div>
-                <div className="amenities-tags">
-                  {venue.amenities.map((item) => (
-                    <span className="amenities-tag" key={item}>
-                      {/* <span className="check-icon"> */}
-                      <img src={checkoutIcon} alt="check" className="amt-img" />
-                      {/* </span> */}
-                      <span className="check-label">{item}</span>
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="section">
-              <div className="sports-wrapper">
-                <div className="sports-header">
-                  Sports Available
-                  <span className="note">
-                    (Click on sports to view price chart)
-                  </span>
-                </div>
-                <div className="sports-grid">
-                  {venue?.sports?.map((sport) => (
-                    <button
-                      className="sport-card"
-                      key={sport.name}
-                      type="button"
-                      onClick={() => handleSportClick(sport?.sportId)}
-                    >
-                      <img src={sport.icon} alt={sport.name} />
-                      <p>{sport.name}</p>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* PriceChart Model */}
-
-              <PriceChart
-                venueId={id}
-                sportId={selectedSportId || venue?.sports[0]?.sportId}
-              />
+                ★
+              </span>
+              <span className="light-text">
+                {venue.rating} ({venue.reviewcount} ratings)
+              </span>
             </div>
           </div>
 
-          <div className="venue-right">
-            <div className="venue-location">
-              <div className="sports-header">Location:</div>
-
-              <div className="gym-right-section-p">
-                <p>{venue.address}</p>
-              </div>
-              <div className="venue-map">
-                <CustomMap
-                  latitude={venue.latitude}
-                  longitude={venue.longitude}
-                />
-              </div>
-            </div>
-            {/* Calendar */}
-
-            <Calendar
-              selectedDate={selectedDate}
-              setSelectedDate={setSelectedDate}
-            />
-
-            {/* Sports Selector */}
-            <div className="vb-section">
-              <label>Select Sports:</label>
-              <div className="vb-sport-options">
-                {venue.sports.map((sport) => (
-                  <button
-                    key={sport.sportId}
-                    className={`vb-sport-btn ${selectedSport === sport.sportId ? "active" : ""}`}
-                    onClick={() => {
-                      setSelectedSport(sport.sportId);
-                      setSelectedDuration(1);
-                      setSelectedTime(null);
+          <div className="venue-details-container">
+            <div className="row g-3">
+              <div className="venue-left col-lg-8">
+                <div className="carousel">
+                  <Swiper
+                    slidesPerView={1} /*add for fix ui*/
+                    spaceBetween={0}
+                    // spaceBetween={30}
+                    centeredSlides={false}
+                    autoplay={{
+                      delay: 2500,
+                      disableOnInteraction: false,
                     }}
+                    pagination={{
+                      clickable: true,
+                    }}
+                    // arrow={{
+                    //   dots:false,
+                    // }}
+                    // navigation={true}
+                    modules={[Autoplay, Pagination]}
+                    className="mySwiper"
                   >
-                    {sport.name}
-                  </button>
-                ))}
-              </div>
-              {errors.sport && <p className="form-error">{errors.sport}</p>}
-            </div>
-
-            <TimeSelector
-              selectedDate={selectedDate}
-              selectedTime={selectedTime}
-              setSelectedTime={setSelectedTime}
-              selectedDuration={selectedDuration}
-              setSelectedDuration={setSelectedDuration}
-              sportId={selectedSport}
-              venueId={id}
-              selectedPitch={selectedPitch}
-              setSelectedPitch={setSelectedPitch}
-              courtError={errors}
-              bookingId={bookingId}
-              setBookingId={setBookingId}
-            />
-
-            <div className="venue-right-section">
-              <div className="venue-heading">Price details</div>
-              {BookingPriceLoading ? (
-                <div className="price-loader">
-                  <Spinner size={38} color="#1163c7" />
-                </div>
-              ) : (
-                <CheckoutPricing
-                  totalPrice={totalPrice || 0}
-                  convenienceFee={convenienceFee}
-                  count={1}
-                  type={1}
-                  setFinalAmount={setFinalAmount}
-                />
-              )}
-            </div>
-
-            <button className="vb-proceed-btn" onClick={handleProceedClick}>
-              {paymentLoading ? "Processing..." : "PROCEED"}
-            </button>
-          </div>
-
-          {venue?.reviews?.length > 0 && (
-            <div className="rating-wrapper">
-              <div className="ratings-carousel">
-                <h2 className="review-heading">Ratings & Reviews</h2>
-                <div className="review-carousel-container">
-                  {venue.reviews
-                    .slice(start, start + visibleCount)
-                    .map((review) => (
-                      <ReviewCard key={review.id} review={review} />
-                    ))}
-                </div>
-                {/* <div className="carousel-buttons">
-                                    <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
-                                    <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
-                                </div> */}
-              </div>
-            </div>
-          )}
-
-          <div className="banner-wrapper">
-            <div className="event-banner-container">
-              <h2 className="event-banner-heading">Ongoing Events</h2>
-              <div className="event-banner-carousel">
-                <div className="event-banner-track">
-                  {banners.concat(banners).map(
-                    (
-                      item,
-                      i // Duplicate for seamless looping
-                    ) => (
-                      <div key={i} className="event-banner">
+                    {venue?.images?.map((img, index) => (
+                      <SwiperSlide key={index} className="venue-swiperslide">
+                        <div className="venue-icon-topwrapper">
+                          <button className="venue-icon-btns" onClick={Share}>
+                            <img src={ShareIcon} alt="share" className="" />
+                          </button>
+                          <button
+                            className="venue-icon-btns"
+                            onClick={() => handleClickLike(venue)}
+                          >
+                            <img
+                              src={venue.favourite ? HeartFilled : LikeIcon}
+                              alt="like"
+                              className="like-icon"
+                            />
+                          </button>
+                        </div>
                         <img
-                          src={item.banner_image}
-                          alt="Event"
-                          className="event-banner-img"
+                          src={img}
+                          alt={`event-image-${index}`}
+                          className="venue-swiperslide-img"
                         />
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </div>
+
+                <div className="section">
+                  <div className="sports-wrapper">
+                    <div className="sports-header">About11</div>
+                    <div className="event-description">{venue.about}</div>
+                  </div>
+                </div>
+                <div className="section">
+                  <div className="sports-wrapper">
+                    <div className="sports-header">Amenities</div>
+                    <div className="amenities-tags">
+                      {venue.amenities.map((item) => (
+                        <span className="amenities-tag" key={item}>
+                          {/* <span className="check-icon"> */}
+                          <img
+                            src={checkoutIcon}
+                            alt="check"
+                            className="amt-img"
+                          />
+                          {/* </span> */}
+                          <span className="check-label">{item}</span>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="section">
+                  <div className="sports-wrapper">
+                    <div className="sports-header">
+                      Sports Available
+                      <span className="note">
+                        (Click on sports to view price chart)
+                      </span>
+                    </div>
+                    <div className="sports-grid">
+                      {venue?.sports?.map((sport) => (
+                        <button
+                          className="sport-card"
+                          key={sport.name}
+                          type="button"
+                          onClick={() => handleSportClick(sport?.sportId)}
+                        >
+                          <img src={sport.icon} alt={sport.name} />
+                          <p>{sport.name}</p>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* PriceChart Model */}
+
+                  <PriceChart
+                    venueId={id}
+                    sportId={selectedSportId || venue?.sports[0]?.sportId}
+                  />
+                </div>
+                <div class="row g-3 mt-3">
+                  <div className="col-12 col-lg-6">
+                    <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
+                      {/* <!-- Button trigger modal --> */}
+                      <div className="d-flex justify-content-between align-items-center text-center">
+                       
+                        <div className="rule">
+                          <p className="m-0">Rules and regulations</p>
+                        </div>
+                         <div>
+                          <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#RulesRegulations">
+                            <img src={arrow} alt="" />
+                          </button>
+                        </div>
                       </div>
-                    )
+
+
+                      {/* <!-- Modal --> */}
+                      <div class="modal fade" id="RulesRegulations" tabindex="-1" aria-labelledby="RulesRegulations" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable ">
+                          <div class="modal-content custom_modal">
+                            <div class="modal-header border-0">
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <RulesRegulations />
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-12 col-lg-6">
+                    <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
+                      {/* <!-- Button trigger modal --> */}
+                      <div className="d-flex justify-content-between align-items-center text-center">
+                       
+                        <div className="rule">
+                          <p className="m-0">Cancellation Policy</p>
+                        </div>
+                         <div>
+                          <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#CancellationPolicy">
+                            <img src={arrow} alt="" />
+                          </button>
+                        </div>
+                      </div>
+
+
+                      {/* <!-- Modal --> */}
+                      <div class="modal fade" id="CancellationPolicy" tabindex="-1" aria-labelledby="CancellationPolicy" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable ">
+                          <div class="modal-content custom_modal">
+                            <div class="modal-header border-0">
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <CancellationPolicy/>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                
+                </div>
+              </div>
+              <div className="venue-right col-lg-4">
+                <div className="venue-location">
+                  <div className="sports-header">Location:</div>
+
+                  <div className="gym-right-section-p">
+                    <p>{venue.address}</p>
+                  </div>
+                  <div className="venue-map">
+                    <CustomMap
+                      latitude={venue.latitude}
+                      longitude={venue.longitude}
+                    />
+                  </div>
+                </div>
+                {/* Calendar */}
+
+                <Calendar
+                  selectedDate={selectedDate}
+                  setSelectedDate={setSelectedDate}
+                />
+
+                {/* Sports Selector */}
+                <div className="vb-section">
+                  <label>Select Sports:</label>
+                  <div className="vb-sport-options">
+                    {venue.sports.map((sport) => (
+                      <button
+                        key={sport.sportId}
+                        className={`vb-sport-btn ${selectedSport === sport.sportId ? "active" : ""}`}
+                        onClick={() => {
+                          setSelectedSport(sport.sportId);
+                          setSelectedDuration(1);
+                          setSelectedTime(null);
+                        }}
+                      >
+                        {sport.name}
+                      </button>
+                    ))}
+                  </div>
+                  {errors.sport && <p className="form-error">{errors.sport}</p>}
+                </div>
+
+                <TimeSelector
+                  selectedDate={selectedDate}
+                  selectedTime={selectedTime}
+                  setSelectedTime={setSelectedTime}
+                  selectedDuration={selectedDuration}
+                  setSelectedDuration={setSelectedDuration}
+                  sportId={selectedSport}
+                  venueId={id}
+                  selectedPitch={selectedPitch}
+                  setSelectedPitch={setSelectedPitch}
+                  courtError={errors}
+                  bookingId={bookingId}
+                  setBookingId={setBookingId}
+                />
+
+                <div className="venue-right-section mt-3 mb-3">
+                  <div className="venue-heading">Price details</div>
+                  {BookingPriceLoading ? (
+                    <div className="price-loader">
+                      <Spinner size={38} color="#1163c7" />
+                    </div>
+                  ) : (
+                    <CheckoutPricing
+                      totalPrice={totalPrice || 0}
+                      convenienceFee={convenienceFee}
+                      count={1}
+                      type={1}
+                      setFinalAmount={setFinalAmount}
+                    />
                   )}
                 </div>
+
+                <button className="vb-proceed-btn" onClick={handleProceedClick}>
+                  {paymentLoading ? "Processing..." : "PROCEED"}
+                </button>
+              </div>
+
+              {venue?.reviews?.length > 0 && (
+                <div className="rating-wrapper">
+                  <div className="ratings-carousel">
+                    <h2 className="review-heading">Ratings & Reviews</h2>
+                    <div className="review-carousel-container">
+                      {venue.reviews
+                        .slice(start, start + visibleCount)
+                        .map((review) => (
+                          <ReviewCard key={review.id} review={review} />
+                        ))}
+                    </div>
+                    <div className="carousel-buttons">
+                      <button onClick={prev}>
+                        <img src={leftArrow} alt="left arrow" />
+                      </button>
+                      <button onClick={next}>
+                        <img src={rightArrow} alt="right-arrow" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div className="banner-wrapper">
+                <div className="event-banner-container">
+                  <h2 className="event-banner-heading">Ongoing Events</h2>
+                  <div className="event-banner-carousel">
+                    <div className="event-banner-track">
+                      {banners.concat(banners).map(
+                        (
+                          item,
+                          i // Duplicate for seamless looping
+                        ) => (
+                          <div key={i} className="event-banner">
+                            <img
+                              src={item.banner_image}
+                              alt="Event"
+                              className="event-banner-img"
+                            />
+                          </div>
+                        )
+                      )}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </Container>
+      </section>
     </>
   );
 }

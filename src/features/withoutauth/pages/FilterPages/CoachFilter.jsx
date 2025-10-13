@@ -6,7 +6,20 @@ import { useFetchCoach } from "../../../../hooks/CoachList/useFetchCoach.js";
 import { VenueListShimmer } from "../../components/Shimmer/VenueListShimmer.jsx";
 import { useSelector } from "react-redux";
 import AdvancedFilter from "../../components/AdvanceFilter.jsx";
-import SortSection from "../../components/SortSection.jsx";
+import SortSection from "../../components/SortSection-old.jsx";
+import { Container, Row, Col, Card } from "react-bootstrap";
+import SortBy from "../../components/SortBy.jsx";
+import like from "../../assets/icons/like.svg";
+import share from "../../assets/icons/share.svg";
+import date from "../../assets/icons/date.svg";
+import map from "../../assets/icons/map.svg";
+import coach1 from "../../assets/coach/coach1.png";
+import users from "../../assets/downloadAppLogo/team-u1.svg";
+import star from "../../assets/icons/star-white.svg";
+import FilterTow from "../../components/FilterTow.jsx";
+import SortModal from "../../components/SortModal.jsx";
+import FliterModal from "../../components/FliterModal.jsx";
+import FilterTowModal from "../../components/FilterTowModal.jsx";
 
 export default function CoachFilterPage() {
   const { lat, lng } = useSelector((state) => state.location);
@@ -118,9 +131,17 @@ export default function CoachFilterPage() {
       <div>Error loading coaches: {error?.message || "Unknown error"}</div>
     );
 
+  const userList = [
+    { id: 1, type: "img", src: users, alt: "User1" },
+    { id: 2, type: "img", src: users, alt: "User2" },
+    { id: 3, type: "img", src: users, alt: "User3" },
+    { id: 5, type: "img", src: users, alt: "User4" },
+    { id: 5, type: "img", src: users, alt: "User5" },
+  ];
+
   return (
     <>
-      <div className="coach-filter-container">
+      {/* <div className="coach-filter-container">
         <aside className="coach-filter-sidebar">
           <SortSection
             filters={filters}
@@ -160,11 +181,265 @@ export default function CoachFilterPage() {
             <div className="no-data-card">No coaches found</div>
           )}
         </section>
-      </div>
+      </div> */}
 
-      <div className="coach-footer-banner">
-        <AppDownloadBanner />
-      </div>
+      <section style={{ background: "#F1F3F2" }} className="coach_page_section pt-3 pt-lg-5 pb-lg-5 pb-3">
+        <Container>
+          <Row>
+            <Col lg={3} md={5} className='d-none d-lg-block d-md-block'>
+              <SortBy />
+              <FilterTow />
+            </Col>
+            <Col className='d-lg-none d-md-none text-end mb-4 d-flex  justify-content-end'>
+              <SortModal/>
+              <FilterTowModal/>
+            </Col>
+            <Col lg={9} md={7}>
+              <div className="row g-3">
+                <div className="col-lg-4">
+                  <Card>
+                    <div className="card_img">
+                      <img src={coach1} className="w-100" alt="" />
+                    </div>
+                    <div className="card_icons">
+                      <a href="">
+                        <img className="like" src={like} alt="like" />
+                      </a>
+                      <a href="">
+                        <img className="share" src={share} alt="like" />
+                      </a>
+                      <div className="reating">
+                        <span>
+                          <img className="me-2" src={star} alt="" />
+                          4.0 (175)
+                        </span>
+                      </div>
+                    </div>
+                    <div className="trainerbox position-relative">
+                      <span className="trainer_type">Trainer</span>
+                    </div>
+                    <div className="txt_wrapper">
+                      <div className="card_txt">
+                        <div className="d-flex justify-content-between mb-3 align-items-center">
+                          <h2 className="m-0">Prerak Arya</h2>
+                          <p className="m-0 memebercat">Adults</p>
+                        </div>
+                        <div className="no_off_users">
+                          <ul className="d-flex p-0 align-items-center">
+                            {userList.map((user) => (
+                              <li key={user.id} className="me-2">
+                                {user.type === "img" ? (
+                                  <img src={user.src} alt={user.alt} />
+                                ) : (
+                                  user.name
+                                )}
+                              </li>
+                            ))}
+                            <span style={{ color: "#858585" }}>+5 more</span>
+                          </ul>
+                        </div>
+
+                        <p>
+                          <span>
+                            <img className="pe-2" src={map} alt="" />
+                          </span>
+                          Palika Bazar Gate 1, Delhi-451200
+                        </p>
+                      </div>
+                      <hr />
+                      <div className="offer">
+                        <a href="" className="">
+                          Enquire Now
+                        </a>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+                <div className="col-lg-4">
+                  <Card>
+                    <div className="card_img">
+                      <img src={coach1} className="w-100" alt="" />
+                    </div>
+                    <div className="card_icons">
+                      <a href="">
+                        <img className="like" src={like} alt="like" />
+                      </a>
+                      <a href="">
+                        <img className="share" src={share} alt="like" />
+                      </a>
+                      <div className="reating">
+                        <span>
+                          <img className="me-2" src={star} alt="" />
+                          4.0 (175)
+                        </span>
+                      </div>
+                    </div>
+                    <div className="trainerbox position-relative">
+                      <span className="trainer_type">Trainer</span>
+                    </div>
+                    <div className="txt_wrapper">
+                      <div className="card_txt">
+                        <div className="d-flex justify-content-between mb-3 align-items-center">
+                          <h2 className="m-0">Prerak Arya</h2>
+                          <p className="m-0 memebercat">Adults</p>
+                        </div>
+                        <div className="no_off_users">
+                          <ul className="d-flex p-0 align-items-center">
+                            {userList.map((user) => (
+                              <li key={user.id} className="me-2">
+                                {user.type === "img" ? (
+                                  <img src={user.src} alt={user.alt} />
+                                ) : (
+                                  user.name
+                                )}
+                              </li>
+                            ))}
+                            <span style={{ color: "#858585" }}>+5 more</span>
+                          </ul>
+                        </div>
+
+                        <p>
+                          <span>
+                            <img className="pe-2" src={map} alt="" />
+                          </span>
+                          Palika Bazar Gate 1, Delhi-451200
+                        </p>
+                      </div>
+                      <hr />
+                      <div className="offer">
+                        <a href="" className="">
+                          Enquire Now
+                        </a>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+                <div className="col-lg-4">
+                  <Card>
+                    <div className="card_img">
+                      <img src={coach1} className="w-100" alt="" />
+                    </div>
+                    <div className="card_icons">
+                      <a href="">
+                        <img className="like" src={like} alt="like" />
+                      </a>
+                      <a href="">
+                        <img className="share" src={share} alt="like" />
+                      </a>
+                      <div className="reating">
+                        <span>
+                          <img className="me-2" src={star} alt="" />
+                          4.0 (175)
+                        </span>
+                      </div>
+                    </div>
+                    <div className="trainerbox position-relative">
+                      <span className="trainer_type">Trainer</span>
+                    </div>
+                    <div className="txt_wrapper">
+                      <div className="card_txt">
+                        <div className="d-flex justify-content-between mb-3 align-items-center">
+                          <h2 className="m-0">Prerak Arya</h2>
+                          <p className="m-0 memebercat">Adults</p>
+                        </div>
+                        <div className="no_off_users">
+                          <ul className="d-flex p-0 align-items-center">
+                            {userList.map((user) => (
+                              <li key={user.id} className="me-2">
+                                {user.type === "img" ? (
+                                  <img src={user.src} alt={user.alt} />
+                                ) : (
+                                  user.name
+                                )}
+                              </li>
+                            ))}
+                            <span style={{ color: "#858585" }}>+5 more</span>
+                          </ul>
+                        </div>
+
+                        <p>
+                          <span>
+                            <img className="pe-2" src={map} alt="" />
+                          </span>
+                          Palika Bazar Gate 1, Delhi-451200
+                        </p>
+                      </div>
+                      <hr />
+                      <div className="offer">
+                        <a href="" className="">
+                          Enquire Now
+                        </a>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+                <div className="col-lg-4">
+                  <Card>
+                    <div className="card_img">
+                      <img src={coach1} className="w-100" alt="" />
+                    </div>
+                    <div className="card_icons">
+                      <a href="">
+                        <img className="like" src={like} alt="like" />
+                      </a>
+                      <a href="">
+                        <img className="share" src={share} alt="like" />
+                      </a>
+                      <div className="reating">
+                        <span>
+                          <img className="me-2" src={star} alt="" />
+                          4.0 (175)
+                        </span>
+                      </div>
+                    </div>
+                    <div className="trainerbox position-relative">
+                      <span className="trainer_type">Trainer</span>
+                    </div>
+                    <div className="txt_wrapper">
+                      <div className="card_txt">
+                        <div className="d-flex justify-content-between mb-3 align-items-center">
+                          <h2 className="m-0">Prerak Arya</h2>
+                          <p className="m-0 memebercat">Adults</p>
+                        </div>
+                        <div className="no_off_users">
+                          <ul className="d-flex p-0 align-items-center">
+                            {userList.map((user) => (
+                              <li key={user.id} className="me-2">
+                                {user.type === "img" ? (
+                                  <img src={user.src} alt={user.alt} />
+                                ) : (
+                                  user.name
+                                )}
+                              </li>
+                            ))}
+                            <span style={{ color: "#858585" }}>+5 more</span>
+                          </ul>
+                        </div>
+
+                        <p>
+                          <span>
+                            <img className="pe-2" src={map} alt="" />
+                          </span>
+                          Palika Bazar Gate 1, Delhi-451200
+                        </p>
+                      </div>
+                      <hr />
+                      <div className="offer">
+                        <a href="" className="">
+                          Enquire Now
+                        </a>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              </div>
+            </Col>
+          </Row>
+          <div className="coach-footer-banner">
+            <AppDownloadBanner />
+          </div>
+        </Container>
+      </section>
     </>
   );
 }

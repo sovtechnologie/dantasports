@@ -25,6 +25,7 @@ import { formatDate } from "date-fns";
 import leftArrow from "../assets/left-arrow.png";
 import rightArrow from "../assets/right-arrow.png";
 import { useCreateQuery } from "../../../hooks/CoachList/useCreateQuery";
+import { Container } from "react-bootstrap";
 
 
 
@@ -143,7 +144,9 @@ export default function CoachDetailPage() {
 
     return (
         <>
-            <div className='Coach-main-header'>
+         <section style={{ background: "#F1F3F2" }} className="pb-3 pb-lg-5">
+            <Container>
+                   <div className='Coach-main-header'>
                 <div className="breadcrumb">
                     <span>Coach &gt; {coach?.location} &gt; {coach?.name}</span>
                 </div>
@@ -158,9 +161,9 @@ export default function CoachDetailPage() {
 
 
             <div className="coach-details-container">
-                <div className="coach-wrapper">
+                <div className="coach-wrapper row">
 
-                    <div className="coach-left">
+                    <div className="coach-left col-lg-8">
 
                         <div className="coach-image-carosal">
                             <Swiper
@@ -263,7 +266,7 @@ export default function CoachDetailPage() {
 
                     </div>
 
-                    <div className="coach-right">
+                    <div className="coach-right col-lg-4">
 
                         <div className="coach-right-section">
                             <div className="coach-heading">Location</div>
@@ -316,7 +319,7 @@ export default function CoachDetailPage() {
                                         className="certificatelogo"
                                     /> */}
                                     <div className="award-des">
-                                        <ul>
+                                        <ul className="p-0">
                                             <li>{cert.certificate_name}</li>
                                         </ul>
                                     </div>
@@ -340,12 +343,14 @@ export default function CoachDetailPage() {
                             <ReviewCard key={review.id} review={review} />
                         ))}
                     </div>
-                    {/* <div className="carousel-buttons">
+                    <div className="carousel-buttons">
                         <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
                         <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
-                    </div> */}
+                    </div>
                 </div>
             </div>
+            </Container>
+         </section>
 
 
         </>

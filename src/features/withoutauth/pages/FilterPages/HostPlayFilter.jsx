@@ -1,5 +1,5 @@
 import styled from "../../Stylesheets/Filterpages/HostPlayFilter.module.css";
-import SortSection from "../../components/SortSection";
+import SortSection from "../../components/SortSection-old";
 import { useSelector } from "react-redux";
 import { useEffect, useState, useMemo } from "react";
 import { useFetchHostList } from "../../../../hooks/Hostlist/useFetchHostList";
@@ -8,6 +8,16 @@ import AppDownloadBanner from "../../components/AppDownloadBanner";
 import { HostCard } from "../../components/HostCard";
 import gameImage from "../../assets/gameImage.png";
 import gameImage1 from "../../assets/gameImage1.png";
+import { Container, Row, Col,Card } from "react-bootstrap";
+import PlayHost from "../../../../components/PlayHost";
+import profile1 from "../../assets/playhost/user1.png"
+import profile2 from "../../assets/playhost/user2.png"
+import calendarIcon from '../../assets/playhost/date.svg';
+import map from '../../assets/playhost/map.svg';
+import SortBy from "../../components/SortBy";
+import Filter from "../../components/Filter";
+import SortModal from "../../components/SortModal";
+// import "../../Stylesheets/Fil/t"
 
 // Formats "15:00", "15:00:30" → "03:00 PM"
 function formatTime(timeStr = "00:00") {
@@ -92,7 +102,8 @@ export default function HostPlayFilterPage() {
 
   return (
     <>
-      <div className={styled.host_filter_container}>
+
+      {/* <div className={styled.host_filter_container}>
         <aside className={styled.event_filter_sidebar}>
           <SortSection
             filters={filters}
@@ -142,11 +153,183 @@ export default function HostPlayFilterPage() {
             <div>No hosts found</div>
           )}
         </section>
-      </div>
+      </div> */}
 
-      <div className={styled.event_footer_banner}>
+{/*  New Structure here */}
+      <section style={{background: "#F1F3F2"}} className="pt-3 pt-lg-5 pb-lg-5 pb-3">
+        <Container>
+        <Row>
+          <Col lg={3} md={5} className='d-none d-lg-block d-md-block'>
+            <SortBy/>
+          </Col>
+          <Col className='d-lg-none d-md-none text-end mb-4'>
+           <SortModal/>
+          </Col>
+          <Col lg={9} md={7}>
+            <div className="row g-3">
+              <div className="col-lg-4">
+                <Card className="playhost_card p-3 p-lg-4">
+              <div className="badge_label">
+                <p>Regular</p>
+              </div>
+
+              <div className="d-flex align-items-center my-3">
+                <div className="profile_group d-flex">
+                  <img src={profile1} alt="player" className="profile_img" />
+                  <img
+                    src={profile2}
+                    alt="player"
+                    className="profile_img overlap"
+                  />
+                </div>
+                <p className="m-0 ps-3 fw-semibold">4 Going</p>
+              </div>
+
+              <h2>Host By: Sahil Khan</h2>
+
+              <div className="d-flex align-items-center mb-2">
+                <img src={calendarIcon} alt="calendar" className="icon me-2" />
+                <span>11 Jun | 4PM - 6PM</span>
+              </div>
+
+              <div className="d-flex align-items-center mb-3">
+                <img src={map} alt="location" className="icon me-2" />
+                <span>Chandhe Patil Sports Zone, Aundh (~5.7 Km)</span>
+              </div>
+
+              <div className="d-flex justify-content-between align-items-center border-top pt-3">
+                <span className="fw-bold text-primary">Novice</span>
+                {/* <div className="offer">
+                  <a href="">Join Now</a>
+                </div> */}
+              </div>
+            </Card>
+              </div>
+               <div className="col-lg-4">
+                <Card className="playhost_card p-3 p-lg-4">
+              <div className="badge_label">
+                <p>Regular</p>
+              </div>
+
+              <div className="d-flex align-items-center my-3">
+                <div className="profile_group d-flex">
+                  <img src={profile1} alt="player" className="profile_img" />
+                  <img
+                    src={profile2}
+                    alt="player"
+                    className="profile_img overlap"
+                  />
+                </div>
+                <p className="m-0 ps-3 fw-semibold">4 Going</p>
+              </div>
+
+              <h2>Host By: Sahil Khan</h2>
+
+              <div className="d-flex align-items-center mb-2">
+                <img src={calendarIcon} alt="calendar" className="icon me-2" />
+                <span>11 Jun | 4PM - 6PM</span>
+              </div>
+
+              <div className="d-flex align-items-center mb-3">
+                <img src={map} alt="location" className="icon me-2" />
+                <span>Chandhe Patil Sports Zone, Aundh (~5.7 Km)</span>
+              </div>
+
+              <div className="d-flex justify-content-between align-items-center border-top pt-3">
+                <span className="fw-bold text-primary">Novice</span>
+                {/* <div className="offer">
+                  <a href="">Join Now</a>
+                </div> */}
+              </div>
+            </Card>
+              </div>
+               <div className="col-lg-4">
+                <Card className="playhost_card p-3 p-lg-4">
+              <div className="badge_label">
+                <p>Regular</p>
+              </div>
+
+              <div className="d-flex align-items-center my-3">
+                <div className="profile_group d-flex">
+                  <img src={profile1} alt="player" className="profile_img" />
+                  <img
+                    src={profile2}
+                    alt="player"
+                    className="profile_img overlap"
+                  />
+                </div>
+                <p className="m-0 ps-3 fw-semibold">4 Going</p>
+              </div>
+
+              <h2>Host By: Sahil Khan</h2>
+
+              <div className="d-flex align-items-center mb-2">
+                <img src={calendarIcon} alt="calendar" className="icon me-2" />
+                <span>11 Jun | 4PM - 6PM</span>
+              </div>
+
+              <div className="d-flex align-items-center mb-3">
+                <img src={map} alt="location" className="icon me-2" />
+                <span>Chandhe Patil Sports Zone, Aundh (~5.7 Km)</span>
+              </div>
+
+              <div className="d-flex justify-content-between align-items-center border-top pt-3">
+                <span className="fw-bold text-primary">Novice</span>
+                {/* <div className="offer">
+                  <a href="">Join Now</a>
+                </div> */}
+              </div>
+            </Card>
+              </div>
+               <div className="col-lg-4">
+                <Card className="playhost_card p-3 p-lg-4">
+              <div className="badge_label">
+                <p>Regular</p>
+              </div>
+
+              <div className="d-flex align-items-center my-3">
+                <div className="profile_group d-flex">
+                  <img src={profile1} alt="player" className="profile_img" />
+                  <img
+                    src={profile2}
+                    alt="player"
+                    className="profile_img overlap"
+                  />
+                </div>
+                <p className="m-0 ps-3 fw-semibold">4 Going</p>
+              </div>
+
+              <h2>Host By: Sahil Khan</h2>
+
+              <div className="d-flex align-items-center mb-2">
+                <img src={calendarIcon} alt="calendar" className="icon me-2" />
+                <span>11 Jun | 4PM - 6PM</span>
+              </div>
+
+              <div className="d-flex align-items-center mb-3">
+                <img src={map} alt="location" className="icon me-2" />
+                <span>Chandhe Patil Sports Zone, Aundh (~5.7 Km)</span>
+              </div>
+
+              <div className="d-flex justify-content-between align-items-center border-top pt-3">
+                <span className="fw-bold text-primary">Novice</span>
+                {/* <div className="offer">
+                  <a href="">Join Now</a>
+                </div> */}
+              </div>
+            </Card>
+              </div>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+
+      <Container>
+        <div className={styled.event_footer_banner}>
         <AppDownloadBanner />
       </div>
+      </Container>
+      </section>
     </>
   );
 }

@@ -18,7 +18,7 @@ function Footer() {
       <div className="footer_section mt-lg-5">
         <Container>
           <Row>
-            <Col lg={3} md={4} sm={6}>
+            <Col lg={3} md={4}>
               <div className="dantaspot_logo">
                 <img src={dantasports} alt="" />
               </div>
@@ -67,8 +67,8 @@ function Footer() {
                 </div>
               </div>
             </Col>
-            <Col lg={6} md={8} sm={6}>
-              <div className="inner row justify-content-center">
+            <Col lg={6} md={8}>
+              <div className="row justify-content-center">
                 <div className="sub_inner col-lg-3 col-md-4">
                   <h3>Company</h3>
                   <ul className="p-0 m-0">
@@ -159,8 +159,8 @@ function Footer() {
                 </div>
               </div>
             </Col>
-            <Col lg={3} md={3} className="">
-              <div className="sub_inner">
+            <Col lg={3} md={3}>
+              <div className="sub_inners">
                 <h3>Contact</h3>
                 <ul className="p-0 m-0">
                   <div className="d-flex">
@@ -184,10 +184,10 @@ function Footer() {
       <hr />
       <Container className="sub_footer">
         <Row className="justify-content-lg-around justify-content-center  ">
-          <Col lg={6} md={6} className="text-lg-start text-center">
+          <Col lg={6}  className="col-12 text-lg-start text-center">
             <p className="m-0">© 2025 Danta Sports. All rights reserved.</p>
           </Col>
-          <Col lg={6} md={6}>
+          <Col lg={6} className="col-12">
             <ul className="d-flex justify-content-center flex-wrap p-0">
               <li>
                 <Link to="https://www.dantasports.com/pp">Privacy Policy</Link>

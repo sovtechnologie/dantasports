@@ -1,0 +1,47 @@
+.amenities_card {
+
+   border: 0.89px solid #CDCDCD;
+   padding: 15px 10px;
+   border-radius: 10px;
+
+
+}
+
+.amenities_card h2 {
+
+    font-family: 'Lato';
+    font-weight: 500;
+    font-size: 17.72px;
+    color: #172A39;
+}
+
+.amenities_card .inner {
+
+
+    border: 0.94px solid #B1B1B1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px 20px;
+    border-radius: 3.75px;
+    margin: 5px 0;
+    
+}
+
+.amenities_card .inner a {
+
+    text-decoration: none;
+    font-family: 'Lato';
+    color: #B1B1B1;
+    font-weight: 400;
+
+}
+
+.amenities_card .inner a:hover{
+
+    font-weight: 600;
+    transition: .3s ease-in-out;
+
+
+}

@@ -17,6 +17,12 @@ import leftArrow from "../assets/left-arrow.png";
 import rightArrow from "../assets/right-arrow.png";
 import { useBookEvent } from "../../../hooks/EventList/useBookEvent";
 import { useCreateBookingPayment } from "../../../hooks/Payments/useCreateBookingPayement";
+import RulesRegulations from "../components/RulesRegulations.jsx";
+import arrow from "../assets/icons/arrow.svg";
+import CancellationPolicy from "../components/CancellationPolicy.jsx";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 
 
 
@@ -27,6 +33,10 @@ import 'swiper/css/navigation';
 import { useParams } from "react-router-dom";
 import { formatTime } from "../../../utils/formatTime";
 import { formatDate } from "../../../utils/formatDate";
+import { Container } from "react-bootstrap";
+import GalleryComponent from "../components/GalleryComponent ";
+import TermsAndConditions from "../../../pages/TermsAndConditions.jsx";
+import TermsConditionsModal from "../components/TermsConditionsModal.jsx";
 
 
 const initialTickets = [
@@ -205,7 +215,9 @@ export default function EventDetailPage() {
 
     return (
         <>
-            <div className='Event-main-header'>
+            <section style={{ background: "#f1f3f2" }} className="pb-lg-5 pb-3">
+                <Container>
+                    <div className='Event-main-header'>
                 <div className="breadcrumb">
                     <span>Event &gt; {event.location} &gt; {event.name}</span>
                 </div>
@@ -218,9 +230,9 @@ export default function EventDetailPage() {
             </div>
 
             <div className="event-details-container">
-                <div className="event-wrapper">
+                <div className="event-wrapper row">
 
-                    <div className="event-left">
+                    <div className="event-left col-lg-8">
 
                         <div className="event-image-carosal">
                             <Swiper
@@ -299,7 +311,7 @@ export default function EventDetailPage() {
                             <div className="event-section event-carry">
                                 <div className="event-heading">Things to Carry</div>
                                 <div className="carry-list">
-                                    <ol>
+                                    <ol className="ps-3">
                                         {event?.carrything?.split('\n').map((item, index) => (
                                             <li key={index}>{item}</li>
                                         ))}
@@ -310,7 +322,7 @@ export default function EventDetailPage() {
                             <div className="event-section event-pickPoints">
                                 <div className="event-heading">Pick Points</div>
                                 <div className="carry-list">
-                                    <ol>
+                                    <ol className="ps-3">
                                         {event?.meetupPoints?.map((item, index) => (
                                             <li key={index}>{item.area} , {item.city}</li>
                                         ))}
@@ -320,7 +332,7 @@ export default function EventDetailPage() {
 
                         </div>
 
-                        <div className="event-term_policy">
+                        {/* <div className="event-term_policy">
                             <div className="event-section terms">
                                 <div className="event-heading">Terms & Conditions
                                 </div>
@@ -345,11 +357,78 @@ export default function EventDetailPage() {
                                     {expandedSection === "cancel" ? "Read less" : "Read more"}
                                 </button>
                             </div>
+                        </div> */}
+                        <div class="row g-3 mt-3">
+                    <div className="col-12 col-lg-6">
+                        <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
+                        {/* <!-- Button trigger modal --> */}
+                        <div className="d-flex justify-content-between align-items-center text-center">
+                        
+                            <div className="rule">
+                            <p className="m-0">Terms & Conditions</p>
+                            </div>
+                            <div>
+                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#RulesRegulations">
+                                <img src={arrow} alt="" />
+                            </button>
+                            </div>
                         </div>
+
+
+                      {/* <!-- Modal --> */}
+                      <div class="modal fade" id="RulesRegulations" tabindex="-1" aria-labelledby="RulesRegulations" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content custom_modal">
+                            <div class="modal-header border-0">
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <TermsConditionsModal/>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-12 col-lg-6">
+                    <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
+                      {/* <!-- Button trigger modal --> */}
+                      <div className="d-flex justify-content-between align-items-center text-center">
+                       
+                        <div className="rule">
+                          <p className="m-0">Cancellation Policy</p>
+                        </div>
+                         <div>
+                          <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#CancellationPolicy">
+                            <img src={arrow} alt="" />
+                          </button>
+                        </div>
+                      </div>
+
+
+                      {/* <!-- Modal --> */}
+                      <div class="modal fade" id="CancellationPolicy" tabindex="-1" aria-labelledby="CancellationPolicy" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content custom_modal">
+                            <div class="modal-header border-0">
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <CancellationPolicy/>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                
+                </div>
                     </div>
 
 
-                    <div className="event-right">
+                    <div className="event-right col-lg-4">
                         <div className="event-right-section">
                             <div className="event-heading">Location</div>
                             <div className="gym-right-section-p"><p>{event.address}</p></div>
@@ -416,7 +495,8 @@ export default function EventDetailPage() {
 
                     </div>
                 </div>
-                <Gallery gallery={event.gallery} />
+                {/* <Gallery gallery={event.gallery} /> */}
+                <GalleryComponent/>
                 <div className="ratings-carousel">
                     <h2 className="review-heading">Ratings & Reviews</h2>
                     <div className="review-carousel-container">
@@ -424,10 +504,10 @@ export default function EventDetailPage() {
                             <ReviewCard key={review.id} review={review} />
                         ))}
                     </div>
-                    {/* <div className="carousel-buttons">
+                    <div className="carousel-buttons">
                         <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
                         <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
-                    </div> */}
+                    </div>
                 </div>
 
 
@@ -445,6 +525,8 @@ export default function EventDetailPage() {
                 </div>
 
             </div>
+                </Container>
+            </section>
 
         </>
     )

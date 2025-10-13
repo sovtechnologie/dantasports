@@ -1,0 +1,40 @@
+/* Make gallery scroll horizontally */
+.gallery-scroll {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 12px;
+  padding-bottom: 8px;
+}
+
+/* Hide scrollbar (optional) */
+.gallery-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+.gallery-scroll::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+/* Each image container */
+.gallery-item {
+  flex: 0 0 auto;
+  width: 220px;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* Hover effect */
+.gallery-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}

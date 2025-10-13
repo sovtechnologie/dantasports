@@ -1,0 +1,26 @@
+.book_now_btn a {
+
+
+    color: #fff;
+    width: 100%;
+    background-color: #1163C7;
+    display: inline-block;
+    padding: 10px;
+    font-family: 'DM Sans';
+    font-weight: 400;
+    font-size: 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    text-align: center;
+    border: 1px solid transparent;
+
+}
+
+.book_now_btn a:hover{
+
+    border: 1px solid #1163C7;
+    color: #1163C7;
+    transition: .3s ease-in-out;
+    background-color: white;
+    font-weight: 600;
+}

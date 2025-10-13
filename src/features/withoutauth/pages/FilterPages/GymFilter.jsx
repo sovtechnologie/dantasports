@@ -1,6 +1,6 @@
 import "../../Stylesheets/Filterpages/GymFilter.css";
 import GymCard from "../../components/GymCard.jsx";
-import SortSection from "../../components/SortSection";
+import SortSection from "../../components/SortSection-old.jsx";
 import AppDownloadBanner from "../../components/AppDownloadBanner.jsx";
 import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
@@ -10,6 +10,17 @@ import { useLikeGym } from "../../../../hooks/FavouriteGym/useLikeGym.js";
 import { useUnlikeGym } from "../../../../hooks/FavouriteGym/useUnlikeGym.js";
 import { useQueryClient } from "@tanstack/react-query";
 import AdvancedFilter from "../../components/AdvanceFilter.jsx";
+import { Container, Row,Col,Card } from "react-bootstrap";
+import SortBy from "../../components/SortBy.jsx";
+import FilterTow from "../../components/FilterTow.jsx";
+import FilterThree from "../../components/FilterThree.jsx";
+import like from "../../assets/icons/like.svg";
+import date from "../../assets/icons/date.svg";
+import share from "../../assets/icons/share.svg";
+import map from "../../assets/icons/map.svg";
+import GymImg from "../../assets/bookgym/bookgym.png"
+import FilterModalThree from "../../components/FilterModalThree.jsx";
+import SortModal from "../../components/SortModal.jsx";
 
 export default function GymFilterPage() {
   const userId = useSelector((state) => state.auth.id);
@@ -146,56 +157,185 @@ export default function GymFilterPage() {
 
   return (
     <>
-      <div className="gym-filter-container">
-        <aside className="gym-filter-sidebar">
-          <SortSection
-            filters={filters}
-            setFilters={setFilters}
-            search={search}
-            setSearch={setSearch}
-            handleReset={handleReset}
-            selectedEvent={selectedGym}
-            setSelectedEvent={setSelectedGym}
-            selectedTime={selectedTime}
-            setSelectedTime={setSelectedTime}
-            runList={gymList.map((gym) => ({
-              ...gym,
-              event_title: gym.gym_name,
-            }))}
-          />
-          <AdvancedFilter
-            runList={gymList}
-            filters={filters}
-            setFilters={setFilters}
-            onReset={handleReset}
-            mode="gym"
-          />
-        </aside>
 
-        <section className="gym-grid">
-          {filteredGyms.length > 0 ? (
-            filteredGyms.map((gym) => {
-              const formattedGym = formattedGymList.find(
-                (g) => g.id === gym.Id
-              );
-
-              return (
-                <GymCard
-                  key={formattedGym.id}
-                  gym={formattedGym}
-                  isLiked={formattedGym?.favourite}
-                  onLikeToggle={() => toggleFavourite(gym)}
-                />
-              );
-            })
-          ) : (
-            <div className="no-data-card">No gyms found</div>
-          )}
-        </section>
-      </div>
-      <div className="gym-footer-banner">
-        <AppDownloadBanner />
-      </div>
+      <section className="pt-3 pt-lg-5 pb-lg-5 pb-3" style={{background:"#F1F3F2"}}>
+        <Container>
+          <Row>
+            <Col lg={3} md={4} className='d-none d-lg-block d-md-block'>
+             <SortBy/>
+             <FilterThree/>
+             {/* <p>kmnvkdjs</p> */}
+            </Col>
+            <Col className="d-lg-none d-md-none text-end mb-4 d-flex  justify-content-end">
+            <SortModal/>
+            <FilterModalThree/>
+            </Col>
+            <Col lg={9} md={8}>
+            <div className="row g-3">
+              <div className="col-lg-4 col-md-6">
+                 <Card>
+              <div className="card_img">
+                <img src={GymImg} className="w-100" alt="" />
+              </div>
+              <div className="card_icons">
+                <a href="">
+                  <img className="like" src={like} alt="like" />
+                </a>
+                <a href="">
+                  <img className="share" src={share} alt="like" />
+                </a>
+              </div>
+              <div className="txt_wrapper">
+                <div className="card_txt">
+                  <h2>Harihar Fort Trek 2025</h2>
+                  <p>
+                    <span>
+                      <img className="pe-2" src={date} alt="" />
+                    </span>
+                    22 Jun - 23 Jun l 6AM onwards
+                  </p>
+                  <p>
+                    <span>
+                      <img className="pe-2" src={map} alt="" />
+                    </span>
+                    Palika Bazar Gate 1, Delhi-451200
+                  </p>
+                </div>
+                <div className="sports_title">
+                  <p>Football, Cricket</p>
+                </div>
+                <div className="offer d-flex justify-content-between align-items-center">
+                  <p>Upto 50%off</p>
+                  <a href="">Join Now</a>
+                </div>
+              </div>
+            </Card>
+              </div>
+              <div className="col-lg-4 col-md-6">
+                 <Card>
+              <div className="card_img">
+                <img src={GymImg} className="w-100" alt="" />
+              </div>
+              <div className="card_icons">
+                <a href="">
+                  <img className="like" src={like} alt="like" />
+                </a>
+                <a href="">
+                  <img className="share" src={share} alt="like" />
+                </a>
+              </div>
+              <div className="txt_wrapper">
+                <div className="card_txt">
+                  <h2>Harihar Fort Trek 2025</h2>
+                  <p>
+                    <span>
+                      <img className="pe-2" src={date} alt="" />
+                    </span>
+                    22 Jun - 23 Jun l 6AM onwards
+                  </p>
+                  <p>
+                    <span>
+                      <img className="pe-2" src={map} alt="" />
+                    </span>
+                    Palika Bazar Gate 1, Delhi-451200
+                  </p>
+                </div>
+                <div className="sports_title">
+                  <p>Football, Cricket</p>
+                </div>
+                <div className="offer d-flex justify-content-between align-items-center">
+                  <p>Upto 50%off</p>
+                  <a href="">Join Now</a>
+                </div>
+              </div>
+            </Card>
+              </div>
+              <div className="col-lg-4 col-md-6">
+                 <Card>
+              <div className="card_img">
+                <img src={GymImg} className="w-100" alt="" />
+              </div>
+              <div className="card_icons">
+                <a href="">
+                  <img className="like" src={like} alt="like" />
+                </a>
+                <a href="">
+                  <img className="share" src={share} alt="like" />
+                </a>
+              </div>
+              <div className="txt_wrapper">
+                <div className="card_txt">
+                  <h2>Harihar Fort Trek 2025</h2>
+                  <p>
+                    <span>
+                      <img className="pe-2" src={date} alt="" />
+                    </span>
+                    22 Jun - 23 Jun l 6AM onwards
+                  </p>
+                  <p>
+                    <span>
+                      <img className="pe-2" src={map} alt="" />
+                    </span>
+                    Palika Bazar Gate 1, Delhi-451200
+                  </p>
+                </div>
+                <div className="sports_title">
+                  <p>Football, Cricket</p>
+                </div>
+                <div className="offer d-flex justify-content-between align-items-center">
+                  <p>Upto 50%off</p>
+                  <a href="">Join Now</a>
+                </div>
+              </div>
+            </Card>
+              </div>
+              <div className="col-lg-4 col-md-6">
+                 <Card>
+              <div className="card_img">
+                <img src={GymImg} className="w-100" alt="" />
+              </div>
+              <div className="card_icons">
+                <a href="">
+                  <img className="like" src={like} alt="like" />
+                </a>
+                <a href="">
+                  <img className="share" src={share} alt="like" />
+                </a>
+              </div>
+              <div className="txt_wrapper">
+                <div className="card_txt">
+                  <h2>Harihar Fort Trek 2025</h2>
+                  <p>
+                    <span>
+                      <img className="pe-2" src={date} alt="" />
+                    </span>
+                    22 Jun - 23 Jun l 6AM onwards
+                  </p>
+                  <p>
+                    <span>
+                      <img className="pe-2" src={map} alt="" />
+                    </span>
+                    Palika Bazar Gate 1, Delhi-451200
+                  </p>
+                </div>
+                <div className="sports_title">
+                  <p>Football, Cricket</p>
+                </div>
+                <div className="offer d-flex justify-content-between align-items-center">
+                  <p>Upto 50%off</p>
+                  <a href="">Join Now</a>
+                </div>
+              </div>
+            </Card>
+              </div>
+            </div>
+            </Col>
+          </Row>
+          <div className="gym-footer-banner">
+            <AppDownloadBanner />
+          </div>
+        </Container>
+      </section>
     </>
   );
 }

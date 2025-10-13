@@ -51,6 +51,26 @@ a {
 
 }
 
+.modal_title .rule p {
+
+    color: #1163C7 !important;
+    font-family: 'Lato';
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21.67px;
+    padding-left: 15px;
+
+
+}
+
+
+.short_card {
+
+   border: 0.97px solid #1783D0;
+    border-radius: 8px;
+    padding: 25px 20px;
+    background-color: white;
+}
 
 @media screen and (max-width: 767px) {
 

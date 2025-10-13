@@ -5,21 +5,21 @@
   padding: 1rem clamp(1rem, 2vw, 6.25rem);
 }
 
-.filter-bar {
+/* .filter-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 30px;
   padding: 0px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
   background-color: #ffffff;
-  /* box-shadow: 0px 4px 4px 0px #1163c740; */
+  box-shadow: 0px 4px 4px 0px #1163c740;
   width: 100%;
   box-sizing: border-box;
   margin-bottom: 30px;
   height: 86px;
   border-bottom-right-radius: 40px;
   border-bottom-left-radius: 40px;
-}
+} */
 
 .filter-title {
   font-family: "Lato", Arial, sans-serif;

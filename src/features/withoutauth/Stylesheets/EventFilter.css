@@ -1,0 +1,58 @@
+.filter_card{
+border: 0.97px solid #1783D0;
+padding: 20px;
+background-color: white;
+border-radius: 7.74px;
+}
+
+.filter_card h3 {
+
+    font-family: 'Lato';
+    font-weight: 600;
+    font-size: 20px;
+    color: #172A39;
+
+}
+
+.filter_card a.reset{
+
+    text-decoration: none;
+    color: #B1B1B1;
+    font-family: 'Lato';
+    font-weight: 600;
+    font-size: 20px;
+
+}
+
+.filter_inner_cards{
+
+    border: 0.81px solid #CDCDCD;
+    border-radius: 7.74px;
+    padding: 12px 8px;
+    margin: 20px 0;
+}
+
+ h2 {
+
+    font-family: 'Lato';
+    font-weight: 500;
+    font-size: 16.25px;
+    color: #392217;
+    margin-bottom: 1rem;
+
+}
+
+.filter_inner_cards label {
+
+    color: #392d17 !important;
+    font-family: 'DM Sans';
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 17.6px;
+
+}
+
+.filter_inner_cards  input{
+
+  border: 1.62px solid #B1B1B1;
+}

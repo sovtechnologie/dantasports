@@ -1,23 +1,12 @@
 
 
 .Coach-main-header {
-  position: relative;
-  left: 0%;
-  right: 50%;
-  width: 100%;
-  background-color: #ffffff;
+ background-color: #ffffff;
   margin-bottom: 25px;
-  /* border-bottom-left-radius: 50px; */
+  padding: 30px;
+  border-bottom-left-radius: 50px;
   border-bottom-left-radius: clamp(30px, 11.3636vw, 50px);
-  /* border-bottom-right-radius: 50px; */
   border-bottom-right-radius: clamp(30px, 11.3636vw, 50px);
-  height: 208px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  /* padding: 0px 100px; */
-  padding: 0px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
-  justify-content: center;
 }
 
 .breadcrumb {
@@ -44,30 +33,11 @@
   align-items: center;
   font-family: "DM Sans", Arial, sans-serif;
 }
-.coach-details-container {
-  padding: 0px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
-}
-.coach-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: space-between;
-}
 
-.coach-left {
-  flex: 1 1 55%;
-  position: relative;
-  max-width: 821px;
-  width: clamp(300px, 57.0139vw, 821px);
-}
 
-.coach-right {
-  background-color: #f1f3f2;
-  border-radius: 10px;
-  border: 1px solid #f1f3f2;
-  /* width: 403px; */
-  width: clamp(200px, 27.9861vw, 403px);
-}
+
+
+
 
 .coach-image-carosal {
   height: 500px;
@@ -277,14 +247,8 @@
   justify-content: center;
   gap: 20px;
   gap: clamp(6px, 0.3889vw, 20px);
-  /* max-height: 500px; */
-  /* box-shadow: 0px 4.08px 4.08px 0px #1163c740; */
 }
 
-.coach-right-section:first-of-type {
-  height: 500px;
-  height: clamp(200px, 34.7222vw, 500px);
-}
 .location-item {
   display: flex !important;
   align-items: flex-start;
@@ -347,11 +311,11 @@
 }
 
 .award-des {
-  padding: 0px 20px;
+  padding: 10px 0px;
   color: #1163c7;
-  font-size: 15.47px;
+  font-size: 16px;
   font-weight: 400;
-  font-family: "DM Sans", Arial, sans-serif;
+  font-family: "DM Sans";
   line-height: 24.89px;
 }
 .certificate {
@@ -380,6 +344,27 @@
   text-transform: uppercase;
 }
 
+.award-wrapper{
+
+  height: 200px;
+  width: 100%;
+  margin-bottom: 30px;
+  border: 1px solid #ccc;
+  border-radius: 16px;
+  /* overflow: hidden; */
+}
+.award-wrapper img {
+
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.award-wrapper img:hover{
+  transform: scale(1.1);
+  transition: .3s ease-in-out;
+  overflow: hidden;
+}
 /* Reviews */
 
 .ratings-carousel {
@@ -473,7 +458,3 @@
 }
 
 
-.award-wrapper img{
-  width: clamp(191px, 13.2639vw, 191px);
-  height: clamp(114px, 7.9167vw, 114px);
-}

@@ -1,0 +1,65 @@
+.distance-container {
+     border: 0.81px solid #CDCDCD;
+    border-radius: 7.74px;
+    padding: 12px 8px;
+    margin: 20px 0;
+}
+
+
+.distance-container h3 {
+      font-family: 'Lato';
+    font-weight: 500;
+    font-size: 17.72px;
+    color: #172A39;
+    margin-bottom: 1rem;
+}
+
+.distance-values {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #999;
+  margin-bottom: 10px;
+}
+
+.distance-label.active {
+  color: #0056d2;
+  font-weight: 600;
+}
+
+.distance-slider {
+  width: 100%;
+  appearance: none;
+  height: 5px;
+  border-radius: 3px;
+  outline: none;
+  background: linear-gradient(
+    to right,
+    #0056d2 0%,
+    #0056d2 calc((var(--value) / 50) * 100%),
+    #ccc calc((var(--value) / 50) * 100%),
+    #ccc 100%
+  );
+  transition: background 0.2s ease;
+}
+
+/* Thumb (blue square) */
+.distance-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 15px;
+  border-radius: 10px;
+  background: #0056d2;
+  cursor: pointer;
+  border: none;
+  margin-top: -4px;
+}
+
+.distance-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  background: #0056d2;
+  cursor: pointer;
+  border: none;
+}
