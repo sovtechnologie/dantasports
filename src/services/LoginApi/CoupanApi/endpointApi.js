@@ -19,3 +19,13 @@ export const ApplyCoupan = async(payload) =>{
         throw error;
     }
 }
+
+export const SaveCoupan = async(payload) =>{
+    try {
+        const response = await api.post("user/bookings/saveCouponUses",payload);
+        return response?.data;
+    } catch (error) {
+        console.error("Failed to Save coupan",error);
+        throw error;
+    }
+}

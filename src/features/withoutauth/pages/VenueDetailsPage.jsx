@@ -33,6 +33,7 @@ import CheckoutPricing from "../components/CheckoutPricing.jsx";
 import Spinner from "../../../components/Spinner.jsx";
 import { useCreateBookingPayment } from "../../../hooks/Payments/useCreateBookingPayement.js";
 import checkoutIcon from "../assets/checkOutIcon.png";
+import { useSaveCoupan } from "../../../hooks/Coupans/useSaveCoupan.jsx";
 
 
 export const formatDate = (isoString) => {
@@ -227,6 +228,7 @@ function VenueDetailsPage() {
 
   const { mutate: CreateBookingPayment, isLoading: paymentLoading } =
     useCreateBookingPayment();
+   const { mutateAsync: saveCoupan } = useSaveCoupan();
 
   //    Payement Processs function
   const handleProceedClick = () => {
@@ -270,7 +272,15 @@ function VenueDetailsPage() {
       }, 3000);
       return;
     }
-
+    // payload of save coupan
+// {
+//    "bookingId":1,
+//    "couponId":1,
+//    "couponType":1,
+//    "discountAmount":100,
+//    "totalAmount":1500,
+//    "finalAmount":1400
+// }
     // ✅ All validations passed
     if (!bookingId) return;
     CreateBookingPayment(
@@ -283,6 +293,12 @@ function VenueDetailsPage() {
           setSelectedPitch("");
           setFinalAmount(null);
           setTotalPrice(0);
+          saveCoupan({
+            userId: userId,
+            bookingId: parseInt(bookingId),
+            finalAmount: finalAmount,
+            type: 1
+          });
         },
       }
     );
