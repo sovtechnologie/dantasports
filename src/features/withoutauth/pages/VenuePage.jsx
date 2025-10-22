@@ -1,321 +1,251 @@
-import React from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
-import ReactSlickSlider from '../components/ReactSlickSlider'
+import React, { useEffect, useState, useMemo } from "react";
+import { Col, Container, Row } from "react-bootstrap";
+import ReactSlickSlider from "../components/ReactSlickSlider";
 import "../Stylesheets/VenuePageSection.css";
-import BookBtn from '../components/BookBtn';
+import BookBtn from "../components/BookBtn";
 import save from "./../assets/downloadAppLogo/save.svg";
 import share from "./../assets/downloadAppLogo/share.svg";
 import whaitestart from "./../assets/downloadAppLogo/white-star.svg";
-import users from "../assets/downloadAppLogo/team-u1.svg"
-import SortBy from '../components/SortBy';
-import Filter from '../components/Filter';
-import SortModal from '../components/SortModal';
-import FliterModal from '../components/FliterModal';
-import AppDownloadBanner from '../components/AppDownloadBanner';
+import users from "../assets/downloadAppLogo/team-u1.svg";
+import SortBy from "../components/SortBy";
+import Filter from "../components/Filter";
+import SortModal from "../components/SortModal";
+import FliterModal from "../components/FliterModal";
+import AppDownloadBanner from "../components/AppDownloadBanner";
+import { useSelector } from "react-redux";
+import { useFetchVenue } from "../../../hooks/VenueList/useFetchVenue";
+import { useLikeVenue } from "../../../hooks/favouriteVenue/useLikeVenue";
+import { useUnlikeVenue } from "../../../hooks/favouriteVenue/useUnlikeVenue";
+import { useQueryClient, useQuery } from "@tanstack/react-query";
+import { fetchSportList } from "../../../services/withoutLoginApi/SportListApi/endpointApi.js";
+import { VenueListShimmer } from "../components/Shimmer/VenueListShimmer";
 
+const defaultImage =
+  "https://dantasportsdoc.s3.ap-south-1.amazonaws.com/default-venue.png";
 
 function VenuePage() {
+  const queryClient = useQueryClient();
+  const auth = useSelector((state) => state.auth);
+  const { lat, lng } = useSelector((state) => state.location);
 
-  
-  
- const userList = [
-    { id: 1, type: "img", src: users, alt: "User1" },
-    { id: 2, type: "img", src: users, alt: "User2" },
-    { id: 3, type: "img", src: users, alt: "User3" },
-    { id: 5, type: "img", src: users, alt: "User4" },
-    { id: 5, type: "img", src: users, alt: "User5" },
-   
-  ];
+  const [venueList, setVenueList] = useState([]);
+  const [isLoadingData, setIsLoadingData] = useState(true);
+
+  // Filter states
+  const [sportSearch, setSportSearch] = useState(""); // text input for searching sports
+  const [selectedSport, setSelectedSport] = useState(null); // selected sport id
+
+  const likeVenue = useLikeVenue();
+  const unlikeVenue = useUnlikeVenue();
+
+  // Fetch Venues
+  const { data: AllVenuedata, isLoading, isError, error } = useFetchVenue({
+    lat,
+    lng,
+    userId: auth?.id,
+  });
+
+  useEffect(() => {
+    if (AllVenuedata?.result) {
+      setVenueList(AllVenuedata.result);
+      setIsLoadingData(false);
+    }
+  }, [AllVenuedata]);
+
+  // Fetch sports
+  const { data: sportsDataResponse, isLoading: sportsLoading } = useQuery({
+    queryKey: ["sportsList"],
+    queryFn: fetchSportList,
+  });
+
+  const sportsData = sportsDataResponse?.result || [];
+
+  // Filter sports in search input
+  const filteredSports = useMemo(() => {
+    if (!sportSearch) return sportsData;
+    return sportsData.filter((sport) =>
+      sport.sports_name.toLowerCase().includes(sportSearch.toLowerCase())
+    );
+  }, [sportsData, sportSearch]);
+
+  // Filter venues by selected sport
+  const filteredVenues = useMemo(() => {
+    if (!selectedSport) return venueList;
+    return venueList.filter((venue) =>
+      venue.sports.some((sport) => sport.id === selectedSport)
+    );
+  }, [venueList, selectedSport]);
+
+  // Toggle Favourite
+  const toggleFavourite = (venue) => {
+    const venueId = venue.id;
+    setVenueList((prevList) =>
+      prevList.map((v) =>
+        v.id === venueId ? { ...v, favourite: !v.favourite } : v
+      )
+    );
+
+    if (!venue.favourite) {
+      likeVenue.mutate(
+        { venueId, userId: auth?.id },
+        {
+          onSuccess: async () => {
+            await queryClient.invalidateQueries(["venueList", auth?.id || null]);
+          },
+          onError: () => {
+            setVenueList((prevList) =>
+              prevList.map((v) =>
+                v.id === venueId ? { ...v, favourite: false } : v
+              )
+            );
+          },
+        }
+      );
+    } else {
+      unlikeVenue.mutate(
+        { favouriteVenueId: venue.favourite_venue_id },
+        {
+          onSuccess: async () => {
+            await queryClient.invalidateQueries(["venueList", auth?.id || null]);
+          },
+          onError: () => {
+            setVenueList((prevList) =>
+              prevList.map((v) =>
+                v.id === venueId ? { ...v, favourite: true } : v
+              )
+            );
+          },
+        }
+      );
+    }
+  };
+
+  const handleShareClick = async (venue) => {
+    const shareUrl = window.location.href;
+    const shareData = {
+      title: venue.venue_name,
+      text: venue.about_venue,
+      url: shareUrl,
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(`${venue.venue_name} - ${shareUrl}`);
+        alert("Venue link copied to clipboard!");
+      }
+    } catch (err) {
+      console.error("Share failed:", err);
+      alert("Unable to share this venue.");
+    }
+  };
+
+  if (isLoadingData || isLoading || sportsLoading) return <VenueListShimmer />;
+  if (isError) return <div>Error loading venues: {error?.message}</div>;
+
   return (
-    <>
-    <section className='venue_page_section pt-3 pt-lg-5 pb-lg-5 pb-3' style={{background:"#F1F3F2"}}>
+    <section className="venue_page_section pt-3 pt-lg-5 pb-lg-5 pb-3" style={{ background: "#F1F3F2" }}>
       <Container>
-        <Row className='g-3'>
-          <Col lg="3" md="5" className='d-none d-lg-block d-md-block'>
-          <Filter/>
-          <SortBy/>
+        <Row className="g-3">
+          {/* Left Filter Section */}
+          <Col lg="3" md="5" className="d-none d-lg-block d-md-block">
+            <Filter />
+            <SortBy />
           </Col>
-          <Col className='d-lg-none d-md-none text-end'>
-          <FliterModal/>
-          <SortModal/>
 
+          {/* Mobile Filter/Sort */}
+          <Col className="d-lg-none d-md-none text-end">
+            <FliterModal
+              sportsData={filteredSports}
+              selectedSport={selectedSport}
+              setSelectedSport={setSelectedSport}
+              sportSearch={sportSearch}
+              setSportSearch={setSportSearch}
+            />
+            <SortModal />
           </Col>
+
+          {/* Venue Cards */}
           <Col lg="9" md="7">
-          <div className="row g-4">
-            <div className="col-lg-4 col-md-6 position-relative">
-              <div className="card">
-                <div className="card_slider">
-                  <ReactSlickSlider/>
-                </div>
-                 <div className="reating">
-                   <div className="start">
-                     <img src={whaitestart} alt="" /><span className='ps-2'>4.0 (175)</span>
-                   </div>
-                   <div className="save_btn">
-                         <span><a href=""><img src={save} alt="" /></a></span>
-                      </div>
-                      <div className='share_btn'>
-                        <span><a href=""><img src={share} alt="" /></a></span>
-                      </div>
-                 </div>
-                <div className="inner_txt">
-                   <div className="d-flex justify-content-between mb-3 align-content-center align-items-center">
-                    <h2 className='m-0'>Red Meadows</h2>
-                    <p className='m-0'>~1.8 km</p>
-                 </div>
-                 <div className="no_off_users">
-                    <ul className="d-flex p-0 align-items-center">
-                      {userList.map((user) => (
-                        <li key={user.id} className='me-2'>
-                          {user.type === "img" ? (
-                            <img src={user.src} alt={user.alt} />
-                          ) : (
-                            user.name
-                          )}
-                        </li>
-                      ))}
-                      <span style={{color:"#858585"}}>+5 more</span>
-                    </ul>
-                  </div>
-                  <div className="offers d-flex justify-content-between">
-                    <span>Upto 50% Off</span>
-                    <p className='mb-0'>₹1000 onwards</p>
-                  </div>
-                  <hr className='mb-3'/>
-                  <BookBtn/>
-                </div>
-              </div>
-            </div>
-              <div className="col-lg-4 col-md-6 position-relative">
-              <div className="card">
-                <div className="card_slider">
-                  <ReactSlickSlider/>
-                </div>
-                 <div className="reating">
-                   <div className="start">
-                     <img src={whaitestart} alt="" /><span className='ps-2'>4.0 (175)</span>
-                   </div>
-                   <div className="save_btn">
-                         <span><a href=""><img src={save} alt="" /></a></span>
-                      </div>
-                      <div className='share_btn'>
-                        <span><a href=""><img src={share} alt="" /></a></span>
-                      </div>
-                 </div>
-                <div className="inner_txt">
-                   <div className="d-flex justify-content-between mb-3 align-content-center align-items-center">
-                    <h2 className='m-0'>Red Meadows</h2>
-                    <p className='m-0'>~1.8 km</p>
-                 </div>
-                 <div className="no_off_users">
-                    <ul className="d-flex p-0 align-items-center">
-                      {userList.map((user) => (
-                        <li key={user.id} className='me-2'>
-                          {user.type === "img" ? (
-                            <img src={user.src} alt={user.alt} />
-                          ) : (
-                            user.name
-                          )}
-                        </li>
-                      ))}
-                      <span style={{color:"#858585"}}>+5 more</span>
-                    </ul>
-                  </div>
-                  <div className="offers d-flex justify-content-between">
-                    <span>Upto 50% Off</span>
-                    <p className='mb-0'>₹1000 onwards</p>
-                  </div>
-                  <hr className='mb-3'/>
-                  <BookBtn/>
-                </div>
-              </div>
-            </div>
-              <div className="col-lg-4 col-md-6 position-relative">
-              <div className="card">
-                <div className="card_slider">
-                  <ReactSlickSlider/>
-                </div>
-                 <div className="reating">
-                   <div className="start">
-                     <img src={whaitestart} alt="" /><span className='ps-2'>4.0 (175)</span>
-                   </div>
-                   <div className="save_btn">
-                         <span><a href=""><img src={save} alt="" /></a></span>
-                      </div>
-                      <div className='share_btn'>
-                        <span><a href=""><img src={share} alt="" /></a></span>
-                      </div>
-                 </div>
-                <div className="inner_txt">
-                   <div className="d-flex justify-content-between mb-3 align-content-center align-items-center">
-                    <h2 className='m-0'>Red Meadows</h2>
-                    <p className='m-0'>~1.8 km</p>
-                 </div>
-                 <div className="no_off_users">
-                    <ul className="d-flex p-0 align-items-center">
-                      {userList.map((user) => (
-                        <li key={user.id} className='me-2'>
-                          {user.type === "img" ? (
-                            <img src={user.src} alt={user.alt} />
-                          ) : (
-                            user.name
-                          )}
-                        </li>
-                      ))}
-                      <span style={{color:"#858585"}}>+5 more</span>
-                    </ul>
-                  </div>
-                  <div className="offers d-flex justify-content-between">
-                    <span>Upto 50% Off</span>
-                    <p className='mb-0'>₹1000 onwards</p>
-                  </div>
-                  <hr className='mb-3'/>
-                  <BookBtn/>
-                </div>
-              </div>
-            </div>
-              <div className="col-lg-4 col-md-6 position-relative">
-              <div className="card">
-                <div className="card_slider">
-                  <ReactSlickSlider/>
-                </div>
-                 <div className="reating">
-                   <div className="start">
-                     <img src={whaitestart} alt="" /><span className='ps-2'>4.0 (175)</span>
-                   </div>
-                   <div className="save_btn">
-                         <span><a href=""><img src={save} alt="" /></a></span>
-                      </div>
-                      <div className='share_btn'>
-                        <span><a href=""><img src={share} alt="" /></a></span>
-                      </div>
-                 </div>
-                <div className="inner_txt">
-                   <div className="d-flex justify-content-between mb-3 align-content-center align-items-center">
-                    <h2 className='m-0'>Red Meadows</h2>
-                    <p className='m-0'>~1.8 km</p>
-                 </div>
-                 <div className="no_off_users">
-                    <ul className="d-flex p-0 align-items-center">
-                      {userList.map((user) => (
-                        <li key={user.id} className='me-2'>
-                          {user.type === "img" ? (
-                            <img src={user.src} alt={user.alt} />
-                          ) : (
-                            user.name
-                          )}
-                        </li>
-                      ))}
-                      <span style={{color:"#858585"}}>+5 more</span>
-                    </ul>
-                  </div>
-                  <div className="offers d-flex justify-content-between">
-                    <span>Upto 50% Off</span>
-                    <p className='mb-0'>₹1000 onwards</p>
-                  </div>
-                  <hr className='mb-3'/>
-                  <BookBtn/>
-                </div>
-              </div>
-            </div>
-              <div className="col-lg-4 col-md-6 position-relative">
-              <div className="card">
-                <div className="card_slider">
-                  <ReactSlickSlider/>
-                </div>
-                 <div className="reating">
-                   <div className="start">
-                     <img src={whaitestart} alt="" /><span className='ps-2'>4.0 (175)</span>
-                   </div>
-                   <div className="save_btn">
-                         <span><a href=""><img src={save} alt="" /></a></span>
-                      </div>
-                      <div className='share_btn'>
-                        <span><a href=""><img src={share} alt="" /></a></span>
-                      </div>
-                 </div>
-                <div className="inner_txt">
-                   <div className="d-flex justify-content-between mb-3 align-content-center align-items-center">
-                    <h2 className='m-0'>Red Meadows</h2>
-                    <p className='m-0'>~1.8 km</p>
-                 </div>
-                 <div className="no_off_users">
-                    <ul className="d-flex p-0 align-items-center">
-                      {userList.map((user) => (
-                        <li key={user.id} className='me-2'>
-                          {user.type === "img" ? (
-                            <img src={user.src} alt={user.alt} />
-                          ) : (
-                            user.name
-                          )}
-                        </li>
-                      ))}
-                      <span style={{color:"#858585"}}>+5 more</span>
-                    </ul>
-                  </div>
-                  <div className="offers d-flex justify-content-between">
-                    <span>Upto 50% Off</span>
-                    <p className='mb-0'>₹1000 onwards</p>
-                  </div>
-                  <hr className='mb-3'/>
-                  <BookBtn/>
-                </div>
-              </div>
-            </div>
-              <div className="col-lg-4 col-md-6 position-relative">
-              <div className="card">
-                <div className="card_slider">
-                  <ReactSlickSlider/>
-                </div>
-                 <div className="reating">
-                   <div className="start">
-                     <img src={whaitestart} alt="" /><span className='ps-2'>4.0 (175)</span>
-                   </div>
-                   <div className="save_btn">
-                         <span><a href=""><img src={save} alt="" /></a></span>
-                      </div>
-                      <div className='share_btn'>
-                        <span><a href=""><img src={share} alt="" /></a></span>
-                      </div>
-                 </div>
-                <div className="inner_txt">
-                   <div className="d-flex justify-content-between mb-3 align-content-center align-items-center">
-                    <h2 className='m-0'>Red Meadows</h2>
-                    <p className='m-0'>~1.8 km</p>
-                 </div>
-                 <div className="no_off_users">
-                    <ul className="d-flex p-0 align-items-center">
-                      {userList.map((user) => (
-                        <li key={user.id} className='me-2'>
-                          {user.type === "img" ? (
-                            <img src={user.src} alt={user.alt} />
-                          ) : (
-                            user.name
-                          )}
-                        </li>
-                      ))}
-                      <span style={{color:"#858585"}}>+5 more</span>
-                    </ul>
-                  </div>
-                  <div className="offers d-flex justify-content-between">
-                    <span>Upto 50% Off</span>
-                    <p className='mb-0'>₹1000 onwards</p>
-                  </div>
-                  <hr className='mb-3'/>
-                  <BookBtn/>
-                </div>
-              </div>
-            </div>
-            
-          </div>
+            <div className="row g-4">
+              {filteredVenues.map((venue) => {
+                const discount = venue.discount_offer
+                  ? parseFloat(venue.discount_offer).toString()
+                  : "0";
 
+                return (
+                  <div key={venue.id} className="col-lg-4 col-md-6 position-relative">
+                    <div className="card">
+                      <div className="card_slider">
+                        <ReactSlickSlider coverImage={venue.cover_image || defaultImage} />
+                      </div>
+
+                      <div className="reating">
+                        <div className="start">
+                          <img src={whaitestart} alt="star" />
+                          <span className="ps-2">
+                            {venue.average_rating || "4.0"} ({venue.review_count || 0})
+                          </span>
+                        </div>
+
+                        <div className="save_btn" onClick={() => toggleFavourite(venue)}>
+                          <img
+                            src={save}
+                            alt="save"
+                            style={{
+                              filter: venue.favourite
+                                ? "invert(0.4) sepia(1) saturate(4) hue-rotate(60deg)"
+                                : "none",
+                              cursor: "pointer",
+                            }}
+                          />
+                        </div>
+
+                        <div className="share_btn" onClick={() => handleShareClick(venue)}>
+                          <img src={share} alt="share" style={{ cursor: "pointer" }} />
+                        </div>
+                      </div>
+
+                      <div className="inner_txt">
+                        <div className="d-flex justify-content-between mb-3 align-items-center">
+                          <h2 className="m-0">{venue.venue_name}</h2>
+                          <p className="m-0">
+                            ~{venue.distance_km ? venue.distance_km.toFixed(1) : "0"} km
+                          </p>
+                        </div>
+
+                        <div className="no_off_users">
+                          <ul className="d-flex p-0 align-items-center">
+                            {[1, 2, 3, 4].map((id) => (
+                              <li key={id} className="me-2">
+                                <img src={users} alt="user" />
+                              </li>
+                            ))}
+                            <span style={{ color: "#858585" }}>+5 more</span>
+                          </ul>
+                        </div>
+
+                        <div className="offers d-flex justify-content-between">
+                          <span>Upto {discount}% Off</span>
+                          <p className="mb-0">₹{parseFloat(venue.pricing).toFixed(0)} onwards</p>
+                        </div>
+
+                        <hr className="mb-3" />
+                        <BookBtn venueId={venue.id} />
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </Col>
         </Row>
-        <AppDownloadBanner/>
+
+        <AppDownloadBanner />
       </Container>
     </section>
-    </>
-  )
+  );
 }
 
-export default VenuePage
+export default VenuePage;

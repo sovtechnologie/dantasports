@@ -1,133 +1,203 @@
-import React from 'react'
+import React, { useEffect, useState, useMemo } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
-import  './/StyleSheets/BookVenues.css';
-import star from '../assets/images/home/bookvenues/star.svg'
-import like from '../assets/images/home/bookvenues/like.svg';
-import share from '../assets/images/home/bookvenues/share.svg';
-import venues1 from '../assets/images/home/bookvenues/redmeadows.png';
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useQueryClient } from "@tanstack/react-query";
 
-function BookVenues() {
+import { useFetchVenue } from "../hooks/VenueList/useFetchVenue";
+
+import { CardShimmer } from "../features/withoutauth/components/Shimmer/CardShimmer.jsx";
+
+import "./StyleSheets/BookVenues.css";
+import star from "../assets/images/home/bookvenues/star.svg";
+import likeIcon from "../assets/images/home/bookvenues/like.svg";
+import shareIcon from "../assets/images/home/bookvenues/share.svg";
+import { useLikeVenue } from "../hooks/favouriteVenue/useLikeVenue.js";
+import { useUnlikeVenue } from "../hooks/favouriteVenue/useUnlikeVenue.js";
+
+export default function BookVenues() {
+  const queryClient = useQueryClient();
+  const userId = useSelector((state) => state.auth.id);
+  const { lat, lng } = useSelector((state) => state.location);
+
+  const [venueList, setVenueList] = useState([]);
+
+  const payload = { lat, lng, userId: userId || null };
+  const { data, isLoading, isError, error } = useFetchVenue(payload);
+  const auth = useSelector((state) => state.auth);
+  const likeVenue = useLikeVenue();
+  const unlikeVenue = useUnlikeVenue();
+
+  // ✅ Fetch venue data
+  useEffect(() => {
+    if (data?.status === 200) {
+      setVenueList(data.result);
+    }
+  }, [data]);
+
+const toggleFavourite = (venue) => {
+    const venueId = venue.id;
+    console.log("toggle");
+
+    setVenueList((prevList) =>
+      prevList.map((v) =>
+        v.id === venueId ? { ...v, favourite: !v.favourite } : v
+      )
+    );
+
+    if (!venue.favourite) {
+      likeVenue.mutate(
+        { venueId, userId: auth?.id },
+        {
+          onSuccess: async () => {
+            await queryClient.invalidateQueries([
+              "venueList",
+              auth?.id || null,
+            ]);
+          },
+          onError: () => {
+            setVenueList((prevList) =>
+              prevList.map((v) =>
+                v.id === venueId ? { ...v, favourite: false } : v
+              )
+            );
+          },
+        }
+      );
+    } else {
+      unlikeVenue.mutate(
+        { favouriteVenueId: venue.favourite_venue_id },
+        {
+          onSuccess: async () => {
+            await queryClient.invalidateQueries([
+              "venueList",
+              auth?.id || null,
+            ]);
+          },
+          onError: () => {
+            setVenueList((prevList) =>
+              prevList.map((v) =>
+                v.id === venueId ? { ...v, favourite: true } : v
+              )
+            );
+          },
+        }
+      );
+    }
+  };
+
+  
+  const handleShare = (venue) => {
+    const url = `${window.location.origin}/venue/${venue.id}`;
+    if (navigator.share) {
+      navigator.share({
+        title: venue.venue_name,
+        text: "Check out this venue!",
+        url,
+      });
+    } else {
+      navigator.clipboard.writeText(url);
+      alert("Venue link copied to clipboard!");
+    }
+  };
+
+  if (isLoading) return <CardShimmer />;
+  if (isError) return <p>Error loading venues: {error.message}</p>;
+
   return (
+    <section className="book_venue_section">
+      <Container>
+        <div className="d-flex justify-content-between align-items-center">
+          <div className="section_title">
+            <h2>Book Venues</h2>
+          </div>
+          <div className="see_all">
+            <Link to="/venue">See All</Link>
+          </div>
+        </div>
 
-    <>
-    
-    <section className='book_venue_section'>
-        <Container>
-            <div className="d-flex justify-content-between align-items-center">
-              <div className="section_title">
-               <h2>Book Venues</h2>
-            </div>
-            <div className="see_all">
-              <a href="">See All</a>
-            </div>
-            </div>
-            <Row className='g-3'>
-                <Col lg={3} md={6} sm={6}> 
-                
-                  <Card>
-                    <div className="card_img">
-                        <img src={venues1} className='w-100' alt="" />
-                    </div>
-                    <div className="card_icons">
-                    <a href=""><img className='like' src={like} alt="like" /></a>
-                     <a href=""><img className='share' src={share} alt="like" /></a>
+        <Row className="g-3">
+          {venueList.slice(0, 4).map((venue) => (
+            <Col lg={3} md={6} sm={6} key={venue.id}>
+              <Card>
+                <div className="card_img">
+                  <img
+                    src={venue.cover_image || "/fallback-image.png"}
+                    className="venue_img"
+                    alt={venue.venue_name}
+                  />
+                </div>
+
+               
+                <div className="card_icons">
+                  <img
+                    className="like"
+                    src={likeIcon}
+                    alt="like"
+                    onClick={() => toggleFavourite(venue)}
+                    style={{
+                      filter: venue.favourite
+                        ? "invert(40%) sepia(100%) saturate(5000%) hue-rotate(340deg)"
+                        : "none",
+                      cursor: "pointer",
+                    }}
+                  />
+                  <img
+                    className="share"
+                    src={shareIcon}
+                    alt="share"
+                    onClick={() => handleShare(venue)}
+                    style={{ cursor: "pointer" }}
+                  />
+                </div>
+
+                <div className="txt_wrapper">
+                  <div className="card_txt">
+                    <h2>{venue.venue_name}</h2>
+                    <p>
+                      <span className="star pe-2">
+                        <img src={star} alt="rating" />
+                      </span>
+                      <strong className="pe-2">
+                        {venue.average_rating || "0.0"} (
+                        {venue.review_count || 0})
+                      </strong>
+                      ~
+                      {venue.distance_km
+                        ? `${venue.distance_km.toFixed(1)} km`
+                        : "0.0"}
+                    </p>
                   </div>
-                    <div className="txt_wrapper">
-                    <div className="card_txt">
-                      <h2>Red Meadows</h2>
-                      <p><span className='star pe-2'><img src={star} alt="" /></span> <strong className='pe-2'>4.0 (175)</strong>~1.8 km</p>
-                    </div>
-                    <div className="sports_title">
-                      <p>Football, Cricket</p>
-                    </div>
-                    <div className="offer d-flex justify-content-between align-items-center">
-                       <p>Upto 50%off</p>
-                       <a href="">Book Now</a>
-                    </div>
-                    </div>
-                  </Card>
-                </Col>
-                 <Col lg={3} md={6} sm={6}> 
-                
-                  <Card>
-                    <div className="card_img">
-                        <img src={venues1} className='w-100' alt="" />
-                    </div>
-                    <div className="card_icons">
-                    <a href=""><img className='like' src={like} alt="like" /></a>
-                     <a href=""><img className='share' src={share} alt="like" /></a>
+
+                  <div className="sports_title">
+                    <p>
+                      {Array.isArray(venue.sports)
+                        ? venue.sports.map((s) => s.name).join(", ")
+                        : "Sports Available"}
+                    </p>
                   </div>
-                    <div className="txt_wrapper">
-                    <div className="card_txt">
-                      <h2>Red Meadows</h2>
-                      <p><span className='star pe-2'><img src={star} alt="" /></span> <strong className='pe-2'>4.0 (175)</strong>~1.8 km</p>
-                    </div>
-                    <div className="sports_title">
-                      <p>Football, Cricket</p>
-                    </div>
-                    <div className="offer d-flex justify-content-between align-items-center">
-                       <p>Upto 50%off</p>
-                       <a href="">Book Now</a>
-                    </div>
-                    </div>
-                  </Card>
-                </Col>
-                 <Col lg={3} md={6} sm={6}> 
-                
-                  <Card>
-                    <div className="card_img">
-                        <img src={venues1} className='w-100' alt="" />
-                    </div>
-                    <div className="card_icons">
-                    <a href=""><img className='like' src={like} alt="like" /></a>
-                     <a href=""><img className='share' src={share} alt="like" /></a>
-                  </div>
-                    <div className="txt_wrapper">
-                    <div className="card_txt">
-                      <h2>Red Meadows</h2>
-                      <p><span className='star pe-2'><img src={star} alt="" /></span> <strong className='pe-2'>4.0 (175)</strong>~1.8 km</p>
-                    </div>
-                    <div className="sports_title">
-                      <p>Football, Cricket</p>
-                    </div>
-                    <div className="offer d-flex justify-content-between align-items-center">
-                       <p>Upto 50%off</p>
-                       <a href="">Book Now</a>
-                    </div>
-                    </div>
-                  </Card>
-                </Col>
-                 <Col lg={3} md={6} sm={6}> 
-                
-                  <Card>
-                    <div className="card_img">
-                        <img src={venues1} className='w-100' alt="" />
-                    </div>
-                    <div className="card_icons">
-                    <a href=""><img className='like' src={like} alt="like" /></a>
-                     <a href=""><img className='share' src={share} alt="like" /></a>
-                  </div>
-                    <div className="txt_wrapper">
-                    <div className="card_txt">
-                      <h2>Red Meadows</h2>
-                      <p><span className='star pe-2'><img src={star} alt="" /></span> <strong className='pe-2'>4.0 (175)</strong>~1.8 km</p>
-                    </div>
-                    <div className="sports_title">
-                      <p>Football, Cricket</p>
-                    </div>
-                    <div className="offer d-flex justify-content-between align-items-center">
-                       <p>Upto 50%off</p>
-                       <a href="">Book Now</a>
-                    </div>
-                    </div>
-                  </Card>
-                </Col>
-                 
-            </Row>
-        </Container>
+
+                 <div className="offer d-flex justify-content-between align-items-center">
+  {venue.coupon_type === "percentage" ? (
+    <p>
+      Upto {Math.floor(venue.discount_offer || 0)}
+      <span className="percent_icon">%</span> off
+    </p>
+  ) : (
+    <p>
+      Save ₹{Math.floor(venue.discount_offer || 0)} off
+    </p>
+  )}
+
+  <Link to={`/venue/${venue.id}?venueId=${venue.id}`}>Book Now</Link>
+</div>
+
+                </div>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </Container>
     </section>
-    </>
-  )
+  );
 }
-
-export default BookVenues

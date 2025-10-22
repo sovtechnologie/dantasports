@@ -3,7 +3,8 @@ import { fetchCoupanList } from "../../services/LoginApi/CoupanApi/endpointApi";
 
 export const useFetchCoupan = (payload) =>{
     return useQuery({
-        queryKey: ["CoupanList",payload?.type],
+        queryKey: ["CoupanList", payload?.type, payload?.venueId],
+
         queryFn: () => {
            return fetchCoupanList(payload);
         },

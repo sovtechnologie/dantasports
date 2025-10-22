@@ -39,12 +39,13 @@ const mapCoupanData = (apiData) => {
 
 
 
-export default function CouponModal({ isOpen, onClose, type, totalAmount, onApply }) {
+export default function CouponModal({ isOpen, onClose, type, totalAmount, onApply, venueId  }) {
     const userId = useSelector((state) => state.auth?.id);
     const [selected, setSelected] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
     const [validationError, setValidationError] = useState("");
-    const { data: coupanlistdata } = useFetchCoupan({ type: type })
+  const { data: coupanlistdata } = useFetchCoupan({ type: type, venueId: venueId })
+
 
     const coupons = Array.isArray(coupanlistdata?.result) && coupanlistdata.result.length > 0
         ? coupanlistdata.result.map(mapCoupanData)
@@ -58,36 +59,43 @@ export default function CouponModal({ isOpen, onClose, type, totalAmount, onAppl
 
     // Handle Apply button click
     const handleApply = async () => {
-        setValidationError("");
+    setValidationError("");
 
-        if (!selected) return;
-        const couponToApply = coupons.find((c) => c.id === selected);
-        if (!couponToApply) return;
+    if (!selected) {
+        setValidationError("Please select a valid coupon from the list");
+        setTimeout(() => setValidationError(""), 3000);
+        return;
+    }
 
-        // 🔹 Validation: Check minimum booking amount
-        if (totalAmount < couponToApply.minBooking) {
-            setValidationError(`Your amount is less than the minimum booking amount of ₹${couponToApply.minBooking}`);
-            // Remove error after 3 seconds
-            setTimeout(() => setValidationError(""), 3000);
-            return;
-        }
+    const couponToApply = coupons.find((c) => c.id === selected);
+    if (!couponToApply) {
+        setValidationError("Selected coupon is invalid");
+        setTimeout(() => setValidationError(""), 3000);
+        return;
+    }
 
-        const payload = {
-            userId,
-            totalAmount,
-            couponCode: couponToApply.name,
-            sportsIdArrays: couponToApply.sportsIds,
-            type,
-        };
+    // Validation: Minimum booking
+    if (totalAmount < couponToApply.minBooking) {
+        setValidationError(`Your amount is less than the minimum booking amount of ₹${couponToApply.minBooking}`);
+        setTimeout(() => setValidationError(""), 3000);
+        return;
+    }
 
-        try {
-            const response = await applyCoupan(payload);
-            if (onApply) onApply({ coupon: couponToApply, apiResponse: response?.result[0] });
-            onClose();
-        } catch (e) {
-            console.error("Failed to apply coupon", e);
-        }
+    const payload = {
+        userId,
+        totalAmount,
+        couponCode: couponToApply.name,
+        sportsIdArrays: couponToApply.sportsIds,
+        type,
     };
+
+    try {
+        const response = await applyCoupan(payload);
+        if (onApply) onApply({ coupon: couponToApply, apiResponse: response?.result });
+    } catch (e) {
+        console.error("Failed to apply coupon", e);
+    }
+};
 
 
 

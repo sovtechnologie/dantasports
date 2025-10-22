@@ -139,7 +139,7 @@ function VenueDetailsPage() {
     data: sportDetails,
     isLoading: sportDetailsLoading,
     error: sportDetailsError,
-  } = useSportDetails(selectedSport);
+  } = useSportDetails(selectedSport,id);
   if (sportDetails && sportDetails.result) {
     console.log("Sport Details:", sportDetails.result[0]);
   }
@@ -567,6 +567,7 @@ function VenueDetailsPage() {
                       convenienceFee={convenienceFee}
                       count={1}
                       type={1}
+                        venueId={id} 
                       setFinalAmount={setFinalAmount}
                     />
                   )}

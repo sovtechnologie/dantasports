@@ -5,6 +5,14 @@
   position: relative;
 }
 
+
+.card_txt h2,
+.card_txt p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .card_icons .like {
   position: absolute;
   top: 10px;
