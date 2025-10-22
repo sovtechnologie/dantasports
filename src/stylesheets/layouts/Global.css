@@ -63,6 +63,12 @@ a {
 
 }
 
+.sports_title{
+     white-space: nowrap;       
+  overflow: hidden;         
+  text-overflow: ellipsis; 
+}
+
 
 .short_card {
 

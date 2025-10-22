@@ -79,8 +79,10 @@ const TimeSelector = ({
 
   const { start_time = '00:00:00', end_time = '00:00:00' } = slottime;
 
-  const { data, isLoading, error } = useSportDetails(sportId);
+  const { data, isLoading, error } = useSportDetails(sportId,venueId);
+  console.log("sportsportsportsportsportsport",data);
   const sport = data?.result?.[0] || {};
+  
 
   const {
     minimum_booking_duration = 0,

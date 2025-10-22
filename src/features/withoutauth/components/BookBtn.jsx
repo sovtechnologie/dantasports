@@ -1,13 +1,17 @@
 import React from 'react'
 import "../Stylesheets/BookBtn.css";
-function BookBtn() {
+import { Link } from "react-router-dom";
+function BookBtn({venueId}) {
+   if (!venueId) return null; 
   return (
     <div>
        <div className="book_now_btn">
-         <a href="">Book Now</a>
+<Link to={`/venue/${venueId}`} className="book_btn">
+      Book Now
+    </Link>
        </div>
     </div>
   )
 }
 
-export default BookBtn
+export default BookBtn;

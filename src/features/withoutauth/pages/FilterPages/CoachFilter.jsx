@@ -1,3 +1,4 @@
+
 import "../../Stylesheets/Filterpages/CoachFilter.css";
 import CoachCard from "../../components/CoachCard.jsx";
 import AppDownloadBanner from "../../components/AppDownloadBanner.jsx";
@@ -20,6 +21,7 @@ import FilterTow from "../../components/FilterTow.jsx";
 import SortModal from "../../components/SortModal.jsx";
 import FliterModal from "../../components/FliterModal.jsx";
 import FilterTowModal from "../../components/FilterTowModal.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function CoachFilterPage() {
   const { lat, lng } = useSelector((state) => state.location);
@@ -29,17 +31,14 @@ export default function CoachFilterPage() {
   const [selectedCoach, setSelectedCoach] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
-
+const navigate = useNavigate();
   const {
     data: AllCoachdata,
     isLoading,
     isError,
     error,
-  } = useFetchCoach({
-    lat,
-    lng,
-  });
-  console.log("AllCoachdataAllCoachdata", AllCoachdata);
+  } = useFetchCoach({ lat, lng });
+
   const handleReset = () => {
     setSearch("");
     setFilters({});
@@ -71,10 +70,7 @@ export default function CoachFilterPage() {
 
       if (filters.date) {
         const chosenDate = new Date(filters.date).toISOString().split("T")[0];
-
-        if (!coach.available_dates?.includes(chosenDate)) {
-          return false;
-        }
+        if (!coach.available_dates?.includes(chosenDate)) return false;
       }
 
       if (filters.ageGroup) {
@@ -114,16 +110,25 @@ export default function CoachFilterPage() {
   const formattedCoachList = useMemo(() => {
     return filteredCoaches.map((coach) => ({
       id: coach.id,
-      image: coach.desktop_image || coach.mobile_image,
+      image: coach.desktop_image || coach.mobile_image || coach1, // fallback image
       name: coach.name,
       location: `${coach.locations?.area}, ${coach.locations?.city}`,
-      rating: coach.average_rating || 0,
+      rating:
+        typeof coach.average_rating === "number"
+          ? coach.average_rating.toFixed(1)
+          : 0,
       ratingCount: coach.review_count || 0,
       sportIcon: coach.linked_sports,
       category: coach.training_type,
       tag: coach.type === 1 ? "Trainer" : "Academy",
     }));
   }, [filteredCoaches]);
+
+    const handleClick = (coach) => {
+   
+   navigate(`/Coach/${coach?.id}`);
+  };
+
 
   if (isLoading) return <VenueListShimmer />;
   if (isError)
@@ -138,300 +143,98 @@ export default function CoachFilterPage() {
     { id: 5, type: "img", src: users, alt: "User4" },
     { id: 5, type: "img", src: users, alt: "User5" },
   ];
-
+ 
   return (
     <>
-      {/* <div className="coach-filter-container">
-        <aside className="coach-filter-sidebar">
-          <SortSection
-            filters={filters}
-            setFilters={setFilters}
-            search={search}
-            setSearch={setSearch}
-            handleReset={handleReset}
-            selectedEvent={selectedCoach}
-            setSelectedEvent={setSelectedCoach}
-            selectedDate={selectedDate}
-            setSelectedDate={setSelectedDate}
-            selectedTime={selectedTime}
-            setSelectedTime={setSelectedTime}
-            runList={coachList.map((coach) => ({
-              ...coach,
-              event_title: coach.name,
-            }))}
-          />
-
-          <aside>
-            <AdvancedFilter
-              runList={coachList}
-              filters={filters}
-              setFilters={setFilters}
-              onReset={handleReset}
-              mode="coach"
-            />
-          </aside>
-        </aside>
-
-        <section className="coach-grid">
-          {formattedCoachList.length > 0 ? (
-            formattedCoachList.map((coach) => (
-              <CoachCard key={coach.id} coach={coach} />
-            ))
-          ) : (
-            <div className="no-data-card">No coaches found</div>
-          )}
-        </section>
-      </div> */}
-
-      <section style={{ background: "#F1F3F2" }} className="coach_page_section pt-3 pt-lg-5 pb-lg-5 pb-3">
+      <section
+        style={{ background: "#F1F3F2" }}
+        className="coach_page_section pt-3 pt-lg-5 pb-lg-5 pb-3"
+      >
         <Container>
           <Row>
-            <Col lg={3} md={5} className='d-none d-lg-block d-md-block'>
+            <Col lg={3} md={5} className="d-none d-lg-block d-md-block">
               <SortBy />
               <FilterTow />
             </Col>
-            <Col className='d-lg-none d-md-none text-end mb-4 d-flex  justify-content-end'>
-              <SortModal/>
-              <FilterTowModal/>
+            <Col className="d-lg-none d-md-none text-end mb-4 d-flex  justify-content-end">
+              <SortModal />
+              <FilterTowModal />
             </Col>
             <Col lg={9} md={7}>
               <div className="row g-3">
-                <div className="col-lg-4">
-                  <Card>
-                    <div className="card_img">
-                      <img src={coach1} className="w-100" alt="" />
-                    </div>
-                    <div className="card_icons">
-                      <a href="">
-                        <img className="like" src={like} alt="like" />
-                      </a>
-                      <a href="">
-                        <img className="share" src={share} alt="like" />
-                      </a>
-                      <div className="reating">
-                        <span>
-                          <img className="me-2" src={star} alt="" />
-                          4.0 (175)
-                        </span>
-                      </div>
-                    </div>
-                    <div className="trainerbox position-relative">
-                      <span className="trainer_type">Trainer</span>
-                    </div>
-                    <div className="txt_wrapper">
-                      <div className="card_txt">
-                        <div className="d-flex justify-content-between mb-3 align-items-center">
-                          <h2 className="m-0">Prerak Arya</h2>
-                          <p className="m-0 memebercat">Adults</p>
+                {formattedCoachList.length > 0 ? (
+                  formattedCoachList.map((coach) => (
+                    <div className="col-lg-4" key={coach.id}>
+                      <Card>
+                        <div className="card_img">
+                          <img
+                            src={coach.image}
+                            className="w-100"
+                            alt={coach.name || "Coach"}
+                            onError={(e) => {
+                              e.currentTarget.onerror = null;
+                              e.currentTarget.src = coach1;
+                            }}
+                          />
                         </div>
-                        <div className="no_off_users">
-                          <ul className="d-flex p-0 align-items-center">
-                            {userList.map((user) => (
-                              <li key={user.id} className="me-2">
-                                {user.type === "img" ? (
-                                  <img src={user.src} alt={user.alt} />
-                                ) : (
-                                  user.name
-                                )}
-                              </li>
-                            ))}
-                            <span style={{ color: "#858585" }}>+5 more</span>
-                          </ul>
+                        <div className="card_icons">
+                          <a href="">
+                            <img className="like" src={like} alt="like" />
+                          </a>
+                          <a href="">
+                            <img className="share" src={share} alt="share" />
+                          </a>
+                          <div className="reating">
+                            <span>
+                              <img className="me-2" src={star} alt="" />
+                              {coach.rating} ({coach.ratingCount})
+                            </span>
+                          </div>
                         </div>
+                        <div className="trainerbox position-relative">
+                          <span className="trainer_type">{coach.tag}</span>
+                        </div>
+                        <div className="txt_wrapper">
+                          <div className="card_txt">
+                            <div className="d-flex justify-content-between mb-3 align-items-center">
+                              <h2 className="m-0">{coach.name}</h2>
+                              <p className="m-0 memebercat">{coach.category}</p>
+                            </div>
+                            <div className="no_off_users">
+                              <ul className="d-flex p-0 align-items-center">
+                                {userList.map((user) => (
+                                  <li key={user.id} className="me-2">
+                                    {user.type === "img" ? (
+                                      <img src={user.src} alt={user.alt} />
+                                    ) : (
+                                      user.name
+                                    )}
+                                  </li>
+                                ))}
+                                <span style={{ color: "#858585" }}>+5 more</span>
+                              </ul>
+                            </div>
+                            <p>
+                              <span>
+                                <img className="pe-2" src={map} alt="" />
+                              </span>
+                              {coach.location}
+                            </p>
+                          </div>
+                          <hr />
+                          <div className="offer" onClick={() => handleClick(coach)}>
+  <a href="#"  className="">
+    Enquire Now
+  </a>
+</div>
 
-                        <p>
-                          <span>
-                            <img className="pe-2" src={map} alt="" />
-                          </span>
-                          Palika Bazar Gate 1, Delhi-451200
-                        </p>
-                      </div>
-                      <hr />
-                      <div className="offer">
-                        <a href="" className="">
-                          Enquire Now
-                        </a>
-                      </div>
-                    </div>
-                  </Card>
-                </div>
-                <div className="col-lg-4">
-                  <Card>
-                    <div className="card_img">
-                      <img src={coach1} className="w-100" alt="" />
-                    </div>
-                    <div className="card_icons">
-                      <a href="">
-                        <img className="like" src={like} alt="like" />
-                      </a>
-                      <a href="">
-                        <img className="share" src={share} alt="like" />
-                      </a>
-                      <div className="reating">
-                        <span>
-                          <img className="me-2" src={star} alt="" />
-                          4.0 (175)
-                        </span>
-                      </div>
-                    </div>
-                    <div className="trainerbox position-relative">
-                      <span className="trainer_type">Trainer</span>
-                    </div>
-                    <div className="txt_wrapper">
-                      <div className="card_txt">
-                        <div className="d-flex justify-content-between mb-3 align-items-center">
-                          <h2 className="m-0">Prerak Arya</h2>
-                          <p className="m-0 memebercat">Adults</p>
                         </div>
-                        <div className="no_off_users">
-                          <ul className="d-flex p-0 align-items-center">
-                            {userList.map((user) => (
-                              <li key={user.id} className="me-2">
-                                {user.type === "img" ? (
-                                  <img src={user.src} alt={user.alt} />
-                                ) : (
-                                  user.name
-                                )}
-                              </li>
-                            ))}
-                            <span style={{ color: "#858585" }}>+5 more</span>
-                          </ul>
-                        </div>
-
-                        <p>
-                          <span>
-                            <img className="pe-2" src={map} alt="" />
-                          </span>
-                          Palika Bazar Gate 1, Delhi-451200
-                        </p>
-                      </div>
-                      <hr />
-                      <div className="offer">
-                        <a href="" className="">
-                          Enquire Now
-                        </a>
-                      </div>
+                      </Card>
                     </div>
-                  </Card>
-                </div>
-                <div className="col-lg-4">
-                  <Card>
-                    <div className="card_img">
-                      <img src={coach1} className="w-100" alt="" />
-                    </div>
-                    <div className="card_icons">
-                      <a href="">
-                        <img className="like" src={like} alt="like" />
-                      </a>
-                      <a href="">
-                        <img className="share" src={share} alt="like" />
-                      </a>
-                      <div className="reating">
-                        <span>
-                          <img className="me-2" src={star} alt="" />
-                          4.0 (175)
-                        </span>
-                      </div>
-                    </div>
-                    <div className="trainerbox position-relative">
-                      <span className="trainer_type">Trainer</span>
-                    </div>
-                    <div className="txt_wrapper">
-                      <div className="card_txt">
-                        <div className="d-flex justify-content-between mb-3 align-items-center">
-                          <h2 className="m-0">Prerak Arya</h2>
-                          <p className="m-0 memebercat">Adults</p>
-                        </div>
-                        <div className="no_off_users">
-                          <ul className="d-flex p-0 align-items-center">
-                            {userList.map((user) => (
-                              <li key={user.id} className="me-2">
-                                {user.type === "img" ? (
-                                  <img src={user.src} alt={user.alt} />
-                                ) : (
-                                  user.name
-                                )}
-                              </li>
-                            ))}
-                            <span style={{ color: "#858585" }}>+5 more</span>
-                          </ul>
-                        </div>
-
-                        <p>
-                          <span>
-                            <img className="pe-2" src={map} alt="" />
-                          </span>
-                          Palika Bazar Gate 1, Delhi-451200
-                        </p>
-                      </div>
-                      <hr />
-                      <div className="offer">
-                        <a href="" className="">
-                          Enquire Now
-                        </a>
-                      </div>
-                    </div>
-                  </Card>
-                </div>
-                <div className="col-lg-4">
-                  <Card>
-                    <div className="card_img">
-                      <img src={coach1} className="w-100" alt="" />
-                    </div>
-                    <div className="card_icons">
-                      <a href="">
-                        <img className="like" src={like} alt="like" />
-                      </a>
-                      <a href="">
-                        <img className="share" src={share} alt="like" />
-                      </a>
-                      <div className="reating">
-                        <span>
-                          <img className="me-2" src={star} alt="" />
-                          4.0 (175)
-                        </span>
-                      </div>
-                    </div>
-                    <div className="trainerbox position-relative">
-                      <span className="trainer_type">Trainer</span>
-                    </div>
-                    <div className="txt_wrapper">
-                      <div className="card_txt">
-                        <div className="d-flex justify-content-between mb-3 align-items-center">
-                          <h2 className="m-0">Prerak Arya</h2>
-                          <p className="m-0 memebercat">Adults</p>
-                        </div>
-                        <div className="no_off_users">
-                          <ul className="d-flex p-0 align-items-center">
-                            {userList.map((user) => (
-                              <li key={user.id} className="me-2">
-                                {user.type === "img" ? (
-                                  <img src={user.src} alt={user.alt} />
-                                ) : (
-                                  user.name
-                                )}
-                              </li>
-                            ))}
-                            <span style={{ color: "#858585" }}>+5 more</span>
-                          </ul>
-                        </div>
-
-                        <p>
-                          <span>
-                            <img className="pe-2" src={map} alt="" />
-                          </span>
-                          Palika Bazar Gate 1, Delhi-451200
-                        </p>
-                      </div>
-                      <hr />
-                      <div className="offer">
-                        <a href="" className="">
-                          Enquire Now
-                        </a>
-                      </div>
-                    </div>
-                  </Card>
-                </div>
+                  ))
+                ) : (
+                  <div className="no-data-card">No coaches found</div>
+                )}
               </div>
             </Col>
           </Row>
