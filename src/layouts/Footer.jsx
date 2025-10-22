@@ -86,6 +86,9 @@ function Footer() {
                     <li>
                       <Link to="/CorporateBooking">Corporate Booking</Link>
                     </li>
+                     <li>
+                      <Link to="/AccountDeactivate">Account Deactivate</Link>
+                    </li>
                   </ul>
                 </div>
                 <div className="sub_inner col-lg-3 col-md-4">
