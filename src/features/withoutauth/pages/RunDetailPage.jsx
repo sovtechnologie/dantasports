@@ -84,6 +84,7 @@ const mapEventData = (apiData) => {
     difficulty: "easy",
     favourite: apiData?.favourite,
     favourite_venue_id: apiData?.favourite_venue_id,
+     rule_and_regulations: apiData?.rule_and_regulations,  
     termsAndCondition: apiData?.terms_and_condition,
     cancelPolicy: apiData?.cancellation_policy,
     reviews: Array.isArray(apiData?.reviews)
@@ -109,6 +110,7 @@ export default function EventDetailPage() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [finalAmount, setFinalAmount] = useState(null);
   const [totalPrice, setTotalPrice] = useState(null);
+  console.log("totalPricetotalPrice",totalPrice)
   const [tickets, setTickets] = useState({ ticketsId: null, quantity: null });
 
   const {
@@ -355,6 +357,31 @@ export default function EventDetailPage() {
                       : "Read more"}
                   </button>
                 </div>
+                
+<div className="event-section mt-3">
+  <div className="event-heading"><strong>Things to Carry</strong></div>
+  <div className="event-description" style={{ whiteSpace: "pre-wrap" }}>
+    {expandedSection === "thingsToCarry"
+      ? event?.carrything ?? "No items specified"
+      : `${event?.carrything?.substring(0, 200) ?? ""}...`}
+  </div>
+  <button onClick={() => toggleSection("thingsToCarry")} className="read-more-btn">
+    {expandedSection === "thingsToCarry" ? "Read less" : "Read more"}
+  </button>
+</div>
+
+<div className="event-section mt-3">
+  <div className="event-heading"><strong>Rules & Regulations</strong></div>
+  <div className="event-description" style={{ whiteSpace: "pre-wrap" }}>
+    {expandedSection === "rules"
+      ? event?.rule_and_regulations ?? "No rules specified"
+      : `${event?.rule_and_regulations?.substring(0, 200) ?? ""}...`}
+  </div>
+  <button onClick={() => toggleSection("rules")} className="read-more-btn">
+    {expandedSection === "rules" ? "Read less" : "Read more"}
+  </button>
+</div>
+
 
                 {/* <div className="event-term_policy">
                   <div className="event-section terms">
@@ -421,7 +448,10 @@ export default function EventDetailPage() {
                                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                              <TermsConditionsModal/>
+                                             <div className="modal-body">
+  <TermsConditionsModal termsText={event?.termsAndCondition} />
+</div>
+
                                             </div>
                 
                                           </div>
@@ -453,7 +483,11 @@ export default function EventDetailPage() {
                                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                              <CancellationPolicy/>
+                                           <div className="modal-body">
+  <CancellationPolicy policyText={event?.cancelPolicy} />
+</div>
+
+
                                             </div>
                 
                                           </div>
@@ -510,18 +544,25 @@ export default function EventDetailPage() {
                   />
                 </div>
 
-                <div className="event-right-section">
-                  <div className="event-heading">
-                    <strong>Chosse Tickets :</strong>
-                  </div>
-                  <TicketSelector
-                    tickets={EventPrice[0]?.tickets}
-                    counts={ticketCounts}
-                    onChange={handleTicketChange}
-                    setTotalPrice={setTotalPrice}
-                    setTickets={setTickets}
-                  />
-                </div>
+              <div className="event-right-section">
+  <div className="event-heading">
+    <strong>Choose Tickets :</strong>
+  </div>
+  <TicketSelector
+    tickets={EventPrice[0]?.tickets}
+    counts={ticketCounts}
+    onChange={handleTicketChange}
+    setTotalPrice={setTotalPrice}
+    setTickets={setTickets}
+    disabled={!selectedDate}  
+  />
+  {!selectedDate && (
+    <p style={{ color: "red", fontSize: "12px", marginTop: "5px" }}>
+      Please select a date first to choose tickets
+    </p>
+  )}
+</div>
+
 
                 <div className="event-right-section">
                   <div className="event-heading">
@@ -531,6 +572,7 @@ export default function EventDetailPage() {
                     totalPrice={totalPrice}
                     convenienceFee={ConvenienceFee}
                     type={type}
+                    venueId={id}
                     setFinalAmount={setFinalAmount}
                   />
                 </div>

@@ -187,14 +187,48 @@ const handleShare = (gym) => {
       </p>
     </div>
 
-    <div className="sports_title">
-      <p>{gym.sports_name || "Multiple Sports"}</p>
-    </div>
+    <div
+  className="sports_title mt-2"
+  style={{
+    whiteSpace: "nowrap",       // ek hi line
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    color: "#555",               // pehle jaise grey
+    fontSize: "0.85rem",
+  }}
+>
+  {gym.amenities && gym.amenities.length > 0 ? (
+    <>
+      {gym.amenities.slice(0, 5).map((amenity, index) => (
+        <span key={index}>
+          {amenity.name}
+          {index < Math.min(4, gym.amenities.length - 1) ? ", " : ""}
+        </span>
+      ))}
+      {gym.amenities.length > 5 && (
+        <span> +{gym.amenities.length - 5}</span>
+      )}
+    </>
+  ) : (
+    <span>No amenities listed</span>
+  )}
+</div>
+
+
+
 
     <div className="offer d-flex justify-content-between align-items-center">
-      <p>{gym.offer_text || "Upto 50% off"}</p>
-      <a href={`/gym/${gym.Id}`}>Join Now</a>
-    </div>
+  <p>
+    {gym.coupon_type === "percentage" && gym.discount_offer
+      ? `Upto ${parseFloat(gym.discount_offer)}% Off`
+      : gym.coupon_type === "flat" && gym.discount_offer
+      ? `Upto ₹${parseFloat(gym.discount_offer)} Off`
+      : ""}
+  </p>
+  <a href={`/gym/${gym.Id}`}>Join Now</a>
+</div>
+
+
   </div>
 </Card>
 

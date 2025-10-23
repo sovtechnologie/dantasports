@@ -14,6 +14,7 @@ import likeIcon from "../assets/images/home/bookvenues/like.svg";
 import shareIcon from "../assets/images/home/bookvenues/share.svg";
 import { useLikeVenue } from "../hooks/favouriteVenue/useLikeVenue.js";
 import { useUnlikeVenue } from "../hooks/favouriteVenue/useUnlikeVenue.js";
+import latestt from '../assets/quickbooking/latest.jpeg'
 
 export default function BookVenues() {
   const queryClient = useQueryClient();
@@ -122,7 +123,7 @@ const toggleFavourite = (venue) => {
               <Card>
                 <div className="card_img">
                   <img
-                    src={venue.cover_image || "/fallback-image.png"}
+                    src={venue.cover_image || latestt}
                     className="venue_img"
                     alt={venue.venue_name}
                   />
@@ -169,13 +170,39 @@ const toggleFavourite = (venue) => {
                     </p>
                   </div>
 
-                  <div className="sports_title">
-                    <p>
-                      {Array.isArray(venue.sports)
-                        ? venue.sports.map((s) => s.name).join(", ")
-                        : "Sports Available"}
-                    </p>
-                  </div>
+              <div className="no_off_users mt-2">
+  <ul className="d-flex p-0 align-items-center m-0">
+    {venue.sports?.slice(0, 5).map((sport, index) => (
+      <li key={index} className="me-2 list-unstyled">
+        <img
+          src={sport.image || latestt} // API me image na ho to default icon
+          alt={sport.name || "sport"}
+          title={sport.name || "sport"}
+          style={{
+            width: "25px",
+            height: "25px",
+            objectFit: "cover",
+            borderRadius: "50%",
+          }}
+        />
+      </li>
+    ))}
+
+    {venue.sports && venue.sports.length > 5 && (
+      <li
+        className="list-unstyled"
+        style={{
+          color: "#858585",
+          fontSize: "14px",
+          lineHeight: 1,
+        }}
+      >
+        +{venue.sports.length - 5} more
+      </li>
+    )}
+  </ul>
+</div>
+
 
                  <div className="offer d-flex justify-content-between align-items-center">
   {venue.coupon_type === "percentage" ? (

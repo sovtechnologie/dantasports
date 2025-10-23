@@ -56,8 +56,9 @@ const mapGymData = (apiData) => {
         reviewcount: apiData?.review_count || 0,
         address: `${apiData?.full_address || ''}`.trim().replace(/^,|,$/g, '')
             || "Not Available",
-        gym_timing: Array.isArray(apiData?.gym_timing) ? apiData?.gym_timing : '',
+ gym_timings: Array.isArray(apiData?.gym_timings) ? apiData?.gym_timings : [],
         coaches: Array.isArray(apiData?.gym_coaches) ? apiData?.gym_coaches : null,
+
         images: Array.isArray(apiData?.event_gallery)
             ? apiData.event_gallery.map((img) => img.image_url)
             : [GymImage, GymImage, GymImage, GymImage],
@@ -172,24 +173,7 @@ export default function GymDetailPage() {
 
     // Main transformation
     // Days in order with backend keys
-    const daysMap = [
-        { key: "monday", label: "Monday" },
-        { key: "tuesday", label: "Tuesday" },
-        { key: "wednesday", label: "Wednesday" },
-        { key: "thusday", label: "Thursday" }, // typo matches backend
-        { key: "friday", label: "Friday" },
-        { key: "saturday", label: "Saturday" },
-        { key: "sunday", label: "Sunday" }
-    ];
-
-    // Format time function
-    function formatTime(timeStr) {
-        const [hour, minute] = timeStr.split(":");
-        let h = parseInt(hour, 10);
-        const ampm = h >= 12 ? "PM" : "AM";
-        h = h % 12 || 12;
-        return `${String(h).padStart(2, "0")}:${minute} ${ampm}`;
-    }
+   
 
     // const gymtime = gym?.gym_timing[0];
 
@@ -263,6 +247,37 @@ export default function GymDetailPage() {
 
     }
 
+   
+
+
+const dayOrder = ["friday", "saturday", "sunday", "monday", "tuesday", "wednesday", "thursday"];
+
+const formatTime = (timeStr) => {
+  if (!timeStr) return "";
+  const [hour, minute] = timeStr.split(":");
+  let h = parseInt(hour, 10);
+  const ampm = h >= 12 ? "PM" : "AM";
+  h = h % 12 || 12;
+  return `${h}:${minute} ${ampm}`;
+};
+
+// Use gym_timings instead of gym_timing
+const mappedTimings = (gym?.gym_timings || []).map(item =>
+   
+  dayOrder.map(dayKey => ({
+    day: dayKey.charAt(0).toUpperCase() + dayKey.slice(1),
+    range: item[dayKey] === 1
+      ? `${formatTime(item.start_time.split(".")[0])} - ${formatTime(item.end_time.split(".")[0])}`
+      : "Closed"
+  }))
+).flat();
+
+
+
+const half = Math.ceil(mappedTimings.length / 2);
+const firstCol = mappedTimings.slice(0, half);
+const secondCol = mappedTimings.slice(half);
+ console.log("mappedTimingsmappedTimingsmappedTimings",mappedTimings);
     return (
         <>
             <section style={{ background: "#f1f3f2" }} className="pb-lg-5 pb-3">
@@ -275,7 +290,7 @@ export default function GymDetailPage() {
                         <h1 className="gympage-name">{gym?.name}</h1>
                         <div className="gym-location-rating">
                             <span>{gym?.location}</span>
-                            <span className="star" style={{ marginLeft: "20px", marginRight: "5px" }}>★</span><span className="light-text"> {gym?.rating}</span><span style={{ marginLeft: "5px" }}>({gym?.reviewcount}ratings)</span>
+                            <span className="star" style={{ marginLeft: "20px", marginRight: "5px" }}>★</span><span className="light-text"> {gym?.rating}</span><span style={{ marginLeft: "5px" }}>({gym?.reviewcount} ratings)</span>
                         </div>
                     </div>
 
@@ -330,19 +345,38 @@ export default function GymDetailPage() {
                                 </div>
 
                                 <div className="gym-carry-point">
-                                    <div className="gym-section gym-carry">
-                                        <div className="gym-heading">Timing</div>
-                                        <ol className="timing-list">
-                                            {timings.map((t, idx) => (
-                                                <li key={idx} className="timing-item">
-                                                    <span className="label">{t.label}:</span>
-                                                    {t.range && (
-                                                        <span className="range">{t.range}</span>
-                                                    )}
-                                                </li>
-                                            ))}
-                                        </ol>
-                                    </div>
+                                 <div className="gym-section gym-carry">
+  <div className="gym-heading">Timing</div>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+    {mappedTimings.map((t, idx) => (
+      <div
+        key={idx}
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          padding: '4px 0',
+          borderBottom: '1px solid #eee',
+          flexWrap: 'wrap'
+        }}
+      >
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <span style={{ fontWeight: 500 }}>{t.day}</span>
+          {t.note && (
+            <span style={{ color: 'darkorange', fontSize: '0.85em' }}>
+              {t.note}
+            </span>
+          )}
+        </div>
+        <span style={{ color: '#555', marginLeft: '10px', whiteSpace: 'nowrap' }}>
+          {t.range}
+        </span>
+      </div>
+    ))}
+  </div>
+</div>
+
+
+
 
                                     <div className="gym-section gym-pickPoints">
                                         <div className="gym-heading">Coaches</div>
@@ -364,6 +398,7 @@ export default function GymDetailPage() {
                                                         />
                                                         <p className="coach-name">{coach.name}</p>
                                                         <p className="coach-title">{coach.type}</p>
+                                                         <p className="coach-exp">{coach.exp} Years</p>
                                                     </div>
                                                 ))
                                             ) : (
@@ -425,7 +460,11 @@ export default function GymDetailPage() {
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                              <TermsConditionsModal/>
+                            {/* Terms & Conditions Modal */}
+<div className="modal-body">
+  <TermsConditionsModal termsText={gym?.termsAndCondition || "No terms available"} />
+</div>
+
                             </div>
 
                           </div>
@@ -456,9 +495,10 @@ export default function GymDetailPage() {
                             <div class="modal-header border-0">
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
-                              <CancellationPolicy/>
-                            </div>
+                          <div className="modal-body">
+  <CancellationPolicy policyText={gym?.cancelPolicy || "No cancellation policy available"} />
+</div>
+
 
                           </div>
                         </div>
@@ -513,6 +553,7 @@ export default function GymDetailPage() {
                                         totalPrice={totalAmount}
                                         convenienceFee={ConvenienceFee}
                                         type={3}
+                                        venueId={id}
                                         setFinalAmount={setFinalAmount}
                                     />
                                 </div>
