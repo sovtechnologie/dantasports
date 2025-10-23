@@ -188,16 +188,16 @@ export default function GymFilterPage() {
                             </p>
                           </div>
 
-                          <div className="sports_title">
-                            <p>{gym.sports_name || "Multiple Sports"}</p>
-                          </div>
+    <div className="sports_title">
+      <p>{gym.sports_name || "Multiple Sports"}</p>
+    </div>
 
-                          <div className="offer d-flex justify-content-between align-items-center">
-                            <p>{gym.offer_text || "Upto 50% off"}</p>
-                            <a href={`/gym/${gym.Id}`}>Join Now</a>
-                          </div>
-                        </div>
-                      </Card>
+    <div className="offer d-flex justify-content-between align-items-center">
+      <p>{gym.offer_text || "Upto 50% off"}</p>
+      <a href={`/gym/${gym.Id}`}>Join Now</a>
+    </div>
+  </div>
+</Card>
 
                     </div>
                   );

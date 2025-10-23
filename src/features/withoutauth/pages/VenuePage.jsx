@@ -20,8 +20,7 @@ import { useQueryClient, useQuery } from "@tanstack/react-query";
 import { fetchSportList } from "../../../services/withoutLoginApi/SportListApi/endpointApi.js";
 import { VenueListShimmer } from "../components/Shimmer/VenueListShimmer";
 
-const defaultImage =
-  "https://dantasportsdoc.s3.ap-south-1.amazonaws.com/default-venue.png";
+import latestt from '../assets/latest.jpeg'
 
 function VenuePage() {
   const queryClient = useQueryClient();
@@ -178,7 +177,7 @@ function VenuePage() {
                   <div key={venue.id} className="col-lg-4 col-md-6 position-relative">
                     <div className="card">
                       <div className="card_slider">
-                        <ReactSlickSlider coverImage={venue.cover_image || defaultImage} />
+                        <ReactSlickSlider coverImage={venue.cover_image || latestt} />
                       </div>
 
                       <div className="reating">
@@ -214,17 +213,27 @@ function VenuePage() {
                             ~{venue.distance_km ? venue.distance_km.toFixed(1) : "0"} km
                           </p>
                         </div>
+<div className="no_off_users">
+  <ul className="d-flex p-0 align-items-center">
+    {venue.sports?.slice(0, 5).map((sport, index) => (
+      <li key={index} className="me-2">
+        <img
+          src={sport.image || users} 
+          alt={sport.name || "user"}
+          title={sport.name || "user"}
+          style={{ width: "30px", height: "30px", borderRadius: "50%" }} 
+        />
+      </li>
+    ))}
 
-                        <div className="no_off_users">
-                          <ul className="d-flex p-0 align-items-center">
-                            {[1, 2, 3, 4].map((id) => (
-                              <li key={id} className="me-2">
-                                <img src={users} alt="user" />
-                              </li>
-                            ))}
-                            <span style={{ color: "#858585" }}>+5 more</span>
-                          </ul>
-                        </div>
+    {venue.sports && venue.sports.length > 5 && (
+      <li className="me-2" style={{ color: "#858585", lineHeight: 1 }}>
+        +{venue.sports.length - 5} more
+      </li>
+    )}
+  </ul>
+</div>
+
 
                         <div className="offers d-flex justify-content-between">
                           <span>Upto {discount}% Off</span>

@@ -1,11 +1,15 @@
-import React from 'react'
+import React from 'react';
 
-function TermsConditionsModal() {
+function TermsConditionsModal({ termsText }) {
   return (
     <div>
-       <p>Participants must follow all the rules and guidelines. Entry is non-transferable.</p>
+      {termsText ? (
+        <p style={{ whiteSpace: "pre-wrap" }}>{termsText}</p>
+      ) : (
+        <p>Terms & Conditions not available.</p>
+      )}
     </div>
-  )
+  );
 }
 
-export default TermsConditionsModal
+export default TermsConditionsModal;

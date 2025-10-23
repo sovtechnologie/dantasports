@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import './Stylesheets/TicketSelector.css';
 
-const TicketSelector = ({ tickets, counts, onChange, setTotalPrice, setTickets }) => {
+const TicketSelector = ({ tickets, counts, onChange, setTotalPrice, setTickets ,disabled }) => {
 
   const handleIncrement = (index) => {
+     if (disabled) return;
     const updated = [...counts];
     updated[index]++;
     onChange(updated);
   };
 
   const handleDecrement = (index) => {
+     if (disabled) return;
     const updated = [...counts];
     if (updated[index] > 0) {
       updated[index]--;

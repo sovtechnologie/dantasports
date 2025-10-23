@@ -12,6 +12,7 @@ import { useLikeEvent } from "../hooks/favouriteEvent/useLikeEvent.js";
 import { useUnlikeEvent } from "../hooks/favouriteEvent/useUnLikeEvent.js";
 import { Link } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
+import bookrunn from '../assets/images/home/bookrun/bookrun.png'
 
 function formatTime(timeStr = "00:00") {
   if (!timeStr) return "";
@@ -111,9 +112,13 @@ function BookRun() {
               <Card>
                 <div className="card_img">
                   <img
-                    src={evt.desktop_image}
+                    src={evt.desktop_image || bookrunn}
                     className="w-100"
                     alt={evt.event_title}
+                      onError={(e) => {
+      e.target.onerror = null; 
+      e.target.src = bookrunn; 
+    }}
                   />
                 </div>
 
@@ -163,9 +168,39 @@ function BookRun() {
                     </p>
                   </div>
 
-                  <div className="sports_title">
-                    <p>{evt.sports?.map((s) => s.name).join(", ")}</p>
-                  </div>
+                  <div className="no_off_users mt-2">
+  <ul className="d-flex p-0 align-items-center m-0">
+    {evt.sports?.slice(0, 5).map((sport, index) => (
+      <li key={index} className="me-2 list-unstyled">
+        <img
+          src={sport.image }
+          alt={sport.name || "sport"}
+          title={sport.name || "sport"}
+          style={{
+            width: "25px",
+            height: "25px",
+            objectFit: "cover",
+            borderRadius: "50%",
+          }}
+        />
+      </li>
+    ))}
+
+    {evt.sports && evt.sports.length > 5 && (
+      <li
+        className="list-unstyled"
+        style={{
+          color: "#858585",
+          fontSize: "14px",
+          lineHeight: 1,
+        }}
+      >
+        +{evt.sports.length - 5} more
+      </li>
+    )}
+  </ul>
+</div>
+
 
                   {/* Offer / Join Now */}
                   <div className="offer d-flex justify-content-between align-items-center">
@@ -177,7 +212,7 @@ function BookRun() {
                     ) : (
                       <p>Save ₹{Math.floor(evt.offer || 0)}</p>
                     )}
-                    <Link to={`/Run/${evt.id}`}>Join Now</Link>
+                    <Link to={`/Run/${evt.id}?venueId=${evt.id}`}>Join Now</Link>
                   </div>
                 </div>
               </Card>

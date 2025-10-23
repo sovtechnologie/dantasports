@@ -32,6 +32,14 @@ function PlayHost() {
   const { lat, lng } = useSelector((state) => state.location);
   const { data, isLoading, error } = useFetchHostList({ lat, lng });
 
+  const SKILL_MAP = {
+  0: { label: "Novice", color: "#18429F" },
+  1: { label: "Learner", color: "#0FA903" },
+  2: { label: "Skilled", color: "#FFA200" },
+  3: { label: "Expert", color: "#E65B00" },
+  4: { label: "Elite", color: "#4C2DFF" },
+};
+
   const hosts = data?.result || [];
 
   if (isLoading) return <p>Loading...</p>;
@@ -67,7 +75,8 @@ function PlayHost() {
             } | ${formatTime(host?.start_time)} - ${formatTime(
               host?.end_time?.slice(0, 5)
             )}`;
-
+   const skill =
+              SKILL_MAP[host.game_skill] || SKILL_MAP[0];
             return (
               <Col lg={3} md={6} sm={6} key={host.id}>
                 <Card className="playhost_card p-3 shadow-sm">
@@ -113,10 +122,9 @@ function PlayHost() {
                       ~{host.distance_km?.toFixed(1) || "0"} km)
                     </span>
                   </div>
-
-                  <div className="d-flex justify-content-between align-items-center border-top pt-3">
-                    <span className="fw-bold text-primary">
-                      {host.game_skill || "Novice"}
+   <div className="d-flex justify-content-between align-items-center border-top pt-3">
+                    <span className="fw-bold" style={{ color: skill.color }}>
+                      {skill.label}
                     </span>
                     {/* <div className="offer">
                       <Link to={`/Host/${host.id}`}>Join Now</Link>

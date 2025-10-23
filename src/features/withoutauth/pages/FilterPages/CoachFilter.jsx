@@ -114,12 +114,16 @@ const navigate = useNavigate();
       image: coach.desktop_image || coach.mobile_image || coach1, // fallback image
       name: coach.name,
       location: `${coach.locations?.area}, ${coach.locations?.city}`,
-      rating:
-        typeof coach.average_rating === "number"
-          ? coach.average_rating.toFixed(1)
-          : 0,
+      // rating:
+      //   typeof coach.average_rating === "number"
+      //     ? coach.average_rating.toFixed(1)
+      //     : 0,
+ rating: coach.average_rating || 0,
+
+
+
       ratingCount: coach.review_count || 0,
-      sportIcon: coach.linked_sports,
+      linked_sports: coach.linked_sports,
       category: coach.training_type,
       tag: coach.type === 1 ? "Trainer" : "Academy",
     }));
@@ -201,20 +205,58 @@ const navigate = useNavigate();
                               <h2 className="m-0 text_wrap">{coach.name}</h2>
                               <p className="m-0 memebercat">{coach.category}</p>
                             </div>
-                            <div className="no_off_users">
-                              <ul className="d-flex p-0 align-items-center">
-                                {userList.map((user) => (
-                                  <li key={user.id} className="me-2">
-                                    {user.type === "img" ? (
-                                      <img src={user.src} alt={user.alt} />
-                                    ) : (
-                                      user.name
-                                    )}
-                                  </li>
-                                ))}
-                                <span style={{ color: "#858585" }}>+5 more</span>
-                              </ul>
-                            </div>
+        <div
+  className="coach-sports d-flex align-items-center flex-wrap mt-2"
+  style={{
+    overflow: "visible",
+    position: "relative",
+    zIndex: 10,
+    gap: "5px",
+  }}
+>
+  {coach.linked_sports?.slice(0, 5).map((sport, index) => (
+    <div
+      key={index}
+      style={{
+        width: "30px",
+        height: "30px",
+        borderRadius: "50%",
+        overflow: "hidden",
+        background: "#fff",
+        border: "1px solid #ddd",
+      }}
+    >
+      <img
+        src={sport.sports_images}
+        alt={sport.sports_name}
+        title={sport.sports_name}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          display: "block",
+        }}
+        onError={(e) => {
+          e.currentTarget.src = "/default-sport.png";
+        }}
+      />
+    </div>
+  ))}
+
+  {coach.linked_sports?.length > 5 && (
+    <span
+      style={{
+        fontSize: "13px",
+        color: "#333",
+        fontWeight: 600,
+        marginLeft: "6px",
+      }}
+    >
+      +{coach.linked_sports.length - 5}
+    </span>
+  )}
+</div>
+
                             <p>
                               <span>
                                 <img className="pe-2" src={map} alt="" />

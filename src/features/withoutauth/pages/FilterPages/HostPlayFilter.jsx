@@ -36,6 +36,15 @@ export default function HostPlayFilterPage() {
     }
   }, [AllHostdata]);
 
+  const SKILL_MAP = {
+  0: { label: "Novice", color: "#18429F" },
+  1: { label: "Learner", color: "#0FA903" },
+  2: { label: "Skilled", color: "#FFA200" },
+  3: { label: "Expert", color: "#E65B00" },
+  4: { label: "Elite", color: "#4C2DFF" },
+};
+
+
   // Filter by search or selected time
   const filteredHosts = useMemo(() => {
     return (hostList || []).filter((host) => {
@@ -155,11 +164,16 @@ export default function HostPlayFilterPage() {
                       </div>
 
                       {/* Bottom */}
-                      <div className="d-flex justify-content-between align-items-center border-top pt-3">
-                        <span className="fw-bold text-primary">
-                          {host.game_skill || "Novice"}
-                        </span>
-                      </div>
+                     <div className="d-flex justify-content-between align-items-center border-top pt-3">
+  <span
+    className="fw-bold"
+    style={{
+      color: SKILL_MAP[host.game_skill]?.color || "#18429F",
+    }}
+  >
+    {SKILL_MAP[host.game_skill]?.label || "Novice"}
+  </span>
+</div>
                     </Card>
                   </Col>
                 ))
