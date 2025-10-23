@@ -157,8 +157,8 @@ export default function EventFilterPage() {
 
                         <div className="txt_wrapper" onClick={() => navigate(`/Events/${evt.id}`)}>
                           <div className="card_txt">
-                            <h2>{evt.event_title}</h2>
-                            <p>
+                            <h2 className="text_wrap">{evt.event_title}</h2>
+                            <p className="text_wrap">
                               <span>
                                 <img className="pe-2" src={date} alt="" />
                               </span>

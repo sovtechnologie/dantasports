@@ -1,0 +1,52 @@
+
+
+
+.review-card1{
+
+    padding: 15px;
+    border-radius: 16px;
+    max-height: 200px;
+    height: 100%;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: white;
+    box-shadow: 0px 4.08px 4.08px 0px #00000026;
+box-shadow: 0px 4.54px 4.54px 0px #0000001A;
+border: .5px solid #1163C7;
+
+}
+
+.event-review-slider .slick-slide {
+  padding: 0 10px;
+}
+
+.user_profile {
+
+    height: 40px;
+    width: 40px;
+}
+.user_profile  img {
+
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+
+}
+
+
+.carousel_buttons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.carousel_buttons img {
+
+    height: 100%;
+    width: 100%;
+}
+.carousel_buttons button:hover img {
+  transform: scale(1.1);
+}

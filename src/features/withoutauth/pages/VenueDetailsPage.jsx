@@ -39,6 +39,7 @@ import { Container } from "react-bootstrap";
 import RulesRegulations from "../components/RulesRegulations.jsx";
 import arrow from "../assets/icons/arrow.svg";
 import CancellationPolicy from "../components/CancellationPolicy.jsx";
+import EventReviewSlider from "../components/EventReviewSlider.jsx";
 
 export const formatDate = (isoString) => {
   const date = new Date(isoString);
@@ -580,7 +581,7 @@ function VenueDetailsPage() {
 
               {venue?.reviews?.length > 0 && (
                 <div className="rating-wrapper">
-                  <div className="ratings-carousel">
+                  {/* <div className="ratings-carousel">
                     <h2 className="review-heading">Ratings & Reviews</h2>
                     <div className="review-carousel-container">
                       {venue.reviews
@@ -597,7 +598,8 @@ function VenueDetailsPage() {
                         <img src={rightArrow} alt="right-arrow" />
                       </button>
                     </div>
-                  </div>
+                  </div> */}
+                  <EventReviewSlider/>
                 </div>
               )}
 

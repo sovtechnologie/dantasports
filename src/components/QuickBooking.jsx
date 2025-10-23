@@ -57,7 +57,7 @@ function QuickBooking() {
                 onClick={() => navigate(card.path)} // ✅ navigate on click
                 style={{ cursor: "pointer" }} // cursor style
               >
-                <div className="card_img">
+                <div className="card_img_booking">
                   <img src={card.img} alt={card.title} />
                 </div>
                 <div className="card_txt text-center pt-2">

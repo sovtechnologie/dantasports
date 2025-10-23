@@ -78,6 +78,37 @@ a {
     background-color: white;
 }
 
+
+.text_wrap {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+.text_wrap {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+ .card_img {
+  width: 100%;
+  height: 220px !important; 
+  overflow: hidden;
+  border-radius: 12px 12px 0 0;
+}
+.card_img img{
+
+    height: 100%;
+    width: 100%;
+
+
+}
+ 
 @media screen and (max-width: 767px) {
 
     .see_all a{

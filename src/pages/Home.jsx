@@ -1,7 +1,4 @@
 import "../stylesheets/layouts/Home.css"; // Assuming you have a CSS file for styling
-import Hero from "../components/Hero";
-import PopularSports from "../components/PopularSports";
-import BannerCarousel from "../components/BannerCarousel";
 import VenueCarousel from "../components/VenueCarousel";
 import DownloadAppSection from "../components/DownloadAppSection";
 import EventCarousel from "../components/EventCarousal";
@@ -23,23 +20,13 @@ import BookGym from "../components/BookGym";
 const Home = () => {
     return (
         <div className="main-Home-container">
-            {/* <Hero /> */}
             <HomeBanner />
             <QuickBooking/>
-            {/* <PopularSports /> */}
-            {/* <BannerCarousel /> */}
-            {/* <UpcommingVenues /> */}
-            {/* <VenueCarousel /> */}
             <BookVenues />
             <BookRun />
-            {/* <RunCarousel /> */}
             <BookEvents />
             <BookGym />
-            {/* <HostCarousel /> */}
-            {/* <CoachCarousel /> */}
-            {/* <GymCarousal /> */}
             <PlayHost/>
-
             <DownloadAppSection />
         </div>
     )

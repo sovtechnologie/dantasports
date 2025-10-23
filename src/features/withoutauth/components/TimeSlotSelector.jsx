@@ -45,7 +45,7 @@ const TimeSlotSelector = () => {
       </div>
 
       {/* Timeline */}
-      <div className="d-flex mb-3" style={{ height: "8px", borderRadius: "4px", overflow: "hidden" }}>
+      {/* <div className="d-flex mb-3" style={{ height: "8px", borderRadius: "4px", overflow: "hidden" }}>
         {timeline.map((slot, index) => (
           <div
             key={index}
@@ -55,7 +55,7 @@ const TimeSlotSelector = () => {
             title={slot.time}
           ></div>
         ))}
-      </div>
+      </div> */}
 
       {/* Booking Info */}
       <div className="book_a_time">

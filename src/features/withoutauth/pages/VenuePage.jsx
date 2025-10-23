@@ -20,7 +20,7 @@ import { useQueryClient, useQuery } from "@tanstack/react-query";
 import { fetchSportList } from "../../../services/withoutLoginApi/SportListApi/endpointApi.js";
 import { VenueListShimmer } from "../components/Shimmer/VenueListShimmer";
 
-import latestt from '../assets/latest.jpeg'
+import latestt from "../assets/latest.jpeg";
 
 function VenuePage() {
   const queryClient = useQueryClient();
@@ -38,7 +38,12 @@ function VenuePage() {
   const unlikeVenue = useUnlikeVenue();
 
   // Fetch Venues
-  const { data: AllVenuedata, isLoading, isError, error } = useFetchVenue({
+  const {
+    data: AllVenuedata,
+    isLoading,
+    isError,
+    error,
+  } = useFetchVenue({
     lat,
     lng,
     userId: auth?.id,
@@ -89,7 +94,10 @@ function VenuePage() {
         { venueId, userId: auth?.id },
         {
           onSuccess: async () => {
-            await queryClient.invalidateQueries(["venueList", auth?.id || null]);
+            await queryClient.invalidateQueries([
+              "venueList",
+              auth?.id || null,
+            ]);
           },
           onError: () => {
             setVenueList((prevList) =>
@@ -105,7 +113,10 @@ function VenuePage() {
         { favouriteVenueId: venue.favourite_venue_id },
         {
           onSuccess: async () => {
-            await queryClient.invalidateQueries(["venueList", auth?.id || null]);
+            await queryClient.invalidateQueries([
+              "venueList",
+              auth?.id || null,
+            ]);
           },
           onError: () => {
             setVenueList((prevList) =>
@@ -131,7 +142,9 @@ function VenuePage() {
       if (navigator.share) {
         await navigator.share(shareData);
       } else {
-        await navigator.clipboard.writeText(`${venue.venue_name} - ${shareUrl}`);
+        await navigator.clipboard.writeText(
+          `${venue.venue_name} - ${shareUrl}`
+        );
         alert("Venue link copied to clipboard!");
       }
     } catch (err) {
@@ -144,7 +157,10 @@ function VenuePage() {
   if (isError) return <div>Error loading venues: {error?.message}</div>;
 
   return (
-    <section className="venue_page_section pt-3 pt-lg-5 pb-lg-5 pb-3" style={{ background: "#F1F3F2" }}>
+    <section
+      className="venue_page_section pt-3 pt-lg-5 pb-lg-5 pb-3"
+      style={{ background: "#F1F3F2" }}
+    >
       <Container>
         <Row className="g-3">
           {/* Left Filter Section */}
@@ -174,21 +190,30 @@ function VenuePage() {
                   : "0";
 
                 return (
-                  <div key={venue.id} className="col-lg-4 col-md-6 position-relative">
+                  <div
+                    key={venue.id}
+                    className="col-lg-4 col-md-6 position-relative"
+                  >
                     <div className="card">
                       <div className="card_slider">
-                        <ReactSlickSlider coverImage={venue.cover_image || latestt} />
+                        <ReactSlickSlider
+                          coverImage={venue.cover_image || latestt}
+                        />
                       </div>
 
                       <div className="reating">
                         <div className="start">
                           <img src={whaitestart} alt="star" />
                           <span className="ps-2">
-                            {venue.average_rating || "4.0"} ({venue.review_count || 0})
+                            {venue.average_rating || "4.0"} (
+                            {venue.review_count || 0})
                           </span>
                         </div>
 
-                        <div className="save_btn" onClick={() => toggleFavourite(venue)}>
+                        <div
+                          className="save_btn"
+                          onClick={() => toggleFavourite(venue)}
+                        >
                           <img
                             src={save}
                             alt="save"
@@ -201,43 +226,61 @@ function VenuePage() {
                           />
                         </div>
 
-                        <div className="share_btn" onClick={() => handleShareClick(venue)}>
-                          <img src={share} alt="share" style={{ cursor: "pointer" }} />
+                        <div
+                          className="share_btn"
+                          onClick={() => handleShareClick(venue)}
+                        >
+                          <img
+                            src={share}
+                            alt="share"
+                            style={{ cursor: "pointer" }}
+                          />
                         </div>
                       </div>
 
                       <div className="inner_txt">
                         <div className="d-flex justify-content-between mb-3 align-items-center">
-                          <h2 className="m-0">{venue.venue_name}</h2>
+                          <h2 className="m-0 text_wrap pe-2">{venue.venue_name}</h2>
                           <p className="m-0">
-                            ~{venue.distance_km ? venue.distance_km.toFixed(1) : "0"} km
+                            ~
+                            {venue.distance_km
+                              ? venue.distance_km.toFixed(1)
+                              : "0"}{" "}
+                            km
                           </p>
                         </div>
-<div className="no_off_users">
-  <ul className="d-flex p-0 align-items-center">
-    {venue.sports?.slice(0, 5).map((sport, index) => (
-      <li key={index} className="me-2">
-        <img
-          src={sport.image || users} 
-          alt={sport.name || "user"}
-          title={sport.name || "user"}
-          style={{ width: "30px", height: "30px", borderRadius: "50%" }} 
-        />
-      </li>
-    ))}
+                        <div className="no_off_users">
+                          <ul className="d-flex p-0 align-items-center">
+                            {venue.sports?.slice(0, 5).map((sport, index) => (
+                              <li key={index} className="me-2">
+                                <img
+                                  src={sport.image || users}
+                                  alt={sport.name || "user"}
+                                  title={sport.name || "user"}
+                                  style={{
+                                    width: "24px",
+                                    height: "24px",
+                                  }}
+                                />
+                              </li>
+                            ))}
 
-    {venue.sports && venue.sports.length > 5 && (
-      <li className="me-2" style={{ color: "#858585", lineHeight: 1 }}>
-        +{venue.sports.length - 5} more
-      </li>
-    )}
-  </ul>
-</div>
-
+                            {venue.sports && venue.sports.length > 5 && (
+                              <li
+                                className="me-2"
+                                style={{ color: "#858585", lineHeight: 1 }}
+                              >
+                                +{venue.sports.length - 5} more
+                              </li>
+                            )}
+                          </ul>
+                        </div>
 
                         <div className="offers d-flex justify-content-between">
                           <span>Upto {discount}% Off</span>
-                          <p className="mb-0">₹{parseFloat(venue.pricing).toFixed(0)} onwards</p>
+                          <p className="mb-0">
+                            ₹{parseFloat(venue.pricing).toFixed(0)} onwards
+                          </p>
                         </div>
 
                         <hr className="mb-3" />

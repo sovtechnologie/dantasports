@@ -31,10 +31,11 @@ import { Container } from "react-bootstrap";
 import GalleryComponent from "../components/GalleryComponent ";
 import arrow from "../assets/icons/arrow.svg";
 import CancellationPolicy from "../components/CancellationPolicy.jsx";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import TermsAndConditions from "../../../pages/TermsAndConditions.jsx";
 import TermsConditionsModal from "../components/TermsConditionsModal.jsx";
+import EventReviewSlider from "../components/EventReviewSlider.jsx";
 
 const initialTickets = [
   { id: 1, label: "5Km Run", price: 999 },
@@ -84,7 +85,7 @@ const mapEventData = (apiData) => {
     difficulty: "easy",
     favourite: apiData?.favourite,
     favourite_venue_id: apiData?.favourite_venue_id,
-     rule_and_regulations: apiData?.rule_and_regulations,  
+    rule_and_regulations: apiData?.rule_and_regulations,
     termsAndCondition: apiData?.terms_and_condition,
     cancelPolicy: apiData?.cancellation_policy,
     reviews: Array.isArray(apiData?.reviews)
@@ -110,7 +111,7 @@ export default function EventDetailPage() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [finalAmount, setFinalAmount] = useState(null);
   const [totalPrice, setTotalPrice] = useState(null);
-  console.log("totalPricetotalPrice",totalPrice)
+  console.log("totalPricetotalPrice", totalPrice);
   const [tickets, setTickets] = useState({ ticketsId: null, quantity: null });
 
   const {
@@ -357,31 +358,48 @@ export default function EventDetailPage() {
                       : "Read more"}
                   </button>
                 </div>
-                
-<div className="event-section mt-3">
-  <div className="event-heading"><strong>Things to Carry</strong></div>
-  <div className="event-description" style={{ whiteSpace: "pre-wrap" }}>
-    {expandedSection === "thingsToCarry"
-      ? event?.carrything ?? "No items specified"
-      : `${event?.carrything?.substring(0, 200) ?? ""}...`}
-  </div>
-  <button onClick={() => toggleSection("thingsToCarry")} className="read-more-btn">
-    {expandedSection === "thingsToCarry" ? "Read less" : "Read more"}
-  </button>
-</div>
 
-<div className="event-section mt-3">
-  <div className="event-heading"><strong>Rules & Regulations</strong></div>
-  <div className="event-description" style={{ whiteSpace: "pre-wrap" }}>
-    {expandedSection === "rules"
-      ? event?.rule_and_regulations ?? "No rules specified"
-      : `${event?.rule_and_regulations?.substring(0, 200) ?? ""}...`}
-  </div>
-  <button onClick={() => toggleSection("rules")} className="read-more-btn">
-    {expandedSection === "rules" ? "Read less" : "Read more"}
-  </button>
-</div>
+                <div className="event-section mt-3">
+                  <div className="event-heading">
+                    <strong>Things to Carry</strong>
+                  </div>
+                  <div
+                    className="event-description"
+                    style={{ whiteSpace: "pre-wrap" }}
+                  >
+                    {expandedSection === "thingsToCarry"
+                      ? (event?.carrything ?? "No items specified")
+                      : `${event?.carrything?.substring(0, 200) ?? ""}...`}
+                  </div>
+                  <button
+                    onClick={() => toggleSection("thingsToCarry")}
+                    className="read-more-btn"
+                  >
+                    {expandedSection === "thingsToCarry"
+                      ? "Read less"
+                      : "Read more"}
+                  </button>
+                </div>
 
+                <div className="event-section mt-3">
+                  <div className="event-heading">
+                    <strong>Rules & Regulations</strong>
+                  </div>
+                  <div
+                    className="event-description"
+                    style={{ whiteSpace: "pre-wrap" }}
+                  >
+                    {expandedSection === "rules"
+                      ? (event?.rule_and_regulations ?? "No rules specified")
+                      : `${event?.rule_and_regulations?.substring(0, 200) ?? ""}...`}
+                  </div>
+                  <button
+                    onClick={() => toggleSection("rules")}
+                    className="read-more-btn"
+                  >
+                    {expandedSection === "rules" ? "Read less" : "Read more"}
+                  </button>
+                </div>
 
                 {/* <div className="event-term_policy">
                   <div className="event-section terms">
@@ -423,80 +441,106 @@ export default function EventDetailPage() {
                     </button>
                   </div>
                 </div> */}
-                         <div class="row g-3 mt-3">
-                                    <div className="col-12 col-lg-6">
-                                        <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
-                                        {/* <!-- Button trigger modal --> */}
-                                        <div className="d-flex justify-content-between align-items-center text-center">
-                                        
-                                            <div className="rule">
-                                            <p className="m-0">Terms & Conditions</p>
-                                            </div>
-                                            <div>
-                                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#RulesRegulations">
-                                                <img src={arrow} alt="" />
-                                            </button>
-                                            </div>
-                                        </div>
-                
-                
-                                      {/* <!-- Modal --> */}
-                                      <div class="modal fade" id="RulesRegulations" tabindex="-1" aria-labelledby="RulesRegulations" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                          <div class="modal-content custom_modal">
-                                            <div class="modal-header border-0">
-                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                             <div className="modal-body">
-  <TermsConditionsModal termsText={event?.termsAndCondition} />
-</div>
+                <div class="row g-3 mt-3">
+                  <div className="col-12 col-lg-6">
+                    <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
+                      {/* <!-- Button trigger modal --> */}
+                      <div className="d-flex justify-content-between align-items-center text-center">
+                        <div className="rule">
+                          <p className="m-0">Terms & Conditions</p>
+                        </div>
+                        <div>
+                          <button
+                            type="button"
+                            class="btn"
+                            data-bs-toggle="modal"
+                            data-bs-target="#RulesRegulations"
+                          >
+                            <img src={arrow} alt="" />
+                          </button>
+                        </div>
+                      </div>
 
-                                            </div>
-                
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div className="col-12 col-lg-6">
-                                    <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
-                                      {/* <!-- Button trigger modal --> */}
-                                      <div className="d-flex justify-content-between align-items-center text-center">
-                                       
-                                        <div className="rule">
-                                          <p className="m-0">Cancellation Policy</p>
-                                        </div>
-                                         <div>
-                                          <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#CancellationPolicy">
-                                            <img src={arrow} alt="" />
-                                          </button>
-                                        </div>
-                                      </div>
-                
-                
-                                      {/* <!-- Modal --> */}
-                                      <div class="modal fade" id="CancellationPolicy" tabindex="-1" aria-labelledby="CancellationPolicy" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                          <div class="modal-content custom_modal">
-                                            <div class="modal-header border-0">
-                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                           <div className="modal-body">
-  <CancellationPolicy policyText={event?.cancelPolicy} />
-</div>
+                      {/* <!-- Modal --> */}
+                      <div
+                        class="modal fade"
+                        id="RulesRegulations"
+                        tabindex="-1"
+                        aria-labelledby="RulesRegulations"
+                        aria-hidden="true"
+                      >
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content custom_modal">
+                            <div class="modal-header border-0">
+                              <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                              ></button>
+                            </div>
+                            <div class="modal-body">
+                              <div className="modal-body">
+                                <TermsConditionsModal
+                                  termsText={event?.termsAndCondition}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-12 col-lg-6">
+                    <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
+                      {/* <!-- Button trigger modal --> */}
+                      <div className="d-flex justify-content-between align-items-center text-center">
+                        <div className="rule">
+                          <p className="m-0">Cancellation Policy</p>
+                        </div>
+                        <div>
+                          <button
+                            type="button"
+                            class="btn"
+                            data-bs-toggle="modal"
+                            data-bs-target="#CancellationPolicy"
+                          >
+                            <img src={arrow} alt="" />
+                          </button>
+                        </div>
+                      </div>
 
-
-                                            </div>
-                
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                
-                                </div>
+                      {/* <!-- Modal --> */}
+                      <div
+                        class="modal fade"
+                        id="CancellationPolicy"
+                        tabindex="-1"
+                        aria-labelledby="CancellationPolicy"
+                        aria-hidden="true"
+                      >
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content custom_modal">
+                            <div class="modal-header border-0">
+                              <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                              ></button>
+                            </div>
+                            <div class="modal-body">
+                              <div className="modal-body">
+                                <CancellationPolicy
+                                  policyText={event?.cancelPolicy}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div className="event-right col-lg-4">
@@ -544,25 +588,30 @@ export default function EventDetailPage() {
                   />
                 </div>
 
-              <div className="event-right-section">
-  <div className="event-heading">
-    <strong>Choose Tickets :</strong>
-  </div>
-  <TicketSelector
-    tickets={EventPrice[0]?.tickets}
-    counts={ticketCounts}
-    onChange={handleTicketChange}
-    setTotalPrice={setTotalPrice}
-    setTickets={setTickets}
-    disabled={!selectedDate}  
-  />
-  {!selectedDate && (
-    <p style={{ color: "red", fontSize: "12px", marginTop: "5px" }}>
-      Please select a date first to choose tickets
-    </p>
-  )}
-</div>
-
+                <div className="event-right-section">
+                  <div className="event-heading">
+                    <strong>Choose Tickets :</strong>
+                  </div>
+                  <TicketSelector
+                    tickets={EventPrice[0]?.tickets}
+                    counts={ticketCounts}
+                    onChange={handleTicketChange}
+                    setTotalPrice={setTotalPrice}
+                    setTickets={setTickets}
+                    disabled={!selectedDate}
+                  />
+                  {!selectedDate && (
+                    <p
+                      style={{
+                        color: "red",
+                        fontSize: "12px",
+                        marginTop: "5px",
+                      }}
+                    >
+                      Please select a date first to choose tickets
+                    </p>
+                  )}
+                </div>
 
                 <div className="event-right-section">
                   <div className="event-heading">
@@ -582,7 +631,7 @@ export default function EventDetailPage() {
                     className="event-btn"
                     onClick={handleBookEvent}
                     disabled={bookingLoading || paymentLoading}
-                  > 
+                  >
                     {" "}
                     {bookingLoading || paymentLoading
                       ? "Processing..."
@@ -592,7 +641,7 @@ export default function EventDetailPage() {
               </div>
             </div>
 
-            <div className="event-review">
+            {/* <div className="event-review">
               <div className="event-review-heading">Rating & Reviews</div>
               <div className="event-review-container">
                 {event?.reviews
@@ -602,13 +651,20 @@ export default function EventDetailPage() {
                   ))}
               </div>
               <div className="carousel-buttons">
-                        <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
-                        <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
-                    </div>
-            </div>
+                <button onClick={prev}>
+                  <img src={leftArrow} alt="left arrow" />
+                </button>
+                <button onClick={next}>
+                  <img src={rightArrow} alt="right-arrow" />
+                </button>
+              </div>
+            </div> */}
+            <Container className="p-0">
+              <EventReviewSlider/>
+            </Container>
             {/* <Gallery gallery={event.gallery} />
              */}
-            <GalleryComponent/> 
+            <GalleryComponent />
 
             <div className="event-banner-container">
               <h2 className="event-banner-heading">Ongoing Events</h2>

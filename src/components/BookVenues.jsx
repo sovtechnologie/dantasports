@@ -154,7 +154,7 @@ const toggleFavourite = (venue) => {
 
                 <div className="txt_wrapper">
                   <div className="card_txt">
-                    <h2>{venue.venue_name}</h2>
+                    <h2 className="text_wrap">{venue.venue_name}</h2>
                     <p>
                       <span className="star pe-2">
                         <img src={star} alt="rating" />

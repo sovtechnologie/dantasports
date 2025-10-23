@@ -147,8 +147,8 @@ function BookRun() {
 
                 <div className="txt_wrapper">
                   <div className="card_txt">
-                    <h2>{evt.event_title}</h2>
-                    <p>
+                    <h2 className="text_wrap">{evt.event_title}</h2>
+                    <p className="text_wrap">
                       <span>
                         <img className="pe-2" src={dateIcon} alt="date" />
                       </span>

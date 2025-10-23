@@ -32,7 +32,7 @@ export default function CoachFilterPage() {
   const [selectedCoach, setSelectedCoach] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
-const navigate = useNavigate();
+  const navigate = useNavigate();
   const {
     data: AllCoachdata,
     isLoading,
@@ -118,7 +118,7 @@ const navigate = useNavigate();
       //   typeof coach.average_rating === "number"
       //     ? coach.average_rating.toFixed(1)
       //     : 0,
- rating: coach.average_rating || 0,
+      rating: coach.average_rating || 0,
 
 
 
@@ -129,9 +129,9 @@ const navigate = useNavigate();
     }));
   }, [filteredCoaches]);
 
-    const handleClick = (coach) => {
-   
-   navigate(`/Coach/${coach?.id}`);
+  const handleClick = (coach) => {
+
+    navigate(`/Coach/${coach?.id}`);
   };
 
 
@@ -148,7 +148,7 @@ const navigate = useNavigate();
     { id: 5, type: "img", src: users, alt: "User4" },
     { id: 5, type: "img", src: users, alt: "User5" },
   ];
- 
+
   return (
     <>
       <section
@@ -205,59 +205,58 @@ const navigate = useNavigate();
                               <h2 className="m-0 text_wrap">{coach.name}</h2>
                               <p className="m-0 memebercat">{coach.category}</p>
                             </div>
-        <div
-  className="coach-sports d-flex align-items-center flex-wrap mt-2"
-  style={{
-    overflow: "visible",
-    position: "relative",
-    zIndex: 10,
-    gap: "5px",
-  }}
->
-  {coach.linked_sports?.slice(0, 5).map((sport, index) => (
-    <div
-      key={index}
-      style={{
-        width: "30px",
-        height: "30px",
-        borderRadius: "50%",
-        overflow: "hidden",
-        background: "#fff",
-        border: "1px solid #ddd",
-      }}
-    >
-      <img
-        src={sport.sports_images}
-        alt={sport.sports_name}
-        title={sport.sports_name}
-        style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          display: "block",
-        }}
-        onError={(e) => {
-          e.currentTarget.src = "/default-sport.png";
-        }}
-      />
-    </div>
-  ))}
+                            <div
+                              className="coach-sports d-flex align-items-center flex-wrap mt-2"
+                              style={{
+                                overflow: "visible",
+                                position: "relative",
+                                zIndex: 10,
+                                gap: "5px",
+                              }}
+                            >
+                              {coach.linked_sports?.slice(0, 5).map((sport, index) => (
+                                <div
+                                  key={index}
+                                  style={{
+                                    width: "24px",
+                                    height: "24px",
+                                    borderRadius: "50%",
+                                    overflow: "hidden",
+                                    background: "#fff",
+                                  }}
+                                >
+                                  <img
+                                    src={sport.sports_images}
+                                    alt={sport.sports_name}
+                                    title={sport.sports_name}
+                                    style={{
+                                      width: "100%",
+                                      height: "100%",
+                                      objectFit: "cover",
+                                      display: "block",
+                                    }}
+                                    onError={(e) => {
+                                      e.currentTarget.src = "/default-sport.png";
+                                    }}
+                                  />
+                                </div>
+                              ))}
 
-  {coach.linked_sports?.length > 5 && (
-    <span
-      style={{
-        fontSize: "13px",
-        color: "#333",
-        fontWeight: 600,
-        marginLeft: "6px",
-      }}
-    >
-      +{coach.linked_sports.length - 5}
-    </span>
-  )}
-</div>
+                              {coach.linked_sports?.length > 5 && (
+                                <span
+                                  style={{
+                                    fontSize: "13px",
+                                    color: "#333",
+                                    fontWeight: 600,
+                                    marginLeft: "6px",
+                                  }}
+                                >
+                                  +{coach.linked_sports.length - 5}
+                                </span>
+                              )}
+                            </div>
 
-                            <p>
+                            <p className="mt-3">
                               <span>
                                 <img className="pe-2" src={map} alt="" />
                               </span>
@@ -266,10 +265,10 @@ const navigate = useNavigate();
                           </div>
                           <hr />
                           <div className="offer" onClick={() => handleClick(coach)}>
-  <a href="#"  className="">
-    Enquire Now
-  </a>
-</div>
+                            <a href="#" className="">
+                              Enquire Now
+                            </a>
+                          </div>
 
                         </div>
                       </Card>

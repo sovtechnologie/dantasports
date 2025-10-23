@@ -78,7 +78,7 @@ function BookGym() {
 
                   <div className="txt_wrapper">
                     <div className="card_txt">
-                      <h2>{gym.gym_name}</h2>
+                      <h2 className="text_wrap">{gym.gym_name}</h2>
 
                       <p className="sports_title">
                         <span>

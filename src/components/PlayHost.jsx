@@ -117,7 +117,7 @@ function PlayHost() {
                       alt="location"
                       className="icon me-2"
                     />
-                    <span>
+                    <span className="text_wrap">
                       {host.full_address || "Address not available"} (
                       ~{host.distance_km?.toFixed(1) || "0"} km)
                     </span>
