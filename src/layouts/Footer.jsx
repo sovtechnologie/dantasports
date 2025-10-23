@@ -67,7 +67,7 @@ function Footer() {
                 </div>
               </div>
             </Col>
-            <Col lg={6} md={8}>
+            <Col lg={7} md={8}>
               <div className="row justify-content-center">
                 <div className="sub_inner col-lg-3 col-md-4">
                   <h3>Company</h3>
@@ -87,7 +87,7 @@ function Footer() {
                       <Link to="/CorporateBooking">Corporate Booking</Link>
                     </li>
                      <li>
-                      <Link to="/AccountDeactivate">Account Deactivate</Link>
+                      <Link to="/account-deactivate">Account Deactivate</Link>
                     </li>
                   </ul>
                 </div>
@@ -162,7 +162,7 @@ function Footer() {
                 </div>
               </div>
             </Col>
-            <Col lg={3} md={3}>
+            <Col lg={2} md={3}>
               <div className="sub_inners">
                 <h3>Contact</h3>
                 <ul className="p-0 m-0">
@@ -193,7 +193,7 @@ function Footer() {
           <Col lg={6} className="col-12">
             <ul className="d-flex justify-content-center flex-wrap p-0">
               <li>
-                <Link to="https://www.dantasports.com/pp">Privacy Policy</Link>
+                <Link to="https://dantasports.com/PrivacyAndPolicy">Privacy Policy</Link>
               </li>
               <li>
                 <Link to="https://www.dantasports.com/TermsAndConditions">

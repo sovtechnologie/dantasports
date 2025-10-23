@@ -126,7 +126,7 @@ function BookGym() {
 
                     {minPriceObj && (
                       <div className="price_info">
-                        <p style={{ fontWeight: 500, marginTop: "5px" }}>
+                        <p style={{ fontWeight: 500, marginTop: "5px" }} className="mb-0">
                           ₹{minPriceObj.price} onwards
                         </p>
                       </div>

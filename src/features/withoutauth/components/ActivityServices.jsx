@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../../withoutauth/Stylesheets/Filterpages/ActivityServices.css";
+import search1 from "../../withoutauth/assets/icons/Search.svg"
 
 function ActivityServices() {
   const [search, setSearch] = useState("");
@@ -23,10 +24,10 @@ function ActivityServices() {
   return (
     <div className="filter_inner_cards">
       <h2 className="text-start">Activity/Services</h2>
-      <div className="search-box">
-        <input
+      <div className="search-box position-relative">
+        <img className="seach_icons" src={search1} alt="" /><input
           type="text"
-          placeholder="🔍"
+          placeholder=""
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />

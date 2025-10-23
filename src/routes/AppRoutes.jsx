@@ -2,6 +2,7 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import NotFound from "../pages/NotFound";
 import SearchResult from "../features/withoutauth/pages/SearchResult";
+import AccountDeactivate from "../pages/AccountDeactivate";
 
 const ScrollToTop = lazy(() => import("../components/ScrollToTop"));
 
@@ -97,6 +98,7 @@ export default function AppRoutes() {
           <Route path="/Partner" element={<PartnerPage />} />
           <Route path="/PrivacyAndPolicy" element={<PrivacyAndPolicy />} />
           <Route path="/TermsAndConditions" element={<TermsAndConditions />} />
+          <Route path="/account-deactivate" element={<AccountDeactivate />} />
           <Route path="/RefundPolicy" element={<RefundPolicy />} />
           <Route path="/CommingSoon" element={<CommingSoon />} />
           {/* Filter Pages */}

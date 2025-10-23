@@ -58,7 +58,7 @@ const texts = ["Reserve Nearby Turfs", " Reserve Nearby Turfs 1", "Reserve Nearb
                   <img src={white} className="blue_arrow" alt="" />
                 </a>
               </div>
-              <div className="card_img mt-5 d-none d-lg-block">
+              <div className="card_img1 mt-5 d-none d-lg-block">
                 <img src={bannercard} className="w-75 h-100" alt="" />
               </div>
             </Col>

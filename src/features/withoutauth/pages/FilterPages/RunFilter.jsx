@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import "../../Stylesheets/Filterpages/RunFilter.css";
+import "../../Stylesheets/Filterpages/Cards.css";
 import { Container, Row, Col } from "react-bootstrap";
 import AppDownloadBanner from "../../components/AppDownloadBanner.jsx";
 import Filter from "../../components/Filter.jsx";
@@ -224,8 +225,8 @@ export default function RunFilterPage() {
                         </div>
                         <div className="txt_wrapper">
                           <div className="card_txt">
-                            <h2>{event.event_title}</h2>
-                            <p>
+                            <h2 className="text_wrap">{event.event_title}</h2>
+                            <p className="text_wrap">
                               <span>
                                 <img className="pe-2" src={date} alt="" />
                               </span>

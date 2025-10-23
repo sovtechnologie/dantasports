@@ -46,7 +46,7 @@ const DownloadAppSection = () => {
           <p className={`subtext ${animate ? "subtext-animate" : ""}`}>
             {subtexts[subtextIndex]}
           </p>
-          <div className="store-buttons">
+          <div className="store-buttons mt-3">
             <a href="https://play.google.com/store/apps" className="google-btn">
               <img src={googleplaystoreicon} alt="Google Play" />
               Google Play

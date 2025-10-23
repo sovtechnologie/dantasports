@@ -1,4 +1,5 @@
 import "../../Stylesheets/Filterpages/GymFilter.css";
+import "../../Stylesheets/Filterpages/Cards.css";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
@@ -116,20 +117,20 @@ export default function GymFilterPage() {
 
   if (isLoading) return <VenueListShimmer />;
   if (isError) return <div>Error loading gyms: {error.message}</div>;
-const handleShare = (gym) => {
-  const shareData = {
-    title: gym.gym_name,
-    text: `Check out ${gym.gym_name} on Danta Sports!`,
-    url: `${window.location.origin}/gym/${gym.Id}`,
-  };
+  const handleShare = (gym) => {
+    const shareData = {
+      title: gym.gym_name,
+      text: `Check out ${gym.gym_name} on Danta Sports!`,
+      url: `${window.location.origin}/gym/${gym.Id}`,
+    };
 
-  if (navigator.share) {
-    navigator.share(shareData).catch((error) => console.error("Share failed:", error));
-  } else {
-    navigator.clipboard.writeText(shareData.url);
-    alert("Link copied to clipboard!");
-  }
-};
+    if (navigator.share) {
+      navigator.share(shareData).catch((error) => console.error("Share failed:", error));
+    } else {
+      navigator.clipboard.writeText(shareData.url);
+      alert("Link copied to clipboard!");
+    }
+  };
 
   return (
     <section className="pt-3 pt-lg-5 pb-lg-5 pb-3" style={{ background: "#F1F3F2" }}>
@@ -153,50 +154,50 @@ const handleShare = (gym) => {
 
                   return (
                     <div className="col-lg-4 col-md-6" key={gym.Id}>
-                    <Card className="card">
-  <div className="card_img" style={{height:"180px",border:"1px",borderRadius:"5%"}}>
-    <img src={imageSrc} alt="" className="w-100" />
-  </div>
+                      <Card className="card">
+                        <div className="card_img">
+                          <img src={imageSrc} alt="" className="w-100" />
+                        </div>
 
-  <div className="card_icons">
-    <button
-      className="like-btn"
-      onClick={() => toggleFavourite(gym)}
-    >
-      <img src={gym.favourite ? HeartFilled : like} alt="like" className="like" />
-    </button>
+                        <div className="card_icons">
+                          <button
+                            className="like-btn"
+                            onClick={() => toggleFavourite(gym)}
+                          >
+                            <img src={gym.favourite ? HeartFilled : like} alt="like" className="like" />
+                          </button>
 
-    <button
-      className="share-btn"
-      onClick={() => handleShare(gym)}
-    >
-      <img src={share} alt="share" className="share" />
-    </button>
-  </div>
+                          <button
+                            className="share-btn"
+                            onClick={() => handleShare(gym)}
+                          >
+                            <img src={share} alt="share" className="share" />
+                          </button>
+                        </div>
 
-  <div className="txt_wrapper">
-    <div className="card_txt">
-      <h2>{gym.gym_name}</h2>
-      <p>
-        <span><img src={date} className="pe-2" alt="date" /></span>
-        {gym.create_at || "Timings not available"}
-      </p>
-      <p>
-        <span><img src={map} className="pe-2" alt="map" /></span>
-        {gym.full_address || "Address not available"}
-      </p>
-    </div>
+                        <div className="txt_wrapper">
+                          <div className="card_txt">
+                            <h2>{gym.gym_name}</h2>
+                            <p>
+                              <span><img src={date} className="pe-2" alt="date" /></span>
+                              {gym.create_at || "Timings not available"}
+                            </p>
+                            <p>
+                              <span><img src={map} className="pe-2" alt="map" /></span>
+                              {gym.full_address || "Address not available"}
+                            </p>
+                          </div>
 
-    <div className="sports_title">
-      <p>{gym.sports_name || "Multiple Sports"}</p>
-    </div>
+                          <div className="sports_title">
+                            <p>{gym.sports_name || "Multiple Sports"}</p>
+                          </div>
 
-    <div className="offer d-flex justify-content-between align-items-center">
-      <p>{gym.offer_text || "Upto 50% off"}</p>
-      <a href={`/gym/${gym.Id}`}>Join Now</a>
-    </div>
-  </div>
-</Card>
+                          <div className="offer d-flex justify-content-between align-items-center">
+                            <p>{gym.offer_text || "Upto 50% off"}</p>
+                            <a href={`/gym/${gym.Id}`}>Join Now</a>
+                          </div>
+                        </div>
+                      </Card>
 
                     </div>
                   );

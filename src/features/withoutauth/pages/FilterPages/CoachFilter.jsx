@@ -1,5 +1,6 @@
 
 import "../../Stylesheets/Filterpages/CoachFilter.css";
+import "../../Stylesheets/Filterpages/Cards.css";
 import CoachCard from "../../components/CoachCard.jsx";
 import AppDownloadBanner from "../../components/AppDownloadBanner.jsx";
 import { useState, useEffect, useMemo } from "react";
@@ -197,7 +198,7 @@ const navigate = useNavigate();
                         <div className="txt_wrapper">
                           <div className="card_txt">
                             <div className="d-flex justify-content-between mb-3 align-items-center">
-                              <h2 className="m-0">{coach.name}</h2>
+                              <h2 className="m-0 text_wrap">{coach.name}</h2>
                               <p className="m-0 memebercat">{coach.category}</p>
                             </div>
                             <div className="no_off_users">

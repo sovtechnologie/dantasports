@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+.account_titel h1,
+h2,
+.listing h2,
+.tite h2 {
+
+    color: #1163C7;
+    font-family: 'Lato';
+    font-weight: 500;
+    font-size: 32px;
+
+
+}
+
+.account_titel p {
+
+    font-family: 'Lato';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000;
+
+
+}
+
+.bder {
+    border: 1px dotted #1163C7;
+    margin: 20px 0;
+}
+
+.listing ol li {
+
+    list-style-type: decimal;
+    font-family: 'Lato';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    margin-bottom: 10px;
+
+}
+
+.listing ul li {
+
+    list-style-type: disc;
+     font-family: 'Lato';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+     margin-bottom: 8px;
+}
+
+.listing ul li strong {
+
+    color: #1163C7;
+    font-weight: 500;
+}
+
+.account_deactive_section .card {
+
+    box-shadow: 0px 5.35px 3.57px 0px #3363EB40;
+    border-radius: 15px;
+    text-align: center;
+    padding: 20px;
+    border: none;
+    text-align: center;
+    border: 1px solid transparent;
+
+}
+
+.account_deactive_section .card:hover {
+
+    /* transform: scale(1.1); */
+    border: 1px solid #1163C7;
+    transition: .3s ease-in-out;
+}
+
+.account_deactive_section .card h3 {
+
+    color: #1163C7;
+    font-family: 'Lato';
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28.25px;
+
+}
+
+.account_deactive_section .card p {
+
+    font-family: 'DM Sans';
+    font-weight: 400;
+    font-size: 16px;
+    color: #000;
+
+}
+
+@media screen and (max-width: 767px) {
+
+    .account_titel h1,h2,.listing h2,.tite h2 {
+
+        font-size: 25px;
+        line-height: 35px;
+    }
+
+}
+
+@media screen and (max-width: 540px) {
+
+    .account_titel h1,h2,.listing h2,.tite h2 {
+
+        font-size: 20px;
+        line-height: 30px;
+    }
+    .account_deactive_section .card{
+
+        padding: 10px;
+    }
+
+}

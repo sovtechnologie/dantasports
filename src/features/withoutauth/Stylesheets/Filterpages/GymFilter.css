@@ -76,14 +76,3 @@
   color: #1163c7;
   transition: 0.3s ease-in-out;
 }
-
- .card_img{
-
-  overflow: hidden;
-}
-
-.card_img img:hover{
-
-  transform: scale(1.1);
-  transition: .3s ease-in-out;
-}

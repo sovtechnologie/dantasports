@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import "../../Stylesheets/Filterpages/EventFilter.css";
+import "../../Stylesheets/Filterpages/Cards.css";
 import { useQueryClient } from "@tanstack/react-query";
 import { useFetchEvent } from "../../../../hooks/EventList/useFetchEvents.js";
 import { useSelector } from "react-redux";
@@ -35,41 +36,41 @@ export default function EventFilterPage() {
   const unlikeEvent = useUnlikeEvent();
 
   const toggleFavourite = async (event) => {
-  const eventId = event.id;
-  const type = event?.type;
-  const wasFavourite = event.favourite;
+    const eventId = event.id;
+    const type = event?.type;
+    const wasFavourite = event.favourite;
 
-  // ✅ Update UI instantly
-  setEventList((prev) =>
-    prev.map((v) =>
-      v.id === eventId ? { ...v, favourite: !wasFavourite } : v
-    )
-  );
+    // ✅ Update UI instantly
+    setEventList((prev) =>
+      prev.map((v) =>
+        v.id === eventId ? { ...v, favourite: !wasFavourite } : v
+      )
+    );
 
-  try {
-    if (!wasFavourite) {
-      await likeEvent.mutateAsync(
-        { eventId, userId, type },
-        {
-          onSuccess: () => {
-            queryClient.invalidateQueries(["EventList", userId || null]);
-          },
-        }
-      );
-    } else {
-      await unlikeEvent.mutateAsync(
-        { favouriteEventId: event.favourite_event_id },
-        {
-          onSuccess: () => {
-            queryClient.invalidateQueries(["EventList", userId || null]);
-          },
-        }
-      );
+    try {
+      if (!wasFavourite) {
+        await likeEvent.mutateAsync(
+          { eventId, userId, type },
+          {
+            onSuccess: () => {
+              queryClient.invalidateQueries(["EventList", userId || null]);
+            },
+          }
+        );
+      } else {
+        await unlikeEvent.mutateAsync(
+          { favouriteEventId: event.favourite_event_id },
+          {
+            onSuccess: () => {
+              queryClient.invalidateQueries(["EventList", userId || null]);
+            },
+          }
+        );
+      }
+    } catch (err) {
+      console.error("Error updating favourite:", err);
     }
-  } catch (err) {
-    console.error("Error updating favourite:", err);
-  }
-};
+  };
 
   useEffect(() => {
     if (AllEventdata?.status === 200) setEventList(AllEventdata.result);
@@ -126,10 +127,10 @@ export default function EventFilterPage() {
                             style={{ background: "none", border: "none" }}
                           >
                             <img
-  className="like"
-  src={evt.favourite ? HeartFilled : likeIcon}
-  alt="like"
-/>
+                              className="like"
+                              src={evt.favourite ? HeartFilled : likeIcon}
+                              alt="like"
+                            />
                           </button>
 
                           <button

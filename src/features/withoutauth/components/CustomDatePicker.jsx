@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import date from "../../withoutauth/assets/icons/filter-months.svg"
 import {
   format,
   startOfMonth,
@@ -12,7 +13,6 @@ import {
   isSameDay,
 } from "date-fns";
 import "../../withoutauth/Stylesheets/Filterpages/CustomDatePicker.css";
-
 const DatePicker = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
@@ -111,7 +111,7 @@ const DatePicker = () => {
           value={selectedDate ? format(selectedDate, "dd/MM/yyyy") : ""}
           placeholder="DD/MM/YYYY"
         />
-        <span className="dp-icon">📅</span>
+        <span className="dp-icon"><img src={date} alt="date" /></span>
       </div>
 
       {open && (
