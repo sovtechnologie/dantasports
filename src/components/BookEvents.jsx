@@ -184,10 +184,18 @@ const userId = useSelector((state) => state.auth.id);
   </ul>
 </div>
 
-                    <div className="offer d-flex justify-content-between align-items-center">
-                      <p>{evt.offer || "No offer"}</p>
-                      <Link to={`/Run/${evt.id}`}>Join Now</Link>
-                    </div>
+                   <div className="offer d-flex justify-content-between align-items-center">
+  <p>
+    {evt.coupon_type === "percentage" && evt.offer
+      ? `Upto ${parseFloat(evt.offer)}% Off`
+      : evt.coupon_type === "flat" && evt.offer
+      ? `Upto ₹${parseFloat(evt.offer)} Off`
+      : ""}
+  </p>
+
+  <Link to={`/Events/${evt.id}`}>Join Now</Link>
+</div>
+
                   </div>
                 </Card>
               </Col>

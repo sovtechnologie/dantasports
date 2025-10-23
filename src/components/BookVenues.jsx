@@ -205,19 +205,17 @@ const toggleFavourite = (venue) => {
 
 
                  <div className="offer d-flex justify-content-between align-items-center">
-  {venue.coupon_type === "percentage" ? (
-    <p>
-      Upto {Math.floor(venue.discount_offer || 0)}
-      <span className="percent_icon">%</span> off
-    </p>
-  ) : (
-    <p>
-      Save ₹{Math.floor(venue.discount_offer || 0)} off
-    </p>
-  )}
+  <p>
+    {venue.coupon_type === "percentage" && venue.discount_offer
+      ? `Upto ${parseFloat(venue.discount_offer)}% Off`
+      : venue.coupon_type === "flat" && venue.discount_offer
+      ? `Upto ₹${parseFloat(venue.discount_offer)} Off`
+      : ""}
+  </p>
 
   <Link to={`/venue/${venue.id}?venueId=${venue.id}`}>Book Now</Link>
 </div>
+
 
                 </div>
               </Card>

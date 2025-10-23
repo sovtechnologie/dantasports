@@ -203,17 +203,18 @@ function BookRun() {
 
 
                   {/* Offer / Join Now */}
-                  <div className="offer d-flex justify-content-between align-items-center">
-                    {evt.coupon_type === "percentage" ? (
-                      <p>
-                        Upto {Math.floor(evt.offer || 0)}
-                        <span className="percent_icon">%</span> off
-                      </p>
-                    ) : (
-                      <p>Save ₹{Math.floor(evt.offer || 0)}</p>
-                    )}
-                    <Link to={`/Run/${evt.id}?venueId=${evt.id}`}>Join Now</Link>
-                  </div>
+                 <div className="offer d-flex justify-content-between align-items-center">
+  <p>
+    {evt.coupon_type === "percentage" && evt.offer
+      ? `Upto ${parseFloat(evt.offer)}% Off`
+      : evt.coupon_type === "flat" && evt.offer
+      ? `Upto ₹${parseFloat(evt.offer)} Off`
+      : ""}
+  </p>
+
+  <Link to={`/Run/${evt.id}?venueId=${evt.id}`}>Join Now</Link>
+</div>
+
                 </div>
               </Card>
             </Col>

@@ -456,8 +456,7 @@ function VenueDetailsPage() {
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                              <RulesRegulations />
-                            </div>
+ <RulesRegulations content={venue.rules} />                            </div>
 
                           </div>
                         </div>
@@ -488,7 +487,7 @@ function VenueDetailsPage() {
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                              <CancellationPolicy/>
+                             <CancellationPolicy policyText={venue.booking_policy} />
                             </div>
 
                           </div>

@@ -278,9 +278,7 @@ function VenuePage() {
 
                         <div className="offers d-flex justify-content-between">
                           <span>Upto {discount}% Off</span>
-                          <p className="mb-0">
-                            ₹{parseFloat(venue.pricing).toFixed(0)} onwards
-                          </p>
+                          <p className="mb-0">₹{parseFloat(venue.pricing).toFixed(0)} onwards</p>
                         </div>
 
                         <hr className="mb-3" />

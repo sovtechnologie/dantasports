@@ -112,17 +112,18 @@ function BookGym() {
                           : "Available Activities"}
                       </p>
                     </div>
+<div className="offer d-flex justify-content-between align-items-center">
+  <p>
+    {gym.coupon_type === "percentage" && gym.discount_offer
+      ? `Upto ${parseFloat(gym.discount_offer)}% Off`
+      : gym.coupon_type === "flat" && gym.discount_offer
+      ? `Upto ₹${parseFloat(gym.discount_offer)} Off`
+      : ""}
+  </p>
 
-                    <div className="offer d-flex justify-content-between align-items-center">
-                      <p>
-                        Upto{" "}
-                        {gym.discount_offer
-                          ? parseFloat(gym.discount_offer).toFixed(0)
-                          : "0"}
-                        % off
-                      </p>
-                      <Link to={`/Gym/${gym.Id}`}>Join Now</Link>
-                    </div>
+  <Link to={`/Gym/${gym.Id}`}>Join Now</Link>
+</div>
+
 
                     {minPriceObj && (
                       <div className="price_info">

@@ -383,7 +383,7 @@ export default function EventDetailPage() {
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                              <TermsConditionsModal/>
+                          <TermsConditionsModal termsText={event?.termsAndCondition} />
                             </div>
 
                           </div>
@@ -415,7 +415,7 @@ export default function EventDetailPage() {
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                              <CancellationPolicy/>
+                              <CancellationPolicy policyText={event?.cancelPolicy} />
                             </div>
 
                           </div>
@@ -486,6 +486,7 @@ export default function EventDetailPage() {
                                 totalPrice={totalPrice}
                                 convenienceFee={ConvenienceFee}
                                 type={type}
+                                venueId={id}
                                 setFinalAmount={setFinalAmount} />
                         </div>
 
