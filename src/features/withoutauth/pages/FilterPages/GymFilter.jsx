@@ -193,9 +193,17 @@ export default function GymFilterPage() {
     </div>
 
     <div className="offer d-flex justify-content-between align-items-center">
-      <p>{gym.offer_text || "Upto 50% off"}</p>
-      <a href={`/gym/${gym.Id}`}>Join Now</a>
-    </div>
+  <p>
+    {gym.coupon_type === "percentage" && gym.discount_offer
+      ? `Upto ${parseFloat(gym.discount_offer)}% Off`
+      : gym.coupon_type === "flat" && gym.discount_offer
+      ? `Upto ₹${parseFloat(gym.discount_offer)} Off`
+      : ""}
+  </p>
+
+  <a href={`/gym/${gym.Id}`}>Join Now</a>
+</div>
+
   </div>
 </Card>
 

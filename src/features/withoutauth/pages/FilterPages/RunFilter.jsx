@@ -287,11 +287,17 @@ export default function RunFilterPage() {
 </div>
 
                           <div className="offer d-flex justify-content-between align-items-center">
-                            <p>
-                              {event.offer ? `${event.offer}% Off` : "No Offer"}
-                            </p>
-                            <a href={`/run/${event.id}`}>Join Now</a>
-                          </div>
+  <p>
+    {event.coupon_type === "percentage" && event.offer
+      ? `Upto ${parseFloat(event.offer)}% Off`
+      : event.coupon_type === "flat" && event.offer
+      ? `Upto ₹${parseFloat(event.offer)} Off`
+      : ""}
+  </p>
+
+  <a href={`/run/${event.id}`}>Join Now</a>
+</div>
+
                         </div>
                       </div>
                     </div>

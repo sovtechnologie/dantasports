@@ -151,9 +151,31 @@ export default function EventFilterPage() {
                           </span>
                         </div>
 
-                        <div className="easy">
-                          <span>{evt.difficulty || "Easy"}</span>
-                        </div>
+                       <div
+  className="easy"
+  style={{
+    display: "flex",
+    gap: "5px",
+    overflow: "hidden",
+    maxWidth: "100%",
+    marginBottom:"5%"
+  }}
+>
+  {evt.sports?.slice(0, 5).map((sport, idx) => (
+    <img
+      key={idx}
+      src={sport.image}
+      alt={sport.name}
+      style={{
+        width: "24px",
+        height: "24px",
+        objectFit: "cover",
+        borderRadius: "4px",
+      }}
+    />
+  ))}
+</div>
+
 
                         <div className="txt_wrapper" onClick={() => navigate(`/Events/${evt.id}`)}>
                           <div className="card_txt">
@@ -181,12 +203,24 @@ export default function EventFilterPage() {
                             </p>
                           </div>
 
-                          <div className="sports_title d-flex justify-content-between">
-                            <p>{evt.offer || "Upto 50% Off"}</p>
-                            <p>
-                              <span>₹{parseInt(evt.lowest_ticket_price)} onwards</span>
-                            </p>
-                          </div>
+                     <div className="sports_title d-flex justify-content-between">
+  <p>
+    {evt.coupon_type === "percentage" && evt.offer
+      ? `Upto ${parseFloat(evt.offer)}% Off`
+      : evt.coupon_type === "flat" && evt.offer
+      ? `Upto ₹${parseFloat(evt.offer)} Off`
+      : ""}
+  </p>
+
+  {evt.lowest_ticket_price ? (
+    <p>
+      <span>₹{parseInt(evt.lowest_ticket_price)} onwards</span>
+    </p>
+  ) : (
+    <p></p>
+  )}
+</div>
+
 
                           <hr />
                           <div className="offer">
