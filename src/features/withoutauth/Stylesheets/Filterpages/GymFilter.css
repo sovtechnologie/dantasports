@@ -29,6 +29,8 @@
   right: 5%;
   height: 26px;
   width: 26px;
+  border: 1px solid red;
+  background-color: #1163c7;
 }
 
 .card h2 {
@@ -39,9 +41,9 @@
 }
 
 .sports_title p {
-   white-space: nowrap;       /* stay in one line */
-  overflow: hidden;          /* hide overflow */
-  text-overflow: ellipsis;   /* show "..." */
+   white-space: nowrap;      
+  overflow: hidden;          
+  text-overflow: ellipsis;   
   color: #858585;
   font-weight: 400;
   font-size: 14px;

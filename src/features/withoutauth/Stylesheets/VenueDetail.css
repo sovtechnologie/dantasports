@@ -340,6 +340,7 @@
   cursor: pointer;
   font-size: 16px;
   font-weight: 500;
+  width: 120px;
 }
 
 .vb-period-btn,
@@ -361,6 +362,10 @@
   font-size: 16px;
 }
 
+.court-placeholder{
+
+  margin-bottom: 0;
+}
 .vb-sport-btn.active,
 .vb-period-btn.active,
 .vb-slot-btn.active,

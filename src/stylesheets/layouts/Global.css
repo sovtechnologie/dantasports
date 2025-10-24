@@ -34,7 +34,22 @@ a {
 
 }
 
+.card_line{
 
+  border: 1px solid #C4C4C4;
+  margin: 10px 0;
+}
+
+.card_heading {
+
+   font-weight: 600;
+  font-size: 20px;
+  color: #172A39;
+  margin-bottom: 16px;
+  font-family: 'Lato';
+  line-height: 30px;
+
+}
 .see_all a {
 
     font-weight: 400;
@@ -108,7 +123,33 @@ a {
 
 
 }
- 
+
+.no_off_users ul li {
+
+  height: 30px;
+  width: 30px;
+}
+
+.no_off_users ul li img {
+
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.up_to_offer {
+
+  color: #FC8019 !important;
+  font-family: 'DM Sans';
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16.55px;
+
+}
+.onwards_rup {
+
+  color: #1163C7 !important;
+}
 @media screen and (max-width: 767px) {
 
     .see_all a{

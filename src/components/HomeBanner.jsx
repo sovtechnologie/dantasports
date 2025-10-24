@@ -10,7 +10,7 @@ import bannercard from "../assets/homebanner/banner-cards-img.png";
 
 function HomeBanner() {
   // Dynamic heading texts
-const texts = ["Reserve Nearby Turfs", " Reserve Nearby Turfs 1", "Reserve Nearby Turfs 2"];
+const texts = ["Reserve Nearby Turfs", "Book Your Favorite Sports Venue", "Find Top-rated Grounds Near You","Instant Booking, Zero Hassle"];
   const [index, setIndex] = useState(0);
   const [fade, setFade] = useState(true);
 

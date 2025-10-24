@@ -50,7 +50,7 @@ function PlayHost() {
       <Container>
         <div className="d-flex justify-content-between align-items-center mb-4">
           <div className="section_title">
-            <h2>Play / Host</h2>
+            <h2>Play </h2>
           </div>
           <div className="see_all">
             <Link to="/Host">See All</Link>
@@ -95,12 +95,12 @@ function PlayHost() {
                         />
                       ))}
                     </div>
-                    <p className="m-0 ps-3 fw-semibold">
+                    <p className="m-0 ps-3 going">
                       {host.going || 0} Going
                     </p>
                   </div>
 
-                  <h2>Host By: {host.host_name || "Unknown"}</h2>
+                  <h2 className="text_wrap">Host By: {host.host_name || "Unknown"}</h2>
 
                   <div className="d-flex align-items-center mb-2">
                     <img
@@ -122,14 +122,16 @@ function PlayHost() {
                       ~{host.distance_km?.toFixed(1) || "0"} km)
                     </span>
                   </div>
-   <div className="d-flex justify-content-between align-items-center border-top pt-3">
-                    <span className="fw-bold" style={{ color: skill.color }}>
+                <div className="d-flex justify-content-between align-items-center  pt-3">
+                    <span className="novice_txt" style={{ color: skill.color }}>
                       {skill.label}
                     </span>
-                    {/* <div className="offer">
-                      <Link to={`/Host/${host.id}`}>Join Now</Link>
-                    </div> */}
+                    
                   </div>
+                  <div className="card_line"></div>
+                  <div className="offer">
+                      <Link to={`/Host/${host.id}`}>Join Now</Link>
+                    </div>
                 </Card>
               </Col>
             );

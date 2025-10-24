@@ -112,6 +112,12 @@ hr{
 
 }
 
+.coach_page_section .card{
+
+  min-height: 400px;
+  max-height: 400px;
+}
+
 .coach_page_section .offer a:hover {
   border: 1px solid #1163c7;
   background-color: transparent;
@@ -121,3 +127,12 @@ hr{
 }
 
 
+@media screen and (max-width: 767px) {
+  
+.coach_page_section .card{
+
+  min-height: unset;
+  max-height: unset;
+}
+  
+}

@@ -91,7 +91,7 @@ const mapCoachData = (apiData) => {
         reviews: Array.isArray(apiData?.reviews)
             ? apiData.reviews.map((review) => ({
                 id: review.id,
-                image: review.image ,
+                image: review.image,
                 userName: review.user_name || "Anonymous",
                 rating: review.rating || 0,
                 comment: review.comment || "No comment provided",
@@ -146,214 +146,204 @@ export default function CoachDetailPage() {
 
     return (
         <>
-         <section style={{ background: "#F1F3F2" }} className="pb-3 pb-lg-5">
-            <Container>
-                   <div className='Coach-main-header'>
-                <div className="breadcrumb">
-                    <span>Coach &gt; {coach?.location} &gt; {coach?.name}</span>
-                </div>
-
-                <h1 className="coachpage-name">{coach?.name}</h1>
-                <div className="coach-location-rating">
-                    <span>{coach?.location}</span>
-                   <span className="star" style={{marginLeft:"20px"}}>★</span> <span className="light-text" style={{marginLeft:"5px"}}>{coach?.rating} ({coach?.reviewcount} ratings)</span>
-                    
-                </div>
-            </div>
-
-
-            <div className="coach-details-container">
-                <div className="coach-wrapper row">
-
-                    <div className="coach-left col-lg-8">
-
-                        <div className="coach-image-carosal">
-                            <Swiper
-                                spaceBetween={30}
-                                centeredSlides={true}
-                                autoplay={{
-                                    delay: 2500,
-                                    disableOnInteraction: false,
-                                }}
-                                pagination={{
-                                    clickable: true,
-                                }}
-                                // navigation={true}
-                                modules={[Autoplay, Pagination,]}
-                                className="mySwiper"
-                            >
-                                {coach?.images?.map((img, index) => (
-                                    <SwiperSlide key={index} className="coach-swiperslide">
-                                        <img src={img} alt={`coach-image-${index}`} className="coach-swiperslide-img" />
-                                    </SwiperSlide>
-                                ))}
-                            </Swiper>
+            <section style={{ background: "#F1F3F2" }} className="pb-3 pb-lg-5">
+                <Container>
+                    <div className='Coach-main-header'>
+                        <div className="breadcrumb">
+                            <span>Coach &gt; {coach?.location} &gt; {coach?.name}</span>
                         </div>
 
-                        <div className="coach-section">
-                            <div className="coach-heading">About {coach?.name}</div>
-                            <div className="coach-description">
-                                {expandedSection === "about"
-                                    ? coach?.about
-                                    : `${coach?.about?.substring(0, 100)}...`}
-                            </div>
-                            <button onClick={() => toggleSection("about")} className="read-more-btn">
-                                {expandedSection === "about" ? "Read less" : "Read more"}
-                            </button>
-                        </div>
-
-                        <div className="coach-carry-point">
-                            <div className="coach-section coach-carry">
-                                <div className="coach-heading">About the Sessions</div>
-                                <div className="session-list">
-                                    <div className="session-conatiner">
-                                        <img src={calandarlogo} alt="calandarlogo" />
-                                        <p>{coach.available_days}</p>
-                                    </div>
-                                    <div className="session-conatiner">
-                                        <img src={adultlogo} alt="adultlogo" />
-                                        <p>{coach?.training_type}</p>
-                                    </div>
-                                    <div className="session-conatiner">
-                                        <img src={sessionlogo} alt="sessionlogo" />
-                                        <p>{coach?.classes}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="coach-section coach-pickPoints">
-                                <div className="coach-heading">Fee & Packages</div>
-                                {/* <div className="carry-list"> */}
-                                <p style={{ whiteSpace: "pre-wrap" }}>
-                                    {expandedSection === "FreePackges"
-                                        ? coach?.fees_and_packages
-                                        : `${coach?.fees_and_packages?.substring(0, 200)}...`}
-                                </p>
-                                <button onClick={() => toggleSection("FreePackges")} className="read-more-btn">
-                                    {expandedSection === "FreePackges" ? "Read less" : "Read more"}
-                                </button>
-
-                                {/* </div> */}
-                            </div>
+                        <h1 className="coachpage-name">{coach?.name}</h1>
+                        <div className="coach-location-rating">
+                            <span>{coach?.location}</span>
+                            <span className="star" style={{ marginLeft: "20px" }}>★</span> <span className="light-text" style={{ marginLeft: "5px" }}>{coach?.rating} ({coach?.reviewcount} ratings)</span>
 
                         </div>
-
-                        {coach?.type === 2 && (
-                            <div className="coach-carry-point">
-                                <div className="coach-section coach-pickPoints">
-                                    <div className="coach-heading">Coaches</div>
-                                    <div className="coaches-list">
-                                        {coach?.coaches?.map((coach, index) => (
-                                            <div className="coaches-card" key={index}>
-                                                <img src={coach.image} alt={coach.name} className="coach-image" />
-                                                <p className="coach-name">{coach.name}</p>
-                                                <p className="coach-title">{coach.title}</p>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className="coach-section coach-pickPoints">
-                                    <div className="coach-heading">Sports</div>
-                                    <div className="sports-list">
-                                        {coach?.sports?.map((sport, index) => (
-                                            <div className="sportes-card" key={index}>
-                                                <img src={sport.icon} alt={sport.name} className="sports-img" />
-                                                <p className="sport-name">{sport.name}</p>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-
-                        )}
-
                     </div>
 
-                    <div className="coach-right col-lg-4">
 
-                        <div className="coach-right-section">
-                            <div className="coach-heading">Location</div>
-                            <div className="gym-right-section-p"> <p>{coach?.address}</p></div>
-                            <div className="coach-map">
-                                <CustomMap latitude={coach?.latitude} longitude={coach?.longitude} />
-                            </div>
+                    <div className="coach-details-container">
+                        <div className="coach-wrapper row">
 
-                        </div>
+                            <div className="coach-left col-lg-8">
 
-                        <div className="coach-right-section">
-                            <div className="coach-heading">Other Serviceable Location</div>
-                            {coach?.multilocation?.map((loc, index) => {
-                                const mapLink = `https://www.google.com/maps?q=${loc.lat},${loc.lng}`;
-
-                                return (
-                                    <a
-                                        href={mapLink}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        key={index}
-                                        className="location-item"
+                                <div className="coach-image-carosal">
+                                    <Swiper
+                                        spaceBetween={30}
+                                        centeredSlides={true}
+                                        autoplay={{
+                                            delay: 2500,
+                                            disableOnInteraction: false,
+                                        }}
+                                        pagination={{
+                                            clickable: true,
+                                        }}
+                                        // navigation={true}
+                                        modules={[Autoplay, Pagination,]}
+                                        className="mySwiper"
                                     >
-                                        <div className="icon">
-                                            <img src={locationlogo} alt="location" className="locationlogo" />
+                                        {coach?.images?.map((img, index) => (
+                                            <SwiperSlide key={index} className="coach-swiperslide">
+                                                <img src={img} alt={`coach-image-${index}`} className="coach-swiperslide-img" />
+                                            </SwiperSlide>
+                                        ))}
+                                    </Swiper>
+                                </div>
+
+                                <div className="coach-section">
+                                    <div className="coach-heading">About {coach?.name}</div>
+                                    <div className="coach-description">
+                                        {expandedSection === "about"
+                                            ? coach?.about
+                                            : `${coach?.about?.substring(0, 100)}...`}
+                                    </div>
+                                    <button onClick={() => toggleSection("about")} className="read-more-btn">
+                                        {expandedSection === "about" ? "Read less" : "Read more"}
+                                    </button>
+                                </div>
+
+                                <div className="coach-carry-point">
+                                    <div className="coach-section coach-carry">
+                                        <div className="coach-heading">About the Sessions</div>
+                                        <div className="session-list">
+                                            <div className="session-conatiner">
+                                                <img src={calandarlogo} alt="calandarlogo" />
+                                                <p className="m-0">{coach.available_days}</p>
+                                            </div>
+                                            <div className="session-conatiner">
+                                                <img src={adultlogo} alt="adultlogo" />
+                                                <p className="m-0">{coach?.training_type}</p>
+                                            </div>
+                                            <div className="session-conatiner">
+                                                <img src={sessionlogo} alt="sessionlogo" />
+                                                <p className="m-0">{coach?.classes}</p>
+                                            </div>
                                         </div>
-                                        <div className="location-text">
-                                            <div className="address">{loc.area}</div>
-                                            <div className="subtext-one">Click to view on map</div>
-                                        </div>
-                                        <div className="arrow">&#8250;</div>
-                                    </a>
-                                );
-                            })}
+                                    </div>
+                                    <div className="coach-section coach-pickPoints">
+                                        <div className="coach-heading">Fee & Packages</div>
+                                        {/* <div className="carry-list"> */}
+                                        <p style={{ whiteSpace: "pre-wrap" }}>
+                                            {expandedSection === "FreePackges"
+                                                ? coach?.fees_and_packages
+                                                : `${coach?.fees_and_packages?.substring(0, 200)}...`}
+                                        </p>
+                                        <button onClick={() => toggleSection("FreePackges")} className="read-more-btn">
+                                            {expandedSection === "FreePackges" ? "Read less" : "Read more"}
+                                        </button>
 
-                        </div>
-
-
-                        <div className="coach-right-section">
-                            <div className="coach-heading">Awards & Recognitions</div>
-                            {coach?.certficiates?.map(cert => (
-                                <div className="award-wrapper" key={cert.id}>
-                                    {/* Certificate1 */}
-                                    {/* <div className="icon"> */}
-                                            <img src={Certificate1} alt={cert.certificate_name} className="certificatelogo" />
                                         {/* </div> */}
-                                    {/* <img
-                                        src={cert.certificate_url ? cert.certificate_url : certificatlogo}
-                                        alt={cert.certificate_name}
-                                        className="certificatelogo"
-                                    /> */}
-                                    <div className="award-des">
-                                        <ul className="p-0">
-                                            <li>{cert.certificate_name}</li>
-                                        </ul>
+                                    </div>
+
+                                </div>
+
+                                {coach?.type === 2 && (
+                                    <div className="coach-carry-point">
+                                        <div className="coach-section coach-pickPoints">
+                                            <div className="coach-heading">Coaches</div>
+                                            <div className="coaches-list">
+                                                {coach?.coaches?.map((coach, index) => (
+                                                    <div className="coaches-card" key={index}>
+                                                        <img src={coach.image} alt={coach.name} className="coach-image" />
+                                                        <p className="coach-name">{coach.name}</p>
+                                                        <p className="coach-title">{coach.title}</p>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                        <div className="coach-section coach-pickPoints">
+                                            <div className="coach-heading">Sports</div>
+                                            <div className="sports-list">
+                                                {coach?.sports?.map((sport, index) => (
+                                                    <div className="sportes-card" key={index}>
+                                                        <img src={sport.icon} alt={sport.name} className="sports-img" />
+                                                        <p className="sport-name">{sport.name}</p>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                )}
+
+                            </div>
+
+                            <div className="coach-right col-lg-4">
+
+                                <div className="coach-right-section">
+                                    <div className="coach-heading">Location</div>
+                                    <div className="gym-right-section-p"> <p>{coach?.address}</p></div>
+                                    <div className="coach-map">
+                                        <CustomMap latitude={coach?.latitude} longitude={coach?.longitude} />
+                                    </div>
+
+                                </div>
+
+                                <div className="coach-right-section">
+                                    <div className="coach-heading">Other Serviceable Location</div>
+                                    {coach?.multilocation?.map((loc, index) => {
+                                        const mapLink = `https://www.google.com/maps?q=${loc.lat},${loc.lng}`;
+
+                                        return (
+                                            <a
+                                                href={mapLink}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                key={index}
+                                                className="location-item"
+                                            >
+                                                <div className="icon">
+                                                    <img src={locationlogo} alt="location" className="locationlogo" />
+                                                </div>
+                                                <div className="location-text">
+                                                    <div className="address">{loc.area}</div>
+                                                    <div className="subtext-one">Click to view on map</div>
+                                                </div>
+                                                <div className="arrow">&#8250;</div>
+                                            </a>
+                                        );
+                                    })}
+
+                                </div>
+
+
+
+                                <div className="coach-right-section">
+                                    <div className="coach-heading">
+                                        <h5 className="coach-heading mb-3">Awards & Recognitions</h5>
+                                    </div>
+                                    <div className="awards_cards">
+
+                                        {coach?.certficiates?.map(cert => (
+                                            <div className="award-wrapper" key={cert.id}>
+                                                <img src={Certificate1} alt={cert.certificate_name} className="certificatelogo" />
+
+                                                <div className="award-des">
+                                                    <ul className="p-0">
+                                                        <li>{cert.certificate_name}</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
-                            ))}
+
+
+                                <div className="coach-right-section-button">
+                                    <button className="coach-btn" onClick={() => handleEnquiry(coach?.id)} >{createQueryMutation.isLoading ? "Processing..." : "Enquire now"}</button>
+                                    {showModal && <EnquiryModal onClose={() => setShowModal(false)} />}
+                                </div>
+
+                            </div>
+
                         </div>
 
-                        <div className="coach-right-section-button">
-                            <button className="coach-btn" onClick={() => handleEnquiry(coach?.id)} >{createQueryMutation.isLoading ? "Processing..." : "Enquire now"}</button>
-                            {showModal && <EnquiryModal onClose={() => setShowModal(false)} />}
+                        <div className="ratings-carousel">
+                            <EventReviewSlider event={{ reviews: coach?.reviews }} />
                         </div>
-
                     </div>
-
-                </div>
-
-                <div className="ratings-carousel">
-                    <EventReviewSlider event={{ reviews: coach?.reviews }} />
-                    {/* <h2 className="review-heading">Ratings & Reviews</h2>
-                    <div className="review-carousel-container">
-                        {coach?.reviews?.slice(start, start + visibleCount).map((review) => (
-                            <ReviewCard key={review.id} review={review} />
-                        ))}
-                    </div>
-                    <div className="carousel-buttons">
-                        <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
-                        <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
-                    </div> */}
-                </div>
-            </div>
-            </Container>
-         </section>
+                </Container>
+            </section>
 
 
         </>

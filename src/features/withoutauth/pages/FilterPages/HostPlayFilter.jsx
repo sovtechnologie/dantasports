@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import styled from "../../Stylesheets/Filterpages/HostPlayFilter.module.css";
+import styled from "../../Stylesheets/Filterpages/HostPlayFilter.css";
 
 import { useFetchHostList } from "../../../../hooks/Hostlist/useFetchHostList";
 import { VenueListShimmer } from "../../components/Shimmer/VenueListShimmer";
@@ -37,12 +37,12 @@ export default function HostPlayFilterPage() {
   }, [AllHostdata]);
 
   const SKILL_MAP = {
-  0: { label: "Novice", color: "#18429F" },
-  1: { label: "Learner", color: "#0FA903" },
-  2: { label: "Skilled", color: "#FFA200" },
-  3: { label: "Expert", color: "#E65B00" },
-  4: { label: "Elite", color: "#4C2DFF" },
-};
+    0: { label: "Novice", color: "#18429F" },
+    1: { label: "Learner", color: "#0FA903" },
+    2: { label: "Skilled", color: "#FFA200" },
+    3: { label: "Expert", color: "#E65B00" },
+    4: { label: "Elite", color: "#4C2DFF" },
+  };
 
 
   // Filter by search or selected time
@@ -87,8 +87,7 @@ export default function HostPlayFilterPage() {
               {filteredHosts.length > 0 ? (
                 filteredHosts.map((host) => (
                   <Col lg={4} md={6} key={host.id}>
-                    <Card className="playhost_card p-3 p-lg-4 shadow-sm border-0 rounded-4">
-
+                    <Card className="card p-3 p-lg-4 ">
                       {/* Label */}
                       <div className="badge_label mb-2">
                         <p>{host.activity_type || "Regular"}</p>
@@ -136,20 +135,20 @@ export default function HostPlayFilterPage() {
                               />
                             ))}
                         </div>
-                        <p className="m-0 ps-3 fw-semibold">{host.going || 0} Going</p>
+                        <p className="m-0 ps-3 going">{host.going || 0} Going</p>
                       </div>
 
-                      <h2 className="fs-5 fw-bold">Host By: {host.host_name || "Unknown"}</h2>
+                      <h2>Host By: {host.host_name || "Unknown"}</h2>
 
-                     
+
                       <div className="d-flex align-items-center mb-2">
                         <img src={calendarIcon} alt="calendar" className="icon me-2" />
                         <span>
                           {host.date
                             ? new Date(host.date).toLocaleDateString("en-GB", {
-                                day: "2-digit",
-                                month: "short",
-                              })
+                              day: "2-digit",
+                              month: "short",
+                            })
                             : ""}{" "}
                           | {formatTime(host.start_time)} - {formatTime(host.end_time)}
                         </span>
@@ -164,16 +163,20 @@ export default function HostPlayFilterPage() {
                       </div>
 
                       {/* Bottom */}
-                     <div className="d-flex justify-content-between align-items-center border-top pt-3">
-  <span
-    className="fw-bold"
-    style={{
-      color: SKILL_MAP[host.game_skill]?.color || "#18429F",
-    }}
-  >
-    {SKILL_MAP[host.game_skill]?.label || "Novice"}
-  </span>
-</div>
+                      <div className="d-flex justify-content-between align-items-center  pt-3">
+                        <span
+                          className="novice_txt"
+                          style={{
+                            color: SKILL_MAP[host.game_skill]?.color || "#18429F",
+                          }}
+                        >
+                          {SKILL_MAP[host.game_skill]?.label || "Novice"}
+                        </span>
+                      </div>
+                      <div className="offer">
+                        <a href="">Join Now</a>
+                      </div>
+                      
                     </Card>
                   </Col>
                 ))
