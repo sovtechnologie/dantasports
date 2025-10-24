@@ -1,0 +1,86 @@
+h2 {
+
+  color: #272727;
+    font-family: 'Lato';
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    margin-bottom: 1rem;
+    margin-top: 20px;
+ 
+
+}
+
+.card{
+
+    border: 1px solid rgb(181, 181, 189);
+}
+
+.badge_label p{
+
+        color: #000;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 28px;
+
+}
+
+.offer a {
+  background-color: #1163c7;
+  padding: 5px 16px;
+  font-weight: 400;
+  font-size: 14px;
+  color: white;
+  text-decoration: none;
+  line-height: 26px;
+  border-radius: 5px;
+  font-family: "DM Sans";
+  border: 1px solid transparent;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.offer a:hover {
+  border: 1px solid #1163c7;
+  background-color: transparent;
+  color: #1163c7;
+  transition: 0.3s ease-in-out;
+}
+
+
+.novice_txt {
+
+  font-family: 'DM Sans';
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 34.5px;
+
+}
+
+.going {
+
+  font-family: 'DM Sans';
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 34.5px;
+  color: #000;
+
+}
+@media screen and (max-width: 767px) {
+
+  .going{
+
+    font-size: 20px;
+    line-height: 28px;
+  }
+  .play_host_section .card h2 {
+    margin-top: 0px;
+  }
+  .novice_txt{
+
+    font-size: 20px;
+    line-height: 30px;
+  }
+}

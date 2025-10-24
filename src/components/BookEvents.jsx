@@ -8,14 +8,13 @@ import { useFetchEvent } from "../hooks/EventList/useFetchEvents.js";
 import { useLikeEvent } from "../hooks/favouriteEvent/useLikeEvent.js";
 import { useUnlikeEvent } from "../hooks/favouriteEvent/useUnLikeEvent.js";
 import { CardShimmer } from "../features/withoutauth/components/Shimmer/CardShimmer.jsx";
-import bookeventt from '../assets/images/home/bookevents/bookevents.png'
+import bookeventt from "../assets/images/home/bookevents/bookevents.png";
 import "./StyleSheets/BookRun.css";
 import likeIcon from "../assets/images/home/bookvenues/like.svg";
 import shareIcon from "../assets/images/home/bookvenues/share.svg";
 import dateIcon from "../assets/images/home/bookrun/date.svg";
 import mapIcon from "../assets/images/home/bookrun/map.svg";
 import HeartFilled from "../features/withoutauth/assets/VenueCardLogo/heartfilled.png";
-
 
 function formatTime(timeStr = "00:00") {
   if (!timeStr) return "";
@@ -35,13 +34,13 @@ function formatTime(timeStr = "00:00") {
 function BookEvents() {
   const { lat, lng } = useSelector((state) => state.location);
   const [coords] = useState({ lat, lng, type: 1, userId: null }); // type 1 for events
-const userId = useSelector((state) => state.auth.id);
+  const userId = useSelector((state) => state.auth.id);
   const queryClient = useQueryClient();
   const { data, isLoading, error } = useFetchEvent(coords);
   const events = data?.result || [];
-   const likeEvent = useLikeEvent();
+  const likeEvent = useLikeEvent();
   const unlikeEvent = useUnlikeEvent();
- const [eventList, setEventList] = useState([]);
+  const [eventList, setEventList] = useState([]);
 
   const toggleFavourite = async (event) => {
     const eventId = event.id;
@@ -58,7 +57,9 @@ const userId = useSelector((state) => state.auth.id);
       if (!wasFavourite) {
         await likeEvent.mutateAsync({ eventId, userId, type: 1 });
       } else {
-        await unlikeEvent.mutateAsync({ favouriteEventId: event.favourite_event_id });
+        await unlikeEvent.mutateAsync({
+          favouriteEventId: event.favourite_event_id,
+        });
       }
       queryClient.invalidateQueries(["EventList", userId || null]);
     } catch (err) {
@@ -85,7 +86,6 @@ const userId = useSelector((state) => state.auth.id);
       alert("Event link copied to clipboard!");
     }
   };
-
 
   if (isLoading) return <CardShimmer />;
   if (error) return <p>Error loading events: {error.message}</p>;
@@ -114,17 +114,23 @@ const userId = useSelector((state) => state.auth.id);
                       src={evt.desktop_image || bookeventt}
                       className="w-100"
                       alt={evt.event_title}
-                       onError={(e) => { e.target.onerror = null; e.target.src = bookeventt; 
-                                                      }}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = bookeventt;
+                      }}
                     />
                   </div>
- <div className="card_icons">
+                  <div className="card_icons">
                     <button
                       onClick={() => toggleFavourite(evt)}
                       className="icon-btn"
                       style={{ background: "none", border: "none" }}
                     >
-                      <img className="like" src={evt.favourite ? HeartFilled : likeIcon} alt="like" />
+                      <img
+                        className="like"
+                        src={evt.favourite ? HeartFilled : likeIcon}
+                        alt="like"
+                      />
                     </button>
                     <button
                       onClick={() => handleShare(evt)}
@@ -137,7 +143,7 @@ const userId = useSelector((state) => state.auth.id);
 
                   <div className="txt_wrapper">
                     <div className="card_txt">
-                      <h2 className="text_wrap">{evt.event_title}</h2>
+                      <h2 className="text_wrap card_heading">{evt.event_title}</h2>
                       <p className="text_wrap">
                         <span>
                           <img className="pe-2" src={dateIcon} alt="" />
@@ -151,51 +157,50 @@ const userId = useSelector((state) => state.auth.id);
                         {evt.locations[0]?.area}, {evt.locations[0]?.city}
                       </p>
                     </div>
-                    <div className="no_off_users mt-2">
-  <ul className="d-flex p-0 align-items-center m-0">
-    {evt.sports?.slice(0, 5).map((sport, index) => (
-      <li key={index} className="me-2 list-unstyled">
-        <img
-          src={sport.image } 
-          alt={sport.name || "sport"}
-          title={sport.name || "sport"}
-          style={{
-            width: "25px",
-            height: "25px",
-            objectFit: "cover",
-            borderRadius: "50%",
-          }}
-        />
-      </li>
-    ))}
+                    {/* <div className="no_off_users mt-2">
+                      <ul className="d-flex p-0 align-items-center m-0">
+                        {evt.sports?.slice(0, 5).map((sport, index) => (
+                          <li key={index} className="me-2 list-unstyled">
+                            <img
+                              src={sport.image}
+                              alt={sport.name || "sport"}
+                              title={sport.name || "sport"}
+                              
+                            />
+                          </li>
+                        ))}
 
-    {evt.sports && evt.sports.length > 5 && (
-      <li
-        className="list-unstyled"
-        style={{
-          color: "#858585",
-          fontSize: "14px",
-          lineHeight: 1,
-        }}
-      >
-        +{evt.sports.length - 5} more
-      </li>
-    )}
-  </ul>
-</div>
+                        {evt.sports && evt.sports.length > 5 && (
+                          <li
+                            className="list-unstyled"
+                            style={{
+                              color: "#858585",
+                              fontSize: "14px",
+                              lineHeight: 1,
+                            }}
+                          >
+                            +{evt.sports.length - 5} more
+                          </li>
+                        )}
+                      </ul>
+                    </div> */}
+                    <div className="d-flex justify-content-between no_off_users">
+                      <p className="up_to_offer mb-2">Upto 50%off</p>
+                      <p className="onwards_rup mb-2">₹1000 onwards</p>
+                    </div>
+                    <div className="card_line mb-2"></div>
 
-                   <div className="offer d-flex justify-content-between align-items-center">
-  <p>
-    {evt.coupon_type === "percentage" && evt.offer
-      ? `Upto ${parseFloat(evt.offer)}% Off`
-      : evt.coupon_type === "flat" && evt.offer
-      ? `Upto ₹${parseFloat(evt.offer)} Off`
-      : ""}
-  </p>
+                    <div className="offer d-flex justify-content-between align-items-center">
+                      <p>
+                        {evt.coupon_type === "percentage" && evt.offer
+                          ? `Upto ${parseFloat(evt.offer)}% Off`
+                          : evt.coupon_type === "flat" && evt.offer
+                            ? `Upto ₹${parseFloat(evt.offer)} Off`
+                            : ""}
+                      </p>
 
-  <Link to={`/Events/${evt.id}`}>Join Now</Link>
-</div>
-
+                      <Link to={`/Events/${evt.id}`}>Join Now</Link>
+                    </div>
                   </div>
                 </Card>
               </Col>

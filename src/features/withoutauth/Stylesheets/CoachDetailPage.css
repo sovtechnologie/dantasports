@@ -93,13 +93,7 @@
   color: #172a39;
   line-height: 27.2px;
 }
-/* .gym-right-section-p {
-  font-family: "DM Sans", sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 23.4px;
-  color: #172a39;
-} */
+
 
 .coach-description {
   font-size: 16px;
@@ -347,18 +341,51 @@
 .award-wrapper{
 
   height: 200px;
-  width: 100%;
+  width: 300px;
   margin-bottom: 30px;
   border: 1px solid #ccc;
-  border-radius: 16px;
-  /* overflow: hidden; */
+  border-radius: 6px;
 }
 .award-wrapper img {
 
   height: 100%;
   width: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
+
+
+.awards_cards {
+  display: flex;
+  flex-direction: column;    /* stack cards vertically */
+  gap: 20px;                 /* spacing between cards */
+  height: 400px;             /* fixed visible height */
+  overflow-y: auto;          /* enable vertical scroll */
+  overflow-x: hidden;        /* hide horizontal scroll */
+  scroll-behavior: smooth;   /* smooth scroll */
+  padding-right: 10px;       /* spacing for scrollbar */
+  scrollbar-width: thin;     /* Firefox scrollbar */
+  scrollbar-color: #6797d1 #f1f1f1;
+}
+
+/* Chrome, Edge, Safari Scrollbar Styling */
+.awards_cards::-webkit-scrollbar {
+  width: 8px;
+}
+
+.awards_cards::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.awards_cards::-webkit-scrollbar-thumb {
+  background-color: #dfe0e1;
+  border-radius: 10px;
+}
+
+.awards_cards::-webkit-scrollbar-thumb:hover {
+  background-color: #0b4a95;
+}
+
 
 .award-wrapper img:hover{
   transform: scale(1.1);

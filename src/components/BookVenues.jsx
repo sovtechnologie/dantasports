@@ -3,9 +3,7 @@ import { Container, Row, Col, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useQueryClient } from "@tanstack/react-query";
-
 import { useFetchVenue } from "../hooks/VenueList/useFetchVenue";
-
 import { CardShimmer } from "../features/withoutauth/components/Shimmer/CardShimmer.jsx";
 
 import "./StyleSheets/BookVenues.css";
@@ -36,7 +34,7 @@ export default function BookVenues() {
     }
   }, [data]);
 
-const toggleFavourite = (venue) => {
+  const toggleFavourite = (venue) => {
     const venueId = venue.id;
     console.log("toggle");
 
@@ -87,7 +85,7 @@ const toggleFavourite = (venue) => {
     }
   };
 
-  
+
   const handleShare = (venue) => {
     const url = `${window.location.origin}/venue/${venue.id}`;
     if (navigator.share) {
@@ -129,7 +127,7 @@ const toggleFavourite = (venue) => {
                   />
                 </div>
 
-               
+
                 <div className="card_icons">
                   <img
                     className="like"
@@ -153,13 +151,13 @@ const toggleFavourite = (venue) => {
                 </div>
 
                 <div className="txt_wrapper">
-                  <div className="card_txt">
-                    <h2 className="text_wrap">{venue.venue_name}</h2>
-                    <p>
-                      <span className="star pe-2">
+                  <div className="card_txt d-flex justify-content-between ">
+                    <h2 className="text_wrap card_heading">{venue.venue_name}</h2>
+                    <p className="ps-3">
+                      {/* <span className="star pe-2">
                         <img src={star} alt="rating" />
-                      </span>
-                      <strong className="pe-2">
+                      </span> */}
+                      <strong className="pe-2 fw-light">
                         {venue.average_rating || "0.0"} (
                         {venue.review_count || 0})
                       </strong>
@@ -168,53 +166,57 @@ const toggleFavourite = (venue) => {
                         ? `${venue.distance_km.toFixed(1)} km`
                         : "0.0"}
                     </p>
+                    <div className="rating">
+                      <span><img src={star} className="pe-2" alt="" />4.4</span>
+                    </div>
                   </div>
 
-              <div className="no_off_users mt-2">
-  <ul className="d-flex p-0 align-items-center m-0">
-    {venue.sports?.slice(0, 5).map((sport, index) => (
-      <li key={index} className="me-2 list-unstyled">
-        <img
-          src={sport.image || latestt} // API me image na ho to default icon
-          alt={sport.name || "sport"}
-          title={sport.name || "sport"}
-          style={{
-            width: "25px",
-            height: "25px",
-            objectFit: "cover",
-            borderRadius: "50%",
-          }}
-        />
-      </li>
-    ))}
+                  <div className="no_off_users mt-2">
+                    <ul className="d-flex p-0 align-items-center m-0">
+                      {venue.sports?.slice(0, 5).map((sport, index) => (
+                        <li key={index} className="me-2 list-unstyled">
+                          <img
+                            src={sport.image || latestt} 
+                            alt={sport.name || "sport"}
+                            title={sport.name || "sport"}
+                           
+                          />
+                        </li>
+                      ))}
 
-    {venue.sports && venue.sports.length > 5 && (
-      <li
-        className="list-unstyled"
-        style={{
-          color: "#858585",
-          fontSize: "14px",
-          lineHeight: 1,
-        }}
-      >
-        +{venue.sports.length - 5} more
-      </li>
-    )}
-  </ul>
-</div>
+                      {venue.sports && venue.sports.length > 5 && (
+                        <li
+                          className="list-unstyled"
+                          style={{
+                            color: "#858585",
+                            fontSize: "14px",
+                            lineHeight: 1,
+                          }}
+                        >
+                          +{venue.sports.length - 5} more
+                        </li>
+                      )}
+                    </ul>
+                  </div>
+
+                      <div className="d-flex justify-content-between no_off_users  mt-3">
+                       <p className="up_to_offer">
+                      {venue.coupon_type === "percentage" && venue.discount_offer
+                        ? `Upto ${parseFloat(venue.discount_offer)}% Off`
+                        : venue.coupon_type === "flat" && venue.discount_offer
+                          ? `Upto ₹${parseFloat(venue.discount_offer)} Off`
+                          : ""}
+                    </p>
+                      <p className="onwards_rup mb-2">₹1000 onwards</p>
+                    </div>
+                     <div className="card_line mb-2"></div>
 
 
-                 <div className="offer d-flex justify-content-between align-items-center">
-  <p>
-    {venue.coupon_type === "percentage" && venue.discount_offer
-      ? `Upto ${parseFloat(venue.discount_offer)}% Off`
-      : venue.coupon_type === "flat" && venue.discount_offer
-      ? `Upto ₹${parseFloat(venue.discount_offer)} Off`
-      : ""}
-  </p>
+                  <div className="offer d-flex justify-content-between align-items-center">
+                  
 
-  <Link to={`/venue/${venue.id}`}>Book Now</Link>
-</div>
+                    <Link to={`/venue/${venue.id}`}>Book Now</Link>
+                  </div>
 
 
                 </div>

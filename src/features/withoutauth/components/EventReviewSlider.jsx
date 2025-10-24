@@ -10,36 +10,44 @@ import "slick-carousel/slick/slick-theme.css";
 import "./Stylesheets/EventReviewSlider.css";
 
 /* -------------------- Review Card -------------------- */
-const ReviewCard = memo(({ review }) => (
-     console.log("|review.imagereview.imagereview.image",review.image),
-  <div className="review-card1">
-    <div>
-      <p className="review-rating">⭐ {review.rating}/5</p>
-      <p className="review-text">{review.comment}</p>
-      
-    </div>
+const ReviewCard = memo(
+  ({ review }) => (
+    console.log("|review.imagereview.imagereview.image", review.image),
+    (
+      <div className="review-card1">
+        <div>
+          <p className="review-rating">⭐ {review.rating}/5</p>
+          <p className="review-text">{review.comment}</p>
+        </div>
 
-    <div className="review-card-header d-flex justify-content-between align-items-center">
-      <div className="user_profile mt-3">
-     
-        <img
-          src={review.image}
-          alt={review.name || review.userName}
-          className="review-avatar"
-          loading="lazy"
-        />
-      </div>
-      <div>
-        <h5 className="mb-0 fw-light m-0">{review.name || review.userName}</h5>
-      </div>
-    </div>
-  </div>
-));
+        <div className="review-card-header d-flex justify-content-between align-items-center">
+          <div className="d-flex align-items-center text-align-center ">
+            <div className="user_profile">
+            <img
+              src={review.image}
+              alt={review.name || review.userName}
+              className="review-avatar"
+              loading="lazy"
+            />
+            
+          </div>
+          <div className="username ps-3">
+              <p className="m-0">László Barbara</p>
+          </div>
+          </div>
 
+          <div>
+            <h5 className="mb-0 fw-light m-0">
+              {review.name || review.userName}
+            </h5>
+          </div>
+        </div>
+      </div>
+    )
+  )
+);
 
 ReviewCard.displayName = "ReviewCard";
-
-
 
 /* -------------------- Main Component -------------------- */
 const EventReviewSlider = ({ event }) => {
@@ -88,7 +96,7 @@ const EventReviewSlider = ({ event }) => {
     slidesToShow: 3,
     slidesToScroll: 1,
     arrows: false,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 4000,
     pauseOnHover: true,
     responsive: [
@@ -104,18 +112,15 @@ const EventReviewSlider = ({ event }) => {
   /* -------------------- Render -------------------- */
   return (
     <section className="event-review">
-      <h2 className="event-review-heading mb-4">
-        Rating & Reviews
-      </h2>
+      <h2 className="event-review-heading mb-4">Rating & Reviews</h2>
 
       <div className="event-review-slider">
         <Slider ref={sliderRef} {...settings}>
-         {reviews.map((review, index) => (
-  <div key={review.id || index}>
-    <ReviewCard review={review} />
-  </div>
-))}
-
+          {reviews.map((review, index) => (
+            <div key={review.id || index}>
+              <ReviewCard review={review} />
+            </div>
+          ))}
         </Slider>
       </div>
 

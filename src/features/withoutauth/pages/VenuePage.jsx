@@ -240,7 +240,9 @@ function VenuePage() {
 
                       <div className="inner_txt">
                         <div className="d-flex justify-content-between mb-3 align-items-center">
-                          <h2 className="m-0 text_wrap pe-2">{venue.venue_name}</h2>
+                          <h2 className="m-0 text_wrap pe-2">
+                            {venue.venue_name}
+                          </h2>
                           <p className="m-0">
                             ~
                             {venue.distance_km
@@ -257,10 +259,6 @@ function VenuePage() {
                                   src={sport.image || users}
                                   alt={sport.name || "user"}
                                   title={sport.name || "user"}
-                                  style={{
-                                    width: "24px",
-                                    height: "24px",
-                                  }}
                                 />
                               </li>
                             ))}
@@ -276,20 +274,21 @@ function VenuePage() {
                           </ul>
                         </div>
 
-                   <div className="offers d-flex justify-content-between">
-  <span>
-    {venue.coupon_type === "percentage" && venue.discount_offer
-      ? `Upto ${parseFloat(venue.discount_offer)}% Off`
-      : venue.coupon_type === "flat" && venue.discount_offer
-      ? `Upto ₹${parseFloat(venue.discount_offer)} Off`
-      : ""}
-  </span>
+                        <div className="offers d-flex justify-content-between">
+                          <span>
+                            {venue.coupon_type === "percentage" &&
+                            venue.discount_offer
+                              ? `Upto ${parseFloat(venue.discount_offer)}% Off`
+                              : venue.coupon_type === "flat" &&
+                                  venue.discount_offer
+                                ? `Upto ₹${parseFloat(venue.discount_offer)} Off`
+                                : ""}
+                          </span>
 
-  <p className="mb-0">
-    ₹{parseFloat(venue.pricing).toFixed(0)} onwards
-  </p>
-</div>
-
+                          <p className="mb-0 w-25">
+                            ₹{parseFloat(venue.pricing).toFixed(0)} onwards
+                          </p>
+                        </div>
 
                         <hr className="mb-3" />
                         <BookBtn venueId={venue.id} />

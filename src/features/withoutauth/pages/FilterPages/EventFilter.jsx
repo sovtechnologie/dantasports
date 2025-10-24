@@ -30,7 +30,12 @@ export default function EventFilterPage() {
   const [eventList, setEventList] = useState([]);
 
   const payload = { lat, lng, userId: userId || null, type: 1 };
-  const { data: AllEventdata, isLoading, isError, error } = useFetchEvent(payload);
+  const {
+    data: AllEventdata,
+    isLoading,
+    isError,
+    error,
+  } = useFetchEvent(payload);
 
   const likeEvent = useLikeEvent();
   const unlikeEvent = useUnlikeEvent();
@@ -79,10 +84,12 @@ export default function EventFilterPage() {
   if (isLoading) return <VenueListShimmer />;
   if (isError) return <div>Error loading events: {error?.message}</div>;
 
-
   return (
     <>
-      <section className="pt-3 pt-lg-5 pb-lg-5 pb-3" style={{ background: "#F1F3F2" }}>
+      <section
+        className="pt-3 pt-lg-5 pb-lg-5 pb-3"
+        style={{ background: "#F1F3F2" }}
+      >
         <Container>
           <Row>
             <Col lg={3} md={4} className="d-none d-lg-block d-md-block">
@@ -141,88 +148,103 @@ export default function EventFilterPage() {
                             className="icon-btn"
                             style={{ background: "none", border: "none" }}
                           >
-                            <img className="share" src={shareIcon} alt="share" />
+                            <img
+                              className="share"
+                              src={shareIcon}
+                              alt="share"
+                            />
                           </button>
                         </div>
 
                         <div className="reating">
                           <span>
-                            {evt.review_count?.toFixed(1) || 0} ({evt.review_count || 0})
+                            {evt.review_count?.toFixed(1) || 0} (
+                            {evt.review_count || 0})
                           </span>
                         </div>
 
-                       <div
-  className="easy"
-  style={{
-    display: "flex",
-    gap: "5px",
-    overflow: "hidden",
-    maxWidth: "100%",
-    marginBottom:"5%"
-  }}
->
-  {evt.sports?.slice(0, 5).map((sport, idx) => (
-    <img
-      key={idx}
-      src={sport.image}
-      alt={sport.name}
-      style={{
-        width: "24px",
-        height: "24px",
-        objectFit: "cover",
-        borderRadius: "4px",
-      }}
-    />
-  ))}
-</div>
+                        <div
+                          className="easy"
+                          style={{
+                            display: "flex",
+                            gap: "5px",
+                            overflow: "hidden",
+                            maxWidth: "100%",
+                            marginBottom: "5%",
+                          }}
+                        >
+                          {evt.sports?.slice(0, 5).map((sport, idx) => (
+                            <img
+                              key={idx}
+                              src={sport.image}
+                              alt={sport.name}
+                              style={{
+                                width: "24px",
+                                height: "24px",
+                                objectFit: "cover",
+                                borderRadius: "4px",
+                              }}
+                            />
+                          ))}
+                        </div>
 
-
-                        <div className="txt_wrapper" onClick={() => navigate(`/Events/${evt.id}`)}>
+                        <div
+                          className="txt_wrapper"
+                          onClick={() => navigate(`/Events/${evt.id}`)}
+                        >
                           <div className="card_txt">
                             <h2 className="text_wrap">{evt.event_title}</h2>
                             <p className="text_wrap">
                               <span>
                                 <img className="pe-2" src={date} alt="" />
                               </span>
-                              {new Date(evt.start_date).toLocaleDateString("en-GB", {
-                                day: "2-digit",
-                                month: "short",
-                              })}{" "}
+                              {new Date(evt.start_date).toLocaleDateString(
+                                "en-GB",
+                                {
+                                  day: "2-digit",
+                                  month: "short",
+                                }
+                              )}{" "}
                               -{" "}
-                              {new Date(evt.end_date).toLocaleDateString("en-GB", {
-                                day: "2-digit",
-                                month: "short",
-                              })}{" "}
+                              {new Date(evt.end_date).toLocaleDateString(
+                                "en-GB",
+                                {
+                                  day: "2-digit",
+                                  month: "short",
+                                }
+                              )}{" "}
                               | {evt.start_time?.slice(0, 5)} onwards
                             </p>
                             <p>
                               <span>
                                 <img className="pe-2" src={map} alt="" />
                               </span>
-                              {evt.locations?.[0]?.area}, {evt.locations?.[0]?.city}
+                              {evt.locations?.[0]?.area},{" "}
+                              {evt.locations?.[0]?.city}
                             </p>
                           </div>
 
-                     <div className="sports_title d-flex justify-content-between">
-  <p>
-    {evt.coupon_type === "percentage" && evt.offer
-      ? `Upto ${parseFloat(evt.offer)}% Off`
-      : evt.coupon_type === "flat" && evt.offer
-      ? `Upto ₹${parseFloat(evt.offer)} Off`
-      : ""}
-  </p>
+                          <div className="sports_title d-flex justify-content-between">
+                            <p>
+                              {evt.coupon_type === "percentage" && evt.offer
+                                ? `Upto ${parseFloat(evt.offer)}% Off`
+                                : evt.coupon_type === "flat" && evt.offer
+                                  ? `Upto ₹${parseFloat(evt.offer)} Off`
+                                  : ""}
+                            </p>
 
-  {evt.lowest_ticket_price ? (
-    <p>
-      <span>₹{parseInt(evt.lowest_ticket_price)} onwards</span>
-    </p>
-  ) : (
-    <p></p>
-  )}
-</div>
+                            {evt.lowest_ticket_price ? (
+                              <p>
+                                <span>
+                                  ₹{parseInt(evt.lowest_ticket_price)} onwards
+                                </span>
+                              </p>
+                            ) : (
+                              <p></p>
+                            )}
+                          </div>
 
-
-                          <hr />
+                          {/* <hr /> */}
                           <div className="offer">
                             <a
                               href="#"

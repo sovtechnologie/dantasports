@@ -218,12 +218,9 @@ export default function CoachFilterPage() {
                                 <div
                                   key={index}
                                   style={{
-                                    width: "24px",
-                                    height: "24px",
-                                    borderRadius: "50%",
-                                    overflow: "hidden",
-                                    background: "#fff",
-                                  }}
+                                    width: "30px",
+                                    height: "30px",
+                                  }} 
                                 >
                                   <img
                                     src={sport.sports_images}
@@ -263,7 +260,7 @@ export default function CoachFilterPage() {
                               {coach.location}
                             </p>
                           </div>
-                          <hr />
+                          {/* <hr /> */}
                           <div className="offer" onClick={() => handleClick(coach)}>
                             <a href="#" className="">
                               Enquire Now

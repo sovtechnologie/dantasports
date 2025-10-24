@@ -57,7 +57,7 @@ const mapGymData = (apiData) => {
         reviewcount: apiData?.review_count || 0,
         address: `${apiData?.full_address || ''}`.trim().replace(/^,|,$/g, '')
             || "Not Available",
- gym_timings: Array.isArray(apiData?.gym_timings) ? apiData?.gym_timings : [],
+        gym_timings: Array.isArray(apiData?.gym_timings) ? apiData?.gym_timings : [],
         coaches: Array.isArray(apiData?.gym_coaches) ? apiData?.gym_coaches : null,
 
         images: Array.isArray(apiData?.event_gallery)
@@ -75,13 +75,12 @@ const mapGymData = (apiData) => {
         reviews: Array.isArray(apiData?.reviews)
             ? apiData.reviews.map((review) => ({
                 id: review.id,
-                image: review.image ,
+                image: review.image,
                 userName: review.user_name || "Anonymous",
                 rating: review.rating || 0,
                 comment: review.comment || "No comment provided",
-                // date: formatDate(review.createdAt) || new Date().toISOString().split('T')[0],
             }))
-            : [{ comment: "Not Available" }], // Default to first 5 reviews if not available
+            : [{ comment: "Not Available" }], 
     };
 };
 
@@ -164,34 +163,6 @@ export default function GymDetailPage() {
 
     const banners = bannerData?.result || [];
 
-    // Helper to convert "HH:mm:ss" → "hh:mm AM/PM"
-    // function formatTime(timeStr) {
-    //   const [hour, minute] = timeStr.split(":");
-    //   let h = parseInt(hour, 10);
-    //   const ampm = h >= 12 ? "PM" : "AM";
-    //   h = h % 12 || 12;
-    //   return `${String(h).padStart(2, "0")}:${minute} ${ampm}`;
-    // }
-
-    // Main transformation
-    // Days in order with backend keys
-   
-
-    // const gymtime = gym?.gym_timing[0];
-
-    // const timings = daysMap?.map(day => {
-    //   if (gymtime[day.key] === 1) {
-    //     return {
-    //       label: `${day.label} Open`,
-    //       range: `${formatTime(gymtime?.start_time)} – ${formatTime(gymtime?.end_time)}`
-    //     };
-    //   } else {
-    //     return {
-    //       label: `${day.label} Close`,
-    //       range: ""
-    //     };
-    //   }
-    // });
     const type = 3;
     const { mutate: CreateBookingPayment, isLoading: paymentLoading } = useCreateBookingPayment();
     const {
@@ -249,37 +220,37 @@ export default function GymDetailPage() {
 
     }
 
-   
-
-
-const dayOrder = ["friday", "saturday", "sunday", "monday", "tuesday", "wednesday", "thursday"];
-
-const formatTime = (timeStr) => {
-  if (!timeStr) return "";
-  const [hour, minute] = timeStr.split(":");
-  let h = parseInt(hour, 10);
-  const ampm = h >= 12 ? "PM" : "AM";
-  h = h % 12 || 12;
-  return `${h}:${minute} ${ampm}`;
-};
-
-// Use gym_timings instead of gym_timing
-const mappedTimings = (gym?.gym_timings || []).map(item =>
-   
-  dayOrder.map(dayKey => ({
-    day: dayKey.charAt(0).toUpperCase() + dayKey.slice(1),
-    range: item[dayKey] === 1
-      ? `${formatTime(item.start_time.split(".")[0])} - ${formatTime(item.end_time.split(".")[0])}`
-      : "Closed"
-  }))
-).flat();
 
 
 
-const half = Math.ceil(mappedTimings.length / 2);
-const firstCol = mappedTimings.slice(0, half);
-const secondCol = mappedTimings.slice(half);
- console.log("mappedTimingsmappedTimingsmappedTimings",mappedTimings);
+    const dayOrder = ["friday", "saturday", "sunday", "monday", "tuesday", "wednesday", "thursday"];
+
+    const formatTime = (timeStr) => {
+        if (!timeStr) return "";
+        const [hour, minute] = timeStr.split(":");
+        let h = parseInt(hour, 10);
+        const ampm = h >= 12 ? "PM" : "AM";
+        h = h % 12 || 12;
+        return `${h}:${minute} ${ampm}`;
+    };
+
+    // Use gym_timings instead of gym_timing
+    const mappedTimings = (gym?.gym_timings || []).map(item =>
+
+        dayOrder.map(dayKey => ({
+            day: dayKey.charAt(0).toUpperCase() + dayKey.slice(1),
+            range: item[dayKey] === 1
+                ? `${formatTime(item.start_time.split(".")[0])} - ${formatTime(item.end_time.split(".")[0])}`
+                : "Closed"
+        }))
+    ).flat();
+
+
+
+    const half = Math.ceil(mappedTimings.length / 2);
+    const firstCol = mappedTimings.slice(0, half);
+    const secondCol = mappedTimings.slice(half);
+    console.log("mappedTimingsmappedTimingsmappedTimings", mappedTimings);
     return (
         <>
             <section style={{ background: "#f1f3f2" }} className="pb-lg-5 pb-3">
@@ -347,35 +318,35 @@ const secondCol = mappedTimings.slice(half);
                                 </div>
 
                                 <div className="gym-carry-point">
-                                 <div className="gym-section gym-carry">
-  <div className="gym-heading">Timing</div>
-  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-    {mappedTimings.map((t, idx) => (
-      <div
-        key={idx}
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          padding: '4px 0',
-          borderBottom: '1px solid #eee',
-          flexWrap: 'wrap'
-        }}
-      >
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <span style={{ fontWeight: 500 }}>{t.day}</span>
-          {t.note && (
-            <span style={{ color: 'darkorange', fontSize: '0.85em' }}>
-              {t.note}
-            </span>
-          )}
-        </div>
-        <span style={{ color: '#555', marginLeft: '10px', whiteSpace: 'nowrap' }}>
-          {t.range}
-        </span>
-      </div>
-    ))}
-  </div>
-</div>
+                                    <div className="gym-section gym-carry">
+                                        <div className="gym-heading">Timing</div>
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                                            {mappedTimings.map((t, idx) => (
+                                                <div
+                                                    key={idx}
+                                                    style={{
+                                                        display: 'flex',
+                                                        justifyContent: 'space-between',
+                                                        padding: '4px 0',
+                                                        borderBottom: '1px solid #eee',
+                                                        flexWrap: 'wrap'
+                                                    }}
+                                                >
+                                                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                                        <span style={{ fontWeight: 500 }}>{t.day}</span>
+                                                        {t.note && (
+                                                            <span style={{ color: 'darkorange', fontSize: '0.85em' }}>
+                                                                {t.note}
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                    <span style={{ color: '#555', marginLeft: '10px', whiteSpace: 'nowrap' }}>
+                                                        {t.range}
+                                                    </span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
 
 
 
@@ -383,13 +354,7 @@ const secondCol = mappedTimings.slice(half);
                                     <div className="gym-section gym-pickPoints">
                                         <div className="gym-heading">Coaches</div>
                                         <div className="coaches-list">
-                                            {/* {gym?.coaches?.map((coach, index) => (
-                                        <div className="coaches-card" key={index}>
-                                            <img src={coach.image || CoachImage} alt={coach.name} className="coach-image" />
-                                            <p className="coach-name">{coach.name}</p>
-                                            <p className="coach-title">{coach.type}</p>
-                                        </div>
-                                    ))} */}
+                                      
                                             {Array.isArray(gym?.coaches) && gym.coaches.length > 0 ? (
                                                 gym.coaches.map((coach, index) => (
                                                     <div className="coaches-card" key={index}>
@@ -400,7 +365,7 @@ const secondCol = mappedTimings.slice(half);
                                                         />
                                                         <p className="coach-name">{coach.name}</p>
                                                         <p className="coach-title">{coach.type}</p>
-                                                         <p className="coach-exp">{coach.exp} Years</p>
+                                                        <p className="coach-exp">{coach.exp} Years</p>
                                                     </div>
                                                 ))
                                             ) : (
@@ -437,78 +402,78 @@ const secondCol = mappedTimings.slice(half);
                                         </button>
                                     </div>
                                 </div> */}
-                                         <div class="row g-3 mt-3">
-                    <div className="col-12 col-lg-6">
-                        <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
-                        {/* <!-- Button trigger modal --> */}
-                        <div className="d-flex justify-content-between align-items-center text-center">
-                        
-                            <div className="rule">
-                            <p className="m-0">Terms & Conditions</p>
-                            </div>
-                            <div>
-                            <button type="button" class="btn border-0" data-bs-toggle="modal" data-bs-target="#RulesRegulations">
-                                <img src={arrow} alt="" />
-                            </button>
-                            </div>
-                        </div>
+                                <div class="row g-3 mt-3">
+                                    <div className="col-12 col-lg-6">
+                                        <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
+                                            {/* <!-- Button trigger modal --> */}
+                                            <div className="d-flex justify-content-between align-items-center text-center">
+
+                                                <div className="rule">
+                                                    <p className="m-0">Terms & Conditions</p>
+                                                </div>
+                                                <div>
+                                                    <button type="button" class="btn border-0" data-bs-toggle="modal" data-bs-target="#RulesRegulations">
+                                                        <img src={arrow} alt="" />
+                                                    </button>
+                                                </div>
+                                            </div>
 
 
-                      {/* <!-- Modal --> */}
-                      <div class="modal fade" id="RulesRegulations" tabindex="-1" aria-labelledby="RulesRegulations" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                          <div class="modal-content custom_modal">
-                            <div class="modal-header border-0">
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                            {/* Terms & Conditions Modal */}
-<div className="modal-body">
-  <TermsConditionsModal termsText={gym?.termsAndCondition || "No terms available"} />
-</div>
+                                            {/* <!-- Modal --> */}
+                                            <div class="modal fade" id="RulesRegulations" tabindex="-1" aria-labelledby="RulesRegulations" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content custom_modal">
+                                                        <div class="modal-header border-0">
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            {/* Terms & Conditions Modal */}
+                                                            <div className="modal-body">
+                                                                <TermsConditionsModal termsText={gym?.termsAndCondition || "No terms available"} />
+                                                            </div>
 
-                            </div>
+                                                        </div>
 
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-12 col-lg-6">
-                    <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
-                      {/* <!-- Button trigger modal --> */}
-                      <div className="d-flex justify-content-between align-items-center text-center">
-                       
-                        <div className="rule">
-                          <p className="m-0">Cancellation Policy</p>
-                        </div>
-                         <div>
-                          <button type="button" class="btn border-0" data-bs-toggle="modal" data-bs-target="#CancellationPolicy">
-                            <img src={arrow} alt="" />
-                          </button>
-                        </div>
-                      </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-12 col-lg-6">
+                                        <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
+                                            {/* <!-- Button trigger modal --> */}
+                                            <div className="d-flex justify-content-between align-items-center text-center">
 
-
-                      {/* <!-- Modal --> */}
-                      <div class="modal fade" id="CancellationPolicy" tabindex="-1" aria-labelledby="CancellationPolicy" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                          <div class="modal-content custom_modal">
-                            <div class="modal-header border-0">
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                          <div className="modal-body">
-  <CancellationPolicy policyText={gym?.cancelPolicy || "No cancellation policy available"} />
-</div>
+                                                <div className="rule">
+                                                    <p className="m-0">Cancellation Policy</p>
+                                                </div>
+                                                <div>
+                                                    <button type="button" class="btn border-0" data-bs-toggle="modal" data-bs-target="#CancellationPolicy">
+                                                        <img src={arrow} alt="" />
+                                                    </button>
+                                                </div>
+                                            </div>
 
 
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                
-                </div>
+                                            {/* <!-- Modal --> */}
+                                            <div class="modal fade" id="CancellationPolicy" tabindex="-1" aria-labelledby="CancellationPolicy" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content custom_modal">
+                                                        <div class="modal-header border-0">
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div className="modal-body">
+                                                            <CancellationPolicy policyText={gym?.cancelPolicy || "No cancellation policy available"} />
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
 
                             <div className="gym-right col-lg-4">
@@ -570,7 +535,7 @@ const secondCol = mappedTimings.slice(half);
 
                         {/* review section */}
                         <div className="ratings-carousel">
-                             <EventReviewSlider event={{ reviews: gym?.reviews }} />
+                            <EventReviewSlider event={{ reviews: gym?.reviews }} />
                             {/* <h2 className="review-heading">Ratings & Reviews</h2>
                             <div className="review-carousel-container">
                                 {gym?.reviews?.slice(start, start + visibleCount).map((review) => (

@@ -582,24 +582,7 @@ function VenueDetailsPage() {
               {venue?.reviews?.length > 0 && (
                 <div className="rating-wrapper">
                   <EventReviewSlider event={{ reviews: venue?.reviews }} />
-                  {/* <div className="ratings-carousel">
-                    <h2 className="review-heading">Ratings & Reviews</h2>
-                    <div className="review-carousel-container">
-                      {venue.reviews
-                        .slice(start, start + visibleCount)
-                        .map((review) => (
-                          <ReviewCard key={review.id} review={review} />
-                        ))}
-                    </div>
-                    <div className="carousel-buttons">
-                      <button onClick={prev}>
-                        <img src={leftArrow} alt="left arrow" />
-                      </button>
-                      <button onClick={next}>
-                        <img src={rightArrow} alt="right-arrow" />
-                      </button>
-                    </div>
-                  </div> */}
+                 
                  
 
                 </div>

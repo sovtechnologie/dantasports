@@ -46,13 +46,14 @@
 .get_started a {
 
     text-decoration: none;
-    padding: 20px 100px 20px 20px;
+    padding: 20px 70px 20px 20px;
     border-radius: 70px;
     position: relative;
     font-weight: 400;
     font-size: 16px;
     border: 1px solid white;
-    color: white;
+    color: #1163C7;
+    background-color: #fff;
 
 }
 

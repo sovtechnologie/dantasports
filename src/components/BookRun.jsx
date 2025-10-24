@@ -115,10 +115,10 @@ function BookRun() {
                     src={evt.desktop_image || bookrunn}
                     className="w-100"
                     alt={evt.event_title}
-                      onError={(e) => {
-      e.target.onerror = null; 
-      e.target.src = bookrunn; 
-    }}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = bookrunn;
+                    }}
                   />
                 </div>
 
@@ -147,7 +147,7 @@ function BookRun() {
 
                 <div className="txt_wrapper">
                   <div className="card_txt">
-                    <h2 className="text_wrap">{evt.event_title}</h2>
+                    <h2 className="text_wrap card_heading">{evt.event_title}</h2>
                     <p className="text_wrap">
                       <span>
                         <img className="pe-2" src={dateIcon} alt="date" />
@@ -168,52 +168,52 @@ function BookRun() {
                     </p>
                   </div>
 
-                  <div className="no_off_users mt-2">
-  <ul className="d-flex p-0 align-items-center m-0">
-    {evt.sports?.slice(0, 5).map((sport, index) => (
-      <li key={index} className="me-2 list-unstyled">
-        <img
-          src={sport.image }
-          alt={sport.name || "sport"}
-          title={sport.name || "sport"}
-          style={{
-            width: "25px",
-            height: "25px",
-            objectFit: "cover",
-            borderRadius: "50%",
-          }}
-        />
-      </li>
-    ))}
+                  {/* <div className="no_off_users mt-2">
+                    <ul className="d-flex p-0 align-items-center m-0">
+                      {evt.sports?.slice(0, 5).map((sport, index) => (
+                        <li key={index} className="me-2 list-unstyled">
+                          <img
+                            src={sport.image}
+                            alt={sport.name || "sport"}
+                            title={sport.name || "sport"}
+                           
+                          />
+                        </li>
+                      ))}
 
-    {evt.sports && evt.sports.length > 5 && (
-      <li
-        className="list-unstyled"
-        style={{
-          color: "#858585",
-          fontSize: "14px",
-          lineHeight: 1,
-        }}
-      >
-        +{evt.sports.length - 5} more
-      </li>
-    )}
-  </ul>
-</div>
+                      {evt.sports && evt.sports.length > 5 && (
+                        <li
+                          className="list-unstyled"
+                          style={{
+                            color: "#858585",
+                            fontSize: "14px",
+                            lineHeight: 1,
+                          }}
+                        >
+                          +{evt.sports.length - 5} more
+                        </li>
+                      )}
+                    </ul>
+                  </div> */}
+                   <div className="d-flex justify-content-between no_off_users">
+                      <p className="up_to_offer mb-2">Upto 50%off</p>
+                      <p className="onwards_rup mb-2">₹1000 onwards</p>
+                    </div>
+                     <div className="card_line mb-2"></div>
 
 
                   {/* Offer / Join Now */}
-                 <div className="offer d-flex justify-content-between align-items-center">
-  <p>
-    {evt.coupon_type === "percentage" && evt.offer
-      ? `Upto ${parseFloat(evt.offer)}% Off`
-      : evt.coupon_type === "flat" && evt.offer
-      ? `Upto ₹${parseFloat(evt.offer)} Off`
-      : ""}
-  </p>
+                  <div className="offer d-flex justify-content-between align-items-center">
+                    <p>
+                      {evt.coupon_type === "percentage" && evt.offer
+                        ? `Upto ${parseFloat(evt.offer)}% Off`
+                        : evt.coupon_type === "flat" && evt.offer
+                          ? `Upto ₹${parseFloat(evt.offer)} Off`
+                          : ""}
+                    </p>
 
-  <Link to={`/Run/${evt.id}`}>Join Now</Link>
-</div>
+                    <Link to={`/Run/${evt.id}`}>Join Now</Link>
+                  </div>
 
                 </div>
               </Card>

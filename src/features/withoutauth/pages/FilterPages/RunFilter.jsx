@@ -199,13 +199,13 @@ export default function RunFilterPage() {
                       <div className="card">
                         <div className="card_img">
                           <img
-                            src={event.desktop_image ||bookrunn }
+                            src={event.desktop_image || bookrunn}
                             className="w-100"
                             alt=""
-                              onError={(e) => {
-                                  e.target.onerror = null; 
-                                  e.target.src = bookrunn; 
-                                }}
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src = bookrunn;
+                            }}
                           />
                         </div>
                         <div className="card_icons">
@@ -253,50 +253,45 @@ export default function RunFilterPage() {
                               {event.locations?.[0]?.city}
                             </p>
                           </div>
-                         <div className="no_off_users mt-2">
-  <ul className="d-flex p-0 align-items-center m-0">
-    {event.sports?.slice(0, 5).map((sport, index) => (
-      <li key={index} className="me-2 list-unstyled">
-        <img
-          src={sport.image} 
-          alt={sport.name || "sport"}
-          title={sport.name || "sport"}
-          style={{
-            width: "25px",
-            height: "25px",
-            objectFit: "cover",
-            borderRadius: "50%",
-          }}
-        />
-      </li>
-    ))}
+                          <div className="no_off_users mt-2">
+                            <ul className="d-flex p-0 align-items-center m-0">
+                              {event.sports?.slice(0, 5).map((sport, index) => (
+                                <li key={index} className="me-2 list-unstyled">
+                                  <img
+                                    src={sport.image}
+                                    alt={sport.name || "sport"}
+                                    title={sport.name || "sport"}
+                                   
+                                  />
+                                </li>
+                              ))}
 
-    {event.sports && event.sports.length > 5 && (
-      <li
-        className="list-unstyled"
-        style={{
-          color: "#858585",
-          fontSize: "14px",
-          lineHeight: 1,
-        }}
-      >
-        +{event.sports.length - 5} more
-      </li>
-    )}
-  </ul>
-</div>
+                              {event.sports && event.sports.length > 5 && (
+                                <li
+                                  className="list-unstyled"
+                                  style={{
+                                    color: "#858585",
+                                    fontSize: "14px",
+                                    lineHeight: 1,
+                                  }}
+                                >
+                                  +{event.sports.length - 5} more
+                                </li>
+                              )}
+                            </ul>
+                          </div>
 
                           <div className="offer d-flex justify-content-between align-items-center">
-  <p>
-    {event.coupon_type === "percentage" && event.offer
-      ? `Upto ${parseFloat(event.offer)}% Off`
-      : event.coupon_type === "flat" && event.offer
-      ? `Upto ₹${parseFloat(event.offer)} Off`
-      : ""}
-  </p>
+                            <p>
+                              {event.coupon_type === "percentage" && event.offer
+                                ? `Upto ${parseFloat(event.offer)}% Off`
+                                : event.coupon_type === "flat" && event.offer
+                                  ? `Upto ₹${parseFloat(event.offer)} Off`
+                                  : ""}
+                            </p>
 
-  <a href={`/run/${event.id}`}>Join Now</a>
-</div>
+                            <a href={`/run/${event.id}`}>Join Now</a>
+                          </div>
 
                         </div>
                       </div>

@@ -78,16 +78,17 @@ function BookGym() {
 
                   <div className="txt_wrapper">
                     <div className="card_txt">
-                      <h2 className="text_wrap">{gym.gym_name}</h2>
+                      <h2 className="text_wrap card_heading">{gym.gym_name}</h2>
 
-                      <p className="sports_title">
+                      <p className="sports_title_km">
                         <span>
-                          <img className="pe-2" src={map} alt="map" />
+                          {/* <img className="pe-2" src={map} alt="map" /> */}
                         </span>
-                        {gym.full_address || "Location not available"}
+                        {/* {gym.full_address || "Location not available"} */}
+                        Magarpatta City (~O.7 Km)
                       </p>
 
-                      <p>
+                      {/* <p>
                         <span className="star pe-2">
                           <img src={star} alt="rating" />
                         </span>
@@ -96,56 +97,59 @@ function BookGym() {
                           )
                         </strong>
                         ~ {Math.floor(gym.distance) || 0} km
-                      </p>
+                      </p> */}
                     </div>
 
-                   <div className="sports_title">
-  <p
-    className="text-ellipsis"
-    title={
-      Array.isArray(gym.amenities)
-        ? gym.amenities.map((a) => a.name).join(", ")
-        : "Amenities not available"
-    }
-  >
-    {Array.isArray(gym.amenities) && gym.amenities.length > 0 ? (
-      <>
-        {gym.amenities
-          .slice(0, 5)
-          .map((a) => a.name)
-          .join(", ")}
-        {gym.amenities.length > 5 && (
-          <span className="more-amenities">
-            {" "}+{gym.amenities.length - 5}
-          </span>
-        )}
-      </>
-    ) : (
-      "Amenities not available"
-    )}
-  </p>
-</div>
-
-<div className="offer d-flex justify-content-between align-items-center">
-  <p>
-    {gym.coupon_type === "percentage" && gym.discount_offer
-      ? `Upto ${parseFloat(gym.discount_offer)}% Off`
-      : gym.coupon_type === "flat" && gym.discount_offer
-      ? `Upto ₹${parseFloat(gym.discount_offer)} Off`
-      : ""}
-  </p>
-
-  <Link to={`/Gym/${gym.Id}`}>Join Now</Link>
-</div>
+                    {/* <div className="sports_title">
+                      <p
+                        className="text-ellipsis"
+                        title={
+                          Array.isArray(gym.amenities)
+                            ? gym.amenities.map((a) => a.name).join(", ")
+                            : "Amenities not available"
+                        }
+                      >
+                        {Array.isArray(gym.amenities) && gym.amenities.length > 0 ? (
+                          <>
+                            {gym.amenities
+                              .slice(0, 5)
+                              .map((a) => a.name)
+                              .join(", ")}
+                            {gym.amenities.length > 5 && (
+                              <span className="more-amenities">
+                                {" "}+{gym.amenities.length - 5}
+                              </span>
+                            )}
+                          </>
+                        ) : (
+                          "Amenities not available"
+                        )}
+                      </p>
+                    </div> */}
 
 
-                    {minPriceObj && (
-                      <div className="price_info">
-                        <p style={{ fontWeight: 500, marginTop: "5px" }} className="mb-0">
-                          ₹{minPriceObj.price} onwards
-                        </p>
-                      </div>
-                    )}
+
+                    <div className="d-flex justify-content-between">
+                      <p className="mb-0 upto_text">
+                        {gym.coupon_type === "percentage" && gym.discount_offer
+                          ? `Upto ${parseFloat(gym.discount_offer)}% Off`
+                          : gym.coupon_type === "flat" && gym.discount_offer
+                            ? `Upto ₹${parseFloat(gym.discount_offer)} Off`
+                            : ""}
+                      </p>
+                      {minPriceObj && (
+                        <div className="price_info">
+                          <p style={{ fontWeight: 500, marginTop: "5px" }} className="mb-0">
+                            ₹{minPriceObj.price} onwards
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                    <div className="card_line"></div>
+                    <div className="offer d-flex justify-content-between align-items-center w-100">
+
+                      <Link to={`/Gym/${gym.Id}`}>Join Now</Link>
+                    </div>
                   </div>
                 </Card>
               </Col>

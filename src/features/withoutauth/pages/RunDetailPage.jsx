@@ -68,11 +68,11 @@ const mapEventData = (apiData) => {
       : [RunImage, RunImage, RunImage, RunImage],
     sports: Array.isArray(apiData?.sports)
       ? apiData.sports.map((sport) => ({
-          sportId: sport.id,
-          name: sport.name,
-          icon: sport.image,
-          categoryId: sport.category_id,
-        }))
+        sportId: sport.id,
+        name: sport.name,
+        icon: sport.image,
+        categoryId: sport.category_id,
+      }))
       : "",
     latitude: apiData?.locations[0]?.lat || 0,
     longitude: apiData?.locations[0]?.lng || 0,
@@ -90,15 +90,15 @@ const mapEventData = (apiData) => {
     cancelPolicy: apiData?.cancellation_policy,
     reviews: Array.isArray(apiData?.reviews)
       ? apiData.reviews.map((review) => ({
-          id: review.id,
-          image: review.image ,
-          userName: review.user_name || "Anonymous",
-          rating: review.rating || 0,
-          comment: review.comment || "No comment provided",
-          date:
-            formatDate(review.createdAt) ||
-            new Date().toISOString().split("T")[0],
-        }))
+        id: review.id,
+        image: review.image,
+        userName: review.user_name || "Anonymous",
+        rating: review.rating || 0,
+        comment: review.comment || "No comment provided",
+        date:
+          formatDate(review.createdAt) ||
+          new Date().toISOString().split("T")[0],
+      }))
       : [{ comment: "Not Available" }], // Default to first 5 reviews if not available
   };
 };
@@ -359,30 +359,32 @@ export default function EventDetailPage() {
                       : "Read more"}
                   </button>
                 </div>
-
-                <div className="event-section mt-3">
-                  <div className="event-heading">
-                    <strong>Things to Carry</strong>
+                <div className="row">
+                  <div className="col-lg-6">
+                    <div className="event-section mt-3">
+                      <div className="event-heading">
+                        <strong>Things to Carry</strong>
+                      </div>
+                      <div
+                        className="event-description"
+                        style={{ whiteSpace: "pre-wrap" }}
+                      >
+                        {expandedSection === "thingsToCarry"
+                          ? (event?.carrything ?? "No items specified")
+                          : `${event?.carrything?.substring(0, 200) ?? ""}...`}
+                      </div>
+                      <button
+                        onClick={() => toggleSection("thingsToCarry")}
+                        className="read-more-btn"
+                      >
+                        {expandedSection === "thingsToCarry"
+                          ? "Read less"
+                          : "Read more"}
+                      </button>
+                    </div>
                   </div>
-                  <div
-                    className="event-description"
-                    style={{ whiteSpace: "pre-wrap" }}
-                  >
-                    {expandedSection === "thingsToCarry"
-                      ? (event?.carrything ?? "No items specified")
-                      : `${event?.carrything?.substring(0, 200) ?? ""}...`}
-                  </div>
-                  <button
-                    onClick={() => toggleSection("thingsToCarry")}
-                    className="read-more-btn"
-                  >
-                    {expandedSection === "thingsToCarry"
-                      ? "Read less"
-                      : "Read more"}
-                  </button>
-                </div>
-
-                <div className="event-section mt-3">
+                  <div className="col-lg-6">
+                    <div className="event-section mt-3">
                   <div className="event-heading">
                     <strong>Rules & Regulations</strong>
                   </div>
@@ -401,47 +403,14 @@ export default function EventDetailPage() {
                     {expandedSection === "rules" ? "Read less" : "Read more"}
                   </button>
                 </div>
+                  </div>
 
-                {/* <div className="event-term_policy">
-                  <div className="event-section terms">
-                    <div className="event-heading">
-                      <strong>Terms & Conditions</strong>
-                    </div>
-                    <div
-                      className="event-description"
-                      style={{ whiteSpace: "pre-wrap" }}
-                    >
-                      {expandedSection === "terms"
-                        ? event?.termsAndCondition
-                        : `${event?.termsAndCondition?.substring(0, 200)}...`}
-                    </div>
-                    <button
-                      onClick={() => toggleSection("terms")}
-                      className="read-more-btn"
-                    >
-                      {expandedSection === "terms" ? "Read less" : "Read more"}
-                    </button>
-                  </div>
-                  <div className="event-section policy">
-                    <div className="event-heading">
-                      <strong> Cancellation Policy</strong>
-                    </div>
-                    <div
-                      className="event-description"
-                      style={{ whiteSpace: "pre-wrap" }}
-                    >
-                      {expandedSection === "cancel"
-                        ? event?.cancelPolicy
-                        : `${event?.cancelPolicy?.substring(0, 200)}...`}
-                    </div>
-                    <button
-                      onClick={() => toggleSection("cancel")}
-                      className="read-more-btn"
-                    >
-                      {expandedSection === "cancel" ? "Read less" : "Read more"}
-                    </button>
-                  </div>
-                </div> */}
+                </div>
+
+
+                
+
+
                 <div class="row g-3 mt-3">
                   <div className="col-12 col-lg-6">
                     <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
@@ -661,7 +630,7 @@ export default function EventDetailPage() {
               </div>
             </div> */}
             <Container className="p-0">
-                <EventReviewSlider event={{ reviews: event?.reviews }} />
+              <EventReviewSlider event={{ reviews: event?.reviews }} />
             </Container>
             {/* <Gallery gallery={event.gallery} />
              */}
