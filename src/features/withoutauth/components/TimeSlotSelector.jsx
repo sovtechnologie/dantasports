@@ -43,21 +43,6 @@ const TimeSlotSelector = () => {
 
         ))}
       </div>
-
-      {/* Timeline */}
-      {/* <div className="d-flex mb-3" style={{ height: "8px", borderRadius: "4px", overflow: "hidden" }}>
-        {timeline.map((slot, index) => (
-          <div
-            key={index}
-            className={`flex-fill ${
-              slot.status === "available" ? "bg-success" : "bg-danger"
-            }`}
-            title={slot.time}
-          ></div>
-        ))}
-      </div> */}
-
-      {/* Booking Info */}
       <div className="book_a_time">
         Badminton | Tomorrow | 01:00 PM - 02:00 PM
       </div>

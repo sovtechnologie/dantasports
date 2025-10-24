@@ -124,7 +124,7 @@ export default function EventFilterPage() {
                           />
                         </div>
 
-                        <div className="card_icons">
+                        {/* <div className="card_icons">
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
@@ -154,7 +154,7 @@ export default function EventFilterPage() {
                               alt="share"
                             />
                           </button>
-                        </div>
+                        </div> */}
 
                         <div className="reating">
                           <span>
@@ -163,29 +163,8 @@ export default function EventFilterPage() {
                           </span>
                         </div>
 
-                        <div
-                          className="easy"
-                          style={{
-                            display: "flex",
-                            gap: "5px",
-                            overflow: "hidden",
-                            maxWidth: "100%",
-                            marginBottom: "5%",
-                          }}
-                        >
-                          {evt.sports?.slice(0, 5).map((sport, idx) => (
-                            <img
-                              key={idx}
-                              src={sport.image}
-                              alt={sport.name}
-                              style={{
-                                width: "24px",
-                                height: "24px",
-                                objectFit: "cover",
-                                borderRadius: "4px",
-                              }}
-                            />
-                          ))}
+                        <div className="easy">
+                          <span>Easy</span>
                         </div>
 
                         <div
@@ -193,7 +172,7 @@ export default function EventFilterPage() {
                           onClick={() => navigate(`/Events/${evt.id}`)}
                         >
                           <div className="card_txt">
-                            <h2 className="text_wrap">{evt.event_title}</h2>
+                            <h2 className="text_wrap card_heading">{evt.event_title}</h2>
                             <p className="text_wrap">
                               <span>
                                 <img className="pe-2" src={date} alt="" />

@@ -22,6 +22,7 @@ import share from "../../assets/icons/share.svg";
 import map from "../../assets/icons/map.svg";
 import date from "../../assets/icons/date.svg";
 import fallbackGymImg from "../../assets/bookgym/bookgym.png";
+import star from "../../assets/icons/star-white.svg"
 
 export default function GymFilterPage() {
   const userId = useSelector((state) => state.auth.id);
@@ -159,7 +160,7 @@ export default function GymFilterPage() {
                           <img src={imageSrc} alt="" className="w-100" />
                         </div>
 
-                        <div className="card_icons">
+                        {/* <div className="card_icons">
                           <button
                             className="like-btn"
                             onClick={() => toggleFavourite(gym)}
@@ -173,56 +174,64 @@ export default function GymFilterPage() {
                           >
                             <img src={share} alt="share" className="share" />
                           </button>
+                        </div> */}
+                        <div className="card_icons">
+                          <a href="#">
+                            <img className="like" src={like} alt="like" />
+                          </a>
+                          <a href="#">
+                            <img className="share" src={share} alt="share" />
+                          </a>
                         </div>
 
                         <div className="txt_wrapper">
                           <div className="card_txt">
                             <h2>{gym.gym_name}</h2>
                             <p>
-                              <span><img src={date} className="pe-2" alt="date" /></span>
-                              {gym.create_at || "Timings not available"}
+                              Magarpatta City (~O.7 Km)
                             </p>
-                            <p>
+                            {/* <p>
                               <span><img src={map} className="pe-2" alt="map" /></span>
                               {gym.full_address || "Address not available"}
+                            </p> */}
+                          </div>
+
+                          <div className="sports_title">
+                            <p>
+                              {gym.amenities && gym.amenities.length > 0 ? (
+                                <>
+                                  {gym.amenities
+                                    .slice(0, 5)
+                                    .map((a) => a.name)
+                                    .join(", ")}
+                                  {gym.amenities.length > 5 && (
+                                    <span className="more-amenities">
+                                      {" "}+{gym.amenities.length - 5}
+                                    </span>
+                                  )}
+                                </>
+                              ) : (
+                                "Amenities not available"
+                              )}
                             </p>
                           </div>
 
-   <div className="sports_title">
-  <p>
-    {gym.amenities && gym.amenities.length > 0 ? (
-      <>
-        {gym.amenities
-          .slice(0, 5)
-          .map((a) => a.name)
-          .join(", ")}
-        {gym.amenities.length > 5 && (
-          <span className="more-amenities">
-            {" "}+{gym.amenities.length - 5}
-          </span>
-        )}
-      </>
-    ) : (
-      "Amenities not available"
-    )}
-  </p>
-</div>
+                           <div className="d-flex justify-content-between no_off_users">
+                      <p className="up_to_offer mb-2">Upto 50%off</p>
+                      <p className="onwards_rup mb-2">₹1000 onwards</p>
+                    </div>
+                     <div className="card_line mb-2"></div>
+                          <div className="offer d-flex justify-content-between align-items-center">
+                            
 
+                            <a href={`/gym/${gym.Id}`}>Join Now</a>
+                          </div>
+                          <div className="rating">
+                               <span><img src={star} className="pe-2" alt="" />4.4</span>
+                            </div>
 
-    <div className="offer d-flex justify-content-between align-items-center">
-  <p>
-    {gym.coupon_type === "percentage" && gym.discount_offer
-      ? `Upto ${parseFloat(gym.discount_offer)}% Off`
-      : gym.coupon_type === "flat" && gym.discount_offer
-      ? `Upto ₹${parseFloat(gym.discount_offer)} Off`
-      : ""}
-  </p>
-
-  <a href={`/gym/${gym.Id}`}>Join Now</a>
-</div>
-
-  </div>
-</Card>
+                        </div>
+                      </Card>
 
                     </div>
                   );

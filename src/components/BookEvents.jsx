@@ -3,7 +3,7 @@ import { Container, Row, Col, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useQueryClient } from "@tanstack/react-query";
-
+import star from "../assets/images/home/bookvenues/star.svg";
 import { useFetchEvent } from "../hooks/EventList/useFetchEvents.js";
 import { useLikeEvent } from "../hooks/favouriteEvent/useLikeEvent.js";
 import { useUnlikeEvent } from "../hooks/favouriteEvent/useUnLikeEvent.js";
@@ -201,6 +201,9 @@ function BookEvents() {
 
                       <Link to={`/Events/${evt.id}`}>Join Now</Link>
                     </div>
+                     <div className="rating">
+                                              <span><img src={star} className="pe-2" alt="" />4.4</span>
+                                          </div>
                   </div>
                 </Card>
               </Col>

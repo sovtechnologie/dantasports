@@ -285,7 +285,7 @@ function VenuePage() {
                                 : ""}
                           </span>
 
-                          <p className="mb-0 w-25">
+                          <p className="mb-0">
                             ₹{parseFloat(venue.pricing).toFixed(0)} onwards
                           </p>
                         </div>

@@ -150,6 +150,9 @@ function BookGym() {
 
                       <Link to={`/Gym/${gym.Id}`}>Join Now</Link>
                     </div>
+                    <div className="rating">
+                      <span><img src={star} className="pe-2" alt="" />4.4</span>
+                    </div>
                   </div>
                 </Card>
               </Col>

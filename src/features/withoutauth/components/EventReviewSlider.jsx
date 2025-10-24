@@ -8,6 +8,7 @@ import rightArrow from "../../withoutauth/assets/icons/right-arrow.svg";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./Stylesheets/EventReviewSlider.css";
+import stargreen from "../../withoutauth/assets/icons/stargreen.svg"
 
 /* -------------------- Review Card -------------------- */
 const ReviewCard = memo(
@@ -16,7 +17,9 @@ const ReviewCard = memo(
     (
       <div className="review-card1">
         <div>
-          <p className="review-rating">⭐ {review.rating}/5</p>
+          <div className="d-flex">
+            <span className="me-2"><img src={stargreen} alt="" /></span><p className="review-rating"> {review.rating}/5</p>
+          </div>
           <p className="review-text">{review.comment}</p>
         </div>
 

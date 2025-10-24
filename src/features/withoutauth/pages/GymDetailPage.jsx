@@ -317,8 +317,8 @@ export default function GymDetailPage() {
                                     </div>
                                 </div>
 
-                                <div className="gym-carry-point">
-                                    <div className="gym-section gym-carry">
+                                <div className="gym-carry-point row">
+                                    <div className="gym-section gym-carry col-lg-6">
                                         <div className="gym-heading">Timing</div>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                                             {mappedTimings.map((t, idx) => (
@@ -351,7 +351,7 @@ export default function GymDetailPage() {
 
 
 
-                                    <div className="gym-section gym-pickPoints">
+                                    <div className="gym-section gym-pickPoints col-lg-6">
                                         <div className="gym-heading">Coaches</div>
                                         <div className="coaches-list">
                                       

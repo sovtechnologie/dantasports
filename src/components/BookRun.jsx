@@ -148,6 +148,7 @@ function BookRun() {
                 <div className="txt_wrapper">
                   <div className="card_txt">
                     <h2 className="text_wrap card_heading">{evt.event_title}</h2>
+                     
                     <p className="text_wrap">
                       <span>
                         <img className="pe-2" src={dateIcon} alt="date" />
@@ -214,7 +215,9 @@ function BookRun() {
 
                     <Link to={`/Run/${evt.id}`}>Join Now</Link>
                   </div>
-
+                  <div className="rating">
+                          <span><img src={star} className="pe-2" alt="" />4.4</span>
+                      </div>
                 </div>
               </Card>
             </Col>

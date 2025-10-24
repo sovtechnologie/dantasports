@@ -8,13 +8,19 @@
 }
 
 .breadcrumb {
-  /* font-size: 16px; */
   font-size: clamp(14px, 3.6364vw, 16px);
   font-weight: 500;
   color: #6b7280;
   font-family: "DM Sans", Arial, sans-serif;
 }
 
+.gym-pickPoints{
+
+  max-height: 300px;
+  height: 100%;
+  overflow-x: scroll;
+
+}
 .gympage-name {
   color: #000000;
   font-family: "Lato", sans-serif;
@@ -25,9 +31,7 @@
 
 .gym-location-rating {
   display: flex;
-  /* gap: 20px; */
   color: #172a39;
-  /* font-size: 16px; */
   align-items: center;
   font-size: clamp(14px, 3.6364vw, 17px);
   align-items: center;
@@ -78,9 +82,6 @@
   padding: 1rem;
   background-color: #fff;
   margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   gap: 20px;
 }
 
@@ -88,7 +89,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem;
+  margin-bottom: 20px;
 }
 
 .gym-heading {
@@ -140,21 +141,6 @@
   width: 20px;
 }
 
-.gym-carry-point {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-
-}
-
-.gym-carry {
-  width: clamp(200px, 28.9861vw, 403px);
-  height: 180px;
-}
-
-.gym-pickPoints {
-  width: clamp(200px, 28.9861vw, 403px);
-}
 
 .timing-list {
   margin: 0;
@@ -195,6 +181,13 @@
 
 .coaches-card {
   text-align: center;
+  border: 1px solid #4c89d3;
+  box-shadow: rgba(70, 148, 225, 0.16) 0px 1px 4px;
+  width: 100px;
+  margin-right: 10px;
+  padding: 5px;
+  border-radius: 6px;
+  margin-bottom: 1rem;
 }
 
 .coach-image {
@@ -238,16 +231,7 @@
   font-size: 18px;
   font-weight: 500;
   line-height: 21.67px;
-  /* border: 2px solid transparent; */
-  /* background-image:
-    linear-gradient(white, white),
-    linear-gradient(270deg, #1163c7, #a3d0ff, #1163c7); */
-  /* background-origin: border-box;
-  background-clip: padding-box, border-box; */
-  /* background-size: 200% auto;
-  animation:
-    move-border 3s linear infinite,
-    glow-pulse 3s ease-in-out infinite; */
+
   cursor: pointer;
   width: clamp(200px, 28.9861vw, 403px);
 }

@@ -12,6 +12,7 @@ import map from "../../assets/playhost/map.svg";
 import date from "../../assets/playhost/date.svg";
 import likeIcon from "../../assets/icons/like.svg";
 import shareIcon from "../../assets/icons/share.svg";
+import star from "../../assets/icons/star-white.svg";
 import bookrunn from '../../assets/bookrun/bookrun.png'
 import { useQueryClient } from "@tanstack/react-query";
 import { useFetchEvent } from "../../../../hooks/EventList/useFetchEvents.js";
@@ -253,7 +254,7 @@ export default function RunFilterPage() {
                               {event.locations?.[0]?.city}
                             </p>
                           </div>
-                          <div className="no_off_users mt-2">
+                          {/* <div className="no_off_users mt-2">
                             <ul className="d-flex p-0 align-items-center m-0">
                               {event.sports?.slice(0, 5).map((sport, index) => (
                                 <li key={index} className="me-2 list-unstyled">
@@ -279,21 +280,30 @@ export default function RunFilterPage() {
                                 </li>
                               )}
                             </ul>
+                          </div> */}
+
+                          <div className="d-flex justify-content-between">
+                            <p className="up_to_offer">Upto 50%off</p>
+                            <p className="onwards_rup">₹1000 onwards</p>
                           </div>
+                          <div className="card_line"></div>
 
                           <div className="offer d-flex justify-content-between align-items-center">
-                            <p>
+                            {/* <p>
                               {event.coupon_type === "percentage" && event.offer
                                 ? `Upto ${parseFloat(event.offer)}% Off`
                                 : event.coupon_type === "flat" && event.offer
                                   ? `Upto ₹${parseFloat(event.offer)} Off`
                                   : ""}
-                            </p>
+                            </p> */}
 
                             <a href={`/run/${event.id}`}>Join Now</a>
                           </div>
 
                         </div>
+                         <div className="rating">
+                                                  <span><img src={star} className="pe-2" alt="" />4.4</span>
+                                              </div>
                       </div>
                     </div>
                   ))
