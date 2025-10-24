@@ -99,19 +99,33 @@ function BookGym() {
                       </p>
                     </div>
 
-                    <div className="sports_title">
-                      <p
-                        style={{
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                        }}
-                      >
-                        {Array.isArray(gym.sports)
-                          ? gym.sports.map((s) => s.name).join(", ")
-                          : "Available Activities"}
-                      </p>
-                    </div>
+                   <div className="sports_title">
+  <p
+    className="text-ellipsis"
+    title={
+      Array.isArray(gym.amenities)
+        ? gym.amenities.map((a) => a.name).join(", ")
+        : "Amenities not available"
+    }
+  >
+    {Array.isArray(gym.amenities) && gym.amenities.length > 0 ? (
+      <>
+        {gym.amenities
+          .slice(0, 5)
+          .map((a) => a.name)
+          .join(", ")}
+        {gym.amenities.length > 5 && (
+          <span className="more-amenities">
+            {" "}+{gym.amenities.length - 5}
+          </span>
+        )}
+      </>
+    ) : (
+      "Amenities not available"
+    )}
+  </p>
+</div>
+
 <div className="offer d-flex justify-content-between align-items-center">
   <p>
     {gym.coupon_type === "percentage" && gym.discount_offer

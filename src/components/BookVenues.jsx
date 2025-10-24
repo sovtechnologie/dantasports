@@ -213,7 +213,7 @@ const toggleFavourite = (venue) => {
       : ""}
   </p>
 
-  <Link to={`/venue/${venue.id}?venueId=${venue.id}`}>Book Now</Link>
+  <Link to={`/venue/${venue.id}`}>Book Now</Link>
 </div>
 
 

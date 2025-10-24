@@ -276,10 +276,20 @@ function VenuePage() {
                           </ul>
                         </div>
 
-                        <div className="offers d-flex justify-content-between">
-                          <span>Upto {discount}% Off</span>
-                          <p className="mb-0">₹{parseFloat(venue.pricing).toFixed(0)} onwards</p>
-                        </div>
+                   <div className="offers d-flex justify-content-between">
+  <span>
+    {venue.coupon_type === "percentage" && venue.discount_offer
+      ? `Upto ${parseFloat(venue.discount_offer)}% Off`
+      : venue.coupon_type === "flat" && venue.discount_offer
+      ? `Upto ₹${parseFloat(venue.discount_offer)} Off`
+      : ""}
+  </span>
+
+  <p className="mb-0">
+    ₹{parseFloat(venue.pricing).toFixed(0)} onwards
+  </p>
+</div>
+
 
                         <hr className="mb-3" />
                         <BookBtn venueId={venue.id} />

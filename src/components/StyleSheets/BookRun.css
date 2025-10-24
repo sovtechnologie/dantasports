@@ -68,3 +68,17 @@
   color: #1163c7;
   transition: 0.3s ease-in-out;
 }
+
+.text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  width: 100%;
+}
+
+.more-sports {
+  font-weight: 600;
+  color: #007bff; /* optional: make +N blue */
+  margin-left: 4px;
+}

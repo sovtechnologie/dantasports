@@ -26,6 +26,7 @@ import leftArrow from "../assets/left-arrow.png";
 import rightArrow from "../assets/right-arrow.png";
 import { useCreateQuery } from "../../../hooks/CoachList/useCreateQuery";
 import { Container } from "react-bootstrap";
+import EventReviewSlider from "../components/EventReviewSlider";
 
 
 
@@ -90,6 +91,7 @@ const mapCoachData = (apiData) => {
         reviews: Array.isArray(apiData?.reviews)
             ? apiData.reviews.map((review) => ({
                 id: review.id,
+                image: review.image ,
                 userName: review.user_name || "Anonymous",
                 rating: review.rating || 0,
                 comment: review.comment || "No comment provided",
@@ -337,7 +339,8 @@ export default function CoachDetailPage() {
                 </div>
 
                 <div className="ratings-carousel">
-                    <h2 className="review-heading">Ratings & Reviews</h2>
+                    <EventReviewSlider event={{ reviews: coach?.reviews }} />
+                    {/* <h2 className="review-heading">Ratings & Reviews</h2>
                     <div className="review-carousel-container">
                         {coach?.reviews?.slice(start, start + visibleCount).map((review) => (
                             <ReviewCard key={review.id} review={review} />
@@ -346,7 +349,7 @@ export default function CoachDetailPage() {
                     <div className="carousel-buttons">
                         <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
                         <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             </Container>

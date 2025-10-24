@@ -188,9 +188,26 @@ export default function GymFilterPage() {
                             </p>
                           </div>
 
-    <div className="sports_title">
-      <p>{gym.sports_name || "Multiple Sports"}</p>
-    </div>
+   <div className="sports_title">
+  <p>
+    {gym.amenities && gym.amenities.length > 0 ? (
+      <>
+        {gym.amenities
+          .slice(0, 5)
+          .map((a) => a.name)
+          .join(", ")}
+        {gym.amenities.length > 5 && (
+          <span className="more-amenities">
+            {" "}+{gym.amenities.length - 5}
+          </span>
+        )}
+      </>
+    ) : (
+      "Amenities not available"
+    )}
+  </p>
+</div>
+
 
     <div className="offer d-flex justify-content-between align-items-center">
   <p>

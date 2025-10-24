@@ -91,6 +91,7 @@ const mapEventData = (apiData) => {
     reviews: Array.isArray(apiData?.reviews)
       ? apiData.reviews.map((review) => ({
           id: review.id,
+          image: review.image ,
           userName: review.user_name || "Anonymous",
           rating: review.rating || 0,
           comment: review.comment || "No comment provided",
@@ -660,7 +661,7 @@ export default function EventDetailPage() {
               </div>
             </div> */}
             <Container className="p-0">
-              <EventReviewSlider/>
+                <EventReviewSlider event={{ reviews: event?.reviews }} />
             </Container>
             {/* <Gallery gallery={event.gallery} />
              */}

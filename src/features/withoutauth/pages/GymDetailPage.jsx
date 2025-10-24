@@ -30,6 +30,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 // import TermsAndConditions from "../../../pages/TermsAndConditions.jsx";
 import TermsConditionsModal from "../components/TermsConditionsModal.jsx";
+import EventReviewSlider from "../components/EventReviewSlider.jsx";
 
 
 
@@ -74,6 +75,7 @@ const mapGymData = (apiData) => {
         reviews: Array.isArray(apiData?.reviews)
             ? apiData.reviews.map((review) => ({
                 id: review.id,
+                image: review.image ,
                 userName: review.user_name || "Anonymous",
                 rating: review.rating || 0,
                 comment: review.comment || "No comment provided",
@@ -568,7 +570,8 @@ const secondCol = mappedTimings.slice(half);
 
                         {/* review section */}
                         <div className="ratings-carousel">
-                            <h2 className="review-heading">Ratings & Reviews</h2>
+                             <EventReviewSlider event={{ reviews: gym?.reviews }} />
+                            {/* <h2 className="review-heading">Ratings & Reviews</h2>
                             <div className="review-carousel-container">
                                 {gym?.reviews?.slice(start, start + visibleCount).map((review) => (
                                     <ReviewCard key={review.id} review={review} />
@@ -577,7 +580,7 @@ const secondCol = mappedTimings.slice(half);
                             <div className="carousel-buttons">
                                 <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
                                 <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
-                            </div>
+                            </div> */}
 
                         </div>
 

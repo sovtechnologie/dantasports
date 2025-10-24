@@ -11,27 +11,31 @@ import "./Stylesheets/EventReviewSlider.css";
 
 /* -------------------- Review Card -------------------- */
 const ReviewCard = memo(({ review }) => (
+     console.log("|review.imagereview.imagereview.image",review.image),
   <div className="review-card1">
     <div>
       <p className="review-rating">⭐ {review.rating}/5</p>
-      <p className="review-text">"{review.comment}"</p>
+      <p className="review-text">{review.comment}</p>
+      
     </div>
 
     <div className="review-card-header d-flex justify-content-between align-items-center">
       <div className="user_profile mt-3">
+     
         <img
-          src={review.avatar}
-          alt={review.name}
+          src={review.image}
+          alt={review.name || review.userName}
           className="review-avatar"
           loading="lazy"
         />
       </div>
       <div>
-        <h5 className="mb-0 fw-light m-0">{review.name}</h5>
+        <h5 className="mb-0 fw-light m-0">{review.name || review.userName}</h5>
       </div>
     </div>
   </div>
 ));
+
 
 ReviewCard.displayName = "ReviewCard";
 
@@ -106,11 +110,12 @@ const EventReviewSlider = ({ event }) => {
 
       <div className="event-review-slider">
         <Slider ref={sliderRef} {...settings}>
-          {reviews.map((review) => (
-            <div key={review.id}>
-              <ReviewCard review={review} />
-            </div>
-          ))}
+         {reviews.map((review, index) => (
+  <div key={review.id || index}>
+    <ReviewCard review={review} />
+  </div>
+))}
+
         </Slider>
       </div>
 

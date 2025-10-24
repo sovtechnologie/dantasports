@@ -37,6 +37,7 @@ import { Container } from "react-bootstrap";
 import GalleryComponent from "../components/GalleryComponent ";
 import TermsAndConditions from "../../../pages/TermsAndConditions.jsx";
 import TermsConditionsModal from "../components/TermsConditionsModal.jsx";
+import EventReviewSlider from "../components/EventReviewSlider.jsx";
 
 
 const initialTickets = [
@@ -95,6 +96,7 @@ const mapEventData = (apiData) => {
         reviews: Array.isArray(apiData?.reviews)
             ? apiData.reviews.map((review) => ({
                 id: review.id,
+                 image: review.image ,
                 userName: review.user_name || "Anonymous",
                 rating: review.rating || 0,
                 comment: review.comment || "No comment provided",
@@ -477,6 +479,7 @@ export default function EventDetailPage() {
                                 onChange={handleTicketChange}
                                 setTotalPrice={setTotalPrice}
                                 setTickets={setTickets}
+                                 disabled={!selectedDate}
                             />
                         </div>
 
@@ -485,7 +488,7 @@ export default function EventDetailPage() {
                             <CheckoutPricing
                                 totalPrice={totalPrice}
                                 convenienceFee={ConvenienceFee}
-                                type={type}
+                                type={2}
                                 venueId={id}
                                 setFinalAmount={setFinalAmount} />
                         </div>
@@ -499,7 +502,8 @@ export default function EventDetailPage() {
                 {/* <Gallery gallery={event.gallery} /> */}
                 <GalleryComponent/>
                 <div className="ratings-carousel">
-                    <h2 className="review-heading">Ratings & Reviews</h2>
+                      <EventReviewSlider event={{ reviews: event?.reviews }} />
+                    {/* <h2 className="review-heading">Ratings & Reviews</h2>
                     <div className="review-carousel-container">
                         {event?.reviews?.slice(start, start + visibleCount).map((review) => (
                             <ReviewCard key={review.id} review={review} />
@@ -508,7 +512,7 @@ export default function EventDetailPage() {
                     <div className="carousel-buttons">
                         <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
                         <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
-                    </div>
+                    </div> */}
                 </div>
 
 

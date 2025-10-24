@@ -85,6 +85,7 @@ const mapVenueData = (apiData) => {
     reviews: Array.isArray(apiData?.reviews)
       ? apiData.reviews.map((review) => ({
         id: review.id,
+        image: review.image ,
         userName: review.user_name || "Anonymous",
         rating: review.rating || 0,
         comment: review.comment || "No comment provided",
@@ -580,6 +581,7 @@ function VenueDetailsPage() {
 
               {venue?.reviews?.length > 0 && (
                 <div className="rating-wrapper">
+                  <EventReviewSlider event={{ reviews: venue?.reviews }} />
                   {/* <div className="ratings-carousel">
                     <h2 className="review-heading">Ratings & Reviews</h2>
                     <div className="review-carousel-container">
@@ -598,7 +600,8 @@ function VenueDetailsPage() {
                       </button>
                     </div>
                   </div> */}
-                  <EventReviewSlider/>
+                 
+
                 </div>
               )}
 

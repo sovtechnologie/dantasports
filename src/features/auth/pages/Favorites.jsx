@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../StyleSheets/Favorites.css';
 import { useSelector } from 'react-redux';
 import { useQuery } from '@tanstack/react-query';
@@ -28,6 +28,8 @@ const Favorites = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isSportModalOpen, setIsSportModalOpen] = useState(false);
   const [sportPage, setSportPage] = useState(1);
+   const [lat, setLat] = useState(null);
+  const [lng, setLng] = useState(null);
   const queryClient = useQueryClient();
 
   const { data: sportList, isLoading: isSportListLoading, isError: isSportListError, error } = useQuery({
@@ -37,11 +39,27 @@ const Favorites = () => {
   });
 
   const FavoritesSportData = sportList?.result || [];
+   
+  // ✅ Step 1: Get user location once component mounts
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLat(position.coords.latitude);
+        setLng(position.coords.longitude);
+      },
+      (error) => {
+        console.error("Location access denied:", error);
+        // fallback (in case user denies)
+        setLat(28.42624);
+        setLng(77.33248);
+      }
+    );
+  }, []);
 
-  const { data, isLoading: isFavoriteVenue, isError: isFavouriteVenueError } = useQuery({
-    queryKey: ['favoritesVenue'],
-    queryFn: () => fetchFavoriteVenue(),
-    enabled: !!token, // Only fetch if userId is available
+   const { data, isLoading: isFavoriteVenue, isError: isFavouriteVenueError } = useQuery({
+    queryKey: ['favoritesVenue', lat, lng],
+    queryFn: () => fetchFavoriteVenue(lat, lng),
+    enabled: !!token && !!lat && !!lng, // ✅ only run when token + location available
   });
 
   const FavoritesVenueData = data?.result || [];

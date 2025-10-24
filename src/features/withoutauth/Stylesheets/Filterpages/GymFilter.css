@@ -39,6 +39,9 @@
 }
 
 .sports_title p {
+   white-space: nowrap;       /* stay in one line */
+  overflow: hidden;          /* hide overflow */
+  text-overflow: ellipsis;   /* show "..." */
   color: #858585;
   font-weight: 400;
   font-size: 14px;

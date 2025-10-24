@@ -212,7 +212,7 @@ function BookRun() {
       : ""}
   </p>
 
-  <Link to={`/Run/${evt.id}?venueId=${evt.id}`}>Join Now</Link>
+  <Link to={`/Run/${evt.id}`}>Join Now</Link>
 </div>
 
                 </div>
