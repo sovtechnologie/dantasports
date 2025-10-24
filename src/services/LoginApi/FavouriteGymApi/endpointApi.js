@@ -1,6 +1,17 @@
 import api from "../../api";
 
 
+export const fetchFavoriteGym = async (latitude, longitude) => {
+  try {
+    const response = await api.get(`user/gym/getGFavouriteGymList/${latitude}/${longitude}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching favorite venue:", error);
+    throw error;
+  }
+};
+
+
 export const addFavoriteGym = async ({ userId, gymId }) => {
   try {
     const response = await api.post("user/gym/addGymFavourite", {

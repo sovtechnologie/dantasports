@@ -1,5 +1,17 @@
 import api from "../../api";
 
+export const fetchFavoriteEvent= async (latitude, longitude) => {
+  try {
+    const response = await api.get(`user/event/getEventFavouriteList/${latitude}/${longitude}`);
+    console.log("09987565565t5656",response);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching favorite venue:", error);
+    throw error;
+  }
+};
+
+
 
 export const addFavoriteEvent = async ({ userId, eventId ,type}) => {
   try {

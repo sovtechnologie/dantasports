@@ -32,9 +32,10 @@ const handleLikeClick = (e) => {
         />
 
         <div className="favorite-venue-sports-icons">
-          {venue.sportsIcons.map((icon, idx) => (
-            <img src={icon} key={idx} alt="sport" className="favorite-sport-icon" />
-          ))}
+         {(venue.sportsIcons || []).map((icon, idx) => (
+  <img src={icon} key={idx} alt="sport" className="favorite-sport-icon" />
+))}
+
         </div>
 
         <div className="favorite-venue-top-icons">
