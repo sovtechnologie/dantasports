@@ -11,6 +11,7 @@ const handleLikeClick = (e) => {
   e.stopPropagation();
   console.log("Heart clicked");
   onLikeToggle();
+  
 };
 
 

@@ -106,6 +106,51 @@ console.log("FavoritesEventData", FavoritesEventData);
       },
     });
   };
+// ---- GYM UNLIKE ----
+const toggleGymFavourite = (gym) => {
+  const favouriteId =
+    gym.favourite_gym_id || gym.favourite_id || gym.favourite_gym; // ✅ Add this fallback
+
+  if (!favouriteId) {
+    console.warn("Gym favourite_id is missing for:", gym);
+    return;
+  }
+
+  unlikeGym(
+    { gymFavouriteId: favouriteId },
+    {
+      onSuccess: async () => {
+        console.log("Successfully unliked gym:", favouriteId);
+        await queryClient.invalidateQueries(["favoritesGym"]);
+      },
+      onError: (error) => {
+        console.error("Error unliking gym:", error);
+      },
+    }
+  );
+};
+
+
+
+
+
+const toggleEventFavourite = (event) => {
+  const favouriteId = event.favourite_id || event.favourite_event_id;
+  if (!favouriteId) {
+    console.warn("Event favourite_id is missing!");
+    return;
+  }
+
+  unlikeEvent(
+    { favouriteEventId: favouriteId }, 
+    {
+      onSuccess: async () => await queryClient.invalidateQueries(['favoritesEvent']),
+      onError: (error) => console.error("Error unliking event:", error),
+    }
+  );
+};
+
+
 const { mutate: unlikeGym } = useUnlikeGym({
   onSuccess: () => queryClient.invalidateQueries(['favoritesGym'])
 });
@@ -113,10 +158,16 @@ const { mutate: unlikeGym } = useUnlikeGym({
 const { mutate: unlikeEvent } = useUnlikeEvent({
   onSuccess: () => queryClient.invalidateQueries(['favoritesEvent'])
 });
+
+
+
   const { mutate: deleteSport, } = useDeleteSport();
   const handleSportDelete = (favoriteSportsId) => {
     deleteSport(favoriteSportsId);
   };
+
+
+
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -397,8 +448,8 @@ const totalEventPages = Math.ceil(FavoritesEventData.length / ITEMS_PER_PAGE);
     (sport) => sport.image
   );
           const formattedGym = {
-            id: gym.id,
-            image: gym.cover_image,
+            id: gym.Id,
+            image: gym.desktop_image,
             name: gym.gym_name,
             rating: gym.average_rating || "0",
             reviews: gym.review_count||"0",
@@ -406,11 +457,12 @@ const totalEventPages = Math.ceil(FavoritesEventData.length / ITEMS_PER_PAGE);
             address: `${gym.area}, ${gym.city}`,
            distance: gym.distance ? parseFloat(gym.distance).toFixed(1) : "0",
             price: `₹${"0"}`,
+              favourite: gym.favourite_gym_id, 
               sportsIcons:  sportsIcons, 
           };
           return (
-            <div key={gym.id} className="favorite-card">
-              <FavoriteVenueCard  key={gym.id} venue={formattedGym}   onLikeToggle={() => unlikeGym({ gymFavouriteId: gym.favourite_id })} />
+            <div key={gym.Id} className="favorite-card">
+              <FavoriteVenueCard   venue={formattedGym}     onLikeToggle={() => toggleGymFavourite(gym)} />
             </div>
           );
         })}
@@ -456,10 +508,11 @@ const totalEventPages = Math.ceil(FavoritesEventData.length / ITEMS_PER_PAGE);
              reviews: event.review_count||"0",
             distance: `${parseFloat(event.distance || 0).toFixed(1)}`,
             price: `₹${event.ticket_price || 0}`,
+             favourite: event.favourite_id || event.favourite_event_id
           };
           return (
-            <div key={event.Id} className="favorite-card">
-              <FavoriteVenueCard key={event.id} venue={formattedEvent} onLikeToggle={() => unlikeEvent({ eventFavouriteId: event.favourite_id })}   />
+            <div key={event.id} className="favorite-card">
+              <FavoriteVenueCard  venue={formattedEvent}    onLikeToggle={() => toggleEventFavourite(event)}/>
             </div>
           );
         })}
