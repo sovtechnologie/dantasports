@@ -23,6 +23,8 @@
   right: 18%;
   height: 26px;
   width: 26px;
+      border: none;
+    background: bottom;
 }
 
 .card_icons .share {
@@ -32,6 +34,8 @@
   right: 5%;
   height: 26px;
   width: 26px;
+      border: none;
+    background: bottom;
 }
 
 .card h2 {

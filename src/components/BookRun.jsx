@@ -197,26 +197,35 @@ function BookRun() {
                     </ul>
                   </div> */}
                    <div className="d-flex justify-content-between no_off_users">
-                      <p className="up_to_offer mb-2">Upto 50%off</p>
-                      <p className="onwards_rup mb-2">₹1000 onwards</p>
+                    
+                        <p className="up_to_offer mb-2">
+                      {evt.coupon_type === "percentage" && evt.discount_offer
+                        ? `Upto ${parseFloat(evt.discount_offer)}% Off`
+                        : evt.coupon_type === "flat" && evt.discount_offer
+                          ? `Upto ₹${parseFloat(evt.discount_offer)} Off`
+                          : ""}
+                    </p>
+                      <p className="onwards_rup mb-2">  {evt.pricing
+      ? `₹${parseFloat(evt.pricing).toFixed(0)} onwards`
+      : ""}</p>
                     </div>
                      <div className="card_line mb-2"></div>
 
 
                   {/* Offer / Join Now */}
                   <div className="offer d-flex justify-content-between align-items-center">
-                    <p>
+                    {/* <p>
                       {evt.coupon_type === "percentage" && evt.offer
                         ? `Upto ${parseFloat(evt.offer)}% Off`
                         : evt.coupon_type === "flat" && evt.offer
                           ? `Upto ₹${parseFloat(evt.offer)} Off`
                           : ""}
-                    </p>
+                    </p> */}
 
                     <Link to={`/Run/${evt.id}`}>Join Now</Link>
                   </div>
                   <div className="rating">
-                          <span><img src={star} className="pe-2" alt="" />4.4</span>
+                          <span><img src={star} className="pe-2" alt="" />{evt.average_rating || "0.0"}</span>
                       </div>
                 </div>
               </Card>

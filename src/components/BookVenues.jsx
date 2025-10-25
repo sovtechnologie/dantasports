@@ -157,17 +157,17 @@ export default function BookVenues() {
                       {/* <span className="star pe-2">
                         <img src={star} alt="rating" />
                       </span> */}
-                      <strong className="pe-2 fw-light">
+                      {/* <strong className="pe-2 fw-light">
                         {venue.average_rating || "0.0"} (
                         {venue.review_count || 0})
-                      </strong>
+                      </strong> */}
                       ~
                       {venue.distance_km
                         ? `${venue.distance_km.toFixed(1)} km`
                         : "0.0"}
                     </p>
                     <div className="rating">
-                      <span><img src={star} className="pe-2" alt="" />4.4</span>
+                      <span><img src={star} className="pe-2" alt="" /> {venue.average_rating || "0.0"}</span>
                     </div>
                   </div>
 
@@ -207,7 +207,12 @@ export default function BookVenues() {
                           ? `Upto ₹${parseFloat(venue.discount_offer)} Off`
                           : ""}
                     </p>
-                      <p className="onwards_rup mb-2">₹1000 onwards</p>
+
+                      <p className="onwards_rup mb-2">
+    {venue.pricing
+      ? `₹${parseFloat(venue.pricing).toFixed(0)} onwards`
+      : ""}
+  </p>
                     </div>
                      <div className="card_line mb-2"></div>
 

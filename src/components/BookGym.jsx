@@ -3,20 +3,26 @@ import { Container, Row, Col, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useFetchGym } from "../hooks/GymList/useFetchGym.js";
-
 import "./StyleSheets/BookRun.css";
-
+import HeartFilled from "../features/auth/assets/VenueCardLogo/heartfilled.png";
 import star from "../assets/images/home/bookvenues/star.svg";
 import like from "../assets/images/home/bookvenues/like.svg";
 import share from "../assets/images/home/bookvenues/share.svg";
 import date from "../assets/images/home/bookrun/date.svg";
 import map from "../assets/images/home/bookrun/map.svg";
 import fallbackImage from "../assets/images/home/bookgym/bookgym.png";
+import { useLikeGym } from "../hooks/FavouriteGym/useLikeGym.js";
+import { useUnlikeGym } from "../hooks/FavouriteGym/useUnlikeGym.js";
+import { useQueryClient } from "@tanstack/react-query";
 
 function BookGym() {
   const { lat, lng } = useSelector((state) => state.location);
   const userId = useSelector((state) => state.auth.id);
+ 
+    const queryClient = useQueryClient();
+  
 
+  const [gymList, setGymList] = useState([]);
   const [coords, setCoords] = useState({ lat, lng, userId });
 
   useEffect(() => {
@@ -31,8 +37,66 @@ function BookGym() {
   const { data, isLoading, error } = useFetchGym(coords);
   const gyms = data?.result || [];
 
+  const likeGym = useLikeGym();
+    const unlikeGym = useUnlikeGym();
+  
+    // --- LIKE / UNLIKE ---
+    const toggleFavourite = (gym) => {
+      const gymId = gym.Id;
+      setGymList((prev) =>
+        prev.map((v) =>
+          v.Id === gymId ? { ...v, favourite: !v.favourite } : v
+        )
+      );
+  
+      if (!gym.favourite) {
+        likeGym.mutate(
+          { gymId, userId },
+          {
+            onSuccess: async () =>
+              await queryClient.invalidateQueries(["GymList", userId || null]),
+            onError: () =>
+              setGymList((prev) =>
+                prev.map((v) =>
+                  v.Id === gymId ? { ...v, favourite: false } : v
+                )
+              ),
+          }
+        );
+      } else {
+        unlikeGym.mutate(
+          { gymFavouriteId: gym.favourite_gym_id },
+          {
+            onSuccess: async () =>
+              await queryClient.invalidateQueries(["GymList", userId || null]),
+            onError: () =>
+              setGymList((prev) =>
+                prev.map((v) =>
+                  v.Id === gymId ? { ...v, favourite: true } : v
+                )
+              ),
+          }
+        );
+      }
+    };
+
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading gyms: {error.message}</p>;
+
+   const handleShare = (gym) => {
+      const shareData = {
+        title: gym.gym_name,
+        text: `Check out ${gym.gym_name} on Danta Sports!`,
+        url: `${window.location.origin}/gym/${gym.Id}`,
+      };
+  
+      if (navigator.share) {
+        navigator.share(shareData).catch((error) => console.error("Share failed:", error));
+      } else {
+        navigator.clipboard.writeText(shareData.url);
+        alert("Link copied to clipboard!");
+      }
+    };
 
   return (
     <section className="book_venue_section">
@@ -68,12 +132,26 @@ function BookGym() {
                   </div>
 
                   <div className="card_icons">
-                    <a href="#">
-                      <img className="like" src={like} alt="like" />
-                    </a>
-                    <a href="#">
-                      <img className="share" src={share} alt="share" />
-                    </a>
+                  
+                                          <div className="card_icons">
+                                            <button
+                                              className="like"
+                                              onClick={() => toggleFavourite(gym)}
+                                              style={{   border: "none",
+    background: "bottom"}}
+                                            >
+                                              <img src={gym.favourite ? HeartFilled : like}  className="like" />
+                                            </button>
+                  
+                                            <button
+                                              style={{   border: "none",
+    background: "bottom"}}
+                                              className="share"
+                                              onClick={() => handleShare(gym)}
+                                            >
+                                              <img src={share}  className="share" />
+                                            </button>
+                                          </div>
                   </div>
 
                   <div className="txt_wrapper">
@@ -84,8 +162,8 @@ function BookGym() {
                         <span>
                           {/* <img className="pe-2" src={map} alt="map" /> */}
                         </span>
-                        {/* {gym.full_address || "Location not available"} */}
-                        Magarpatta City (~O.7 Km)
+                        {gym.city} (~{gym.distance ? gym.distance.toFixed(1) : 0} Km)
+                        {/* Magarpatta City (~O.7 Km) */}
                       </p>
 
                       {/* <p>
@@ -151,7 +229,7 @@ function BookGym() {
                       <Link to={`/Gym/${gym.Id}`}>Join Now</Link>
                     </div>
                     <div className="rating">
-                      <span><img src={star} className="pe-2" alt="" />4.4</span>
+                      <span><img src={star} className="pe-2" alt="" /> {gym.average_rating || "0.0"}</span>
                     </div>
                   </div>
                 </Card>

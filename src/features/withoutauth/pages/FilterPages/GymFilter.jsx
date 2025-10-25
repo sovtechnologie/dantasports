@@ -160,35 +160,35 @@ export default function GymFilterPage() {
                           <img src={imageSrc} alt="" className="w-100" />
                         </div>
 
-                        {/* <div className="card_icons">
+                        <div className="card_icons">
                           <button
-                            className="like-btn"
+                            className="like"
                             onClick={() => toggleFavourite(gym)}
                           >
-                            <img src={gym.favourite ? HeartFilled : like} alt="like" className="like" />
+                            <img src={gym.favourite ? HeartFilled : like}  className="like" />
                           </button>
 
                           <button
-                            className="share-btn"
+                            className="share"
                             onClick={() => handleShare(gym)}
                           >
-                            <img src={share} alt="share" className="share" />
+                            <img src={share}  className="share" />
                           </button>
-                        </div> */}
-                        <div className="card_icons">
+                        </div>
+                        {/* <div className="card_icons">
                           <a href="#">
                             <img className="like" src={like} alt="like" />
                           </a>
                           <a href="#">
                             <img className="share" src={share} alt="share" />
                           </a>
-                        </div>
+                        </div> */}
 
                         <div className="txt_wrapper">
                           <div className="card_txt">
                             <h2>{gym.gym_name}</h2>
                             <p>
-                              Magarpatta City (~O.7 Km)
+                              {gym.city} {gym.state}  (~{gym.distance ? gym.distance.toFixed(1) : 0} Km)
                             </p>
                             {/* <p>
                               <span><img src={map} className="pe-2" alt="map" /></span>
@@ -217,8 +217,16 @@ export default function GymFilterPage() {
                           </div>
 
                            <div className="d-flex justify-content-between no_off_users">
-                      <p className="up_to_offer mb-2">Upto 50%off</p>
-                      <p className="onwards_rup mb-2">₹1000 onwards</p>
+                      <p className="up_to_offer mb-2"> {gym.coupon_type === "percentage" && gym.discount_offer
+                          ? `Upto ${parseFloat(gym.discount_offer)}% Off`
+                          : gym.coupon_type === "flat" && gym.discount_offer
+                            ? `Upto ₹${parseFloat(gym.discount_offer)} Off`
+                            : ""}</p>
+                      <p className="onwards_rup mb-2">₹{gym.gym_price_slot && gym.gym_price_slot.length > 0
+      ? gym.gym_price_slot.reduce((min, curr) =>
+          curr.price < min.price ? curr : min
+        ).price
+      : 0}{" "}onwards</p>
                     </div>
                      <div className="card_line mb-2"></div>
                           <div className="offer d-flex justify-content-between align-items-center">
@@ -227,7 +235,7 @@ export default function GymFilterPage() {
                             <a href={`/gym/${gym.Id}`}>Join Now</a>
                           </div>
                           <div className="rating">
-                               <span><img src={star} className="pe-2" alt="" />4.4</span>
+                               <span><img src={star} className="pe-2" alt="" />{gym.average_rating || "0.0"}</span>
                             </div>
 
                         </div>

@@ -33,45 +33,68 @@ function formatTime(timeStr = "00:00") {
 
 function BookEvents() {
   const { lat, lng } = useSelector((state) => state.location);
-  const [coords] = useState({ lat, lng, type: 1, userId: null }); // type 1 for events
+  // const [coords] = useState({ lat, lng, type: 1, userId: null }); // type 1 for events
   const userId = useSelector((state) => state.auth.id);
   const queryClient = useQueryClient();
-  const { data, isLoading, error } = useFetchEvent(coords);
+   const { data, isLoading, error } = useFetchEvent({
+      lat,
+      lng,
+      type: 1,
+      userId,
+    });
   const events = data?.result || [];
   const likeEvent = useLikeEvent();
   const unlikeEvent = useUnlikeEvent();
   const [eventList, setEventList] = useState([]);
 
-  const toggleFavourite = async (event) => {
-    const eventId = event.id;
-    const wasFavourite = event.favourite;
+  useEffect(() => {
+  if (events?.length) setEventList(events);
+}, [events]);
 
-    // Update UI instantly
-    setEventList((prev) =>
-      prev.map((v) =>
-        v.id === eventId ? { ...v, favourite: !wasFavourite } : v
-      )
-    );
 
-    try {
-      if (!wasFavourite) {
-        await likeEvent.mutateAsync({ eventId, userId, type: 1 });
-      } else {
-        await unlikeEvent.mutateAsync({
-          favouriteEventId: event.favourite_event_id,
-        });
-      }
-      queryClient.invalidateQueries(["EventList", userId || null]);
-    } catch (err) {
-      console.error("Error updating favourite:", err);
-      // rollback UI
+ const toggleFavourite = async (event) => {
+  const eventId = event.id;
+  const type = event?.type || 1;
+  const wasFavourite = event.favourite;
+
+  // UI instant update
+  setEventList((prev) =>
+    prev.map((v) =>
+      v.id === eventId ? { ...v, favourite: !wasFavourite } : v
+    )
+  );
+
+  try {
+    if (!wasFavourite) {
+      // Like
+      const res = await likeEvent.mutateAsync({ eventId, userId, type });
+      // Update favourite_event_id in state after like
       setEventList((prev) =>
         prev.map((v) =>
-          v.id === eventId ? { ...v, favourite: wasFavourite } : v
+          v.id === eventId
+            ? { ...v, favourite_event_id: res.favourite_event_id }
+            : v
         )
       );
+    } else {
+      // Unlike → use the favourite_event_id from state
+      await unlikeEvent.mutateAsync({
+        favouriteEventId: event.favourite_event_id,
+        type,
+      });
     }
-  };
+    queryClient.invalidateQueries(["EventList", userId || null]);
+  } catch (err) {
+    console.error("Error updating favourite:", err);
+    // rollback UI
+    setEventList((prev) =>
+      prev.map((v) =>
+        v.id === eventId ? { ...v, favourite: wasFavourite } : v
+      )
+    );
+  }
+};
+
 
   const handleShare = (event) => {
     const url = `${window.location.origin}/Events/${event.id}`;
@@ -103,7 +126,7 @@ function BookEvents() {
         </div>
 
         <Row className="g-3">
-          {events.slice(0, 4).map((evt) => {
+         {eventList.slice(0, 4).map((evt) => {
             const eventDate = `${new Date(evt.start_date).toLocaleDateString("en-GB", { day: "2-digit", month: "short" })} – ${new Date(evt.end_date).toLocaleDateString("en-GB", { day: "2-digit", month: "short" })} | ${formatTime(evt.start_time)}‑${formatTime(evt.end_time.slice(0, 5))}`;
 
             return (
@@ -185,24 +208,27 @@ function BookEvents() {
                       </ul>
                     </div> */}
                     <div className="d-flex justify-content-between no_off_users">
-                      <p className="up_to_offer mb-2">Upto 50%off</p>
-                      <p className="onwards_rup mb-2">₹1000 onwards</p>
+                      <p className="up_to_offer mb-2">    
+                        {evt.coupon_type === "percentage" && evt.discount_offer
+                          ? `Upto ${parseFloat(evt.discount_offer)}% Off`
+                          : evt.coupon_type === "flat" && evt.discount_offer
+                            ? `Upto ₹${parseFloat(evt.discount_offer)} Off`
+                            : ""}
+                      
+                      <p className="onwards_rup mb-2">{evt.pricing
+      ? `₹${parseFloat(evt.pricing).toFixed(0)} onwards`
+      : ""}</p></p>
+                      
                     </div>
                     <div className="card_line mb-2"></div>
 
                     <div className="offer d-flex justify-content-between align-items-center">
-                      <p>
-                        {evt.coupon_type === "percentage" && evt.offer
-                          ? `Upto ${parseFloat(evt.offer)}% Off`
-                          : evt.coupon_type === "flat" && evt.offer
-                            ? `Upto ₹${parseFloat(evt.offer)} Off`
-                            : ""}
-                      </p>
+                     
 
                       <Link to={`/Events/${evt.id}`}>Join Now</Link>
                     </div>
                      <div className="rating">
-                                              <span><img src={star} className="pe-2" alt="" />4.4</span>
+                                              <span><img src={star} className="pe-2" alt="" />{evt.average_rating || "0.0"}</span>
                                           </div>
                   </div>
                 </Card>

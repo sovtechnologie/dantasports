@@ -205,7 +205,7 @@ function VenuePage() {
                         <div className="start">
                           <img src={whaitestart} alt="star" />
                           <span className="ps-2">
-                            {venue.average_rating || "4.0"} (
+                            {venue.average_rating || "0.0"} (
                             {venue.review_count || 0})
                           </span>
                         </div>
@@ -286,7 +286,7 @@ function VenuePage() {
                           </span>
 
                           <p className="mb-0">
-                            ₹{parseFloat(venue.pricing).toFixed(0)} onwards
+                            ₹{parseFloat(venue.pricing).toFixed(0) || 0} onwards
                           </p>
                         </div>
 

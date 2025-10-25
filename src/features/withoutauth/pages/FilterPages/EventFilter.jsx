@@ -124,7 +124,7 @@ export default function EventFilterPage() {
                           />
                         </div>
 
-                        {/* <div className="card_icons">
+                        <div className="card_icons">
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
@@ -154,7 +154,7 @@ export default function EventFilterPage() {
                               alt="share"
                             />
                           </button>
-                        </div> */}
+                        </div>
 
                         <div className="reating">
                           <span>
