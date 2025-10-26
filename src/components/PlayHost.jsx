@@ -79,7 +79,7 @@ function PlayHost() {
               SKILL_MAP[host.game_skill] || SKILL_MAP[0];
             return (
               <Col lg={3} md={6} sm={6} key={host.id}>
-                <Card className="playhost_card p-3 shadow-sm">
+                <Card className="playhost_card">
                   <div className="badge_label">
                     <p>{host.activity_type || "Regular"}</p>
                   </div>
@@ -100,7 +100,7 @@ function PlayHost() {
                     </p>
                   </div>
 
-                  <h2 className="text_wrap">Host By: {host.host_name || "Unknown"}</h2>
+                  <h2 className="text_wrap1">Host By: {host.host_name || "Unknown"}</h2>
 
                   <div className="d-flex align-items-center mb-2">
                     <img
@@ -108,7 +108,7 @@ function PlayHost() {
                       alt="calendar"
                       className="icon me-2"
                     />
-                    <span>{dateText}</span>
+                    <span className="host_date">{dateText}</span>
                   </div>
 
                   <div className="d-flex align-items-center mb-3">
@@ -117,7 +117,7 @@ function PlayHost() {
                       alt="location"
                       className="icon me-2"
                     />
-                    <span className="text_wrap">
+                    <span className="host_date">
                       {host.city || "Address not available"} {host.state || "Address not available"} (
 
                       ~{host.distance_km?.toFixed(1) || "0"} km)

@@ -25,12 +25,13 @@
   width: 26px;
 }
 
-.book_venue_section .card h2 {
+/* .book_venue_section .card h2 {
   font-weight: 500;
-  font-size: 24px;
+  font-size: 20px;
+  line-height: 30px;
   color: #172a39;
-  margin-bottom: 16px;
-}
+  margin: 0;
+} */
 
 .sports_title p {
   color: #858585;
@@ -62,6 +63,9 @@
   border-radius: 5px;
   font-family: "DM Sans";
   border: 1px solid transparent;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .offer a:hover {

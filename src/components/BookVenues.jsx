@@ -106,7 +106,7 @@ export default function BookVenues() {
   return (
     <section className="book_venue_section">
       <Container>
-        <div className="d-flex justify-content-between align-items-center">
+        <div className="d-flex justify-content-between align-items-center mt-lg-3">
           <div className="section_title">
             <h2>Book Venues</h2>
           </div>
@@ -151,9 +151,9 @@ export default function BookVenues() {
                 </div>
 
                 <div className="txt_wrapper">
-                  <div className="card_txt d-flex justify-content-between ">
-                    <h2 className="text_wrap card_heading">{venue.venue_name}</h2>
-                    <p className="ps-3">
+                  <div className="card_txt d-flex justify-content-between mb-3 align-items-center">
+                    <h2 className="text_wrap card_heading m-0">{venue.venue_name}</h2>
+                    <p className="m-0">
                       {/* <span className="star pe-2">
                         <img src={star} alt="rating" />
                       </span> */}
@@ -172,7 +172,7 @@ export default function BookVenues() {
                   </div>
 
                   <div className="no_off_users mt-2">
-                    <ul className="d-flex p-0 align-items-center m-0">
+                    <ul className="d-flex p-0  m-0">
                       {venue.sports?.slice(0, 5).map((sport, index) => (
                         <li key={index} className="me-2 list-unstyled">
                           <img

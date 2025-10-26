@@ -1,15 +1,15 @@
 import "../Stylesheets/GymDetailPage.css";
-import Cookies from 'js-cookie'
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-import GymImage from "../assets/mygym.svg"
-import GymImage1 from "../assets/GymImage.svg"
+import Cookies from "js-cookie";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import GymImage from "../assets/mygym.svg";
+import GymImage1 from "../assets/GymImage.svg";
 import checkoutIcon from "../assets/checkOutIcon.png";
-import CoachImage from "../assets/CoachesImage.svg"
+import CoachImage from "../assets/CoachesImage.svg";
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 import { useMemo, useState } from "react";
 import CustomMap from "../components/CustomMap";
 import CheckoutPricing from "../components/CheckoutPricing";
@@ -26,27 +26,20 @@ import { useCreateBookingPayment } from "../../../hooks/Payments/useCreateBookin
 import { Container } from "react-bootstrap";
 import arrow from "../assets/icons/arrow.svg";
 import CancellationPolicy from "../components/CancellationPolicy.jsx";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 // import TermsAndConditions from "../../../pages/TermsAndConditions.jsx";
 import TermsConditionsModal from "../components/TermsConditionsModal.jsx";
 import EventReviewSlider from "../components/EventReviewSlider.jsx";
-
-
+import BusinessHours from "../components/BusinessHours.jsx";
 
 const timings = [
-    { label: 'Morning (Mon – Sat)', range: '06:00 AM – 12:00 PM' },
-    { label: 'Evening (Mon – Sat)', range: '04:00 PM – 10:00 PM' },
-    { label: 'Sunday Close', range: '' },
+    { label: "Morning (Mon – Sat)", range: "06:00 AM – 12:00 PM" },
+    { label: "Evening (Mon – Sat)", range: "04:00 PM – 10:00 PM" },
+    { label: "Sunday Close", range: "" },
 ];
 
 const imagelist = [GymImage, GymImage1];
-
-
-
-
-
-
 
 const mapGymData = (apiData) => {
     return {
@@ -55,9 +48,12 @@ const mapGymData = (apiData) => {
         about: apiData?.about_gym || "No description available for this venue.",
         rating: parseFloat(apiData?.average_rating) || 0,
         reviewcount: apiData?.review_count || 0,
-        address: `${apiData?.full_address || ''}`.trim().replace(/^,|,$/g, '')
-            || "Not Available",
-        gym_timings: Array.isArray(apiData?.gym_timings) ? apiData?.gym_timings : [],
+        address:
+            `${apiData?.full_address || ""}`.trim().replace(/^,|,$/g, "") ||
+            "Not Available",
+        gym_timings: Array.isArray(apiData?.gym_timings)
+            ? apiData?.gym_timings
+            : [],
         coaches: Array.isArray(apiData?.gym_coaches) ? apiData?.gym_coaches : null,
 
         images: Array.isArray(apiData?.event_gallery)
@@ -80,29 +76,31 @@ const mapGymData = (apiData) => {
                 rating: review.rating || 0,
                 comment: review.comment || "No comment provided",
             }))
-            : [{ comment: "Not Available" }], 
+            : [{ comment: "Not Available" }],
     };
 };
 
 export default function GymDetailPage() {
     const { id } = useParams();
-    const isLoggedIn = Boolean(Cookies.get('token'));
+    const isLoggedIn = Boolean(Cookies.get("token"));
     const [expandedSection, setExpandedSection] = useState(null);
     const [start, setStart] = useState(0);
     const [selectedPass, setSelectedPass] = useState(null);
     const [quantity, setQuantity] = useState(0);
-    const [passess, setPassess] = useState([{ passId: null, quantity: null }])
+    const [passess, setPassess] = useState([{ passId: null, quantity: null }]);
     const [finalAmount, setFinalAmount] = useState(null);
 
-    const { data: GymDetails, isLoading: GymDetailsLoading } = useFetchGymDetail(id);
-    const gym = Array.isArray(GymDetails?.result) && GymDetails?.result.length > 0
-        ? mapGymData(GymDetails?.result[0])
-        : '';
+    const { data: GymDetails, isLoading: GymDetailsLoading } =
+        useFetchGymDetail(id);
+    const gym =
+        Array.isArray(GymDetails?.result) && GymDetails?.result.length > 0
+            ? mapGymData(GymDetails?.result[0])
+            : "";
 
     console.log("Gym Details", gym);
 
     const toggleSection = (sectionName) => {
-        setExpandedSection(prev => (prev === sectionName ? null : sectionName));
+        setExpandedSection((prev) => (prev === sectionName ? null : sectionName));
     };
 
     // const handleSelect = (e) => setSelectedPass(e.target.value);
@@ -114,116 +112,124 @@ export default function GymDetailPage() {
         if (selectedItem) {
             setSelectedPass({
                 name: selectedItem.passes_name,
-                price: selectedItem.price
+                price: selectedItem.price,
             });
             setQuantity(0);
             // also update passess with passId and quantity
             setPassess({
                 passId: selectedItem.id, // assuming `id` exists in the object
-                quantity: 0
+                quantity: 0,
             });
         }
-    }
+    };
 
-    const decrement = () => setQuantity(q => {
-        const newQty = Math.max(0, q - 1);
-        setPassess(prev => ({ ...prev, quantity: newQty }));
-        return newQty;
-    });
+    const decrement = () =>
+        setQuantity((q) => {
+            const newQty = Math.max(0, q - 1);
+            setPassess((prev) => ({ ...prev, quantity: newQty }));
+            return newQty;
+        });
 
-    const increment = () => setQuantity(q => {
-        const newQty = q + 1;
-        setPassess(prev => ({ ...prev, quantity: newQty }));
-        return newQty;
-    });
-
+    const increment = () =>
+        setQuantity((q) => {
+            const newQty = q + 1;
+            setPassess((prev) => ({ ...prev, quantity: newQty }));
+            return newQty;
+        });
 
     const totalAmount = selectedPass ? selectedPass.price * quantity : 0;
 
-
     const prev = () => setStart((prev) => Math.max(prev - 1, 0));
     const next = () =>
-        setStart((prev) =>
-            Math.min(prev + 1, gym?.reviews?.length - visibleCount)
-        );
+        setStart((prev) => Math.min(prev + 1, gym?.reviews?.length - visibleCount));
 
     const visibleCount = useMemo(() => {
         return window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 3 : 3;
     }, []);
 
-
-
-
-    const { data: gymPrice, isLoading: gymPriceLoading, error: gymPriceError } = useFetchGymPrice(id);
+    const {
+        data: gymPrice,
+        isLoading: gymPriceLoading,
+        error: gymPriceError,
+    } = useFetchGymPrice(id);
     const GymPrice = gymPrice?.result || [];
     const ConvenienceFee = GymPrice[0]?.convension_fees;
 
-
-    const { data: bannerData, isLoading: Bannerloading, error: BannerError } = useBanner(3);
+    const {
+        data: bannerData,
+        isLoading: Bannerloading,
+        error: BannerError,
+    } = useBanner(3);
 
     const banners = bannerData?.result || [];
 
     const type = 3;
-    const { mutate: CreateBookingPayment, isLoading: paymentLoading } = useCreateBookingPayment();
+    const { mutate: CreateBookingPayment, isLoading: paymentLoading } =
+        useCreateBookingPayment();
     const {
         mutate: BookGym,
         isLoading: bookingLoading,
-        error: bookingError
+        error: bookingError,
     } = useBookGym();
 
     const handleProceed = () => {
         if (!isLoggedIn) {
-            alert('Please log in to proceed.')
+            alert("Please log in to proceed.");
             return;
         }
         const bookingPayload = {
             isInsuranceSelected: true,
             gymId: id,
-            passess: [passess]
-        }
-
+            passess: [passess],
+        };
 
         BookGym(bookingPayload, {
             onSuccess: (data) => {
                 const bookingId = data?.result;
 
-
                 // Call createPayment with that bookingId
-                CreateBookingPayment({
-                    bookingId,
-                    amount: finalAmount, // example amount
-                    type: type, // or "UPI" etc.
-                }, {
-                    onSuccess: (paymentData) => {
-
-
-                        // If API returns paymentUrl, redirect
-                        if (paymentData?.result) {
-                            window.open(paymentData.result, "_blank", "noopener,noreferrer");
-
-                            // reset the fields
-                            setPassess([]);
-                            setSelectedPass(null)
-                            setQuantity(0);
-                            setFinalAmount(0);
-
-                        }
-
+                CreateBookingPayment(
+                    {
+                        bookingId,
+                        amount: finalAmount, // example amount
+                        type: type, // or "UPI" etc.
                     },
-                    onError: (error) => {
-                        alert("Payment creation failed: " + (error.message || ""));
-                    },
-                });
+                    {
+                        onSuccess: (paymentData) => {
+                            // If API returns paymentUrl, redirect
+                            if (paymentData?.result) {
+                                window.open(
+                                    paymentData.result,
+                                    "_blank",
+                                    "noopener,noreferrer"
+                                );
+
+                                // reset the fields
+                                setPassess([]);
+                                setSelectedPass(null);
+                                setQuantity(0);
+                                setFinalAmount(0);
+                            }
+                        },
+                        onError: (error) => {
+                            alert("Payment creation failed: " + (error.message || ""));
+                        },
+                    }
+                );
             },
-            onError: (error) => alert('Booking failed. ' + (error.message || '')),
+            onError: (error) => alert("Booking failed. " + (error.message || "")),
         });
+    };
 
-    }
-
-
-
-
-    const dayOrder = ["friday", "saturday", "sunday", "monday", "tuesday", "wednesday", "thursday"];
+    const dayOrder = [
+        "friday",
+        "saturday",
+        "sunday",
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+    ];
 
     const formatTime = (timeStr) => {
         if (!timeStr) return "";
@@ -235,17 +241,17 @@ export default function GymDetailPage() {
     };
 
     // Use gym_timings instead of gym_timing
-    const mappedTimings = (gym?.gym_timings || []).map(item =>
-
-        dayOrder.map(dayKey => ({
-            day: dayKey.charAt(0).toUpperCase() + dayKey.slice(1),
-            range: item[dayKey] === 1
-                ? `${formatTime(item.start_time.split(".")[0])} - ${formatTime(item.end_time.split(".")[0])}`
-                : "Closed"
-        }))
-    ).flat();
-
-
+    const mappedTimings = (gym?.gym_timings || [])
+        .map((item) =>
+            dayOrder.map((dayKey) => ({
+                day: dayKey.charAt(0).toUpperCase() + dayKey.slice(1),
+                range:
+                    item[dayKey] === 1
+                        ? `${formatTime(item.start_time.split(".")[0])} - ${formatTime(item.end_time.split(".")[0])}`
+                        : "Closed",
+            }))
+        )
+        .flat();
 
     const half = Math.ceil(mappedTimings.length / 2);
     const firstCol = mappedTimings.slice(0, half);
@@ -255,23 +261,32 @@ export default function GymDetailPage() {
         <>
             <section style={{ background: "#f1f3f2" }} className="pb-lg-5 pb-3">
                 <Container>
-                    <div className='Gym-main-header'>
+                    <div className="Gym-main-header">
                         <div className="breadcrumb">
-                            <span>Gym &gt; {gym?.location} &gt; {gym?.name}</span>
+                            <span>
+                                Gym &gt; {gym?.location} &gt; {gym?.name}
+                            </span>
                         </div>
 
                         <h1 className="gympage-name">{gym?.name}</h1>
                         <div className="gym-location-rating">
                             <span>{gym?.location}</span>
-                            <span className="star" style={{ marginLeft: "20px", marginRight: "5px" }}>★</span><span className="light-text"> {gym?.rating}</span><span style={{ marginLeft: "5px" }}>({gym?.reviewcount} ratings)</span>
+                            <span
+                                className="star"
+                                style={{ marginLeft: "20px", marginRight: "5px" }}
+                            >
+                                ★
+                            </span>
+                            <span className="light-text"> {gym?.rating}</span>
+                            <span style={{ marginLeft: "5px" }}>
+                                ({gym?.reviewcount} ratings)
+                            </span>
                         </div>
                     </div>
-
 
                     <div className="gym-details-container">
                         <div className="gym-wrapper row">
                             <div className="gym-left col-lg-8">
-
                                 <div className="gym-image-carosal">
                                     <Swiper
                                         spaceBetween={30}
@@ -284,12 +299,16 @@ export default function GymDetailPage() {
                                             clickable: true,
                                         }}
                                         // navigation={true}
-                                        modules={[Autoplay, Pagination,]}
+                                        modules={[Autoplay, Pagination]}
                                         className="mySwiper"
                                     >
                                         {imagelist.map((img, index) => (
                                             <SwiperSlide key={index} className="gym-swiperslide">
-                                                <img src={img} alt={`gym-image-${index}`} className="gym-swiperslide-img" />
+                                                <img
+                                                    src={img}
+                                                    alt={`gym-image-${index}`}
+                                                    className="gym-swiperslide-img"
+                                                />
                                             </SwiperSlide>
                                         ))}
                                     </Swiper>
@@ -307,54 +326,73 @@ export default function GymDetailPage() {
                                 <div className="gym-section">
                                     <div className="gym-heading">Amenities</div>
                                     <div className="gym-amenities">
-                                        {gym?.amenities?.map(i => (
+                                        {gym?.amenities?.map((i) => (
                                             <div key={i} className="amenities_tag">
-                                                <img src={checkoutIcon} alt="amenities‑tag" className="amt-img" />
+                                                <img
+                                                    src={checkoutIcon}
+                                                    alt="amenities‑tag"
+                                                    className="amt-img"
+                                                />
                                                 <span>{i}</span>
                                             </div>
                                         ))}
-
                                     </div>
                                 </div>
 
                                 <div className="gym-carry-point row">
                                     <div className="gym-section gym-carry col-lg-6">
                                         <div className="gym-heading">Timing</div>
-                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                                        {/* <div
+                                            style={{
+                                                display: "flex",
+                                                flexDirection: "column",
+                                                gap: "6px",
+                                            }}
+                                        >
                                             {mappedTimings.map((t, idx) => (
                                                 <div
                                                     key={idx}
                                                     style={{
-                                                        display: 'flex',
-                                                        justifyContent: 'space-between',
-                                                        padding: '4px 0',
-                                                        borderBottom: '1px solid #eee',
-                                                        flexWrap: 'wrap'
+                                                        display: "flex",
+                                                        justifyContent: "space-between",
+                                                        padding: "4px 0",
+                                                        borderBottom: "1px solid #eee",
+                                                        flexWrap: "wrap",
                                                     }}
                                                 >
-                                                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                                    <div
+                                                        style={{ display: "flex", flexDirection: "column" }}
+                                                    >
                                                         <span style={{ fontWeight: 500 }}>{t.day}</span>
                                                         {t.note && (
-                                                            <span style={{ color: 'darkorange', fontSize: '0.85em' }}>
+                                                            <span
+                                                                style={{
+                                                                    color: "darkorange",
+                                                                    fontSize: "0.85em",
+                                                                }}
+                                                            >
                                                                 {t.note}
                                                             </span>
                                                         )}
                                                     </div>
-                                                    <span style={{ color: '#555', marginLeft: '10px', whiteSpace: 'nowrap' }}>
+                                                    <span
+                                                        style={{
+                                                            color: "#555",
+                                                            marginLeft: "10px",
+                                                            whiteSpace: "nowrap",
+                                                        }}
+                                                    >
                                                         {t.range}
                                                     </span>
                                                 </div>
                                             ))}
-                                        </div>
+                                        </div> */}
+                                        <BusinessHours/>
                                     </div>
-
-
-
 
                                     <div className="gym-section gym-pickPoints col-lg-6">
                                         <div className="gym-heading">Coaches</div>
                                         <div className="coaches-list">
-                                      
                                             {Array.isArray(gym?.coaches) && gym.coaches.length > 0 ? (
                                                 gym.coaches.map((coach, index) => (
                                                     <div className="coaches-card" key={index}>
@@ -373,7 +411,6 @@ export default function GymDetailPage() {
                                             )}
                                         </div>
                                     </div>
-
                                 </div>
 
                                 {/* <div className="gym-term_policy">
@@ -407,33 +444,50 @@ export default function GymDetailPage() {
                                         <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
                                             {/* <!-- Button trigger modal --> */}
                                             <div className="d-flex justify-content-between align-items-center text-center">
-
                                                 <div className="rule">
                                                     <p className="m-0">Terms & Conditions</p>
                                                 </div>
                                                 <div>
-                                                    <button type="button" class="btn border-0" data-bs-toggle="modal" data-bs-target="#RulesRegulations">
+                                                    <button
+                                                        type="button"
+                                                        class="btn border-0"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#RulesRegulations"
+                                                    >
                                                         <img src={arrow} alt="" />
                                                     </button>
                                                 </div>
                                             </div>
 
-
                                             {/* <!-- Modal --> */}
-                                            <div class="modal fade" id="RulesRegulations" tabindex="-1" aria-labelledby="RulesRegulations" aria-hidden="true">
+                                            <div
+                                                class="modal fade"
+                                                id="RulesRegulations"
+                                                tabindex="-1"
+                                                aria-labelledby="RulesRegulations"
+                                                aria-hidden="true"
+                                            >
                                                 <div class="modal-dialog modal-dialog-centered">
                                                     <div class="modal-content custom_modal">
                                                         <div class="modal-header border-0">
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            <button
+                                                                type="button"
+                                                                class="btn-close"
+                                                                data-bs-dismiss="modal"
+                                                                aria-label="Close"
+                                                            ></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             {/* Terms & Conditions Modal */}
                                                             <div className="modal-body">
-                                                                <TermsConditionsModal termsText={gym?.termsAndCondition || "No terms available"} />
+                                                                <TermsConditionsModal
+                                                                    termsText={
+                                                                        gym?.termsAndCondition ||
+                                                                        "No terms available"
+                                                                    }
+                                                                />
                                                             </div>
-
                                                         </div>
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -443,46 +497,66 @@ export default function GymDetailPage() {
                                         <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
                                             {/* <!-- Button trigger modal --> */}
                                             <div className="d-flex justify-content-between align-items-center text-center">
-
                                                 <div className="rule">
                                                     <p className="m-0">Cancellation Policy</p>
                                                 </div>
                                                 <div>
-                                                    <button type="button" class="btn border-0" data-bs-toggle="modal" data-bs-target="#CancellationPolicy">
+                                                    <button
+                                                        type="button"
+                                                        class="btn border-0"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#CancellationPolicy"
+                                                    >
                                                         <img src={arrow} alt="" />
                                                     </button>
                                                 </div>
                                             </div>
 
-
                                             {/* <!-- Modal --> */}
-                                            <div class="modal fade" id="CancellationPolicy" tabindex="-1" aria-labelledby="CancellationPolicy" aria-hidden="true">
+                                            <div
+                                                class="modal fade"
+                                                id="CancellationPolicy"
+                                                tabindex="-1"
+                                                aria-labelledby="CancellationPolicy"
+                                                aria-hidden="true"
+                                            >
                                                 <div class="modal-dialog modal-dialog-centered">
                                                     <div class="modal-content custom_modal">
                                                         <div class="modal-header border-0">
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            <button
+                                                                type="button"
+                                                                class="btn-close"
+                                                                data-bs-dismiss="modal"
+                                                                aria-label="Close"
+                                                            ></button>
                                                         </div>
                                                         <div className="modal-body">
-                                                            <CancellationPolicy policyText={gym?.cancelPolicy || "No cancellation policy available"} />
+                                                            <CancellationPolicy
+                                                                policyText={
+                                                                    gym?.cancelPolicy ||
+                                                                    "No cancellation policy available"
+                                                                }
+                                                            />
                                                         </div>
-
-
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
 
                             <div className="gym-right col-lg-4">
-
                                 <div className="gym-right-section">
                                     <div className="gym-heading">Location</div>
-                                    <div className="gym-right-section-p"><p>{gym?.address}</p></div>
+                                    <div className="gym-right-section-p">
+                                        <p>{gym?.address}</p>
+                                    </div>
                                     <div className="gym-map">
-                                        <CustomMap latitude={gym?.latitude} longitude={gym?.longitude} />
+                                        <CustomMap
+                                            latitude={gym?.latitude}
+                                            longitude={gym?.longitude}
+                                        />
                                     </div>
                                 </div>
 
@@ -496,9 +570,13 @@ export default function GymDetailPage() {
                                                 value={selectedPass?.name || ""}
                                                 onChange={handleSelect}
                                             >
-                                                <option value="" disabled>Select Passes</option>
+                                                <option value="" disabled>
+                                                    Select Passes
+                                                </option>
                                                 {GymPrice[0]?.gym_price_slot?.map((item, index) => (
-                                                    <option key={index} value={item.passes_name}>₹{item.price}/{item.passes_name}</option>
+                                                    <option key={index} value={item.passes_name}>
+                                                        ₹{item.price}/{item.passes_name}
+                                                    </option>
                                                 ))}
                                             </select>
                                             {/* Replace above with real dropdown component if needed */}
@@ -506,9 +584,21 @@ export default function GymDetailPage() {
                                         <div className="quantity-box">
                                             <label>Quantity:</label>
                                             <div className="qty-control">
-                                                <button type="button" className="btn minus" onClick={decrement}>−</button>
+                                                <button
+                                                    type="button"
+                                                    className="btn minus"
+                                                    onClick={decrement}
+                                                >
+                                                    −
+                                                </button>
                                                 <span className="qty">{quantity}</span>
-                                                <button type="button" className="btn plus" onClick={increment}>+</button>
+                                                <button
+                                                    type="button"
+                                                    className="btn plus"
+                                                    onClick={increment}
+                                                >
+                                                    +
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -526,47 +616,50 @@ export default function GymDetailPage() {
                                 </div>
 
                                 <div className="gym-right-section-button">
-                                    <button className="gym-btn" onClick={handleProceed} disabled={bookingLoading || paymentLoading}>{bookingLoading || paymentLoading ? "Processing..." : "Proceed"}</button>
+                                    <button
+                                        className="gym-btn"
+                                        onClick={handleProceed}
+                                        disabled={bookingLoading || paymentLoading}
+                                    >
+                                        {bookingLoading || paymentLoading
+                                            ? "Processing..."
+                                            : "Proceed"}
+                                    </button>
                                 </div>
-
-
                             </div>
                         </div>
 
                         {/* review section */}
                         <div className="ratings-carousel">
                             <EventReviewSlider event={{ reviews: gym?.reviews }} />
-                            {/* <h2 className="review-heading">Ratings & Reviews</h2>
-                            <div className="review-carousel-container">
-                                {gym?.reviews?.slice(start, start + visibleCount).map((review) => (
-                                    <ReviewCard key={review.id} review={review} />
-                                ))}
-                            </div>
-                            <div className="carousel-buttons">
-                                <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
-                                <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
-                            </div> */}
 
                         </div>
 
                         {/* Banners sections */}
-                        <div className='event-banner-container'>
-                            <h2 className='event-banner-heading'>Ongoing Events</h2>
+                        <div className="event-banner-container">
+                            <h2 className="event-banner-heading">Ongoing Events</h2>
                             <div className="event-banner-carousel">
                                 <div className="event-banner-track">
-                                    {banners.concat(banners).map((item, i) => ( // Duplicate for seamless looping
-                                        <div key={i} className="event-banner">
-                                            <img src={item.banner_image} alt="Event" className="event-banner-img" />
-                                        </div>
-                                    ))}
+                                    {banners.concat(banners).map(
+                                        (
+                                            item,
+                                            i // Duplicate for seamless looping
+                                        ) => (
+                                            <div key={i} className="event-banner">
+                                                <img
+                                                    src={item.banner_image}
+                                                    alt="Event"
+                                                    className="event-banner-img"
+                                                />
+                                            </div>
+                                        )
+                                    )}
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </Container>
             </section>
-
         </>
-    )
+    );
 }

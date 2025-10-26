@@ -8,7 +8,7 @@ import rightArrow from "../../withoutauth/assets/icons/right-arrow.svg";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./Stylesheets/EventReviewSlider.css";
-import stargreen from "../../withoutauth/assets/icons/stargreen.svg"
+import stargreen from "../../withoutauth/assets/icons/star-blue.svg"
 
 /* -------------------- Review Card -------------------- */
 const ReviewCard = memo(

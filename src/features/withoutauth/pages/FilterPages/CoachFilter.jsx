@@ -217,10 +217,7 @@ export default function CoachFilterPage() {
                               {coach.linked_sports?.slice(0, 5).map((sport, index) => (
                                 <div
                                   key={index}
-                                  style={{
-                                    width: "30px",
-                                    height: "30px",
-                                  }} 
+                                 className="sport_icons"
                                 >
                                   <img
                                     src={sport.sports_images}
@@ -253,9 +250,9 @@ export default function CoachFilterPage() {
                               )}
                             </div>
 
-                            <p className="mt-3">
-                              <span>
-                                <img className="pe-2" src={map} alt="" />
+                            <p>
+                              <span className="me-2">
+                                <img  src={map} alt="" />
                               </span>
                               {coach.location}
                             </p>

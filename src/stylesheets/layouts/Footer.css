@@ -136,13 +136,19 @@ hr {
   .sub_footer ul li a {
     font-size: 13px;
   }
+  .sub_inner h3, .sub_inners h3{
+
+    margin: 20px 0;
+  }
 }
 
 @media screen and (max-width: 540px) {
-  .sub_inner h3 {
-    margin: 20px 0;
-  }
+
   .sub_footer p {
     font-size: 12px;
+  }
+   .sub_inner h3, .sub_inners h3{
+
+    margin: 15px 0;
   }
 }

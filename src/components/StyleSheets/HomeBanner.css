@@ -2,6 +2,7 @@
 
     background-color: #1163C7;
     padding: 60px 0;
+    margin-bottom: 15px;
 }
 
 .Join_Community {
@@ -90,15 +91,15 @@
     
 .blue_arrow {
     position: absolute;
-    top: 12px;
+    top: 1px;
     right: 5px;
-    height: 20px;
-    width: 20px;
+    height: 40px;
+    width: 40px;
 }
 
     .get_started a {
 
-        padding: 10px 30px 10px 10px;
+        padding: 10px 50px 10px 15px;
     }
 
     .home_banner{
@@ -115,6 +116,11 @@
 
         font-size: 35px;
         line-height: 45px;
+    }
+
+    .home_banner{
+
+        margin-bottom: 10px;
     }
     
 }

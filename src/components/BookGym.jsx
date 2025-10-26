@@ -18,9 +18,8 @@ import { useQueryClient } from "@tanstack/react-query";
 function BookGym() {
   const { lat, lng } = useSelector((state) => state.location);
   const userId = useSelector((state) => state.auth.id);
- 
-    const queryClient = useQueryClient();
-  
+
+  const queryClient = useQueryClient();
 
   const [gymList, setGymList] = useState([]);
   const [coords, setCoords] = useState({ lat, lng, userId });
@@ -38,65 +37,61 @@ function BookGym() {
   const gyms = data?.result || [];
 
   const likeGym = useLikeGym();
-    const unlikeGym = useUnlikeGym();
-  
-    // --- LIKE / UNLIKE ---
-    const toggleFavourite = (gym) => {
-      const gymId = gym.Id;
-      setGymList((prev) =>
-        prev.map((v) =>
-          v.Id === gymId ? { ...v, favourite: !v.favourite } : v
-        )
+  const unlikeGym = useUnlikeGym();
+
+  // --- LIKE / UNLIKE ---
+  const toggleFavourite = (gym) => {
+    const gymId = gym.Id;
+    setGymList((prev) =>
+      prev.map((v) => (v.Id === gymId ? { ...v, favourite: !v.favourite } : v))
+    );
+
+    if (!gym.favourite) {
+      likeGym.mutate(
+        { gymId, userId },
+        {
+          onSuccess: async () =>
+            await queryClient.invalidateQueries(["GymList", userId || null]),
+          onError: () =>
+            setGymList((prev) =>
+              prev.map((v) => (v.Id === gymId ? { ...v, favourite: false } : v))
+            ),
+        }
       );
-  
-      if (!gym.favourite) {
-        likeGym.mutate(
-          { gymId, userId },
-          {
-            onSuccess: async () =>
-              await queryClient.invalidateQueries(["GymList", userId || null]),
-            onError: () =>
-              setGymList((prev) =>
-                prev.map((v) =>
-                  v.Id === gymId ? { ...v, favourite: false } : v
-                )
-              ),
-          }
-        );
-      } else {
-        unlikeGym.mutate(
-          { gymFavouriteId: gym.favourite_gym_id },
-          {
-            onSuccess: async () =>
-              await queryClient.invalidateQueries(["GymList", userId || null]),
-            onError: () =>
-              setGymList((prev) =>
-                prev.map((v) =>
-                  v.Id === gymId ? { ...v, favourite: true } : v
-                )
-              ),
-          }
-        );
-      }
-    };
+    } else {
+      unlikeGym.mutate(
+        { gymFavouriteId: gym.favourite_gym_id },
+        {
+          onSuccess: async () =>
+            await queryClient.invalidateQueries(["GymList", userId || null]),
+          onError: () =>
+            setGymList((prev) =>
+              prev.map((v) => (v.Id === gymId ? { ...v, favourite: true } : v))
+            ),
+        }
+      );
+    }
+  };
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading gyms: {error.message}</p>;
 
-   const handleShare = (gym) => {
-      const shareData = {
-        title: gym.gym_name,
-        text: `Check out ${gym.gym_name} on Danta Sports!`,
-        url: `${window.location.origin}/gym/${gym.Id}`,
-      };
-  
-      if (navigator.share) {
-        navigator.share(shareData).catch((error) => console.error("Share failed:", error));
-      } else {
-        navigator.clipboard.writeText(shareData.url);
-        alert("Link copied to clipboard!");
-      }
+  const handleShare = (gym) => {
+    const shareData = {
+      title: gym.gym_name,
+      text: `Check out ${gym.gym_name} on Danta Sports!`,
+      url: `${window.location.origin}/gym/${gym.Id}`,
     };
+
+    if (navigator.share) {
+      navigator
+        .share(shareData)
+        .catch((error) => console.error("Share failed:", error));
+    } else {
+      navigator.clipboard.writeText(shareData.url);
+      alert("Link copied to clipboard!");
+    }
+  };
 
   return (
     <section className="book_venue_section">
@@ -132,26 +127,26 @@ function BookGym() {
                   </div>
 
                   <div className="card_icons">
-                  
-                                          <div className="card_icons">
-                                            <button
-                                              className="like"
-                                              onClick={() => toggleFavourite(gym)}
-                                              style={{   border: "none",
-    background: "bottom"}}
-                                            >
-                                              <img src={gym.favourite ? HeartFilled : like}  className="like" />
-                                            </button>
-                  
-                                            <button
-                                              style={{   border: "none",
-    background: "bottom"}}
-                                              className="share"
-                                              onClick={() => handleShare(gym)}
-                                            >
-                                              <img src={share}  className="share" />
-                                            </button>
-                                          </div>
+                    <div className="card_icons">
+                      <button
+                        className="like"
+                        onClick={() => toggleFavourite(gym)}
+                        style={{ border: "none", background: "bottom" }}
+                      >
+                        <img
+                          src={gym.favourite ? HeartFilled : like}
+                          className="like"
+                        />
+                      </button>
+
+                      <button
+                        style={{ border: "none", background: "bottom" }}
+                        className="share"
+                        onClick={() => handleShare(gym)}
+                      >
+                        <img src={share} className="share" />
+                      </button>
+                    </div>
                   </div>
 
                   <div className="txt_wrapper">
@@ -162,7 +157,8 @@ function BookGym() {
                         <span>
                           {/* <img className="pe-2" src={map} alt="map" /> */}
                         </span>
-                        {gym.city} (~{gym.distance ? gym.distance.toFixed(1) : 0} Km)
+                        {gym.city} (~
+                        {gym.distance ? gym.distance.toFixed(1) : 0} Km)
                         {/* Magarpatta City (~O.7 Km) */}
                       </p>
 
@@ -205,8 +201,6 @@ function BookGym() {
                       </p>
                     </div> */}
 
-
-
                     <div className="d-flex justify-content-between">
                       <p className="mb-0 upto_text">
                         {gym.coupon_type === "percentage" && gym.discount_offer
@@ -217,7 +211,10 @@ function BookGym() {
                       </p>
                       {minPriceObj && (
                         <div className="price_info">
-                          <p style={{ fontWeight: 500, marginTop: "5px" }} className="mb-0">
+                          <p
+                            style={{ fontWeight: 500, marginTop: "5px" }}
+                            className="mb-0"
+                          >
                             ₹{minPriceObj.price} onwards
                           </p>
                         </div>
@@ -225,11 +222,13 @@ function BookGym() {
                     </div>
                     <div className="card_line"></div>
                     <div className="offer d-flex justify-content-between align-items-center w-100">
-
                       <Link to={`/Gym/${gym.Id}`}>Join Now</Link>
                     </div>
                     <div className="rating">
-                      <span><img src={star} className="pe-2" alt="" /> {gym.average_rating || "0.0"}</span>
+                      <span>
+                        <img src={star} className="pe-2" alt="" />{" "}
+                        {gym.average_rating || "0.0"}
+                      </span>
                     </div>
                   </div>
                 </Card>

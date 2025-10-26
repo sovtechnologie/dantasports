@@ -106,25 +106,8 @@ export default function EventFilterPage() {
               <div className="row g-3">
                 {eventList.length > 0 ? (
                   eventList.map((evt) => (
-                    <div className="col-lg-4 col-md-6" key={evt.id}>
-                      <Card className="event-card">
-                        <div
-                          className="card_img"
-                          onClick={() => navigate(`/Events/${evt.id}`)}
-                          style={{ cursor: "pointer" }}
-                        >
-                          <img
-                            src={evt.desktop_image || fallbackEventImage}
-                            className="w-100"
-                            alt={evt.event_title}
-                            onError={(e) => {
-                              e.currentTarget.onerror = null;
-                              e.currentTarget.src = fallbackEventImage;
-                            }}
-                          />
-                        </div>
-
-                        <div className="card_icons">
+                    <div className="col-lg-4 col-md-6 position-relative" key={evt.id}>
+                        <div className="card_icons events">
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
@@ -155,6 +138,25 @@ export default function EventFilterPage() {
                             />
                           </button>
                         </div>
+                      <Card className="event-card">
+                        
+                        <div
+                          className="card_img"
+                          onClick={() => navigate(`/Events/${evt.id}`)}
+                          style={{ cursor: "pointer" }}
+                        >
+                          <img
+                            src={evt.desktop_image || fallbackEventImage}
+                            className="w-100"
+                            alt={evt.event_title}
+                            onError={(e) => {
+                              e.currentTarget.onerror = null;
+                              e.currentTarget.src = fallbackEventImage;
+                            }}
+                          />
+                        </div>
+
+                      
 
                         <div className="reating">
                           <span>
@@ -173,7 +175,7 @@ export default function EventFilterPage() {
                         >
                           <div className="card_txt">
                             <h2 className="text_wrap card_heading">{evt.event_title}</h2>
-                            <p className="text_wrap">
+                            <p>
                               <span>
                                 <img className="pe-2" src={date} alt="" />
                               </span>

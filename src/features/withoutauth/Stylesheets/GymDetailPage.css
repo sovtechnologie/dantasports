@@ -294,7 +294,7 @@
   border: 1px solid #b1b1b1;
   border-radius: 8px;
   /* background: #f9f9f9; */
-  color: #999;
+  /* color: #999; */
   font-size: 15px;
   appearance: none;
   -webkit-appearance: none;
@@ -450,6 +450,10 @@
   border-radius: 8px;
   object-fit: cover;
 }
+
+
+/* timing weekdays */
+
 
 /* Animation Keyframes */
 @keyframes scroll-left {

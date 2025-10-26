@@ -448,14 +448,14 @@
   margin-top: 4px;
 }
 
-.modal_title .rule p {
+/* .modal_title .rule p {
 
   color: #393317;
   font-family: 'Lato';
 font-weight: 500;
 font-size: 18px;
 
-}
+} */
 .venue-right-section {
   border: 1px solid #d6e4f0;
   border-radius: 12px;
@@ -826,7 +826,7 @@ x .ratings-carousel {
   width: 300px;
   /* adjust as needed */
   /* height: auto; */
-  height: 160px;
+  height: 160.2px;
   border-radius: 8px;
   object-fit: cover;
 }

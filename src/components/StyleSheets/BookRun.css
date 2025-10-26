@@ -1,13 +1,37 @@
-.book_venue_section .card {
-  box-shadow: 0px 4px 4px 0px #1163c740;
-  margin-bottom: 15px;
-  border: none;
+.sports_title_km{
+
+      color: #858585;
+  font-family: 'DM Sans';
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16.54px;
+}
+
+/* .custm_ht .card{
+
+  border: 1px solid  red;
+  height: 450px;
+
+
+} */
+
+.card_icons1{
+
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+
+.card{
+
   position: relative;
 }
 
+
 .card_icons .like {
   position: absolute;
-  top: 10px;
+  top: 0px;
   z-index: 999;
   right: 18%;
   height: 26px;
@@ -16,7 +40,7 @@
 
 .card_icons .share {
   position: absolute;
-  top: 10px;
+  top: 0px;
   z-index: 999;
   right: 5%;
   height: 26px;
@@ -38,9 +62,7 @@
   margin-bottom: 0px;
 }
 
-.txt_wrapper {
-  padding: 15px;
-}
+
 
 .offer a {
   background-color: #1163c7;
@@ -74,7 +96,7 @@
 
 .more-sports {
   font-weight: 600;
-  color: #007bff; /* optional: make +N blue */
+  color: #007bff; 
   margin-left: 4px;
 }
 

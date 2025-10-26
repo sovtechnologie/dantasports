@@ -9,10 +9,23 @@
 
 .quick_booking_section .card h3 {
 
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 37.25px;
+ font-family: 'Lato';
+font-weight: 400;
+font-size: 24px;
+line-height: 33.25px;
+
   color: #172A39;
+
+}
+
+
+.quick_booking_section .card p {
+
+  margin-bottom: 0;
+  font-family: 'DM Sans';
+  font-weight: 400;
+  font-size: 16px;
+  color: #858585;
 
 }
 
@@ -21,8 +34,7 @@
     overflow: hidden;
     border-radius: 15px 15px 0 0;
     transition: .3s ease-in-out;
-    height: 100%;
-    max-height: 118px;
+    height: 118px;
 }
 
 .card_img_booking img {
@@ -67,4 +79,12 @@
 
 
 }
+
+.card_img_booking {
+
+  height: 90px;
+}
+
+
+
 }

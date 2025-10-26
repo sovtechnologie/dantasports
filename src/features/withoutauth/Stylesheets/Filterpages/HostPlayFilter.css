@@ -11,9 +11,25 @@ h2 {
 
 }
 
+.card_payhost{
+
+    padding: 20px 16px 10px 16px;
+
+
+}
+
 .card{
 
-    border: 1px solid rgb(181, 181, 189);
+    box-shadow: 0px 4px 4px 0px #1163C740;
+    margin-bottom: 15px;
+    border: none;
+    position: relative;
+    height: 100%;
+    border: none;
+    border-radius: 12px;
+    position: relative;
+    max-height: 404px;
+    height: 100%;
 }
 
 .badge_label p{

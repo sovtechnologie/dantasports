@@ -12,7 +12,7 @@ import { useLikeEvent } from "../hooks/favouriteEvent/useLikeEvent.js";
 import { useUnlikeEvent } from "../hooks/favouriteEvent/useUnLikeEvent.js";
 import { Link } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
-import bookrunn from '../assets/images/home/bookrun/bookrun.png'
+import bookrunn from "../assets/images/home/bookrun/bookrun.png";
 
 function formatTime(timeStr = "00:00") {
   if (!timeStr) return "";
@@ -96,7 +96,7 @@ function BookRun() {
   const visibleEvents = eventList.slice(0, 4);
 
   return (
-    <section className="book_venue_section">
+    <section className="book_venue_section custm_ht">
       <Container>
         <div className="d-flex justify-content-between align-items-center">
           <div className="section_title">
@@ -113,7 +113,7 @@ function BookRun() {
                 <div className="card_img">
                   <img
                     src={evt.desktop_image || bookrunn}
-                    className="w-100"
+                    className=""
                     alt={evt.event_title}
                     onError={(e) => {
                       e.target.onerror = null;
@@ -147,23 +147,28 @@ function BookRun() {
 
                 <div className="txt_wrapper">
                   <div className="card_txt">
-                    <h2 className="text_wrap card_heading">{evt.event_title}</h2>
-                     
-                    <p className="text_wrap">
-                      <span>
-                        <img className="pe-2" src={dateIcon} alt="date" />
+                    <h2 className="text_wrap card_heading">
+                      {evt.event_title}
+                    </h2>
+
+                    <p className="card_date mb-2">
+                      <span className="me-2">
+                        <img  src={dateIcon} alt="date" />
                       </span>
                       {`${new Date(evt.start_date).toLocaleDateString("en-GB", {
                         day: "2-digit",
                         month: "short",
-                      })} - ${new Date(evt.end_date).toLocaleDateString("en-GB", {
-                        day: "2-digit",
-                        month: "short",
-                      })} | ${formatTime(evt.start_time)} onwards`}
+                      })} - ${new Date(evt.end_date).toLocaleDateString(
+                        "en-GB",
+                        {
+                          day: "2-digit",
+                          month: "short",
+                        }
+                      )} | ${formatTime(evt.start_time)} onwards`}
                     </p>
-                    <p>
-                      <span>
-                        <img className="pe-2" src={mapIcon} alt="map" />
+                    <p className="card_date my-0">
+                      <span className="me-2">
+                        <img  src={mapIcon} alt="map" />
                       </span>
                       {evt.locations[0]?.area}, {evt.locations[0]?.city}
                     </p>
@@ -196,21 +201,25 @@ function BookRun() {
                       )}
                     </ul>
                   </div> */}
-                   <div className="d-flex justify-content-between no_off_users">
-                    
-                        <p className="up_to_offer mb-2">
+                  <div className="d-flex justify-content-between no_off_users">
+                    <p className="up_to_offer mb-2">
                       {evt.coupon_type === "percentage" && evt.discount_offer
                         ? `Upto ${parseFloat(evt.discount_offer)}% Off`
                         : evt.coupon_type === "flat" && evt.discount_offer
                           ? `Upto ₹${parseFloat(evt.discount_offer)} Off`
                           : ""}
                     </p>
-                      <p className="onwards_rup mb-2">  {evt.pricing
-      ? `₹${parseFloat(evt.pricing).toFixed(0)} onwards`
-      : ""}</p>
-                    </div>
-                     <div className="card_line mb-2"></div>
-
+                    <p className="onwards_rup mb-2">
+                      {" "}
+                      {evt.pricing
+                        ? `₹${parseFloat(evt.pricing).toFixed(0)} onwards`
+                        : ""}
+                    </p>
+                  </div>
+                  <div className="card_line mb-1"></div>
+                  <div className="easy2">
+                    <span>Easy</span>
+                  </div>
 
                   {/* Offer / Join Now */}
                   <div className="offer d-flex justify-content-between align-items-center">
@@ -225,8 +234,11 @@ function BookRun() {
                     <Link to={`/Run/${evt.id}`}>Join Now</Link>
                   </div>
                   <div className="rating">
-                          <span><img src={star} className="pe-2" alt="" />{evt.average_rating || "0.0"}</span>
-                      </div>
+                    <span>
+                      <img src={star} className="pe-2" alt="" />
+                      {evt.average_rating || "0.0"}
+                    </span>
+                  </div>
                 </div>
               </Card>
             </Col>

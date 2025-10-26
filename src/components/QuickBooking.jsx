@@ -16,12 +16,12 @@ function QuickBooking() {
 
   
   const cardsData = [
-    { title: "Book", texts: ["Reserve Nearby Turf", "Reserve Nearby.."], img: book, path: "/venue" },
-    { title: "Play", texts: ["Find Players", "Play with Team"], img: play, path: "/Host" },
-    { title: "Run", texts: ["Run Clubs Near You", "Match Timings"], img: run, path: "/run" },
-    { title: "Coach", texts: ["Find Your Coach", "Find Your Teams"], img: coach, path: "/coach" },
-    { title: "Event", texts: ["Upcoming Events", "Registered Event"], img: events, path: "/Events" },
-    { title: "Gym", texts: ["Flex Gym Access", "Got Rewards"], img: gym, path: "/Gym" },
+    { title: "Book", texts: ["Book Sports Turf", "Book Sports Turf"], img: book, path: "/venue" },
+    { title: "Play", texts: ["Find Players Fast", "Find Players Fast"], img: play, path: "/Host" },
+    { title: "Run", texts: ["Join Run Clubs", "Join Run Clubs"], img: run, path: "/run" },
+    { title: "Coach", texts: ["Expert Coaches", "Expert Coaches"], img: coach, path: "/coach" },
+    { title: "Event", texts: ["Book Fit Events", "Registered Event"], img: events, path: "/Events" },
+    { title: "Gym", texts: ["Pay Per Workout", "Pay Per Workout"], img: gym, path: "/Gym" },
   ];
 
   // Index state for each card
@@ -60,7 +60,7 @@ function QuickBooking() {
                 <div className="card_img_booking">
                   <img src={card.img} alt={card.title} />
                 </div>
-                <div className="card_txt text-center pt-2">
+                <div className="card_txt text-center pt-2 pb-3">
                   <h3>{card.title}</h3>
                   <p className={`fade-text ${fadeStates[i] ? "fade-in-up" : "fade-out"}`}>
                     {card.texts[indexes[i]]}

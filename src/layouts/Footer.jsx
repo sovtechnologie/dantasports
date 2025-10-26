@@ -67,9 +67,9 @@ function Footer() {
                 </div>
               </div>
             </Col>
-            <Col lg={7} md={8}>
+            <Col lg={6} md={8}>
               <div className="row justify-content-center">
-                <div className="sub_inner col-lg-3 col-md-4">
+                <div className="sub_inner col-lg-4 col-md-3">
                   <h3>Company</h3>
                   <ul className="p-0 m-0">
                     <li>
@@ -91,7 +91,7 @@ function Footer() {
                     </li>
                   </ul>
                 </div>
-                <div className="sub_inner col-lg-3 col-md-4">
+                <div className="sub_inner col-lg-3 col-md-3">
                   <h3>Services</h3>
                   <ul className="p-0 m-0">
                     <li>
@@ -114,7 +114,7 @@ function Footer() {
                     </li>
                   </ul>
                 </div>
-                <div className="sub_inner col-lg-6 col-md-4">
+                <div className="sub_inner col-lg-5 col-md-6">
                   <h3>Top Cities</h3>
                   <div className="d-flex">
                     <ul className="p-0 m-0">
@@ -162,7 +162,7 @@ function Footer() {
                 </div>
               </div>
             </Col>
-            <Col lg={2} md={3}>
+            <Col lg={3} md={12}>
               <div className="sub_inners">
                 <h3>Contact</h3>
                 <ul className="p-0 m-0">

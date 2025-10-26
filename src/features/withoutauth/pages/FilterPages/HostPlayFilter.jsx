@@ -87,7 +87,7 @@ export default function HostPlayFilterPage() {
               {filteredHosts.length > 0 ? (
                 filteredHosts.map((host) => (
                   <Col lg={4} md={6} key={host.id}>
-                    <Card className="card p-3 p-lg-4 ">
+                    <Card className="card card_payhost">
                       {/* Label */}
                       <div className="badge_label mb-2">
                         <p>{host.activity_type || "Regular"}</p>
@@ -173,6 +173,7 @@ export default function HostPlayFilterPage() {
                           {SKILL_MAP[host.game_skill]?.label || "Novice"}
                         </span>
                       </div>
+                      <div className="card_line"></div>
                       <div className="offer">
                         <a href="">Join Now</a>
                       </div>

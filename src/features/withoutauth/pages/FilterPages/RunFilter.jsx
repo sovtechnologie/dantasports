@@ -231,9 +231,9 @@ export default function RunFilterPage() {
                         <div className="txt_wrapper">
                           <div className="card_txt">
                             <h2 className="text_wrap">{event.event_title}</h2>
-                            <p className="text_wrap">
-                              <span>
-                                <img className="pe-2" src={date} alt="" />
+                            <p className="card_date mb-2">
+                              <span className="me-2">
+                                <img  src={date} alt="" />
                               </span>
                               {new Date(event.start_date).toLocaleDateString("en-GB", {
                                 day: "2-digit",
@@ -246,9 +246,9 @@ export default function RunFilterPage() {
                               })}{" "}
                               | {formatTime(event.start_time)} onwards
                             </p>
-                            <p>
-                              <span>
-                                <img className="pe-2" src={map} alt="" />
+                            <p className="card_date mb-3">
+                              <span className="me-2">
+                                <img  src={map} alt="" />
                               </span>
                               {event.locations?.[0]?.area},{" "}
                               {event.locations?.[0]?.city}
@@ -283,8 +283,8 @@ export default function RunFilterPage() {
                           </div> */}
 
                           <div className="d-flex justify-content-between">
-                            <p className="up_to_offer">Upto 50%off</p>
-                            <p className="onwards_rup">₹1000 onwards</p>
+                            <p className="up_to_offer m-0">Upto 50%off</p>
+                            <p className="onwards_rup m-0">₹1000 onwards</p>
                           </div>
                           <div className="card_line"></div>
 
@@ -304,6 +304,9 @@ export default function RunFilterPage() {
                          <div className="rating">
                                                   <span><img src={star} className="pe-2" alt="" />4.4</span>
                                               </div>
+                                                <div className="easy2">
+                    <span>Easy</span>
+                  </div>
                       </div>
                     </div>
                   ))

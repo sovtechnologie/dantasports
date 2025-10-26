@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "../Stylesheets/VenueDetail.css";
 import venueImage from "../assets/Venue-image.png";
 import ReviewCard from "../components/ReviewCard.jsx";
@@ -68,10 +68,10 @@ const mapVenueData = (apiData) => {
       : [venueImage, venueImage, venueImage, venueImage],
     sports: Array.isArray(apiData?.sports)
       ? apiData.sports.map((sport) => ({
-        sportId: sport.id,
-        name: sport.name,
-        icon: sport.image,
-      }))
+          sportId: sport.id,
+          name: sport.name,
+          icon: sport.image,
+        }))
       : [],
     amenities: Array.isArray(apiData?.amenities)
       ? apiData.amenities.map((a) => a.name)
@@ -84,15 +84,15 @@ const mapVenueData = (apiData) => {
     favourite_venue_id: apiData?.favourite_venue_id,
     reviews: Array.isArray(apiData?.reviews)
       ? apiData.reviews.map((review) => ({
-        id: review.id,
-        image: review.image ,
-        userName: review.user_name || "Anonymous",
-        rating: review.rating || 0,
-        comment: review.comment || "No comment provided",
-        date:
-          formatDate(review.createdAt) ||
-          new Date().toISOString().split("T")[0],
-      }))
+          id: review.id,
+          image: review.image,
+          userName: review.user_name || "Anonymous",
+          rating: review.rating || 0,
+          comment: review.comment || "No comment provided",
+          date:
+            formatDate(review.createdAt) ||
+            new Date().toISOString().split("T")[0],
+        }))
       : [], // Default to first 5 reviews if not available
   };
 };
@@ -124,24 +124,24 @@ function VenueDetailsPage() {
     Array.isArray(data?.result) && data.result.length > 0
       ? mapVenueData(data.result[0])
       : {
-        name: "Loading Venue...",
-        location: "",
-        rating: 0,
-        reviewcount: 0,
-        timing: "",
-        price: 0,
-        address: "",
-        images: [venueImage],
-        sports: [],
-        amenities: [],
-        reviews: [],
-      };
+          name: "Loading Venue...",
+          location: "",
+          rating: 0,
+          reviewcount: 0,
+          timing: "",
+          price: 0,
+          address: "",
+          images: [venueImage],
+          sports: [],
+          amenities: [],
+          reviews: [],
+        };
 
   const {
     data: sportDetails,
     isLoading: sportDetailsLoading,
     error: sportDetailsError,
-  } = useSportDetails(selectedSport,id);
+  } = useSportDetails(selectedSport, id);
   if (sportDetails && sportDetails.result) {
     console.log("Sport Details:", sportDetails.result[0]);
   }
@@ -323,6 +323,7 @@ function VenueDetailsPage() {
               <span className="light-text">
                 {venue.rating} ({venue.reviewcount} ratings)
               </span>
+              <span className="ps-2 text_blue"><a href="#">Rate Gym</a></span>
             </div>
           </div>
 
@@ -378,7 +379,7 @@ function VenueDetailsPage() {
 
                 <div className="section">
                   <div className="sports-wrapper">
-                    <div className="sports-header">About11</div>
+                    <div className="sports-header">About Venue</div>
                     <div className="event-description">{venue.about}</div>
                   </div>
                 </div>
@@ -437,28 +438,42 @@ function VenueDetailsPage() {
                     <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
                       {/* <!-- Button trigger modal --> */}
                       <div className="d-flex justify-content-between align-items-center text-center">
-                       
                         <div className="rule">
                           <p className="m-0">Rules and regulations</p>
                         </div>
-                         <div>
-                          <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#RulesRegulations">
+                        <div>
+                          <button
+                            type="button"
+                            class="btn"
+                            data-bs-toggle="modal"
+                            data-bs-target="#RulesRegulations"
+                          >
                             <img src={arrow} alt="" />
                           </button>
                         </div>
                       </div>
 
-
                       {/* <!-- Modal --> */}
-                      <div class="modal fade" id="RulesRegulations" tabindex="-1" aria-labelledby="RulesRegulations" aria-hidden="true">
+                      <div
+                        class="modal fade"
+                        id="RulesRegulations"
+                        tabindex="-1"
+                        aria-labelledby="RulesRegulations"
+                        aria-hidden="true"
+                      >
                         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable ">
                           <div class="modal-content custom_modal">
                             <div class="modal-header border-0">
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                              ></button>
                             </div>
                             <div class="modal-body">
- <RulesRegulations content={venue.rules} />                            </div>
-
+                              <RulesRegulations content={venue.rules} />{" "}
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -468,35 +483,49 @@ function VenueDetailsPage() {
                     <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
                       {/* <!-- Button trigger modal --> */}
                       <div className="d-flex justify-content-between align-items-center text-center">
-                       
                         <div className="rule">
                           <p className="m-0">Cancellation Policy</p>
                         </div>
-                         <div>
-                          <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#CancellationPolicy">
+                        <div>
+                          <button
+                            type="button"
+                            class="btn"
+                            data-bs-toggle="modal"
+                            data-bs-target="#CancellationPolicy"
+                          >
                             <img src={arrow} alt="" />
                           </button>
                         </div>
                       </div>
 
-
                       {/* <!-- Modal --> */}
-                      <div class="modal fade" id="CancellationPolicy" tabindex="-1" aria-labelledby="CancellationPolicy" aria-hidden="true">
+                      <div
+                        class="modal fade"
+                        id="CancellationPolicy"
+                        tabindex="-1"
+                        aria-labelledby="CancellationPolicy"
+                        aria-hidden="true"
+                      >
                         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable ">
                           <div class="modal-content custom_modal">
                             <div class="modal-header border-0">
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                              ></button>
                             </div>
                             <div class="modal-body">
-                             <CancellationPolicy policyText={venue.booking_policy} />
+                              <CancellationPolicy
+                                policyText={venue.booking_policy}
+                              />
                             </div>
-
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                
                 </div>
               </div>
               <div className="venue-right col-lg-4">
@@ -568,7 +597,7 @@ function VenueDetailsPage() {
                       convenienceFee={convenienceFee}
                       count={1}
                       type={1}
-                        venueId={id} 
+                      venueId={id}
                       setFinalAmount={setFinalAmount}
                     />
                   )}
@@ -582,9 +611,6 @@ function VenueDetailsPage() {
               {venue?.reviews?.length > 0 && (
                 <div className="rating-wrapper">
                   <EventReviewSlider event={{ reviews: venue?.reviews }} />
-                 
-                 
-
                 </div>
               )}
 
