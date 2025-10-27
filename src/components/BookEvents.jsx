@@ -225,7 +225,15 @@ function BookEvents() {
                     </div>
                     <div className="card_line mb-2"></div>
                      <div className="easy2">
-                    <span>Easy</span>
+                    <span> {evt.difficulty === 0 ? (
+    <span className="Moderate">Moderate</span>
+  ) : evt.difficulty === 1 ? (
+    <span className="easy">Easy</span>
+  ) : evt.difficulty === 2 ? (
+    <span className="difficult">Difficult</span>
+  ) : (
+    <span className="unknown">Not Specified</span>
+  )}</span>
                   </div>
 
                     <div className="offer d-flex justify-content-between align-items-center">

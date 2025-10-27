@@ -38,6 +38,11 @@ export default function BookVenues() {
     const venueId = venue.id;
     console.log("toggle");
 
+     if (!auth || !auth?.id) {
+    alert("Please login first to like or unlike a venue.");
+    return; 
+  }
+
     setVenueList((prevList) =>
       prevList.map((v) =>
         v.id === venueId ? { ...v, favourite: !v.favourite } : v

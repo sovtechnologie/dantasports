@@ -107,39 +107,39 @@ export default function EventFilterPage() {
                 {eventList.length > 0 ? (
                   eventList.map((evt) => (
                     <div className="col-lg-4 col-md-6 position-relative" key={evt.id}>
-                        <div className="card_icons events">
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              toggleFavourite(evt);
-                            }}
-                            className="icon-btn"
-                            style={{ background: "none", border: "none" }}
-                          >
-                            <img
-                              className="like"
-                              src={evt.favourite ? HeartFilled : likeIcon}
-                              alt="like"
-                            />
-                          </button>
+                      <div className="card_icons events">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleFavourite(evt);
+                          }}
+                          className="icon-btn"
+                          style={{ background: "none", border: "none" }}
+                        >
+                          <img
+                            className="like"
+                            src={evt.favourite ? HeartFilled : likeIcon}
+                            alt="like"
+                          />
+                        </button>
 
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              Share();
-                            }}
-                            className="icon-btn"
-                            style={{ background: "none", border: "none" }}
-                          >
-                            <img
-                              className="share"
-                              src={shareIcon}
-                              alt="share"
-                            />
-                          </button>
-                        </div>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            Share();
+                          }}
+                          className="icon-btn"
+                          style={{ background: "none", border: "none" }}
+                        >
+                          <img
+                            className="share"
+                            src={shareIcon}
+                            alt="share"
+                          />
+                        </button>
+                      </div>
                       <Card className="event-card">
-                        
+
                         <div
                           className="card_img"
                           onClick={() => navigate(`/Events/${evt.id}`)}
@@ -156,7 +156,7 @@ export default function EventFilterPage() {
                           />
                         </div>
 
-                      
+
 
                         <div className="reating">
                           <span>
@@ -166,7 +166,15 @@ export default function EventFilterPage() {
                         </div>
 
                         <div className="easy">
-                          <span>Easy</span>
+                          <span>{evt.difficulty === 0 ? (
+                            <span className="Moderate">Moderate</span>
+                          ) : evt.difficulty === 1 ? (
+                            <span className="easy">Easy</span>
+                          ) : evt.difficulty === 2 ? (
+                            <span className="difficult">Difficult</span>
+                          ) : (
+                            <span className="unknown">Not Specified</span>
+                          )}</span>
                         </div>
 
                         <div
@@ -228,7 +236,7 @@ export default function EventFilterPage() {
                           {/* <hr /> */}
                           <div className="offer">
                             <a
-                              href="#"
+
                               onClick={(e) => {
                                 e.preventDefault();
                                 navigate(`/Events/${evt.id}`);

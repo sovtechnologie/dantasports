@@ -5,6 +5,7 @@ import { useSportDetails } from '../../../hooks/favouriteSport/useSportDetails.j
 import { useFetchTimeslotForVenue } from '../../../hooks/VenueList/useFetchTimingSlots.js';
 import TimeslotShimmer from "./Shimmer/TimeslotShimmer.jsx";
 import { useCreateVenueBooking } from '../../../hooks/BookingVenue/useCreateVenueBooking.js';
+import { useUpdateBooking } from '../../../hooks/BookingVenue/useUpdateVenueBooking.js';
 
 export const formatDate = (isoString) => {
     const date = new Date(isoString);
@@ -219,33 +220,87 @@ const TimeSelector = ({
     hour12: false
   });
 
+const {
+  mutate: updateBooking,
+  isLoading: updateLoading,
+  error: updateError
+} = useUpdateBooking();
+
+
+  // const bookVenue = (courtId) => {
+
+  //     if (!isLoggedIn) {
+  //     alert('Please log in to proceed.')
+  //     return;
+  //   }
+  //   setSelectedPitch(courtId);
+
+  //   const bookingPayload = {
+  //     sportId: sportId,
+  //     venueId: venueId,
+  //     date:  getLocalIsoDate(selectedDate),
+  //     startTime: timeRead,
+  //     duration: selectedDuration * 60,
+  //     courtId: courtId,
+  //   };
+
+  //   createBooking(bookingPayload, {
+  //     onSuccess: (data) => {
+  //       const id = data?.result?.insertId;
+  //       setBookingId(id);
+  //       // setBookingId(data?.result?.insertId);
+  //       console.log("My Booking Id", data?.result?.insertId);
+  //     },
+  //     onError: (error) => alert('Booking failed. ' + (error.message || '')),
+  //   });
+  // }
+
   const bookVenue = (courtId) => {
+  if (!isLoggedIn) {
+    alert('Please log in to proceed.');
+    return;
+  }
 
-      if (!isLoggedIn) {
-      alert('Please log in to proceed.')
-      return;
-    }
-    setSelectedPitch(courtId);
+  setSelectedPitch(courtId);
 
-    const bookingPayload = {
-      sportId: sportId,
-      venueId: venueId,
-      date:  getLocalIsoDate(selectedDate),
-      startTime: timeRead,
-      duration: selectedDuration * 60,
-      courtId: courtId,
-    };
+  const bookingPayload = {
+    sportId: sportId,
+    venueId: venueId,
+    date: getLocalIsoDate(selectedDate),
+    startTime: timeRead,
+    duration: selectedDuration * 60, 
+    courtId: courtId,
+    bookingId: bookingId, 
+  };
 
+  if (bookingId) {
+   
+    updateBooking(bookingPayload, {
+      onSuccess: (data) => {
+        console.log("Booking updated successfully:", data);
+        alert("Booking updated successfully!");
+      },
+      onError: (error) => {
+        console.error("Update failed:", error);
+        alert("Failed to update booking.");
+      },
+    });
+  } else {
+    
     createBooking(bookingPayload, {
       onSuccess: (data) => {
         const id = data?.result?.insertId;
         setBookingId(id);
-        // setBookingId(data?.result?.insertId);
-        console.log("My Booking Id", data?.result?.insertId);
+        console.log("Booking created successfully. ID:", id);
       },
-      onError: (error) => alert('Booking failed. ' + (error.message || '')),
+      onError: (error) => {
+        console.error("Booking failed:", error);
+        alert("Booking failed. Please try again.");
+      },
     });
   }
+};
+
   console.log("bookingid",bookingId);
 
 

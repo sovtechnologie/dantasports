@@ -16,6 +16,8 @@ import { fetchFavoriteGym } from '../../../services/LoginApi/FavouriteGymApi/end
 import { fetchFavoriteEvent } from '../../../services/LoginApi/FavouriteEventApi/endpointApi.js';
 import { useUnlikeGym } from '../../../hooks/FavouriteGym/useUnlikeGym.js';
 import { useUnlikeEvent } from '../../../hooks/favouriteEvent/useUnLikeEvent.js';
+import { getFavoriteCoachesList } from '../../../services/LoginApi/FavouritCoachApi/endpointApi.js';
+import { useUnlikeCoach } from '../../../hooks/favouriteCoach/useUnlikeCoach.js';
 
 
 
@@ -23,7 +25,7 @@ import { useUnlikeEvent } from '../../../hooks/favouriteEvent/useUnLikeEvent.js'
 const ITEMS_PER_PAGE = 4;
 const SPORTS_PER_PAGE = 12;
 
-const tabs = ["Venue","Gym","Event","Sport"];
+const tabs = ["Venue","Gym","Event","Coach","Sport"];
 
 const Favorites = () => {
   const token = useSelector((state) => state.auth.token);
@@ -64,6 +66,14 @@ const { data: eventData, isLoading: isFavoriteEvent, isError: isFavouriteEventEr
 const FavoritesEventData = Array.isArray(eventData?.data) ? eventData.data : [];
 console.log("FavoritesEventData", FavoritesEventData);
 
+const { data: coachData, isLoading: isFavoriteCoach, isError: isFavouriteCoachError } = useQuery({
+  queryKey: ['favoritesCoach', lat, lng],
+  queryFn: () => getFavoriteCoachesList(lat, lng),
+  enabled: !!token && !!lat && !!lng,
+});
+
+const FavoritesCoachData = Array.isArray(coachData?.result) ? coachData.result : [];
+console.log("FavoritesCoachData", FavoritesCoachData);
 
 
   const FavoritesSportData = sportList?.result || [];
@@ -125,6 +135,30 @@ const toggleGymFavourite = (gym) => {
       },
       onError: (error) => {
         console.error("Error unliking gym:", error);
+      },
+    }
+  );
+};
+const { mutate: unlikeCoach } = useUnlikeCoach({
+  onSuccess: () => queryClient.invalidateQueries(['favoritesCoach']),
+});
+
+const toggleCoachFavourite = (coach) => {
+  const favouriteId = coach.favourite_coach_id  || coach.favourite_coach || coach.favouriteCoachesId;
+  if (!favouriteId) {
+    console.warn("Coach favourite_id is missing for:", coach);
+    return;
+  }
+
+  unlikeCoach(
+    { favouriteCoachId: favouriteId },
+    {
+      onSuccess: async () => {
+        console.log("Successfully unliked coach:", favouriteId);
+        await queryClient.invalidateQueries(["favoritesCoach"]);
+      },
+      onError: (error) => {
+        console.error("Error unliking coach:", error);
       },
     }
   );
@@ -369,7 +403,12 @@ const totalEventPages = Math.ceil(FavoritesEventData.length / ITEMS_PER_PAGE);
               reviews: venue.review_count||"0",
               address: `${venue.area}, ${venue.city}`,
              distance: venue.distance_km ? parseFloat(venue.distance_km).toFixed(1) : "0",
-              offer: "10% Off",
+                offer:
+      venue.coupon_type === "percentage" && venue.discount_offer
+        ? `Upto ${parseFloat(venue.discount_offer)}% Off`
+        : venue.coupon_type === "flat" && venue.discount_offer
+        ? `Upto ₹${parseFloat(venue.discount_offer)} Off`
+        : "",
               price: `₹${venue.pricing}`,
               favourite: venue.favourite
             };
@@ -459,6 +498,12 @@ const totalEventPages = Math.ceil(FavoritesEventData.length / ITEMS_PER_PAGE);
             price: `₹${"0"}`,
               favourite: gym.favourite_gym_id, 
               sportsIcons:  sportsIcons, 
+              offer:
+      gym.coupon_type === "percentage" && gym.discount_offer
+        ? `Upto ${parseFloat(gym.discount_offer)}% Off`
+        : gym.coupon_type === "flat" && gym.discount_offer
+        ? `Upto ₹${parseFloat(gym.discount_offer)} Off`
+        : "",
           };
           return (
             <div key={gym.Id} className="favorite-card">
@@ -508,7 +553,14 @@ const totalEventPages = Math.ceil(FavoritesEventData.length / ITEMS_PER_PAGE);
              reviews: event.review_count||"0",
             distance: `${parseFloat(event.distance || 0).toFixed(1)}`,
             price: `₹${event.ticket_price || 0}`,
-             favourite: event.favourite_id || event.favourite_event_id
+             favourite: event.favourite_id || event.favourite_event_id,
+              offer:
+      event.coupon_type === "percentage" && event.discount_offer
+        ? `Upto ${parseFloat(event.discount_offer)}% Off`
+        : event.coupon_type === "flat" && event.discount_offer
+        ? `Upto ₹${parseFloat(event.discount_offer)} Off`
+        : "",
+             
           };
           return (
             <div key={event.id} className="favorite-card">
@@ -529,9 +581,47 @@ const totalEventPages = Math.ceil(FavoritesEventData.length / ITEMS_PER_PAGE);
 </div>
 
   </>
-) : (
-  <p>Coming soon...</p>
-)}
+) : activeTab === "Coach" ? (
+  <>
+    {isFavoriteCoach ? (
+      <p>Loading favorite coaches...</p>
+    ) : isFavouriteCoachError ? (
+      <p>Error loading favorite coaches.</p>
+    ) : FavoritesCoachData.length === 0 ? (
+      <p>No favorite coaches yet.</p>
+    ) : (
+      <div className="favorites-list">
+        {FavoritesCoachData.map((coach) => {
+          const formattedCoach = {
+            id: coach.id,
+            image: coach.image,
+            name: coach.name,
+            about: coach.about,
+            rating: coach.average_rating || "0",
+            reviews: coach.review_count || "0",
+            address: `${coach.city}, ${coach.state}`,
+            distance: coach.distance ? parseFloat(coach.distance).toFixed(1) : "0",
+            price: `₹${coach.price || 0}`,
+            favourite: coach.favourite_coach_id,
+            offer:
+      coach.coupon_type === "percentage" && coach.discount_offer
+        ? `Upto ${parseFloat(coach.discount_offer)}% Off`
+        : coach.coupon_type === "flat" && coach.discount_offer
+        ? `Upto ₹${parseFloat(coach.discount_offer)} Off`
+        : "",
+          };
+          return (
+            <div key={coach.id} className="favorite-card">
+              <FavoriteVenueCard
+                venue={formattedCoach}
+                onLikeToggle={() => toggleCoachFavourite(coach)}
+              />
+            </div>
+          );
+        })}
+      </div>
+    )}
+  </>):null}
     </div>
   );
 };

@@ -11,6 +11,17 @@ export const createBooking = async (payload) => {
   }
 };
 
+export const updateBooking = async (payload) => {
+  try {
+    console.log("in api section payload", payload);
+    const response = await api.put("user/bookings/updateBooking", payload);
+    return response?.data;
+  } catch (error) {
+    console.error("Failed to create booking");
+    throw error;
+  }
+};
+
 export const cancelBooking = async ({ bookingId }) => {
   try {
     const response = await api.post("user/bookings/cancelBooking", {

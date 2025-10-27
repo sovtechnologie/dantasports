@@ -305,7 +305,15 @@ export default function RunFilterPage() {
                                                   <span><img src={star} className="pe-2" alt="" />4.4</span>
                                               </div>
                                                 <div className="easy2">
-                    <span>Easy</span>
+                    <span> {event.difficulty === 0 ? (
+    <span className="Moderate">Moderate</span>
+  ) : event.difficulty === 1 ? (
+    <span className="easy">Easy</span>
+  ) : event.difficulty === 2 ? (
+    <span className="difficult">Difficult</span>
+  ) : (
+    <span className="unknown">Not Specified</span>
+  )}</span>
                   </div>
                       </div>
                     </div>
