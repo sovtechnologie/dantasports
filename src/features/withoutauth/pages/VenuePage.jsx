@@ -183,7 +183,7 @@ function VenuePage() {
 
           {/* Venue Cards */}
           <Col lg="9" md="7">
-            <div className="row g-4">
+            <div className="row g-3">
               {filteredVenues.map((venue) => {
                 const discount = venue.discount_offer
                   ? parseFloat(venue.discount_offer).toString()
@@ -192,7 +192,7 @@ function VenuePage() {
                 return (
                   <div
                     key={venue.id}
-                    className="col-lg-4 col-md-6 position-relative"
+                    className="col-lg-4  position-relative"
                   >
                     <div className="card">
                       <div className="card_slider">

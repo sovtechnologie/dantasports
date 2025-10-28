@@ -86,7 +86,7 @@ export default function HostPlayFilterPage() {
             <Row className="g-3">
               {filteredHosts.length > 0 ? (
                 filteredHosts.map((host) => (
-                  <Col lg={4} md={6} key={host.id}>
+                  <Col lg={4}  key={host.id}>
                     <Card className="card card_payhost">
                       {/* Label */}
                       <div className="badge_label mb-2">
