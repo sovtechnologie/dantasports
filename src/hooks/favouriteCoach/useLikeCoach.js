@@ -3,12 +3,12 @@ import { addFavoriteCoach } from "../../services/LoginApi/FavouritCoachApi/endpo
 
 export const useLikeCoach = () => {
   return useMutation({
-    mutationFn: ({ coachesId }) => {
-      if (!coachesId) {
+    mutationFn: ({ userId, coachesId }) => {
+      if ( !userId || !coachesId) {
         throw new Error("coachesId is required");
       }
-      console.log("Calling addFavoriteCoach with:", { coachesId });
-      return addFavoriteCoach({ coachesId });
+      console.log("Calling addFavoriteCoach with:", { coachesId ,userId });
+      return addFavoriteCoach({ userId ,coachesId });
     },
   });
 };

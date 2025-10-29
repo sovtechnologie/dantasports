@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { removeFavoriteCoach } from "../../services/LoginApi/FavouritCoachApi/endpointApi";
 
-export const useUnlikeCoach = () => {
+export const useUnlikeCoach = (options = {}) => {
   return useMutation({
     mutationFn: ({ favouriteCoachesId }) => {
       if (!favouriteCoachesId) {
@@ -10,5 +10,7 @@ export const useUnlikeCoach = () => {
       console.log("Calling removeFavoriteCoach with:", { favouriteCoachesId });
       return removeFavoriteCoach({ favouriteCoachesId });
     },
+
+     ...options,
   });
 };

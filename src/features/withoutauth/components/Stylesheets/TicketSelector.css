@@ -9,6 +9,60 @@
   margin-bottom: 14px;
 }
 
+.ticket-box {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ticket-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.ticket-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.ticket-label {
+  font-weight: 600;
+}
+
+.ticket-price {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.ticket-counter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ticket-icon {
+  width: 19.86px;
+  height: 19.86px;
+  cursor: pointer;
+  transition: transform 0.1s ease, opacity 0.2s ease;
+}
+
+.ticket-icon:hover {
+  transform: scale(1.1);
+}
+
+.ticket-icon.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+
 .ticket-info {
   display: flex;
   flex-direction: column;

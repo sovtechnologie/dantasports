@@ -32,7 +32,8 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import TermsConditionsModal from "../components/TermsConditionsModal.jsx";
 import EventReviewSlider from "../components/EventReviewSlider.jsx";
 import BusinessHours from "../components/BusinessHours.jsx";
-
+import addCircle from "../../../assets/VenueImage/AddCircle.jpg"
+import minusCircle from "../../../assets/VenueImage/MinusCircle.png"
 const timings = [
     { label: "Morning (Mon – Sat)", range: "06:00 AM – 12:00 PM" },
     { label: "Evening (Mon – Sat)", range: "04:00 PM – 10:00 PM" },
@@ -387,7 +388,7 @@ export default function GymDetailPage() {
                                                 </div>
                                             ))}
                                         </div> */}
-                                        <BusinessHours/>
+                                        <BusinessHours />
                                     </div>
 
                                     <div className="gym-section gym-pickPoints col-lg-6">
@@ -584,23 +585,24 @@ export default function GymDetailPage() {
                                         <div className="quantity-box">
                                             <label>Quantity:</label>
                                             <div className="qty-control">
-                                                <button
-                                                    type="button"
-                                                    className="btn minus"
+                                                <img
+                                                    src={minusCircle}
+                                                    alt="Decrease quantity"
+                                                    className="qty-icon"
                                                     onClick={decrement}
-                                                >
-                                                    −
-                                                </button>
+                                                />
+
                                                 <span className="qty">{quantity}</span>
-                                                <button
-                                                    type="button"
-                                                    className="btn plus"
+
+                                                <img
+                                                    src={addCircle}
+                                                    alt="Increase quantity"
+                                                    className="qty-icon"
                                                     onClick={increment}
-                                                >
-                                                    +
-                                                </button>
+                                                />
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
 

@@ -19,6 +19,8 @@ import { useUnlikeVenue } from "../../../hooks/favouriteVenue/useUnlikeVenue";
 import { useQueryClient, useQuery } from "@tanstack/react-query";
 import { fetchSportList } from "../../../services/withoutLoginApi/SportListApi/endpointApi.js";
 import { VenueListShimmer } from "../components/Shimmer/VenueListShimmer";
+import HeartFilled from "../../auth/assets/VenueCardLogo/heartfilled.png";
+import like from "../../../assets/images/home/bookvenues/like.svg";
 
 import latestt from "../assets/latest.jpeg";
 
@@ -29,7 +31,7 @@ function VenuePage() {
 
   const [venueList, setVenueList] = useState([]);
   const [isLoadingData, setIsLoadingData] = useState(true);
-
+  const [searchTerm, setSearchTerm] = useState("");
   // Filter states
   const [sportSearch, setSportSearch] = useState(""); // text input for searching sports
   const [selectedSport, setSelectedSport] = useState(null); // selected sport id
@@ -74,15 +76,32 @@ function VenuePage() {
 
   // Filter venues by selected sport
   const filteredVenues = useMemo(() => {
-    if (!selectedSport) return venueList;
-    return venueList.filter((venue) =>
-      venue.sports.some((sport) => sport.id === selectedSport)
-    );
-  }, [venueList, selectedSport]);
+    let filtered = venueList;
+
+    // ✅ Sport filter
+    if (selectedSport) {
+      filtered = filtered.filter((venue) =>
+        venue.sports.some((sport) => sport.id === selectedSport)
+      );
+    }
+
+    // ✅ Search filter
+    if (searchTerm.trim()) {
+      filtered = filtered.filter((venue) =>
+        venue.venue_name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    return filtered;
+  }, [venueList, selectedSport, searchTerm]);
 
   // Toggle Favourite
   const toggleFavourite = (venue) => {
     const venueId = venue.id;
+    if (!auth || !auth?.id) {
+      alert("Please login first to like or unlike a venue.");
+      return;
+    }
     setVenueList((prevList) =>
       prevList.map((v) =>
         v.id === venueId ? { ...v, favourite: !v.favourite } : v
@@ -165,19 +184,26 @@ function VenuePage() {
         <Row className="g-3">
           {/* Left Filter Section */}
           <Col lg="3" md="5" className="d-none d-lg-block d-md-block">
-            <Filter />
-            <SortBy />
-          </Col>
-
-          {/* Mobile Filter/Sort */}
-          <Col className="d-lg-none d-md-none text-end">
-            <FliterModal
+            <Filter
               sportsData={filteredSports}
               selectedSport={selectedSport}
               setSelectedSport={setSelectedSport}
               sportSearch={sportSearch}
               setSportSearch={setSportSearch}
+
             />
+            <SortBy />
+          </Col>
+
+          {/* Mobile Filter/Sort */}
+          <Col className="d-lg-none d-md-none text-end">
+            {/* <FliterModal
+              sportsData={filteredSports}
+              selectedSport={selectedSport}
+              setSelectedSport={setSelectedSport}
+              sportSearch={sportSearch}
+              setSportSearch={setSportSearch}
+            /> */}
             <SortModal />
           </Col>
 
@@ -219,7 +245,7 @@ function VenuePage() {
                             alt="save"
                             style={{
                               filter: venue.favourite
-                                ? "invert(0.4) sepia(1) saturate(4) hue-rotate(60deg)"
+                                ? "invert(40%) sepia(100%) saturate(5000%) hue-rotate(340deg"
                                 : "none",
                               cursor: "pointer",
                             }}
@@ -277,10 +303,10 @@ function VenuePage() {
                         <div className="offers d-flex justify-content-between">
                           <span>
                             {venue.coupon_type === "percentage" &&
-                            venue.discount_offer
+                              venue.discount_offer
                               ? `Upto ${parseFloat(venue.discount_offer)}% Off`
                               : venue.coupon_type === "flat" &&
-                                  venue.discount_offer
+                                venue.discount_offer
                                 ? `Upto ₹${parseFloat(venue.discount_offer)} Off`
                                 : ""}
                           </span>

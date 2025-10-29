@@ -33,12 +33,21 @@ function PlayHost() {
   const { data, isLoading, error } = useFetchHostList({ lat, lng });
 
   const SKILL_MAP = {
-  0: { label: "Novice", color: "#18429F" },
-  1: { label: "Learner", color: "#0FA903" },
-  2: { label: "Skilled", color: "#FFA200" },
-  3: { label: "Expert", color: "#E65B00" },
-  4: { label: "Elite", color: "#4C2DFF" },
-};
+    0: { label: "Novice", color: "#18429F" },
+    1: { label: "Learner", color: "#0FA903" },
+    2: { label: "Skilled", color: "#FFA200" },
+    3: { label: "Expert", color: "#E65B00" },
+    4: { label: "Elite", color: "#4C2DFF" },
+  };
+
+  const ACTIVITY_TYPE_LABEL = {
+    1: "Regular",
+    2: "Coaching",
+    3: "Tournament",
+    // add more if needed
+  };
+
+
 
   const hosts = data?.result || [];
 
@@ -59,46 +68,58 @@ function PlayHost() {
 
         <Row className="g-3">
           {hosts.slice(0, 4).map((host) => {
+            // ✅ Host image fallback (profile1)
+            const hostImage =
+              host.host_image && host.host_image.trim() !== ""
+                ? host.host_image
+                : profile1;
+
+            // ✅ Player images fallback
             const attendees =
-              host?.userProfile_image?.length > 0
+              host?.userProfile_image && Array.isArray(host.userProfile_image)
                 ? host.userProfile_image
                 : [
-                    { profile_image: profile1 },
-                    { profile_image: profile2 },
-                  ];
+                  { profile_image: profile1 },
+                  { profile_image: profile2 },
+                ];
 
-            const dateText = `${
-              new Date(host?.date).toLocaleDateString("en-GB", {
-                day: "2-digit",
-                month: "short",
-              }) || ""
-            } | ${formatTime(host?.start_time)} - ${formatTime(
-              host?.end_time?.slice(0, 5)
-            )}`;
-   const skill =
+            const dateText = `${new Date(host?.date).toLocaleDateString("en-GB", {
+              day: "2-digit",
+              month: "short",
+            }) || ""
+              } | ${formatTime(host?.start_time)} - ${formatTime(
+                host?.end_time?.slice(0, 5)
+              )}`;
+            const skill =
               SKILL_MAP[host.game_skill] || SKILL_MAP[0];
             return (
               <Col lg={3} md={6} sm={6} key={host.id}>
                 <Card className="playhost_card">
                   <div className="badge_label">
-                    <p>{host.activity_type || "Regular"}</p>
+                    <p>{ACTIVITY_TYPE_LABEL[host.activity_type] || "Regular"}</p>
                   </div>
 
                   <div className="d-flex align-items-center my-3">
                     <div className="profile_group d-flex">
-                      {attendees.slice(0, 2).map((a, i) => (
-                        <img
-                          key={i}
-                          src={a.profile_image || profile1}
-                          alt="player"
-                          className={`profile_img ${i > 0 ? "overlap" : ""}`}
-                        />
-                      ))}
+                      <img
+                        src={host.host_image || profile1}
+                        alt="host"
+                        className="profile_img"
+                      />
+                      <img
+                        src={
+                          (Array.isArray(host.userProfile_image) &&
+                            host.userProfile_image[0]?.profile_image) ||
+                          profile2
+                        }
+                        alt="player"
+                        className="profile_img overlap"
+                      />
                     </div>
-                    <p className="m-0 ps-3 going">
-                      {host.going || 0} Going
-                    </p>
+
+                    <p className="m-0 ps-3 going">{host.going || 0} Going</p>
                   </div>
+
 
                   <h2 className="text_wrap1">Host By: {host.host_name || "Unknown"}</h2>
 
@@ -123,16 +144,16 @@ function PlayHost() {
                       ~{host.distance_km?.toFixed(1) || "0"} km)
                     </span>
                   </div>
-                <div className="d-flex justify-content-between align-items-center  pt-3">
+                  <div className="d-flex justify-content-between align-items-center  pt-3">
                     <span className="novice_txt" style={{ color: skill.color }}>
                       {skill.label}
                     </span>
-                    
+
                   </div>
                   <div className="card_line"></div>
                   <div className="offer">
-                      <Link to={`/Host/${host.id}`}>Join Now</Link>
-                    </div>
+                    <Link to={`/Host/${host.id}`}>Join Now</Link>
+                  </div>
                 </Card>
               </Col>
             );

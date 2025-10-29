@@ -44,6 +44,12 @@ export default function HostPlayFilterPage() {
     4: { label: "Elite", color: "#4C2DFF" },
   };
 
+  const ACTIVITY_TYPE_LABEL = {
+    1: "Regular",
+    2: "Coaching",
+    3: "Tournament",
+    // add more if needed
+  };
 
   // Filter by search or selected time
   const filteredHosts = useMemo(() => {
@@ -90,51 +96,44 @@ export default function HostPlayFilterPage() {
                     <Card className="card card_payhost">
                       {/* Label */}
                       <div className="badge_label mb-2">
-                        <p>{host.activity_type || "Regular"}</p>
+                        <p>{ACTIVITY_TYPE_LABEL[host.activity_type] || "Regular"}</p>
                       </div>
 
-                      {/* Image Section - only if image exists */}
-                      {host.banner_image ? (
-                        <div
-                          className="mb-3 rounded-3 overflow-hidden"
-                          style={{
-                            height: "180px",
-                            backgroundColor: "#f5f5f5",
-                          }}
-                        >
-                          <img
-                            src={host.banner_image}
-                            alt={host.host_name || "Venue"}
-                            style={{
-                              width: "100%",
-                              height: "100%",
-                              objectFit: "cover",
-                            }}
-                          />
-                        </div>
-                      ) : null}
+
 
                       {/* Profile group */}
                       <div className="d-flex align-items-center my-2">
                         <div className="profile_group d-flex">
-                          {(host.userProfile_image || [])
-                            .slice(0, 2)
-                            .map((u, i) => (
-                              <img
-                                key={i}
-                                src={u?.profile_image || profilePlaceholder}
-                                alt="player"
-                                className={`profile_img ${i > 0 ? "overlap" : ""}`}
-                                style={{
-                                  width: "35px",
-                                  height: "35px",
-                                  borderRadius: "50%",
-                                  border: "2px solid #fff",
-                                  marginLeft: i > 0 ? "-10px" : "0",
-                                }}
-                              />
-                            ))}
+
+                          <img
+                            src={host.host_image || profilePlaceholder}
+                            alt="host"
+                            className="profile_img"
+                            style={{
+                              width: "35px",
+                              height: "35px",
+                              borderRadius: "50%",
+                              border: "2px solid #fff",
+                            }}
+                          />
+                          <img
+                            src={
+                              (Array.isArray(host.userProfile_image) &&
+                                host.userProfile_image[0]?.profile_image) ||
+                              profilePlaceholder
+                            }
+                            alt="player"
+                            className="profile_img overlap"
+                            style={{
+                              width: "35px",
+                              height: "35px",
+                              borderRadius: "50%",
+                              border: "2px solid #fff",
+                              marginLeft: "-10px",
+                            }}
+                          />
                         </div>
+
                         <p className="m-0 ps-3 going">{host.going || 0} Going</p>
                       </div>
 
@@ -158,7 +157,7 @@ export default function HostPlayFilterPage() {
                       <div className="d-flex align-items-center mb-3">
                         <img src={mapIcon} alt="location" className="icon me-2" />
                         <span>
-                          {host.full_address} (~{host.distance_km || 0} Km)
+                          {host.city || "Address not available"} {host.state || "Address not available"}(~{host.distance_km || 0} Km)
                         </span>
                       </div>
 
@@ -177,7 +176,7 @@ export default function HostPlayFilterPage() {
                       <div className="offer">
                         <a href="">Join Now</a>
                       </div>
-                      
+
                     </Card>
                   </Col>
                 ))

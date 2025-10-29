@@ -9,12 +9,12 @@ import bannercard from "../assets/homebanner/banner-cards-img.png";
 
 
 function HomeBanner() {
-const texts = [
-  "Reserve Nearby</br>Turfs",
-  "Book Your Favorite Sports Venue",
-  "Find Top-rated Grounds Near You",
-  "Instant Booking, Zero Hassle"
-];
+  const texts = [
+    "Reserve Nearby</br>Turfs",
+    "Book Your Favorite Sports Venue",
+    "Find Top-rated Grounds Near You",
+    "Instant Booking, Zero Hassle"
+  ];
 
   const [index, setIndex] = useState(0);
   const [fade, setFade] = useState(true);
@@ -44,9 +44,9 @@ const texts = [
 
               <div className="banner_txt">
                 <h1
-                className={`fade-text ${fade ? "fade-in-up" : "fade-out"}`}
-                dangerouslySetInnerHTML={{ __html: texts[index] }}
-              ></h1>
+                  className={`fade-text ${fade ? "fade-in-up" : "fade-out"}`}
+                  dangerouslySetInnerHTML={{ __html: texts[index] }}
+                ></h1>
 
                 <p>
                   Join India’s growing fitness community today. Danta Sports -
@@ -60,7 +60,7 @@ const texts = [
                   Get Started
                   <img className="blue_arrow" src={blueArrow} alt="" />
                 </a> */}
-                <a href="" className="book_now">
+                <a href={`/venue`} className="book_now">
                   Book a Venue{" "}
                   <img src={white} className="blue_arrow" alt="" />
                 </a>

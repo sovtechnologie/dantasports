@@ -6,21 +6,24 @@ import { useFetchTimeslotForVenue } from '../../../hooks/VenueList/useFetchTimin
 import TimeslotShimmer from "./Shimmer/TimeslotShimmer.jsx";
 import { useCreateVenueBooking } from '../../../hooks/BookingVenue/useCreateVenueBooking.js';
 import { useUpdateBooking } from '../../../hooks/BookingVenue/useUpdateVenueBooking.js';
+import addCircle from "../../../assets/VenueImage/AddCircle.jpg"
+import minusCircle from "../../../assets/VenueImage/MinusCircle.png"
+
 
 export const formatDate = (isoString) => {
-    const date = new Date(isoString);
-    return date.toLocaleDateString('en-GB', {
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric',
-    });
+  const date = new Date(isoString);
+  return date.toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  });
 };
 
 
 const getLocalIsoDate = date => {
-    const d = new Date(date);
-    d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
-    return d.toISOString().split('T')[0];
+  const d = new Date(date);
+  d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+  return d.toISOString().split('T')[0];
 };
 
 const generateTimeSlots = (start, end, interval) => {
@@ -61,7 +64,7 @@ const TimeSelector = ({
   bookingId,
   setBookingId
 }) => {
-   const isLoggedIn = Boolean(Cookies.get('token'));
+  const isLoggedIn = Boolean(Cookies.get('token'));
   const [errorMessage, setErrorMessage] = useState("");
   const payload = {
     date: getLocalIsoDate(selectedDate),
@@ -80,10 +83,10 @@ const TimeSelector = ({
 
   const { start_time = '00:00:00', end_time = '00:00:00' } = slottime;
 
-  const { data, isLoading, error } = useSportDetails(sportId,venueId);
-  console.log("sportsportsportsportsportsport",data);
+  const { data, isLoading, error } = useSportDetails(sportId, venueId);
+  console.log("sportsportsportsportsportsport", data);
   const sport = data?.result?.[0] || {};
-  
+
 
   const {
     minimum_booking_duration = 0,
@@ -220,11 +223,11 @@ const TimeSelector = ({
     hour12: false
   });
 
-const {
-  mutate: updateBooking,
-  isLoading: updateLoading,
-  error: updateError
-} = useUpdateBooking();
+  const {
+    mutate: updateBooking,
+    isLoading: updateLoading,
+    error: updateError
+  } = useUpdateBooking();
 
 
   // const bookVenue = (courtId) => {
@@ -256,52 +259,52 @@ const {
   // }
 
   const bookVenue = (courtId) => {
-  if (!isLoggedIn) {
-    alert('Please log in to proceed.');
-    return;
-  }
+    if (!isLoggedIn) {
+      alert('Please log in to proceed.');
+      return;
+    }
 
-  setSelectedPitch(courtId);
+    setSelectedPitch(courtId);
 
-  const bookingPayload = {
-    sportId: sportId,
-    venueId: venueId,
-    date: getLocalIsoDate(selectedDate),
-    startTime: timeRead,
-    duration: selectedDuration * 60, 
-    courtId: courtId,
-    bookingId: bookingId, 
+    const bookingPayload = {
+      sportId: sportId,
+      venueId: venueId,
+      date: getLocalIsoDate(selectedDate),
+      startTime: timeRead,
+      duration: selectedDuration * 60,
+      courtId: courtId,
+      bookingId: bookingId,
+    };
+
+    if (bookingId) {
+
+      updateBooking(bookingPayload, {
+        onSuccess: (data) => {
+          console.log("Booking updated successfully:", data);
+          alert("Booking updated successfully!");
+        },
+        onError: (error) => {
+          console.error("Update failed:", error);
+          alert("Failed to update booking.");
+        },
+      });
+    } else {
+
+      createBooking(bookingPayload, {
+        onSuccess: (data) => {
+          const id = data?.result?.insertId;
+          setBookingId(id);
+          console.log("Booking created successfully. ID:", id);
+        },
+        onError: (error) => {
+          console.error("Booking failed:", error);
+          alert("Booking failed. Please try again.");
+        },
+      });
+    }
   };
 
-  if (bookingId) {
-   
-    updateBooking(bookingPayload, {
-      onSuccess: (data) => {
-        console.log("Booking updated successfully:", data);
-        alert("Booking updated successfully!");
-      },
-      onError: (error) => {
-        console.error("Update failed:", error);
-        alert("Failed to update booking.");
-      },
-    });
-  } else {
-    
-    createBooking(bookingPayload, {
-      onSuccess: (data) => {
-        const id = data?.result?.insertId;
-        setBookingId(id);
-        console.log("Booking created successfully. ID:", id);
-      },
-      onError: (error) => {
-        console.error("Booking failed:", error);
-        alert("Booking failed. Please try again.");
-      },
-    });
-  }
-};
-
-  console.log("bookingid",bookingId);
+  console.log("bookingid", bookingId);
 
 
   if (isLoading) return <div><TimeslotShimmer /></div>;
@@ -319,10 +322,23 @@ const {
           <div className="ts-control">
             <span>Duration:</span>
             <div className='ts-button'>
-              <button onClick={() => handleDuration(-slotDurationHr)} disabled={!selectedTime}>-</button>
+              <img
+                src={minusCircle}
+                alt="Decrease Duration"
+                className={`ts-icon ${!selectedTime ? 'disabled' : ''}`}
+                onClick={() => selectedTime && handleDuration(-slotDurationHr)}
+              />
+
               <span>{selectedDuration} hr</span>
-              <button onClick={() => handleDuration(slotDurationHr)} disabled={!selectedTime}>+</button>
+
+              <img
+                src={addCircle}
+                alt="Increase Duration"
+                className={`ts-icon ${!selectedTime ? 'disabled' : ''}`}
+                onClick={() => selectedTime && handleDuration(slotDurationHr)}
+              />
             </div>
+
           </div>
         </div>
 

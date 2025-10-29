@@ -3,10 +3,8 @@ import { fetchCoachList } from "../../services/withoutLoginApi/CoachListApi/endp
 
 export const useFetchCoach = (payload) => {
     return useQuery({
-        queryKey: ["CoachList", payload.lat, payload.lng],
-        queryFn: () => {
-            return fetchCoachList();
-        },
-        enabled: Boolean(payload.lat && payload.lng),
+        queryKey: ["CoachList", payload.lat, payload.lng, payload.userId],
+        queryFn: () => fetchCoachList(payload),
+        enabled: Boolean(payload.lat && payload.lng && payload.userId),
     });
 };

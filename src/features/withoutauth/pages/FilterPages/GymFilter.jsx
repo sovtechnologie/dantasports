@@ -165,14 +165,14 @@ export default function GymFilterPage() {
                             className="like"
                             onClick={() => toggleFavourite(gym)}
                           >
-                            <img src={gym.favourite ? HeartFilled : like}  className="like" />
+                            <img src={gym.favourite ? HeartFilled : like} className="like" />
                           </button>
 
                           <button
                             className="share"
                             onClick={() => handleShare(gym)}
                           >
-                            <img src={share}  className="share" />
+                            <img src={share} className="share" />
                           </button>
                         </div>
                         {/* <div className="card_icons">
@@ -216,27 +216,27 @@ export default function GymFilterPage() {
                             </p>
                           </div>
 
-                           <div className="d-flex justify-content-between no_off_users">
-                      <p className="up_to_offer mb-2"> {gym.coupon_type === "percentage" && gym.discount_offer
-                          ? `Upto ${parseFloat(gym.discount_offer)}% Off`
-                          : gym.coupon_type === "flat" && gym.discount_offer
-                            ? `Upto ₹${parseFloat(gym.discount_offer)} Off`
-                            : ""}</p>
-                      <p className="onwards_rup mb-2">₹{gym.gym_price_slot && gym.gym_price_slot.length > 0
-      ? gym.gym_price_slot.reduce((min, curr) =>
-          curr.price < min.price ? curr : min
-        ).price
-      : 0}{" "}onwards</p>
-                    </div>
-                     <div className="card_line mb-2"></div>
+                          <div className="d-flex justify-content-between no_off_users">
+                            <p className="up_to_offer mb-2"> {gym.coupon_type === "percentage" && gym.discount_offer
+                              ? `Upto ${parseFloat(gym.discount_offer)}% Off`
+                              : gym.coupon_type === "flat" && gym.discount_offer
+                                ? `Upto ₹${parseFloat(gym.discount_offer)} Off`
+                                : ""}</p>
+                            <p className="onwards_rup mb-2">₹{gym.gym_price_slot && gym.gym_price_slot.length > 0
+                              ? gym.gym_price_slot.reduce((min, curr) =>
+                                curr.price < min.price ? curr : min
+                              ).price
+                              : 0}{" "}onwards</p>
+                          </div>
+                          <div className="card_line mb-2"></div>
                           <div className="offer d-flex justify-content-between align-items-center">
-                            
+
 
                             <a href={`/gym/${gym.Id}`}>Join Now</a>
                           </div>
                           <div className="rating">
-                               <span><img src={star} className="pe-2" alt="" />{gym.average_rating || "0.0"}</span>
-                            </div>
+                            <span><img src={star} className="pe-2" alt="" />{gym.average_rating || "0.0"}  ( {gym.review_count || 0})</span>
+                          </div>
 
                         </div>
                       </Card>

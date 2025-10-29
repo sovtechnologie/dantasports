@@ -7,6 +7,31 @@
   border-bottom-right-radius: clamp(30px, 11.3636vw, 50px);
 }
 
+.qty-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.qty-icon {
+  width: 19.86px;
+  height: 19.86px;
+  cursor: pointer;
+  transition: transform 0.1s ease, opacity 0.2s ease;
+}
+
+.qty-icon:hover {
+  transform: scale(1.1);
+}
+
+.qty {
+  font-weight: 600;
+  font-size: 1rem;
+  min-width: 30px;
+  text-align: center;
+}
+
+
 .breadcrumb {
   font-size: clamp(14px, 3.6364vw, 16px);
   font-weight: 500;

@@ -32,6 +32,7 @@ function formatTime(timeStr = "00:00") {
 function BookRun() {
   const { lat, lng } = useSelector((state) => state.location);
   const userId = useSelector((state) => state.auth.id);
+  const auth = useSelector((state) => state.auth);
   const queryClient = useQueryClient();
   const { data, isLoading, error } = useFetchEvent({
     lat,
@@ -51,6 +52,12 @@ function BookRun() {
 
   const toggleFavourite = (event) => {
     const eventId = event.id;
+
+    if (!auth || !auth?.id) {
+      alert("Please login first to like or unlike a venue.");
+      return;
+    }
+
     setEventList((prev) =>
       prev.map((v) =>
         v.id === eventId ? { ...v, favourite: !v.favourite } : v
@@ -153,7 +160,7 @@ function BookRun() {
 
                     <p className="card_date mb-2">
                       <span className="me-2">
-                        <img  src={dateIcon} alt="date" />
+                        <img src={dateIcon} alt="date" />
                       </span>
                       {`${new Date(evt.start_date).toLocaleDateString("en-GB", {
                         day: "2-digit",
@@ -168,7 +175,7 @@ function BookRun() {
                     </p>
                     <p className="card_date my-0">
                       <span className="me-2">
-                        <img  src={mapIcon} alt="map" />
+                        <img src={mapIcon} alt="map" />
                       </span>
                       {evt.locations[0]?.area}, {evt.locations[0]?.city}
                     </p>
@@ -217,17 +224,17 @@ function BookRun() {
                     </p>
                   </div>
                   <div className="card_line mb-1"></div>
-                 <div className="easy2">
-  {evt.difficulty === 0 ? (
-    <span className="Moderate">Moderate</span>
-  ) : evt.difficulty === 1 ? (
-    <span className="easy">Easy</span>
-  ) : evt.difficulty === 2 ? (
-    <span className="difficult">Difficult</span>
-  ) : (
-    <span className="unknown">Not Specified</span>
-  )}
-</div>
+                  <div className="easy2">
+                    {evt.difficulty === 0 ? (
+                      <span className="Moderate">Moderate</span>
+                    ) : evt.difficulty === 1 ? (
+                      <span className="easy">Easy</span>
+                    ) : evt.difficulty === 2 ? (
+                      <span className="difficult">Difficult</span>
+                    ) : (
+                      <span className="unknown">Not Specified</span>
+                    )}
+                  </div>
 
 
                   {/* Offer / Join Now */}
@@ -245,7 +252,8 @@ function BookRun() {
                   <div className="rating">
                     <span>
                       <img src={star} className="pe-2" alt="" />
-                      {evt.average_rating || "0.0"}
+                      {evt.average_rating || "0.0"}  (
+                      {evt.review_count || 0})
                     </span>
                   </div>
                 </div>

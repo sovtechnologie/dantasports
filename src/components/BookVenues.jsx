@@ -38,10 +38,10 @@ export default function BookVenues() {
     const venueId = venue.id;
     console.log("toggle");
 
-     if (!auth || !auth?.id) {
-    alert("Please login first to like or unlike a venue.");
-    return; 
-  }
+    if (!auth || !auth?.id) {
+      alert("Please login first to like or unlike a venue.");
+      return;
+    }
 
     setVenueList((prevList) =>
       prevList.map((v) =>
@@ -172,7 +172,8 @@ export default function BookVenues() {
                         : "0.0"}
                     </p>
                     <div className="rating">
-                      <span><img src={star} className="pe-2" alt="" /> {venue.average_rating || "0.0"}</span>
+                      <span><img src={star} className="pe-2" alt="" /> {venue.average_rating || "0.0"} (
+                        {venue.review_count || 0})</span>
                     </div>
                   </div>
 
@@ -181,10 +182,10 @@ export default function BookVenues() {
                       {venue.sports?.slice(0, 5).map((sport, index) => (
                         <li key={index} className="me-2 list-unstyled">
                           <img
-                            src={sport.image || latestt} 
+                            src={sport.image || latestt}
                             alt={sport.name || "sport"}
                             title={sport.name || "sport"}
-                           
+
                           />
                         </li>
                       ))}
@@ -204,8 +205,8 @@ export default function BookVenues() {
                     </ul>
                   </div>
 
-                      <div className="d-flex justify-content-between no_off_users  mt-3">
-                       <p className="up_to_offer">
+                  <div className="d-flex justify-content-between no_off_users  mt-3">
+                    <p className="up_to_offer">
                       {venue.coupon_type === "percentage" && venue.discount_offer
                         ? `Upto ${parseFloat(venue.discount_offer)}% Off`
                         : venue.coupon_type === "flat" && venue.discount_offer
@@ -213,17 +214,17 @@ export default function BookVenues() {
                           : ""}
                     </p>
 
-                      <p className="onwards_rup mb-2">
-    {venue.pricing
-      ? `₹${parseFloat(venue.pricing).toFixed(0)} onwards`
-      : ""}
-  </p>
-                    </div>
-                     <div className="card_line mb-2"></div>
+                    <p className="onwards_rup mb-2">
+                      {venue.pricing
+                        ? `₹${parseFloat(venue.pricing).toFixed(0)} onwards`
+                        : ""}
+                    </p>
+                  </div>
+                  <div className="card_line mb-2"></div>
 
 
                   <div className="offer d-flex justify-content-between align-items-center">
-                  
+
 
                     <Link to={`/venue/${venue.id}`}>Book Now</Link>
                   </div>

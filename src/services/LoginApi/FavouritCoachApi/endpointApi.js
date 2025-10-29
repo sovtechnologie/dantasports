@@ -1,9 +1,10 @@
 import api from "../../api";
 
-export const addFavoriteCoach = async ({ coachesId }) => {
+export const addFavoriteCoach = async ({ userId, coachesId }) => {
   try {
     const response = await api.post("user/favouriteCoaches/addFavouriteCoaches", {
       coachesId,
+      userId
     });
     return response.data;
   } catch (error) {

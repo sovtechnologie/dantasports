@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import './Stylesheets/TicketSelector.css';
+import addCircle from "../../../assets/VenueImage/AddCircle.jpg"
+import minusCircle from "../../../assets/VenueImage/MinusCircle.png"
 
-const TicketSelector = ({ tickets, counts, onChange, setTotalPrice, setTickets ,disabled }) => {
+const TicketSelector = ({ tickets, counts, onChange, setTotalPrice, setTickets, disabled }) => {
 
   const handleIncrement = (index) => {
-     if (disabled) return;
+    if (disabled) return;
     const updated = [...counts];
     updated[index]++;
     onChange(updated);
   };
 
   const handleDecrement = (index) => {
-     if (disabled) return;
+    if (disabled) return;
     const updated = [...counts];
     if (updated[index] > 0) {
       updated[index]--;
@@ -45,9 +47,21 @@ const TicketSelector = ({ tickets, counts, onChange, setTotalPrice, setTickets ,
             <span className="ticket-price">₹{ticket.price}/Person</span>
           </div>
           <div className="ticket-counter">
-            <button onClick={() => handleDecrement(index)}>-</button>
+            <img
+              src={minusCircle}
+              alt="Decrease Ticket"
+              className={`ticket-icon ${disabled ? 'disabled' : ''}`}
+              onClick={() => !disabled && handleDecrement(index)}
+            />
+
             <span>{counts[index]}</span>
-            <button onClick={() => handleIncrement(index)}>+</button>
+
+            <img
+              src={addCircle}
+              alt="Increase Ticket"
+              className={`ticket-icon ${disabled ? 'disabled' : ''}`}
+              onClick={() => !disabled && handleIncrement(index)}
+            />
           </div>
         </div>
       ))}

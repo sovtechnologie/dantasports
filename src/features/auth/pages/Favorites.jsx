@@ -25,7 +25,7 @@ import { useUnlikeCoach } from '../../../hooks/favouriteCoach/useUnlikeCoach.js'
 const ITEMS_PER_PAGE = 4;
 const SPORTS_PER_PAGE = 12;
 
-const tabs = ["Venue","Gym","Event","Coach","Sport"];
+const tabs = ["Venue", "Gym", "Event", "Coach", "Sport"];
 
 const Favorites = () => {
   const token = useSelector((state) => state.auth.token);
@@ -35,9 +35,9 @@ const Favorites = () => {
   const [isSportModalOpen, setIsSportModalOpen] = useState(false);
   const [sportPage, setSportPage] = useState(1);
   const [gymPage, setGymPage] = useState(1);
-const [eventPage, setEventPage] = useState(1);
+  const [eventPage, setEventPage] = useState(1);
 
-   const [lat, setLat] = useState(null);
+  const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
   const queryClient = useQueryClient();
 
@@ -48,36 +48,36 @@ const [eventPage, setEventPage] = useState(1);
   });
 
   const { data: gymData, isLoading: isFavoriteGym, isError: isFavouriteGymError } = useQuery({
-  queryKey: ['favoritesGym', lat, lng],
-  queryFn: () => fetchFavoriteGym(lat, lng),
-  enabled: !!token && !!lat && !!lng, 
-});
+    queryKey: ['favoritesGym', lat, lng],
+    queryFn: () => fetchFavoriteGym(lat, lng),
+    enabled: !!token && !!lat && !!lng,
+  });
 
-const FavoritesGymData = Array.isArray(gymData?.result) ? gymData.result : [];
+  const FavoritesGymData = Array.isArray(gymData?.result) ? gymData.result : [];
 
-console.log("FavoritesGymData", FavoritesGymData);
+  console.log("FavoritesGymData", FavoritesGymData);
 
-const { data: eventData, isLoading: isFavoriteEvent, isError: isFavouriteEventError } = useQuery({
-  queryKey: ['favoritesEvent', lat, lng],
-  queryFn: () => fetchFavoriteEvent(lat, lng),
-  enabled: !!token && !!lat && !!lng,
-});
+  const { data: eventData, isLoading: isFavoriteEvent, isError: isFavouriteEventError } = useQuery({
+    queryKey: ['favoritesEvent', lat, lng],
+    queryFn: () => fetchFavoriteEvent(lat, lng),
+    enabled: !!token && !!lat && !!lng,
+  });
 
-const FavoritesEventData = Array.isArray(eventData?.data) ? eventData.data : [];
-console.log("FavoritesEventData", FavoritesEventData);
+  const FavoritesEventData = Array.isArray(eventData?.data) ? eventData.data : [];
+  console.log("FavoritesEventData", FavoritesEventData);
 
-const { data: coachData, isLoading: isFavoriteCoach, isError: isFavouriteCoachError } = useQuery({
-  queryKey: ['favoritesCoach', lat, lng],
-  queryFn: () => getFavoriteCoachesList(lat, lng),
-  enabled: !!token && !!lat && !!lng,
-});
+  const { data: coachData, isLoading: isFavoriteCoach, isError: isFavouriteCoachError } = useQuery({
+    queryKey: ['favoritesCoach', lat, lng],
+    queryFn: () => getFavoriteCoachesList(lat, lng),
+    enabled: !!token && !!lat && !!lng,
+  });
 
-const FavoritesCoachData = Array.isArray(coachData?.result) ? coachData.result : [];
-console.log("FavoritesCoachData", FavoritesCoachData);
+  const FavoritesCoachData = Array.isArray(coachData?.result) ? coachData.result : [];
+  console.log("FavoritesCoachData", FavoritesCoachData);
 
 
   const FavoritesSportData = sportList?.result || [];
-   
+
   // ✅ Step 1: Get user location once component mounts
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -94,7 +94,7 @@ console.log("FavoritesCoachData", FavoritesCoachData);
     );
   }, []);
 
-   const { data, isLoading: isFavoriteVenue, isError: isFavouriteVenueError } = useQuery({
+  const { data, isLoading: isFavoriteVenue, isError: isFavouriteVenueError } = useQuery({
     queryKey: ['favoritesVenue', lat, lng],
     queryFn: () => fetchFavoriteVenue(lat, lng),
     enabled: !!token && !!lat && !!lng, // ✅ only run when token + location available
@@ -116,82 +116,83 @@ console.log("FavoritesCoachData", FavoritesCoachData);
       },
     });
   };
-// ---- GYM UNLIKE ----
-const toggleGymFavourite = (gym) => {
-  const favouriteId =
-    gym.favourite_gym_id || gym.favourite_id || gym.favourite_gym; // ✅ Add this fallback
+  // ---- GYM UNLIKE ----
+  const toggleGymFavourite = (gym) => {
+    const favouriteId =
+      gym.favourite_gym_id || gym.favourite_id || gym.favourite_gym; // ✅ Add this fallback
 
-  if (!favouriteId) {
-    console.warn("Gym favourite_id is missing for:", gym);
-    return;
-  }
-
-  unlikeGym(
-    { gymFavouriteId: favouriteId },
-    {
-      onSuccess: async () => {
-        console.log("Successfully unliked gym:", favouriteId);
-        await queryClient.invalidateQueries(["favoritesGym"]);
-      },
-      onError: (error) => {
-        console.error("Error unliking gym:", error);
-      },
+    if (!favouriteId) {
+      console.warn("Gym favourite_id is missing for:", gym);
+      return;
     }
-  );
-};
-const { mutate: unlikeCoach } = useUnlikeCoach({
-  onSuccess: () => queryClient.invalidateQueries(['favoritesCoach']),
-});
 
-const toggleCoachFavourite = (coach) => {
-  const favouriteId = coach.favourite_coach_id  || coach.favourite_coach || coach.favouriteCoachesId;
-  if (!favouriteId) {
-    console.warn("Coach favourite_id is missing for:", coach);
-    return;
-  }
+    unlikeGym(
+      { gymFavouriteId: favouriteId },
+      {
+        onSuccess: async () => {
+          console.log("Successfully unliked gym:", favouriteId);
+          await queryClient.invalidateQueries(["favoritesGym"]);
+        },
+        onError: (error) => {
+          console.error("Error unliking gym:", error);
+        },
+      }
+    );
+  };
+  const { mutate: unlikeCoach } = useUnlikeCoach({
+    onSuccess: () => queryClient.invalidateQueries(['favoritesCoach']),
+  });
 
-  unlikeCoach(
-    { favouriteCoachId: favouriteId },
-    {
-      onSuccess: async () => {
-        console.log("Successfully unliked coach:", favouriteId);
-        await queryClient.invalidateQueries(["favoritesCoach"]);
-      },
-      onError: (error) => {
-        console.error("Error unliking coach:", error);
-      },
+  const toggleCoachFavourite = (coach) => {
+    const favouriteId = coach.favourite_coach_id || coach.favourite_coach || coach.favouriteCoachesId;
+    if (!favouriteId) {
+      console.warn("Coach favourite_id is missing for:", coach);
+      return;
     }
-  );
-};
+
+    unlikeCoach(
+      { favouriteCoachesId: favouriteId }, // ✅ correct key name
+      {
+        onSuccess: async () => {
+          console.log("✅ Successfully unliked coach:", favouriteId);
+          await queryClient.invalidateQueries(["favoritesCoach"]);
+        },
+        onError: (error) => {
+          console.error("❌ Error unliking coach:", error);
+        },
+      }
+    );
+
+  };
 
 
 
 
 
-const toggleEventFavourite = (event) => {
-  const favouriteId = event.favourite_id || event.favourite_event_id;
-  if (!favouriteId) {
-    console.warn("Event favourite_id is missing!");
-    return;
-  }
-
-  unlikeEvent(
-    { favouriteEventId: favouriteId }, 
-    {
-      onSuccess: async () => await queryClient.invalidateQueries(['favoritesEvent']),
-      onError: (error) => console.error("Error unliking event:", error),
+  const toggleEventFavourite = (event) => {
+    const favouriteId = event.favourite_id || event.favourite_event_id;
+    if (!favouriteId) {
+      console.warn("Event favourite_id is missing!");
+      return;
     }
-  );
-};
+
+    unlikeEvent(
+      { favouriteEventId: favouriteId },
+      {
+        onSuccess: async () => await queryClient.invalidateQueries(['favoritesEvent']),
+        onError: (error) => console.error("Error unliking event:", error),
+      }
+    );
+  };
 
 
-const { mutate: unlikeGym } = useUnlikeGym({
-  onSuccess: () => queryClient.invalidateQueries(['favoritesGym'])
-});
+  const { mutate: unlikeGym } = useUnlikeGym({
+    onSuccess: () => queryClient.invalidateQueries(['favoritesGym'])
+  });
 
-const { mutate: unlikeEvent } = useUnlikeEvent({
-  onSuccess: () => queryClient.invalidateQueries(['favoritesEvent'])
-});
+  const { mutate: unlikeEvent } = useUnlikeEvent({
+    onSuccess: () => queryClient.invalidateQueries(['favoritesEvent'])
+  });
 
 
 
@@ -230,18 +231,18 @@ const { mutate: unlikeEvent } = useUnlikeEvent({
 
   const totalSportPages = Math.ceil(FavoritesSportData.length / SPORTS_PER_PAGE);
   const paginatedGyms = FavoritesGymData.slice(
-  (gymPage - 1) * ITEMS_PER_PAGE,
-  gymPage * ITEMS_PER_PAGE
-);
+    (gymPage - 1) * ITEMS_PER_PAGE,
+    gymPage * ITEMS_PER_PAGE
+  );
 
-const totalGymPages = Math.ceil(FavoritesGymData.length / ITEMS_PER_PAGE);
+  const totalGymPages = Math.ceil(FavoritesGymData.length / ITEMS_PER_PAGE);
 
-const paginatedEvents = FavoritesEventData.slice(
-  (eventPage - 1) * ITEMS_PER_PAGE,
-  eventPage * ITEMS_PER_PAGE
-);
+  const paginatedEvents = FavoritesEventData.slice(
+    (eventPage - 1) * ITEMS_PER_PAGE,
+    eventPage * ITEMS_PER_PAGE
+  );
 
-const totalEventPages = Math.ceil(FavoritesEventData.length / ITEMS_PER_PAGE);
+  const totalEventPages = Math.ceil(FavoritesEventData.length / ITEMS_PER_PAGE);
 
 
   if (isFavoriteVenue) return <p>Loading favorite venues...</p>;
@@ -371,7 +372,7 @@ const totalEventPages = Math.ceil(FavoritesEventData.length / ITEMS_PER_PAGE);
             </>
           )}
           {/* Reusable Modal for Adding Sport */}
-          {/* {isSportModalOpen && (
+      {/* {isSportModalOpen && (
             <AddSportModal
               title="Add New Sport"
               onClose={() => setIsSportModalOpen(false)}
@@ -380,248 +381,248 @@ const totalEventPages = Math.ceil(FavoritesEventData.length / ITEMS_PER_PAGE);
           )}
         </>
 
-      )} */} 
+      )} */}
       {activeTab === "Venue" ? (
-  // ✅ Venue UI
-  <>
-    {FavoritesVenueData.length === 0 ? (
-      <p>No favorite venues yet.</p>
-    ) : (
-      <>
-        <div className="favorites-list">
-          {paginatedVenues.map((venue) => {
-            const sportsIcons = (venue.venue_favourite_sports || []).map(
-    (sport) => sport.image
-  );
-            const formattedVenue = {
-              id: venue.id,
-              image: venue.cover_image,
-              sportsIcons: sportsIcons,
-              name: venue.venue_name,
-              about: venue.about_venue,
-              rating: venue.average_rating || "0",
-              reviews: venue.review_count||"0",
-              address: `${venue.area}, ${venue.city}`,
-             distance: venue.distance_km ? parseFloat(venue.distance_km).toFixed(1) : "0",
-                offer:
-      venue.coupon_type === "percentage" && venue.discount_offer
-        ? `Upto ${parseFloat(venue.discount_offer)}% Off`
-        : venue.coupon_type === "flat" && venue.discount_offer
-        ? `Upto ₹${parseFloat(venue.discount_offer)} Off`
-        : "",
-              price: `₹${venue.pricing}`,
-              favourite: venue.favourite
-            };
-            return (
-              <div key={venue.id} className="favorite-card">
-                <FavoriteVenueCard venue={formattedVenue} onLikeToggle={() => toggleFavourite(venue)} />
+        // ✅ Venue UI
+        <>
+          {FavoritesVenueData.length === 0 ? (
+            <p>No favorite venues yet.</p>
+          ) : (
+            <>
+              <div className="favorites-list">
+                {paginatedVenues.map((venue) => {
+                  const sportsIcons = (venue.venue_favourite_sports || []).map(
+                    (sport) => sport.image
+                  );
+                  const formattedVenue = {
+                    id: venue.id,
+                    image: venue.cover_image,
+                    sportsIcons: sportsIcons,
+                    name: venue.venue_name,
+                    about: venue.about_venue,
+                    rating: venue.average_rating || "0",
+                    reviews: venue.review_count || "0",
+                    address: `${venue.area}, ${venue.city}`,
+                    distance: venue.distance_km ? parseFloat(venue.distance_km).toFixed(1) : "0",
+                    offer:
+                      venue.coupon_type === "percentage" && venue.discount_offer
+                        ? `Upto ${parseFloat(venue.discount_offer)}% Off`
+                        : venue.coupon_type === "flat" && venue.discount_offer
+                          ? `Upto ₹${parseFloat(venue.discount_offer)} Off`
+                          : "",
+                    price: `₹${venue.pricing}`,
+                    favourite: venue.favourite
+                  };
+                  return (
+                    <div key={venue.id} className="favorite-card">
+                      <FavoriteVenueCard venue={formattedVenue} onLikeToggle={() => toggleFavourite(venue)} />
+                    </div>
+                  );
+                })}
               </div>
-            );
-          })}
-        </div>
 
-        <div className="pagination-controls">
-          <button onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))} disabled={currentPage === 1}>
-            Previous
+              <div className="pagination-controls">
+                <button onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))} disabled={currentPage === 1}>
+                  Previous
+                </button>
+                <span>Page {currentPage} of {totalPages}</span>
+                <button onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}>
+                  Next
+                </button>
+              </div>
+            </>
+          )}
+        </>
+      ) : activeTab === "Sport" ? (
+        // ✅ Sport UI
+        <>
+          <button className="add-sport-button" onClick={() => setIsSportModalOpen(true)}>
+            <span className="add-sport-icon">+</span>
+            <span className="add-sport-text">Add Sport</span>
           </button>
-          <span>Page {currentPage} of {totalPages}</span>
-          <button onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}>
-            Next
-          </button>
-        </div>
-      </>
-    )}
-  </>
-) : activeTab === "Sport" ? (
-  // ✅ Sport UI
-  <>
-    <button className="add-sport-button" onClick={() => setIsSportModalOpen(true)}>
-      <span className="add-sport-icon">+</span>
-      <span className="add-sport-text">Add Sport</span>
-    </button>
 
-    {FavoritesSportData.length === 0 ? (
-      <p>No favorite sports yet.</p>
-    ) : (
-      <>
-        <div className="sport-list">
-          {paginatedSports.map((sport) => (
-            <div key={sport.favoourite_sports_id} className="favorite-sport-card">
-              <img src={sport.sports_images} alt={sport.sports_name} className="sport-image" />
-              <h3 className='sport-name'>{sport.sports_name}</h3>
-              <button className="remove-sport-button">
-                <img
-                  src={DeleteIcon}
-                  alt="Remove Sport"
-                  className="remove-sport-icon"
-                  onClick={() => handleSportDelete(sport.favoourite_sports_id)}
-                />
-              </button>
-            </div>
-          ))}
-        </div>
-      </>
-    )}
+          {FavoritesSportData.length === 0 ? (
+            <p>No favorite sports yet.</p>
+          ) : (
+            <>
+              <div className="sport-list">
+                {paginatedSports.map((sport) => (
+                  <div key={sport.favoourite_sports_id} className="favorite-sport-card">
+                    <img src={sport.sports_images} alt={sport.sports_name} className="sport-image" />
+                    <h3 className='sport-name'>{sport.sports_name}</h3>
+                    <button className="remove-sport-button">
+                      <img
+                        src={DeleteIcon}
+                        alt="Remove Sport"
+                        className="remove-sport-icon"
+                        onClick={() => handleSportDelete(sport.favoourite_sports_id)}
+                      />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
 
-    {isSportModalOpen && (
-      <AddSportModal
-        title="Add New Sport"
-        onClose={() => setIsSportModalOpen(false)}
-        onSubmit={handleAddSport}
-      />
-    )}
-  </>
-) : activeTab === "Gym" ? (
-  // ✅ Gym UI
-  <>
-    {isFavoriteGym ? (
-      <p>Loading favorite gyms...</p>
-    ) : isFavouriteGymError ? (
-      <p>Error loading favorite gyms.</p>
-    ) : FavoritesGymData.length === 0 ? (
-      <p>No favorite gyms yet.</p>
-    ) : (
-      <div className="favorites-list">
-        {paginatedGyms.map((gym) => {
-           const sportsIcons = (gym.gym_favourite_sports || []).map(
-    (sport) => sport.image
-  );
-          const formattedGym = {
-            id: gym.Id,
-            image: gym.desktop_image,
-            name: gym.gym_name,
-            rating: gym.average_rating || "0",
-            reviews: gym.review_count||"0",
-            about: gym.about_gym,
-            address: `${gym.area}, ${gym.city}`,
-           distance: gym.distance ? parseFloat(gym.distance).toFixed(1) : "0",
-            price: `₹${"0"}`,
-              favourite: gym.favourite_gym_id, 
-              sportsIcons:  sportsIcons, 
-              offer:
-      gym.coupon_type === "percentage" && gym.discount_offer
-        ? `Upto ${parseFloat(gym.discount_offer)}% Off`
-        : gym.coupon_type === "flat" && gym.discount_offer
-        ? `Upto ₹${parseFloat(gym.discount_offer)} Off`
-        : "",
-          };
-          return (
-            <div key={gym.Id} className="favorite-card">
-              <FavoriteVenueCard   venue={formattedGym}     onLikeToggle={() => toggleGymFavourite(gym)} />
+          {isSportModalOpen && (
+            <AddSportModal
+              title="Add New Sport"
+              onClose={() => setIsSportModalOpen(false)}
+              onSubmit={handleAddSport}
+            />
+          )}
+        </>
+      ) : activeTab === "Gym" ? (
+        // ✅ Gym UI
+        <>
+          {isFavoriteGym ? (
+            <p>Loading favorite gyms...</p>
+          ) : isFavouriteGymError ? (
+            <p>Error loading favorite gyms.</p>
+          ) : FavoritesGymData.length === 0 ? (
+            <p>No favorite gyms yet.</p>
+          ) : (
+            <div className="favorites-list">
+              {paginatedGyms.map((gym) => {
+                const sportsIcons = (gym.gym_favourite_sports || []).map(
+                  (sport) => sport.image
+                );
+                const formattedGym = {
+                  id: gym.Id,
+                  image: gym.desktop_image,
+                  name: gym.gym_name,
+                  rating: gym.average_rating || "0",
+                  reviews: gym.review_count || "0",
+                  about: gym.about_gym,
+                  address: `${gym.area}, ${gym.city}`,
+                  distance: gym.distance ? parseFloat(gym.distance).toFixed(1) : "0",
+                  price: `₹${"0"}`,
+                  favourite: gym.favourite_gym_id,
+                  sportsIcons: sportsIcons,
+                  offer:
+                    gym.coupon_type === "percentage" && gym.discount_offer
+                      ? `Upto ${parseFloat(gym.discount_offer)}% Off`
+                      : gym.coupon_type === "flat" && gym.discount_offer
+                        ? `Upto ₹${parseFloat(gym.discount_offer)} Off`
+                        : "",
+                };
+                return (
+                  <div key={gym.Id} className="favorite-card">
+                    <FavoriteVenueCard venue={formattedGym} onLikeToggle={() => toggleGymFavourite(gym)} />
+                  </div>
+                );
+              })}
             </div>
-          );
-        })}
-      </div>
-    )}
-    <div className="pagination-controls">
-  <button onClick={() => setGymPage((prev) => Math.max(prev - 1, 1))} disabled={gymPage === 1}>
-    Previous
-  </button>
-  <span>Page {gymPage} of {totalGymPages}</span>
-  <button onClick={() => setGymPage((prev) => Math.min(prev + 1, totalGymPages))} disabled={gymPage === totalGymPages}>
-    Next
-  </button>
-</div>
+          )}
+          <div className="pagination-controls">
+            <button onClick={() => setGymPage((prev) => Math.max(prev - 1, 1))} disabled={gymPage === 1}>
+              Previous
+            </button>
+            <span>Page {gymPage} of {totalGymPages}</span>
+            <button onClick={() => setGymPage((prev) => Math.min(prev + 1, totalGymPages))} disabled={gymPage === totalGymPages}>
+              Next
+            </button>
+          </div>
 
-  </>
- ) : activeTab === "Event" ? (
-  
-  <>
-    {isFavoriteEvent ? (
-      <p>Loading favorite events...</p>
-    ) : isFavouriteEventError ? (
-      <p>Error loading favorite events.</p>
-    ) : FavoritesEventData.length === 0 ? (
-      <p>No favorite events yet.</p>
-    ) : (
-      <div className="favorites-list">
-        {paginatedEvents.map((event) => {
-         
-  const sportsIcons = (event.even_favourite_sports || []).map(
-    (sport) => sport.image
-  );
-          const formattedEvent = {
-            id: event.Id,
-            image: event.desktop_image,
-            sportsIcons: sportsIcons, 
-            name: event.event_title,
-            about: event.about_event,
-            address: event.locations && event.locations.length > 0 
-            ? `${event.locations[0].area}, ${event.locations[0].city}` 
-            : "Address not available",
-            rating: event.average_rating || 4.2,
-             reviews: event.review_count||"0",
-            distance: `${parseFloat(event.distance || 0).toFixed(1)}`,
-            price: `₹${event.ticket_price || 0}`,
-             favourite: event.favourite_id || event.favourite_event_id,
-              offer:
-      event.coupon_type === "percentage" && event.discount_offer
-        ? `Upto ${parseFloat(event.discount_offer)}% Off`
-        : event.coupon_type === "flat" && event.discount_offer
-        ? `Upto ₹${parseFloat(event.discount_offer)} Off`
-        : "",
-             
-          };
-          return (
-            <div key={event.id} className="favorite-card">
-              <FavoriteVenueCard  venue={formattedEvent}    onLikeToggle={() => toggleEventFavourite(event)}/>
-            </div>
-          );
-        })}
-      </div>
-    )}
-    <div className="pagination-controls">
-  <button onClick={() => setEventPage((prev) => Math.max(prev - 1, 1))} disabled={eventPage === 1}>
-    Previous
-  </button>
-  <span>Page {eventPage} of {totalEventPages}</span>
-  <button onClick={() => setEventPage((prev) => Math.min(prev + 1, totalEventPages))} disabled={eventPage === totalEventPages}>
-    Next
-  </button>
-</div>
+        </>
+      ) : activeTab === "Event" ? (
 
-  </>
-) : activeTab === "Coach" ? (
-  <>
-    {isFavoriteCoach ? (
-      <p>Loading favorite coaches...</p>
-    ) : isFavouriteCoachError ? (
-      <p>Error loading favorite coaches.</p>
-    ) : FavoritesCoachData.length === 0 ? (
-      <p>No favorite coaches yet.</p>
-    ) : (
-      <div className="favorites-list">
-        {FavoritesCoachData.map((coach) => {
-          const formattedCoach = {
-            id: coach.id,
-            image: coach.image,
-            name: coach.name,
-            about: coach.about,
-            rating: coach.average_rating || "0",
-            reviews: coach.review_count || "0",
-            address: `${coach.city}, ${coach.state}`,
-            distance: coach.distance ? parseFloat(coach.distance).toFixed(1) : "0",
-            price: `₹${coach.price || 0}`,
-            favourite: coach.favourite_coach_id,
-            offer:
-      coach.coupon_type === "percentage" && coach.discount_offer
-        ? `Upto ${parseFloat(coach.discount_offer)}% Off`
-        : coach.coupon_type === "flat" && coach.discount_offer
-        ? `Upto ₹${parseFloat(coach.discount_offer)} Off`
-        : "",
-          };
-          return (
-            <div key={coach.id} className="favorite-card">
-              <FavoriteVenueCard
-                venue={formattedCoach}
-                onLikeToggle={() => toggleCoachFavourite(coach)}
-              />
+        <>
+          {isFavoriteEvent ? (
+            <p>Loading favorite events...</p>
+          ) : isFavouriteEventError ? (
+            <p>Error loading favorite events.</p>
+          ) : FavoritesEventData.length === 0 ? (
+            <p>No favorite events yet.</p>
+          ) : (
+            <div className="favorites-list">
+              {paginatedEvents.map((event) => {
+
+                const sportsIcons = (event.even_favourite_sports || []).map(
+                  (sport) => sport.image
+                );
+                const formattedEvent = {
+                  id: event.Id,
+                  image: event.desktop_image,
+                  sportsIcons: sportsIcons,
+                  name: event.event_title,
+                  about: event.about_event,
+                  address: event.locations && event.locations.length > 0
+                    ? `${event.locations[0].area}, ${event.locations[0].city}`
+                    : "Address not available",
+                  rating: event.average_rating || 4.2,
+                  reviews: event.review_count || "0",
+                  distance: `${parseFloat(event.distance || 0).toFixed(1)}`,
+                  price: `₹${event.ticket_price || 0}`,
+                  favourite: event.favourite_id || event.favourite_event_id,
+                  offer:
+                    event.coupon_type === "percentage" && event.discount_offer
+                      ? `Upto ${parseFloat(event.discount_offer)}% Off`
+                      : event.coupon_type === "flat" && event.discount_offer
+                        ? `Upto ₹${parseFloat(event.discount_offer)} Off`
+                        : "",
+
+                };
+                return (
+                  <div key={event.id} className="favorite-card">
+                    <FavoriteVenueCard venue={formattedEvent} onLikeToggle={() => toggleEventFavourite(event)} />
+                  </div>
+                );
+              })}
             </div>
-          );
-        })}
-      </div>
-    )}
-  </>):null}
+          )}
+          <div className="pagination-controls">
+            <button onClick={() => setEventPage((prev) => Math.max(prev - 1, 1))} disabled={eventPage === 1}>
+              Previous
+            </button>
+            <span>Page {eventPage} of {totalEventPages}</span>
+            <button onClick={() => setEventPage((prev) => Math.min(prev + 1, totalEventPages))} disabled={eventPage === totalEventPages}>
+              Next
+            </button>
+          </div>
+
+        </>
+      ) : activeTab === "Coach" ? (
+        <>
+          {isFavoriteCoach ? (
+            <p>Loading favorite coaches...</p>
+          ) : isFavouriteCoachError ? (
+            <p>Error loading favorite coaches.</p>
+          ) : FavoritesCoachData.length === 0 ? (
+            <p>No favorite coaches yet.</p>
+          ) : (
+            <div className="favorites-list">
+              {FavoritesCoachData.map((coach) => {
+                const formattedCoach = {
+                  id: coach.id,
+                  image: coach.desktop_image,
+                  name: coach.name,
+                  about: coach.about,
+                  rating: coach.average_rating || "0",
+                  reviews: coach.review_count || "0",
+                  address: `${coach.city}, ${coach.state}`,
+                  distance: coach.distance ? parseFloat(coach.distance).toFixed(1) : "0",
+                  price: `₹${coach.price || 0}`,
+                  favourite: coach.favourite_coach_id,
+                  offer:
+                    coach.coupon_type === "percentage" && coach.discount_offer
+                      ? `Upto ${parseFloat(coach.discount_offer)}% Off`
+                      : coach.coupon_type === "flat" && coach.discount_offer
+                        ? `Upto ₹${parseFloat(coach.discount_offer)} Off`
+                        : "",
+                };
+                return (
+                  <div key={coach.id} className="favorite-card">
+                    <FavoriteVenueCard
+                      venue={formattedCoach}
+                      onLikeToggle={() => toggleCoachFavourite(coach)}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </>) : null}
     </div>
   );
 };

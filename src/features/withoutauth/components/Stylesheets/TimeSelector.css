@@ -69,6 +69,29 @@
   height: auto;
 }
 
+.ts-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ts-icon {
+  width: 19.86px;
+  height: 19.86px;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+}
+
+.ts-icon:hover {
+  transform: scale(1.1);
+}
+
+.ts-icon.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
 .ts-session-buttons {
   display: flex;
   gap: 1rem;

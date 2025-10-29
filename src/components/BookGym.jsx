@@ -18,7 +18,7 @@ import { useQueryClient } from "@tanstack/react-query";
 function BookGym() {
   const { lat, lng } = useSelector((state) => state.location);
   const userId = useSelector((state) => state.auth.id);
-
+  const auth = useSelector((state) => state.auth);
   const queryClient = useQueryClient();
 
   const [gymList, setGymList] = useState([]);
@@ -42,6 +42,11 @@ function BookGym() {
   // --- LIKE / UNLIKE ---
   const toggleFavourite = (gym) => {
     const gymId = gym.Id;
+
+    if (!auth || !auth?.id) {
+      alert("Please login first to like or unlike a venue.");
+      return;
+    }
     setGymList((prev) =>
       prev.map((v) => (v.Id === gymId ? { ...v, favourite: !v.favourite } : v))
     );
@@ -227,7 +232,7 @@ function BookGym() {
                     <div className="rating">
                       <span>
                         <img src={star} className="pe-2" alt="" />{" "}
-                        {gym.average_rating || "0.0"}
+                        {gym.average_rating || "0.0"} ( {gym.review_count || 0})
                       </span>
                     </div>
                   </div>
