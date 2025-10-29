@@ -21,6 +21,7 @@ import { fetchSportList } from "../../../services/withoutLoginApi/SportListApi/e
 import { VenueListShimmer } from "../components/Shimmer/VenueListShimmer";
 
 import latestt from "../assets/latest.jpeg";
+import PageSearch from "../components/PageSearch.jsx";
 
 function VenuePage() {
   const queryClient = useQueryClient();
@@ -157,10 +158,13 @@ function VenuePage() {
   if (isError) return <div>Error loading venues: {error?.message}</div>;
 
   return (
+    <>
+   
     <section
-      className="venue_page_section pt-3 pt-lg-5 pb-lg-5 pb-3"
+      className="venue_page_section"
       style={{ background: "#F1F3F2" }}
     >
+       <PageSearch/>
       <Container>
         <Row className="g-3">
           {/* Left Filter Section */}
@@ -304,6 +308,7 @@ function VenuePage() {
         <AppDownloadBanner />
       </Container>
     </section>
+    </>
   );
 }
 
