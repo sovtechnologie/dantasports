@@ -15,8 +15,9 @@
     left: 10px;
     background: #0000004D;
     color: white;
-    width: 65px;
-    height: 26px;
+    width: 100%;
+    max-width: 90px;
+    height: 27px;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -31,6 +32,7 @@
     font-family: 'DM Sans';
     font-weight: 500;
     font-size: 16px;
+    color: white;
 
 }
 

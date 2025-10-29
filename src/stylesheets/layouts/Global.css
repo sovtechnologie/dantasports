@@ -208,7 +208,7 @@ a {
   font-family: 'DM Sans';
   font-weight: 400;
   font-size: 14px;
-  line-height: 16.54px;
+  line-height: 14px;
   display: flex;
   align-items: center;
   margin: 0;
@@ -221,6 +221,7 @@ a {
   height: 16px;
   width: 16px;
 }
+
 
 .card_date span img {
 

@@ -132,7 +132,7 @@ function BookEvents() {
             return (
               <Col lg={3} md={6} sm={6} key={evt.id}>
                 <Card>
-                  
+
                   <div className="card_img">
                     <img
                       src={evt.desktop_image || bookeventt}
@@ -164,21 +164,21 @@ function BookEvents() {
                       <img className="share1" src={shareIcon} alt="share" />
                     </button>
                   </div>
-                   
+
 
                   <div className="txt_wrapper">
-                    
+
                     <div className="card_txt">
                       <h2 className="text_wrap card_heading">{evt.event_title}</h2>
-                      <p className="card_date mb-2">
+                      <p className="card_date mb-3">
                         <span className="me-2">
-                          <img  src={dateIcon} alt="" />
+                          <img src={dateIcon} alt="" />
                         </span>
                         {eventDate}
                       </p>
                       <p className="card_date my-0">
                         <span className="me-2">
-                          <img  src={mapIcon} alt="" />
+                          <img src={mapIcon} alt="" />
                         </span>
                         {evt.locations[0]?.area}, {evt.locations[0]?.city}
                       </p>
@@ -218,23 +218,23 @@ function BookEvents() {
                             ? `Upto ₹${parseFloat(evt.discount_offer)} Off`
                             : ""}
 
-                        <p className="onwards_rup mb-2">{evt.pricing
+                        <p className="onwards_rup mb-0">{evt.pricing
                           ? `₹${parseFloat(evt.pricing).toFixed(0)} onwards`
                           : ""}</p></p>
 
                     </div>
-                    <div className="card_line mb-2"></div>
-                     <div className="easy2">
-                    <span> {evt.difficulty === 0 ? (
-    <span className="Moderate">Moderate</span>
-  ) : evt.difficulty === 1 ? (
-    <span className="easy">Easy</span>
-  ) : evt.difficulty === 2 ? (
-    <span className="difficult">Difficult</span>
-  ) : (
-    <span className="unknown">Not Specified</span>
-  )}</span>
-                  </div>
+                    <div className="card_line mb-0"></div>
+                    <div className="easy2">
+                      <span> {evt.difficulty === 0 ? (
+                        <span className="Moderate">Moderate</span>
+                      ) : evt.difficulty === 1 ? (
+                        <span className="easy">Easy</span>
+                      ) : evt.difficulty === 2 ? (
+                        <span className="difficult">Difficult</span>
+                      ) : (
+                        <span className="unknown">Not Specified</span>
+                      )}</span>
+                    </div>
 
                     <div className="offer d-flex justify-content-between align-items-center">
 
@@ -245,7 +245,7 @@ function BookEvents() {
                       <span><img src={star} className="pe-2" alt="" />{evt.average_rating || "0.0"}</span>
                     </div>
                   </div>
-                 
+
                 </Card>
               </Col>
             );

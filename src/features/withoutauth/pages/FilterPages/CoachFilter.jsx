@@ -372,7 +372,7 @@ export default function CoachFilterPage() {
                               )}
                             </div>
 
-                            <p>
+                            <p className="card_date ">
                               <span className="me-2">
                                 <img src={map} alt="" />
                               </span>

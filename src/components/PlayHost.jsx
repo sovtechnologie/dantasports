@@ -102,7 +102,7 @@ function PlayHost() {
 
                   <h2>Host By: {host.host_name || "Unknown"}</h2>
 
-                  <div className="d-flex align-items-center mb-2">
+                  <div className="d-flex align-items-center mb-3">
                     <img
                       src={calendarIcon}
                       alt="calendar"

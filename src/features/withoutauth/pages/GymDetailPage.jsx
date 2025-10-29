@@ -281,6 +281,8 @@ export default function GymDetailPage() {
                             <span style={{ marginLeft: "5px" }}>
                                 ({gym?.reviewcount} ratings)
                             </span>
+                            <span className="ps-2 text_blue"><a href="">Rate Gym</a></span>
+                            
                         </div>
                     </div>
 
@@ -341,36 +343,36 @@ export default function GymDetailPage() {
 
                                 <div className="container">
                                     <div className="gym-carry-point row">
-                                    <div className="gym-section gym-carry col-lg-6">
-                                        <div className="gym-heading">Timing</div>
-                                        <BusinessHours/>
-                                    </div>
+                                        <div className="gym-section gym-carry col-lg-6">
+                                            <div className="gym-heading">Timing</div>
+                                            <BusinessHours />
+                                        </div>
 
-                                    <div className="gym-section gym-pickPoints col-lg-5 ms-lg-3">
-                                        <div className="gym-heading">Coaches</div>
-                                        <div className="coaches-list">
-                                            {Array.isArray(gym?.coaches) && gym.coaches.length > 0 ? (
-                                                gym.coaches.map((coach, index) => (
-                                                    <div className="coaches-card" key={index}>
-                                                        <img
-                                                            src={coach.image || CoachImage}
-                                                            alt={coach.name}
-                                                            className="coach-image"
-                                                        />
-                                                        <p className="coach-name">{coach.name}</p>
-                                                        <p className="coach-title">{coach.type}</p>
-                                                        <p className="coach-exp">{coach.exp} Years</p>
-                                                    </div>
-                                                ))
-                                            ) : (
-                                                <p>No coaches available</p>
-                                            )}
+                                        <div className="gym-section gym-pickPoints cstmcoachwd col-lg-6">
+                                            <div className="gym-heading">Coaches</div>
+                                            <div className="coaches-list">
+                                                {Array.isArray(gym?.coaches) && gym.coaches.length > 0 ? (
+                                                    gym.coaches.map((coach, index) => (
+                                                        <div className="coaches-card" key={index}>
+                                                            <img
+                                                                src={coach.image || CoachImage}
+                                                                alt={coach.name}
+                                                                className="coach-image"
+                                                            />
+                                                            <p className="coach-name">{coach.name}</p>
+                                                            <p className="coach-title">{coach.type}</p>
+                                                            <p className="coach-exp">{coach.exp} Years</p>
+                                                        </div>
+                                                    ))
+                                                ) : (
+                                                    <p>No coaches available</p>
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                </div>
 
-                                
+
                                 <div class="row g-3 mt-3">
                                     <div className="col-12 col-lg-6">
                                         <div className="card modal_title">
