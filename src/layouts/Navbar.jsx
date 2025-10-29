@@ -231,6 +231,95 @@ function Navbar() {
           ) : (
             <>
               <div className="nav-Filter-wrapper">
+                {/* <div className="location-search-container">
+                  <input
+                    type="text"
+                    placeholder="Search by location"
+                    className="location_Search_Input"
+                    value={searchTerm}
+                    onChange={handleInput}
+                    ref={inputRef}
+                  />
+                  <img src={locationlogo} alt="locationlogo" />
+                  {predictions.length > 0 && (
+                    <ul
+                      style={{
+                        position: "absolute",
+                        top: "100%",
+                        left: 0,
+                        right: 0,
+                        background: "#fff",
+                        border: "1px solid #ccc",
+                        borderTop: "none",
+                        listStyle: "none",
+                        margin: 0,
+                        padding: 0,
+                        maxHeight: "200px",
+                        overflowY: "auto",
+                        zIndex: 999,
+                      }}
+                    >
+                      {predictions.map((p) => (
+                        <li
+                          key={p.place_id}
+                          onClick={() => handleSelect(p)}
+                          style={{
+                            padding: "8px",
+                            cursor: "pointer",
+                            borderBottom: "1px solid #eee",
+                            color: "#333",
+                          }}
+                          onMouseEnter={(e) =>
+                            (e.target.style.background = "#f0f0f0")
+                          }
+                          onMouseLeave={(e) =>
+                            (e.target.style.background = "transparent")
+                          }
+                        >
+                          {p.description}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div> */}
+
+                <Link
+                  to="/venue"
+                  className={`nav-Filter-link ${isActive("/venue") ? "active-link" : ""}`}
+                >
+                  Turf
+                </Link>
+
+                <Link
+                  to="/Host"
+                  className={`nav-Filter-link ${isActive("/Host") ? "active-link" : ""}`}
+                >
+                  Play
+                </Link>
+                <Link
+                  to="/Run"
+                  className={`nav-Filter-link ${isActive("/Run") ? "active-link" : ""}`}
+                >
+                  Run
+                </Link>
+                <Link
+                  to="/Coach"
+                  className={`nav-Filter-link ${isActive("/Coach") ? "active-link" : ""}`}
+                >
+                  Coach
+                </Link>
+                <Link
+                  to="/Events"
+                  className={`nav-Filter-link ${isActive("/Events") ? "active-link" : ""}`}
+                >
+                  Events
+                </Link>
+                <Link
+                  to="/Gym"
+                  className={`nav-Filter-link ${isActive("/Gym") ? "active-link" : ""}`}
+                >
+                  Gym
+                </Link>
                 <div className="location-search-container">
                   <input
                     type="text"
@@ -282,44 +371,6 @@ function Navbar() {
                     </ul>
                   )}
                 </div>
-
-                <Link
-                  to="/venue"
-                  className={`nav-Filter-link ${isActive("/venue") ? "active-link" : ""}`}
-                >
-                  Turf
-                </Link>
-
-                <Link
-                  to="/Host"
-                  className={`nav-Filter-link ${isActive("/Host") ? "active-link" : ""}`}
-                >
-                  Play
-                </Link>
-                <Link
-                  to="/Run"
-                  className={`nav-Filter-link ${isActive("/Run") ? "active-link" : ""}`}
-                >
-                  Run
-                </Link>
-                <Link
-                  to="/Coach"
-                  className={`nav-Filter-link ${isActive("/Coach") ? "active-link" : ""}`}
-                >
-                  Coach
-                </Link>
-                <Link
-                  to="/Events"
-                  className={`nav-Filter-link ${isActive("/Events") ? "active-link" : ""}`}
-                >
-                  Events
-                </Link>
-                <Link
-                  to="/Gym"
-                  className={`nav-Filter-link ${isActive("/Gym") ? "active-link" : ""}`}
-                >
-                  Gym
-                </Link>
               </div>
             </>
           )}

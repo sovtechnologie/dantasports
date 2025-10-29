@@ -236,6 +236,10 @@
   font-size: 24px;
   cursor: pointer;
   color: #ffffff;
+  /* position: absolute;
+  top: 15px;
+  right: 15px; */
+  margin-bottom: 10px;
 }
 
 /* Show hamburger and make menu collapsible on small screens */

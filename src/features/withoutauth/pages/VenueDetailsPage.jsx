@@ -303,6 +303,7 @@ function VenueDetailsPage() {
 
   return (
     <>
+     
       <section style={{ background: "#F1F3F2" }} className="pb-3 pb-lg-5">
         <Container>
           <div className="venue-main-header pt-3 pb-3 pt-lg-5 pb-lg-5">

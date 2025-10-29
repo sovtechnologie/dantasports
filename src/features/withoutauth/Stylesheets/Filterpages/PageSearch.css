@@ -1,0 +1,52 @@
+.search_wrapper{
+
+   box-shadow: 0px 4px 4px 0px #1163C740;
+   border-radius: 0px 0px 40px 40px;
+   padding: 30px 0;
+   background-color: white;
+   margin-bottom: 30px;
+
+}
+
+.search_wrapper h3 {
+
+    font-family: 'Lato';
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 32px;
+    color: #000;
+
+}
+
+
+.search_wrapper input {
+
+    border: 1.22px solid #1163C7;
+    height: 40px;
+    border-radius: 56px;
+    color: #1163C7;
+    padding-left: 60px;
+}
+
+.search_wrapper input::placeholder{
+
+    color: #1163C7;
+    font-family: 'DM Sans';
+    font-weight: 400;
+    font-size: 20px;
+
+}
+.sech_icon span{
+
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    top: 6px;
+    left: 25px;
+}
+
+.sech_icon span img{
+
+    height: 100%;
+    width: 100%;
+}

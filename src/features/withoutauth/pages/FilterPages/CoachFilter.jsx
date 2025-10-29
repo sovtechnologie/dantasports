@@ -405,7 +405,7 @@ export default function CoachFilterPage() {
                               )}
                             </div>
 
-                            <p className="card_date ">
+                            <p className="card_date mb-3 ">
                               <span className="me-2">
                                 <img src={map} alt="" />
                               </span>
