@@ -96,7 +96,7 @@ const AvailabilityCalendar = () => {
               className={`btn d-flex flex-column mx-1 px-3 py-2 rounded ${
                 selected ? "btn-primary text-white" : "btn-light text-muted"
               }`}
-              style={{ minWidth: "65px" }}
+              style={{ minWidth: "60px" }}
               onClick={() => setSelectedDate(new Date(d))}
             >
               <span className="fw-bold">{d.getDate()}</span>

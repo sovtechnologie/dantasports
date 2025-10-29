@@ -412,7 +412,7 @@ function VenueDetailsPage() {
                         (Click on sports to view price chart)
                       </span>
                     </div>
-                    <div className="sports-grid">
+                    <div className="sports-grid satish">
                       {venue?.sports?.map((sport) => (
                         <button
                           className="sport-card"
@@ -531,7 +531,7 @@ function VenueDetailsPage() {
               </div>
               <div className="venue-right col-lg-4">
                 <div className="venue-location">
-                  <div className="sports-header">Location:</div>
+                  <h3 className="details_page_titles">Location:</h3>
 
                   <div className="gym-right-section-p">
                     <p>{venue.address}</p>
@@ -552,7 +552,8 @@ function VenueDetailsPage() {
 
                 {/* Sports Selector */}
                 <div className="vb-section">
-                  <label>Select Sports:</label>
+                  {/* <label>Select Sports:</label> */}
+                  <h3 className="details_page_titles">Select Sports:</h3>
                   <div className="vb-sport-options">
                     {venue.sports.map((sport) => (
                       <button
@@ -586,7 +587,7 @@ function VenueDetailsPage() {
                   setBookingId={setBookingId}
                 />
 
-                <div className="venue-right-section mt-3 mb-3">
+                {/* <div className="venue-right-section mt-3 mb-3">
                   <div className="venue-heading">Price details</div>
                   {BookingPriceLoading ? (
                     <div className="price-loader">
@@ -602,10 +603,8 @@ function VenueDetailsPage() {
                       setFinalAmount={setFinalAmount}
                     />
                   )}
-                </div>
-                {/* <div className="container">
-                  <PriceDetails/>
                 </div> */}
+                <PriceDetails/>
 
                 <button className="vb-proceed-btn" onClick={handleProceedClick}>
                   {paymentLoading ? "Processing..." : "PROCEED"}
