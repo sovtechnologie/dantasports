@@ -385,30 +385,30 @@ export default function EventDetailPage() {
                   </div>
                   <div className="col-lg-6">
                     <div className="event-section mt-3">
-                  <div className="event-heading">
-                    <strong>Rules & Regulations</strong>
-                  </div>
-                  <div
-                    className="event-description"
-                    style={{ whiteSpace: "pre-wrap" }}
-                  >
-                    {expandedSection === "rules"
-                      ? (event?.rule_and_regulations ?? "No rules specified")
-                      : `${event?.rule_and_regulations?.substring(0, 200) ?? ""}...`}
-                  </div>
-                  <button
-                    onClick={() => toggleSection("rules")}
-                    className="read-more-btn"
-                  >
-                    {expandedSection === "rules" ? "Read less" : "Read more"}
-                  </button>
-                </div>
+                      <div className="event-heading">
+                        <strong>Rules & Regulations</strong>
+                      </div>
+                      <div
+                        className="event-description"
+                        style={{ whiteSpace: "pre-wrap" }}
+                      >
+                        {expandedSection === "rules"
+                          ? (event?.rule_and_regulations ?? "No rules specified")
+                          : `${event?.rule_and_regulations?.substring(0, 200) ?? ""}...`}
+                      </div>
+                      <button
+                        onClick={() => toggleSection("rules")}
+                        className="read-more-btn"
+                      >
+                        {expandedSection === "rules" ? "Read less" : "Read more"}
+                      </button>
+                    </div>
                   </div>
 
                 </div>
 
 
-                
+
 
 
                 <div class="row g-3 mt-3">
@@ -584,9 +584,7 @@ export default function EventDetailPage() {
                 </div>
 
                 <div className="event-right-section">
-                  <div className="event-heading">
-                    <strong>Price details</strong>
-                  </div>
+
                   <CheckoutPricing
                     totalPrice={totalPrice}
                     convenienceFee={ConvenienceFee}
@@ -630,7 +628,7 @@ export default function EventDetailPage() {
               </div>
             </div> */}
             <Container className="p-0">
-              <EventReviewSlider event={{ reviews: event?.reviews }} />
+              <EventReviewSlider event={{ review: event?.reviews }} />
             </Container>
             {/* <Gallery gallery={event.gallery} />
              */}

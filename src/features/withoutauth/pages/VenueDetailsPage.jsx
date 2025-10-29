@@ -69,10 +69,10 @@ const mapVenueData = (apiData) => {
       : [venueImage, venueImage, venueImage, venueImage],
     sports: Array.isArray(apiData?.sports)
       ? apiData.sports.map((sport) => ({
-          sportId: sport.id,
-          name: sport.name,
-          icon: sport.image,
-        }))
+        sportId: sport.id,
+        name: sport.name,
+        icon: sport.image,
+      }))
       : [],
     amenities: Array.isArray(apiData?.amenities)
       ? apiData.amenities.map((a) => a.name)
@@ -85,15 +85,15 @@ const mapVenueData = (apiData) => {
     favourite_venue_id: apiData?.favourite_venue_id,
     reviews: Array.isArray(apiData?.reviews)
       ? apiData.reviews.map((review) => ({
-          id: review.id,
-          image: review.image,
-          userName: review.user_name || "Anonymous",
-          rating: review.rating || 0,
-          comment: review.comment || "No comment provided",
-          date:
-            formatDate(review.createdAt) ||
-            new Date().toISOString().split("T")[0],
-        }))
+        id: review.id,
+        image: review.image,
+        userName: review.user_name || "Anonymous",
+        rating: review.rating || 0,
+        comment: review.comment || "No comment provided",
+        date:
+          formatDate(review.createdAt) ||
+          new Date().toISOString().split("T")[0],
+      }))
       : [], // Default to first 5 reviews if not available
   };
 };
@@ -125,18 +125,18 @@ function VenueDetailsPage() {
     Array.isArray(data?.result) && data.result.length > 0
       ? mapVenueData(data.result[0])
       : {
-          name: "Loading Venue...",
-          location: "",
-          rating: 0,
-          reviewcount: 0,
-          timing: "",
-          price: 0,
-          address: "",
-          images: [venueImage],
-          sports: [],
-          amenities: [],
-          reviews: [],
-        };
+        name: "Loading Venue...",
+        location: "",
+        rating: 0,
+        reviewcount: 0,
+        timing: "",
+        price: 0,
+        address: "",
+        images: [venueImage],
+        sports: [],
+        amenities: [],
+        reviews: [],
+      };
 
   const {
     data: sportDetails,
@@ -303,7 +303,7 @@ function VenueDetailsPage() {
 
   return (
     <>
-     
+
       <section style={{ background: "#F1F3F2" }} className="pb-3 pb-lg-5">
         <Container>
           <div className="venue-main-header pt-3 pb-3 pt-lg-5 pb-lg-5">
@@ -588,8 +588,7 @@ function VenueDetailsPage() {
                   setBookingId={setBookingId}
                 />
 
-                {/* <div className="venue-right-section mt-3 mb-3">
-                  <div className="venue-heading">Price details</div>
+                <div className="venue-right-section mt-3 mb-3">
                   {BookingPriceLoading ? (
                     <div className="price-loader">
                       <Spinner size={38} color="#1163c7" />
@@ -604,8 +603,8 @@ function VenueDetailsPage() {
                       setFinalAmount={setFinalAmount}
                     />
                   )}
-                </div> */}
-                <PriceDetails/>
+                </div>
+                {/* <PriceDetails/> */}
 
                 <button className="vb-proceed-btn" onClick={handleProceedClick}>
                   {paymentLoading ? "Processing..." : "PROCEED"}
@@ -614,7 +613,7 @@ function VenueDetailsPage() {
 
               {venue?.reviews?.length > 0 && (
                 <div className="rating-wrapper">
-                  <EventReviewSlider event={{ reviews: venue?.reviews }} />
+                  <EventReviewSlider event={{ review: venue?.reviews }} />
                 </div>
               )}
 

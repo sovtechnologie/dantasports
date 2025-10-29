@@ -97,7 +97,7 @@ const mapEventData = (apiData) => {
         reviews: Array.isArray(apiData?.reviews)
             ? apiData.reviews.map((review) => ({
                 id: review.id,
-                 image: review.image ,
+                image: review.image,
                 userName: review.user_name || "Anonymous",
                 rating: review.rating || 0,
                 comment: review.comment || "No comment provided",
@@ -221,121 +221,121 @@ export default function EventDetailPage() {
             <section style={{ background: "#f1f3f2" }} className="pb-lg-5 pb-3">
                 <Container>
                     <div className='Event-main-header'>
-                <div className="breadcrumb">
-                    <span>Event &gt; {event.location} &gt; {event.name}</span>
-                </div>
-
-                <h1 className="event-name">{event.name}</h1>
-                <div className="event-location-rating">
-                    <span>{event.location}</span>
-                    <span className="star" style={{marginLeft:"20px"}}>★</span> <span className="light-text"style={{marginLeft:"5px"}}>{event?.rating}({event?.reviewcount} ratings)</span>
-                </div>
-            </div>
-
-            <div className="event-details-container">
-                <div className="event-wrapper row">
-
-                    <div className="event-left col-lg-8">
-
-                        <div className="event-image-carosal">
-                            <Swiper
-                                spaceBetween={30}
-                                centeredSlides={true}
-                                autoplay={{
-                                    delay: 2500,
-                                    disableOnInteraction: false,
-                                }}
-                                pagination={{
-                                    clickable: true,
-                                }}
-                                // navigation={true}
-                                modules={[Autoplay, Pagination]}
-                                className="mySwiper"
-                            >
-                                {event?.images?.map((img, index) => (
-                                    <SwiperSlide key={index} className="event-swiperslide">
-                                        <img src={img} alt={`event-image-${index}`} className="event-swiperslide-img" />
-                                    </SwiperSlide>
-                                ))}
-                            </Swiper>
+                        <div className="breadcrumb">
+                            <span>Event &gt; {event.location} &gt; {event.name}</span>
                         </div>
 
-
-                        <div className="event-section">
-                            <div className="event-heading">About the Event</div>
-                            <div className="event-description">
-                                {expandedSection === "about"
-                                    ? event.about
-                                    : `${event?.about?.substring(0, 100)}...`}
-                            </div>
+                        <h1 className="event-name">{event.name}</h1>
+                        <div className="event-location-rating">
+                            <span>{event.location}</span>
+                            <span className="star" style={{ marginLeft: "20px" }}>★</span> <span className="light-text" style={{ marginLeft: "5px" }}>{event?.rating}({event?.reviewcount} ratings)</span>
                         </div>
+                    </div>
 
-                        <div className="event-section">
-                            <div className="event-heading">Event Guide</div>
-                            <div className="event-guide-content">
-                                <div className="guide-item">
-                                    <div className="guide-label">Tickets Needed For</div>
-                                    <div className="guide-value">{event?.tickets}</div>
+                    <div className="event-details-container">
+                        <div className="event-wrapper row">
+
+                            <div className="event-left col-lg-8">
+
+                                <div className="event-image-carosal">
+                                    <Swiper
+                                        spaceBetween={30}
+                                        centeredSlides={true}
+                                        autoplay={{
+                                            delay: 2500,
+                                            disableOnInteraction: false,
+                                        }}
+                                        pagination={{
+                                            clickable: true,
+                                        }}
+                                        // navigation={true}
+                                        modules={[Autoplay, Pagination]}
+                                        className="mySwiper"
+                                    >
+                                        {event?.images?.map((img, index) => (
+                                            <SwiperSlide key={index} className="event-swiperslide">
+                                                <img src={img} alt={`event-image-${index}`} className="event-swiperslide-img" />
+                                            </SwiperSlide>
+                                        ))}
+                                    </Swiper>
                                 </div>
-                                <div className="guide-item">
-                                    <div className="guide-label">Activity</div>
-                                    <div className="guide-value">{event?.activity}</div>
-                                </div>
-                                <div className="guide-item">
-                                    <div className="guide-label">Kids Friendly?</div>
-                                    <div className="guide-value">{event?.kidsFriendly}</div>
-                                </div>
-                                <div className="guide-item">
-                                    <div className="guide-label">Pet Friendly?</div>
-                                    <div className={`guide-value ${!event?.petFriendly ? "no" : ""}`}>
-                                        {event?.petFriendly}
+
+
+                                <div className="event-section">
+                                    <div className="event-heading">About the Event</div>
+                                    <div className="event-description">
+                                        {expandedSection === "about"
+                                            ? event.about
+                                            : `${event?.about?.substring(0, 100)}...`}
                                     </div>
                                 </div>
-                                <div className="guide-item">
-                                    <div className="guide-label">Difficulty?</div>
-                                    <div className='guide-value'>{event?.difficulty}</div>
+
+                                <div className="event-section">
+                                    <div className="event-heading">Event Guide</div>
+                                    <div className="event-guide-content">
+                                        <div className="guide-item">
+                                            <div className="guide-label">Tickets Needed For</div>
+                                            <div className="guide-value">{event?.tickets}</div>
+                                        </div>
+                                        <div className="guide-item">
+                                            <div className="guide-label">Activity</div>
+                                            <div className="guide-value">{event?.activity}</div>
+                                        </div>
+                                        <div className="guide-item">
+                                            <div className="guide-label">Kids Friendly?</div>
+                                            <div className="guide-value">{event?.kidsFriendly}</div>
+                                        </div>
+                                        <div className="guide-item">
+                                            <div className="guide-label">Pet Friendly?</div>
+                                            <div className={`guide-value ${!event?.petFriendly ? "no" : ""}`}>
+                                                {event?.petFriendly}
+                                            </div>
+                                        </div>
+                                        <div className="guide-item">
+                                            <div className="guide-label">Difficulty?</div>
+                                            <div className='guide-value'>{event?.difficulty}</div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div className="event-section">
-                            <div className="event-heading">Instruction</div>
-                            <div className="event-description" style={{ whiteSpace: "pre-wrap" }}>
-                                {expandedSection === "instruction"
-                                    ? event?.instruction
-                                    : `${event?.instruction?.substring(0, 200)}...`}
-                            </div>
-                            <button onClick={() => toggleSection("instruction")} className="read-more-btn">
-                                {expandedSection === "instruction" ? "Read less" : "Read more"}
-                            </button>
-                        </div>
+                                <div className="event-section">
+                                    <div className="event-heading">Instruction</div>
+                                    <div className="event-description" style={{ whiteSpace: "pre-wrap" }}>
+                                        {expandedSection === "instruction"
+                                            ? event?.instruction
+                                            : `${event?.instruction?.substring(0, 200)}...`}
+                                    </div>
+                                    <button onClick={() => toggleSection("instruction")} className="read-more-btn">
+                                        {expandedSection === "instruction" ? "Read less" : "Read more"}
+                                    </button>
+                                </div>
 
-                        <div className="event-carry-point">
-                            <div className="event-section event-carry">
-                                <div className="event-heading">Things to Carry</div>
-                                <div className="carry-list">
-                                    <ol className="ps-3">
-                                        {event?.carrything?.split('\n').map((item, index) => (
-                                            <li key={index}>{item}</li>
-                                        ))}
-                                    </ol>
+                                <div className="event-carry-point">
+                                    <div className="event-section event-carry">
+                                        <div className="event-heading">Things to Carry</div>
+                                        <div className="carry-list">
+                                            <ol className="ps-3">
+                                                {event?.carrything?.split('\n').map((item, index) => (
+                                                    <li key={index}>{item}</li>
+                                                ))}
+                                            </ol>
+
+                                        </div>
+                                    </div>
+                                    <div className="event-section event-pickPoints">
+                                        <div className="event-heading">Pick Points</div>
+                                        <div className="carry-list">
+                                            <ol className="ps-3">
+                                                {event?.meetupPoints?.map((item, index) => (
+                                                    <li key={index}>{item.area} , {item.city}</li>
+                                                ))}
+                                            </ol>
+                                        </div>
+                                    </div>
 
                                 </div>
-                            </div>
-                            <div className="event-section event-pickPoints">
-                                <div className="event-heading">Pick Points</div>
-                                <div className="carry-list">
-                                    <ol className="ps-3">
-                                        {event?.meetupPoints?.map((item, index) => (
-                                            <li key={index}>{item.area} , {item.city}</li>
-                                        ))}
-                                    </ol>
-                                </div>
-                            </div>
 
-                        </div>
-
-                        {/* <div className="event-term_policy">
+                                {/* <div className="event-term_policy">
                             <div className="event-section terms">
                                 <div className="event-heading">Terms & Conditions
                                 </div>
@@ -361,150 +361,150 @@ export default function EventDetailPage() {
                                 </button>
                             </div>
                         </div> */}
-                        <div class="row g-3 mt-3">
-                    <div className="col-12 col-lg-6">
-                        <div className="card modal_title">
-                        {/* <!-- Button trigger modal --> */}
-                        <div className="d-flex justify-content-between align-items-center text-center">
-                        
-                            <div className="rule">
-                            <p className="m-0">Terms & Conditions</p>
-                            </div>
-                            <div>
-                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#RulesRegulations">
-                                <img src={arrow} alt="" />
-                            </button>
-                            </div>
-                        </div>
+                                <div class="row g-3 mt-3">
+                                    <div className="col-12 col-lg-6">
+                                        <div className="card modal_title">
+                                            {/* <!-- Button trigger modal --> */}
+                                            <div className="d-flex justify-content-between align-items-center text-center">
+
+                                                <div className="rule">
+                                                    <p className="m-0">Terms & Conditions</p>
+                                                </div>
+                                                <div>
+                                                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#RulesRegulations">
+                                                        <img src={arrow} alt="" />
+                                                    </button>
+                                                </div>
+                                            </div>
 
 
-                      {/* <!-- Modal --> */}
-                      <div class="modal fade" id="RulesRegulations" tabindex="-1" aria-labelledby="RulesRegulations" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                          <div class="modal-content custom_modal">
-                            <div class="modal-header border-0">
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                          <TermsConditionsModal termsText={event?.termsAndCondition} />
-                            </div>
+                                            {/* <!-- Modal --> */}
+                                            <div class="modal fade" id="RulesRegulations" tabindex="-1" aria-labelledby="RulesRegulations" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content custom_modal">
+                                                        <div class="modal-header border-0">
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <TermsConditionsModal termsText={event?.termsAndCondition} />
+                                                        </div>
 
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-12 col-lg-6">
-                    <div className="card modal_title">
-                      {/* <!-- Button trigger modal --> */}
-                      <div className="d-flex justify-content-between align-items-center text-center">
-                       
-                        <div className="rule">
-                          <p className="m-0">Cancellation Policy</p>
-                        </div>
-                         <div>
-                          <button type="button" class="btn border-0" data-bs-toggle="modal" data-bs-target="#CancellationPolicy">
-                            <img src={arrow} alt="" />
-                          </button>
-                        </div>
-                      </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-12 col-lg-6">
+                                        <div className="card modal_title">
+                                            {/* <!-- Button trigger modal --> */}
+                                            <div className="d-flex justify-content-between align-items-center text-center">
 
-
-                      {/* <!-- Modal --> */}
-                      <div class="modal fade" id="CancellationPolicy" tabindex="-1" aria-labelledby="CancellationPolicy" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                          <div class="modal-content custom_modal">
-                            <div class="modal-header border-0">
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                              <CancellationPolicy policyText={event?.cancelPolicy} />
-                            </div>
-
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                
-                </div>
-                    </div>
+                                                <div className="rule">
+                                                    <p className="m-0">Cancellation Policy</p>
+                                                </div>
+                                                <div>
+                                                    <button type="button" class="btn border-0" data-bs-toggle="modal" data-bs-target="#CancellationPolicy">
+                                                        <img src={arrow} alt="" />
+                                                    </button>
+                                                </div>
+                                            </div>
 
 
-                    <div className="event-right col-lg-4">
-                        <div className="event-right-section">
-                            <div className="event-heading">Location</div>
-                            <div className="gym-right-section-p"><p>{event.address}</p></div>
-                            <div className="venue-map">
-                                <CustomMap latitude={event?.latitude} longitude={event?.longitude} />
+                                            {/* <!-- Modal --> */}
+                                            <div class="modal fade" id="CancellationPolicy" tabindex="-1" aria-labelledby="CancellationPolicy" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content custom_modal">
+                                                        <div class="modal-header border-0">
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <CancellationPolicy policyText={event?.cancelPolicy} />
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
 
-                        </div>
 
-                        <div className="event-right-section">
-                            <div className="event-heading">Meetup Point</div>
-                            <div className="meetup-time-dropdown">
-                                <select
-                                    value={selectedArea || ''}
-                                    className="meetup-select"
-                                    onChange={(e) => {
-                                        setSelectedArea(e.target.value)
-                                        setLocationId(e.target.key);
+                            <div className="event-right col-lg-4">
+                                <div className="event-right-section">
+                                    <div className="event-heading">Location</div>
+                                    <div className="gym-right-section-p"><p>{event.address}</p></div>
+                                    <div className="venue-map">
+                                        <CustomMap latitude={event?.latitude} longitude={event?.longitude} />
+                                    </div>
 
-                                    }}
-                                >
-                                    {event?.meetupPoints?.map((item, index) => (
-                                        <option key={index} value={item.area}>
-                                            {item.area} , {item.city}
-                                        </option>
-                                    ))}
-                                </select>
+                                </div>
+
+                                <div className="event-right-section">
+                                    <div className="event-heading">Meetup Point</div>
+                                    <div className="meetup-time-dropdown">
+                                        <select
+                                            value={selectedArea || ''}
+                                            className="meetup-select"
+                                            onChange={(e) => {
+                                                setSelectedArea(e.target.value)
+                                                setLocationId(e.target.key);
+
+                                            }}
+                                        >
+                                            {event?.meetupPoints?.map((item, index) => (
+                                                <option key={index} value={item.area}>
+                                                    {item.area} , {item.city}
+                                                </option>
+                                            ))}
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                <div className="event-right-section">
+                                    <div className="event-heading">Select Date:</div>
+                                    <EventCalandar
+                                        selectedDate={selectedDate}
+                                        setSelectedDate={setSelectedDate}
+                                        startDateProp={event?.startDate}
+                                        endDateProp={event?.endDate} />
+                                </div>
+
+                                <div className="event-right-section">
+                                    <div className="event-heading">Chosse Tickets :</div>
+                                    <TicketSelector
+                                        tickets={EventPrice[0]?.tickets}
+                                        counts={ticketCounts}
+                                        onChange={handleTicketChange}
+                                        setTotalPrice={setTotalPrice}
+                                        setTickets={setTickets}
+                                        disabled={!selectedDate}
+                                    />
+                                </div>
+
+                                <div className="event-right-section">
+                                    <div className="event-heading">Price details</div>
+                                    <CheckoutPricing
+                                        totalPrice={totalPrice}
+                                        convenienceFee={ConvenienceFee}
+                                        type={2}
+                                        venueId={id}
+                                        setFinalAmount={setFinalAmount} />
+                                </div>
+
+                                <div className="event-right-section-button">
+                                    <button className="event-btn" onClick={handleBookEvent} disabled={bookingLoading || paymentLoading}> {bookingLoading || paymentLoading ? "Processing..." : "Book Tickets"}</button>
+                                </div>
 
                             </div>
                         </div>
-
-                        <div className="event-right-section">
-                            <div className="event-heading">Select Date:</div>
-                            <EventCalandar
-                                selectedDate={selectedDate}
-                                setSelectedDate={setSelectedDate}
-                                startDateProp={event?.startDate}
-                                endDateProp={event?.endDate} />
-                        </div>
-
-                        <div className="event-right-section">
-                            <div className="event-heading">Chosse Tickets :</div>
-                            <TicketSelector
-                                tickets={EventPrice[0]?.tickets}
-                                counts={ticketCounts}
-                                onChange={handleTicketChange}
-                                setTotalPrice={setTotalPrice}
-                                setTickets={setTickets}
-                                 disabled={!selectedDate}
-                            />
-                        </div>
-
-                        <div className="event-right-section">
-                            <div className="event-heading">Price details</div>
-                            <CheckoutPricing
-                                totalPrice={totalPrice}
-                                convenienceFee={ConvenienceFee}
-                                type={2}
-                                venueId={id}
-                                setFinalAmount={setFinalAmount} />
-                        </div>
-
-                        <div className="event-right-section-button">
-                            <button className="event-btn" onClick={handleBookEvent} disabled={bookingLoading || paymentLoading}> {bookingLoading || paymentLoading ? "Processing..." : "Book Tickets"}</button>
-                        </div>
-
-                    </div>
-                </div>
-                {/* <Gallery gallery={event.gallery} /> */}
-                <GalleryComponent/>
-                <div className="ratings-carousel">
-                      <EventReviewSlider event={{ reviews: event?.reviews }} />
-                    {/* <h2 className="review-heading">Ratings & Reviews</h2>
+                        {/* <Gallery gallery={event.gallery} /> */}
+                        <GalleryComponent />
+                        <div className="ratings-carousel">
+                            <EventReviewSlider event={{ review: event?.reviews }} />
+                            {/* <h2 className="review-heading">Ratings & Reviews</h2>
                     <div className="review-carousel-container">
                         {event?.reviews?.slice(start, start + visibleCount).map((review) => (
                             <ReviewCard key={review.id} review={review} />
@@ -514,10 +514,10 @@ export default function EventDetailPage() {
                         <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
                         <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
                     </div> */}
-                </div>
+                        </div>
 
 
-                {/* <div className='event-banner-container'>
+                        {/* <div className='event-banner-container'>
                     <h2 className='event-banner-heading'>Ongoing Events</h2>
                     <div className="event-banner-carousel">
                         <div className="event-banner-track">
@@ -530,9 +530,10 @@ export default function EventDetailPage() {
                     </div>
                 </div> */}
 
-                <OngoingEvents/>
+                        <OngoingEvents banners={banners} />
 
-            </div>
+
+                    </div>
                 </Container>
             </section>
 

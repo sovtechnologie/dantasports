@@ -172,8 +172,8 @@ export default function BookVenues() {
                         : "0.0"}
                     </p>
                     <div className="rating d-flex justify-content-center align-items-center">
-                      <div className="me-2"><img src={star}  alt="" /></div>
-                      <div><span>{venue.average_rating || "0.0"}</span></div>
+                      <div className="me-2"><img src={star} alt="" /></div>
+                      <div><span>{venue.average_rating || "0.0"} ( {venue.review_count || 0})</span></div>
                     </div>
                   </div>
 

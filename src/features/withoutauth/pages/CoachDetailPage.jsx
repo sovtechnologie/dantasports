@@ -339,7 +339,7 @@ export default function CoachDetailPage() {
                         </div>
 
                         <div className="ratings-carousel">
-                            <EventReviewSlider event={{ reviews: coach?.reviews }} />
+                            <EventReviewSlider event={{ review: coach?.reviews }} />
                         </div>
                     </div>
                 </Container>

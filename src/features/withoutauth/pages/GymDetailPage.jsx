@@ -283,7 +283,7 @@ export default function GymDetailPage() {
                                 ({gym?.reviewcount} ratings)
                             </span>
                             <span className="ps-2 text_blue"><a href="">Rate Gym</a></span>
-                            
+
                         </div>
                     </div>
 
@@ -541,7 +541,6 @@ export default function GymDetailPage() {
                                 </div>
 
                                 <div className="gym-right-section">
-                                    <div className="gym-heading">Price details</div>
                                     <CheckoutPricing
                                         totalPrice={totalAmount}
                                         convenienceFee={ConvenienceFee}
@@ -567,7 +566,7 @@ export default function GymDetailPage() {
 
                         {/* review section */}
                         <div className="ratings-carousel">
-                            <EventReviewSlider event={{ reviews: gym?.reviews }} />
+                            <EventReviewSlider event={{ review: gym?.reviews }} />
 
                         </div>
 

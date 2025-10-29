@@ -8,6 +8,7 @@ import { useCreateVenueBooking } from '../../../hooks/BookingVenue/useCreateVenu
 import { useUpdateBooking } from '../../../hooks/BookingVenue/useUpdateVenueBooking.js';
 import addCircle from "../../../assets/VenueImage/AddCircle.jpg"
 import minusCircle from "../../../assets/VenueImage/MinusCircle.png"
+import { useQueryClient } from '@tanstack/react-query';
 
 
 export const formatDate = (isoString) => {
@@ -257,6 +258,7 @@ const TimeSelector = ({
   //     onError: (error) => alert('Booking failed. ' + (error.message || '')),
   //   });
   // }
+  const queryClient = useQueryClient();
 
   const bookVenue = (courtId) => {
     if (!isLoggedIn) {
@@ -279,7 +281,10 @@ const TimeSelector = ({
     if (bookingId) {
 
       updateBooking(bookingPayload, {
+
         onSuccess: (data) => {
+          queryClient.invalidateQueries(["paymentDetails", bookingId]);
+
           console.log("Booking updated successfully:", data);
           alert("Booking updated successfully!");
         },
