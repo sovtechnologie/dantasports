@@ -158,7 +158,7 @@ function BookRun() {
                       {evt.event_title}
                     </h2>
 
-                    <p className="card_date mb-2">
+                    <p className="card_date mb-3">
                       <span className="me-2">
                         <img src={dateIcon} alt="date" />
                       </span>
@@ -209,7 +209,7 @@ function BookRun() {
                     </ul>
                   </div> */}
                   <div className="d-flex justify-content-between no_off_users">
-                    <p className="up_to_offer mb-2">
+                    <p className="up_to_offer mb-0">
                       {evt.coupon_type === "percentage" && evt.discount_offer
                         ? `Upto ${parseFloat(evt.discount_offer)}% Off`
                         : evt.coupon_type === "flat" && evt.discount_offer
@@ -223,18 +223,18 @@ function BookRun() {
                         : ""}
                     </p>
                   </div>
-                  <div className="card_line mb-1"></div>
-                  <div className="easy2">
-                    {evt.difficulty === 0 ? (
-                      <span className="Moderate">Moderate</span>
-                    ) : evt.difficulty === 1 ? (
-                      <span className="easy">Easy</span>
-                    ) : evt.difficulty === 2 ? (
-                      <span className="difficult">Difficult</span>
-                    ) : (
-                      <span className="unknown">Not Specified</span>
-                    )}
-                  </div>
+                  <div className="card_line mb-0"></div>
+                 <div className="easy2">
+  {evt.difficulty === 0 ? (
+    <span className="Moderate">Moderate</span>
+  ) : evt.difficulty === 1 ? (
+    <span className="easy">Easy</span>
+  ) : evt.difficulty === 2 ? (
+    <span className="difficult">Difficult</span>
+  ) : (
+    <span className="unknown">Not Specified</span>
+  )}
+</div>
 
 
                   {/* Offer / Join Now */}

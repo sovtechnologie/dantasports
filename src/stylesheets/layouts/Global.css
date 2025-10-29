@@ -46,7 +46,8 @@ a {
   font-size: 20px;
   color: #172A39;
   font-family: 'Lato';
-  line-height: 30px;
+  line-height: 24px;
+  margin-bottom: 1rem;
 
 }
 
@@ -70,14 +71,21 @@ a {
 
 }
 
-.modal_title .rule p {
+.card.modal_title {
+
+  padding: 25px 12px 25px 12px;
+  border: none !important;
+  border-radius: 11px;
+}
+
+
+.card.modal_title .rule p {
 
     color: #172A39 !important;
-    font-family: 'Lato';
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 21.67px;
-    padding-left: 15px;
+    font-family: 'Lato' !important;
+    font-weight: 500 !important;
+    font-size: 18px !important;
+    line-height: 21.67px !important;
 
 
 }
@@ -97,9 +105,18 @@ a {
     background-color: white;
 }
 
+.text_wrap2{
+
+   width: 130px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+
+}
 
 .text_wrap {
-  width: 125px;
+  width: 200px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -120,6 +137,7 @@ a {
   overflow: hidden;
   border-radius: 12px 12px 0 0;
 }
+
 .card_img img{
 
     height: 100%;
@@ -190,7 +208,7 @@ a {
   font-family: 'DM Sans';
   font-weight: 400;
   font-size: 14px;
-  line-height: 16.54px;
+  line-height: 14px;
   display: flex;
   align-items: center;
   margin: 0;
@@ -203,6 +221,7 @@ a {
   height: 16px;
   width: 16px;
 }
+
 
 .card_date span img {
 
@@ -226,7 +245,7 @@ a {
 .easy2 {
 
     position: absolute;
-    top: 38%;
+    top: 42%;
     left: 10px;
     background: #0000004D;
     color: white;
@@ -237,7 +256,38 @@ a {
 
 }
 
+.custm_height_card{
+
+  max-height: 404px;
+  height: 100%;
+}
+
+.blue_dot {
+
+  background-color: #1163C7;
+  height: 9px;
+  width: 9px;
+  border-radius: 50%;
+  margin-left: 17px;
+}
+
+
+.details_page_titles {
+
+  color: #172A39 !important;
+  font-family: 'Lato' !important;
+  font-weight: 600 !important;
+  font-size: 18px !important;
+  line-height: 25.61px !important;
+
+}
 @media screen and (max-width: 767px) {
+
+  .custm_height_card{
+
+  max-height: unset;
+  height: 100%;
+}
 
     .see_all a{
 

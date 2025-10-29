@@ -16,7 +16,7 @@ function QuickBooking() {
 
   
   const cardsData = [
-    { title: "Book", texts: ["Book Sports Turf", "Book Sports Turf"], img: book, path: "/venue" },
+    { title: "Turf", texts: ["Book Sports Turf", "Book Sports Turf"], img: book, path: "/venue" },
     { title: "Play", texts: ["Find Players Fast", "Find Players Fast"], img: play, path: "/Host" },
     { title: "Run", texts: ["Join Run Clubs", "Join Run Clubs"], img: run, path: "/run" },
     { title: "Coach", texts: ["Expert Coaches", "Expert Coaches"], img: coach, path: "/coach" },

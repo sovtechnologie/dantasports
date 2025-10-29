@@ -176,7 +176,7 @@ function BookEvents() {
 
                     <div className="card_txt">
                       <h2 className="text_wrap card_heading">{evt.event_title}</h2>
-                      <p className="card_date mb-2">
+                      <p className="card_date mb-3">
                         <span className="me-2">
                           <img src={dateIcon} alt="" />
                         </span>
@@ -224,12 +224,12 @@ function BookEvents() {
                             ? `Upto ₹${parseFloat(evt.discount_offer)} Off`
                             : ""}
 
-                        <p className="onwards_rup mb-2">{evt.pricing
+                        <p className="onwards_rup mb-0">{evt.pricing
                           ? `₹${parseFloat(evt.pricing).toFixed(0)} onwards`
                           : ""}</p></p>
 
                     </div>
-                    <div className="card_line mb-2"></div>
+                    <div className="card_line mb-0"></div>
                     <div className="easy2">
                       <span> {evt.difficulty === 0 ? (
                         <span className="Moderate">Moderate</span>

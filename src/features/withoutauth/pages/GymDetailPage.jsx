@@ -282,6 +282,8 @@ export default function GymDetailPage() {
                             <span style={{ marginLeft: "5px" }}>
                                 ({gym?.reviewcount} ratings)
                             </span>
+                            <span className="ps-2 text_blue"><a href="">Rate Gym</a></span>
+                            
                         </div>
                     </div>
 
@@ -388,61 +390,37 @@ export default function GymDetailPage() {
                                                 </div>
                                             ))}
                                         </div> */}
-                                        <BusinessHours />
+                                        <BusinessHours/>
                                     </div>
 
-                                    <div className="gym-section gym-pickPoints col-lg-6">
-                                        <div className="gym-heading">Coaches</div>
-                                        <div className="coaches-list">
-                                            {Array.isArray(gym?.coaches) && gym.coaches.length > 0 ? (
-                                                gym.coaches.map((coach, index) => (
-                                                    <div className="coaches-card" key={index}>
-                                                        <img
-                                                            src={coach.image || CoachImage}
-                                                            alt={coach.name}
-                                                            className="coach-image"
-                                                        />
-                                                        <p className="coach-name">{coach.name}</p>
-                                                        <p className="coach-title">{coach.type}</p>
-                                                        <p className="coach-exp">{coach.exp} Years</p>
-                                                    </div>
-                                                ))
-                                            ) : (
-                                                <p>No coaches available</p>
-                                            )}
+                                        <div className="gym-section gym-pickPoints cstmcoachwd col-lg-6">
+                                            <div className="gym-heading">Coaches</div>
+                                            <div className="coaches-list">
+                                                {Array.isArray(gym?.coaches) && gym.coaches.length > 0 ? (
+                                                    gym.coaches.map((coach, index) => (
+                                                        <div className="coaches-card" key={index}>
+                                                            <img
+                                                                src={coach.image || CoachImage}
+                                                                alt={coach.name}
+                                                                className="coach-image"
+                                                            />
+                                                            <p className="coach-name">{coach.name}</p>
+                                                            <p className="coach-title">{coach.type}</p>
+                                                            <p className="coach-exp">{coach.exp} Years</p>
+                                                        </div>
+                                                    ))
+                                                ) : (
+                                                    <p>No coaches available</p>
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                {/* <div className="gym-term_policy">
-                                    <div className="gym-section terms">
-                                        <div className="gym-heading">Terms & Conditions
-                                        </div>
-                                        <div className="gym-description" style={{ whiteSpace: "pre-wrap" }}>
-                                            {expandedSection === "terms"
-                                                ? gym?.termsAndCondition
-                                                : `${gym?.termsAndCondition?.substring(0, 200)}...`}
-                                        </div>
-                                        <button onClick={() => toggleSection("terms")} className="read-more-btn">
-                                            {expandedSection === "terms" ? "Read less" : "Read more"}
-                                        </button>
-                                    </div>
-                                    <div className="gym-section policy">
-                                        <div className="gym-heading">Cancellation Policy
-                                        </div>
-                                        <div className="gym-description" style={{ whiteSpace: "pre-wrap" }}>
-                                            {expandedSection === "cancel"
-                                                ? gym?.cancelPolicy
-                                                : `${gym?.cancelPolicy?.substring(0, 200)}...`}
-                                        </div>
-                                        <button onClick={() => toggleSection("cancel")} className="read-more-btn">
-                                            {expandedSection === "cancel" ? "Read less" : "Read more"}
-                                        </button>
-                                    </div>
-                                </div> */}
+
                                 <div class="row g-3 mt-3">
                                     <div className="col-12 col-lg-6">
-                                        <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
+                                        <div className="card modal_title">
                                             {/* <!-- Button trigger modal --> */}
                                             <div className="d-flex justify-content-between align-items-center text-center">
                                                 <div className="rule">
@@ -495,7 +473,7 @@ export default function GymDetailPage() {
                                         </div>
                                     </div>
                                     <div className="col-12 col-lg-6">
-                                        <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
+                                        <div className="card modal_title">
                                             {/* <!-- Button trigger modal --> */}
                                             <div className="d-flex justify-content-between align-items-center text-center">
                                                 <div className="rule">

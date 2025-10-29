@@ -176,23 +176,7 @@
   font-family: "Figtree", Arial, sans-serif;
 }
 
-/* Right Side (Venue Info) */
-/* .venue-right {
-  flex: 1 1 20%;
-  background-color: #f1f3f2;
-  padding: 0 20px 20px 20px;
-  border-radius: 10px;
-  border: 1px solid #f1f3f2;
-  max-width: 405px;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  background-color: #f1f3f2;
-  border-radius: 10px;
-  border: 1px solid #f1f3f2;
-  width: 403px;
-  width: clamp(200px, 27.9861vw, 403px);
-} */
+
 
 .venue-right h2 {
   font-size: 24px;

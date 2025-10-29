@@ -40,6 +40,7 @@ import RulesRegulations from "../components/RulesRegulations.jsx";
 import arrow from "../assets/icons/arrow.svg";
 import CancellationPolicy from "../components/CancellationPolicy.jsx";
 import EventReviewSlider from "../components/EventReviewSlider.jsx";
+import PriceDetails from "../components/PriceDetails.jsx";
 
 export const formatDate = (isoString) => {
   const date = new Date(isoString);
@@ -411,7 +412,7 @@ function VenueDetailsPage() {
                         (Click on sports to view price chart)
                       </span>
                     </div>
-                    <div className="sports-grid">
+                    <div className="sports-grid satish">
                       {venue?.sports?.map((sport) => (
                         <button
                           className="sport-card"
@@ -435,7 +436,7 @@ function VenueDetailsPage() {
                 </div>
                 <div class="row g-3 mt-3">
                   <div className="col-12 col-lg-6">
-                    <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
+                    <div className="card modal_title">
                       {/* <!-- Button trigger modal --> */}
                       <div className="d-flex justify-content-between align-items-center text-center">
                         <div className="rule">
@@ -480,7 +481,7 @@ function VenueDetailsPage() {
                     </div>
                   </div>
                   <div className="col-12 col-lg-6">
-                    <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
+                    <div className="card modal_title">
                       {/* <!-- Button trigger modal --> */}
                       <div className="d-flex justify-content-between align-items-center text-center">
                         <div className="rule">
@@ -530,7 +531,7 @@ function VenueDetailsPage() {
               </div>
               <div className="venue-right col-lg-4">
                 <div className="venue-location">
-                  <div className="sports-header">Location:</div>
+                  <h3 className="details_page_titles">Location:</h3>
 
                   <div className="gym-right-section-p">
                     <p>{venue.address}</p>
@@ -551,7 +552,8 @@ function VenueDetailsPage() {
 
                 {/* Sports Selector */}
                 <div className="vb-section">
-                  <label>Select Sports:</label>
+                  {/* <label>Select Sports:</label> */}
+                  <h3 className="details_page_titles">Select Sports:</h3>
                   <div className="vb-sport-options">
                     {venue.sports.map((sport) => (
                       <button
@@ -585,7 +587,7 @@ function VenueDetailsPage() {
                   setBookingId={setBookingId}
                 />
 
-                <div className="venue-right-section mt-3 mb-3">
+                {/* <div className="venue-right-section mt-3 mb-3">
                   <div className="venue-heading">Price details</div>
                   {BookingPriceLoading ? (
                     <div className="price-loader">
@@ -601,7 +603,8 @@ function VenueDetailsPage() {
                       setFinalAmount={setFinalAmount}
                     />
                   )}
-                </div>
+                </div> */}
+                <PriceDetails/>
 
                 <button className="vb-proceed-btn" onClick={handleProceedClick}>
                   {paymentLoading ? "Processing..." : "PROCEED"}

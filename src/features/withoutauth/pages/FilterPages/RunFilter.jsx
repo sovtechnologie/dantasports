@@ -230,10 +230,10 @@ export default function RunFilterPage() {
                         </div>
                         <div className="txt_wrapper">
                           <div className="card_txt">
-                            <h2 className="text_wrap">{event.event_title}</h2>
+                            <h2 className="text_wrap card_heading m-0">{event.event_title}</h2>
                             <p className="card_date mb-2">
                               <span className="me-2">
-                                <img  src={date} alt="" />
+                                <img src={date} alt="" />
                               </span>
                               {new Date(event.start_date).toLocaleDateString("en-GB", {
                                 day: "2-digit",
@@ -248,7 +248,7 @@ export default function RunFilterPage() {
                             </p>
                             <p className="card_date mb-3">
                               <span className="me-2">
-                                <img  src={map} alt="" />
+                                <img src={map} alt="" />
                               </span>
                               {event.locations?.[0]?.area},{" "}
                               {event.locations?.[0]?.city}
@@ -301,20 +301,20 @@ export default function RunFilterPage() {
                           </div>
 
                         </div>
-                         <div className="rating">
-                                                  <span><img src={star} className="pe-2" alt="" />4.4</span>
-                                              </div>
-                                                <div className="easy2">
-                    <span> {event.difficulty === 0 ? (
-    <span className="Moderate">Moderate</span>
-  ) : event.difficulty === 1 ? (
-    <span className="easy">Easy</span>
-  ) : event.difficulty === 2 ? (
-    <span className="difficult">Difficult</span>
-  ) : (
-    <span className="unknown">Not Specified</span>
-  )}</span>
-                  </div>
+                        <div className="rating">
+                          <span><img src={star} className="pe-2" alt="" />4.4</span>
+                        </div>
+                        <div className="easy2">
+                          <span> {event.difficulty === 0 ? (
+                            <span className="Moderate">Moderate</span>
+                          ) : event.difficulty === 1 ? (
+                            <span className="easy">Easy</span>
+                          ) : event.difficulty === 2 ? (
+                            <span className="difficult">Difficult</span>
+                          ) : (
+                            <span className="unknown">Not Specified</span>
+                          )}</span>
+                        </div>
                       </div>
                     </div>
                   ))

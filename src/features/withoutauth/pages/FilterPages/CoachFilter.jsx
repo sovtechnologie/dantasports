@@ -149,11 +149,9 @@ export default function CoachFilterPage() {
     }));
   }, [filteredCoaches]);
 
-  const likeCoach = useLikeCoach();
-  const unlikeCoach = useUnlikeCoach();
+  const { mutate: likeCoach } = useLikeCoach();
+const { mutate: unlikeCoach } = useUnlikeCoach();
 
-
-  const [likedCoaches, setLikedCoaches] = useState({});
 
   const toggleCoachFavourite = (coach) => {
     if (!auth || !auth?.id) {
@@ -371,6 +369,7 @@ export default function CoachFilterPage() {
                                 <div
                                   key={index}
                                   className="sport_icons"
+                                  className="sport_icons"
                                 >
                                   <img
                                     src={sport.sports_images}
@@ -403,8 +402,9 @@ export default function CoachFilterPage() {
                               )}
                             </div>
 
-                            <p>
+                            <p className="card_date ">
                               <span className="me-2">
+                                <img src={map} alt="" />
                                 <img src={map} alt="" />
                               </span>
                               {coach.location}

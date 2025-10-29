@@ -60,7 +60,6 @@
 
      position: absolute;
     top: 0;
-  
     right: 10px;
     top: 10px;
 }
@@ -70,10 +69,9 @@
     position: absolute;
     top: 0;
     background: #0000004D;
-
     color: white;
-    height: 24px;
-    width: 100px;
+    height: 26px;
+    width: 90px;
     left: 10px;
     top: 10px;
     border-radius: 4px;

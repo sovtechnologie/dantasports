@@ -197,7 +197,7 @@ export default function GymFilterPage() {
                           </div>
 
                           <div className="sports_title">
-                            <p>
+                            <p className="m-0">
                               {gym.amenities && gym.amenities.length > 0 ? (
                                 <>
                                   {gym.amenities

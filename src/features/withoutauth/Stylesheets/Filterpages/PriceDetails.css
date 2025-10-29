@@ -1,0 +1,42 @@
+.priceing_details {
+
+    box-shadow: 0px 3px 2px 0px #1163C740;
+    border-radius: 12.8px;
+    padding: 17px;
+
+}
+
+.brd {
+
+    height: 1.07px;
+    background-color: #ECECEC;
+    margin: 10px 0;
+}
+
+.apply_coupon {
+
+    color: #FF6100;
+    font-family: 'Lato';
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 25.61px;
+
+}
+
+.priceing_details .light_txt  {
+
+    color: #172A39;
+    font-family: 'DM Sans';
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21.34px;
+
+}
+
+.priceing_details input{
+
+    height: 17px;
+    width: 17px;
+    border: 1.71px solid #BDBDBD;
+    margin-right: 5px;
+}

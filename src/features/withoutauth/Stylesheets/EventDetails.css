@@ -1,4 +1,10 @@
 
+.calendar-week .select-date p{
+
+  font-size: 16px;
+  margin-top: 10px;
+
+}
 .calendar-week {
   display: block !important;
 }

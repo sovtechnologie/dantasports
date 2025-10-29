@@ -14,8 +14,7 @@ import BookRun from "../components/BookRun";
 import BookEvents from "../components/BookEvents";
 import PlayHost from "../components/PlayHost";
 import BookGym from "../components/BookGym";
-
-
+import BookCoach from "../components/BookCoach";
 
 const Home = () => {
     return (
@@ -24,6 +23,7 @@ const Home = () => {
             <QuickBooking/>
             <BookVenues />
             <BookRun />
+            <BookCoach/>
             <BookEvents />
             <BookGym />
             <PlayHost/>

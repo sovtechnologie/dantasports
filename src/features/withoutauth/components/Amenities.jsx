@@ -5,34 +5,34 @@ function Amenities() {
   return (
     <>
     <div className="amenities_card">
-        <h2 className='mb-4 text-start'>Amenities</h2>
-        <div className="row g-3">
-            <div className="col-4">
+        <h2 className='mb-3 text-start'>Amenities</h2>
+        <div className="row">
+            <div className="col-4 p-0">
                 <div className="inner">
                     <a href="">Parking</a>
                 </div>
             </div>
-            <div className="col-4">
+            <div className="col-4 p-0">
                 <div className="inner">
                      <a href="">Parking</a>
                 </div>
             </div>
-            <div className="col-4">
+            <div className="col-4 p-0">
                 <div className="inner">
                      <a href="">Parking</a>
                 </div>
             </div>
-            <div className="col-4">
+            <div className="col-4 p-0">
                 <div className="inner">
                      <a href="">Parking</a>
                 </div>
             </div>
-            <div className="col-4">
+            <div className="col-4 p-0">
                 <div className="inner">
                      <a href="">Parking</a>
                 </div>
             </div>
-            <div className="col-4">
+            <div className="col-4 p-0">
                 <div className="inner">
                     <a href="">Parking</a>
                 </div>

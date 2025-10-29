@@ -66,16 +66,16 @@ const AvailabilityCalendar = () => {
       {/* Header with arrows and month/year */}
       <div className="d-flex justify-content-between align-items-center mb-3">
         <button
-          className="btn btn-outline-secondary btn-sm"
+          className="btn border-0 btn-sm"
           onClick={() => scroll(-300)}
         >
           &lt;
         </button>
-        <h6 className="m-0">
+        <h6 className="m-0" style={{ color: "#1163C7", fontWeight: "600" }}>
           {monthNames[currentMonth]} {currentYear}
         </h6>
         <button
-          className="btn btn-outline-secondary btn-sm"
+          className="btn btn-sm"
           onClick={() => scroll(300)}
         >
           &gt;
@@ -96,7 +96,7 @@ const AvailabilityCalendar = () => {
               className={`btn d-flex flex-column mx-1 px-3 py-2 rounded ${
                 selected ? "btn-primary text-white" : "btn-light text-muted"
               }`}
-              style={{ minWidth: "65px" }}
+              style={{ minWidth: "60px" }}
               onClick={() => setSelectedDate(new Date(d))}
             >
               <span className="fw-bold">{d.getDate()}</span>

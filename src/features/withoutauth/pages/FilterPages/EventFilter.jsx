@@ -165,7 +165,7 @@ export default function EventFilterPage() {
                           </span>
                         </div>
 
-                        <div className="easy">
+                        <div className="easy_box">
                           <span>{evt.difficulty === 0 ? (
                             <span className="Moderate">Moderate</span>
                           ) : evt.difficulty === 1 ? (
