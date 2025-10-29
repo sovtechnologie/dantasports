@@ -23,6 +23,7 @@ import map from "../../assets/icons/map.svg";
 import date from "../../assets/icons/date.svg";
 import fallbackGymImg from "../../assets/bookgym/bookgym.png";
 import star from "../../assets/icons/star-white.svg"
+import PageSearch from "../../components/PageSearch.jsx";
 
 export default function GymFilterPage() {
   const userId = useSelector((state) => state.auth.id);
@@ -134,7 +135,8 @@ export default function GymFilterPage() {
   };
 
   return (
-    <section className="pt-3 pt-lg-5 pb-lg-5 pb-3" style={{ background: "#F1F3F2" }}>
+    <section  style={{ background: "#F1F3F2" }}>
+      <PageSearch/>
       <Container>
         <Row>
           <Col lg={3} md={4} className="d-none d-lg-block d-md-block">

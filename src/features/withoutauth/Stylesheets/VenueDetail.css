@@ -1,31 +1,30 @@
-
-.nav-arrow.gym-left{
+.nav-arrow.gym-left {
 
   visibility: hidden;
 }
 
-.venue-main-header {
-  background-color: #ffffff;
-  margin-bottom: 25px;
-  padding-left: 20px;
-  border-bottom-left-radius: 50px;
-  border-bottom-left-radius: clamp(30px, 11.3636vw, 50px);
-  border-bottom-right-radius: clamp(30px, 11.3636vw, 50px);
-  
-}
+
 
 .breadcrumb {
   font-size: 16px;
   font-weight: 500;
   color: #6b7280;
-  font-family: "DM Sans", Arial, sans-serif;
+  font-family: "DM Sans";
+}
+
+.breadcrumb {
+
+  margin-bottom: 20px;
 }
 
 .venue-name {
   color: #000000;
-  font-family: "Lato", sans-serif;
+  font-family: "Lato";
   font-weight: 700;
   font-size: clamp(20px, 5vw, 44px);
+  color: #172A39;
+  margin-bottom: 0;
+  padding-bottom: 25px;
 }
 
 .location-rating {
@@ -57,6 +56,7 @@
 .map-container iframe {
   height: clamp(200px, 22.5694vw, 325px);
 }
+
 .venue-icon-topwrapper {
   position: absolute;
   top: 12px;
@@ -64,6 +64,7 @@
   display: flex;
   gap: 8px;
 }
+
 .venue-icon-btns {
   background-color: transparent;
   border: none;
@@ -71,13 +72,12 @@
 
 .swiper {
   width: 100%;
-  /* height: 500px; */
   border-radius: 12px;
-  /* padding: 1rem; */
 }
 
 .venue-swiperslide {
-  width: 100% !important; /*add for ui fix*/
+  width: 100% !important;
+  /*add for ui fix*/
   text-align: center;
   font-size: 18px;
   background: #444;
@@ -306,6 +306,7 @@
   line-height: clamp(6.04px, 1.8889vw, 27.2px);
   margin-bottom: 0.3rem;
 }
+
 .vb-sport-options,
 .vb-time-periods,
 .vb-time-slots,
@@ -346,10 +347,11 @@
   font-size: 16px;
 }
 
-.court-placeholder{
+.court-placeholder {
 
   margin-bottom: 0;
 }
+
 .vb-sport-btn.active,
 .vb-period-btn.active,
 .vb-slot-btn.active,
@@ -426,6 +428,7 @@
   color: #333;
   white-space: nowrap;
 }
+
 .form-error {
   color: red;
   font-size: 0.85rem;
@@ -452,6 +455,7 @@ font-size: 18px;
   gap: 20px;
   box-shadow: 0px 4.08px 4.08px 0px #1163c740;
 }
+
 .venue-heading {
   display: flex;
   flex-wrap: wrap;
@@ -556,9 +560,11 @@ font-size: 18px;
   .venue-wrapper {
     flex-direction: column;
   }
+
   .venue-location {
     gap: 20px;
   }
+
   .sports-header {
     line-height: 27.2px;
   }
@@ -574,9 +580,11 @@ font-size: 18px;
     font-size: 16px !important;
     line-height: 23.4px !important;
   }
+
   .map-container iframe {
     height: 325px;
   }
+
   .map-container {
     gap: 20px;
   }
@@ -602,7 +610,7 @@ font-size: 18px;
 }
 
 .amenities-title {
-  font-family: "Figtree", Arial, sans-serif;
+  font-family: "Figtree";
   font-weight: 600;
   font-size: 15.52px;
   line-height: 23.27px;
@@ -623,6 +631,7 @@ font-size: 18px;
   flex-direction: column;
   gap: clamp(10px, 0.3889vw, 20px);
 }
+
 .amenities-tag {
   font-family: "Figtree", Arial, sans-serif;
   font-weight: 400;
@@ -696,6 +705,7 @@ font-size: 18px;
   width: 100%;
   margin-top: 50px;
 }
+
 x .ratings-carousel {
   font-family: "Lato", sans-serif;
   margin-top: 50px;
@@ -818,15 +828,18 @@ x .ratings-carousel {
 .venue-nav button img {
   display: flex;
 }
+
 .amenities_tag {
   display: flex;
   flex-direction: row;
   gap: 10px;
 }
+
 .amt-img {
   height: 20px;
   width: 20px;
 }
+
 /* Animation Keyframes */
 @keyframes scroll-left {
   0% {
@@ -885,6 +898,7 @@ x .ratings-carousel {
 }
 
 @media (max-width: 600px) {
+
   /* General Padding */
   .venue-wrapper {
     padding: 0px;
@@ -1002,13 +1016,13 @@ x .ratings-carousel {
 
 @media screen and (max-width: 540px) {
 
-  
-.vb-sport-btn {
 
-  padding: 5px;
-  font-size: 12px;
-}
-  
+  .vb-sport-btn {
+
+    padding: 5px;
+    font-size: 12px;
+  }
+
 }
 
 .gym-right-section-p {
@@ -1024,15 +1038,18 @@ x .ratings-carousel {
     flex-direction: column;
     gap: 0px;
   }
+
   .gym-carry,
   .gym-pickPoints,
   .terms,
   .policy {
     width: 100%;
   }
+
   .gym-carry {
     height: auto;
   }
+
   .timing-item,
   .range {
     font-size: 16px;
@@ -1043,6 +1060,7 @@ x .ratings-carousel {
   .gym-wrapper {
     flex-direction: column;
   }
+
   .gym-left,
   .gym-right {
     width: 100%;
@@ -1054,16 +1072,20 @@ x .ratings-carousel {
 }
 
 @media (max-width: 440px) {
+
   .timing-item,
   .range {
     font-size: clamp(12px, 3.1818vw, 14px);
   }
+
   .coach-name {
     font-size: clamp(12px, 3.1818vw, 14px);
   }
+
   .coach-title {
     font-size: clamp(11px, 2.7273vw, 12px);
   }
+
   .gym-description {
     font-size: clamp(15px, 3.6364vw, 16px);
   }
@@ -1072,9 +1094,11 @@ x .ratings-carousel {
     gap: 2px;
     font-size: clamp(12px, 3.6364vw, 16px);
   }
+
   .gym-amenities {
     gap: 10px;
   }
+
   .amt-img {
     width: clamp(10px, 4.5455vw, 20px);
     height: clamp(10px, 4.5455vw, 20px);

@@ -29,6 +29,7 @@
   background: #0000000D;
   font-size: 12px;
   margin: 5px;
+  width: 70px;
 
 }
 
@@ -47,12 +48,11 @@
     
 }
 
-.book_a_time {
+.book_a_time p {
 
     font-family: 'Lato';
     font-weight: 400;
-    font-style: Regular;
     font-size: 16px;
     color: #1163C7;
-    padding-top: 20px;
+    line-height: 24px;
 }

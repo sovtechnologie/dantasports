@@ -44,7 +44,7 @@ const TimeSlotSelector = () => {
         ))}
       </div>
       <div className="book_a_time">
-        Badminton | Tomorrow | 01:00 PM - 02:00 PM
+        <p>Badminton | Tomorrow | 01:00 PM - 02:00 PM</p>
       </div>
     </div>
     </section>

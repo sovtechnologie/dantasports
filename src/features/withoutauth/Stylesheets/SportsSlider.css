@@ -82,6 +82,10 @@ border: 0.92px solid #CDCDCD;
   transform: scale(1.05);
 }
 
+.sport-item:hover img {
+  filter: brightness(0) invert(1);
+  transition: filter 0.3s ease;
+}
 .sport-icon {
   font-size: 28px;
   margin-bottom: 8px;

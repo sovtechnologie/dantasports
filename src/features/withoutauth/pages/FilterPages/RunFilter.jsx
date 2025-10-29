@@ -21,6 +21,7 @@ import { VenueListShimmer } from "../../components/Shimmer/VenueListShimmer.jsx"
 import { useUnlikeEvent } from "../../../../hooks/favouriteEvent/useUnLikeEvent.js";
 import { useLikeEvent } from "../../../../hooks/favouriteEvent/useLikeEvent.js";
 import eventImage from "../../../withoutauth/assets/events/events1.png";
+import PageSearch from "../../components/PageSearch.jsx";
 function formatTime(timeStr = "00:00") {
   if (!timeStr) return "";
   const [h, m, s] = timeStr.split(":").map(Number);
@@ -175,9 +176,10 @@ export default function RunFilterPage() {
   return (
     <>
       <section
-        className="book_venue_section pt-3 pt-lg-5 pb-lg-5 pb-3"
+        className="book_venue_section"
         style={{ background: "#F1F3F2" }}
       >
+        <PageSearch/>
         <Container>
           <Row>
             <Col lg={3} md={5} className="d-none d-lg-block d-md-block">

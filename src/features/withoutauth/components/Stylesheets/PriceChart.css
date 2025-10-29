@@ -47,16 +47,40 @@
   line-height: 21.67px;
   color: #272727;
   font-weight: 400;
-  font-family: "DM Sans", Arial, sans-serif;
+  font-family: "DM Sans";
   margin-bottom: 2rem;
 }
-
 
 
 .data_box {
   height: 350px;
   overflow-y: scroll;
+  overflow-x: hidden; /* disable horizontal scroll */
 }
+
+/* Custom Scrollbar for Y-axis (WebKit browsers) */
+.data_box::-webkit-scrollbar {
+  width: 8px; /* vertical scrollbar width */
+}
+
+.data_box::-webkit-scrollbar-track {
+  background: #f1f1f1; /* track color */
+  border-radius: 10px;
+}
+
+.data_box::-webkit-scrollbar-thumb {
+  background-color: #6da9f1; /* scrollbar color */
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect on scrollbar */
+.data_box::-webkit-scrollbar-thumb:hover {
+  background-color: lightgray;
+}
+
+
+
 
 .column h5 {
   font-weight: 500;
@@ -64,16 +88,13 @@
   line-height: 31.14px;
   font-family: "Lato";
   font-size: 20px;
-  color: #fff;
+  color: #172a39;
   padding: 5px !important;
-  /* border-radius: 6px; */
-  background-color: #1163c7;
-  /* border-left: 1px solid #fff; */
+  background-color: #0e0e0e21;
   
 }
 .day-group p {
   font-weight: 500;
-  /* border-bottom: 1px solid #ddd; */
   line-height: 26.34px;
   font-family: "Lato";
   font-size: 18px;
@@ -93,9 +114,8 @@
 .time-price {
 
     font-weight: 400;
-  /* border-bottom: 1px solid #ddd; */
   line-height: 25.95px;
-  font-family: "DM Sans", Arial, sans-serif;
+  font-family: "DM Sans";
   font-size: 16px;
   color: #172a39;
   margin-top: 10px;
@@ -106,6 +126,7 @@
   color: #1163c7;
   font-weight: 500;
   text-align: start;
+  margin-left: 10px;
 }
 
 @media screen and (max-width: 768px) {

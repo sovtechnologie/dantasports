@@ -11,7 +11,7 @@ h2 {
 
 }
 
-.card_payhost{
+.card_payhost {
 
     padding: 20px 16px 10px 16px;
 
@@ -83,6 +83,30 @@ h2 {
   line-height: 34.5px;
   color: #000;
 
+}
+
+
+.badge_label p {
+  color: #000;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 28px;
+}
+
+.profile_img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile_img.overlap {
+  margin-left: -10px;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
 }
 @media screen and (max-width: 767px) {
 
