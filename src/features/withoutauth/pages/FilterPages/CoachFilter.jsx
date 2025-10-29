@@ -149,9 +149,11 @@ export default function CoachFilterPage() {
     }));
   }, [filteredCoaches]);
 
-  const { mutate: likeCoach } = useLikeCoach();
-const { mutate: unlikeCoach } = useUnlikeCoach();
+  const likeCoach = useLikeCoach();
+  const unlikeCoach = useUnlikeCoach();
 
+
+  const [likedCoaches, setLikedCoaches] = useState({});
 
   const toggleCoachFavourite = (coach) => {
     if (!auth || !auth?.id) {
@@ -288,8 +290,11 @@ const { mutate: unlikeCoach } = useUnlikeCoach();
               <div className="row g-3">
                 {formattedCoachList.length > 0 ? (
                   formattedCoachList.map((coach) => (
-                    <div className="col-lg-4" key={coach.id}>
+                    <div className="col-lg-4 position-relative" key={coach.id}>
+
+
                       <Card>
+
                         <div className="card_img">
                           <img
                             src={coach.image}
@@ -346,8 +351,7 @@ const { mutate: unlikeCoach } = useUnlikeCoach();
                         </div>
 
 
-
-                        <div className="trainerbox position-relative">
+                        <div className="trainerbox">
                           <span className="trainer_type">{coach.tag}</span>
                         </div>
                         <div className="txt_wrapper">
@@ -368,7 +372,6 @@ const { mutate: unlikeCoach } = useUnlikeCoach();
                               {coach.linked_sports?.slice(0, 5).map((sport, index) => (
                                 <div
                                   key={index}
-                                  className="sport_icons"
                                   className="sport_icons"
                                 >
                                   <img
@@ -404,7 +407,6 @@ const { mutate: unlikeCoach } = useUnlikeCoach();
 
                             <p className="card_date ">
                               <span className="me-2">
-                                <img src={map} alt="" />
                                 <img src={map} alt="" />
                               </span>
                               {coach.location}

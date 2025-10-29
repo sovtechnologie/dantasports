@@ -342,56 +342,12 @@ export default function GymDetailPage() {
                                     </div>
                                 </div>
 
-                                <div className="gym-carry-point row">
-                                    <div className="gym-section gym-carry col-lg-6">
-                                        <div className="gym-heading">Timing</div>
-                                        {/* <div
-                                            style={{
-                                                display: "flex",
-                                                flexDirection: "column",
-                                                gap: "6px",
-                                            }}
-                                        >
-                                            {mappedTimings.map((t, idx) => (
-                                                <div
-                                                    key={idx}
-                                                    style={{
-                                                        display: "flex",
-                                                        justifyContent: "space-between",
-                                                        padding: "4px 0",
-                                                        borderBottom: "1px solid #eee",
-                                                        flexWrap: "wrap",
-                                                    }}
-                                                >
-                                                    <div
-                                                        style={{ display: "flex", flexDirection: "column" }}
-                                                    >
-                                                        <span style={{ fontWeight: 500 }}>{t.day}</span>
-                                                        {t.note && (
-                                                            <span
-                                                                style={{
-                                                                    color: "darkorange",
-                                                                    fontSize: "0.85em",
-                                                                }}
-                                                            >
-                                                                {t.note}
-                                                            </span>
-                                                        )}
-                                                    </div>
-                                                    <span
-                                                        style={{
-                                                            color: "#555",
-                                                            marginLeft: "10px",
-                                                            whiteSpace: "nowrap",
-                                                        }}
-                                                    >
-                                                        {t.range}
-                                                    </span>
-                                                </div>
-                                            ))}
-                                        </div> */}
-                                        <BusinessHours/>
-                                    </div>
+                                <div className="container">
+                                    <div className="gym-carry-point row">
+                                        <div className="gym-section gym-carry col-lg-6">
+                                            <div className="gym-heading">Timing</div>
+                                            <BusinessHours />
+                                        </div>
 
                                         <div className="gym-section gym-pickPoints cstmcoachwd col-lg-6">
                                             <div className="gym-heading">Coaches</div>
