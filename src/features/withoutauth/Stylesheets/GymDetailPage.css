@@ -14,13 +14,7 @@
   font-family: "DM Sans", Arial, sans-serif;
 }
 
-.gym-pickPoints{
 
-  max-height: 300px;
-  height: 100%;
-  overflow-x: scroll;
-
-}
 .gympage-name {
   color: #000000;
   font-family: "Lato", sans-serif;

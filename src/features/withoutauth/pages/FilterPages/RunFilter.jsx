@@ -230,7 +230,7 @@ export default function RunFilterPage() {
                         </div>
                         <div className="txt_wrapper">
                           <div className="card_txt">
-                            <h2 className="text_wrap">{event.event_title}</h2>
+                            <h2 className="text_wrap card_heading m-0">{event.event_title}</h2>
                             <p className="card_date mb-2">
                               <span className="me-2">
                                 <img src={date} alt="" />

@@ -36,7 +36,7 @@ export default function CoachFilterPage() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const navigate = useNavigate();
-    const auth = useSelector((state) => state.auth);
+  const auth = useSelector((state) => state.auth);
   const {
     data: AllCoachdata,
     isLoading,
@@ -134,86 +134,86 @@ export default function CoachFilterPage() {
   }, [filteredCoaches]);
 
   const { mutate: likeCoach } = useLikeCoach();
-const { mutate: unlikeCoach } = useUnlikeCoach();
+  const { mutate: unlikeCoach } = useUnlikeCoach();
 
-const [likedCoaches, setLikedCoaches] = useState({});
+  const [likedCoaches, setLikedCoaches] = useState({});
 
-const handleLikeToggle = async (coach) => {
-  if (!auth || !auth?.id) {
-    alert("Please login first to like or unlike a coach.");
-    return;
-  }
-
-  const isLiked = !!likedCoaches[coach.id];
-
-  // 💨 Optimistic UI update (instant visual feedback)
-  setLikedCoaches((prev) => {
-    const updated = { ...prev };
-    if (isLiked) delete updated[coach.id];
-    else updated[coach.id] = true;
-    return updated;
-  });
-
-  try {
-    if (isLiked) {
-      // 🧹 UNLIKE call
-      await new Promise((resolve, reject) => {
-        unlikeCoach(
-          { favouriteCoachesId: likedCoaches[coach.id] },
-          {
-            onSuccess: () => {
-              console.log("✅ Coach unliked:", coach.id);
-              resolve();
-            },
-            onError: (err) => {
-              console.error("❌ Failed to unlike coach:", err);
-              reject(err);
-            },
-          }
-        );
-      });
-    } else {
-      // ❤️ LIKE call
-      await new Promise((resolve, reject) => {
-        likeCoach(
-          { coachesId: coach.id },
-          {
-            onSuccess: (data) => {
-              console.log("✅ Coach liked:", data);
-              const favId = data?.result?.insertId || coach.id;
-              setLikedCoaches((prev) => ({ ...prev, [coach.id]: favId }));
-              resolve();
-            },
-            onError: (err) => {
-              const msg =
-                err?.response?.data?.message ||
-                err?.message ||
-                "Unknown error";
-              console.error("❌ Like error:", msg);
-
-              // ⚙️ Ignore duplicate like error gracefully
-              if (msg.includes("already added")) {
-                console.log("⚠️ Coach already liked — skipping duplicate like.");
-                resolve();
-              } else {
-                // rollback UI on failure
-                setLikedCoaches((prev) => {
-                  const updated = { ...prev };
-                  delete updated[coach.id];
-                  return updated;
-                });
-                reject(err);
-              }
-            },
-          }
-        );
-      });
+  const handleLikeToggle = async (coach) => {
+    if (!auth || !auth?.id) {
+      alert("Please login first to like or unlike a coach.");
+      return;
     }
-  } catch (error) {
-    console.error("Operation failed:", error);
-    alert("Something went wrong. Please try again.");
-  }
-};
+
+    const isLiked = !!likedCoaches[coach.id];
+
+    // 💨 Optimistic UI update (instant visual feedback)
+    setLikedCoaches((prev) => {
+      const updated = { ...prev };
+      if (isLiked) delete updated[coach.id];
+      else updated[coach.id] = true;
+      return updated;
+    });
+
+    try {
+      if (isLiked) {
+        // 🧹 UNLIKE call
+        await new Promise((resolve, reject) => {
+          unlikeCoach(
+            { favouriteCoachesId: likedCoaches[coach.id] },
+            {
+              onSuccess: () => {
+                console.log("✅ Coach unliked:", coach.id);
+                resolve();
+              },
+              onError: (err) => {
+                console.error("❌ Failed to unlike coach:", err);
+                reject(err);
+              },
+            }
+          );
+        });
+      } else {
+        // ❤️ LIKE call
+        await new Promise((resolve, reject) => {
+          likeCoach(
+            { coachesId: coach.id },
+            {
+              onSuccess: (data) => {
+                console.log("✅ Coach liked:", data);
+                const favId = data?.result?.insertId || coach.id;
+                setLikedCoaches((prev) => ({ ...prev, [coach.id]: favId }));
+                resolve();
+              },
+              onError: (err) => {
+                const msg =
+                  err?.response?.data?.message ||
+                  err?.message ||
+                  "Unknown error";
+                console.error("❌ Like error:", msg);
+
+                // ⚙️ Ignore duplicate like error gracefully
+                if (msg.includes("already added")) {
+                  console.log("⚠️ Coach already liked — skipping duplicate like.");
+                  resolve();
+                } else {
+                  // rollback UI on failure
+                  setLikedCoaches((prev) => {
+                    const updated = { ...prev };
+                    delete updated[coach.id];
+                    return updated;
+                  });
+                  reject(err);
+                }
+              },
+            }
+          );
+        });
+      }
+    } catch (error) {
+      console.error("Operation failed:", error);
+      alert("Something went wrong. Please try again.");
+    }
+  };
 
 
 
@@ -257,8 +257,39 @@ const handleLikeToggle = async (coach) => {
               <div className="row g-3">
                 {formattedCoachList.length > 0 ? (
                   formattedCoachList.map((coach) => (
-                    <div className="col-lg-4" key={coach.id}>
+                    <div className="col-lg-4 position-relative" key={coach.id}>
+                       <div className="card_icons">
+                          <button
+                            onClick={() => handleLikeToggle(coach)}
+                            className="like-btn"
+                            style={{
+                              background: "none",
+                              border: "none",
+                              cursor: "pointer",
+                              padding: 0,
+                            }}
+                          >
+                            <img
+                              className="like"
+                              src={likedCoaches[coach.id] ? HeartFilled : like}
+                              alt={likedCoaches[coach.id] ? "liked" : "like"}
+                            />
+                          </button>
+
+                          <a href="#">
+                            <img className="share" src={share} alt="share" />
+                          </a>
+
+                          <div className="reating">
+                            <span>
+                              <img className="me-2" src={star} alt="" />
+                              {coach.rating} ({coach.ratingCount})
+                            </span>
+                          </div>
+                        </div>
+
                       <Card>
+                        
                         <div className="card_img">
                           <img
                             src={coach.image}
@@ -284,39 +315,10 @@ const handleLikeToggle = async (coach) => {
                             </span>
                           </div>
                         </div> */}
-<div className="card_icons">
-  <button
-    onClick={() => handleLikeToggle(coach)}
-    className="like-btn"
-    style={{
-      background: "none",
-      border: "none",
-      cursor: "pointer",
-      padding: 0,
-    }}
-  >
-    <img
-      className="like"
-      src={likedCoaches[coach.id] ? HeartFilled : like}
-      alt={likedCoaches[coach.id] ? "liked" : "like"}
-    />
-  </button>
-
-  <a href="#">
-    <img className="share" src={share} alt="share" />
-  </a>
-
-  <div className="reating">
-    <span>
-      <img className="me-2" src={star} alt="" />
-      {coach.rating} ({coach.ratingCount})
-    </span>
-  </div>
-</div>
+                       
 
 
-
-                        <div className="trainerbox position-relative">
+                        <div className="trainerbox">
                           <span className="trainer_type">{coach.tag}</span>
                         </div>
                         <div className="txt_wrapper">
@@ -337,7 +339,7 @@ const handleLikeToggle = async (coach) => {
                               {coach.linked_sports?.slice(0, 5).map((sport, index) => (
                                 <div
                                   key={index}
-                                 className="sport_icons"
+                                  className="sport_icons"
                                 >
                                   <img
                                     src={sport.sports_images}
@@ -372,7 +374,7 @@ const handleLikeToggle = async (coach) => {
 
                             <p>
                               <span className="me-2">
-                                <img  src={map} alt="" />
+                                <img src={map} alt="" />
                               </span>
                               {coach.location}
                             </p>

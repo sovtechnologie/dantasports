@@ -52,9 +52,7 @@ const BusinessHours = () => {
         </div>
       ))}
 
-      <a href="#" className="suggest-link mt-2 d-inline-block">
-        Suggest new hours
-      </a>
+     
     </div>
   );
 };

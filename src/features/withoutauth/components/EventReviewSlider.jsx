@@ -40,7 +40,7 @@ const ReviewCard = memo(
           </div>
 
           <div>
-            <h5 className="mb-0 fw-light m-0">
+            <h5 className="days_ago">
               {review.name || review.userName}
             </h5>
           </div>

@@ -123,7 +123,7 @@ export default function BookVenues() {
         <Row className="g-3">
           {venueList.slice(0, 4).map((venue) => (
             <Col lg={3} md={6} sm={6} key={venue.id}>
-              <Card>
+              <Card className="custm_height_card">
                 <div className="card_img">
                   <img
                     src={venue.cover_image || latestt}
@@ -157,8 +157,8 @@ export default function BookVenues() {
 
                 <div className="txt_wrapper">
                   <div className="card_txt d-flex justify-content-between mb-3 align-items-center">
-                    <h2 className="text_wrap card_heading m-0">{venue.venue_name}</h2>
-                    <p className="m-0">
+                    <h2 className="text_wrap2 card_heading m-0">{venue.venue_name}</h2>
+                    <p className="m-0 card_date">
                       {/* <span className="star pe-2">
                         <img src={star} alt="rating" />
                       </span> */}
@@ -171,8 +171,9 @@ export default function BookVenues() {
                         ? `${venue.distance_km.toFixed(1)} km`
                         : "0.0"}
                     </p>
-                    <div className="rating">
-                      <span><img src={star} className="pe-2" alt="" /> {venue.average_rating || "0.0"}</span>
+                    <div className="rating d-flex justify-content-center align-items-center">
+                      <div className="me-2"><img src={star}  alt="" /></div>
+                      <div><span>{venue.average_rating || "0.0"}</span></div>
                     </div>
                   </div>
 

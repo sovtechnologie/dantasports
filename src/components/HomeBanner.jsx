@@ -10,10 +10,12 @@ import bannercard from "../assets/homebanner/banner-cards-img.png";
 
 function HomeBanner() {
 const texts = [
-  "Reserve Nearby</br>Turfs",
-  "Book Your Favorite Sports Venue",
-  "Find Top-rated Grounds Near You",
-  "Instant Booking, Zero Hassle"
+  "Reserve Nearby Turfs",
+  "Find Players. Join Games.",
+  "Join Local Run Clubs",
+  "Find Your Coach",
+  "Book Fitness Events",
+  "Pay Per Workout"
 ];
 
   const [index, setIndex] = useState(0);

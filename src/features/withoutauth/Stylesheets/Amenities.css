@@ -1,7 +1,7 @@
 .amenities_card {
 
    border: 0.89px solid #CDCDCD;
-   padding: 15px 10px;
+   padding: 10px 15px;
    border-radius: 10px;
 
 
@@ -13,6 +13,8 @@
     font-weight: 500;
     font-size: 17.72px;
     color: #172A39;
+    line-height: 23.03px;
+
 }
 
 .amenities_card .inner {
@@ -25,7 +27,7 @@
     text-align: center;
     padding: 10px 20px;
     border-radius: 3.75px;
-    margin: 5px 0;
+    margin: 7px;
     
 }
 
@@ -35,6 +37,8 @@
     font-family: 'Lato';
     color: #B1B1B1;
     font-weight: 400;
+    font-size: 12.66px;
+    line-height: 23px;
 
 }
 

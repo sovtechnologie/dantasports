@@ -8,7 +8,7 @@
 
 .coach_page_section .card_icons .like {
   position: absolute;
-  top: 10px;
+  top: 30px;
   z-index: 999;
   right: 18%;
   height: 26px;
@@ -17,14 +17,14 @@
 
 .coach_page_section .card_icons .share {
   position: absolute;
-  top: 10px;
+  top: 30px;
   z-index: 999;
   right: 5%;
   height: 26px;
   width: 26px;
 }
 
- .coach_page_section .card h2 {
+.coach_page_section .card h2 {
   font-weight: 500;
   font-size: 20px;
   color: #172a39;
@@ -38,24 +38,24 @@
   padding-bottom: 10px;
 }
 
-.coach_page_section p.memebercat  {
+.coach_page_section p.memebercat {
 
   font-family: 'DM Sans';
-font-weight: 400;
-font-size: 14px;
-color: #FC8019;
+  font-weight: 400;
+  font-size: 14px;
+  color: #FC8019;
 
 
 
 }
 
-hr{
+hr {
 
   background-color: #c4c4c4;
 
 }
 
-.coach_page_section span.trainer_type{
+.coach_page_section .trainerbox {
 
   border: 0.5px solid #1163C7;
   background: #0000004D;
@@ -64,7 +64,7 @@ hr{
   font-weight: 400;
   font-size: 12.06px;
   position: absolute;
-  bottom: 10px;
+  top: 45%;
   padding: 5px 10px;
   left: 10px;
   border-radius: 5px;
@@ -77,11 +77,12 @@ hr{
   font-weight: 400;
   font-size: 12.06px;
   position: absolute;
-  top: 10px;
-    background: #0000004D;
-     padding: 5px 10px;
-  left: 10px;
+  top: 30px;
+  background: #0000004D;
+  padding: 5px 10px;
+  left: 15px;
   border-radius: 5px;
+  z-index: 999;
 }
 
 .coach_page_section .offer p {
@@ -112,11 +113,7 @@ hr{
 
 }
 
-.coach_page_section .card{
 
-  min-height: 400px;
-  max-height: 400px;
-}
 
 .coach_page_section .offer a:hover {
   border: 1px solid #1163c7;
@@ -127,12 +124,3 @@ hr{
 }
 
 
-@media screen and (max-width: 767px) {
-  
-.coach_page_section .card{
-
-  min-height: unset;
-  max-height: unset;
-}
-  
-}

@@ -172,7 +172,7 @@ function Navbar() {
                   onClick={handleNavLinkClick}
                   className={`nav-Filter-links ${isActive("/venue") ? "active-link" : ""}`}
                 >
-                  Book
+                  Turf
                 </Link>
 
                 <Link
@@ -287,7 +287,7 @@ function Navbar() {
                   to="/venue"
                   className={`nav-Filter-link ${isActive("/venue") ? "active-link" : ""}`}
                 >
-                  Book
+                  Turf
                 </Link>
 
                 <Link

@@ -339,58 +339,14 @@ export default function GymDetailPage() {
                                     </div>
                                 </div>
 
-                                <div className="gym-carry-point row">
+                                <div className="container">
+                                    <div className="gym-carry-point row">
                                     <div className="gym-section gym-carry col-lg-6">
                                         <div className="gym-heading">Timing</div>
-                                        {/* <div
-                                            style={{
-                                                display: "flex",
-                                                flexDirection: "column",
-                                                gap: "6px",
-                                            }}
-                                        >
-                                            {mappedTimings.map((t, idx) => (
-                                                <div
-                                                    key={idx}
-                                                    style={{
-                                                        display: "flex",
-                                                        justifyContent: "space-between",
-                                                        padding: "4px 0",
-                                                        borderBottom: "1px solid #eee",
-                                                        flexWrap: "wrap",
-                                                    }}
-                                                >
-                                                    <div
-                                                        style={{ display: "flex", flexDirection: "column" }}
-                                                    >
-                                                        <span style={{ fontWeight: 500 }}>{t.day}</span>
-                                                        {t.note && (
-                                                            <span
-                                                                style={{
-                                                                    color: "darkorange",
-                                                                    fontSize: "0.85em",
-                                                                }}
-                                                            >
-                                                                {t.note}
-                                                            </span>
-                                                        )}
-                                                    </div>
-                                                    <span
-                                                        style={{
-                                                            color: "#555",
-                                                            marginLeft: "10px",
-                                                            whiteSpace: "nowrap",
-                                                        }}
-                                                    >
-                                                        {t.range}
-                                                    </span>
-                                                </div>
-                                            ))}
-                                        </div> */}
                                         <BusinessHours/>
                                     </div>
 
-                                    <div className="gym-section gym-pickPoints col-lg-6">
+                                    <div className="gym-section gym-pickPoints col-lg-5 ms-lg-3">
                                         <div className="gym-heading">Coaches</div>
                                         <div className="coaches-list">
                                             {Array.isArray(gym?.coaches) && gym.coaches.length > 0 ? (
@@ -412,36 +368,12 @@ export default function GymDetailPage() {
                                         </div>
                                     </div>
                                 </div>
+                                </div>
 
-                                {/* <div className="gym-term_policy">
-                                    <div className="gym-section terms">
-                                        <div className="gym-heading">Terms & Conditions
-                                        </div>
-                                        <div className="gym-description" style={{ whiteSpace: "pre-wrap" }}>
-                                            {expandedSection === "terms"
-                                                ? gym?.termsAndCondition
-                                                : `${gym?.termsAndCondition?.substring(0, 200)}...`}
-                                        </div>
-                                        <button onClick={() => toggleSection("terms")} className="read-more-btn">
-                                            {expandedSection === "terms" ? "Read less" : "Read more"}
-                                        </button>
-                                    </div>
-                                    <div className="gym-section policy">
-                                        <div className="gym-heading">Cancellation Policy
-                                        </div>
-                                        <div className="gym-description" style={{ whiteSpace: "pre-wrap" }}>
-                                            {expandedSection === "cancel"
-                                                ? gym?.cancelPolicy
-                                                : `${gym?.cancelPolicy?.substring(0, 200)}...`}
-                                        </div>
-                                        <button onClick={() => toggleSection("cancel")} className="read-more-btn">
-                                            {expandedSection === "cancel" ? "Read less" : "Read more"}
-                                        </button>
-                                    </div>
-                                </div> */}
+                                
                                 <div class="row g-3 mt-3">
                                     <div className="col-12 col-lg-6">
-                                        <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
+                                        <div className="card modal_title">
                                             {/* <!-- Button trigger modal --> */}
                                             <div className="d-flex justify-content-between align-items-center text-center">
                                                 <div className="rule">
@@ -494,7 +426,7 @@ export default function GymDetailPage() {
                                         </div>
                                     </div>
                                     <div className="col-12 col-lg-6">
-                                        <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
+                                        <div className="card modal_title">
                                             {/* <!-- Button trigger modal --> */}
                                             <div className="d-flex justify-content-between align-items-center text-center">
                                                 <div className="rule">

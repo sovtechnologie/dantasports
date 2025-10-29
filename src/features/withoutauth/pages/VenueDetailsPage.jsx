@@ -40,6 +40,7 @@ import RulesRegulations from "../components/RulesRegulations.jsx";
 import arrow from "../assets/icons/arrow.svg";
 import CancellationPolicy from "../components/CancellationPolicy.jsx";
 import EventReviewSlider from "../components/EventReviewSlider.jsx";
+import PriceDetails from "../components/PriceDetails.jsx";
 
 export const formatDate = (isoString) => {
   const date = new Date(isoString);
@@ -435,7 +436,7 @@ function VenueDetailsPage() {
                 </div>
                 <div class="row g-3 mt-3">
                   <div className="col-12 col-lg-6">
-                    <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
+                    <div className="card modal_title">
                       {/* <!-- Button trigger modal --> */}
                       <div className="d-flex justify-content-between align-items-center text-center">
                         <div className="rule">
@@ -480,7 +481,7 @@ function VenueDetailsPage() {
                     </div>
                   </div>
                   <div className="col-12 col-lg-6">
-                    <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
+                    <div className="card modal_title">
                       {/* <!-- Button trigger modal --> */}
                       <div className="d-flex justify-content-between align-items-center text-center">
                         <div className="rule">
@@ -602,6 +603,9 @@ function VenueDetailsPage() {
                     />
                   )}
                 </div>
+                {/* <div className="container">
+                  <PriceDetails/>
+                </div> */}
 
                 <button className="vb-proceed-btn" onClick={handleProceedClick}>
                   {paymentLoading ? "Processing..." : "PROCEED"}

@@ -38,6 +38,7 @@ import GalleryComponent from "../components/GalleryComponent ";
 import TermsAndConditions from "../../../pages/TermsAndConditions.jsx";
 import TermsConditionsModal from "../components/TermsConditionsModal.jsx";
 import EventReviewSlider from "../components/EventReviewSlider.jsx";
+import OngoingEvents from "../components/OngoingEvents.jsx";
 
 
 const initialTickets = [
@@ -362,7 +363,7 @@ export default function EventDetailPage() {
                         </div> */}
                         <div class="row g-3 mt-3">
                     <div className="col-12 col-lg-6">
-                        <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
+                        <div className="card modal_title">
                         {/* <!-- Button trigger modal --> */}
                         <div className="d-flex justify-content-between align-items-center text-center">
                         
@@ -394,7 +395,7 @@ export default function EventDetailPage() {
                     </div>
                   </div>
                   <div className="col-12 col-lg-6">
-                    <div className="card modal_title p-lg-3 p-2 border-0 rounded-3">
+                    <div className="card modal_title">
                       {/* <!-- Button trigger modal --> */}
                       <div className="d-flex justify-content-between align-items-center text-center">
                        
@@ -402,7 +403,7 @@ export default function EventDetailPage() {
                           <p className="m-0">Cancellation Policy</p>
                         </div>
                          <div>
-                          <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#CancellationPolicy">
+                          <button type="button" class="btn border-0" data-bs-toggle="modal" data-bs-target="#CancellationPolicy">
                             <img src={arrow} alt="" />
                           </button>
                         </div>
@@ -516,7 +517,7 @@ export default function EventDetailPage() {
                 </div>
 
 
-                <div className='event-banner-container'>
+                {/* <div className='event-banner-container'>
                     <h2 className='event-banner-heading'>Ongoing Events</h2>
                     <div className="event-banner-carousel">
                         <div className="event-banner-track">
@@ -527,7 +528,9 @@ export default function EventDetailPage() {
                             ))}
                         </div>
                     </div>
-                </div>
+                </div> */}
+
+                <OngoingEvents/>
 
             </div>
                 </Container>

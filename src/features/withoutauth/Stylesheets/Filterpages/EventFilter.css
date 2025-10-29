@@ -5,6 +5,9 @@
   position: relative;
 }
 
+.card.modal_title{
+  box-shadow: unset;
+}
 
 
 .card_icons.events .like {
@@ -62,7 +65,7 @@
   padding: 5px 16px;
   font-weight: 400;
   font-size: 14px;
-  color: white;
+  color: white !important;
   text-decoration: none;
   line-height: 26px;
   border-radius: 5px;
@@ -75,7 +78,7 @@
 .offer a:hover {
   border: 1px solid #1163c7;
   background-color: transparent;
-  color: #1163c7;
+  color: #1163c7 !important;
   transition: 0.3s ease-in-out;
 }
 
@@ -94,7 +97,7 @@
 }
 
 
-.easy {
+.easy_box {
 
     position: absolute;
     top: 40%;

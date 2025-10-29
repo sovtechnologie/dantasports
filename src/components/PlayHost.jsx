@@ -95,12 +95,12 @@ function PlayHost() {
                         />
                       ))}
                     </div>
-                    <p className="m-0 ps-3 going">
+                    <span className="blue_dot"></span><p className="m-0 ps-3 going">
                       {host.going || 0} Going
                     </p>
                   </div>
 
-                  <h2 className="text_wrap1">Host By: {host.host_name || "Unknown"}</h2>
+                  <h2>Host By: {host.host_name || "Unknown"}</h2>
 
                   <div className="d-flex align-items-center mb-2">
                     <img
