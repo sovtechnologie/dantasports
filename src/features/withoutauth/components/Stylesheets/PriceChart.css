@@ -54,7 +54,7 @@
 
 
 .data_box {
-  height: 300px;
+  height: 350px;
   overflow-y: scroll;
 }
 
@@ -62,7 +62,7 @@
   font-weight: 500;
   border-bottom: 1px solid #ddd;
   line-height: 31.14px;
-  font-family: "Lato", sans-serif;
+  font-family: "Lato";
   font-size: 20px;
   color: #fff;
   padding: 5px !important;
@@ -72,10 +72,10 @@
   
 }
 .day-group p {
-  font-weight: 600;
+  font-weight: 500;
   /* border-bottom: 1px solid #ddd; */
   line-height: 26.34px;
-  font-family: "Lato", sans-serif;
+  font-family: "Lato";
   font-size: 18px;
   color: #172a39;
   margin-top: 10px;
@@ -105,6 +105,7 @@
 .price {
   color: #1163c7;
   font-weight: 500;
+  text-align: start;
 }
 
 @media screen and (max-width: 768px) {
@@ -112,5 +113,7 @@
     flex-direction: column;
     gap: 2rem;
     flex-wrap: wrap;
+
   }
+ 
 }

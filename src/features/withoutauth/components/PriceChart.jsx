@@ -148,7 +148,7 @@ function PriceChart({ venueId, sportId }) {
           
           <div className="columns row g-3">
             {transformedPriceData.map((column) => (
-              <div key={column.title} className="column col-lg-3 col-md-6 col-12 border-bottom-1 p-0">
+              <div key={column.title} className="column col-lg-3 col-md-6 col-12 border-bottom-1 pe-0">
                 <h5>{column.title}</h5>
                 {Object.entries(column.slotsByDay || {}).map(([day, slots]) => (
                   <div key={day} className="day-group">
