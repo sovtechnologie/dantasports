@@ -109,12 +109,7 @@ export default function HostPlayFilterPage() {
                             src={host.host_image || profilePlaceholder}
                             alt="host"
                             className="profile_img"
-                            style={{
-                              width: "35px",
-                              height: "35px",
-                              borderRadius: "50%",
-                              border: "2px solid #fff",
-                            }}
+                          
                           />
                           <img
                             src={
@@ -124,15 +119,10 @@ export default function HostPlayFilterPage() {
                             }
                             alt="player"
                             className="profile_img overlap"
-                            style={{
-                              width: "35px",
-                              height: "35px",
-                              borderRadius: "50%",
-                              border: "2px solid #fff",
-                              marginLeft: "-10px",
-                            }}
+                          
                           />
                         </div>
+                        <div className="blue_dot"></div>
 
                         <p className="m-0 ps-3 going">{host.going || 0} Going</p>
                       </div>

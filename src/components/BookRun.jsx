@@ -117,7 +117,7 @@ function BookRun() {
           {visibleEvents.map((evt) => (
             <Col lg={3} md={6} sm={6} key={evt.id}>
               <Card>
-                <div className="card_img">
+                <div className="card_img position-relative">
                   <img
                     src={evt.desktop_image || bookrunn}
                     className=""
@@ -224,17 +224,17 @@ function BookRun() {
                     </p>
                   </div>
                   <div className="card_line mb-0"></div>
-                 <div className="easy2">
-  {evt.difficulty === 0 ? (
-    <span className="Moderate">Moderate</span>
-  ) : evt.difficulty === 1 ? (
-    <span className="easy">Easy</span>
-  ) : evt.difficulty === 2 ? (
-    <span className="difficult">Difficult</span>
-  ) : (
-    <span className="unknown">Not Specified</span>
-  )}
-</div>
+                  <div className="easy2">
+                    {evt.difficulty === 0 ? (
+                      <span className="Moderate">Moderate</span>
+                    ) : evt.difficulty === 1 ? (
+                      <span className="easy">Easy</span>
+                    ) : evt.difficulty === 2 ? (
+                      <span className="difficult">Difficult</span>
+                    ) : (
+                      <span className="unknown">Not Specified</span>
+                    )}
+                  </div>
 
 
                   {/* Offer / Join Now */}

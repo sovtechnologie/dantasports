@@ -304,31 +304,35 @@ function VenueDetailsPage() {
   return (
     <>
 
-      <section style={{ background: "#F1F3F2" }} className="pb-3 pb-lg-5">
-        <Container>
-          <div className="venue-main-header pt-3 pb-3 pt-lg-5 pb-lg-5">
-            <div className="breadcrumb">
-              <span>
-                Venues &gt; {venue.location} &gt; {venue.name}
-              </span>
-            </div>
 
-            <h1 className="venue-name">{venue.name}</h1>
-            <div className="location-rating">
-              <span>{venue.location}</span>
-              <span
-                className="star"
-                style={{ marginLeft: "20px", marginRight: "5px" }}
-              >
-                ★
-              </span>
-              <span className="light-text">
-                {venue.rating} ({venue.reviewcount} ratings)
-              </span>
-              <span className="ps-2 text_blue"><a href="#">Rate Gym</a></span>
+      <section style={{ background: "#F1F3F2" }}>
+        <section className="details_page_header">
+          <div className="container">
+            <div className="venue-main-header">
+              <div className="breadcrumb">
+                <span>
+                  Venues &gt; {venue.location} &gt; {venue.name}
+                </span>
+              </div>
+
+              <h1 className="venue-name">{venue.name}</h1>
+              <div className="location-rating">
+                <span>{venue.location}</span>
+                <span
+                  className="star"
+                  style={{ marginLeft: "20px", marginRight: "5px" }}
+                >
+                  ★
+                </span>
+                <span className="light-text">
+                  {venue.rating} ({venue.reviewcount} ratings)
+                </span>
+                <span className="ps-2 text_blue"><a href="#">Rate Gym</a></span>
+              </div>
             </div>
           </div>
-
+        </section>
+        <Container>
           <div className="venue-details-container">
             <div className="row g-3">
               <div className="venue-left col-lg-8">

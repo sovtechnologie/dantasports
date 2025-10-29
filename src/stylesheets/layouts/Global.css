@@ -281,6 +281,16 @@ a {
   line-height: 25.61px !important;
 
 }
+
+.details_page_header {
+
+      box-shadow: 0px 4px 4px 0px #1163C740;
+      border-radius: 0px 0px 40px 40px;
+      padding: 30px 0;
+      background-color: white;
+      margin-bottom: 30px;
+}
+
 @media screen and (max-width: 767px) {
 
   .custm_height_card{

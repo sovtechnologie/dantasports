@@ -27,6 +27,7 @@ import { useLikeCoach } from "../../../../hooks/favouriteCoach/useLikeCoach.js";
 import { useUnlikeCoach } from "../../../../hooks/favouriteCoach/useUnlikeCoach.js";
 import HeartFilled from "../../assets/VenueCardLogo/heartfilled.png";
 import { useQueryClient } from "@tanstack/react-query";
+import PageSearch from "../../components/PageSearch.jsx";
 
 export default function CoachFilterPage() {
   const queryClient = useQueryClient();
@@ -274,8 +275,9 @@ export default function CoachFilterPage() {
     <>
       <section
         style={{ background: "#F1F3F2" }}
-        className="coach_page_section pt-3 pt-lg-5 pb-lg-5 pb-3"
+        className="coach_page_section"
       >
+        <PageSearch/>
         <Container>
           <Row>
             <Col lg={3} md={5} className="d-none d-lg-block d-md-block">

@@ -21,6 +21,7 @@ import fallbackEventImage from "../../assets/events/events1.png";
 import { useNavigate } from "react-router-dom";
 import { Share } from "../../../../utils/share";
 import HeartFilled from "../../assets/VenueCardLogo/heartfilled.png";
+import PageSearch from "../../components/PageSearch.jsx";
 export default function EventFilterPage() {
   const queryClient = useQueryClient();
   const userId = useSelector((state) => state.auth.id);
@@ -87,9 +88,10 @@ export default function EventFilterPage() {
   return (
     <>
       <section
-        className="pt-3 pt-lg-5 pb-lg-5 pb-3"
+        
         style={{ background: "#F1F3F2" }}
       >
+        <PageSearch/>
         <Container>
           <Row>
             <Col lg={3} md={4} className="d-none d-lg-block d-md-block">
