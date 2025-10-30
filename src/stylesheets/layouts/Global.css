@@ -302,6 +302,12 @@ a {
       margin-bottom: 30px;
 }
 
+button.btn_mobile {
+    border: 1px solid #1163C7 !important;
+    border-radius: 50%;
+}
+
+
 @media screen and (max-width: 767px) {
 
   .custm_height_card{

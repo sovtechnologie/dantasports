@@ -275,7 +275,7 @@ export default function CoachFilterPage() {
     <>
       <section
         style={{ background: "#F1F3F2" }}
-        className="coach_page_section"
+        className="coach_page_section pb-lg-4 pb-3"
       >
         <PageSearch/>
         <Container>

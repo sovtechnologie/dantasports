@@ -180,7 +180,7 @@ function VenuePage() {
     <>
    
     <section
-      className="venue_page_section"
+      className="venue_page_section pb-lg-4 pb-3"
       style={{ background: "#F1F3F2" }}
     >
        <PageSearch/>

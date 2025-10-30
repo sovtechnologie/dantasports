@@ -87,7 +87,7 @@ export default function EventFilterPage() {
 
   return (
     <>
-      <section
+      <section className="pb-lg-4 pb-3"
         
         style={{ background: "#F1F3F2" }}
       >

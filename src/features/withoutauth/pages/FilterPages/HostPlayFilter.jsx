@@ -75,7 +75,7 @@ export default function HostPlayFilterPage() {
   if (isError) return <div>Error loading hosts: {error.message}</div>;
 
   return (
-    <section style={{ background: "#F1F3F2" }}>
+    <section style={{ background: "#F1F3F2" }} className="pb-lg-4 pb-3">
       <PageSearch/>
       <Container>
         <Row>
