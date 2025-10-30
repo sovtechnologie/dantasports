@@ -307,8 +307,22 @@ button.btn_mobile {
     border-radius: 50%;
 }
 
+.details_page_heading {
+font-family: 'Lato';
+font-weight: 500;
+font-size: 24px;
+line-height: 21.67px;
+color: #172A39;
+
+}
 
 @media screen and (max-width: 767px) {
+
+  .details_page_heading{
+
+    font-size: 20px;
+    line-height: 30px;
+  }
 
   .custm_height_card{
 
