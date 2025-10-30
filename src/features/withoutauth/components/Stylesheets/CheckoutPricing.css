@@ -37,16 +37,16 @@
 
 .insurance-row input {
   margin-right: 6px;
-  height: 17px;
-  width: 17px;
-  border: 1.71px solid #BDBDBD;
+  height: 20px;
+  width: 20px;
+  border: 1.71px solid #727070 !important;
   border-radius: 3.41px;
 }
 
 .coupon {
   color: #ff6100;
   font-size: 18px;
-  font-family: "Lato", sans-serif;
+  font-family: "Lato";
   font-weight: 500;
   padding: 10px 0;
   display: flex;

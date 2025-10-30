@@ -144,7 +144,7 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFina
   }, [setFinalAmount, totalAmount]);
 
   return (
-    <Card className="mb-3 priceing_details border-0">
+    <Card className="mb-3 border-0">
       <Card.Body className="p-0">
         <h3 className="details_page_titles">Price details</h3>
 

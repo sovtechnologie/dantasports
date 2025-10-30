@@ -12,6 +12,7 @@ import SortModal from "../../components/SortModal";
 import calendarIcon from "../../assets/playhost/date.svg";
 import mapIcon from "../../assets/playhost/map.svg";
 import profilePlaceholder from "../../assets/playhost/user1.png"; // fallback image
+import PageSearch from "../../components/PageSearch";
 
 // Time formatter function
 function formatTime(timeStr = "00:00") {
@@ -74,7 +75,8 @@ export default function HostPlayFilterPage() {
   if (isError) return <div>Error loading hosts: {error.message}</div>;
 
   return (
-    <section style={{ background: "#F1F3F2" }} className="pt-3 pt-lg-5 pb-lg-5 pb-3">
+    <section style={{ background: "#F1F3F2" }}>
+      <PageSearch/>
       <Container>
         <Row>
           {/* Left Sort Section */}

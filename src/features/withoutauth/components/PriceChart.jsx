@@ -155,7 +155,7 @@ function PriceChart({ venueId, sportId }) {
                     <p>{day}</p>
                     {slots.map((slot, i) => (
                       <div key={i} className="time-price">
-                        <span>{slot.time}</span>
+                        <span className='me-1'>{slot.time}</span>
                         <span className="price">{slot.price}</span>
                       </div>
                     ))}
