@@ -129,7 +129,7 @@ function PriceChart({ venueId, sportId }) {
 
     <div className="price-chart">
       <div className="sports-header">
-       Price Chart
+        Price Chart
       </div>
       <p className="notes">Pricing is subjected to change and is controlled by venue</p>
       {isLoading ? (
@@ -138,7 +138,7 @@ function PriceChart({ venueId, sportId }) {
         </div>
       ) :
         !hasValidData && showNoDataMessage ? (
-          <div className="no-data-message" style={{ padding: "1rem", textAlign: "center" ,color:"red"}}>
+          <div className="no-data-message" style={{ padding: "1rem", textAlign: "center", color: "red" }}>
             No price data available for this sport.
           </div>
         ) : (

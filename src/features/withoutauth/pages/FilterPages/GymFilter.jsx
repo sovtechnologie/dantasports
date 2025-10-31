@@ -198,7 +198,7 @@ export default function GymFilterPage() {
                             </p> */}
                           </div>
 
-                          <div className="sports_title">
+                          {/* <div className="sports_title">
                             <p className="m-0">
                               {gym.amenities && gym.amenities.length > 0 ? (
                                 <>
@@ -216,7 +216,7 @@ export default function GymFilterPage() {
                                 "Amenities not available"
                               )}
                             </p>
-                          </div>
+                          </div> */}
 
                           <div className="d-flex justify-content-between no_off_users">
                             <p className="up_to_offer mb-2"> {gym.coupon_type === "percentage" && gym.discount_offer

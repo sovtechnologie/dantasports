@@ -19,13 +19,21 @@ import { useUnlikeVenue } from "../../../hooks/favouriteVenue/useUnlikeVenue";
 import { useQueryClient, useQuery } from "@tanstack/react-query";
 import { fetchSportList } from "../../../services/withoutLoginApi/SportListApi/endpointApi.js";
 import { VenueListShimmer } from "../components/Shimmer/VenueListShimmer";
-import HeartFilled from "../../auth/assets/VenueCardLogo/heartfilled.png";
-import like from "../../../assets/images/home/bookvenues/like.svg";
-
 import latestt from "../assets/latest.jpeg";
 import PageSearch from "../components/PageSearch.jsx";
+import { useFilterVenue } from "../../../hooks/SortAndFilter/useFilterVenue.js";
 
 function VenuePage() {
+  const isSameDate = (venueDate, selectedDate) => {
+    if (!venueDate || !selectedDate) return false;
+    const d1 = new Date(venueDate);
+    const d2 = new Date(selectedDate);
+    return (
+      d1.getFullYear() === d2.getFullYear() &&
+      d1.getMonth() === d2.getMonth() &&
+      d1.getDate() === d2.getDate()
+    );
+  };
   const queryClient = useQueryClient();
   const auth = useSelector((state) => state.auth);
   const { lat, lng } = useSelector((state) => state.location);
@@ -33,14 +41,19 @@ function VenuePage() {
   const [venueList, setVenueList] = useState([]);
   const [isLoadingData, setIsLoadingData] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  // Filter states
-  const [sportSearch, setSportSearch] = useState(""); // text input for searching sports
-  const [selectedSport, setSelectedSport] = useState(null); // selected sport id
+
+  // FILTER STATES
+  const [selectedSports, setSelectedSports] = useState([]);
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedTime, setSelectedTime] = useState("");
+
+  const [filteredVenues, setFilteredVenues] = useState([]);
+  const [isFiltering, setIsFiltering] = useState(false);
 
   const likeVenue = useLikeVenue();
   const unlikeVenue = useUnlikeVenue();
 
-  // Fetch Venues
+  // Fetch all venues
   const {
     data: AllVenuedata,
     isLoading,
@@ -59,15 +72,14 @@ function VenuePage() {
     }
   }, [AllVenuedata]);
 
-  // Fetch sports
+  // Fetch sports list
   const { data: sportsDataResponse, isLoading: sportsLoading } = useQuery({
     queryKey: ["sportsList"],
     queryFn: fetchSportList,
   });
-
   const sportsData = sportsDataResponse?.result || [];
 
-  // Filter sports in search input
+  const [sportSearch, setSportSearch] = useState("");
   const filteredSports = useMemo(() => {
     if (!sportSearch) return sportsData;
     return sportsData.filter((sport) =>
@@ -75,38 +87,72 @@ function VenuePage() {
     );
   }, [sportsData, sportSearch]);
 
-  // Filter venues by selected sport
-  const filteredVenues = useMemo(() => {
-    let filtered = venueList;
+  // Filter venues hook
+  const { mutate: filterVenues, data: filterData, isPending, isSuccess } = useFilterVenue();
 
-    // ✅ Sport filter
-    if (selectedSport) {
-      filtered = filtered.filter((venue) =>
-        venue.sports.some((sport) => sport.id === selectedSport)
-      );
+  useEffect(() => {
+    if (isSuccess && filterData) {
+      setFilteredVenues(filterData.result || []);
+      setIsFiltering(false);
     }
+  }, [isSuccess, filterData]);
+  useEffect(() => {
+    // Agar koi bhi filter apply nahi hua to skip karo
+    if (
+      !selectedSports.length &&
+      !selectedDate &&
+      !selectedTime
+    ) return;
 
-    // ✅ Search filter
-    if (searchTerm.trim()) {
-      filtered = filtered.filter((venue) =>
-        venue.venue_name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
+    // ✅ Helper: MySQL-compatible date format
+    const formatDateForMySQL = (date) => {
+      if (!date) return null;
+      const d = new Date(date);
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`; // e.g. 2025-10-31
+    };
 
-    return filtered;
-  }, [venueList, selectedSport, searchTerm]);
+    // ✅ Helper: MySQL-compatible time format
+    const formatTimeForMySQL = (time) => {
+      if (!time) return null;
+      if (/^\d{2}:\d{2}(:\d{2})?$/.test(time)) return time; // already formatted
+      if (typeof time === "string" && time.includes("AM")) {
+        const d = new Date(`1970-01-01 ${time}`);
+        return d.toTimeString().slice(0, 8);
+      }
+      return null;
+    };
 
-  // Toggle Favourite
+    // ✅ Create payload only for existing filters
+    const payload = {
+      ...(selectedSports.length && { sportsId: selectedSports.map((s) => s.id) }),
+      ...(selectedDate && { date: formatDateForMySQL(selectedDate) }),
+      ...(selectedTime && { time: formatTimeForMySQL(selectedTime) }),
+      lat,
+      lng,
+      userId: auth?.id,
+    };
+
+    console.log("📤 Filter API payload:", payload);
+    filterVenues(payload);
+  }, [selectedSports, selectedDate, selectedTime]);
+
+
+  // Toggle favourite
   const toggleFavourite = (venue) => {
     const venueId = venue.id;
     if (!auth || !auth?.id) {
       alert("Please login first to like or unlike a venue.");
       return;
     }
+
     setVenueList((prevList) =>
-      prevList.map((v) =>
-        v.id === venueId ? { ...v, favourite: !v.favourite } : v
-      )
+      prevList.map((v) => (v.id === venueId ? { ...v, favourite: !v.favourite } : v))
+    );
+    setFilteredVenues((prevList) =>
+      prevList.map((v) => (v.id === venueId ? { ...v, favourite: !v.favourite } : v))
     );
 
     if (!venue.favourite) {
@@ -114,17 +160,7 @@ function VenuePage() {
         { venueId, userId: auth?.id },
         {
           onSuccess: async () => {
-            await queryClient.invalidateQueries([
-              "venueList",
-              auth?.id || null,
-            ]);
-          },
-          onError: () => {
-            setVenueList((prevList) =>
-              prevList.map((v) =>
-                v.id === venueId ? { ...v, favourite: false } : v
-              )
-            );
+            await queryClient.invalidateQueries(["venueList", auth?.id || null]);
           },
         }
       );
@@ -133,17 +169,7 @@ function VenuePage() {
         { favouriteVenueId: venue.favourite_venue_id },
         {
           onSuccess: async () => {
-            await queryClient.invalidateQueries([
-              "venueList",
-              auth?.id || null,
-            ]);
-          },
-          onError: () => {
-            setVenueList((prevList) =>
-              prevList.map((v) =>
-                v.id === venueId ? { ...v, favourite: true } : v
-              )
-            );
+            await queryClient.invalidateQueries(["venueList", auth?.id || null]);
           },
         }
       );
@@ -162,9 +188,7 @@ function VenuePage() {
       if (navigator.share) {
         await navigator.share(shareData);
       } else {
-        await navigator.clipboard.writeText(
-          `${venue.venue_name} - ${shareUrl}`
-        );
+        await navigator.clipboard.writeText(`${venue.venue_name} - ${shareUrl}`);
         alert("Venue link copied to clipboard!");
       }
     } catch (err) {
@@ -178,162 +202,234 @@ function VenuePage() {
 
   return (
     <>
-   
-    <section
-      className="venue_page_section pb-lg-4 pb-3"
-      style={{ background: "#F1F3F2" }}
-    >
-       <PageSearch/>
-      <Container>
-        <Row className="g-3">
-          {/* Left Filter Section */}
-          <Col lg="3" md="5" className="d-none d-lg-block d-md-block">
-            <Filter
-              sportsData={filteredSports}
-              selectedSport={selectedSport}
-              setSelectedSport={setSelectedSport}
-              sportSearch={sportSearch}
-              setSportSearch={setSportSearch}
+      <section className="venue_page_section" style={{ background: "#F1F3F2" }}>
+        <PageSearch />
+        <Container>
+          <Row className="g-3">
+            {/* Left Filter */}
+            <Col lg="3" md="5" className="d-none d-lg-block d-md-block">
+              <Filter
+                sportsData={filteredSports}
+                selectedSports={selectedSports}
+                setSelectedSports={setSelectedSports}
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
+                selectedTime={selectedTime}
+                setSelectedTime={setSelectedTime}
+                sportSearch={sportSearch}
+                setSportSearch={setSportSearch}
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+                setFilteredVenues={setFilteredVenues}
 
-            />
-            <SortBy />
-          </Col>
+              />
+              <SortBy />
+            </Col>
 
-          {/* Mobile Filter/Sort */}
-          <Col className="d-lg-none d-md-none text-end">
-            {/* <FliterModal
-              sportsData={filteredSports}
-              selectedSport={selectedSport}
-              setSelectedSport={setSelectedSport}
-              sportSearch={sportSearch}
-              setSportSearch={setSportSearch}
-            /> */}
-            <SortModal />
-          </Col>
+            {/* Mobile Sort/Filter */}
+            <Col className="d-lg-none d-md-none text-end">
+              <SortModal />
+            </Col>
 
-          {/* Venue Cards */}
-          <Col lg="9" md="7">
-            <div className="row g-3">
-              {filteredVenues.map((venue) => {
-                const discount = venue.discount_offer
-                  ? parseFloat(venue.discount_offer).toString()
-                  : "0";
+            {/* Venue Cards Section */}
+            <Col lg="9" md="7">
+              <div className="row g-3">
+                {isFiltering || isPending ? (
+                  "Loding......."
+                ) : (
+                  <>
+                    {/* ✅ Show filtered data only when filters applied */}
+                    {selectedSports.length > 0 || selectedDate || selectedTime ? (
+                      filteredVenues.length > 0 ? (
+                        filteredVenues.map((venue) => (
+                          <div key={venue.id} className="col-lg-4 position-relative">
+                            <div className="card">
+                              <div className="card_slider">
+                                <ReactSlickSlider coverImage={venue.cover_image || latestt} />
+                              </div>
 
-                return (
-                  <div
-                    key={venue.id}
-                    className="col-lg-4  position-relative"
-                  >
-                    <div className="card">
-                      <div className="card_slider">
-                        <ReactSlickSlider
-                          coverImage={venue.cover_image || latestt}
-                        />
-                      </div>
+                              <div className="reating">
+                                <div className="start">
+                                  <img src={whaitestart} alt="star" />
+                                  <span className="ps-2">
+                                    {venue.average_rating || "0.0"} ({venue.review_count || 0})
+                                  </span>
+                                </div>
 
-                      <div className="reating">
-                        <div className="start">
-                          <img src={whaitestart} alt="star" />
-                          <span className="ps-2">
-                            {venue.average_rating || "0.0"} (
-                            {venue.review_count || 0})
-                          </span>
+                                <div className="save_btn" onClick={() => toggleFavourite(venue)}>
+                                  <img
+                                    src={save}
+                                    alt="save"
+                                    style={{
+                                      filter: venue.favourite
+                                        ? "invert(40%) sepia(100%) saturate(5000%) hue-rotate(340deg)"
+                                        : "none",
+                                      cursor: "pointer",
+                                    }}
+                                  />
+                                </div>
+
+                                <div className="share_btn" onClick={() => handleShareClick(venue)}>
+                                  <img src={share} alt="share" style={{ cursor: "pointer" }} />
+                                </div>
+                              </div>
+
+                              <div className="inner_txt">
+                                <div className="d-flex justify-content-between mb-3 align-items-center">
+                                  <h2 className="m-0 text_wrap pe-2">{venue.venue_name}</h2>
+                                  <p className="m-0">
+                                    ~{venue.distance_km ? venue.distance_km.toFixed(1) : "0"} km
+                                  </p>
+                                </div>
+
+                                <div className="no_off_users">
+                                  <ul className="d-flex p-0 align-items-center">
+                                    {venue.sports?.slice(0, 5).map((sport, index) => (
+                                      <li key={index} className="me-2">
+                                        <img
+                                          src={sport.image || users}
+                                          alt={sport.name || "user"}
+                                          title={sport.name || "user"}
+                                        />
+                                      </li>
+                                    ))}
+
+                                    {venue.sports && venue.sports.length > 5 && (
+                                      <li
+                                        className="me-2"
+                                        style={{ color: "#858585", lineHeight: 1 }}
+                                      >
+                                        +{venue.sports.length - 5} more
+                                      </li>
+                                    )}
+                                  </ul>
+                                </div>
+
+                                <div className="offers d-flex justify-content-between">
+                                  <span>
+                                    {venue.coupon_type === "percentage" && venue.discount_offer
+                                      ? `Upto ${parseFloat(venue.discount_offer)}% Off`
+                                      : venue.coupon_type === "flat" && venue.discount_offer
+                                        ? `Upto ₹${parseFloat(venue.discount_offer)} Off`
+                                        : ""}
+                                  </span>
+
+                                  <p className="mb-0">
+                                    ₹
+                                    {parseFloat(venue.pricing || 0).toFixed(0)} onwards
+                                  </p>
+                                </div>
+                                {venue.available_courts !== undefined && (
+                                  <p style={{ color: "green", fontWeight: 600 }}>
+                                    Available court ({venue.available_courts})
+                                  </p>
+                                )}
+                                <hr className="mb-3" />
+                                <BookBtn venueId={venue.id} />
+                              </div>
+                            </div>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="text-center py-5">
+                          <h5>No venues found matching your filters</h5>
                         </div>
+                      )
+                    ) : (
+                      // ✅ Default (no filters) → show all venues
+                      venueList
+                        .filter((venue) => !selectedDate || isSameDate(venue.created_at, selectedDate))
+                        .map((venue) => (
+                          <div key={venue.id} className="col-lg-4 position-relative">
+                            <div className="card">
+                              <div className="card_slider">
+                                <ReactSlickSlider coverImage={venue.cover_image || latestt} />
+                              </div>
 
-                        <div
-                          className="save_btn"
-                          onClick={() => toggleFavourite(venue)}
-                        >
-                          <img
-                            src={save}
-                            alt="save"
-                            style={{
-                              filter: venue.favourite
-                                ? "invert(40%) sepia(100%) saturate(5000%) hue-rotate(340deg"
-                                : "none",
-                              cursor: "pointer",
-                            }}
-                          />
-                        </div>
+                              <div className="reating">
+                                <div className="start">
+                                  <img src={whaitestart} alt="star" />
+                                  <span className="ps-2">
+                                    {venue.average_rating || "0.0"} ({venue.review_count || 0})
+                                  </span>
+                                </div>
 
-                        <div
-                          className="share_btn"
-                          onClick={() => handleShareClick(venue)}
-                        >
-                          <img
-                            src={share}
-                            alt="share"
-                            style={{ cursor: "pointer" }}
-                          />
-                        </div>
-                      </div>
+                                <div className="save_btn" onClick={() => toggleFavourite(venue)}>
+                                  <img
+                                    src={save}
+                                    alt="save"
+                                    style={{
+                                      filter: venue.favourite
+                                        ? "invert(40%) sepia(100%) saturate(5000%) hue-rotate(340deg)"
+                                        : "none",
+                                      cursor: "pointer",
+                                    }}
+                                  />
+                                </div>
 
-                      <div className="inner_txt">
-                        <div className="d-flex justify-content-between mb-3 align-items-center">
-                          <h2 className="m-0 text_wrap pe-2">
-                            {venue.venue_name}
-                          </h2>
-                          <p className="m-0">
-                            ~
-                            {venue.distance_km
-                              ? venue.distance_km.toFixed(1)
-                              : "0"}{" "}
-                            km
-                          </p>
-                        </div>
-                        <div className="no_off_users">
-                          <ul className="d-flex p-0 align-items-center">
-                            {venue.sports?.slice(0, 5).map((sport, index) => (
-                              <li key={index} className="me-2">
-                                <img
-                                  src={sport.image || users}
-                                  alt={sport.name || "user"}
-                                  title={sport.name || "user"}
-                                />
-                              </li>
-                            ))}
+                                <div className="share_btn" onClick={() => handleShareClick(venue)}>
+                                  <img src={share} alt="share" style={{ cursor: "pointer" }} />
+                                </div>
+                              </div>
 
-                            {venue.sports && venue.sports.length > 5 && (
-                              <li
-                                className="me-2"
-                                style={{ color: "#858585", lineHeight: 1 }}
-                              >
-                                +{venue.sports.length - 5} more
-                              </li>
-                            )}
-                          </ul>
-                        </div>
+                              <div className="inner_txt">
+                                <div className="d-flex justify-content-between mb-3 align-items-center">
+                                  <h2 className="m-0 text_wrap pe-2">{venue.venue_name}</h2>
+                                  <p className="m-0">
+                                    ~{venue.distance_km ? venue.distance_km.toFixed(1) : "0"} km
+                                  </p>
+                                </div>
 
-                        <div className="offers d-flex justify-content-between">
-                          <span>
-                            {venue.coupon_type === "percentage" &&
-                              venue.discount_offer
-                              ? `Upto ${parseFloat(venue.discount_offer)}% Off`
-                              : venue.coupon_type === "flat" &&
-                                venue.discount_offer
-                                ? `Upto ₹${parseFloat(venue.discount_offer)} Off`
-                                : ""}
-                          </span>
+                                <div className="no_off_users">
+                                  <ul className="d-flex p-0 align-items-center">
+                                    {venue.sports?.slice(0, 5).map((sport, index) => (
+                                      <li key={index} className="me-2">
+                                        <img
+                                          src={sport.image || users}
+                                          alt={sport.name || "user"}
+                                          title={sport.name || "user"}
+                                        />
+                                      </li>
+                                    ))}
 
-                          <p className="mb-0">
-                            ₹{parseFloat(venue.pricing).toFixed(0) || 0} onwards
-                          </p>
-                        </div>
+                                    {venue.sports && venue.sports.length > 5 && (
+                                      <li className="me-2" style={{ color: "#858585", lineHeight: 1 }}>
+                                        +{venue.sports.length - 5} more
+                                      </li>
+                                    )}
+                                  </ul>
+                                </div>
 
-                        <hr className="mb-3" />
-                        <BookBtn venueId={venue.id} />
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </Col>
-        </Row>
+                                <div className="offers d-flex justify-content-between">
+                                  <span>
+                                    {venue.coupon_type === "percentage" && venue.discount_offer
+                                      ? `Upto ${parseFloat(venue.discount_offer)}% Off`
+                                      : venue.coupon_type === "flat" && venue.discount_offer
+                                        ? `Upto ₹${parseFloat(venue.discount_offer)} Off`
+                                        : ""}
+                                  </span>
 
-        <AppDownloadBanner />
-      </Container>
-    </section>
+                                  <p className="mb-0">
+                                    ₹{parseFloat(venue.pricing || 0).toFixed(0)} onwards
+                                  </p>
+                                </div>
+
+                                <hr className="mb-3" />
+                                <BookBtn venueId={venue.id} />
+                              </div>
+                            </div>
+                          </div>
+                        ))
+                    )}
+                  </>
+                )}
+              </div>
+            </Col>
+          </Row>
+
+          <AppDownloadBanner />
+        </Container>
+      </section>
     </>
   );
 }

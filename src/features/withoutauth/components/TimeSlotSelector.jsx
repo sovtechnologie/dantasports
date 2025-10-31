@@ -17,37 +17,37 @@ const TimeSlotSelector = () => {
 
   return (
     <>
-    <section className="timeslot_section">
-    <div className="inner">
-      {/* Time Selection */}
-      <div className="mb-3 d-flex align-items-center">
-        <label className="time">Time:</label>
-        <input
-          type="text"
-          className="form-control  text-center"
-          value={selectedTime}
-          readOnly
-        />
-      </div>
+      <section className="timeslot_section">
+        <div className="inner">
+          {/* Time Selection */}
+          <div className="mb-3 d-flex align-items-center">
+            <label className="time">Time:</label>
+            <input
+              type="text"
+              className="form-control  text-center"
+              value={selectedTime}
+              readOnly
+            />
+          </div>
 
-      {/* Time Buttons */}
-      <div className="d-flex  mb-3 flex-wrap">
-        {times.map((time) => (
-         <button
-        key={time}
-        className={`time-btn ${selectedTime === time ? "active" : ""}`}
-        onClick={() => setSelectedTime(time)}
-      >
-        {time}
-      </button>
+          {/* Time Buttons */}
+          <div className="d-flex  mb-3 flex-wrap">
+            {times.map((time) => (
+              <button
+                key={time}
+                className={`time-btn ${selectedTime === time ? "active" : ""}`}
+                onClick={() => setSelectedTime(time)}
+              >
+                {time}
+              </button>
 
-        ))}
-      </div>
-      <div className="book_a_time">
-        <p>Badminton | Tomorrow | 01:00 PM - 02:00 PM</p>
-      </div>
-    </div>
-    </section>
+            ))}
+          </div>
+          <div className="book_a_time">
+            <p>Badminton | Tomorrow | 01:00 PM - 02:00 PM</p>
+          </div>
+        </div>
+      </section>
     </>
   );
 };

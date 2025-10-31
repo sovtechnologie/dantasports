@@ -62,7 +62,7 @@ const BookingCard = ({ booking }) => {
         venueId={booking.venueId}
       />
     </div>
-  );  
+  );
 };
 
 export default BookingCard;
