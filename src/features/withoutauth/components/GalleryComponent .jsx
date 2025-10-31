@@ -1,28 +1,53 @@
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
+import LightGallery from "lightgallery/react";
+
+// Plugins
+import lgThumbnail from "lightgallery/plugins/thumbnail";
+import lgZoom from "lightgallery/plugins/zoom";
+import lgFullscreen from "lightgallery/plugins/fullscreen";
 import "../../withoutauth/Stylesheets/CustomGallery.css";
 
-import img1 from "../../withoutauth/assets/Gallery/img1.png";
-import img2 from "../../withoutauth/assets/Gallery/img2.png";
-import img3 from "../../withoutauth/assets/Gallery/img3.png";
+// Styles
+import "lightgallery/css/lightgallery.css";
+import "lightgallery/css/lg-zoom.css";
+import "lightgallery/css/lg-thumbnail.css";
+import "lightgallery/css/lg-fullscreen.css";
 
 const GalleryComponent = () => {
-  const images = [img1, img2, img3, img1, img2, img3, img1, img2, img3];
+  const images = [
+    { src: "https://picsum.photos/id/1018/600/400", alt: "Image 1" },
+    { src: "https://picsum.photos/id/1015/600/400", alt: "Image 2" },
+    { src: "https://picsum.photos/id/1019/600/400", alt: "Image 3" },
+     { src: "https://picsum.photos/id/1018/600/400", alt: "Image 1" },
+    { src: "https://picsum.photos/id/1015/600/400", alt: "Image 2" },
+    { src: "https://picsum.photos/id/1019/600/400", alt: "Image 3" },
+     { src: "https://picsum.photos/id/1015/600/400", alt: "Image 2" },
+    { src: "https://picsum.photos/id/1019/600/400", alt: "Image 3" },
+    
+  ];
 
   return (
-    <div className="container my-4">
-      <div className="cards">
-        <h5 className="mb-3 fw-semibold text-secondary mb-4">Gallery</h5>
+   <>
+    <h2 className="mb-3 mb-lg-4 details_page_heading ">Gallery</h2>
 
-        <div className="d-flex overflow-auto gallery-scroll">
-          {images.map((img, index) => (
-            <div key={index} className="gallery-item me-3">
-              <img src={img} alt={`Gallery ${index}`} className="img-fluid" />
-            </div>
-          ))}
-        </div>
-      </div>
+    <div className="gallery-container">
+     
+      <LightGallery
+        speed={500}
+        plugins={[lgThumbnail, lgZoom, lgFullscreen]}
+      >
+        {images.map((img, index) => (
+          <a href={img.src} key={index}>
+            <img
+              src={img.src}
+              alt={img.alt}
+              style={{ width: "200px", margin: "10px", borderRadius: "8px" }}
+            />
+          </a>
+        ))}
+      </LightGallery>
     </div>
+   </>
   );
 };
 
