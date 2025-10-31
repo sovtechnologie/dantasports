@@ -129,7 +129,7 @@ function PriceChart({ venueId, sportId }) {
 
     <div className="price-chart">
       <div className="sports-header">
-       Price Chart
+        Price Chart
       </div>
       <p className="notes">Pricing is subjected to change and is controlled by venue</p>
       {isLoading ? (
@@ -138,32 +138,32 @@ function PriceChart({ venueId, sportId }) {
         </div>
       ) :
         !hasValidData && showNoDataMessage ? (
-          <div className="no-data-message" style={{ padding: "1rem", textAlign: "center" ,color:"red"}}>
+          <div className="no-data-message" style={{ padding: "1rem", textAlign: "center", color: "red" }}>
             No price data available for this sport.
           </div>
         ) : (
 
           <div className="data_box">
 
-          
-          <div className="columns row g-3">
-            {transformedPriceData.map((column) => (
-              <div key={column.title} className="column col-lg-3 col-md-6 col-12 border-bottom-1 pe-0">
-                <h5>{column.title}</h5>
-                {Object.entries(column.slotsByDay || {}).map(([day, slots]) => (
-                  <div key={day} className="day-group">
-                    <p>{day}</p>
-                    {slots.map((slot, i) => (
-                      <div key={i} className="time-price">
-                        <span>{slot.time}</span>
-                        <span className="price">{slot.price}</span>
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            ))}
-          </div>
+
+            <div className="columns row g-3">
+              {transformedPriceData.map((column) => (
+                <div key={column.title} className="column col-lg-3 col-md-6 col-12 border-bottom-1 pe-0">
+                  <h5>{column.title}</h5>
+                  {Object.entries(column.slotsByDay || {}).map(([day, slots]) => (
+                    <div key={day} className="day-group">
+                      <p>{day}</p>
+                      {slots.map((slot, i) => (
+                        <div key={i} className="time-price">
+                          <span>{slot.time}</span>
+                          <span className="price">{slot.price}</span>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
         )}
     </div>

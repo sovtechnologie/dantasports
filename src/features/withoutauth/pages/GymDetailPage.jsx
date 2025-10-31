@@ -346,7 +346,8 @@ export default function GymDetailPage() {
                                     <div className="gym-carry-point row">
                                         <div className="gym-section gym-carry col-lg-6">
                                             <div className="gym-heading">Timing</div>
-                                            <BusinessHours />
+                                            <BusinessHours hours={mappedTimings} />
+
                                         </div>
 
                                         <div className="gym-section gym-pickPoints cstmcoachwd col-lg-6">

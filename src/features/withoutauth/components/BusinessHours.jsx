@@ -2,16 +2,16 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 
-const BusinessHours = () => {
-  const hours = [
-    { day: "Thursday", time: "5 am–11:30 pm", note: "(Diwali/Bhai Dooj)", differ: true },
-    { day: "Friday", time: "5 am–11:30 pm" },
-    { day: "Saturday", time: "5 am–11:30 pm" },
-    { day: "Sunday", time: "Closed" },
-    { day: "Monday", time: "5 am–11:30 pm" },
-    { day: "Tuesday", time: "5 am–11:30 pm" },
-    { day: "Wednesday", time: "5 am–11:30 pm" },
-  ];
+const BusinessHours = ({ hours = [] }) => {
+  // const hours = [
+  //   { day: "Thursday", time: "5 am–11:30 pm", note: "(Diwali/Bhai Dooj)", differ: true },
+  //   { day: "Friday", time: "5 am–11:30 pm" },
+  //   { day: "Saturday", time: "5 am–11:30 pm" },
+  //   { day: "Sunday", time: "Closed" },
+  //   { day: "Monday", time: "5 am–11:30 pm" },
+  //   { day: "Tuesday", time: "5 am–11:30 pm" },
+  //   { day: "Wednesday", time: "5 am–11:30 pm" },
+  // ];
 
   return (
     <div className="business-hours">
@@ -25,15 +25,16 @@ const BusinessHours = () => {
               {item.day}
             </p>
             <p
-              className={`m-0 ${
-                item.time === "Closed"
-                  ? "text-secondary"
-                  : index === 0
+              className={`m-0 ${item.range
+                === "Closed"
+                ? "text-secondary"
+                : index === 0
                   ? "fw-semibold text-dark"
                   : "text-body"
-              }`}
+                }`}
             >
-              {item.time}
+              {item.range
+              }
             </p>
           </div>
 
@@ -52,7 +53,7 @@ const BusinessHours = () => {
         </div>
       ))}
 
-     
+
     </div>
   );
 };

@@ -103,13 +103,13 @@ border: 0.92px solid #CDCDCD;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
 }
-
 .sport-item.selected {
-  border: 2px solid #007bff; /* blue border */
-  background-color: #e8f2ff;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+  border: none !important;
+  background-color: rgba(0, 123, 255, 0.1); /* light blue overlay */
+  transform: scale(1.03);
 }
 
+  
 .sport-img{
 width: 40px;
 height: 40px;

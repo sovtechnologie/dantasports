@@ -6,7 +6,7 @@ import { fetchSportList } from "../../../services/withoutLoginApi/SportListApi/e
 const SportsSlider = ({ onSelectSports }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
-  const [selectedSports, setSelectedSports] = useState([]); // ✅ multiple allowed
+  const [selectedSports, setSelectedSports] = useState([]);
   const itemsPerPage = 4;
 
   // 🔹 API se data la rahe hain
@@ -30,24 +30,20 @@ const SportsSlider = ({ onSelectSports }) => {
   const startIndex = currentPage * itemsPerPage;
   const currentItems = filteredSports.slice(startIndex, startIndex + itemsPerPage);
 
-  // 🔹 Select / Deselect
   const toggleSportSelect = (sport) => {
     setSelectedSports((prev) => {
       const alreadySelected = prev.some((s) => s.sports_id === sport.sports_id);
       if (alreadySelected) {
-        // agar already selected hai, to hata do
         return prev.filter((s) => s.sports_id !== sport.sports_id);
       } else {
-        // warna add karo
         return [...prev, sport];
       }
     });
   };
 
-  // 🔹 Send selected sports to parent (Venue)
   useEffect(() => {
     if (onSelectSports) {
-      onSelectSports(selectedSports); // ✅ sirf selected ka data jaega
+      onSelectSports(selectedSports);
     }
   }, [selectedSports, onSelectSports]);
 
@@ -59,7 +55,7 @@ const SportsSlider = ({ onSelectSports }) => {
       <div className="sports-slider">
         <h3>Sports</h3>
 
-        {/* 🔍 Search */}
+
         <div className="search_input">
           <input
             type="text"

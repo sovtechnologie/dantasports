@@ -108,6 +108,9 @@ export default function CouponModal({ isOpen, onClose, type, totalAmount, onAppl
 
         <div className={styles.modalOverlay} onClick={onClose}>
             <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+                <button className={styles.closeButton} onClick={onClose}>
+                    &times;
+                </button>
                 <div className={styles.inputWrapper}>
                     <input
                         type="text"
