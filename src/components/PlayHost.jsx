@@ -130,7 +130,7 @@ function PlayHost() {
                       alt="calendar"
                       className="icon me-2"
                     />
-                    <span className="host_date">{dateText}</span>
+                    <span className="host_date ">{dateText}</span>
                   </div>
 
                   <div className="d-flex align-items-center mb-3">
@@ -139,7 +139,7 @@ function PlayHost() {
                       alt="location"
                       className="icon me-2"
                     />
-                    <span className="host_date">
+                    <span className="host_date text_wrap3">
                       {host.city || "Address not available"} {host.state || "Address not available"} (
 
                       ~{host.distance_km?.toFixed(1) || "0"} km)

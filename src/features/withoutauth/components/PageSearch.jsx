@@ -7,17 +7,15 @@ function PageSearch() {
     <>
      <section className='search_wrapper'>
         <Container>
-           <div>
-             <Row>
-                <Col lg={6}> 
+          <Row className=' justify-content-center align-items-center g-3 '>
+                <Col lg={6} md={6}> 
                    <h3>Discover events in near you</h3>
                 </Col>
-                <Col lg={6} className=' position-relative sech_icon'>
+                <Col lg={6} md={6} className=' position-relative sech_icon'>
                     <span><img src={searchIcon}  /></span>
                    <input type="text" className='form-control' placeholder='Search Venue/Sports location' name="" id="" />
                 </Col>
              </Row>
-           </div>
         </Container>
      </section>
     </>

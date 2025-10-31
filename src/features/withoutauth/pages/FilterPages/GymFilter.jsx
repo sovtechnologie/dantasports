@@ -135,8 +135,8 @@ export default function GymFilterPage() {
   };
 
   return (
-    <section style={{ background: "#F1F3F2" }}>
-      <PageSearch />
+    <section  style={{ background: "#F1F3F2" }} className="pb-lg-4 pb-3">
+      <PageSearch/>
       <Container>
         <Row>
           <Col lg={3} md={4} className="d-none d-lg-block d-md-block">

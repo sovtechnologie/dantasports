@@ -176,7 +176,7 @@ export default function RunFilterPage() {
   return (
     <>
       <section
-        className="book_venue_section"
+        className="book_venue_section pb-lg-4 pb-3"
         style={{ background: "#F1F3F2" }}
       >
         <PageSearch/>

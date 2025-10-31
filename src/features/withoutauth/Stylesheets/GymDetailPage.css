@@ -402,7 +402,7 @@
 }
 
 .review-carousel-container {
-  display: flex;
+  /* display: flex; */
   /* gap: 20px; */
   overflow: hidden;
   /* flex-wrap: wrap; */

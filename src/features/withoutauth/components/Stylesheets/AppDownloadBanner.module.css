@@ -8,7 +8,7 @@
   justify-content: space-between;
   position: relative;
   overflow: hidden;
-  margin: 40px 0;
+  margin: 60px 0 40px 0;
 }
 
 .bannercontent {
@@ -105,5 +105,9 @@
 
   .storebutton {
     padding: clamp(6px, 0.694vw, 12px) clamp(17px, 1.389vw, 24px);
+  }
+  .appbanner{
+
+    margin: 40px 0 20px 0;
   }
 }

@@ -5,11 +5,11 @@
   box-sizing: border-box;
 }
 
-body {
+/* body {
   font-family: "Segoe UI", sans-serif;
   background-color: #f5f7f8;
   color: #333;
-}
+} */
 
 /* Container */
 .profile-container {
@@ -177,7 +177,7 @@ body {
   max-width: 650px;
   background-color: #ffffff;
   border-radius: 10px;
-  height: 700px;
+  /* height: 700px; */
   border: 2px solid transparent;
   background-image:
     linear-gradient(#fff, #fff),

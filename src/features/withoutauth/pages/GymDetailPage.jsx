@@ -34,6 +34,7 @@ import EventReviewSlider from "../components/EventReviewSlider.jsx";
 import BusinessHours from "../components/BusinessHours.jsx";
 import addCircle from "../../../assets/VenueImage/AddCircle.jpg"
 import minusCircle from "../../../assets/VenueImage/MinusCircle.png"
+import OngoingEvents from "../components/OngoingEvents.jsx";
 const timings = [
     { label: "Morning (Mon – Sat)", range: "06:00 AM – 12:00 PM" },
     { label: "Evening (Mon – Sat)", range: "04:00 PM – 10:00 PM" },
@@ -572,7 +573,7 @@ export default function GymDetailPage() {
                         </div>
 
                         {/* Banners sections */}
-                        <div className="event-banner-container">
+                        {/* <div className="event-banner-container">
                             <h2 className="event-banner-heading">Ongoing Events</h2>
                             <div className="event-banner-carousel">
                                 <div className="event-banner-track">
@@ -592,7 +593,8 @@ export default function GymDetailPage() {
                                     )}
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
+                        <OngoingEvents/>
                     </div>
                 </Container>
             </section>

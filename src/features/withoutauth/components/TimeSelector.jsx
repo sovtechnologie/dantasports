@@ -6,8 +6,8 @@ import { useFetchTimeslotForVenue } from '../../../hooks/VenueList/useFetchTimin
 import TimeslotShimmer from "./Shimmer/TimeslotShimmer.jsx";
 import { useCreateVenueBooking } from '../../../hooks/BookingVenue/useCreateVenueBooking.js';
 import { useUpdateBooking } from '../../../hooks/BookingVenue/useUpdateVenueBooking.js';
-import addCircle from "../../../assets/VenueImage/AddCircle.jpg"
-import minusCircle from "../../../assets/VenueImage/MinusCircle.png"
+import addCircle from "../../../assets/VenueImage/add.svg"
+import minusCircle from "../../../assets/VenueImage/sub.svg"
 import { useQueryClient } from '@tanstack/react-query';
 
 

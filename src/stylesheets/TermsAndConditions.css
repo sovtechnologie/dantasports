@@ -28,7 +28,7 @@ h2 {
   font-size: clamp(18px, 1.8056vw, 26px);
   margin: 0px;
 }
-p {
+.Terms-container p {
   text-align: justify;
 }
 dd {

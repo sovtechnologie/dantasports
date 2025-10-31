@@ -109,7 +109,7 @@ const EventReviewSlider = ({ event }) => {
 
   return (
     <section className="event-review">
-      <h2 className="event-review-heading mb-4">Rating & Reviews</h2>
+      <h2 className="details_page_heading mb-lg-4 mb-3">Rating & Reviews</h2>
 
       {reviews.length === 0 ? (
         <p className="text-center">No reviews yet.</p>
@@ -126,7 +126,7 @@ const EventReviewSlider = ({ event }) => {
           </div>
 
           {reviews.length > 1 && (
-            <div className="carousel_buttons text-center mt-3 mt-lg-5">
+            <div className="carousel_buttons text-center mt-3 mt-lg-5 mb-3">
               <button
                 type="button"
                 className="carousel_btn me-4"

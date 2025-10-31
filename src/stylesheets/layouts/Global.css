@@ -73,7 +73,7 @@ a {
 
 .card.modal_title {
 
-  padding: 25px 12px 25px 12px;
+  padding: 20px 12px 20px 12px;
   border: none !important;
   border-radius: 11px;
 }
@@ -105,6 +105,16 @@ a {
     background-color: white;
 }
 
+.text_wrap3{
+
+     width: 220px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+
+}
+
 .text_wrap2{
 
    width: 130px;
@@ -114,6 +124,7 @@ a {
   display: block;
 
 }
+
 
 .text_wrap {
   width: 200px;
@@ -291,7 +302,27 @@ a {
       margin-bottom: 30px;
 }
 
+button.btn_mobile {
+    border: 1px solid #1163C7 !important;
+    border-radius: 50%;
+}
+
+.details_page_heading {
+font-family: 'Lato';
+font-weight: 500;
+font-size: 24px;
+line-height: 21.67px;
+color: #172A39;
+
+}
+
 @media screen and (max-width: 767px) {
+
+  .details_page_heading{
+
+    font-size: 20px;
+    line-height: 30px;
+  }
 
   .custm_height_card{
 
