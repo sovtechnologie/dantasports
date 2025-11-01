@@ -48,7 +48,14 @@ export default function RunFilterPage() {
   const queryClient = useQueryClient();
   const userId = useSelector((state) => state.auth.id);
   const { lat, lng } = useSelector((state) => state.location);
+  const [selectedSports, setSelectedSports] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedTime, setSelectedTime] = useState(null);
+  const [filteredRuns, setFilteredRuns] = useState([]);
+  const [selectedAmenities, setSelectedAmenities] = useState([]);
 
+  console.log("selectedAmenities", selectedAmenities);
+  const auth = useSelector((state) => state.auth);
   const [runList, setRunList] = useState([]);
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState({
@@ -59,9 +66,30 @@ export default function RunFilterPage() {
     sortBy: null,
     date: null,
     time: null,
+    sportAvailability: [],
+    slot: null,
   });
+  const handleResetFilters = () => {
+    setSelectedSports([]);
+    setSelectedDate(null);
+    setSelectedTime(null);
+    setSelectedAmenities([]);
+    setSearch("");
+    setFilters({
+      service: null,
+      difficulty: [],
+      price: null,
+      amenities: [],
+      sortBy: [],
+      date: null,
+      time: null,
+      sportAvailability: [],
+      slot: null,
+    });
+    setRunList(AllRundata?.result || []);
+  };
 
-  // ✅ Fetch Events API
+
   const payload = { lat, lng, userId: userId || null, type: 2 };
   const {
     data: AllRundata,
@@ -73,10 +101,15 @@ export default function RunFilterPage() {
   const likeEvent = useLikeEvent();
   const unlikeEvent = useUnlikeEvent();
 
-  // ✅ Toggle Like API
+
   const toggleFavourite = (event) => {
     const eventId = event.id;
     const type = event?.type;
+
+    if (!auth || !auth?.id) {
+      alert("Please login first to like or unlike a venue.");
+      return;
+    }
 
     setRunList((prev) =>
       prev.map((v) =>
@@ -97,6 +130,9 @@ export default function RunFilterPage() {
     }
   };
 
+
+
+
   // ✅ Filter Events
   const filteredEvents = useMemo(() => {
     let result = [...runList];
@@ -107,53 +143,91 @@ export default function RunFilterPage() {
       );
     }
 
-    if (filters.date) {
-      const chosenDate = new Date(filters.date).toISOString().split("T")[0];
+    if (selectedSports.length > 0) {
+
+      const selectedIds = selectedSports.map((sport) => sport.sports_id);
+
       result = result.filter((evt) => {
-        const eventStartDate = toDateOnly(evt.start_date);
-        const eventEndDate = toDateOnly(evt.end_date);
-
-        if (chosenDate < eventStartDate || chosenDate > eventEndDate) return false;
-
-        if (filters.time) {
-          const evtStart = parseTimeToMinutes(evt.start_time);
-          const evtEnd = parseTimeToMinutes(evt.end_time);
-          const chosenTime = parseTimeToMinutes(filters.time);
-          return chosenTime >= evtStart && chosenTime <= evtEnd;
-        }
-        return true;
+        const sportIds = evt.sports?.map((s) => s.id) || [];
+        const match = sportIds.some((id) => selectedIds.includes(id));
+        return match;
       });
     }
 
-    if (filters.service) {
-      result = result.filter((evt) =>
-        evt.sports?.some((s) => s.name === filters.service)
-      );
+
+    if (selectedDate) {
+      const chosenDate = new Date(selectedDate).toISOString().split("T")[0];
+      result = result.filter((evt) => {
+        const eventStartDate = toDateOnly(evt.start_date);
+        const eventEndDate = toDateOnly(evt.end_date);
+        return chosenDate >= eventStartDate && chosenDate <= eventEndDate;
+      });
     }
 
-    if (filters.price) {
-      result = result.filter(
-        (evt) => parseFloat(evt.lowest_ticket_price) <= filters.price
-      );
+    if (selectedTime) {
+      const chosenMinutes = parseTimeToMinutes(selectedTime);
+      result = result.filter((evt) => {
+        const evtStart = parseTimeToMinutes(evt.start_time);
+        const evtEnd = parseTimeToMinutes(evt.end_time);
+        return chosenMinutes >= evtStart && chosenMinutes <= evtEnd;
+      });
+
+
     }
 
-    if (filters.sortBy === "nearby") {
-      result = result.sort((a, b) => a.distance - b.distance);
-    } else if (filters.sortBy === "favourite") {
-      result = result.filter((evt) => evt.favourite === 1);
-    } else if (filters.sortBy === "lowtohigh") {
-      result = result.sort(
-        (a, b) =>
-          parseFloat(a.lowest_ticket_price) - parseFloat(b.lowest_ticket_price)
+    if (selectedAmenities.length > 0) {
+      // Handle both numeric and object cases
+      const selectedAmenityIds = selectedAmenities.map((a) =>
+        typeof a === "object" ? a.id : a
       );
+
+      console.log("✅ selectedAmenityIds", selectedAmenityIds);
+
+      result = result.filter((evt) => {
+        const eventAmenityIds = evt.amenities?.map((a) => a.id) || [];
+        return selectedAmenityIds.every((id) =>
+          eventAmenityIds.includes(Number(id))
+        );
+      });
+    }
+
+
+    // ✅ Sorting
+    // ✅ Multiple sort options combined
+    if (filters.sortBy?.length > 0) {
+      // If favourite selected → filter only favourites first
+      if (filters.sortBy.includes("favourite")) {
+        result = result.filter((evt) => evt.favourite === 1 || evt.favourite === true);
+      }
+
+      // Then apply other sorting types in priority order
+      if (filters.sortBy.includes("nearby")) {
+        result.sort((a, b) => (a.distance || 0) - (b.distance || 0));
+      }
+
+      if (filters.sortBy.includes("popularity")) {
+        result.sort((a, b) => (b.average_rating || 0) - (a.average_rating || 0));
+      }
+
+      if (filters.sortBy.includes("priceLow")) {
+        result.sort(
+          (a, b) =>
+            parseFloat(a.lowest_ticket_price || 0) -
+            parseFloat(b.lowest_ticket_price || 0)
+        );
+      }
     }
 
     return result;
-  }, [runList, search, filters]);
+  }, [runList, search, filters, selectedSports, selectedDate, selectedAmenities, selectedTime]);
 
   useEffect(() => {
-    if (AllRundata?.status === 200) setRunList(AllRundata.result);
+    if (AllRundata?.status === 200) {
+      setRunList(AllRundata.result);
+      setFilteredRuns(AllRundata.result); // ✅ initialize
+    }
   }, [AllRundata]);
+
 
   if (isLoading) return <VenueListShimmer />;
   if (isError) return <div>Error loading events: {error.message}</div>;
@@ -173,26 +247,49 @@ export default function RunFilterPage() {
     }
   };
 
+
+
+
   return (
     <>
       <section
         className="book_venue_section pb-lg-4 pb-3"
         style={{ background: "#F1F3F2" }}
       >
-        <PageSearch/>
+        <PageSearch />
         <Container>
           <Row>
             <Col lg={3} md={5} className="d-none d-lg-block d-md-block">
-              <SortBy />
+              <SortBy
+                sortBy={filters.sortBy}
+                setSortBy={(value) => setFilters((prev) => ({ ...prev, sortBy: value }))}
+              />
+
+
               <div className="mt-3">
-                <Filter />
+                <Filter
+                  selectedSports={selectedSports}
+                  setSelectedSports={setSelectedSports}
+                  selectedDate={selectedDate}
+                  setSelectedDate={setSelectedDate}
+                  selectedTime={selectedTime}
+                  setSelectedTime={setSelectedTime}
+                  searchTerm={search}
+                  setSearchTerm={setSearch}
+                  onReset={handleResetFilters}
+                  venues={runList}
+                  setFilteredVenues={setFilteredRuns}
+                  selectedAmenities={selectedAmenities}
+                  setSelectedAmenities={setSelectedAmenities}
+                />
+
               </div>
             </Col>
 
-            <Col className="d-lg-none d-md-none text-end mb-4">
+            {/* <Col className="d-lg-none d-md-none text-end mb-4">
               <FliterModal />
               <SortModal />
-            </Col>
+            </Col> */}
 
             <Col lg={9} md={7}>
               <div className="row g-3">

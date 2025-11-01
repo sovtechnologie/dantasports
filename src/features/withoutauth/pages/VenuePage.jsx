@@ -49,6 +49,7 @@ function VenuePage() {
 
   const [filteredVenues, setFilteredVenues] = useState([]);
   const [isFiltering, setIsFiltering] = useState(false);
+  const [sortBy, setSortBy] = useState("");
 
   const likeVenue = useLikeVenue();
   const unlikeVenue = useUnlikeVenue();
@@ -72,7 +73,6 @@ function VenuePage() {
     }
   }, [AllVenuedata]);
 
-  // Fetch sports list
   const { data: sportsDataResponse, isLoading: sportsLoading } = useQuery({
     queryKey: ["sportsList"],
     queryFn: fetchSportList,
@@ -97,27 +97,26 @@ function VenuePage() {
     }
   }, [isSuccess, filterData]);
   useEffect(() => {
-    // Agar koi bhi filter apply nahi hua to skip karo
+
     if (
       !selectedSports.length &&
       !selectedDate &&
       !selectedTime
     ) return;
 
-    // ✅ Helper: MySQL-compatible date format
+
     const formatDateForMySQL = (date) => {
       if (!date) return null;
       const d = new Date(date);
       const year = d.getFullYear();
       const month = String(d.getMonth() + 1).padStart(2, "0");
       const day = String(d.getDate()).padStart(2, "0");
-      return `${year}-${month}-${day}`; // e.g. 2025-10-31
+      return `${year}-${month}-${day}`;
     };
 
-    // ✅ Helper: MySQL-compatible time format
     const formatTimeForMySQL = (time) => {
       if (!time) return null;
-      if (/^\d{2}:\d{2}(:\d{2})?$/.test(time)) return time; // already formatted
+      if (/^\d{2}:\d{2}(:\d{2})?$/.test(time)) return time;
       if (typeof time === "string" && time.includes("AM")) {
         const d = new Date(`1970-01-01 ${time}`);
         return d.toTimeString().slice(0, 8);
@@ -125,7 +124,7 @@ function VenuePage() {
       return null;
     };
 
-    // ✅ Create payload only for existing filters
+
     const payload = {
       ...(selectedSports.length && { sportsId: selectedSports.map((s) => s.id) }),
       ...(selectedDate && { date: formatDateForMySQL(selectedDate) }),
@@ -140,7 +139,61 @@ function VenuePage() {
   }, [selectedSports, selectedDate, selectedTime]);
 
 
-  // Toggle favourite
+  useEffect(() => {
+    const sortArray = Array.isArray(sortBy)
+      ? sortBy
+      : sortBy
+        ? [sortBy]
+        : [];
+
+    // Agar koi sorting selected nahi hai → original data dikhao
+    if (sortArray.length === 0) {
+      if (filteredVenues.length > 0) {
+        setFilteredVenues(AllVenuedata?.result || []);
+      } else {
+        setVenueList(AllVenuedata?.result || []);
+      }
+      return;
+    }
+
+    const sortVenues = (venues) => {
+      let sorted = [...venues];
+
+      // Favourite filter (pehle filter)
+      if (sortArray.includes("favourite")) {
+        sorted = sorted.filter((v) => v.favourite === true);
+      }
+
+      // Nearby
+      if (sortArray.includes("nearby")) {
+        sorted.sort((a, b) => (a.distance_km || 0) - (b.distance_km || 0));
+      }
+
+      // Popularity
+      if (sortArray.includes("popularity")) {
+        sorted.sort((a, b) => (b.average_rating || 0) - (a.average_rating || 0));
+      }
+
+      // Price low to high
+      if (sortArray.includes("priceLow")) {
+        sorted.sort((a, b) => (a.pricing || 0) - (b.pricing || 0));
+      }
+
+      return sorted;
+    };
+
+    if (filteredVenues.length > 0) {
+      const sorted = sortVenues(filteredVenues);
+      setFilteredVenues(sorted);
+    } else {
+      const sorted = sortVenues(venueList);
+      setVenueList(sorted);
+    }
+  }, [sortBy, AllVenuedata]);
+
+
+
+
   const toggleFavourite = (venue) => {
     const venueId = venue.id;
     if (!auth || !auth?.id) {
@@ -223,7 +276,11 @@ function VenuePage() {
                 setFilteredVenues={setFilteredVenues}
 
               />
-              <SortBy />
+              <SortBy
+                sortBy={sortBy}
+                setSortBy={(value) => setSortBy(value)}
+              />
+
             </Col>
 
             {/* Mobile Sort/Filter */}
@@ -231,14 +288,14 @@ function VenuePage() {
               <SortModal />
             </Col>
 
-            {/* Venue Cards Section */}
+
             <Col lg="9" md="7">
               <div className="row g-3">
                 {isFiltering || isPending ? (
                   "Loding......."
                 ) : (
                   <>
-                    {/* ✅ Show filtered data only when filters applied */}
+
                     {selectedSports.length > 0 || selectedDate || selectedTime ? (
                       filteredVenues.length > 0 ? (
                         filteredVenues.map((venue) => (
@@ -336,7 +393,7 @@ function VenuePage() {
                         </div>
                       )
                     ) : (
-                      // ✅ Default (no filters) → show all venues
+
                       venueList
                         .filter((venue) => !selectedDate || isSameDate(venue.created_at, selectedDate))
                         .map((venue) => (

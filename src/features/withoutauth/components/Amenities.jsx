@@ -1,47 +1,71 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
 import "../Stylesheets/Amenities.css";
+import { getAmenitiesList } from "../../../services/LoginApi/Amenities/endpointApi";
 
-function Amenities() {
-  return (
-    <>
-    <div className="amenities_card">
-        <h2 className='mb-3 text-start'>Amenities</h2>
-        <div className="row">
-            <div className="col-4 p-0">
-                <div className="inner">
-                    <a href="">Parking</a>
-                </div>
+function Amenities({ selectedAmenities = [], setSelectedAmenities }) {
+    const [amenities, setAmenities] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await getAmenitiesList();
+                if (Array.isArray(res)) {
+                    setAmenities(res);
+                } else if (Array.isArray(res?.result)) {
+                    setAmenities(res.result);
+                } else {
+                    console.warn("Unexpected response:", res);
+                }
+            } catch (error) {
+                console.error("Error fetching amenities:", error);
+            }
+        };
+        fetchData();
+    }, []);
+
+    // ✅ Toggle amenity selection
+    const handleAmenityClick = (id) => {
+        setSelectedAmenities((prev) =>
+            prev.includes(id)
+                ? prev.filter((a) => a !== id)
+                : [...prev, id]
+        );
+    };
+
+    return (
+        <div className="amenities_card">
+            <h2 className="mb-3 text-start">Amenities</h2>
+            <div className="row">
+                {amenities.length > 0 ? (
+                    amenities.map((item) => {
+                        const isSelected = selectedAmenities.includes(item.id);
+                        return (
+                            <div className="col-4 p-0" key={item.id}>
+                                <div
+                                    className={`inner ${isSelected ? "selected" : ""}`}
+                                    onClick={() => handleAmenityClick(item.id)}
+                                    style={{
+                                        cursor: "pointer",
+                                        backgroundColor: isSelected ? "#e7f5ff" : "",
+                                        border: isSelected ? "1px solid #007bff" : "1px solid #ddd",
+                                        borderRadius: "8px",
+                                        textAlign: "center",
+                                        padding: "6px 4px",
+                                        margin: "2px",
+                                    }}
+                                >
+
+                                    <a>{item.amenities_name || item.name}</a>
+                                </div>
+                            </div>
+                        );
+                    })
+                ) : (
+                    <p className="text-center w-100">Loading amenities...</p>
+                )}
             </div>
-            <div className="col-4 p-0">
-                <div className="inner">
-                     <a href="">Parking</a>
-                </div>
-            </div>
-            <div className="col-4 p-0">
-                <div className="inner">
-                     <a href="">Parking</a>
-                </div>
-            </div>
-            <div className="col-4 p-0">
-                <div className="inner">
-                     <a href="">Parking</a>
-                </div>
-            </div>
-            <div className="col-4 p-0">
-                <div className="inner">
-                     <a href="">Parking</a>
-                </div>
-            </div>
-            <div className="col-4 p-0">
-                <div className="inner">
-                    <a href="">Parking</a>
-                </div>
-            </div>
-           
         </div>
-    </div>
-    </>
-  )
+    );
 }
 
-export default Amenities
+export default Amenities;

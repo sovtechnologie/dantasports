@@ -11,10 +11,9 @@ import SortModal from "../../components/SortModal";
 
 import calendarIcon from "../../assets/playhost/date.svg";
 import mapIcon from "../../assets/playhost/map.svg";
-import profilePlaceholder from "../../assets/playhost/user1.png"; // fallback image
+import profilePlaceholder from "../../assets/playhost/user1.png";
 import PageSearch from "../../components/PageSearch";
 
-// Time formatter function
 function formatTime(timeStr = "00:00") {
   const [h, m] = timeStr.split(":").map(Number);
   const date = new Date();
@@ -26,14 +25,17 @@ export default function HostPlayFilterPage() {
   const { lat, lng } = useSelector((state) => state.location);
 
   const [hostList, setHostList] = useState([]);
+  const [filteredHosts, setFilteredHosts] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedTime, setSelectedTime] = useState(null);
+  const [sortBy, setSortBy] = useState([]);
 
   const { data: AllHostdata, isLoading, isError, error } = useFetchHostList({ lat, lng });
 
   useEffect(() => {
     if (AllHostdata?.status === 200) {
       setHostList(AllHostdata.result || []);
+      setFilteredHosts(AllHostdata.result || []);
     }
   }, [AllHostdata]);
 
@@ -49,12 +51,49 @@ export default function HostPlayFilterPage() {
     1: "Regular",
     2: "Coaching",
     3: "Tournament",
-    // add more if needed
   };
 
-  // Filter by search or selected time
-  const filteredHosts = useMemo(() => {
-    return (hostList || []).filter((host) => {
+  useEffect(() => {
+    const sortArray = Array.isArray(sortBy) ? sortBy : sortBy ? [sortBy] : [];
+
+    if (sortArray.length === 0) {
+      setFilteredHosts(AllHostdata?.result || []);
+      return;
+    }
+
+    const sortHosts = (hosts) => {
+      let sorted = [...hosts];
+
+      // favourite first
+      if (sortArray.includes("favourite")) {
+        sorted = sorted.filter((h) => h.favourite === true);
+      }
+
+      // nearby
+      if (sortArray.includes("nearby")) {
+        sorted.sort((a, b) => (a.distance_km || 0) - (b.distance_km || 0));
+      }
+
+      // popularity
+      if (sortArray.includes("popularity")) {
+        sorted.sort((a, b) => (b.average_rating || 0) - (a.average_rating || 0));
+      }
+
+
+      if (sortArray.includes("priceLow")) {
+        sorted.sort((a, b) => (a.pricing || 0) - (b.pricing || 0));
+      }
+
+      return sorted;
+    };
+
+    const sortedData = sortHosts(hostList);
+    setFilteredHosts(sortedData);
+  }, [sortBy, AllHostdata]);
+
+  // ✅ Filter by search or time
+  const visibleHosts = useMemo(() => {
+    return (filteredHosts || []).filter((host) => {
       if (search && !host.host_name?.toLowerCase().includes(search.toLowerCase())) return false;
       if (selectedTime && host.start_time && host.end_time) {
         const [startH, startM] = host.start_time.split(":").map(Number);
@@ -69,49 +108,43 @@ export default function HostPlayFilterPage() {
       }
       return true;
     });
-  }, [hostList, search, selectedTime]);
+  }, [filteredHosts, search, selectedTime]);
 
   if (isLoading) return <VenueListShimmer />;
   if (isError) return <div>Error loading hosts: {error.message}</div>;
 
   return (
     <section style={{ background: "#F1F3F2" }} className="pb-lg-4 pb-3">
-      <PageSearch/>
+      <PageSearch />
       <Container>
         <Row>
           {/* Left Sort Section */}
           <Col lg={3} md={5} className="d-none d-lg-block d-md-block">
-            <SortBy />
+            <SortBy sortBy={sortBy} setSortBy={setSortBy} />
           </Col>
 
           {/* Mobile Sort Modal */}
           <Col className="d-lg-none d-md-none text-end mb-4">
-            <SortModal />
+            <SortModal sortBy={sortBy} setSortBy={setSortBy} />
           </Col>
 
           {/* Host Cards Section */}
           <Col lg={9} md={7}>
             <Row className="g-3">
-              {filteredHosts.length > 0 ? (
-                filteredHosts.map((host) => (
-                  <Col lg={4}  key={host.id}>
+              {visibleHosts.length > 0 ? (
+                visibleHosts.map((host) => (
+                  <Col lg={4} key={host.id}>
                     <Card className="card card_payhost">
-                      {/* Label */}
                       <div className="badge_label mb-2">
                         <p>{ACTIVITY_TYPE_LABEL[host.activity_type] || "Regular"}</p>
                       </div>
 
-
-
-                      {/* Profile group */}
                       <div className="d-flex align-items-center my-2">
                         <div className="profile_group d-flex">
-
                           <img
                             src={host.host_image || profilePlaceholder}
                             alt="host"
                             className="profile_img"
-                          
                           />
                           <img
                             src={
@@ -121,16 +154,13 @@ export default function HostPlayFilterPage() {
                             }
                             alt="player"
                             className="profile_img overlap"
-                          
                           />
                         </div>
                         <div className="blue_dot"></div>
-
                         <p className="m-0 ps-3 going">{host.going || 0} Going</p>
                       </div>
 
                       <h2>Host By: {host.host_name || "Unknown"}</h2>
-
 
                       <div className="d-flex align-items-center mb-2">
                         <img src={calendarIcon} alt="calendar" className="icon me-2" />
@@ -145,16 +175,15 @@ export default function HostPlayFilterPage() {
                         </span>
                       </div>
 
-                      {/* Location */}
                       <div className="d-flex align-items-center mb-3">
                         <img src={mapIcon} alt="location" className="icon me-2" />
                         <span>
-                          {host.city || "Address not available"} {host.state || "Address not available"}(~{host.distance_km || 0} Km)
+                          {host.city || "Address not available"} {host.state || ""} (~
+                          {host.distance_km || 0} Km)
                         </span>
                       </div>
 
-                      {/* Bottom */}
-                      <div className="d-flex justify-content-between align-items-center  pt-3">
+                      <div className="d-flex justify-content-between align-items-center pt-3">
                         <span
                           className="novice_txt"
                           style={{
@@ -164,11 +193,11 @@ export default function HostPlayFilterPage() {
                           {SKILL_MAP[host.game_skill]?.label || "Novice"}
                         </span>
                       </div>
+
                       <div className="card_line"></div>
                       <div className="offer">
                         <a href="">Join Now</a>
                       </div>
-
                     </Card>
                   </Col>
                 ))
@@ -182,7 +211,6 @@ export default function HostPlayFilterPage() {
         </Row>
       </Container>
 
-      {/* Footer Banner */}
       <Container>
         <div className={styled.event_footer_banner}>
           <AppDownloadBanner />

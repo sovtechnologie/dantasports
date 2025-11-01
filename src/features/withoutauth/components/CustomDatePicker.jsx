@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import date from "../../withoutauth/assets/icons/filter-months.svg"
+import dateIcon from "../../withoutauth/assets/icons/filter-months.svg";
 import {
   format,
   startOfMonth,
@@ -13,13 +13,14 @@ import {
   isSameDay,
 } from "date-fns";
 import "../../withoutauth/Stylesheets/Filterpages/CustomDatePicker.css";
-const DatePicker = () => {
+
+const CustomDatePicker = ({ selectedDate, setSelectedDate }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [selectedDate, setSelectedDate] = useState(null);
   const [open, setOpen] = useState(false);
   const pickerRef = useRef();
   const today = new Date();
 
+  // 🔹 Close calendar when clicked outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (pickerRef.current && !pickerRef.current.contains(event.target)) {
@@ -30,8 +31,9 @@ const DatePicker = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // 🔹 When user selects date
   const onDateClick = (day) => {
-    setSelectedDate(day);
+    setSelectedDate(day); // send to parent (FilterThree)
     setOpen(false);
   };
 
@@ -72,9 +74,9 @@ const DatePicker = () => {
 
     while (day <= endDate) {
       for (let i = 0; i < 7; i++) {
-        const cloneDay = day;
+        const cloneDay = new Date(day);
         const isToday = isSameDay(day, today);
-        const isSelected = isSameDay(day, selectedDate);
+        const isSelected = selectedDate && isSameDay(day, selectedDate);
 
         days.push(
           <div
@@ -103,7 +105,7 @@ const DatePicker = () => {
 
   return (
     <div className="dp-wrapper" ref={pickerRef}>
-       <h2 className="text-start">Date</h2>
+      <h2 className="text-start">Date</h2>
       <div className="dp-input-container" onClick={() => setOpen(!open)}>
         <input
           type="text"
@@ -111,7 +113,9 @@ const DatePicker = () => {
           value={selectedDate ? format(selectedDate, "dd/MM/yyyy") : ""}
           placeholder="DD/MM/YYYY"
         />
-        <span className="dp-icon"><img src={date} alt="date" /></span>
+        <span className="dp-icon">
+          <img src={dateIcon} alt="date" />
+        </span>
       </div>
 
       {open && (
@@ -125,4 +129,4 @@ const DatePicker = () => {
   );
 };
 
-export default DatePicker;
+export default CustomDatePicker;

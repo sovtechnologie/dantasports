@@ -32,12 +32,28 @@ export default function GymFilterPage() {
 
   const [gymList, setGymList] = useState([]);
   const [search, setSearch] = useState("");
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState({
+    date: null,
+    minPrice: 0,
+    maxPrice: 10000,
+    onlyWomen: false,
+    coachAvailable: false,
+    amenities: [],
+  });
+  const [gyms, setGyms] = useState([]);
 
+  const [sortBy, setSortBy] = useState([]);
   const payload = { lat, lng, userId: userId || null };
   const { data: AllGymdata, isLoading, isError, error } = useFetchGym(payload);
   const likeGym = useLikeGym();
   const unlikeGym = useUnlikeGym();
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [priceRange, setPriceRange] = useState([0, 10000]);
+  const [selectedAmenities, setSelectedAmenities] = useState([]);
+  const [coachAvailable, setCoachAvailable] = useState({
+    onlyWomen: false,
+    coachAvailable: false,
+  });
 
   // --- LIKE / UNLIKE ---
   const toggleFavourite = (gym) => {
@@ -85,36 +101,90 @@ export default function GymFilterPage() {
     setFilters({ date: "", price: "", amenities: [], womenOnly: false });
   };
 
-  // --- FILTER ---
   const filteredGyms = useMemo(() => {
-    return gymList.filter((gym) => {
-      if (search && !gym.gym_name?.toLowerCase().includes(search.toLowerCase()))
-        return false;
+    if (!gymList?.length) return [];
 
-      if (filters.date) {
-        const selectedDate = new Date(filters.date).toISOString().split("T")[0];
-        if (!gym.available_dates?.includes(selectedDate)) return false;
+    let result = [...gymList];
+    const sortBy = filters.sortBy || [];
+
+    // 🔍 Search
+    if (search) {
+      result = result.filter((gym) =>
+        gym.gym_name?.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
+
+
+    // 🔹 Date filter (skip for now, gym me date nahi hai)
+    if (selectedDate) {
+      result = result; // placeholder for future
+    }
+
+    // 🔹 Price range filter
+    if (priceRange && Array.isArray(priceRange)) {
+      result = result.filter((gym) => {
+        const price = gym?.gym_price_slot?.[0]?.price ?? 0;
+        return price >= priceRange[0] && price <= priceRange[1];
+      });
+    }
+
+    if (selectedAmenities.length > 0) {
+      result = result.filter(gym =>
+        selectedAmenities.every(a =>
+          gym.amenities?.some((am) => am.id === a)
+        )
+      );
+    }
+
+
+    // 🔹 Coach Available + Only Woman filter
+    if (coachAvailable) {
+      if (coachAvailable.coachAvailable) {
+        result = result.filter((gym) => gym.has_gym_coaches === 1);
       }
 
-      if (filters.price && gym.gym_price_slot?.[0]?.price > filters.price)
-        return false;
+      if (coachAvailable.onlyWomen) {
+        result = result.filter((gym) => gym.only_woman === 1);
+      }
+    }
 
-      if (
-        filters.amenities?.length &&
-        !filters.amenities.every((a) =>
-          gym.amenities?.some((g) => g.name === a || g.id === a)
-        )
-      )
-        return false;
 
-      if (filters.womenOnly && gym.only_women !== 1) return false;
+    if (sortBy.includes("favourite")) {
+      result = result.filter((gym) => gym.favourite === 1 || gym.favourite === true);
+    }
 
-      return true;
-    });
-  }, [gymList, filters, search]);
+    // ⚡ SORTING
+    if (sortBy.includes("priceLow")) {
+      result.sort((a, b) => {
+        const priceA = a.gym_price_slot?.[0]?.price ?? 999999;
+        const priceB = b.gym_price_slot?.[0]?.price ?? 999999;
+        return priceA - priceB;
+      });
+    }
+
+    if (sortBy.includes("popularity")) {
+      result.sort(
+        (a, b) =>
+          (b.review_count || b.reviewCount || 0) -
+          (a.review_count || a.reviewCount || 0)
+      );
+    }
+
+    if (sortBy.includes("nearby")) {
+      result.sort(
+        (a, b) => (Number(a.distance) || 9999) - (Number(b.distance) || 9999)
+      );
+    }
+
+    return result;
+  }, [gymList, filters, search, selectedDate, priceRange, selectedAmenities, coachAvailable]);
+
+
 
   useEffect(() => {
     if (AllGymdata?.status === 200) setGymList(AllGymdata.result);
+
   }, [AllGymdata]);
 
   if (isLoading) return <VenueListShimmer />;
@@ -135,18 +205,36 @@ export default function GymFilterPage() {
   };
 
   return (
-    <section  style={{ background: "#F1F3F2" }} className="pb-lg-4 pb-3">
-      <PageSearch/>
+    <section style={{ background: "#F1F3F2" }} className="pb-lg-4 pb-3">
+      <PageSearch />
       <Container>
         <Row>
           <Col lg={3} md={4} className="d-none d-lg-block d-md-block">
-            <SortBy />
-            <FilterThree />
+            <SortBy
+              sortBy={filters.sortBy}
+              setSortBy={(value) =>
+                setFilters((prev) => ({ ...prev, sortBy: value }))
+              }
+            />
+            <FilterThree
+              selectedDate={selectedDate}
+              setSelectedDate={setSelectedDate}
+              priceRange={priceRange}
+              setPriceRange={setPriceRange}
+              selectedAmenities={selectedAmenities}
+              setSelectedAmenities={setSelectedAmenities}
+              coachAvailable={coachAvailable}
+              setCoachAvailable={setCoachAvailable}
+            />
+
+
+
+
           </Col>
 
           <Col className="d-lg-none d-md-none text-end mb-4 d-flex justify-content-end">
             <SortModal />
-            <FilterModalThree />
+            {/* <FilterModalThree /> */}
           </Col>
 
           <Col lg={9} md={8}>

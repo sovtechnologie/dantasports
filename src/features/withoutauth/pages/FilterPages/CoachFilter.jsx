@@ -35,7 +35,10 @@ export default function CoachFilterPage() {
   const { lat, lng } = useSelector((state) => state.location);
   const [coachList, setCoachList] = useState([]);
   const [search, setSearch] = useState("");
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState({
+    sortBy: [],
+  });
+
   const [selectedCoach, setSelectedCoach] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
@@ -119,12 +122,43 @@ export default function CoachFilterPage() {
       return true;
     })
     .sort((a, b) => {
-      const aAvailable = a.is_available;
-      const bAvailable = b.is_available;
-      if (aAvailable && !bAvailable) return -1;
-      if (!aAvailable && bAvailable) return 1;
-      return 0;
+      if (filters.sortBy?.length > 0) {
+        // ✅ 1. Favourite first
+        if (filters.sortBy.includes("favourite")) {
+          if (a.favourite && !b.favourite) return -1;
+          if (!a.favourite && b.favourite) return 1;
+        }
+
+        // ✅ 2. Nearby first (if available)
+        if (filters.sortBy.includes("nearby")) {
+          return (a.distance || 0) - (b.distance || 0);
+        }
+
+        // ✅ 3. Popularity → Rating high to low
+        if (filters.sortBy.includes("popularity")) {
+          return (b.average_rating || 0) - (a.average_rating || 0);
+        }
+
+        // ✅ 4. Price low to high (if applicable)
+        if (filters.sortBy.includes("priceLow")) {
+          return (a.price || 0) - (b.price || 0);
+        }
+
+        // ✅ 5. Name (A–Z / Z–A)
+        if (filters.sortBy.includes("name_a_to_z")) {
+          return a.name.localeCompare(b.name);
+        }
+        if (filters.sortBy.includes("name_z_to_a")) {
+          return b.name.localeCompare(a.name);
+        }
+      }
+
+      // ✅ Default sorting (available first)
+      const aAvailable = a.is_available ? 1 : 0;
+      const bAvailable = b.is_available ? 1 : 0;
+      return bAvailable - aAvailable;
     });
+
 
   const formattedCoachList = useMemo(() => {
     return filteredCoaches.map((coach) => ({
@@ -281,7 +315,11 @@ export default function CoachFilterPage() {
         <Container>
           <Row>
             <Col lg={3} md={5} className="d-none d-lg-block d-md-block">
-              <SortBy />
+              <SortBy
+                sortBy={filters.sortBy}
+                setSortBy={(value) => setFilters((prev) => ({ ...prev, sortBy: value }))}
+              />
+
               <FilterTow />
             </Col>
             <Col className="d-lg-none d-md-none text-end mb-4 d-flex  justify-content-end">

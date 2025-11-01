@@ -29,6 +29,10 @@ export default function EventFilterPage() {
   const navigate = useNavigate();
 
   const [eventList, setEventList] = useState([]);
+  const [search, setSearch] = useState("");
+  const [filters, setFilters] = useState({
+    sortBy: [],
+  });
 
   const payload = { lat, lng, userId: userId || null, type: 1 };
   const {
@@ -41,12 +45,14 @@ export default function EventFilterPage() {
   const likeEvent = useLikeEvent();
   const unlikeEvent = useUnlikeEvent();
 
+
+
   const toggleFavourite = async (event) => {
     const eventId = event.id;
     const type = event?.type;
     const wasFavourite = event.favourite;
 
-    // ✅ Update UI instantly
+
     setEventList((prev) =>
       prev.map((v) =>
         v.id === eventId ? { ...v, favourite: !wasFavourite } : v
@@ -78,6 +84,45 @@ export default function EventFilterPage() {
     }
   };
 
+  const filteredEvents = useMemo(() => {
+    let result = [...eventList];
+
+    if (search) {
+      result = result.filter((evt) =>
+        evt.event_title.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
+
+    if (filters.sortBy?.length > 0) {
+
+      if (filters.sortBy.includes("favourite")) {
+        result = result.filter((evt) => evt.favourite === 1 || evt.favourite === true);
+      }
+
+
+      if (filters.sortBy.includes("nearby")) {
+        result.sort((a, b) => (a.distance || 0) - (b.distance || 0));
+      }
+
+
+      if (filters.sortBy.includes("popularity")) {
+        result.sort((a, b) => (b.average_rating || 0) - (a.average_rating || 0));
+      }
+
+
+      if (filters.sortBy.includes("priceLow")) {
+        result.sort(
+          (a, b) =>
+            parseFloat(a.lowest_ticket_price || 0) -
+            parseFloat(b.lowest_ticket_price || 0)
+        );
+      }
+    }
+
+    return result;
+  }, [eventList, search, filters]);
+
   useEffect(() => {
     if (AllEventdata?.status === 200) setEventList(AllEventdata.result);
   }, [AllEventdata]);
@@ -88,14 +133,19 @@ export default function EventFilterPage() {
   return (
     <>
       <section className="pb-lg-4 pb-3"
-        
+
         style={{ background: "#F1F3F2" }}
       >
-        <PageSearch/>
+        <PageSearch />
         <Container>
           <Row>
             <Col lg={3} md={4} className="d-none d-lg-block d-md-block">
-              <SortBy />
+              <SortBy
+                sortBy={filters.sortBy}
+                setSortBy={(value) =>
+                  setFilters((prev) => ({ ...prev, sortBy: value }))
+                }
+              />
               <EventFilter />
             </Col>
 
@@ -106,8 +156,8 @@ export default function EventFilterPage() {
 
             <Col lg={9} md={8}>
               <div className="row g-3">
-                {eventList.length > 0 ? (
-                  eventList.map((evt) => (
+                {filteredEvents.length > 0 ? (
+                  filteredEvents.map((evt) => (
                     <div className="col-lg-4 col-md-6 position-relative" key={evt.id}>
                       <div className="card_icons events">
                         <button

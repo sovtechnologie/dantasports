@@ -1,47 +1,54 @@
 import React from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import SortBy from "./SortBy";
-import sorticon from "../assets/Filtericon/sortingicon.svg";
-import "./Stylesheets/CustomModal.css";
+import "../Stylesheets/SortBy.css";
 
-function SortModal() {
+const SortBy = ({ sortBy, setSortBy }) => {
+  const handleSortChange = (type) => {
+    if (type === "reset") setSortBy("");
+    else setSortBy(type);
+  };
+
   return (
-    <>
-      {/* Button trigger */}
-      <button
-        type="button"
-        className="btn_mobile"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
-      >
-        <img src={sorticon} alt="" />
-      </button>
+    <div className="sortby-container p-3">
+      <h6 className="fw-bold mb-3">Sort By</h6>
 
-      {/* Modal */}
-      <div
-        className="modal fade"
-        id="exampleModal"
-        tabIndex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-dialog-centered mobile_sort_by">
-          <div className="modal-content custom_modal">
-            <div className="modal-header border-0">
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <SortBy/>
-          </div>
-        </div>
+      <div className="sort-options d-flex flex-column gap-2">
+        <button
+          className={`sort-btn ${sortBy === "popularity" ? "active" : ""}`}
+          onClick={() => handleSortChange("popularity")}
+        >
+          Popularity
+        </button>
+
+        <button
+          className={`sort-btn ${sortBy === "nearby" ? "active" : ""}`}
+          onClick={() => handleSortChange("nearby")}
+        >
+          Near By
+        </button>
+
+        <button
+          className={`sort-btn ${sortBy === "favourite" ? "active" : ""}`}
+          onClick={() => handleSortChange("favourite")}
+        >
+          Favorites
+        </button>
+
+        <button
+          className={`sort-btn ${sortBy === "priceLow" ? "active" : ""}`}
+          onClick={() => handleSortChange("priceLow")}
+        >
+          Price: Low to High
+        </button>
+
+        <button
+          className="sort-btn reset"
+          onClick={() => handleSortChange("reset")}
+        >
+          Reset
+        </button>
       </div>
-    </>
+    </div>
   );
-}
+};
 
-export default SortModal;
+export default SortBy;
