@@ -40,6 +40,20 @@ a {
   margin: 12px 0;
 }
 
+.card_line2{
+
+    border: 1px solid #C4C4C4;
+  margin: 6px 0;
+}
+
+.card_line3{
+
+  
+    border: 1px solid #C4C4C4;
+  margin: 16px 0;
+
+}
+
 .card_heading {
 
    font-weight: 600;
@@ -47,14 +61,14 @@ a {
   color: #172A39;
   font-family: 'Lato';
   line-height: 24px;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
 
 }
 
-.no_off_users{
+/* .no_off_users{
 
   margin-top: 14px;
-}
+} */
 .see_all a {
 
     font-weight: 400;
@@ -65,11 +79,29 @@ a {
 }
 
 .offer a {
+    background-color: #1163C7;
+    padding: 5px 16px;
+    font-weight: 400;
+    font-size: 14px;
+    color: white !important;
+    text-decoration: none;
+    line-height: 26px;
+    border-radius: 5px;
+    font-family: 'DM Sans';
+    border: 1px solid transparent;
 
-  
-  font-family: 'DM Sans';
 
 }
+
+.offer a:hover {
+
+    border: 1px solid #1163C7;
+    background-color: transparent;
+    color: #1163C7 !important;
+    font-weight: 500;
+    transition: .3s ease-in-out;
+}
+
 
 .card.modal_title {
 
@@ -117,7 +149,7 @@ a {
 
 .text_wrap2{
 
-   width: 130px;
+   width: 125px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -125,9 +157,14 @@ a {
 
 }
 
+.custom_width_km{
+
+  width: 54px;
+}
+
 
 .text_wrap {
-  width: 200px;
+  width: 185px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -158,10 +195,14 @@ a {
 
 }
 
+.offer_div{
+
+  margin-bottom: 18px;
+}
 .no_off_users ul li {
 
-  height: 25px;
-  width: 25px;
+  height: 22px;
+  width: 22px;
   border: 0.5px solid #B1B1B1;
   display: flex;
   align-items: center;
@@ -211,6 +252,10 @@ a {
 .onwards_rup {
 
   color: #1163C7 !important;
+   font-family: 'DM Sans';
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16.55px;
 }
 
 .card_date {
@@ -222,7 +267,20 @@ a {
   line-height: 14px;
   display: flex;
   align-items: center;
-  margin: 0;
+  margin-bottom: 14px;
+
+}
+
+.map_location{
+
+    color: #858585;
+  font-family: 'DM Sans';
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 14px;
 
 }
 

@@ -57,13 +57,13 @@ const texts = [
                 </p>
               </div>
 
-              <div className="get_started mt-5 mb-5 mb-lg-0">
+              <div className="get_started mb-4 mb-lg-0">
                 {/* <a href="" className="get_started_btn">
                   Get Started
                   <img className="blue_arrow" src={blueArrow} alt="" />
                 </a> */}
                 <a href={`/venue`} className="book_now">
-                  Book a Venue{" "}
+                  Book a Turf{" "}
                   <img src={white} className="blue_arrow" alt="" />
                 </a>
               </div>

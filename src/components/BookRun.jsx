@@ -158,7 +158,7 @@ function BookRun() {
                       {evt.event_title}
                     </h2>
 
-                    <p className="card_date mb-3">
+                    <p className="card_date">
                       <span className="me-2">
                         <img src={dateIcon} alt="date" />
                       </span>
@@ -173,7 +173,7 @@ function BookRun() {
                         }
                       )} | ${formatTime(evt.start_time)} onwards`}
                     </p>
-                    <p className="card_date my-0">
+                    <p className="map_location">
                       <span className="me-2">
                         <img src={mapIcon} alt="map" />
                       </span>
@@ -209,21 +209,21 @@ function BookRun() {
                     </ul>
                   </div> */}
                   <div className="d-flex justify-content-between no_off_users">
-                    <p className="up_to_offer mb-0">
+                    <p className="up_to_offer m-0">
                       {evt.coupon_type === "percentage" && evt.discount_offer
                         ? `Upto ${parseFloat(evt.discount_offer)}% Off`
                         : evt.coupon_type === "flat" && evt.discount_offer
                           ? `Upto ₹${parseFloat(evt.discount_offer)} Off`
                           : ""}
                     </p>
-                    <p className="onwards_rup mb-2">
+                    <p className="onwards_rup m-0">
                       {" "}
                       {evt.pricing
                         ? `₹${parseFloat(evt.pricing).toFixed(0)} onwards`
                         : ""}
                     </p>
                   </div>
-                  <div className="card_line mb-0"></div>
+                  <div className="card_line2"></div>
                   <div className="easy2">
                     {evt.difficulty === 0 ? (
                       <span className="Moderate">Moderate</span>
@@ -249,9 +249,10 @@ function BookRun() {
 
                     <Link to={`/Run/${evt.id}`}>Join Now</Link>
                   </div>
-                  <div className="rating">
+                  <div className="rating_box position-absolute d-flex align-items-center">
+                    <img src={star}  alt="" />
                     <span>
-                      <img src={star} className="pe-2" alt="" />
+                      
                       {evt.average_rating || "0.0"}  (
                       {evt.review_count || 0})
                     </span>

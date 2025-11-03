@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import ".//StyleSheets/BookCoach.css";
+
 import star from "../assets/images/home/bookvenues/star.svg";
 import likeIcon from "../assets/images/home/bookvenues/like.svg";
 import shareIcon from "../assets/images/home/bookvenues/share.svg";
@@ -124,7 +125,7 @@ function BookCoach() {
           ) : coachList.length > 0 ? (
             coachList.map((coach) => (
               <Col lg={3} md={6} key={coach.id}>
-                <div className="card border-0">
+                <div className="card border-0 position-relative ">
                   <div className="card_img">
                     <img
                       src={
@@ -151,7 +152,7 @@ function BookCoach() {
                     />
                   </div>
 
-                  <div className="rating">
+                  <div className="rating_box position-absolute d-flex align-items-center">
                     <img src={star} alt="rating" />
                     <span>
                       {coach.average_rating || 0} ({coach.review_count || 0})
@@ -172,7 +173,7 @@ function BookCoach() {
 
                     <div className="sport_icon d-flex mt-3">
                       {coach.linked_sports?.slice(0, 2).map((sport, i) => (
-                        <div key={i} className="sport ms-2">
+                        <div key={i} className="sport">
                           <img
                             src={sport.sports_images || sportIcons}
                             alt={sport.sports_name}
@@ -182,7 +183,7 @@ function BookCoach() {
                     </div>
 
                     <div className="d-flex">
-                      <p className="card_date mb-3">
+                      <p className="map_location">
                         <span className="me-2">
                           <img src={mapIcon} alt="map" />
                         </span>
@@ -190,10 +191,10 @@ function BookCoach() {
                       </p>
                     </div>
 
-                    <div className="card_line m-0"></div>
+                    <div className="card_line2"></div>
 
                     <div
-                      className="offer mt-3"
+                      className="offer d-flex justify-content-between align-items-center"
                       onClick={() => handleClick(coach)}
                     >
                       <a>Enquire Now</a>

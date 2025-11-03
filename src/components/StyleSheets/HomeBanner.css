@@ -41,27 +41,36 @@
     font-weight: 400;
     font-size: 16px;
     color: white;
+    line-height: 26px;
+    margin-bottom: 45px;
+    max-width: 600px;
+    width: 100%;
 
+}
+
+.get_started {
+    display: flex;
 }
 
 .get_started a {
 
     text-decoration: none;
-    padding: 17px 70px 20px 20px;
+    padding: 17px 80px 20px 20px;
     border-radius: 70px;
     position: relative;
-    font-weight: 400;
+    font-weight: 500;
     font-size: 16px;
     border: 1px solid white;
     color: #1163C7;
     background-color: #fff;
+    font-family: 'lato';
 
 }
 
 .blue_arrow {
 
     position: absolute;
-    top: 6px;
+    top: 5px;
     right: 10px;
 }
 
@@ -87,6 +96,12 @@
 }
 
 @media screen and (max-width: 767px) {
+
+    .banner_txt p{
+
+        max-width: unset;
+        margin-bottom: 30px;
+    }
 
     
 .blue_arrow {
@@ -125,3 +140,14 @@
     
 }
 
+@media screen and (max-width: 360px) {
+
+     .home_banner h1{
+
+        font-size: 25px;
+        line-height: 35px;
+    }
+
+
+    
+}

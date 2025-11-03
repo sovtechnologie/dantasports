@@ -206,8 +206,8 @@ function BookGym() {
                       </p>
                     </div> */}
 
-                    <div className="d-flex justify-content-between">
-                      <p className="mb-0 upto_text">
+                    <div className="d-flex justify-content-between ">
+                      <p className="up_to_offer m-0">
                         {gym.coupon_type === "percentage" && gym.discount_offer
                           ? `Upto ${parseFloat(gym.discount_offer)}% Off`
                           : gym.coupon_type === "flat" && gym.discount_offer
@@ -217,21 +217,22 @@ function BookGym() {
                       {minPriceObj && (
                         <div className="price_info">
                           <p
-                            style={{ fontWeight: 500, marginTop: "5px" }}
-                            className="mb-0"
+                            
+                            className="onwards_rup m-0"
                           >
                             ₹{minPriceObj.price} onwards
                           </p>
                         </div>
                       )}
                     </div>
-                    <div className="card_line"></div>
+                    <div className="card_line3"></div>
                     <div className="offer d-flex justify-content-between align-items-center w-100">
                       <Link to={`/Gym/${gym.Id}`}>Join Now</Link>
                     </div>
-                    <div className="rating">
+                    <div className="rating_box position-absolute d-flex align-items-center">
+                      <img src={star}  alt="" />
                       <span>
-                        <img src={star} className="pe-2" alt="" />{" "}
+                        {" "}
                         {gym.average_rating || "0.0"} ( {gym.review_count || 0})
                       </span>
                     </div>
