@@ -38,10 +38,15 @@ export default function CoachFilterPage() {
   const [filters, setFilters] = useState({
     sortBy: [],
   });
+  // CoachFilterPage.jsx me top pe
+  const [selectedSports, setSelectedSports] = useState([]); // 👈 yeh add karo
 
   const [selectedCoach, setSelectedCoach] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedTime, setSelectedTime] = useState(null);
+  const [selectedAge, setSelectedAge] = useState([]);
+  const [selectedBatch, setSelectedBatch] = useState([]);
+  const [selectedCoachType, setSelectedCoachType] = useState(null);
+
 
 
 
@@ -64,7 +69,7 @@ export default function CoachFilterPage() {
     setFilters({});
     setSelectedCoach(null);
     setSelectedDate(null);
-    setSelectedTime(null);
+
   };
 
   useEffect(() => {
@@ -77,10 +82,20 @@ export default function CoachFilterPage() {
 
   const filteredCoaches = coachList
     .filter((coach) => {
+      if (filters.sortBy?.includes("favourite") && !coach.favourite) return false;
+
       const coachName = (coach.name || "").trim().toLowerCase();
       const searchText = (search || "").trim().toLowerCase();
 
       if (searchText && !coachName.includes(searchText)) return false;
+
+      if (selectedSports.length > 0) {
+        const coachSportIds = coach.linked_sports?.map((s) => s.sports_id) || [];
+        console.log("coachSportIdscoachSportIds", coachSportIds);
+        const matches = selectedSports.some((id) => coachSportIds.includes(id));
+        if (!matches) return false;
+      }
+
 
       if (selectedCoach) {
         const selectedName =
@@ -90,34 +105,32 @@ export default function CoachFilterPage() {
         if (coach.name.toLowerCase() !== selectedName) return false;
       }
 
-      if (filters.date) {
-        const chosenDate = new Date(filters.date).toISOString().split("T")[0];
-        if (!coach.available_dates?.includes(chosenDate)) return false;
+      if (selectedDate) {
+        const chosenDate = new Date(selectedDate).toISOString().split("T")[0];
+        const coachUpdated = new Date(coach.updated_at).toISOString().split("T")[0];
+        const coachCreated = new Date(coach.created_at).toISOString().split("T")[0];
+
+        // ✅ Prefer updated_at for date match, fallback to created_at
+        if (coachUpdated !== chosenDate && coachUpdated !== chosenDate) return false;
       }
 
-      if (filters.ageGroup) {
+      if (selectedAge.length > 0) {
         const coachAge = (coach.training_type || "").toLowerCase();
-        if (
-          (filters.ageGroup === "kids" && coachAge !== "kids") ||
-          (filters.ageGroup === "adult" && coachAge !== "adults")
-        )
-          return false;
+        const matchAge = selectedAge.some((a) => a.toLowerCase() === coachAge);
+        if (!matchAge) return false;
       }
-
-      if (filters.batchType?.length) {
+      if (selectedBatch.length > 0) {
         const coachBatch = (coach.classes || "").toLowerCase();
-        const matchesBatch = filters.batchType.some((bt) =>
-          coachBatch.includes(bt.toLowerCase())
-        );
-        if (!matchesBatch) return false;
+        const matchBatch = selectedBatch.some((b) => coachBatch.includes(b.toLowerCase()));
+        if (!matchBatch) return false;
+      }
+      if (selectedCoachType !== null && Number(coach.type) !== Number(selectedCoachType)) {
+        return false;
       }
 
-      if (filters.type?.length) {
-        const matchType =
-          (filters.type.includes("coachOnly") && coach.type === 1) ||
-          (filters.type.includes("academyOnly") && coach.type === 2);
-        if (!matchType) return false;
-      }
+
+
+
 
       return true;
     })
@@ -320,11 +333,24 @@ export default function CoachFilterPage() {
                 setSortBy={(value) => setFilters((prev) => ({ ...prev, sortBy: value }))}
               />
 
-              <FilterTow />
+              <FilterTow
+                selectedSports={selectedSports}
+                setSelectedSports={setSelectedSports}
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
+                selectedAge={selectedAge}
+                setSelectedAge={setSelectedAge}
+                selectedBatch={selectedBatch}
+                setSelectedBatch={setSelectedBatch}
+                selectedCoachType={selectedCoachType}
+                setSelectedCoachType={setSelectedCoachType}
+
+              />
+
             </Col>
             <Col className="d-lg-none d-md-none text-end mb-4 d-flex  justify-content-end">
-              <SortModal />
-              <FilterTowModal />
+              {/* <SortModal />
+              <FilterTowModal /> */}
             </Col>
             <Col lg={9} md={7}>
               <div className="row g-3">

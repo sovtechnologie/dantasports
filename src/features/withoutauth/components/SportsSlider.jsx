@@ -1,21 +1,42 @@
 import React, { useState, useMemo, useEffect } from "react";
 import "../Stylesheets/SportsSlider.css";
-import { useQuery } from "@tanstack/react-query";
-import { fetchSportList } from "../../../services/withoutLoginApi/SportListApi/endpointApi.js";
+import { fetchSportsList } from "../../../services/withoutLoginApi/VenueListApi/endpointApi.js";
 
 const SportsSlider = ({ onSelectSports }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedSports, setSelectedSports] = useState([]);
+  const [sportsData, setSportsData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const itemsPerPage = 4;
 
-  // 🔹 API se data la rahe hain
-  const { data: sportsDataResponse, isLoading, isError } = useQuery({
-    queryKey: ["sportsList"],
-    queryFn: fetchSportList,
-  });
+  // 🔹 API call (without useQuery)
+  useEffect(() => {
+    const getSports = async () => {
+      try {
+        setLoading(true);
+        setError(null);
 
-  const sportsData = sportsDataResponse?.result || [];
+        const response = await fetchSportsList(1); // 1 = Venue
+        console.log("📤 Sports API response:", response);
+
+        if (response?.result) {
+          setSportsData(response.result);
+        } else {
+          setSportsData([]);
+        }
+      } catch (err) {
+        console.error("❌ Error fetching sports list:", err);
+        setError("Failed to load sports");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getSports();
+  }, []);
 
   // 🔹 Search logic
   const filteredSports = useMemo(() => {
@@ -30,6 +51,7 @@ const SportsSlider = ({ onSelectSports }) => {
   const startIndex = currentPage * itemsPerPage;
   const currentItems = filteredSports.slice(startIndex, startIndex + itemsPerPage);
 
+  // 🔹 Select/Deselect Sports
   const toggleSportSelect = (sport) => {
     setSelectedSports((prev) => {
       const alreadySelected = prev.some((s) => s.sports_id === sport.sports_id);
@@ -41,21 +63,23 @@ const SportsSlider = ({ onSelectSports }) => {
     });
   };
 
+  // 🔹 Send selected sports to parent
   useEffect(() => {
     if (onSelectSports) {
       onSelectSports(selectedSports);
     }
   }, [selectedSports, onSelectSports]);
 
-  if (isLoading) return <p>Loading sports...</p>;
-  if (isError) return <p>Failed to load sports.</p>;
+  // 🔹 Loading & Error states
+  if (loading) return <p>Loading sports...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
     <div className="sport_slider_section">
       <div className="sports-slider">
         <h3>Sports</h3>
 
-
+        {/* 🔍 Search Box */}
         <div className="search_input">
           <input
             type="text"

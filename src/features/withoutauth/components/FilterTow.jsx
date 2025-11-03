@@ -5,21 +5,45 @@ import Batch from './Batch';
 import CustomDatePicker from './CustomDatePicker';
 import ActivityServices from './ActivityServices';
 import CoachOnly from './CoachOnly';
-function FilterTow() {
+function FilterTow({ setSelectedCoachType, selectedCoachType, selectedBatch, setSelectedBatch, selectedAge, setSelectedAge, selectedSports, setSelectedSports, selectedDate, setSelectedDate }) {
+
+  const handleReset = (e) => {
+    e.preventDefault();
+    setSelectedSports([]);
+    setSelectedAge([]);
+    setSelectedCoachType(null);
+    setSelectedBatch([]);
+    setSelectedDate(null);
+    console.log("All filters reset");
+  };
   return (
     <>
-     <div className="filter_card mt-3">
+      <div className="filter_card mt-3">
         <div className="d-flex justify-content-between">
-            <h3 className='m-0'>Filter</h3>
-            <a href="" className='reset'>Reset</a>
+          <h3 className='m-0'>Filter</h3>
+          <a href="" className='reset' onClick={handleReset}>Reset</a>
         </div>
-        <ActivityServices/>
-        <CustomDatePicker/>
-        <Age/>
-        <Batch/>
-        <CoachOnly/>
-        
-     </div>
+        <ActivityServices
+          selectedSports={selectedSports}
+          setSelectedSports={setSelectedSports}
+        />
+        <CustomDatePicker
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+        />
+
+        <Age selectedAge={selectedAge} setSelectedAge={setSelectedAge} />
+
+
+        <Batch selectedBatch={selectedBatch} setSelectedBatch={setSelectedBatch} />
+
+        <CoachOnly
+          selectedCoachType={selectedCoachType}
+          setSelectedCoachType={setSelectedCoachType}
+        />
+
+
+      </div>
     </>
   )
 }

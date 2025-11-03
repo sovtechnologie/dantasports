@@ -68,6 +68,7 @@ function Filter({
     if (onReset) return onReset();
     e.preventDefault();
     setSelectedSports([]);
+    setSelectedAmenities([]);
     setSelectedDate(null);
     setSelectedTime(null);
     setSearchTerm("");

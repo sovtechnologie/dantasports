@@ -6,8 +6,8 @@ import CoachAvailable from './CoachAvailable';
 import PriceSlider from '../components/PriceSlider ';
 
 function FilterThree({
-  selectedDate,
-  setSelectedDate,
+  // selectedDate,
+  // setSelectedDate,
   priceRange,
   setPriceRange,
   selectedAmenities,
@@ -18,7 +18,7 @@ function FilterThree({
 
   // ✅ Reset Filters
   const handleReset = () => {
-    setSelectedDate(null);
+    // setSelectedDate(null);
     setPriceRange([0, 10000]);
     setSelectedAmenities([]);
     setCoachAvailable({ onlyWomen: false, coachAvailable: false });
@@ -36,10 +36,10 @@ function FilterThree({
       </div>
 
       {/* ✅ Date Picker */}
-      <CustomDatePicker
+      {/* <CustomDatePicker
         selectedDate={selectedDate}
         setSelectedDate={setSelectedDate}
-      />
+      /> */}
 
       {/* ✅ Price Filter */}
       <PriceSlider

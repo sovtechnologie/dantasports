@@ -1,25 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 import "../../withoutauth/Stylesheets/Filterpages/DistanceSlider.css";
 
-const DistanceSlider = () => {
-  const [value, setValue] = useState(15);
-
+const DistanceSlider = ({ selectedDistance, setSelectedDistance }) => {
   const handleChange = (e) => {
-    setValue(parseInt(e.target.value));
-    e.target.style.setProperty("--value", e.target.value);
+    const newValue = parseInt(e.target.value);
+    setSelectedDistance(newValue);
+    e.target.style.setProperty("--value", newValue);
   };
 
   return (
     <div className="distance-container">
       <h3 className="text-start">Distance</h3>
 
+      {/* Labels for every 100 km */}
       <div className="distance-values">
-        {[0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50].map((num) => (
+        {[0, 100, 200, 300, 400, 500, 600, 700, 800].map((num) => (
           <span
             key={num}
-            className={`distance-label ${value === num ? "active" : ""}`}
+            className={`distance-label ${Math.round(selectedDistance / 100) * 100 === num ? "active" : ""
+              }`}
           >
-            {num.toString().padStart(2, "0")}
+            {num}
           </span>
         ))}
       </div>
@@ -27,13 +28,15 @@ const DistanceSlider = () => {
       <input
         type="range"
         min="0"
-        max="50"
-        step="5"
-        value={value}
+        max="800"
+        step="1"
+        value={selectedDistance}
         onChange={handleChange}
         className="distance-slider"
-        style={{ "--value": value }}
+        style={{ "--value": selectedDistance }}
       />
+
+      <p className="text-center mt-2">{selectedDistance}</p>
     </div>
   );
 };

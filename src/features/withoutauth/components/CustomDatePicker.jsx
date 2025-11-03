@@ -33,9 +33,16 @@ const CustomDatePicker = ({ selectedDate, setSelectedDate }) => {
 
   // 🔹 When user selects date
   const onDateClick = (day) => {
-    setSelectedDate(day); // send to parent (FilterThree)
+    // Fix timezone offset
+    const fixedDate = new Date(day.getTime() - day.getTimezoneOffset() * 60000);
+
+    console.log("Selected (raw):", day);
+    console.log("Selected (fixed):", fixedDate);
+
+    setSelectedDate(fixedDate);
     setOpen(false);
   };
+
 
   const renderHeader = () => (
     <div className="dp-header">

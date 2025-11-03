@@ -27,9 +27,14 @@ export default function EventFilterPage() {
   const userId = useSelector((state) => state.auth.id);
   const { lat, lng } = useSelector((state) => state.location);
   const navigate = useNavigate();
-
+  const [selectedSports, setSelectedSports] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(null);
   const [eventList, setEventList] = useState([]);
   const [search, setSearch] = useState("");
+  const [selectedDifficulty, setSelectedDifficulty] = useState(null);
+  const [selectedDistance, setSelectedDistance] = useState(800);
+  const [selectedAmenities, setSelectedAmenities] = useState([]);
+
   const [filters, setFilters] = useState({
     sortBy: [],
   });
@@ -87,6 +92,62 @@ export default function EventFilterPage() {
   const filteredEvents = useMemo(() => {
     let result = [...eventList];
 
+
+    if (selectedSports.length > 0) {
+      console.log("Selected Sports:", selectedSports);
+      result = result.filter((evt) =>
+        evt.sports?.some((s) => selectedSports.includes(s.id))
+      );
+      console.log("After sports filter:", result);
+    }
+
+    if (selectedDate) {
+      const selected = new Date(
+        selectedDate.getFullYear(),
+        selectedDate.getMonth(),
+        selectedDate.getDate()
+      );
+
+      result = result.filter((evt) => {
+        if (!evt.start_date || !evt.end_date) return false;
+
+        const start = new Date(evt.start_date);
+        const end = new Date(evt.end_date);
+
+        // Normalize all to start of day (local)
+        const startLocal = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+        const endLocal = new Date(end.getFullYear(), end.getMonth(), end.getDate(), 23, 59, 59);
+
+        return selected >= startLocal && selected <= endLocal;
+      });
+    }
+
+
+    if (selectedDifficulty !== null) {
+      result = result.filter((evt) => evt.difficulty === selectedDifficulty);
+    }
+
+    if (selectedDistance !== null) {
+      result = result.filter((evt) => evt.distance <= selectedDistance);
+    }
+
+
+    if (selectedAmenities.length > 0) {
+      // Handle both numeric and object cases
+      const selectedAmenityIds = selectedAmenities.map((a) =>
+        typeof a === "object" ? a.id : a
+      );
+
+      console.log("✅ selectedAmenityIds", selectedAmenityIds);
+
+      result = result.filter((evt) => {
+        const eventAmenityIds = evt.amenities?.map((a) => a.id) || [];
+        return selectedAmenityIds.every((id) =>
+          eventAmenityIds.includes(Number(id))
+        );
+      });
+    }
+
     if (search) {
       result = result.filter((evt) =>
         evt.event_title.toLowerCase().includes(search.toLowerCase())
@@ -121,7 +182,7 @@ export default function EventFilterPage() {
     }
 
     return result;
-  }, [eventList, search, filters]);
+  }, [eventList, search, filters, selectedSports, selectedDate, selectedDifficulty, selectedDistance, selectedAmenities]);
 
   useEffect(() => {
     if (AllEventdata?.status === 200) setEventList(AllEventdata.result);
@@ -146,12 +207,23 @@ export default function EventFilterPage() {
                   setFilters((prev) => ({ ...prev, sortBy: value }))
                 }
               />
-              <EventFilter />
+              <EventFilter
+                selectedSports={selectedSports}
+                setSelectedSports={setSelectedSports}
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
+                setSelectedDifficulty={setSelectedDifficulty}
+                selectedDifficulty={selectedDifficulty}
+                setSelectedDistance={setSelectedDistance}
+                selectedDistance={selectedDistance}
+                selectedAmenities={selectedAmenities}
+                setSelectedAmenities={setSelectedAmenities}
+              />
             </Col>
 
             <Col className="d-lg-none d-md-none mb-3 text-end">
               <SortModal />
-              <EventPageModal />
+              {/* <EventPageModal /> */}
             </Col>
 
             <Col lg={9} md={8}>

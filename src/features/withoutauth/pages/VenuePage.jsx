@@ -46,6 +46,7 @@ function VenuePage() {
   const [selectedSports, setSelectedSports] = useState([]);
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
+  const [selectedAmenities, setSelectedAmenities] = useState([]);
 
   const [filteredVenues, setFilteredVenues] = useState([]);
   const [isFiltering, setIsFiltering] = useState(false);
@@ -101,7 +102,8 @@ function VenuePage() {
     if (
       !selectedSports.length &&
       !selectedDate &&
-      !selectedTime
+      !selectedTime &&
+      !selectedAmenities.length
     ) return;
 
 
@@ -127,6 +129,7 @@ function VenuePage() {
 
     const payload = {
       ...(selectedSports.length && { sportsId: selectedSports.map((s) => s.id) }),
+      ...(selectedAmenities.length && { amenties: selectedAmenities }),
       ...(selectedDate && { date: formatDateForMySQL(selectedDate) }),
       ...(selectedTime && { time: formatTimeForMySQL(selectedTime) }),
       lat,
@@ -136,7 +139,7 @@ function VenuePage() {
 
     console.log("📤 Filter API payload:", payload);
     filterVenues(payload);
-  }, [selectedSports, selectedDate, selectedTime]);
+  }, [selectedSports, selectedDate, selectedTime, selectedAmenities]);
 
 
   useEffect(() => {
@@ -146,50 +149,40 @@ function VenuePage() {
         ? [sortBy]
         : [];
 
-    // Agar koi sorting selected nahi hai → original data dikhao
-    if (sortArray.length === 0) {
-      if (filteredVenues.length > 0) {
-        setFilteredVenues(AllVenuedata?.result || []);
-      } else {
-        setVenueList(AllVenuedata?.result || []);
-      }
-      return;
+    const allData = AllVenuedata?.result || [];
+
+    const baseVenues = filteredVenues.length > 0 ? filteredVenues : allData;
+
+    let processedVenues = [...baseVenues];
+
+    if (sortArray.includes("favourite")) {
+      processedVenues = processedVenues.filter(
+        (v) => v.favourite === 1 || v.favourite === true
+      );
     }
 
-    const sortVenues = (venues) => {
-      let sorted = [...venues];
 
-      // Favourite filter (pehle filter)
-      if (sortArray.includes("favourite")) {
-        sorted = sorted.filter((v) => v.favourite === true);
-      }
+    if (sortArray.includes("nearby")) {
+      processedVenues.sort((a, b) => (a.distance_km || 0) - (b.distance_km || 0));
+    }
 
-      // Nearby
-      if (sortArray.includes("nearby")) {
-        sorted.sort((a, b) => (a.distance_km || 0) - (b.distance_km || 0));
-      }
 
-      // Popularity
-      if (sortArray.includes("popularity")) {
-        sorted.sort((a, b) => (b.average_rating || 0) - (a.average_rating || 0));
-      }
+    if (sortArray.includes("popularity")) {
+      processedVenues.sort((a, b) => (b.average_rating || 0) - (a.average_rating || 0));
+    }
 
-      // Price low to high
-      if (sortArray.includes("priceLow")) {
-        sorted.sort((a, b) => (a.pricing || 0) - (b.pricing || 0));
-      }
 
-      return sorted;
-    };
+    if (sortArray.includes("priceLow")) {
+      processedVenues.sort((a, b) => (a.pricing || 0) - (b.pricing || 0));
+    }
 
     if (filteredVenues.length > 0) {
-      const sorted = sortVenues(filteredVenues);
-      setFilteredVenues(sorted);
+      setFilteredVenues(processedVenues);
     } else {
-      const sorted = sortVenues(venueList);
-      setVenueList(sorted);
+      setVenueList(processedVenues);
     }
-  }, [sortBy, AllVenuedata]);
+  }, [sortBy, AllVenuedata, filteredVenues]);
+
 
 
 
@@ -274,6 +267,8 @@ function VenuePage() {
                 searchTerm={searchTerm}
                 setSearchTerm={setSearchTerm}
                 setFilteredVenues={setFilteredVenues}
+                selectedAmenities={selectedAmenities}
+                setSelectedAmenities={setSelectedAmenities}
 
               />
               <SortBy
@@ -285,7 +280,7 @@ function VenuePage() {
 
             {/* Mobile Sort/Filter */}
             <Col className="d-lg-none d-md-none text-end">
-              <SortModal />
+              {/* <SortModal /> */}
             </Col>
 
 
@@ -296,7 +291,7 @@ function VenuePage() {
                 ) : (
                   <>
 
-                    {selectedSports.length > 0 || selectedDate || selectedTime ? (
+                    {selectedSports.length > 0 || selectedAmenities.length > 0 || selectedDate || selectedTime ? (
                       filteredVenues.length > 0 ? (
                         filteredVenues.map((venue) => (
                           <div key={venue.id} className="col-lg-4 position-relative">

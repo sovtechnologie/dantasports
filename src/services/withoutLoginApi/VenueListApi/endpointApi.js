@@ -42,3 +42,15 @@ export const fetchTimingslotVenues = async(payload) => {
     throw error;
   }
 }
+
+export const fetchSportsList = async (sportsType) => {
+  try {
+    const response = await api.post("vendor/sports/getSportsListByCategory", {
+        sportsType 
+    });
+    return response.data;
+  } catch (error) {
+    console.error(" Failed to fetch coaching sports list:", error);
+    throw error;
+  }
+};

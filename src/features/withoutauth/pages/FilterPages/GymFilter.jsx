@@ -107,7 +107,7 @@ export default function GymFilterPage() {
     let result = [...gymList];
     const sortBy = filters.sortBy || [];
 
-    // 🔍 Search
+
     if (search) {
       result = result.filter((gym) =>
         gym.gym_name?.toLowerCase().includes(search.toLowerCase())
@@ -116,12 +116,8 @@ export default function GymFilterPage() {
 
 
 
-    // 🔹 Date filter (skip for now, gym me date nahi hai)
-    if (selectedDate) {
-      result = result; // placeholder for future
-    }
 
-    // 🔹 Price range filter
+
     if (priceRange && Array.isArray(priceRange)) {
       result = result.filter((gym) => {
         const price = gym?.gym_price_slot?.[0]?.price ?? 0;
@@ -138,7 +134,6 @@ export default function GymFilterPage() {
     }
 
 
-    // 🔹 Coach Available + Only Woman filter
     if (coachAvailable) {
       if (coachAvailable.coachAvailable) {
         result = result.filter((gym) => gym.has_gym_coaches === 1);
@@ -154,7 +149,6 @@ export default function GymFilterPage() {
       result = result.filter((gym) => gym.favourite === 1 || gym.favourite === true);
     }
 
-    // ⚡ SORTING
     if (sortBy.includes("priceLow")) {
       result.sort((a, b) => {
         const priceA = a.gym_price_slot?.[0]?.price ?? 999999;
@@ -217,7 +211,7 @@ export default function GymFilterPage() {
               }
             />
             <FilterThree
-              selectedDate={selectedDate}
+              // selectedDate={selectedDate}
               setSelectedDate={setSelectedDate}
               priceRange={priceRange}
               setPriceRange={setPriceRange}
