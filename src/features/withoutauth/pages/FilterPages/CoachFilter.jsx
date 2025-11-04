@@ -471,13 +471,14 @@ export default function CoachFilterPage() {
                               )}
                             </div>
 
-                            <p className="card_date mb-3 ">
+                            <p className="card_date  ">
                               <span className="me-2">
                                 <img src={map} alt="" />
                               </span>
                               {coach.location}
                             </p>
                           </div>
+                          <div className="card_line"></div>
                           {/* <hr /> */}
                           <div className="offer" onClick={() => handleClick(coach)}>
                             <a>

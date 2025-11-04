@@ -22,8 +22,14 @@ import { VenueListShimmer } from "../components/Shimmer/VenueListShimmer";
 import latestt from "../assets/latest.jpeg";
 import PageSearch from "../components/PageSearch.jsx";
 import { useFilterVenue } from "../../../hooks/SortAndFilter/useFilterVenue.js";
+import sortIcon from "../../withoutauth/assets/icons/sort.svg";
+import filterIcon from "../../withoutauth/assets/icons/filter.svg";
 
 function VenuePage() {
+
+   const [showSort, setShowSort] = useState(false);
+   const [filterShow, setFilterShow] = useState(false);
+
   const isSameDate = (venueDate, selectedDate) => {
     if (!venueDate || !selectedDate) return false;
     const d1 = new Date(venueDate);
@@ -248,7 +254,7 @@ function VenuePage() {
 
   return (
     <>
-      <section className="venue_page_section" style={{ background: "#F1F3F2" }}>
+      <section className="venue_page_section pb-lg-5 pb-3" style={{ background: "#F1F3F2" }}>
         <PageSearch />
         <Container>
           <Row className="g-3">
@@ -280,7 +286,59 @@ function VenuePage() {
 
             {/* Mobile Sort/Filter */}
             <Col className="d-lg-none d-md-none text-end">
+              <div className="d-flex text-end justify-content-end mb-3">
+                 
+                  <button  className=" border-0 "   onClick={() => {setFilterShow(!filterShow)
+                  setShowSort(false)
+                }}>
+                  <img src={filterIcon} alt="" />
+                </button>
+                <button
+              className="border-0"
+              onClick={() => {setShowSort(prev => !prev)
+                setFilterShow(false)
+              }}
+              aria-expanded={showSort}
+            >
+              <img src={sortIcon} alt="" />
+                 </button>
+              </div>
+           
+            {
+              filterShow &&
+
+               <Filter 
+                sportsData={filteredSports}
+                selectedSports={selectedSports}
+                setSelectedSports={setSelectedSports}
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
+                selectedTime={selectedTime}
+                setSelectedTime={setSelectedTime}
+                sportSearch={sportSearch}
+                setSportSearch={setSportSearch}
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+                setFilteredVenues={setFilteredVenues}
+                selectedAmenities={selectedAmenities}
+                setSelectedAmenities={setSelectedAmenities}
+
+              />
+            }
+           
+              
               {/* <SortModal /> */}
+                {/* <SortBy
+                sortBy={sortBy}
+                setSortBy={(value) => setSortBy(value)}
+              /> */}
+             
+
+            {showSort && (
+              <div className="mt-3">
+                <SortBy setSortBy={(value) => console.log("selected:", value)} />
+              </div>
+            )}
             </Col>
 
 

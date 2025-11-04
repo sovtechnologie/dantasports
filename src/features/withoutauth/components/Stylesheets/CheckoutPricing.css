@@ -58,9 +58,11 @@
   font-weight: 500;
 }
 label {
-  color: #272727;
+  color: #272727 !important;
   display: flex;
   align-items: center;
+   font-family: 'DM Sans';
+   font-weight: 400;
 }
 
 .toggleicon{
