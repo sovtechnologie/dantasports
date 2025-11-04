@@ -77,7 +77,7 @@ const SportsSlider = ({ onSelectSports }) => {
   return (
     <div className="sport_slider_section">
       <div className="sports-slider">
-        <h3>Sports</h3>
+        <h3 className="filter_title">Sports</h3>
 
         {/* 🔍 Search Box */}
         <div className="search_input">

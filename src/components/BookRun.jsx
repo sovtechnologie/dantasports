@@ -173,7 +173,7 @@ function BookRun() {
                         }
                       )} | ${formatTime(evt.start_time)} onwards`}
                     </p>
-                    <p className="map_location">
+                    <p className="map_location text_wrap4">
                       <span className="me-2">
                         <img src={mapIcon} alt="map" />
                       </span>

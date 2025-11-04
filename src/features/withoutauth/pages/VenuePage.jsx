@@ -328,8 +328,8 @@ function VenuePage() {
 
                               <div className="inner_txt">
                                 <div className="d-flex justify-content-between mb-3 align-items-center">
-                                  <h2 className="m-0 text_wrap pe-2">{venue.venue_name}</h2>
-                                  <p className="m-0">
+                                  <h2 className="text_wrap2 card_heading m-0">{venue.venue_name}</h2>
+                                  <p className="m-0 card_date">
                                     ~{venue.distance_km ? venue.distance_km.toFixed(1) : "0"} km
                                   </p>
                                 </div>
@@ -372,11 +372,11 @@ function VenuePage() {
                                   </p>
                                 </div>
                                 {venue.available_courts !== undefined && (
-                                  <p style={{ color: "green", fontWeight: 600 }}>
+                                  <p style={{ color: "green", fontWeight: 600 }} className="mt-2 mt-lg-3 mb-0">
                                     Available court ({venue.available_courts})
                                   </p>
                                 )}
-                                <hr className="mb-3" />
+                                <div className="card_line"></div>
                                 <BookBtn venueId={venue.id} />
                               </div>
                             </div>
@@ -426,14 +426,14 @@ function VenuePage() {
 
                               <div className="inner_txt">
                                 <div className="d-flex justify-content-between mb-3 align-items-center">
-                                  <h2 className="m-0 text_wrap pe-2">{venue.venue_name}</h2>
-                                  <p className="m-0">
+                                  <h2 className="text_wrap2 card_heading m-0">{venue.venue_name}</h2>
+                                  <p className="m-0 card_date custom_width_km">
                                     ~{venue.distance_km ? venue.distance_km.toFixed(1) : "0"} km
                                   </p>
                                 </div>
 
                                 <div className="no_off_users">
-                                  <ul className="d-flex p-0 align-items-center">
+                                  <ul className="d-flex p-0 align-items-center m-0">
                                     {venue.sports?.slice(0, 5).map((sport, index) => (
                                       <li key={index} className="me-2">
                                         <img
@@ -452,7 +452,7 @@ function VenuePage() {
                                   </ul>
                                 </div>
 
-                                <div className="offers d-flex justify-content-between">
+                                <div className="offers  d-flex justify-content-between">
                                   <span>
                                     {venue.coupon_type === "percentage" && venue.discount_offer
                                       ? `Upto ${parseFloat(venue.discount_offer)}% Off`
@@ -466,7 +466,7 @@ function VenuePage() {
                                   </p>
                                 </div>
 
-                                <hr className="mb-3" />
+                                <div className="card_line"></div>
                                 <BookBtn venueId={venue.id} />
                               </div>
                             </div>

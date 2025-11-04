@@ -157,10 +157,27 @@ a {
 
 }
 
-.custom_width_km{
+/* .custom_width_km{
 
   width: 54px;
+} */
+
+.text_wrap4 {
+  width: 285px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
 }
+
+.text_wrap4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 
 
 .text_wrap {
@@ -178,6 +195,8 @@ a {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+
 
 
  .card_img {
@@ -273,7 +292,7 @@ a {
 
 .map_location{
 
-    color: #858585;
+  color: #858585;
   font-family: 'DM Sans';
   font-weight: 400;
   font-size: 14px;
@@ -292,13 +311,6 @@ a {
 }
 
 
-.card_date span img {
-
-
-  height: 100%;
-  width: 100%;
-}
-
 .text_blue a {
 
   color: #1163C7;
@@ -314,7 +326,7 @@ a {
 .easy2 {
 
     position: absolute;
-    top: 42%;
+    top: 43%;
     left: 10px;
     background: #0000004D;
     color: white;
@@ -374,7 +386,32 @@ color: #172A39;
 
 }
 
+.filter_title{
+
+  color: #1163C7;
+  font-family: 'Lato';
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 26px;
+  margin-bottom: 19px;
+
+}
+
 @media screen and (max-width: 767px) {
+
+  /* .card_img {
+    height: 150px !important;
+}
+
+.coach_section_home .trainerbox{
+
+  top: 33%;
+}
+
+.easy2 {
+
+  top: 31%;
+} */
 
   .details_page_heading{
 
@@ -399,6 +436,11 @@ color: #172A39;
     font-size: 25px;
     line-height: 35px;
     padding: 24px 0;
+  }
+
+  .text_wrap4{
+
+    width: 200px;
   }
   
 }

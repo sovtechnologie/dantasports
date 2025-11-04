@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "../Stylesheets/VenueDetail.css";
+import OngoingEvents from "../components/OngoingEvents.jsx";
 import venueImage from "../assets/Venue-image.png";
 import ReviewCard from "../components/ReviewCard.jsx";
 import ShareIcon from "../assets/VenueDetailIcon/shareIcon.png";
@@ -305,7 +306,7 @@ function VenueDetailsPage() {
     <>
 
 
-      <section style={{ background: "#F1F3F2" }}>
+      <section style={{ background: "#F1F3F2" }} className="pb-lg-5 pb-3">
         <section className="details_page_header">
           <div className="container">
             <div className="venue-main-header">
@@ -621,7 +622,7 @@ function VenueDetailsPage() {
                 </div>
               )}
 
-              <div className="banner-wrapper">
+              {/* <div className="banner-wrapper">
                 <div className="event-banner-container">
                   <h2 className="event-banner-heading">Ongoing Events</h2>
                   <div className="event-banner-carousel">
@@ -629,7 +630,7 @@ function VenueDetailsPage() {
                       {banners.concat(banners).map(
                         (
                           item,
-                          i // Duplicate for seamless looping
+                          i 
                         ) => (
                           <div key={i} className="event-banner">
                             <img
@@ -643,7 +644,10 @@ function VenueDetailsPage() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
+
+                 <OngoingEvents/>
+              
             </div>
           </div>
         </Container>

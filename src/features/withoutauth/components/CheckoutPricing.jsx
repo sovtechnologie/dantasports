@@ -125,6 +125,7 @@ import "./Stylesheets/CheckoutPricing.css";
 import CouponModal from "./CoupanModal";
 import { InfoCircle } from "react-bootstrap-icons";
 import black from "../assets/toggleIcon.png"; // arrow icon
+import arrow from "../../withoutauth/assets/icons/black-arrow.svg"
 
 const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFinalAmount, venueId }) => {
   const [insuranceSelected, setInsuranceSelected] = useState(false);
@@ -150,31 +151,31 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFina
 
         {/* Passes Price */}
         <Row className="align-items-center mb-2">
-          <Col xs={8} className="text-muted fw-light">
+          <Col xs={8} className="pass_price">
             Passes price x {count} <InfoCircle size={13} className="text-primary ms-1" />
           </Col>
-          <Col xs={4} className="text-end fw-semibold">
-            <span className="light_txt">₹{basePrice}</span>
+          <Col xs={4} className="pass_price text-end">
+            <span>₹{basePrice}</span>
           </Col>
         </Row>
 
         {/* Convenience Fee */}
-        <Row className="align-items-center mb-2">
-          <Col xs={8} className="text-muted fw-light">
+        <Row className="align-items-center mb-3">
+          <Col xs={8} className="pass_price">
             Convenience fee <InfoCircle size={13} className="text-primary ms-1" />
           </Col>
-          <Col xs={4} className="text-end fw-semibold">
-            <span className="light_txt">₹{convenienceFee}</span>
+          <Col xs={4} className="pass_price text-end">
+            <span >₹{convenienceFee}</span>
           </Col>
         </Row>
 
-        <div className="brd"></div>
+        {/* <div className="line"></div> */}
 
         {/* Insurance Option */}
-        <Row className="align-items-center mb-2">
+        <Row className="align-items-center mb-2 border-top border-bottom ">
           <Col xs={9}>
             <Form.Check
-              className="pt-2 pb-2"
+              className="pt-3 pb-3"
               type="checkbox"
               id="insurance"
               label="Insurance cover fee (₹ 20/person)"
@@ -182,45 +183,44 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFina
               onChange={() => setInsuranceSelected(!insuranceSelected)}
             />
           </Col>
-          <Col xs={3} className="text-end fw-semibold text-muted">
-            <span className="light_txt">₹{insuranceFee}</span>
+          <Col xs={3} className="pass_price text-end">
+            <span>₹{insuranceFee}</span>
           </Col>
         </Row>
 
-        <div className="brd"></div>
 
         {/* Coupon Section */}
         {discount ? (
-          <div className="d-flex justify-content-between align-items-center pb-3 pt-3">
+          <div className="d-flex justify-content-between align-items-center pb-3 pt-3 ">
             <div className="fw-semibold apply_coupon text-success">
               Coupon Applied: {couponDetails.name}
             </div>
-            <div className="text-success fw-semibold">-₹{discount}</div>
+            <div className="pass_price text-end">-₹{discount}</div>
           </div>
         ) : (
           <div className="d-flex justify-content-between align-items-center">
             <div
-              className="fw-semibold apply_coupon pb-3 pt-3"
+              className=" apply_coupon_btn pb-3 pt-3"
               role="button"
               onClick={() => setIsCouponModalOpen(true)}
             >
               Apply coupon
             </div>
             <div>
-              <button className="btn" onClick={() => setIsCouponModalOpen(true)}>
-                <span className="arrow">›</span>
+              <button className="btn pe-0" onClick={() => setIsCouponModalOpen(true)}>
+                <span><img src={arrow} alt="" /></span>
 
               </button>
             </div>
           </div>
         )}
 
-        <div className="brd"></div>
+        {/* <div className="brd"></div> */}
 
         {/* Total Amount */}
-        <Row className="align-items-center mt-2">
-          <Col className="fw-semibold">Total amount</Col>
-          <Col className="text-end fw-semibold text-primary">₹{totalAmount}</Col>
+        <Row className="align-items-center mt-2 border-top ">
+          <Col className="total_amount pt-3">Total amount</Col>
+          <Col className="text-end total_price pt-3">₹{totalAmount}</Col>
         </Row>
       </Card.Body>
 

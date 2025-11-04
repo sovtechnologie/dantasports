@@ -2,10 +2,13 @@
 
     box-shadow: 0px 5.35px 3.57px 0px #3363EB40;
     border: none;
-    border-radius: 16px;
 
 }
 
+.no_off_users{
+
+    margin-bottom: 18px;
+}
 
 .venue_page_section hr {
 
@@ -32,35 +35,27 @@
     transform: scale(1.1);
     transition: .3s ease-in-out;
        border-radius: 12px 12px 0 0;
+       overflow: hidden;
 }
 
 .card .inner_txt {
 
-    padding: 10px;
+  padding: 20px 16px 10px 16px !important;
 }
 
-.card .inner_txt h2 {
 
-    font-weight: 500;
-    font-size: 22px;
-    color: #172A39;
-
-}
 
 .save_btn {
 
     position: absolute;
-    top: 0;
-    
-    right: 60px;
+    right: 15%;
     top: 10px;
 }
 
 .share_btn{
 
      position: absolute;
-    top: 0;
-    right: 10px;
+    right: 3%;
     top: 10px;
 }
 

@@ -50,14 +50,14 @@ function ReactSlickSlider({ images = [], coverImage = null, mobileCoverImage = n
               src={s.src}
               alt={s.alt}
               className="slider-image"
-              style={{
-                height: "220px",
+          //     style={{
+          //       height: "220px",
 
-    width: "100%",
-    objectFit: "cover",
-    overflow: "none",
-    borderRadius: "12px 12px 0 0"
-              }}
+          // width: "100%",
+          // objectFit: "cover",
+          // overflow: "none",
+          // borderRadius: "12px 12px 0 0"
+          //           }}
             />
           </div>
         ))}

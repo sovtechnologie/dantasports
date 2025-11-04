@@ -55,7 +55,7 @@
 .get_started a {
 
     text-decoration: none;
-    padding: 17px 80px 20px 20px;
+    padding: 17px 70px 17px 20px;
     border-radius: 70px;
     position: relative;
     font-weight: 500;
@@ -74,80 +74,77 @@
     right: 10px;
 }
 
-
-
-
-
 .fade-text {
-  display: inline-block;
-  transition: all 0.5s ease-in-out;
-  opacity: 0;
-  transform: translateY(20px);
+    display: inline-block;
+    transition: all 0.5s ease-in-out;
+    opacity: 0;
+    transform: translateY(20px);
 }
 
 .fade-in-up {
-  opacity: 1;
-  transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .fade-out {
-  opacity: 0;
-  transform: translateY(-20px);
+    opacity: 0;
+    transform: translateY(-20px);
 }
 
 @media screen and (max-width: 767px) {
 
-    .banner_txt p{
+    .banner_txt p {
 
         max-width: unset;
         margin-bottom: 30px;
     }
 
-    
-.blue_arrow {
-    position: absolute;
-    top: 1px;
-    right: 5px;
-    height: 40px;
-    width: 40px;
-}
+
+    .blue_arrow {
+        position: absolute;
+        top: 1px;
+        right: 5px;
+        height: 40px;
+        width: 40px;
+    }
 
     .get_started a {
 
         padding: 10px 50px 10px 15px;
     }
 
-    .home_banner{
+    .home_banner {
 
         padding: 30px 0;
     }
 
-    .Join_Community span{
+    .Join_Community span {
 
         font-size: 16px;
         line-height: 24px;
     }
-    .home_banner h1{
+
+    .home_banner h1 {
 
         font-size: 35px;
         line-height: 45px;
     }
 
-    .home_banner{
+    .home_banner {
 
         margin-bottom: 10px;
     }
-    
+
 }
 
 @media screen and (max-width: 360px) {
 
-     .home_banner h1{
+    .home_banner h1 {
 
         font-size: 25px;
         line-height: 35px;
     }
 
 
-    
+
 }

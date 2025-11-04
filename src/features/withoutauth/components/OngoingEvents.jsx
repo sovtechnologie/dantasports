@@ -7,7 +7,7 @@ const OngoingSlider = () => {
   const settings = {
     dots: false,                // show navigation dots
     infinite: true,            // loop slides
-    speed: 400,                // transition speed (ms)
+    speed: 300,                // transition speed (ms)
     slidesToShow: 3,           // number of slides visible
     slidesToScroll: 1,
     autoplay: true,            // auto scroll

@@ -122,7 +122,7 @@ function PlayHost() {
                   </div>
 
 
-                  <h2>Host By: {host.host_name || "Unknown"}</h2>
+                  <h2 className="text_wrap3">Host By: {host.host_name || "Unknown"}</h2>
 
                   <div className="d-flex align-items-center mb-3">
                     <img
@@ -130,7 +130,7 @@ function PlayHost() {
                       alt="calendar"
                       className="icon me-2"
                     />
-                    <span className="host_date ">{dateText}</span>
+                    <span className="host_date text_wrap3">{dateText}</span>
                   </div>
 
                   <div className="d-flex align-items-center mb-3">

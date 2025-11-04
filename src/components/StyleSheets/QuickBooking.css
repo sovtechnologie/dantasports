@@ -12,9 +12,9 @@
  font-family: 'Lato';
 font-weight: 400;
 font-size: 24px;
-line-height: 33.25px;
-
+line-height: 37.25px;
   color: #172A39;
+  margin-bottom: 3px;
 
 }
 
@@ -68,6 +68,15 @@ line-height: 33.25px;
 }
 
 
+@media screen and (max-width: 991px) {
+
+  .quick_booking_section .card h3{
+
+    font-size: 20px;
+    line-height: 30px;
+  }
+  
+}
 @media screen and (max-width: 540px) {
 
   
