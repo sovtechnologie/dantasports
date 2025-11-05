@@ -22,8 +22,14 @@ import { VenueListShimmer } from "../components/Shimmer/VenueListShimmer";
 import latestt from "../assets/latest.jpeg";
 import PageSearch from "../components/PageSearch.jsx";
 import { useFilterVenue } from "../../../hooks/SortAndFilter/useFilterVenue.js";
+import sortIcon from "../../withoutauth/assets/icons/sort.svg";
+import filterIcon from "../../withoutauth/assets/icons/filter.svg";
 
 function VenuePage() {
+
+   const [showSort, setShowSort] = useState(false);
+   const [filterShow, setFilterShow] = useState(false);
+
   const isSameDate = (venueDate, selectedDate) => {
     if (!venueDate || !selectedDate) return false;
     const d1 = new Date(venueDate);
@@ -248,7 +254,7 @@ function VenuePage() {
 
   return (
     <>
-      <section className="venue_page_section" style={{ background: "#F1F3F2" }}>
+      <section className="venue_page_section pb-lg-5 pb-3" style={{ background: "#F1F3F2" }}>
         <PageSearch />
         <Container>
           <Row className="g-3">
@@ -280,7 +286,59 @@ function VenuePage() {
 
             {/* Mobile Sort/Filter */}
             <Col className="d-lg-none d-md-none text-end">
+              <div className="d-flex text-end justify-content-end mb-3">
+                 
+                  <button  className=" border-0 "   onClick={() => {setFilterShow(!filterShow)
+                  setShowSort(false)
+                }}>
+                  <img src={filterIcon} alt="" />
+                </button>
+                <button
+              className="border-0"
+              onClick={() => {setShowSort(prev => !prev)
+                setFilterShow(false)
+              }}
+              aria-expanded={showSort}
+            >
+              <img src={sortIcon} alt="" />
+                 </button>
+              </div>
+           
+            {
+              filterShow &&
+
+               <Filter 
+                sportsData={filteredSports}
+                selectedSports={selectedSports}
+                setSelectedSports={setSelectedSports}
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
+                selectedTime={selectedTime}
+                setSelectedTime={setSelectedTime}
+                sportSearch={sportSearch}
+                setSportSearch={setSportSearch}
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+                setFilteredVenues={setFilteredVenues}
+                selectedAmenities={selectedAmenities}
+                setSelectedAmenities={setSelectedAmenities}
+
+              />
+            }
+           
+              
               {/* <SortModal /> */}
+                {/* <SortBy
+                sortBy={sortBy}
+                setSortBy={(value) => setSortBy(value)}
+              /> */}
+             
+
+            {showSort && (
+              <div className="mt-3">
+                <SortBy setSortBy={(value) => console.log("selected:", value)} />
+              </div>
+            )}
             </Col>
 
 
@@ -328,8 +386,8 @@ function VenuePage() {
 
                               <div className="inner_txt">
                                 <div className="d-flex justify-content-between mb-3 align-items-center">
-                                  <h2 className="m-0 text_wrap pe-2">{venue.venue_name}</h2>
-                                  <p className="m-0">
+                                  <h2 className="text_wrap2 card_heading m-0">{venue.venue_name}</h2>
+                                  <p className="m-0 card_date">
                                     ~{venue.distance_km ? venue.distance_km.toFixed(1) : "0"} km
                                   </p>
                                 </div>
@@ -372,11 +430,11 @@ function VenuePage() {
                                   </p>
                                 </div>
                                 {venue.available_courts !== undefined && (
-                                  <p style={{ color: "green", fontWeight: 600 }}>
+                                  <p style={{ color: "green", fontWeight: 600 }} className="mt-2 mt-lg-3 mb-0">
                                     Available court ({venue.available_courts})
                                   </p>
                                 )}
-                                <hr className="mb-3" />
+                                <div className="card_line"></div>
                                 <BookBtn venueId={venue.id} />
                               </div>
                             </div>
@@ -426,14 +484,14 @@ function VenuePage() {
 
                               <div className="inner_txt">
                                 <div className="d-flex justify-content-between mb-3 align-items-center">
-                                  <h2 className="m-0 text_wrap pe-2">{venue.venue_name}</h2>
-                                  <p className="m-0">
+                                  <h2 className="text_wrap2 card_heading m-0">{venue.venue_name}</h2>
+                                  <p className="m-0 card_date custom_width_km">
                                     ~{venue.distance_km ? venue.distance_km.toFixed(1) : "0"} km
                                   </p>
                                 </div>
 
                                 <div className="no_off_users">
-                                  <ul className="d-flex p-0 align-items-center">
+                                  <ul className="d-flex p-0 align-items-center m-0">
                                     {venue.sports?.slice(0, 5).map((sport, index) => (
                                       <li key={index} className="me-2">
                                         <img
@@ -452,7 +510,7 @@ function VenuePage() {
                                   </ul>
                                 </div>
 
-                                <div className="offers d-flex justify-content-between">
+                                <div className="offers  d-flex justify-content-between">
                                   <span>
                                     {venue.coupon_type === "percentage" && venue.discount_offer
                                       ? `Upto ${parseFloat(venue.discount_offer)}% Off`
@@ -466,7 +524,7 @@ function VenuePage() {
                                   </p>
                                 </div>
 
-                                <hr className="mb-3" />
+                                <div className="card_line"></div>
                                 <BookBtn venueId={venue.id} />
                               </div>
                             </div>

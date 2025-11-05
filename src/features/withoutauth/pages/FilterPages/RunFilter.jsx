@@ -403,7 +403,7 @@ export default function RunFilterPage() {
                         <div className="rating">
                           <span><img src={star} className="pe-2" alt="" />4.4</span>
                         </div>
-                        <div className="easy2">
+                        <div className="easy_run">
                           <span> {event.difficulty === 0 ? (
                             <span className="Moderate">Moderate</span>
                           ) : event.difficulty === 1 ? (

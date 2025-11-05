@@ -158,7 +158,7 @@ export default function BookVenues() {
                 <div className="txt_wrapper">
                   <div className="card_txt d-flex justify-content-between mb-3 align-items-center">
                     <h2 className="text_wrap2 card_heading m-0">{venue.venue_name}</h2>
-                    <p className="m-0 card_date">
+                    <p className="m-0 card_date custom_width_km">
                       {/* <span className="star pe-2">
                         <img src={star} alt="rating" />
                       </span> */}
@@ -171,13 +171,14 @@ export default function BookVenues() {
                         ? `${venue.distance_km.toFixed(1)} km`
                         : "0.0"}
                     </p>
-                    <div className="rating d-flex justify-content-center align-items-center">
-                      <div className="me-2"><img src={star} alt="" /></div>
-                      <div><span>{venue.average_rating || "0.0"} ( {venue.review_count || 0})</span></div>
+                    <div className="rating_box position-absolute d-flex align-items-center">
+                       <img src={star} alt="" />
+                        <span>{venue.average_rating || "0.0"} ( {venue.review_count || 0})</span>
+                     
                     </div>
                   </div>
 
-                  <div className="no_off_users mt-2">
+                  <div className="no_off_users offer_div">
                     <ul className="d-flex p-0  m-0">
                       {venue.sports?.slice(0, 5).map((sport, index) => (
                         <li key={index} className="me-2 list-unstyled">
@@ -205,8 +206,8 @@ export default function BookVenues() {
                     </ul>
                   </div>
 
-                  <div className="d-flex justify-content-between no_off_users  mt-3">
-                    <p className="up_to_offer">
+                  <div className="d-flex justify-content-between ">
+                    <p className="up_to_offer m-0">
                       {venue.coupon_type === "percentage" && venue.discount_offer
                         ? `Upto ${parseFloat(venue.discount_offer)}% Off`
                         : venue.coupon_type === "flat" && venue.discount_offer
@@ -214,13 +215,13 @@ export default function BookVenues() {
                           : ""}
                     </p>
 
-                    <p className="onwards_rup mb-2">
+                    <p className="onwards_rup m-0">
                       {venue.pricing
                         ? `₹${parseFloat(venue.pricing).toFixed(0)} onwards`
                         : ""}
                     </p>
                   </div>
-                  <div className="card_line mb-2"></div>
+                  <div className="card_line"></div>
 
 
                   <div className="offer d-flex justify-content-between align-items-center">

@@ -55,9 +55,9 @@ function PlayHost() {
   if (error) return <p>Error loading hosts: {error.message}</p>;
 
   return (
-    <section className="play_host_section py-4">
+    <section className="play_host_section pb-4">
       <Container>
-        <div className="d-flex justify-content-between align-items-center mb-4">
+        <div className="d-flex justify-content-between align-items-center">
           <div className="section_title">
             <h2>Play </h2>
           </div>
@@ -122,7 +122,7 @@ function PlayHost() {
                   </div>
 
 
-                  <h2>Host By: {host.host_name || "Unknown"}</h2>
+                  <h2 className="text_wrap3">Host By: {host.host_name || "Unknown"}</h2>
 
                   <div className="d-flex align-items-center mb-3">
                     <img
@@ -130,7 +130,7 @@ function PlayHost() {
                       alt="calendar"
                       className="icon me-2"
                     />
-                    <span className="host_date ">{dateText}</span>
+                    <span className="host_date text_wrap3">{dateText}</span>
                   </div>
 
                   <div className="d-flex align-items-center mb-3">
@@ -151,8 +151,8 @@ function PlayHost() {
                     </span>
 
                   </div>
-                  <div className="card_line"></div>
-                  <div className="offer">
+                  <div className="card_line2"></div>
+                  <div className="offer d-flex justify-content-between align-items-center">
                     <Link to={`/Host/${host.id}`}>Join Now</Link>
                   </div>
                 </Card>

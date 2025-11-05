@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../../withoutauth/Stylesheets/Filterpages/AvailabilityCalendar.css";
 
 /**
  * AvailabilityCalendar
@@ -84,17 +85,17 @@ const AvailabilityCalendar = ({ selectedDate, setSelectedDate }) => {
 
   return (
     <div className="p-3 border rounded mt-3">
-      <h5 className="fw-bold text-primary mb-4 text-start">Availability</h5>
+      <h5 className="filter_title">Availability</h5>
 
       {/* Header */}
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <button className="btn border-0 btn-sm" onClick={() => scroll(-300)}>
+      <div className="d-flex justify-content-center align-items-center mb-3">
+        <button className="btn border-0 btn-sm me-3" onClick={() => scroll(-300)}>
           &lt;
         </button>
-        <h6 className="m-0" style={{ color: "#1163C7", fontWeight: "600" }}>
+        <h6 className="m-0" style={{ color: "#1163c7", fontWeight: "600" }}>
           {monthNames[currentMonth]} {currentYear}
         </h6>
-        <button className="btn btn-sm" onClick={() => scroll(300)}>
+        <button className="btn btn-sm ms-3" onClick={() => scroll(300)}>
           &gt;
         </button>
       </div>
@@ -108,16 +109,20 @@ const AvailabilityCalendar = ({ selectedDate, setSelectedDate }) => {
         {allDates.map((d, idx) => {
           const selected = isSameDay(d, internalSelected);
           return (
-            <button
+           <>
+             <div className="date_btn">
+               <button
               key={idx}
-              className={`btn d-flex flex-column mx-1 px-3 py-2 rounded ${selected ? "btn-primary text-white" : "btn-light text-muted"
+              className={` ${selected ? "active_btn" : "btn-light text-muted"
                 }`}
-              style={{ minWidth: "60px" }}
+              
               onClick={() => handleDateClick(d)}
             >
-              <span className="fw-bold">{d.getDate()}</span>
-              <small>{d.toLocaleDateString("en-US", { weekday: "short" })}</small>
-            </button>
+              <span>{d.getDate()}</span><br/>
+              <span>{d.toLocaleDateString("en-US", { weekday: "short" })}</span>
+               </button>
+             </div>
+           </>
           );
         })}
       </div>

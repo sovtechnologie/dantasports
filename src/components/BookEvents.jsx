@@ -176,13 +176,13 @@ function BookEvents() {
 
                     <div className="card_txt">
                       <h2 className="text_wrap card_heading">{evt.event_title}</h2>
-                      <p className="card_date mb-3">
+                      <p className="card_date ">
                         <span className="me-2">
                           <img src={dateIcon} alt="" />
                         </span>
                         {eventDate}
                       </p>
-                      <p className="card_date my-0">
+                      <p className="map_location">
                         <span className="me-2">
                           <img src={mapIcon} alt="" />
                         </span>
@@ -229,7 +229,7 @@ function BookEvents() {
                           : ""}</p></p>
 
                     </div>
-                    <div className="card_line mb-0"></div>
+                    <div className="card_line2"></div>
                     <div className="easy2">
                       <span> {evt.difficulty === 0 ? (
                         <span className="Moderate">Moderate</span>
@@ -247,8 +247,8 @@ function BookEvents() {
 
                       <Link to={`/Events/${evt.id}`}>Join Now</Link>
                     </div>
-                    <div className="rating">
-                      <span><img src={star} className="pe-2" alt="" />{evt.average_rating || "0.0"}( {evt.review_count || 0})</span>
+                    <div className="rating_box position-absolute d-flex align-items-center">
+                      <img src={star}  alt="" /><span>{evt.average_rating || "0.0"}( {evt.review_count || 0})</span>
                     </div>
                   </div>
 

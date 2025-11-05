@@ -40,6 +40,20 @@ a {
   margin: 12px 0;
 }
 
+.card_line2{
+
+    border: 1px solid #C4C4C4;
+  margin: 6px 0;
+}
+
+.card_line3{
+
+  
+    border: 1px solid #C4C4C4;
+  margin: 16px 0;
+
+}
+
 .card_heading {
 
    font-weight: 600;
@@ -47,14 +61,14 @@ a {
   color: #172A39;
   font-family: 'Lato';
   line-height: 24px;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
 
 }
 
-.no_off_users{
+/* .no_off_users{
 
   margin-top: 14px;
-}
+} */
 .see_all a {
 
     font-weight: 400;
@@ -65,11 +79,29 @@ a {
 }
 
 .offer a {
+    background-color: #1163C7;
+    padding: 5px 16px;
+    font-weight: 400;
+    font-size: 14px;
+    color: white !important;
+    text-decoration: none;
+    line-height: 26px;
+    border-radius: 5px;
+    font-family: 'DM Sans';
+    border: 1px solid transparent;
 
-  
-  font-family: 'DM Sans';
 
 }
+
+.offer a:hover {
+
+    border: 1px solid #1163C7;
+    background-color: transparent;
+    color: #1163C7 !important;
+    font-weight: 500;
+    transition: .3s ease-in-out;
+}
+
 
 .card.modal_title {
 
@@ -117,7 +149,7 @@ a {
 
 .text_wrap2{
 
-   width: 130px;
+   width: 125px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -125,9 +157,31 @@ a {
 
 }
 
+/* .custom_width_km{
+
+  width: 54px;
+} */
+
+.text_wrap4 {
+  width: 285px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+.text_wrap4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
 
 .text_wrap {
-  width: 200px;
+  width: 185px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -141,6 +195,8 @@ a {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+
 
 
  .card_img {
@@ -158,10 +214,14 @@ a {
 
 }
 
+.offer_div{
+
+  margin-bottom: 18px;
+}
 .no_off_users ul li {
 
-  height: 25px;
-  width: 25px;
+  height: 22px;
+  width: 22px;
   border: 0.5px solid #B1B1B1;
   display: flex;
   align-items: center;
@@ -182,15 +242,15 @@ a {
 .sport_icons {
 
 
-    height: 25px;
-  width: 25px;
+    height: 22px;
+  width: 22px;
   border: 0.5px solid #B1B1B1;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   padding: 3px;
-  margin-bottom: 1rem;
+  margin-bottom: 18px;
 }
 
 .sport_icons img {
@@ -211,6 +271,10 @@ a {
 .onwards_rup {
 
   color: #1163C7 !important;
+   font-family: 'DM Sans';
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16.55px;
 }
 
 .card_date {
@@ -222,7 +286,20 @@ a {
   line-height: 14px;
   display: flex;
   align-items: center;
-  margin: 0;
+  margin-bottom: 14px;
+
+}
+
+.map_location{
+
+  color: #858585;
+  font-family: 'DM Sans';
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 14px;
 
 }
 
@@ -233,13 +310,6 @@ a {
   width: 16px;
 }
 
-
-.card_date span img {
-
-
-  height: 100%;
-  width: 100%;
-}
 
 .text_blue a {
 
@@ -253,10 +323,24 @@ a {
 
 }
 
+.easy_run{
+
+   position: absolute;
+    top: 39%;
+    left: 10px;
+    background: #0000004D;
+    color: white;
+    padding: 5px 10px;
+    font-size: 12px;
+    border: 1px solid #ffffff9a;
+    border-radius: 4px;
+
+}
+
 .easy2 {
 
     position: absolute;
-    top: 42%;
+    top: 43%;
     left: 10px;
     background: #0000004D;
     color: white;
@@ -316,7 +400,33 @@ color: #172A39;
 
 }
 
+.filter_title{
+
+  color: #1163C7;
+  font-family: 'Lato';
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 26px;
+  margin-bottom: 19px;
+  text-align: start;
+
+}
+
 @media screen and (max-width: 767px) {
+
+  /* .card_img {
+    height: 150px !important;
+}
+
+.coach_section_home .trainerbox{
+
+  top: 33%;
+}
+
+.easy2 {
+
+  top: 31%;
+} */
 
   .details_page_heading{
 
@@ -341,6 +451,11 @@ color: #172A39;
     font-size: 25px;
     line-height: 35px;
     padding: 24px 0;
+  }
+
+  .text_wrap4{
+
+    width: 200px;
   }
   
 }

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Card, Row, Col, Form } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "../../withoutauth/Stylesheets/Filterpages/PriceDetails.css"
+// import "../../withoutauth/Stylesheets/Filterpages/PriceDetails.css"
+import "../../withoutauth/Stylesheets/Filterpages/PriceDetails.css";
 import black from "../../withoutauth/assets/icons/black-arrow.svg"
 
 import { InfoCircle } from "react-bootstrap-icons";
@@ -16,15 +17,15 @@ const PriceDetails = () => {
 
     return (
         <Card className="mb-3 priceing_details border-0">
-            <Card.Body className="p-0">
+            <div className="p-0">
                 {/* Heading */}
                
                <h3 className="details_page_titles">Price details</h3>
 
                 {/* Passes Price */}
                 <Row className="align-items-center mb-2">
-                    <Col xs={8} className="text-muted fw-light">
-                        Passes price x 10 <InfoCircle size={13} className="text-primary ms-1" />
+                    <Col xs={8} className="pass_price">
+                        <span>Passes price x 10</span> <InfoCircle size={13} className="text-primary ms-1" />
                     </Col>
                     <Col xs={4} className="text-end fw-semibold"> <span className="light_txt">₹{passesPrice}</span></Col>
                 </Row>
@@ -76,7 +77,7 @@ const PriceDetails = () => {
                     <Col className="fw-semibold">Total amount</Col>
                     <Col className="text-end fw-semibold text-primary">₹{totalAmount}</Col>
                 </Row>
-            </Card.Body>
+            </div>
         </Card>
     );
 };

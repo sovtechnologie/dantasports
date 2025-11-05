@@ -16,3 +16,16 @@
 
     color: #C6E5FF;
 }
+
+.slider-wrapper {
+
+    height: 222px;
+    border: 12px 12px 0 0;
+    overflow: hidden !important;
+}
+
+.slider-wrapper img:hover{
+
+    border-radius: 12px 12px 0 0 !important;
+    overflow: hidden !important;
+}

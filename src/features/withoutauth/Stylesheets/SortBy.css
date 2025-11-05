@@ -71,6 +71,31 @@ button.btn_mobile {
 }
 
 
+.sortby-container {
+
+
+        box-shadow: 0px 5.35px 3.57px 0px #3363EB40;
+    border: none;
+    border-radius: 16px;
+    background-color: #fff;
+}
+
+.sortby-container button{
+
+    border: 1px solid #ddd;
+    padding: 10px;
+    color: #1783D0;
+    border-radius: 6px;
+
+}
+
+.active-sort {
+  background-color: #0d6efd !important;
+  color: #fff !important;
+  border-color: #0d6efd !important;
+}
+
+
 /* =========== mobile css sort by =========*/
 @media screen and (max-width: 767px) {
 

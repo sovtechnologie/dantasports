@@ -10,17 +10,6 @@
   font-weight: 600;
 }
 
-.row {
-  display: flex;
-  /* justify-content: space-between; */
-  /* padding: 6px 0; */
-  font-size: 14px;
-  font-family: "DM Sans", sans-serif;
-  font-weight: 400;
-  line-height: 21.34px;
-  padding-top: 8.54px;
-}
-
 .insurance-row {
   display: flex;
   justify-content: space-between;
@@ -28,7 +17,7 @@
   border-top: 1px solid #eee;
   margin-top: 10px;
   padding: 10px 0px;
-  font-family: "DM Sans", sans-serif;
+  font-family: "DM Sans";
   font-weight: 400;
   line-height: 21.34px;
   color: #272727;
@@ -43,7 +32,7 @@
   border-radius: 3.41px;
 }
 
-.coupon {
+.apply_coupon_btn {
   color: #ff6100;
   font-size: 18px;
   font-family: "Lato";
@@ -52,41 +41,28 @@
   display: flex;
   justify-content: space-between;
   cursor: pointer;
-  border-top: 1px solid #eee;
-  height: 61px;
   align-items: center;
 }
 
-.arrow {
-  font-weight: bold;
+.arrow_nxt{
+
+  color: #ECECEC;
 }
 
-.total {
-  border-top: 1px solid #eee;
-  /* margin-top: 10px; */
-  /* padding-top: 12px; */
-  display: flex;
-  justify-content: space-between;
-  font-weight: 600;
-  font-size: 15px;
-  height: 40px;
-  align-items: center;
-  font-size: 18px;
-  font-family: "Lato", sans-serif;
-  font-weight: 500;
-  color: #172a39;
-}
 
-.total-amount {
-  color: #0078ff;
+
+.total_amount {
+  color: #172A39;
    font-size: 18px;
-  font-family: "Lato", sans-serif;
+  font-family: "Lato";
   font-weight: 500;
 }
 label {
-  color: #272727;
+  color: #272727 !important;
   display: flex;
   align-items: center;
+   font-family: 'DM Sans';
+   font-weight: 400;
 }
 
 .toggleicon{
@@ -94,4 +70,24 @@ label {
   justify-content: space-between;
   width: 50%;
   max-width: 300px;
+}
+
+.pass_price{
+
+  color: #172A39;
+  font-family: 'DM Sans';
+font-weight: 400;
+font-size: 14px;
+line-height: 21.34px;
+
+}
+
+.total_price{
+
+  color: #006EFF;
+  font-family: 'DM Sans';
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 21.34px;
+
 }
