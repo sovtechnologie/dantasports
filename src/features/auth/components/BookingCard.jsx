@@ -4,12 +4,24 @@ import ShareIcon from "../assets/Share-Icon.png";
 import CancelIcon from "../assets/Cancel-Icon.png";
 import { Share } from "../../../utils/share.js";
 import { AddReviewModal } from "./Modal/AddReviewModal.jsx";
+import { useCancelBooking } from "../../../hooks/Payments/useCancelBooking.js";
 
 const BookingCard = ({ booking }) => {
   const isCompleted = booking.status === "completed";
   const isCancelled = booking.status === "cancelled";
   const [isModalOpen, setIsModalOpen] = useState(false);
   const existing = booking.checkReview === 1;
+
+
+  const { mutate: cancelBooking, isPending } = useCancelBooking();
+
+
+
+  const handleCancel = () => {
+    if (window.confirm(" you want to cancel this booking?")) {
+      cancelBooking(booking.id);
+    }
+  };
 
   return (
     <div className="booking-card-container">
@@ -27,9 +39,7 @@ const BookingCard = ({ booking }) => {
         </p>
 
         <div className="booking-card-actions">
-          {isCancelled ? (
-            <div></div>
-          ) : (
+          {!isCancelled && (
             <>
               <button className="action-btn share" onClick={Share}>
                 <img src={ShareIcon} alt="Share" /> Share
@@ -49,12 +59,18 @@ const BookingCard = ({ booking }) => {
           ) : isCancelled ? (
             <button className="action-btn cancelled">Cancelled</button>
           ) : (
-            <button className="action-btn cancel">
-              <img src={CancelIcon} alt="Cancel" /> Cancel
+            <button
+              className="action-btn cancel"
+              onClick={handleCancel}
+              disabled={isPending}
+            >
+              <img src={CancelIcon} alt="Cancel" />
+              {isPending ? "Cancelling..." : "Cancel"}
             </button>
           )}
         </div>
       </div>
+
       <AddReviewModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

@@ -42,7 +42,7 @@ export default function CoachFilterPage() {
   const [selectedSports, setSelectedSports] = useState([]); // 👈 yeh add karo
 
   const [selectedCoach, setSelectedCoach] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(null);
+  // const [selectedDate, setSelectedDate] = useState(null);
   const [selectedAge, setSelectedAge] = useState([]);
   const [selectedBatch, setSelectedBatch] = useState([]);
   const [selectedCoachType, setSelectedCoachType] = useState(null);
@@ -68,7 +68,7 @@ export default function CoachFilterPage() {
     setSearch("");
     setFilters({});
     setSelectedCoach(null);
-    setSelectedDate(null);
+    // setSelectedDate(null);
 
   };
 
@@ -105,14 +105,14 @@ export default function CoachFilterPage() {
         if (coach.name.toLowerCase() !== selectedName) return false;
       }
 
-      if (selectedDate) {
-        const chosenDate = new Date(selectedDate).toISOString().split("T")[0];
-        const coachUpdated = new Date(coach.updated_at).toISOString().split("T")[0];
-        const coachCreated = new Date(coach.created_at).toISOString().split("T")[0];
+      // if (selectedDate) {
+      //   const chosenDate = new Date(selectedDate).toISOString().split("T")[0];
+      //   const coachUpdated = new Date(coach.updated_at).toISOString().split("T")[0];
+      //   const coachCreated = new Date(coach.created_at).toISOString().split("T")[0];
 
-        // ✅ Prefer updated_at for date match, fallback to created_at
-        if (coachUpdated !== chosenDate && coachUpdated !== chosenDate) return false;
-      }
+      //   // ✅ Prefer updated_at for date match, fallback to created_at
+      //   if (coachUpdated !== chosenDate && coachUpdated !== chosenDate) return false;
+      // }
 
       if (selectedAge.length > 0) {
         const coachAge = (coach.training_type || "").toLowerCase();
@@ -136,28 +136,28 @@ export default function CoachFilterPage() {
     })
     .sort((a, b) => {
       if (filters.sortBy?.length > 0) {
-        // ✅ 1. Favourite first
+
         if (filters.sortBy.includes("favourite")) {
           if (a.favourite && !b.favourite) return -1;
           if (!a.favourite && b.favourite) return 1;
         }
 
-        // ✅ 2. Nearby first (if available)
+
         if (filters.sortBy.includes("nearby")) {
           return (a.distance || 0) - (b.distance || 0);
         }
 
-        // ✅ 3. Popularity → Rating high to low
+
         if (filters.sortBy.includes("popularity")) {
           return (b.average_rating || 0) - (a.average_rating || 0);
         }
 
-        // ✅ 4. Price low to high (if applicable)
+
         if (filters.sortBy.includes("priceLow")) {
           return (a.price || 0) - (b.price || 0);
         }
 
-        // ✅ 5. Name (A–Z / Z–A)
+
         if (filters.sortBy.includes("name_a_to_z")) {
           return a.name.localeCompare(b.name);
         }
@@ -166,7 +166,7 @@ export default function CoachFilterPage() {
         }
       }
 
-      // ✅ Default sorting (available first)
+
       const aAvailable = a.is_available ? 1 : 0;
       const bAvailable = b.is_available ? 1 : 0;
       return bAvailable - aAvailable;
@@ -336,8 +336,8 @@ export default function CoachFilterPage() {
               <FilterTow
                 selectedSports={selectedSports}
                 setSelectedSports={setSelectedSports}
-                selectedDate={selectedDate}
-                setSelectedDate={setSelectedDate}
+                // selectedDate={selectedDate}
+                // setSelectedDate={setSelectedDate}
                 selectedAge={selectedAge}
                 setSelectedAge={setSelectedAge}
                 selectedBatch={selectedBatch}

@@ -41,6 +41,7 @@ import arrow from "../assets/icons/arrow.svg";
 import CancellationPolicy from "../components/CancellationPolicy.jsx";
 import EventReviewSlider from "../components/EventReviewSlider.jsx";
 import PriceDetails from "../components/PriceDetails.jsx";
+import OngoingEvents from "../components/OngoingEvents.jsx";
 
 export const formatDate = (isoString) => {
   const date = new Date(isoString);
@@ -325,7 +326,7 @@ function VenueDetailsPage() {
                   ★
                 </span>
                 <span className="light-text">
-                  {venue.rating} ({venue.reviewcount} ratings)
+                  {Math.floor(venue.rating)}  ({venue.reviewcount} ratings)
                 </span>
                 <span className="ps-2 text_blue"><a href="#">Rate Gym</a></span>
               </div>
@@ -622,9 +623,11 @@ function VenueDetailsPage() {
               )}
 
               <div className="banner-wrapper">
-                <div className="event-banner-container">
-                  <h2 className="event-banner-heading">Ongoing Events</h2>
-                  <div className="event-banner-carousel">
+                <OngoingEvents banners={banners} />
+                {/* <div className="event-banner-container">
+                   
+                  {/* <h2 className="event-banner-heading">Ongoing Events</h2> */}
+                {/* <div className="event-banner-carousel">
                     <div className="event-banner-track">
                       {banners.concat(banners).map(
                         (
@@ -641,8 +644,8 @@ function VenueDetailsPage() {
                         )
                       )}
                     </div>
-                  </div>
-                </div>
+                  </div> */}
+                {/* </div>  */}
               </div>
             </div>
           </div>

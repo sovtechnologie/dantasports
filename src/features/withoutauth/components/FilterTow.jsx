@@ -5,7 +5,7 @@ import Batch from './Batch';
 import CustomDatePicker from './CustomDatePicker';
 import ActivityServices from './ActivityServices';
 import CoachOnly from './CoachOnly';
-function FilterTow({ setSelectedCoachType, selectedCoachType, selectedBatch, setSelectedBatch, selectedAge, setSelectedAge, selectedSports, setSelectedSports, selectedDate, setSelectedDate }) {
+function FilterTow({ setSelectedCoachType, selectedCoachType, selectedBatch, setSelectedBatch, selectedAge, setSelectedAge, selectedSports, setSelectedSports, }) {
 
   const handleReset = (e) => {
     e.preventDefault();
@@ -13,7 +13,6 @@ function FilterTow({ setSelectedCoachType, selectedCoachType, selectedBatch, set
     setSelectedAge([]);
     setSelectedCoachType(null);
     setSelectedBatch([]);
-    setSelectedDate(null);
     console.log("All filters reset");
   };
   return (
@@ -27,10 +26,10 @@ function FilterTow({ setSelectedCoachType, selectedCoachType, selectedBatch, set
           selectedSports={selectedSports}
           setSelectedSports={setSelectedSports}
         />
-        <CustomDatePicker
+        {/* <CustomDatePicker
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
-        />
+        /> */}
 
         <Age selectedAge={selectedAge} setSelectedAge={setSelectedAge} />
 

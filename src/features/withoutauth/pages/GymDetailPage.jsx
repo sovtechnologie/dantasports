@@ -279,7 +279,7 @@ export default function GymDetailPage() {
                             >
                                 ★
                             </span>
-                            <span className="light-text"> {gym?.rating}</span>
+                            <span className="light-text"> {Math.floor(gym.rating)}</span>
                             <span style={{ marginLeft: "5px" }}>
                                 ({gym?.reviewcount} ratings)
                             </span>
@@ -594,7 +594,9 @@ export default function GymDetailPage() {
                                 </div>
                             </div>
                         </div> */}
-                        <OngoingEvents/>
+                        {/* Old banner section removed */}
+                        <OngoingEvents banners={banners} />
+
                     </div>
                 </Container>
             </section>

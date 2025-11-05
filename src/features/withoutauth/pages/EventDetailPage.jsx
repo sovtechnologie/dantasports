@@ -228,7 +228,7 @@ export default function EventDetailPage() {
                         <h1 className="event-name">{event.name}</h1>
                         <div className="event-location-rating">
                             <span>{event.location}</span>
-                            <span className="star" style={{ marginLeft: "20px" }}>★</span> <span className="light-text" style={{ marginLeft: "5px" }}>{event?.rating}({event?.reviewcount} ratings)</span>
+                            <span className="star" style={{ marginLeft: "20px" }}>★</span> <span className="light-text" style={{ marginLeft: "5px" }}> {Math.floor(event.rating)} ({event?.reviewcount} ratings)</span>
                         </div>
                     </div>
 

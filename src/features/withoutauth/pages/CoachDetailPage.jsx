@@ -156,7 +156,7 @@ export default function CoachDetailPage() {
                         <h1 className="coachpage-name">{coach?.name}</h1>
                         <div className="coach-location-rating">
                             <span>{coach?.location}</span>
-                            <span className="star" style={{ marginLeft: "20px" }}>★</span> <span className="light-text" style={{ marginLeft: "5px" }}>{coach?.rating} ({coach?.reviewcount} ratings)</span>
+                            <span className="star" style={{ marginLeft: "20px" }}>★</span> <span className="light-text" style={{ marginLeft: "5px" }}>{Math.floor(coach.rating)} ({coach?.reviewcount} ratings)</span>
 
                         </div>
                     </div>

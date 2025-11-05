@@ -36,6 +36,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import TermsAndConditions from "../../../pages/TermsAndConditions.jsx";
 import TermsConditionsModal from "../components/TermsConditionsModal.jsx";
 import EventReviewSlider from "../components/EventReviewSlider.jsx";
+import OngoingEvents from "../components/OngoingEvents.jsx";
 
 const initialTickets = [
   { id: 1, label: "5Km Run", price: 999 },
@@ -253,7 +254,7 @@ export default function EventDetailPage() {
                 className="light-text"
                 style={{ marginLeft: "5px", marginRight: "5px" }}
               >
-                {event?.rating}
+                {Math.floor(event.rating)}
               </span>{" "}
               <span>({event?.reviewcount} ratings)</span>
             </div>
@@ -635,8 +636,9 @@ export default function EventDetailPage() {
             <GalleryComponent />
 
             <div className="event-banner-container">
-              <h2 className="event-banner-heading">Ongoing Events</h2>
-              <div className="event-banner-carousel">
+              <OngoingEvents banners={banners} />
+              {/* <h2 className="event-banner-heading">Ongoing Events</h2> */}
+              {/* <div className="event-banner-carousel">
                 <div className="event-banner-track">
                   {banners.concat(banners).map(
                     (
@@ -653,7 +655,7 @@ export default function EventDetailPage() {
                     )
                   )}
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </Container>
