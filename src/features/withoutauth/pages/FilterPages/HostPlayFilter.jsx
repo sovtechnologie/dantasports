@@ -194,7 +194,7 @@ export default function HostPlayFilterPage() {
                         </span>
                       </div>
 
-                      <div className="card_line"></div>
+                      <div className="card_line2"></div>
                       <div className="offer">
                         <a href="">Join Now</a>
                       </div>

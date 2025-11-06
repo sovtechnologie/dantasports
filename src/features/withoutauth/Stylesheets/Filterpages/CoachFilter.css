@@ -49,11 +49,7 @@
 
 }
 
-hr {
 
-  background-color: #c4c4c4;
-
-}
 
 .coach_page_section .trainerbox {
 
@@ -64,7 +60,7 @@ hr {
   font-weight: 400;
   font-size: 12.06px;
   position: absolute;
-  top: 43%;
+  top: 42%;
   padding: 5px 10px;
   left: 10px;
   border-radius: 5px;
