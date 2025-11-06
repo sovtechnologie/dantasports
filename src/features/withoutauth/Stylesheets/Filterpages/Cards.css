@@ -1,4 +1,9 @@
- .card_img {
+.card{
+
+  border-radius: 12px;
+}
+
+.card_img {
 
   overflow: hidden;
   height: 222px !important;

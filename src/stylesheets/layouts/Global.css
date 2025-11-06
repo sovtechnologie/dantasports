@@ -326,7 +326,7 @@ a {
 .easy_run{
 
    position: absolute;
-    top: 39%;
+    top: 42%;
     left: 10px;
     background: #0000004D;
     color: white;
@@ -413,6 +413,17 @@ color: #172A39;
 }
 
 @media screen and (max-width: 767px) {
+
+  .short_card {
+
+    border: none;
+    padding: 10px;
+  }
+
+  .filter_section{
+
+    
+  }
 
   /* .card_img {
     height: 150px !important;

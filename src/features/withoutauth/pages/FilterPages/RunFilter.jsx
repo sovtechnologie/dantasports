@@ -13,7 +13,7 @@ import date from "../../assets/playhost/date.svg";
 import likeIcon from "../../assets/icons/like.svg";
 import shareIcon from "../../assets/icons/share.svg";
 import star from "../../assets/icons/star-white.svg";
-import bookrunn from '../../assets/bookrun/bookrun.png'
+import bookrunn from "../../assets/bookrun/bookrun.png";
 import { useQueryClient } from "@tanstack/react-query";
 import { useFetchEvent } from "../../../../hooks/EventList/useFetchEvents.js";
 import { useSelector } from "react-redux";
@@ -22,6 +22,7 @@ import { useUnlikeEvent } from "../../../../hooks/favouriteEvent/useUnLikeEvent.
 import { useLikeEvent } from "../../../../hooks/favouriteEvent/useLikeEvent.js";
 import eventImage from "../../../withoutauth/assets/events/events1.png";
 import PageSearch from "../../components/PageSearch.jsx";
+import sortIcon from "../../assets/icons/sort.svg"
 function formatTime(timeStr = "00:00") {
   if (!timeStr) return "";
   const [h, m, s] = timeStr.split(":").map(Number);
@@ -89,7 +90,6 @@ export default function RunFilterPage() {
     setRunList(AllRundata?.result || []);
   };
 
-
   const payload = { lat, lng, userId: userId || null, type: 2 };
   const {
     data: AllRundata,
@@ -100,7 +100,6 @@ export default function RunFilterPage() {
 
   const likeEvent = useLikeEvent();
   const unlikeEvent = useUnlikeEvent();
-
 
   const toggleFavourite = (event) => {
     const eventId = event.id;
@@ -120,18 +119,21 @@ export default function RunFilterPage() {
     if (!event.favourite) {
       likeEvent.mutate(
         { eventId, userId, type },
-        { onSuccess: () => queryClient.invalidateQueries(["EventList", userId || null]) }
+        {
+          onSuccess: () =>
+            queryClient.invalidateQueries(["EventList", userId || null]),
+        }
       );
     } else {
       unlikeEvent.mutate(
         { favouriteEventId: event.favourite_event_id },
-        { onSuccess: () => queryClient.invalidateQueries(["EventList", userId || null]) }
+        {
+          onSuccess: () =>
+            queryClient.invalidateQueries(["EventList", userId || null]),
+        }
       );
     }
   };
-
-
-
 
   // ✅ Filter Events
   const filteredEvents = useMemo(() => {
@@ -144,7 +146,6 @@ export default function RunFilterPage() {
     }
 
     if (selectedSports.length > 0) {
-
       const selectedIds = selectedSports.map((sport) => sport.sports_id);
 
       result = result.filter((evt) => {
@@ -153,7 +154,6 @@ export default function RunFilterPage() {
         return match;
       });
     }
-
 
     if (selectedDate) {
       const chosenDate = new Date(selectedDate).toISOString().split("T")[0];
@@ -171,8 +171,6 @@ export default function RunFilterPage() {
         const evtEnd = parseTimeToMinutes(evt.end_time);
         return chosenMinutes >= evtStart && chosenMinutes <= evtEnd;
       });
-
-
     }
 
     if (selectedAmenities.length > 0) {
@@ -191,13 +189,14 @@ export default function RunFilterPage() {
       });
     }
 
-
     // ✅ Sorting
     // ✅ Multiple sort options combined
     if (filters.sortBy?.length > 0) {
       // If favourite selected → filter only favourites first
       if (filters.sortBy.includes("favourite")) {
-        result = result.filter((evt) => evt.favourite === 1 || evt.favourite === true);
+        result = result.filter(
+          (evt) => evt.favourite === 1 || evt.favourite === true
+        );
       }
 
       // Then apply other sorting types in priority order
@@ -206,7 +205,9 @@ export default function RunFilterPage() {
       }
 
       if (filters.sortBy.includes("popularity")) {
-        result.sort((a, b) => (b.average_rating || 0) - (a.average_rating || 0));
+        result.sort(
+          (a, b) => (b.average_rating || 0) - (a.average_rating || 0)
+        );
       }
 
       if (filters.sortBy.includes("priceLow")) {
@@ -219,7 +220,15 @@ export default function RunFilterPage() {
     }
 
     return result;
-  }, [runList, search, filters, selectedSports, selectedDate, selectedAmenities, selectedTime]);
+  }, [
+    runList,
+    search,
+    filters,
+    selectedSports,
+    selectedDate,
+    selectedAmenities,
+    selectedTime,
+  ]);
 
   useEffect(() => {
     if (AllRundata?.status === 200) {
@@ -227,7 +236,6 @@ export default function RunFilterPage() {
       setFilteredRuns(AllRundata.result); // ✅ initialize
     }
   }, [AllRundata]);
-
 
   if (isLoading) return <VenueListShimmer />;
   if (isError) return <div>Error loading events: {error.message}</div>;
@@ -247,9 +255,6 @@ export default function RunFilterPage() {
     }
   };
 
-
-
-
   return (
     <>
       <section
@@ -262,9 +267,10 @@ export default function RunFilterPage() {
             <Col lg={3} md={5} className="d-none d-lg-block d-md-block">
               <SortBy
                 sortBy={filters.sortBy}
-                setSortBy={(value) => setFilters((prev) => ({ ...prev, sortBy: value }))}
+                setSortBy={(value) =>
+                  setFilters((prev) => ({ ...prev, sortBy: value }))
+                }
               />
-
 
               <div className="mt-3">
                 <Filter
@@ -282,14 +288,56 @@ export default function RunFilterPage() {
                   selectedAmenities={selectedAmenities}
                   setSelectedAmenities={setSelectedAmenities}
                 />
-
               </div>
             </Col>
 
-            {/* <Col className="d-lg-none d-md-none text-end mb-4">
+            <Col className="d-lg-none d-md-none text-end mb-4">
               <FliterModal />
-              <SortModal />
-            </Col> */}
+              {/* <SortModal /> */}
+              {/* <SortBy/> */}
+              <div
+                class="modal fade"
+                id="exampleModalToggle"
+                aria-hidden="true"
+                aria-labelledby="exampleModalToggleLabel"
+                tabindex="-1"
+              >
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                     
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body">
+                     <SortBy/>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+              <div
+                class="modal fade"
+                id="exampleModalToggle2"
+                aria-hidden="true"
+                aria-labelledby="exampleModalToggleLabel2"
+                tabindex="-1"
+              >
+                
+              </div>
+
+              <button class="btn_mobile"
+                data-bs-toggle="modal"
+                href="#exampleModalToggle"
+                role="button">
+                <img src={sortIcon} alt="" />
+              </button >
+             
+            </Col>
 
             <Col lg={9} md={7}>
               <div className="row g-3">
@@ -315,7 +363,9 @@ export default function RunFilterPage() {
                             alt="like"
                             onClick={() => toggleFavourite(event)}
                             style={{
-                              filter: event.favourite ? "invert(40%) sepia(100%) saturate(5000%) hue-rotate(340deg)" : "none",
+                              filter: event.favourite
+                                ? "invert(40%) sepia(100%) saturate(5000%) hue-rotate(340deg)"
+                                : "none",
                               cursor: "pointer",
                             }}
                           />
@@ -329,20 +379,28 @@ export default function RunFilterPage() {
                         </div>
                         <div className="txt_wrapper">
                           <div className="card_txt">
-                            <h2 className="text_wrap card_heading mb-3">{event.event_title}</h2>
+                            <h2 className="text_wrap card_heading mb-3">
+                              {event.event_title}
+                            </h2>
                             <p className="card_date mb-3">
                               <span className="me-2">
                                 <img src={date} alt="" />
                               </span>
-                              {new Date(event.start_date).toLocaleDateString("en-GB", {
-                                day: "2-digit",
-                                month: "short",
-                              })}{" "}
+                              {new Date(event.start_date).toLocaleDateString(
+                                "en-GB",
+                                {
+                                  day: "2-digit",
+                                  month: "short",
+                                }
+                              )}{" "}
                               -{" "}
-                              {new Date(event.end_date).toLocaleDateString("en-GB", {
-                                day: "2-digit",
-                                month: "short",
-                              })}{" "}
+                              {new Date(event.end_date).toLocaleDateString(
+                                "en-GB",
+                                {
+                                  day: "2-digit",
+                                  month: "short",
+                                }
+                              )}{" "}
                               | {formatTime(event.start_time)} onwards
                             </p>
                             <p className="card_date mb-3">
@@ -398,21 +456,26 @@ export default function RunFilterPage() {
 
                             <a href={`/run/${event.id}`}>Join Now</a>
                           </div>
-
                         </div>
                         <div className="rating">
-                          <span><img src={star} className="pe-2" alt="" />4.4</span>
+                          <span>
+                            <img src={star} className="pe-2" alt="" />
+                            4.4
+                          </span>
                         </div>
                         <div className="easy_run">
-                          <span> {event.difficulty === 0 ? (
-                            <span className="Moderate">Moderate</span>
-                          ) : event.difficulty === 1 ? (
-                            <span className="easy">Easy</span>
-                          ) : event.difficulty === 2 ? (
-                            <span className="difficult">Difficult</span>
-                          ) : (
-                            <span className="unknown">Not Specified</span>
-                          )}</span>
+                          <span>
+                            {" "}
+                            {event.difficulty === 0 ? (
+                              <span className="Moderate">Moderate</span>
+                            ) : event.difficulty === 1 ? (
+                              <span className="easy">Easy</span>
+                            ) : event.difficulty === 2 ? (
+                              <span className="difficult">Difficult</span>
+                            ) : (
+                              <span className="unknown">Not Specified</span>
+                            )}
+                          </span>
                         </div>
                       </div>
                     </div>

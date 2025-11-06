@@ -146,7 +146,7 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFina
 
   return (
     <Card className="mb-3 border-0">
-      <Card.Body className="p-0">
+      <div>
         <h3 className="details_page_titles">Price details</h3>
 
         {/* Passes Price */}
@@ -222,7 +222,7 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFina
           <Col className="total_amount pt-3">Total amount</Col>
           <Col className="text-end total_price pt-3">₹{totalAmount}</Col>
         </Row>
-      </Card.Body>
+      </div>
 
       {/* Coupon Modal */}
       <CouponModal

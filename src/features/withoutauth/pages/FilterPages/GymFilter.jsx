@@ -270,8 +270,8 @@ export default function GymFilterPage() {
 
                         <div className="txt_wrapper">
                           <div className="card_txt">
-                            <h2>{gym.gym_name}</h2>
-                            <p>
+                            <h2 className="text_wrap card_heading">{gym.gym_name}</h2>
+                            <p className="sports_title_km">
                               {gym.city} {gym.state}  (~{gym.distance ? gym.distance.toFixed(1) : 0} Km)
                             </p>
                             {/* <p>
@@ -301,12 +301,12 @@ export default function GymFilterPage() {
                           </div> */}
 
                           <div className="d-flex justify-content-between no_off_users">
-                            <p className="up_to_offer mb-2"> {gym.coupon_type === "percentage" && gym.discount_offer
+                            <p className="up_to_offer m-0"> {gym.coupon_type === "percentage" && gym.discount_offer
                               ? `Upto ${parseFloat(gym.discount_offer)}% Off`
                               : gym.coupon_type === "flat" && gym.discount_offer
                                 ? `Upto ₹${parseFloat(gym.discount_offer)} Off`
                                 : ""}</p>
-                            <p className="onwards_rup mb-2">₹{gym.gym_price_slot && gym.gym_price_slot.length > 0
+                            <p className="onwards_rup m-0">₹{gym.gym_price_slot && gym.gym_price_slot.length > 0
                               ? gym.gym_price_slot.reduce((min, curr) =>
                                 curr.price < min.price ? curr : min
                               ).price
