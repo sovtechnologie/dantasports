@@ -6,7 +6,7 @@ const OngoingEvents = ({ banners }) => {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 400,
+    speed: 300,
     slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,

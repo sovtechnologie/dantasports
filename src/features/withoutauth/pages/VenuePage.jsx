@@ -270,7 +270,7 @@ function VenuePage() {
         <Container>
           <Row className="g-3">
             {/* Left Filter */}
-            <Col lg="3" xl={4} md="5" className="d-none d-lg-block d-md-block">
+            <Col lg="4" xl={3} md="12" className="d-none d-lg-block">
               <Filter
                 sportsData={filteredSports}
                 selectedSports={selectedSports}
@@ -291,7 +291,7 @@ function VenuePage() {
             </Col>
 
             {/* Mobile Sort/Filter */}
-            <Col className="d-lg-none d-md-none text-end">
+            <Col className="d-lg-none  text-end">
               {/* <div className="d-flex text-end justify-content-end mb-3">
                  
                   <button  className=" border-0 "   onClick={() => {setFilterShow(!filterShow)
@@ -340,47 +340,7 @@ function VenuePage() {
             )} */}
 
               <div className="modal_wraper">
-                <div
-                  class="modal fade"
-                  id="exampleModalToggle"
-                  aria-hidden="true"
-                  aria-labelledby="sortby"
-                  tabindex="-1"
-                >
-                  <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                      </div>
-                      <div class="modal-body">
-                        <SortBy />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="modal fade"
-                  id="exampleModalToggle2"
-                  aria-hidden="true"
-                  aria-labelledby="exampleModalToggleLabel2"
-                  tabindex="-1"
-                ></div>
-
-                <button
-                  class="btn_mobile"
-                  data-bs-toggle="modal"
-                  href="#exampleModalToggle"
-                  role="button"
-                >
-                  <img src={sortIcon} alt="" />
-                </button>
-
-                <div
+                 <div
                   class="modal fade mobile-filter-modal"
                   id="mobileSortModal"
                   aria-hidden="true"
@@ -400,7 +360,7 @@ function VenuePage() {
                       <div class="modal-body">
                         {/* <SortBy /> */}
                         {/* <p>Filter / Sort Options Here</p> */}
-                          <Filter 
+                        <Filter
                           sportsData={filteredSports}
                           selectedSports={selectedSports}
                           setSelectedSports={setSelectedSports}
@@ -430,24 +390,67 @@ function VenuePage() {
                 >
                   <img src={filterIcon} alt="" />
                 </button>
+                <div
+                  class="modal fade"
+                  id="exampleModalToggle"
+                  aria-hidden="true"
+                  aria-labelledby="sortby"
+                  tabindex="-1"
+                >
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        <SortBy />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="modal fade"
+                  id="exampleModalToggle2"
+                  aria-hidden="true"
+                  aria-labelledby="exampleModalToggleLabel2"
+                  tabindex="-1"
+                >
+                  
+                </div>
+
+                <button
+                  class="btn_mobile"
+                  data-bs-toggle="modal"
+                  href="#exampleModalToggle"
+                  role="button"
+                >
+                  <img src={sortIcon} alt="" />
+                </button>
+
+               
               </div>
             </Col>
 
-            <Col lg="9" xl={8} md="7">
+            <Col lg="8" xl={9} md="12">
               <div className="row g-3">
                 {isFiltering || isPending ? (
                   "Loding......."
                 ) : (
                   <>
                     {selectedSports.length > 0 ||
-                    selectedAmenities.length > 0 ||
-                    selectedDate ||
-                    selectedTime ? (
+                      selectedAmenities.length > 0 ||
+                      selectedDate ||
+                      selectedTime ? (
                       filteredVenues.length > 0 ? (
                         filteredVenues.map((venue) => (
                           <div
                             key={venue.id}
-                            className="col-lg-4 position-relative"
+                            className="col-lg-6 col-md-6 col-xl-4 position-relative"
                           >
                             <div className="card">
                               <div className="card_slider">
@@ -539,10 +542,10 @@ function VenuePage() {
                                 <div className="offers d-flex justify-content-between">
                                   <span>
                                     {venue.coupon_type === "percentage" &&
-                                    venue.discount_offer
+                                      venue.discount_offer
                                       ? `Upto ${parseFloat(venue.discount_offer)}% Off`
                                       : venue.coupon_type === "flat" &&
-                                          venue.discount_offer
+                                        venue.discount_offer
                                         ? `Upto ₹${parseFloat(venue.discount_offer)} Off`
                                         : ""}
                                   </span>
@@ -581,7 +584,7 @@ function VenuePage() {
                         .map((venue) => (
                           <div
                             key={venue.id}
-                            className="col-lg-4 position-relative"
+                            className="col-xl-4 col-lg-6 col-md-6 position-relative"
                           >
                             <div className="card">
                               <div className="card_slider">
@@ -673,10 +676,10 @@ function VenuePage() {
                                 <div className="offers  d-flex justify-content-between">
                                   <p className="up_to_offer m-0">
                                     {venue.coupon_type === "percentage" &&
-                                    venue.discount_offer
+                                      venue.discount_offer
                                       ? `Upto ${parseFloat(venue.discount_offer)}% Off`
                                       : venue.coupon_type === "flat" &&
-                                          venue.discount_offer
+                                        venue.discount_offer
                                         ? `Upto ₹${parseFloat(venue.discount_offer)} Off`
                                         : ""}
                                   </p>

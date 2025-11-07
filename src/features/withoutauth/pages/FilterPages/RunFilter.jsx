@@ -264,15 +264,14 @@ export default function RunFilterPage() {
         <PageSearch />
         <Container>
           <Row>
-            <Col lg={3} md={5} className="d-none d-lg-block d-md-block">
-              <SortBy
+            <Col lg={4} md={12} xl={3} className="d-none d-lg-block">
+               <SortBy
                 sortBy={filters.sortBy}
                 setSortBy={(value) =>
                   setFilters((prev) => ({ ...prev, sortBy: value }))
                 }
               />
-
-              <div className="mt-3">
+             <div className="mt-3">
                 <Filter
                   selectedSports={selectedSports}
                   setSelectedSports={setSelectedSports}
@@ -289,9 +288,12 @@ export default function RunFilterPage() {
                   setSelectedAmenities={setSelectedAmenities}
                 />
               </div>
+           
+
+             
             </Col>
 
-            <Col className="d-lg-none d-md-none text-end mb-4">
+            <Col className="d-lg-none  text-end mb-4">
               <FliterModal />
               {/* <SortModal /> */}
               {/* <SortBy/> */}
@@ -339,11 +341,11 @@ export default function RunFilterPage() {
              
             </Col>
 
-            <Col lg={9} md={7}>
+            <Col lg={8} xl={9} md={12}>
               <div className="row g-3">
                 {filteredEvents.length > 0 ? (
                   filteredEvents.map((event) => (
-                    <div key={event.id} className="col-lg-4">
+                    <div key={event.id} className="col-xl-4 col-lg-6 col-md-6">
                       <div className="card">
                         <div className="card_img">
                           <img

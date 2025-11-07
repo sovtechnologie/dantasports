@@ -122,12 +122,12 @@ export default function HostPlayFilterPage() {
       <Container>
         <Row>
           {/* Left Sort Section */}
-          <Col lg={3} md={5} className="d-none d-lg-block d-md-block">
+          <Col lg={3} md={12} className="d-none d-lg-block ">
             <SortBy sortBy={sortBy} setSortBy={setSortBy} />
           </Col>
 
           {/* Mobile Sort Modal */}
-          <Col className="d-lg-none d-md-none text-end mb-4">
+          <Col className="d-lg-none  text-end mb-4">
             {/* <SortBy sortBy={sortBy} setSortBy={setSortBy} /> */}
             {/* <button
           className="border-0 bg-transparent"
@@ -192,11 +192,11 @@ export default function HostPlayFilterPage() {
           </Col>
 
           {/* Host Cards Section */}
-          <Col lg={9} md={7}>
+          <Col lg={9} md={12}>
             <Row className="g-3">
               {visibleHosts.length > 0 ? (
                 visibleHosts.map((host) => (
-                  <Col lg={4} key={host.id}>
+                  <Col lg={6} xl={4} md={6} key={host.id}>
                     <Card className="card card_payhost">
                       <div className="badge_label mb-2">
                         <p>{ACTIVITY_TYPE_LABEL[host.activity_type] || "Regular"}</p>

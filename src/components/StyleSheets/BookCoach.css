@@ -50,3 +50,11 @@ p.adult{
     width: 100%;
 }
 
+@media screen and (max-width: 767px) {
+
+    .coach_section_home .trainerbox{
+
+        top: 38%;
+    }
+    
+}

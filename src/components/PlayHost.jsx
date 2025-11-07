@@ -93,7 +93,7 @@ function PlayHost() {
             const skill =
               SKILL_MAP[host.game_skill] || SKILL_MAP[0];
             return (
-              <Col lg={3} md={6} sm={6} key={host.id}>
+              <Col xl={3} lg={4} md={6} sm={6} key={host.id}>
                 <Card className="playhost_card">
                   <div className="badge_label">
                     <p>{ACTIVITY_TYPE_LABEL[host.activity_type] || "Regular"}</p>

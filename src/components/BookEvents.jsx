@@ -136,7 +136,7 @@ function BookEvents() {
             const eventDate = `${new Date(evt.start_date).toLocaleDateString("en-GB", { day: "2-digit", month: "short" })} – ${new Date(evt.end_date).toLocaleDateString("en-GB", { day: "2-digit", month: "short" })} | ${formatTime(evt.start_time)}‑${formatTime(evt.end_time.slice(0, 5))}`;
 
             return (
-              <Col lg={3} md={6} sm={6} key={evt.id}>
+              <Col xl={3} lg={4} md={6} sm={6} key={evt.id}>
                 <Card>
 
                   <div className="card_img">
