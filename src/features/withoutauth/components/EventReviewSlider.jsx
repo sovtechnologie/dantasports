@@ -41,7 +41,10 @@ const ReviewCard = memo(({ review }) => {
   const timeAgo = getTimeAgo(review.date || review.createdAt);
 
   return (
-    <div className="review-card1">
+    
+    <>
+      <section>
+        <div className="review-card1">
       <div>
         <div className="d-flex">
           <span className="me-2">
@@ -72,6 +75,8 @@ const ReviewCard = memo(({ review }) => {
         </div>
       </div>
     </div>
+      </section>
+    </>
   );
 });
 
@@ -108,7 +113,7 @@ const EventReviewSlider = ({ event }) => {
   const handlePrev = () => sliderRef.current?.slickPrev();
 
   return (
-    <section className="event-review">
+    <section className="event-review mb-4">
       <h2 className="details_page_heading mb-lg-4 mb-3">Rating & Reviews</h2>
 
       {reviews.length === 0 ? (

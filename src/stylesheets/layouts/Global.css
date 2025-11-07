@@ -114,7 +114,7 @@ a {
 
 .card.modal_title {
 
-  padding: 20px 12px 20px 12px;
+  padding: 25px 12px;
   border: none !important;
   border-radius: 11px;
 }
@@ -126,7 +126,7 @@ a {
     font-family: 'Lato' !important;
     font-weight: 500 !important;
     font-size: 18px !important;
-    line-height: 21.67px !important;
+    line-height: 21px !important;
 
 
 }
@@ -376,24 +376,9 @@ a {
 }
 
 
-.details_page_titles {
 
-  color: #172A39 !important;
-  font-family: 'Lato' !important;
-  font-weight: 600 !important;
-  font-size: 18px !important;
-  line-height: 25.61px !important;
 
-}
 
-.details_page_header {
-
-      box-shadow: 0px 4px 4px 0px #1163C740;
-      border-radius: 0px 0px 40px 40px;
-      padding: 30px 0;
-      background-color: white;
-      margin-bottom: 30px;
-}
 
 button.btn_mobile {
     border: 1px solid #1163C7 !important;
@@ -461,24 +446,8 @@ color: #172A39;
     padding: 10px;
   }
 
-  .filter_section{
 
-    
-  }
 
-  /* .card_img {
-    height: 150px !important;
-}
-
-.coach_section_home .trainerbox{
-
-  top: 33%;
-}
-
-.easy2 {
-
-  top: 31%;
-} */
 
   .details_page_heading{
 
@@ -510,4 +479,18 @@ color: #172A39;
     width: 200px;
   }
   
+}
+
+@media screen and (max-width: 540px) {
+
+  
+  .card.modal_title{
+
+    padding: 15px 10px;
+  }
+
+  .card.modal_title .rule p{
+
+    font-size: 16px !important;
+  }
 }
