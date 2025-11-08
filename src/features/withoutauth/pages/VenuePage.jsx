@@ -24,11 +24,13 @@ import PageSearch from "../components/PageSearch.jsx";
 import { useFilterVenue } from "../../../hooks/SortAndFilter/useFilterVenue.js";
 import sortIcon from "../../withoutauth/assets/icons/sort.svg";
 import filterIcon from "../../withoutauth/assets/icons/filter.svg";
+import HeartFilled from "../../withoutauth/assets/VenueCardLogo/heartfilled.png"
+import likeIcon from "../assets/icons/like.svg";
 
 function VenuePage() {
 
-   const [showSort, setShowSort] = useState(false);
-   const [filterShow, setFilterShow] = useState(false);
+  const [showSort, setShowSort] = useState(false);
+  const [filterShow, setFilterShow] = useState(false);
 
   const isSameDate = (venueDate, selectedDate) => {
     if (!venueDate || !selectedDate) return false;
@@ -287,58 +289,60 @@ function VenuePage() {
             {/* Mobile Sort/Filter */}
             <Col className="d-lg-none d-md-none text-end">
               <div className="d-flex text-end justify-content-end mb-3">
-                 
-                  <button  className=" border-0 "   onClick={() => {setFilterShow(!filterShow)
+
+                <button className=" border-0 " onClick={() => {
+                  setFilterShow(!filterShow)
                   setShowSort(false)
                 }}>
                   <img src={filterIcon} alt="" />
                 </button>
                 <button
-              className="border-0"
-              onClick={() => {setShowSort(prev => !prev)
-                setFilterShow(false)
-              }}
-              aria-expanded={showSort}
-            >
-              <img src={sortIcon} alt="" />
-                 </button>
+                  className="border-0"
+                  onClick={() => {
+                    setShowSort(prev => !prev)
+                    setFilterShow(false)
+                  }}
+                  aria-expanded={showSort}
+                >
+                  <img src={sortIcon} alt="" />
+                </button>
               </div>
-           
-            {
-              filterShow &&
 
-               <Filter 
-                sportsData={filteredSports}
-                selectedSports={selectedSports}
-                setSelectedSports={setSelectedSports}
-                selectedDate={selectedDate}
-                setSelectedDate={setSelectedDate}
-                selectedTime={selectedTime}
-                setSelectedTime={setSelectedTime}
-                sportSearch={sportSearch}
-                setSportSearch={setSportSearch}
-                searchTerm={searchTerm}
-                setSearchTerm={setSearchTerm}
-                setFilteredVenues={setFilteredVenues}
-                selectedAmenities={selectedAmenities}
-                setSelectedAmenities={setSelectedAmenities}
+              {
+                filterShow &&
 
-              />
-            }
-           
-              
+                <Filter
+                  sportsData={filteredSports}
+                  selectedSports={selectedSports}
+                  setSelectedSports={setSelectedSports}
+                  selectedDate={selectedDate}
+                  setSelectedDate={setSelectedDate}
+                  selectedTime={selectedTime}
+                  setSelectedTime={setSelectedTime}
+                  sportSearch={sportSearch}
+                  setSportSearch={setSportSearch}
+                  searchTerm={searchTerm}
+                  setSearchTerm={setSearchTerm}
+                  setFilteredVenues={setFilteredVenues}
+                  selectedAmenities={selectedAmenities}
+                  setSelectedAmenities={setSelectedAmenities}
+
+                />
+              }
+
+
               {/* <SortModal /> */}
-                {/* <SortBy
+              {/* <SortBy
                 sortBy={sortBy}
                 setSortBy={(value) => setSortBy(value)}
               /> */}
-             
 
-            {showSort && (
-              <div className="mt-3">
-                <SortBy setSortBy={(value) => console.log("selected:", value)} />
-              </div>
-            )}
+
+              {showSort && (
+                <div className="mt-3">
+                  <SortBy setSortBy={(value) => console.log("selected:", value)} />
+                </div>
+              )}
             </Col>
 
 
@@ -368,14 +372,9 @@ function VenuePage() {
 
                                 <div className="save_btn" onClick={() => toggleFavourite(venue)}>
                                   <img
-                                    src={save}
+                                    src={venue.favourite ? HeartFilled : likeIcon}
                                     alt="save"
-                                    style={{
-                                      filter: venue.favourite
-                                        ? "invert(40%) sepia(100%) saturate(5000%) hue-rotate(340deg)"
-                                        : "none",
-                                      cursor: "pointer",
-                                    }}
+                                    style={{ cursor: "pointer" }}
                                   />
                                 </div>
 
@@ -466,14 +465,9 @@ function VenuePage() {
 
                                 <div className="save_btn" onClick={() => toggleFavourite(venue)}>
                                   <img
-                                    src={save}
+                                    src={venue.favourite ? HeartFilled : likeIcon}
                                     alt="save"
-                                    style={{
-                                      filter: venue.favourite
-                                        ? "invert(40%) sepia(100%) saturate(5000%) hue-rotate(340deg)"
-                                        : "none",
-                                      cursor: "pointer",
-                                    }}
+                                    style={{ cursor: "pointer" }}
                                   />
                                 </div>
 

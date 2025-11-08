@@ -11,6 +11,7 @@ import bookrun from "../../assets/bookrun/bookrun.png";
 import map from "../../assets/playhost/map.svg";
 import date from "../../assets/playhost/date.svg";
 import likeIcon from "../../assets/icons/like.svg";
+import HeartFilled from "../../assets/VenueCardLogo/heartfilled.png"
 import shareIcon from "../../assets/icons/share.svg";
 import star from "../../assets/icons/star-white.svg";
 import bookrunn from '../../assets/bookrun/bookrun.png'
@@ -311,13 +312,10 @@ export default function RunFilterPage() {
                         <div className="card_icons">
                           <img
                             className="like"
-                            src={likeIcon}
+                            src={event.favourite ? HeartFilled : likeIcon}
                             alt="like"
                             onClick={() => toggleFavourite(event)}
-                            style={{
-                              filter: event.favourite ? "invert(40%) sepia(100%) saturate(5000%) hue-rotate(340deg)" : "none",
-                              cursor: "pointer",
-                            }}
+                            style={{ cursor: "pointer" }}
                           />
                           <img
                             className="share"

@@ -41,19 +41,19 @@ function FilterThree({
         setSelectedDate={setSelectedDate}
       /> */}
 
-      {/* ✅ Price Filter */}
+     
       <PriceSlider
         priceRange={priceRange}
         setPriceRange={setPriceRange}
       />
 
-      {/* ✅ Amenities Filter */}
+     
       <Amenities
         selectedAmenities={selectedAmenities}
         setSelectedAmenities={setSelectedAmenities}
       />
 
-      {/* ✅ Coach Available Filter */}
+     
       <CoachAvailable
         coachAvailable={coachAvailable}
         setCoachAvailable={setCoachAvailable}

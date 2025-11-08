@@ -3,6 +3,7 @@ import { Container, Row, Col, Card } from "react-bootstrap";
 import ".//StyleSheets/BookRun.css";
 import star from "../assets/images/home/bookvenues/star.svg";
 import likeIcon from "../assets/images/home/bookvenues/like.svg";
+import HeartFilled from "../features/withoutauth/assets/VenueCardLogo/heartfilled.png"
 import shareIcon from "../assets/images/home/bookvenues/share.svg";
 import dateIcon from "../assets/images/home/bookrun/date.svg";
 import mapIcon from "../assets/images/home/bookrun/map.svg";
@@ -54,7 +55,7 @@ function BookRun() {
     const eventId = event.id;
 
     if (!auth || !auth?.id) {
-      alert("Please login first to like or unlike a venue.");
+      alert("Please login first to like or unlike a run.");
       return;
     }
 
@@ -133,15 +134,10 @@ function BookRun() {
                 <div className="card_icons">
                   <img
                     className="like"
-                    src={likeIcon}
+                    src={evt.favourite ? HeartFilled : likeIcon}
                     alt="like"
                     onClick={() => toggleFavourite(evt)}
-                    style={{
-                      filter: evt.favourite
-                        ? "invert(40%) sepia(100%) saturate(5000%) hue-rotate(340deg)"
-                        : "none",
-                      cursor: "pointer",
-                    }}
+                    style={{ cursor: "pointer" }}
                   />
                   <img
                     className="share"
@@ -250,9 +246,9 @@ function BookRun() {
                     <Link to={`/Run/${evt.id}`}>Join Now</Link>
                   </div>
                   <div className="rating_box position-absolute d-flex align-items-center">
-                    <img src={star}  alt="" />
+                    <img src={star} alt="" />
                     <span>
-                      
+
                       {evt.average_rating || "0.0"}  (
                       {evt.review_count || 0})
                     </span>

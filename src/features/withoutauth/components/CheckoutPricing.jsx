@@ -144,6 +144,12 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFina
     setFinalAmount(totalAmount);
   }, [setFinalAmount, totalAmount]);
 
+
+  useEffect(() => {
+    setDiscount(null);
+    setCouponDetails("");
+  }, [totalPrice]);
+
   return (
     <Card className="mb-3 border-0">
       <Card.Body className="p-0">
