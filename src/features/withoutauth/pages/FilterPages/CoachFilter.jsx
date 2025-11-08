@@ -385,16 +385,11 @@ export default function CoachFilterPage() {
                             </span>
                           </div>
                         </div> */}
-                        <div className="card_icons">
+                        <div className="card_icons_box">
                           <button
                             onClick={() => toggleCoachFavourite(coach)}
                             className="like-btn"
-                            style={{
-                              background: "none",
-                              border: "none",
-                              cursor: "pointer",
-                              padding: 0,
-                            }}
+                            
                           >
                             <img
                               className="like"
@@ -403,17 +398,19 @@ export default function CoachFilterPage() {
                             />
                           </button>
 
-                          <a>
+                          <button>
                             <img className="share" src={share} alt="share" onClick={() => handleShareClick(coach)} />
-                          </a>
+                          </button>
 
-                          <div className="reating">
+                         
+                        </div>
+                         <div className="rate position-absolute d-flex align-items-center">
+                            <img  src={star} alt="" />
                             <span>
-                              <img className="me-2" src={star} alt="" />
+                              
                               {coach.rating} ({coach.ratingCount})
                             </span>
                           </div>
-                        </div>
 
 
                         <div className="trainerbox">

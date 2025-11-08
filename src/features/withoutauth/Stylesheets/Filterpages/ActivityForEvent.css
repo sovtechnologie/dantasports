@@ -1,9 +1,9 @@
 /* 🌟 Main Container */
 .filter_inner_cards {
-  background: #fff;
-  border-radius: 16px;
-  padding: 15px;
-  margin-bottom: 24px;
+      border: 0.81px solid #CDCDCD;
+    border-radius: 7.74px;
+    padding: 12px 8px;
+    margin: 20px 0;
 }
 
 /* 🏷️ Title */

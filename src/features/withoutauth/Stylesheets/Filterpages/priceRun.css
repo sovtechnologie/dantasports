@@ -1,0 +1,33 @@
+
+
+.price-values {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #9ca3af;
+  cursor: pointer;
+}
+
+.price-values span.active-price {
+  color: #1163c7;
+  font-weight: bold;
+}
+
+.price-slider {
+  width: 100%;
+  -webkit-appearance: none;
+  height: 6px;
+  border-radius: 5px;
+  background: #ccc;
+  outline: none;
+}
+
+.price-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  background: #1163c7;
+  cursor: pointer;
+}

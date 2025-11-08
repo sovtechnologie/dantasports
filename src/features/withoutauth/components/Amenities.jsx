@@ -44,15 +44,7 @@ function Amenities({ selectedAmenities = [], setSelectedAmenities }) {
                                 <div
                                     className={`inner ${isSelected ? "selected" : ""}`}
                                     onClick={() => handleAmenityClick(item.id)}
-                                    style={{
-                                        cursor: "pointer",
-                                        backgroundColor: isSelected ? "#e7f5ff" : "",
-                                        border: isSelected ? "1px solid #007bff" : "1px solid #ddd",
-                                        borderRadius: "8px",
-                                        textAlign: "center",
-                                        padding: "6px 4px",
-                                        margin: "2px",
-                                    }}
+                                    
                                 >
 
                                     <a>{item.amenities_name || item.name}</a>

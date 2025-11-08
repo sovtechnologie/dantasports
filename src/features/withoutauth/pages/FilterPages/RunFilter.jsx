@@ -24,6 +24,13 @@ import { useLikeEvent } from "../../../../hooks/favouriteEvent/useLikeEvent.js";
 import eventImage from "../../../withoutauth/assets/events/events1.png";
 import PageSearch from "../../components/PageSearch.jsx";
 import sortIcon from "../../assets/icons/sort.svg"
+import CustomDatePicker from "../../components/CustomDatePicker.jsx";
+import Difficulty from "../../components/Difficulty.jsx";
+import Amenities from "../../components/Amenities.jsx";
+import DistanceSlider from "../../components/DistanceSlider.jsx";
+import PriceSlider from "../../components/PriceSlider.jsx";
+import Kids from "../../components/Kids.jsx";
+import fliterIcon from "../../assets/icons/filter.svg"
 function formatTime(timeStr = "00:00") {
   if (!timeStr) return "";
   const [h, m, s] = timeStr.split(":").map(Number);
@@ -273,31 +280,74 @@ export default function RunFilterPage() {
                 }
               />
              <div className="mt-3">
-                <Filter
-                  selectedSports={selectedSports}
-                  setSelectedSports={setSelectedSports}
-                  selectedDate={selectedDate}
-                  setSelectedDate={setSelectedDate}
-                  selectedTime={selectedTime}
-                  setSelectedTime={setSelectedTime}
-                  searchTerm={search}
-                  setSearchTerm={setSearch}
-                  onReset={handleResetFilters}
-                  venues={runList}
-                  setFilteredVenues={setFilteredRuns}
-                  selectedAmenities={selectedAmenities}
-                  setSelectedAmenities={setSelectedAmenities}
-                />
+                <div className="filter_container">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h3 class="m-0">Filter</h3>
+                    <a href="" class="reset" type="button">Reset</a>
+                  </div>
+                    <CustomDatePicker/>
+                    <Difficulty/>
+                    <PriceSlider/>
+                    <Amenities/>
+                   <Kids/>
+                </div>
               </div>
-           
-
-             
             </Col>
 
             <Col className="d-lg-none  text-end mb-4">
-              <FliterModal />
-              {/* <SortModal /> */}
-              {/* <SortBy/> */}
+              
+              <div className="d-flex modal_wraper_mobile text-end justify-content-end ">
+                   <div
+                    class="modal fade"
+                    id="exampleModalToggle11"
+                    aria-hidden="true"
+                    aria-labelledby="exampleModalToggleLabel"
+                    tabindex="-1"
+                  >
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                     
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body">
+                     <div className="filter_container">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h3 class="m-0">Filter</h3>
+                    <a href="" class="reset" type="button">Reset</a>
+                  </div>
+                    <CustomDatePicker/>
+                    <Difficulty/>
+                    <PriceSlider/>
+                    <Amenities/>
+                   <Kids/>
+                </div>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+              <div
+                class="modal fade"
+                id="exampleModalToggle2"
+                aria-hidden="true"
+                aria-labelledby="exampleModalToggleLabel2"
+                tabindex="-1"
+              >
+                
+              </div>
+
+              <button class="btn_mobile"
+                data-bs-toggle="modal"
+                href="#exampleModalToggle11"
+                role="button">
+                <img src={fliterIcon} alt="" />
+              </button >
               <div
                 class="modal fade"
                 id="exampleModalToggle"
@@ -339,6 +389,8 @@ export default function RunFilterPage() {
                 role="button">
                 <img src={sortIcon} alt="" />
               </button >
+              </div>
+              
              
             </Col>
 

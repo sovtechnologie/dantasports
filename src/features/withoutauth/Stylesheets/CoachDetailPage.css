@@ -1,20 +1,7 @@
 
 
-.Coach-main-header {
- background-color: #ffffff;
-  margin-bottom: 25px;
-  padding: 30px;
-  border-bottom-left-radius: 50px;
-  border-bottom-left-radius: clamp(30px, 11.3636vw, 50px);
-  border-bottom-right-radius: clamp(30px, 11.3636vw, 50px);
-}
 
-.breadcrumb {
-  font-size: 16px;
-  font-weight: 500;
-  color: #6b7280;
-  font-family: "DM Sans", Arial, sans-serif;
-}
+
 
 .coachpage-name {
   color: #000000;

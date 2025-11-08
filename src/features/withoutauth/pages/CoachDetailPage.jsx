@@ -2,6 +2,8 @@ import "../Stylesheets/CoachDetailPage.css";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import RunImage from "../assets/RunImage.svg";
+import ShareIcon from "../assets/VenueDetailIcon/share.svg";
+import LikeIcon from "../assets/VenueDetailIcon/linke.svg";
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -147,21 +149,24 @@ export default function CoachDetailPage() {
     return (
         <>
             <section style={{ background: "#F1F3F2" }} className="pb-3 pb-lg-5">
-                <Container>
-                    <div className='Coach-main-header'>
+                <section className="details_page_header">
+                    <div className="container">
+                        <div className='Coach-main-header'>
                         <div className="breadcrumb">
                             <span>Coach &gt; {coach?.location} &gt; {coach?.name}</span>
                         </div>
 
                         <h1 className="coachpage-name">{coach?.name}</h1>
-                        <div className="coach-location-rating">
+                        <div className="location-rating">
                             <span>{coach?.location}</span>
                             <span className="star" style={{ marginLeft: "20px" }}>★</span> <span className="light-text" style={{ marginLeft: "5px" }}>{Math.floor(coach.rating)} ({coach?.reviewcount} ratings)</span>
+                            <span className="ps-2 text_blue"><a href="">Coach Rate</a></span>
 
                         </div>
                     </div>
-
-
+                    </div>
+                </section>
+                <Container>
                     <div className="coach-details-container">
                         <div className="coach-wrapper row">
 
@@ -182,6 +187,20 @@ export default function CoachDetailPage() {
                                         modules={[Autoplay, Pagination,]}
                                         className="mySwiper"
                                     >
+                                        <div className="venue-icon-topwrapper">
+                                            <button className="venue-icon-btns">
+                                                <img src={ShareIcon} alt="share" />
+                                            </button>
+
+                                            <button className="venue-icon-btns">
+                                                <img
+                                                src={LikeIcon}
+                                                alt="like"
+                                                className="like-icon"
+                                                />
+                                            </button>
+                                            </div>
+
                                         {coach?.images?.map((img, index) => (
                                             <SwiperSlide key={index} className="coach-swiperslide">
                                                 <img src={img} alt={`coach-image-${index}`} className="coach-swiperslide-img" />

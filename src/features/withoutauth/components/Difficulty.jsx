@@ -14,7 +14,7 @@ function Difficulty({ selectedDifficulty, setSelectedDifficulty }) {
     return (
         <>
             <h2 className="mt-3 text-start">Difficulty</h2>
-            <div className="filter_inner_cards">
+            <div className="filter_inner_cards kids_check_box">
                 <div className="d-flex justify-content-between align-items-center mb-2">
                     <label className="form-check-label">Easy</label>
                     <input
