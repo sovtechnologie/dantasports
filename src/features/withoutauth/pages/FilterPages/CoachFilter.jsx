@@ -358,7 +358,6 @@ export default function CoachFilterPage() {
                   formattedCoachList.map((coach) => (
                     <div className="col-lg-4 position-relative" key={coach.id}>
 
-
                       <Card>
 
                         <div className="card_img">
