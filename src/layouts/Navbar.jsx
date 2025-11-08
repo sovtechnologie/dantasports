@@ -30,7 +30,7 @@ function Navbar() {
   const [service, setService] = useState(null);
   const inputRef = useRef(null);
 
-  console.log(location.pathname,"testing");
+  console.log(location.pathname, "testing");
 
   const handleClick = () => {
     const url = isAndroid
@@ -111,9 +111,9 @@ function Navbar() {
             cityName = localityComp
               ? localityComp.long_name
               : // fallback: use administrative_area_level_2 or formatted_address
-                place.address_components.find((comp) =>
-                  comp.types.includes("administrative_area_level_2")
-                )?.long_name || place.formatted_address;
+              place.address_components.find((comp) =>
+                comp.types.includes("administrative_area_level_2")
+              )?.long_name || place.formatted_address;
           }
           setSearchTerm(cityName); // Set only the city name in input box
           setPredictions([]);
@@ -134,104 +134,107 @@ function Navbar() {
   }, [location.pathname]);
 
 
-  
-  
+
+
   return (
-    <nav  id="box_shadow" className={`navbar ${isHome ? "home" : ""}`}  style={{
-    position: "sticky",
-    top: 0,
-    zIndex: 1000,
-    background: "#1163c7"
-    // border: "1p",
-  }}>
-      <div className="container nav_container"    style={{
-        border: isHome ? "1px solid #fff" : "none",
-        backgroundColor: isHome ? "rgba(255, 255, 255, 0.15)" : "transparent",
-      }}>
-        <Link to="/" className="navbar-brand">
-          <img
-            src={isHome ? whiteLogo : whiteLogo}
-            alt="Danta Sport Logo"
-            className="navbar-logo"
-          />
-        </Link>
-        <div
-          className="hamburger"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          {mobileMenuOpen ? <FaTimes /> : <FaBars />}
-        </div>
 
-        {/* WRAP the nav and user icon in a collapsible container */}
-        <div className={`navbar-actions ${mobileMenuOpen ? "active" : ""}`}>
-          {isHome ? (
-            <>
-              <div className="nav-Filter-wrapper">
-                <Link
-                  to="/venue"
-                  onClick={handleNavLinkClick}
-                  className={`nav-Filter-links ${isActive("/venue") ? "active-link" : ""}`}
-                >
-                  Turf
-                </Link>
+    <>
+      <section className="navbar_section">
+        <nav id="box_shadow" className={`navbar ${isHome ? "home" : ""}`} style={{
+          position: "sticky",
+          top: 0,
+          zIndex: 1000,
+          background: "#1163c7"
+          // border: "1p",
+        }}>
+          <div className="container nav_container" style={{
+            border: isHome ? "1px solid #fff" : "none",
+            backgroundColor: isHome ? "rgba(255, 255, 255, 0.15)" : "transparent",
+          }}>
+            <Link to="/" className="navbar-brand">
+              <img
+                src={isHome ? whiteLogo : whiteLogo}
+                alt="Danta Sport Logo"
+                className="navbar-logo"
+              />
+            </Link>
+            <div
+              className="hamburger"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? <FaTimes /> : <FaBars />}
+            </div>
 
-                <Link
-                  to="/Host"
-                  onClick={handleNavLinkClick}
-                  className={`nav-Filter-links ${isActive("/CommingSoon") ? "active-link" : ""}`}
-                >
-                  Play
-                </Link>
-                <Link
-                  to="/Run"
-                  onClick={handleNavLinkClick}
-                  className={`nav-Filter-links ${isActive("/Run") ? "active-link" : ""}`}
-                >
-                  Run
-                </Link>
-                <Link
-                  to="/Coach"
-                  onClick={handleNavLinkClick}
-                  className={`nav-Filter-links ${isActive("/Coach") ? "active-link" : ""}`}
-                >
-                  Coach
-                </Link>
-                <Link
-                  to="/Events"
-                  onClick={handleNavLinkClick}
-                  className={`nav-Filter-links ${isActive("/Events") ? "active-link" : ""}`}
-                >
-                  Events
-                </Link>
-                <Link
-                  to="/Gym"
-                  onClick={handleNavLinkClick}
-                  className={`nav-Filter-links ${isActive("/Gym") ? "active-link" : ""}`}
-                >
-                  Gym
-                </Link>
-              </div>
-              {/* <div className='nav-Filter-wrapper'>
+            {/* WRAP the nav and user icon in a collapsible container */}
+            <div className={`navbar-actions ${mobileMenuOpen ? "active" : ""}`}>
+              {isHome ? (
+                <>
+                  <div className="nav-Filter-wrapper">
+                    <Link
+                      to="/venue"
+                      onClick={handleNavLinkClick}
+                      className={`nav-Filter-links ${isActive("/venue") ? "active-link" : ""}`}
+                    >
+                      Turf
+                    </Link>
+
+                    <Link
+                      to="/Host"
+                      onClick={handleNavLinkClick}
+                      className={`nav-Filter-links ${isActive("/CommingSoon") ? "active-link" : ""}`}
+                    >
+                      Play
+                    </Link>
+                    <Link
+                      to="/Run"
+                      onClick={handleNavLinkClick}
+                      className={`nav-Filter-links ${isActive("/Run") ? "active-link" : ""}`}
+                    >
+                      Run
+                    </Link>
+                    <Link
+                      to="/Coach"
+                      onClick={handleNavLinkClick}
+                      className={`nav-Filter-links ${isActive("/Coach") ? "active-link" : ""}`}
+                    >
+                      Coach
+                    </Link>
+                    <Link
+                      to="/Events"
+                      onClick={handleNavLinkClick}
+                      className={`nav-Filter-links ${isActive("/Events") ? "active-link" : ""}`}
+                    >
+                      Events
+                    </Link>
+                    <Link
+                      to="/Gym"
+                      onClick={handleNavLinkClick}
+                      className={`nav-Filter-links ${isActive("/Gym") ? "active-link" : ""}`}
+                    >
+                      Gym
+                    </Link>
+                  </div>
+                  {/* <div className='nav-Filter-wrapper'>
                 <Link to="/Host" onClick={handleNavLinkClick} className={`nav-Filter-link ${isActive('/CommingSoon') ? 'active-link' : ''}`}>Host/Play</Link>
                 <Link to="/Run" onClick={handleNavLinkClick} className={`nav-Filter-link ${isActive('/Run') ? 'active-link' : ''}`}>Run</Link>
                 <Link to="/Coach" onClick={handleNavLinkClick} className={`nav-Filter-link ${isActive('/Coach') ? 'active-link' : ''}`}>Coach</Link>
                 <Link to="/Events" onClick={handleNavLinkClick} className={`nav-Filter-link ${isActive('/Events') ? 'active-link' : ''}`}>Events</Link>
                 <Link to="/Gym" onClick={handleNavLinkClick} className={`nav-Filter-link ${isActive('/Gym') ? 'active-link' : ''}`}>Gym</Link>
               </div> */}
-              <button className="app-btn" onClick={handleClick}>
-                Get the App
-                <img
-                  src={arrowlogo}
-                  width={25}
-                  style={{ verticalAlign: "middle" }}
-                  alt="Arrow"
-                />
-              </button>
-            </>
-          ) : (
-            <>
-              <div className="nav-Filter-wrapper">
-                {/* <div className="location-search-container">
+                  <button className="app-btn" onClick={handleClick}>
+                    Get the App
+                    <img
+                      src={arrowlogo}
+                      width={25}
+                      style={{ verticalAlign: "middle" }}
+                      alt="Arrow"
+                    />
+                  </button>
+                </>
+              ) : (
+                <>
+                  <div className="nav-Filter-wrapper">
+                    {/* <div className="location-search-container">
                   <input
                     type="text"
                     placeholder="Search by location"
@@ -283,111 +286,114 @@ function Navbar() {
                   )}
                 </div> */}
 
-                <Link
-                  to="/venue"
-                  className={`nav-Filter-link ${isActive("/venue") ? "active-link" : ""}`}
-                >
-                  Turf
-                </Link>
-
-                <Link
-                  to="/Host"
-                  className={`nav-Filter-link ${isActive("/Host") ? "active-link" : ""}`}
-                >
-                  Play
-                </Link>
-                <Link
-                  to="/Run"
-                  className={`nav-Filter-link ${isActive("/Run") ? "active-link" : ""}`}
-                >
-                  Run
-                </Link>
-                <Link
-                  to="/Coach"
-                  className={`nav-Filter-link ${isActive("/Coach") ? "active-link" : ""}`}
-                >
-                  Coach
-                </Link>
-                <Link
-                  to="/Events"
-                  className={`nav-Filter-link ${isActive("/Events") ? "active-link" : ""}`}
-                >
-                  Events
-                </Link>
-                <Link
-                  to="/Gym"
-                  className={`nav-Filter-link ${isActive("/Gym") ? "active-link" : ""}`}
-                >
-                  Gym
-                </Link>
-                <div className="location-search-container">
-                  <input
-                    type="text"
-                    placeholder="Search by location"
-                    className="location_Search_Input"
-                    value={searchTerm}
-                    onChange={handleInput}
-                    ref={inputRef}
-                  />
-                  <img src={locationlogo} alt="locationlogo" />
-                  {predictions.length > 0 && (
-                    <ul
-                      style={{
-                        position: "absolute",
-                        top: "100%",
-                        left: 0,
-                        right: 0,
-                        background: "#fff",
-                        border: "1px solid #ccc",
-                        borderTop: "none",
-                        listStyle: "none",
-                        margin: 0,
-                        padding: 0,
-                        maxHeight: "200px",
-                        overflowY: "auto",
-                        zIndex: 999,
-                      }}
+                    <Link
+                      to="/venue"
+                      className={`nav-Filter-link ${isActive("/venue") ? "active-link" : ""}`}
                     >
-                      {predictions.map((p) => (
-                        <li
-                          key={p.place_id}
-                          onClick={() => handleSelect(p)}
-                          style={{
-                            padding: "8px",
-                            cursor: "pointer",
-                            borderBottom: "1px solid #eee",
-                            color: "#333",
-                          }}
-                          onMouseEnter={(e) =>
-                            (e.target.style.background = "#f0f0f0")
-                          }
-                          onMouseLeave={(e) =>
-                            (e.target.style.background = "transparent")
-                          }
-                        >
-                          {p.description}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              </div>
-            </>
-          )}
+                      Turf
+                    </Link>
 
-          <Link
-            to={userId && token ? `/profile/${userId}` : "#"}
-            className="user-icon"
-            onClick={handleProfileClick}
-          >
-            <img src={userLogo} alt="User Profile" />
-          </Link>
-        </div>
-      </div>
-      {showLoginModal && (
-        <LoginModal onClose={() => setShowLoginModal(false)} />
-      )}
-    </nav>
+                    <Link
+                      to="/Host"
+                      className={`nav-Filter-link ${isActive("/Host") ? "active-link" : ""}`}
+                    >
+                      Play
+                    </Link>
+                    <Link
+                      to="/Run"
+                      className={`nav-Filter-link ${isActive("/Run") ? "active-link" : ""}`}
+                    >
+                      Run
+                    </Link>
+                    <Link
+                      to="/Coach"
+                      className={`nav-Filter-link ${isActive("/Coach") ? "active-link" : ""}`}
+                    >
+                      Coach
+                    </Link>
+                    <Link
+                      to="/Events"
+                      className={`nav-Filter-link ${isActive("/Events") ? "active-link" : ""}`}
+                    >
+                      Events
+                    </Link>
+                    <Link
+                      to="/Gym"
+                      className={`nav-Filter-link ${isActive("/Gym") ? "active-link" : ""}`}
+                    >
+                      Gym
+                    </Link>
+                    <div className="location-search-container">
+                      <input
+                        type="text"
+                        placeholder="Search by location"
+                        className="location_Search_Input"
+                        value={searchTerm}
+                        onChange={handleInput}
+                        ref={inputRef}
+                      />
+                      <img src={locationlogo} alt="locationlogo" />
+                      {predictions.length > 0 && (
+                        <ul
+                          style={{
+                            position: "absolute",
+                            top: "100%",
+                            left: 0,
+                            right: 0,
+                            background: "#fff",
+                            border: "1px solid #ccc",
+                            borderTop: "none",
+                            listStyle: "none",
+                            margin: 0,
+                            padding: 0,
+                            maxHeight: "200px",
+                            overflowY: "auto",
+                            zIndex: 999,
+                          }}
+                        >
+                          {predictions.map((p) => (
+                            <li
+                              key={p.place_id}
+                              onClick={() => handleSelect(p)}
+                              style={{
+                                padding: "8px",
+                                cursor: "pointer",
+                                borderBottom: "1px solid #eee",
+                                color: "#333",
+                              }}
+                              onMouseEnter={(e) =>
+                                (e.target.style.background = "#f0f0f0")
+                              }
+                              onMouseLeave={(e) =>
+                                (e.target.style.background = "transparent")
+                              }
+                            >
+                              {p.description}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
+                </>
+              )}
+
+              <Link
+                to={userId && token ? `/profile/${userId}` : "#"}
+                className="user-icon"
+                onClick={handleProfileClick}
+              >
+                <img src={userLogo} alt="User Profile" />
+              </Link>
+            </div>
+          </div>
+          {showLoginModal && (
+            <LoginModal onClose={() => setShowLoginModal(false)} />
+          )}
+        </nav>
+      </section>
+    </>
+
   );
 }
 

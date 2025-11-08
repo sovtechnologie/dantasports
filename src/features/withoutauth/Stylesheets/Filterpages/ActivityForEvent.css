@@ -2,17 +2,17 @@
 .filter_inner_cards {
   background: #fff;
   border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  padding: 15px;
   margin-bottom: 24px;
 }
 
 /* 🏷️ Title */
-.event-activity-title {
-  font-size: 20px;
+.event-seach_icons h2 {
+  font-size: 14.56px !important;
   font-weight: 600;
-  color: #222;
+  color: #172A39 !important;
   margin-bottom: 16px;
+  font-family: 'lato';
 }
 
 /* 🔍 Search Box */
@@ -23,7 +23,7 @@
 
 .event-search-box input {
   width: 100%;
-  padding: 10px 40px 10px 14px;
+  padding: 10px 10px 10px 40px;
   font-size: 15px;
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -40,7 +40,7 @@
 
 .event-seach_icons {
   position: absolute;
-  right: 12px;
+  left: 10px;
   top: 50%;
   transform: translateY(-50%);
   width: 20px;

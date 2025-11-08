@@ -122,7 +122,7 @@ export default function BookVenues() {
 
         <Row className="g-3">
           {venueList.slice(0, 4).map((venue) => (
-            <Col lg={3} md={6} sm={6} key={venue.id}>
+            <Col xl={3} lg={4} md={6} sm={6} key={venue.id}>
               <Card className="custm_height_card">
                 <div className="card_img">
                   <img

@@ -228,13 +228,7 @@ function VenueDetailsPage() {
     convenienceFee = response?.convenience_fee;
   }, [response]);
 
-  // create payments
-  // const {
-  //     mutate: createPayment,
-  //     data: paymentResponse,
-  //     isLoading: paymentLoading,
-  //     isError: paymentError
-  // } = useCreatePayment();
+
 
   const { mutate: CreateBookingPayment, isLoading: paymentLoading } =
     useCreateBookingPayment();
@@ -333,7 +327,7 @@ function VenueDetailsPage() {
                 <span className="light-text">
                   {Math.floor(venue.rating)}  ({venue.reviewcount} ratings)
                 </span>
-                <span className="ps-2 text_blue"><a href="#">Rate Gym</a></span>
+                <span className="ps-2 text_blue"><a href="#">Rate Turf</a></span>
               </div>
             </div>
           </div>
@@ -362,9 +356,7 @@ function VenueDetailsPage() {
                     modules={[Autoplay, Pagination]}
                     className="mySwiper"
                   >
-                    {venue?.images?.map((img, index) => (
-                      <SwiperSlide key={index} className="venue-swiperslide">
-                        <div className="venue-icon-topwrapper">
+                    <div className="venue-icon-topwrapper">
                           <button className="venue-icon-btns" onClick={Share}>
                             <img src={ShareIcon} alt="share" className="" />
                           </button>
@@ -380,6 +372,9 @@ function VenueDetailsPage() {
                             />
                           </button>
                         </div>
+                    {venue?.images?.map((img, index) => (
+                      <SwiperSlide key={index} className="venue-swiperslide">
+                        
                         <img
                           src={img}
                           alt={`event-image-${index}`}
@@ -392,23 +387,25 @@ function VenueDetailsPage() {
 
                 <div className="section">
                   <div className="sports-wrapper">
-                    <div className="sports-header">About Venue</div>
+                    <div className="sports-header">
+                      <h2>About Venue</h2>
+                    </div>
                     <div className="event-description">{venue.about}</div>
                   </div>
                 </div>
                 <div className="section">
                   <div className="sports-wrapper">
-                    <div className="sports-header">Amenities</div>
+                    <div className="sports-header">
+                      <h2>Amenities</h2>
+                    </div>
                     <div className="amenities-tags">
                       {venue.amenities.map((item) => (
                         <span className="amenities-tag" key={item}>
-                          {/* <span className="check-icon"> */}
                           <img
                             src={checkoutIcon}
                             alt="check"
                             className="amt-img"
                           />
-                          {/* </span> */}
                           <span className="check-label">{item}</span>
                         </span>
                       ))}
@@ -475,7 +472,7 @@ function VenueDetailsPage() {
                         <div>
                           <button
                             type="button"
-                            class="btn"
+                            class="border-0 bg-white"
                             data-bs-toggle="modal"
                             data-bs-target="#RulesRegulations"
                           >
@@ -520,7 +517,7 @@ function VenueDetailsPage() {
                         <div>
                           <button
                             type="button"
-                            class="btn"
+                            class="border-0 bg-white"
                             data-bs-toggle="modal"
                             data-bs-target="#CancellationPolicy"
                           >

@@ -119,7 +119,7 @@ function BookGym() {
               );
 
             return (
-              <Col lg={3} md={6} sm={6} key={gym.id}>
+              <Col xl={3} lg={4} md={6} sm={6} key={gym.id}>
                 <Card>
                   <div className="card_img">
                     <img

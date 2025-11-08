@@ -124,9 +124,9 @@ function BookCoach() {
             <p>Loading...</p>
           ) : coachList.length > 0 ? (
             coachList.map((coach) => (
-              <Col lg={3} md={6} sm={6} key={coach.id}>
+              <Col xl={3} lg={4} md={6} sm={6} key={coach.id}>
                 <div className="card border-0 position-relative ">
-                  <div className="card_img">
+                  <div className="card_img position-relative">
                     <img
                       src={
                         coach.desktop_image ||

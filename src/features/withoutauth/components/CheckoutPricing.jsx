@@ -151,8 +151,8 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFina
   }, [totalPrice]);
 
   return (
-    <Card className="mb-3 border-0">
-      <Card.Body className="p-0">
+    <div className="mb-3">
+      <div>
         <h3 className="details_page_titles">Price details</h3>
 
         {/* Passes Price */}
@@ -213,7 +213,7 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFina
               Apply coupon
             </div>
             <div>
-              <button className="btn pe-0" onClick={() => setIsCouponModalOpen(true)}>
+              <button className="border-0 bg-white" onClick={() => setIsCouponModalOpen(true)}>
                 <span><img src={arrow} alt="" /></span>
 
               </button>
@@ -228,7 +228,7 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFina
           <Col className="total_amount pt-3">Total amount</Col>
           <Col className="text-end total_price pt-3">₹{totalAmount}</Col>
         </Row>
-      </Card.Body>
+      </div>
 
       {/* Coupon Modal */}
       <CouponModal
@@ -248,7 +248,7 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFina
           setIsCouponModalOpen(false); // <-- CLOSE MODAL HERE
         }}
       />
-    </Card>
+    </div>
   );
 };
 

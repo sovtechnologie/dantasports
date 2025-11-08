@@ -236,8 +236,9 @@ export default function EventDetailPage() {
   return (
     <>
       <section style={{ background: "#f1f3f2" }} className="pb-lg-5 pb-3">
-        <Container>
-          <div className="Event-main-header">
+
+        <section className="details_page_header">
+          <div className="container">
             <div className="breadcrumb">
               <span>
                 Run &gt; {event.location} &gt; {event.name}
@@ -259,6 +260,9 @@ export default function EventDetailPage() {
               <span>({event?.reviewcount} ratings)</span>
             </div>
           </div>
+        </section>
+        <Container>
+          
 
           <div className="event-details-container">
             <div className="event-wrapper row">
@@ -291,13 +295,13 @@ export default function EventDetailPage() {
                 </div>
 
                 <div className="event-section">
-                  <div className="event-heading">
-                    <strong>About the Event</strong>
+                  <div className="sports-header">
+                    <h2>About the Event</h2>
                   </div>
                   <div className="event-description">
                     {expandedSection === "about"
                       ? event?.about
-                      : `${event?.about?.substring(0, 100)}...`}
+                      : `${event?.about?.substring(0, 230)}...`}
                   </div>
                   <button
                     onClick={() => toggleSection("about")}
@@ -308,8 +312,8 @@ export default function EventDetailPage() {
                 </div>
 
                 <div className="event-section">
-                  <div className="event-heading">
-                    <strong>Event Guide</strong>
+                  <div className="sports-header">
+                      <h2>Event Guide</h2>
                   </div>
                   <div className="event-guide-content">
                     <div className="guide-item">
@@ -517,7 +521,7 @@ export default function EventDetailPage() {
               <div className="event-right col-lg-4">
                 <div className="event-right-section">
                   <div className="event-heading">
-                    <strong>Location</strong>
+                    <h3 className="details_page_titles">Location</h3>
                   </div>
                   <p>{event.address}</p>
                   <div className="venue-map">
@@ -530,7 +534,7 @@ export default function EventDetailPage() {
 
                 <div className="event-right-section">
                   <div className="event-heading">
-                    <strong>Meetup Point</strong>
+                    <h3 className="details_page_titles">Meetup Point</h3>
                   </div>
                   <div className="meetup-time-dropdown">
                     <select
@@ -549,7 +553,7 @@ export default function EventDetailPage() {
 
                 <div className="event-right-section">
                   <div className="event-heading">
-                    <strong>Select Date:</strong>
+                    <h3 className="details_page_titles m-0">Select Date:</h3>
                   </div>
                   <EventCalandar
                     selectedDate={selectedDate}
@@ -561,7 +565,7 @@ export default function EventDetailPage() {
 
                 <div className="event-right-section">
                   <div className="event-heading">
-                    <strong>Choose Tickets :</strong>
+                    <h3 className="details_page_titles ">Choose Tickets:</h3>
                   </div>
                   <TicketSelector
                     tickets={EventPrice[0]?.tickets}
@@ -575,7 +579,7 @@ export default function EventDetailPage() {
                     <p
                       style={{
                         color: "red",
-                        fontSize: "12px",
+                        fontSize: "16px",
                         marginTop: "5px",
                       }}
                     >

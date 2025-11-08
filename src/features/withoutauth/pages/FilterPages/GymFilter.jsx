@@ -24,6 +24,8 @@ import date from "../../assets/icons/date.svg";
 import fallbackGymImg from "../../assets/bookgym/bookgym.png";
 import star from "../../assets/icons/star-white.svg"
 import PageSearch from "../../components/PageSearch.jsx";
+import sortIcon from "../../assets/icons/sort.svg";
+import filterIcon from "../../assets/icons/filter.svg";
 
 export default function GymFilterPage() {
   const userId = useSelector((state) => state.auth.id);
@@ -203,7 +205,7 @@ export default function GymFilterPage() {
       <PageSearch />
       <Container>
         <Row>
-          <Col lg={3} md={4} className="d-none d-lg-block d-md-block">
+          <Col xl={3} lg={4} md={12} className="d-none d-lg-block ">
             <SortBy
               sortBy={filters.sortBy}
               setSortBy={(value) =>
@@ -226,19 +228,112 @@ export default function GymFilterPage() {
 
           </Col>
 
-          <Col className="d-lg-none d-md-none text-end mb-4 d-flex justify-content-end">
-            <SortModal />
+          <Col className="d-lg-none  text-end mb-4 d-flex justify-content-end">
+            {/* <SortModal /> */}
             {/* <FilterModalThree /> */}
+            <div className="modal_wraper">
+                 <div
+                  class="modal fade mobile-filter-modal"
+                  id="mobileSortModal"
+                  aria-hidden="true"
+                  aria-labelledby="mobileFilter"
+                  tabindex="-1"
+                >
+                  <div class="modal-dialog modal-dialog-centered modal-bottom">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        {/* <SortBy /> */}
+                        {/* <p>Filter / Sort Options Here</p> */}
+                          <FilterThree
+                            // selectedDate={selectedDate}
+                            setSelectedDate={setSelectedDate}
+                            priceRange={priceRange}
+                            setPriceRange={setPriceRange}
+                            selectedAmenities={selectedAmenities}
+                            setSelectedAmenities={setSelectedAmenities}
+                            coachAvailable={coachAvailable}
+                            setCoachAvailable={setCoachAvailable}
+                          />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  class="btn_mobile"
+                  data-bs-toggle="modal"
+                  href="#mobileSortModal"
+                  role="button"
+                >
+                  <img src={filterIcon} alt="" />
+                </button>
+                <div
+                  class="modal fade"
+                  id="exampleModalToggle"
+                  aria-hidden="true"
+                  aria-labelledby="sortby"
+                  tabindex="-1"
+                >
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                         <SortBy
+                          sortBy={filters.sortBy}
+                          setSortBy={(value) =>
+                            setFilters((prev) => ({ ...prev, sortBy: value }))
+                          }
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="modal fade"
+                  id="exampleModalToggle2"
+                  aria-hidden="true"
+                  aria-labelledby="exampleModalToggleLabel2"
+                  tabindex="-1"
+                >
+                  
+                </div>
+
+                <button
+                  class="btn_mobile"
+                  data-bs-toggle="modal"
+                  href="#exampleModalToggle"
+                  role="button"
+                >
+                  <img src={sortIcon} alt="" />
+                </button>
+
+               
+              </div>
           </Col>
 
-          <Col lg={9} md={8}>
+          <Col xl={9} lg={8} md={12}>
             <div className="row g-3">
               {filteredGyms.length > 0 ? (
                 filteredGyms.map((gym) => {
                   const imageSrc = gym.desktop_image || gym.mobile_image || fallbackGymImg;
 
                   return (
-                    <div className="col-lg-4 col-md-6" key={gym.Id}>
+                    <div className="col-lg-6 col-md-6 col-xl-4" key={gym.Id}>
                       <Card className="card">
                         <div className="card_img">
                           <img src={imageSrc} alt="" className="w-100" />
@@ -270,8 +365,8 @@ export default function GymFilterPage() {
 
                         <div className="txt_wrapper">
                           <div className="card_txt">
-                            <h2>{gym.gym_name}</h2>
-                            <p>
+                            <h2 className="text_wrap card_heading">{gym.gym_name}</h2>
+                            <p className="sports_title_km">
                               {gym.city} {gym.state}  (~{gym.distance ? gym.distance.toFixed(1) : 0} Km)
                             </p>
                             {/* <p>
@@ -301,12 +396,12 @@ export default function GymFilterPage() {
                           </div> */}
 
                           <div className="d-flex justify-content-between no_off_users">
-                            <p className="up_to_offer mb-2"> {gym.coupon_type === "percentage" && gym.discount_offer
+                            <p className="up_to_offer m-0"> {gym.coupon_type === "percentage" && gym.discount_offer
                               ? `Upto ${parseFloat(gym.discount_offer)}% Off`
                               : gym.coupon_type === "flat" && gym.discount_offer
                                 ? `Upto ₹${parseFloat(gym.discount_offer)} Off`
                                 : ""}</p>
-                            <p className="onwards_rup mb-2">₹{gym.gym_price_slot && gym.gym_price_slot.length > 0
+                            <p className="onwards_rup m-0">₹{gym.gym_price_slot && gym.gym_price_slot.length > 0
                               ? gym.gym_price_slot.reduce((min, curr) =>
                                 curr.price < min.price ? curr : min
                               ).price

@@ -1,4 +1,9 @@
- .card_img {
+.card{
+
+  border-radius: 12px;
+}
+
+.card_img {
 
   overflow: hidden;
   height: 222px !important;
@@ -18,29 +23,4 @@
   transform: scale(1.1);
   transition: .3s ease-in-out;
     border-radius: 12px 12px 0 0;
-}
-
-
-/* .text_wrap {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: block;
-}
-
-.text_wrap {
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-} */
-
-@media screen and (max-width: 991px) {
-
-   .card_img {
-
-    height: unset !important;
-   }
-  
 }

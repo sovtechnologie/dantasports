@@ -116,7 +116,7 @@ function BookRun() {
         </div>
         <Row className="g-3">
           {visibleEvents.map((evt) => (
-            <Col lg={3} md={6} sm={6} key={evt.id}>
+            <Col xl={3} lg={4} md={6} sm={6} key={evt.id}>
               <Card>
                 <div className="card_img position-relative">
                   <img

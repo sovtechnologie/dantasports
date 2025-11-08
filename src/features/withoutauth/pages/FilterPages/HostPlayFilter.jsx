@@ -13,6 +13,7 @@ import calendarIcon from "../../assets/playhost/date.svg";
 import mapIcon from "../../assets/playhost/map.svg";
 import profilePlaceholder from "../../assets/playhost/user1.png";
 import PageSearch from "../../components/PageSearch";
+import sortIcon from "../../assets/icons/sort.svg"
 
 function formatTime(timeStr = "00:00") {
   const [h, m] = timeStr.split(":").map(Number);
@@ -22,6 +23,8 @@ function formatTime(timeStr = "00:00") {
 }
 
 export default function HostPlayFilterPage() {
+
+  const [showSort, setShowSort] = useState(false);
   const { lat, lng } = useSelector((state) => state.location);
 
   const [hostList, setHostList] = useState([]);
@@ -119,21 +122,81 @@ export default function HostPlayFilterPage() {
       <Container>
         <Row>
           {/* Left Sort Section */}
-          <Col lg={3} md={5} className="d-none d-lg-block d-md-block">
+          <Col lg={3} md={12} className="d-none d-lg-block ">
             <SortBy sortBy={sortBy} setSortBy={setSortBy} />
           </Col>
 
           {/* Mobile Sort Modal */}
-          <Col className="d-lg-none d-md-none text-end mb-4">
-            <SortModal sortBy={sortBy} setSortBy={setSortBy} />
+          <Col className="d-lg-none  text-end mb-4">
+            {/* <SortBy sortBy={sortBy} setSortBy={setSortBy} /> */}
+            {/* <button
+          className="border-0 bg-transparent"
+          onClick={() => setShowSort((prev) => !prev)}
+          aria-expanded={showSort}
+        >
+          <img src={sortIcon} alt="Sort" />
+        </button>
+
+        {showSort && (
+          <div className="mt-2">
+            <SortBy sortBy={sortBy} setSortBy={setSortBy} />
+          </div>
+        )} */}
+
+
+           <div className="modal_wraper">
+              <div
+                  class="modal fade"
+                  id="exampleModalToggle"
+                  aria-hidden="true"
+                  aria-labelledby="sortby"
+                  tabindex="-1"
+                >
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        <SortBy />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="modal fade"
+                  id="exampleModalToggle2"
+                  aria-hidden="true"
+                  aria-labelledby="exampleModalToggleLabel2"
+                  tabindex="-1"
+                ></div>
+
+                <button
+                  class="btn_mobile"
+                  data-bs-toggle="modal"
+                  href="#exampleModalToggle"
+                  role="button"
+                >
+                  <img src={sortIcon} alt="" />
+                </button>
+           </div>
+           
+
+
+
           </Col>
 
           {/* Host Cards Section */}
-          <Col lg={9} md={7}>
+          <Col lg={9} md={12}>
             <Row className="g-3">
               {visibleHosts.length > 0 ? (
                 visibleHosts.map((host) => (
-                  <Col lg={4} key={host.id}>
+                  <Col lg={6} xl={4} md={6} key={host.id}>
                     <Card className="card card_payhost">
                       <div className="badge_label mb-2">
                         <p>{ACTIVITY_TYPE_LABEL[host.activity_type] || "Regular"}</p>
@@ -194,7 +257,7 @@ export default function HostPlayFilterPage() {
                         </span>
                       </div>
 
-                      <div className="card_line"></div>
+                      <div className="card_line2"></div>
                       <div className="offer">
                         <a href="">Join Now</a>
                       </div>

@@ -24,6 +24,15 @@ a {
 
 }
 
+/* .container{
+
+  max-width: 1340px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+} */
+
+
+
 .section_title  h2 {
 
     font-family: 'Lato';
@@ -105,7 +114,7 @@ a {
 
 .card.modal_title {
 
-  padding: 20px 12px 20px 12px;
+  padding: 25px 12px;
   border: none !important;
   border-radius: 11px;
 }
@@ -117,7 +126,7 @@ a {
     font-family: 'Lato' !important;
     font-weight: 500 !important;
     font-size: 18px !important;
-    line-height: 21.67px !important;
+    line-height: 21px !important;
 
 
 }
@@ -242,7 +251,7 @@ a {
 .sport_icons {
 
 
-    height: 22px;
+  height: 22px;
   width: 22px;
   border: 0.5px solid #B1B1B1;
   display: flex;
@@ -326,7 +335,7 @@ a {
 .easy_run{
 
    position: absolute;
-    top: 39%;
+    top: 42%;
     left: 10px;
     background: #0000004D;
     color: white;
@@ -340,7 +349,7 @@ a {
 .easy2 {
 
     position: absolute;
-    top: 43%;
+    top: 42%;
     left: 10px;
     background: #0000004D;
     color: white;
@@ -367,24 +376,9 @@ a {
 }
 
 
-.details_page_titles {
 
-  color: #172A39 !important;
-  font-family: 'Lato' !important;
-  font-weight: 600 !important;
-  font-size: 18px !important;
-  line-height: 25.61px !important;
 
-}
 
-.details_page_header {
-
-      box-shadow: 0px 4px 4px 0px #1163C740;
-      border-radius: 0px 0px 40px 40px;
-      padding: 30px 0;
-      background-color: white;
-      margin-bottom: 30px;
-}
 
 button.btn_mobile {
     border: 1px solid #1163C7 !important;
@@ -412,21 +406,48 @@ color: #172A39;
 
 }
 
+
+/* Desktop */
+
+@media (min-width: 1920px) {
+  .container {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+}
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1320px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
 @media screen and (max-width: 767px) {
 
-  /* .card_img {
-    height: 150px !important;
-}
+   .card_img {
 
-.coach_section_home .trainerbox{
+    height: 180px !important;
+   }
+   .easy2{
 
-  top: 33%;
-}
+    top: 36%;
+   }
+   .coach_section_home .trainerbox{
 
-.easy2 {
+    top: 33%;
+   }
 
-  top: 31%;
-} */
+  .short_card {
+
+    border: none;
+    padding: 10px;
+  }
+
+
+
 
   .details_page_heading{
 
@@ -458,4 +479,18 @@ color: #172A39;
     width: 200px;
   }
   
+}
+
+@media screen and (max-width: 540px) {
+
+  
+  .card.modal_title{
+
+    padding: 15px 10px;
+  }
+
+  .card.modal_title .rule p{
+
+    font-size: 16px !important;
+  }
 }
