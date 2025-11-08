@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { useQueryClient } from "@tanstack/react-query";
 import { useFetchVenue } from "../hooks/VenueList/useFetchVenue";
 import { CardShimmer } from "../features/withoutauth/components/Shimmer/CardShimmer.jsx";
-
+import HeartFilled from "../features/withoutauth/assets/VenueCardLogo/heartfilled.png"
 import "./StyleSheets/BookVenues.css";
 import star from "../assets/images/home/bookvenues/star.svg";
 import likeIcon from "../assets/images/home/bookvenues/like.svg";
@@ -136,16 +136,12 @@ export default function BookVenues() {
                 <div className="card_icons">
                   <img
                     className="like"
-                    src={likeIcon}
+                    src={venue.favourite ? HeartFilled : likeIcon}
                     alt="like"
                     onClick={() => toggleFavourite(venue)}
-                    style={{
-                      filter: venue.favourite
-                        ? "invert(40%) sepia(100%) saturate(5000%) hue-rotate(340deg)"
-                        : "none",
-                      cursor: "pointer",
-                    }}
+                    style={{ cursor: "pointer" }}
                   />
+
                   <img
                     className="share"
                     src={shareIcon}
@@ -172,9 +168,9 @@ export default function BookVenues() {
                         : "0.0"}
                     </p>
                     <div className="rating_box position-absolute d-flex align-items-center">
-                       <img src={star} alt="" />
-                        <span>{venue.average_rating || "0.0"} ( {venue.review_count || 0})</span>
-                     
+                      <img src={star} alt="" />
+                      <span>{venue.average_rating || "0.0"} ( {venue.review_count || 0})</span>
+
                     </div>
                   </div>
 

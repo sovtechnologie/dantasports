@@ -173,6 +173,33 @@
   gap: 0.5rem;
 }
 
+.sport-card {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 10px;
+  background: #fff;
+  transition: 0.3s ease;
+}
+
+.sport-card.selected-sport {
+  border: 2px solid #1163C7; /* blue border when selected */
+  box-shadow: 0 0 8px rgba(17, 99, 199, 0.3);
+}
+
+.sport-card {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 10px;
+  background: #fff;
+  transition: 0.3s ease;
+}
+
+.sport-card.selected-sport {
+  border: 2px solid #1163C7;
+  box-shadow: 0 0 8px rgba(17, 99, 199, 0.3);
+}
+
+
 .venue-action-btn {
   display: flex;
   align-items: center;

@@ -163,6 +163,9 @@ const TimeSelector = ({
       0
     );
 
+
+
+
     if (bookingEnd > cutoff) {
       setErrorMessage('Selected time exceeds daily cutoff (11:00 PM)')
       setSelectedTime(null);
@@ -286,11 +289,11 @@ const TimeSelector = ({
           queryClient.invalidateQueries(["paymentDetails", bookingId]);
 
           console.log("Booking updated successfully:", data);
-          alert("Booking updated successfully!");
+          // alert("Booking updated successfully!");
         },
         onError: (error) => {
           console.error("Update failed:", error);
-          alert("Failed to update booking.");
+          // alert("Failed to update booking.");
         },
       });
     } else {

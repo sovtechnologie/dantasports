@@ -158,11 +158,16 @@ function VenueDetailsPage() {
 
   const banners = bannerData?.result || [];
 
+  useEffect(() => {
+    // setBookingId(null);
+    setTotalPrice(0);
+    setFinalAmount(0);
+  }, [selectedDate, selectedSport, selectedTime]);
+
   const handleSportClick = (sportId) => {
     setSelectedSportId(sportId);
   };
 
-  // get payment price detail
   const {
     data: BookingPriceDetails,
     error: BookingPriceError,
@@ -357,12 +362,13 @@ function VenueDetailsPage() {
                           </button>
                           <button
                             className="venue-icon-btns"
-                            onClick={() => handleClickLike(venue)}
+                          // onClick={() => handleClickLike(venue)}
                           >
                             <img
                               src={venue.favourite ? HeartFilled : LikeIcon}
                               alt="like"
                               className="like-icon"
+                              onClick={() => handleClickLike(venue)}
                             />
                           </button>
                         </div>
@@ -415,10 +421,24 @@ function VenueDetailsPage() {
                         (Click on sports to view price chart)
                       </span>
                     </div>
+                    {/* <div className="sports-grid satish">
+                      {venue?.sports?.map((sport) => (
+                        <button
+                          className={`sport-card ${selectedSportId === sport.sportId ? "selected-sport" : ""}`}
+                          key={sport.name}
+                          type="button"
+                          onClick={() => handleSportClick(sport?.sportId)}
+                        >
+                          <img src={sport.icon} alt={sport.name} />
+                          <p>{sport.name}</p>
+                        </button>
+                      ))}
+                    </div> */}
+
                     <div className="sports-grid satish">
                       {venue?.sports?.map((sport) => (
                         <button
-                          className="sport-card"
+                          className={`sport-card ${selectedSportId === sport.sportId ? "selected-sport" : ""}`}
                           key={sport.name}
                           type="button"
                           onClick={() => handleSportClick(sport?.sportId)}
@@ -428,14 +448,18 @@ function VenueDetailsPage() {
                         </button>
                       ))}
                     </div>
+
                   </div>
 
                   {/* PriceChart Model */}
 
-                  <PriceChart
-                    venueId={id}
-                    sportId={selectedSportId || venue?.sports[0]?.sportId}
-                  />
+                  {selectedSportId && (
+                    <PriceChart
+                      venueId={id}
+                      sportId={selectedSportId}
+                    />
+                  )}
+
                 </div>
                 <div class="row g-3 mt-3">
                   <div className="col-12 col-lg-6">

@@ -24,6 +24,8 @@ import PageSearch from "../components/PageSearch.jsx";
 import { useFilterVenue } from "../../../hooks/SortAndFilter/useFilterVenue.js";
 import sortIcon from "../../withoutauth/assets/icons/sort.svg";
 import filterIcon from "../../withoutauth/assets/icons/filter.svg";
+import HeartFilled from "../../withoutauth/assets/VenueCardLogo/heartfilled.png"
+import likeIcon from "../assets/icons/like.svg";
 
 function VenuePage() {
   const [showSort, setShowSort] = useState(false);
@@ -291,149 +293,62 @@ function VenuePage() {
             </Col>
 
             {/* Mobile Sort/Filter */}
-            <Col className="d-lg-none  text-end">
-              {/* <div className="d-flex text-end justify-content-end mb-3">
-                 
-                  <button  className=" border-0 "   onClick={() => {setFilterShow(!filterShow)
+            <Col className="d-lg-none d-md-none text-end">
+              <div className="d-flex text-end justify-content-end mb-3">
+
+                <button className=" border-0 " onClick={() => {
+                  setFilterShow(!filterShow)
                   setShowSort(false)
                 }}>
                   <img src={filterIcon} alt="" />
                 </button>
                 <button
-              className="border-0"
-              onClick={() => {setShowSort(prev => !prev)
-                setFilterShow(false)
-              }}
-              aria-expanded={showSort}
-            >
-              <img src={sortIcon} alt="" />
-                 </button>
-              </div> */}
-
-              {/* {
-              filterShow &&
-
-               <Filter 
-                sportsData={filteredSports}
-                selectedSports={selectedSports}
-                setSelectedSports={setSelectedSports}
-                selectedDate={selectedDate}
-                setSelectedDate={setSelectedDate}
-                selectedTime={selectedTime}
-                setSelectedTime={setSelectedTime}
-                sportSearch={sportSearch}
-                setSportSearch={setSportSearch}
-                searchTerm={searchTerm}
-                setSearchTerm={setSearchTerm}
-                setFilteredVenues={setFilteredVenues}
-                selectedAmenities={selectedAmenities}
-                setSelectedAmenities={setSelectedAmenities}
-
-              />
-            }
-            */}
-
-              {/* {showSort && (
-              <div className="mt-3">
-                <SortBy setSortBy={(value) => console.log("selected:", value)} />
-              </div>
-            )} */}
-
-              <div className="modal_wraper">
-                 <div
-                  class="modal fade mobile-filter-modal"
-                  id="mobileSortModal"
-                  aria-hidden="true"
-                  aria-labelledby="mobileFilter"
-                  tabindex="-1"
-                >
-                  <div class="modal-dialog modal-dialog-centered modal-bottom">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                      </div>
-                      <div class="modal-body">
-                        {/* <SortBy /> */}
-                        {/* <p>Filter / Sort Options Here</p> */}
-                        <Filter
-                          sportsData={filteredSports}
-                          selectedSports={selectedSports}
-                          setSelectedSports={setSelectedSports}
-                          selectedDate={selectedDate}
-                          setSelectedDate={setSelectedDate}
-                          selectedTime={selectedTime}
-                          setSelectedTime={setSelectedTime}
-                          sportSearch={sportSearch}
-                          setSportSearch={setSportSearch}
-                          searchTerm={searchTerm}
-                          setSearchTerm={setSearchTerm}
-                          setFilteredVenues={setFilteredVenues}
-                          selectedAmenities={selectedAmenities}
-                          setSelectedAmenities={setSelectedAmenities}
-
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <button
-                  class="btn_mobile"
-                  data-bs-toggle="modal"
-                  href="#mobileSortModal"
-                  role="button"
-                >
-                  <img src={filterIcon} alt="" />
-                </button>
-                <div
-                  class="modal fade"
-                  id="exampleModalToggle"
-                  aria-hidden="true"
-                  aria-labelledby="sortby"
-                  tabindex="-1"
-                >
-                  <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                      </div>
-                      <div class="modal-body">
-                        <SortBy />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="modal fade"
-                  id="exampleModalToggle2"
-                  aria-hidden="true"
-                  aria-labelledby="exampleModalToggleLabel2"
-                  tabindex="-1"
-                >
-                  
-                </div>
-
-                <button
-                  class="btn_mobile"
-                  data-bs-toggle="modal"
-                  href="#exampleModalToggle"
-                  role="button"
+                  className="border-0"
+                  onClick={() => {
+                    setShowSort(prev => !prev)
+                    setFilterShow(false)
+                  }}
+                  aria-expanded={showSort}
                 >
                   <img src={sortIcon} alt="" />
                 </button>
-
-               
               </div>
+
+              {
+                filterShow &&
+
+                <Filter
+                  sportsData={filteredSports}
+                  selectedSports={selectedSports}
+                  setSelectedSports={setSelectedSports}
+                  selectedDate={selectedDate}
+                  setSelectedDate={setSelectedDate}
+                  selectedTime={selectedTime}
+                  setSelectedTime={setSelectedTime}
+                  sportSearch={sportSearch}
+                  setSportSearch={setSportSearch}
+                  searchTerm={searchTerm}
+                  setSearchTerm={setSearchTerm}
+                  setFilteredVenues={setFilteredVenues}
+                  selectedAmenities={selectedAmenities}
+                  setSelectedAmenities={setSelectedAmenities}
+
+                />
+              }
+
+
+              {/* <SortModal /> */}
+              {/* <SortBy
+                sortBy={sortBy}
+                setSortBy={(value) => setSortBy(value)}
+              /> */}
+
+
+              {showSort && (
+                <div className="mt-3">
+                  <SortBy setSortBy={(value) => console.log("selected:", value)} />
+                </div>
+              )}
             </Col>
 
             <Col lg="8" xl={9} md="12">
@@ -473,14 +388,9 @@ function VenuePage() {
                                   onClick={() => toggleFavourite(venue)}
                                 >
                                   <img
-                                    src={save}
+                                    src={venue.favourite ? HeartFilled : likeIcon}
                                     alt="save"
-                                    style={{
-                                      filter: venue.favourite
-                                        ? "invert(40%) sepia(100%) saturate(5000%) hue-rotate(340deg)"
-                                        : "none",
-                                      cursor: "pointer",
-                                    }}
+                                    style={{ cursor: "pointer" }}
                                   />
                                 </div>
 
@@ -607,14 +517,9 @@ function VenuePage() {
                                   onClick={() => toggleFavourite(venue)}
                                 >
                                   <img
-                                    src={save}
+                                    src={venue.favourite ? HeartFilled : likeIcon}
                                     alt="save"
-                                    style={{
-                                      filter: venue.favourite
-                                        ? "invert(40%) sepia(100%) saturate(5000%) hue-rotate(340deg)"
-                                        : "none",
-                                      cursor: "pointer",
-                                    }}
+                                    style={{ cursor: "pointer" }}
                                   />
                                 </div>
 
