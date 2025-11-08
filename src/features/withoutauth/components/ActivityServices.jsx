@@ -44,7 +44,7 @@ function ActivityServices({ selectedSports, setSelectedSports }) {
 
   return (
     <div className="filter_inner_cards">
-      <h2 className="text-start">Activity/Services</h2>
+      <h2 className="text-start m-0">Activity/Services</h2>
 
       <div className="search-box position-relative">
         <img className="seach_icons" src={search1} alt="search" />

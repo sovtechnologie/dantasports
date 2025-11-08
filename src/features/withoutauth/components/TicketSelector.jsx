@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Stylesheets/TicketSelector.css';
-import addCircle from "../../../assets/VenueImage/AddCircle.jpg"
-import minusCircle from "../../../assets/VenueImage/MinusCircle.png"
+import addCircle from "../../withoutauth/assets/icons/add.svg"
+import minusCircle from "../../../assets/VenueImage/sub.svg"
 
 const TicketSelector = ({ tickets, counts, onChange, setTotalPrice, setTickets, disabled }) => {
 

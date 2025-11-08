@@ -15,15 +15,7 @@
   gap: 12px;
 }
 
-.ticket-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background: #fff;
-}
+
 
 .ticket-info {
   display: flex;
@@ -71,15 +63,15 @@
 .ticket-label {
   font-size: 16.15px;
   font-weight: 500;
-  font-family: "Lato", sans-serif;
+  font-family: "Lato";
   line-height: 23.33px;
-  color: #172a39;
+  color: #172A39;
 }
 
 .ticket-price {
   font-size: 16.15px;
   font-weight: 500;
-  font-family: "Lato", sans-serif;
+  font-family: "Lato";
   line-height: 23.33px;
   color: #1163c7;
 }
@@ -88,10 +80,10 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  border-radius: 6px;
+  border-radius: 8.67px;
   gap: 8px;
   padding: 4px 8px;
-  border: 1px solid #ccc;
+ border: 1.08px solid #D8DCE3;
   height: 40px;
   width: 96.66667175292969px;
 }

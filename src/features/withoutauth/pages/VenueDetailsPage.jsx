@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import "../Stylesheets/VenueDetail.css";
+// import "../Stylesheets/VenueDetail.css";
 import venueImage from "../assets/Venue-image.png";
 import ReviewCard from "../components/ReviewCard.jsx";
 import ShareIcon from "../assets/VenueDetailIcon/share.svg";
