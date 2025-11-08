@@ -16,12 +16,14 @@ import PlayHost from "../components/PlayHost";
 import BookGym from "../components/BookGym";
 import BookCoach from "../components/BookCoach";
 import "../stylesheets/layouts/Global.css";
+import OngoingEvents from "../features/withoutauth/components/OngoingEvents";
 
 const Home = () => {
     return (
         <div className="main-Home-container">
             <HomeBanner />
             <QuickBooking/>
+            {/* <OngoingEvents/> */}
             <BookVenues />
             <BookRun />
             <BookCoach/>
