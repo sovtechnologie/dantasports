@@ -1,6 +1,9 @@
-/* .nav-arrow.gym-left {
+.nav-arrow.gym-left {
+
   visibility: hidden;
 }
+
+
 
 .breadcrumb {
   font-size: 16px;
@@ -10,7 +13,18 @@
 }
 
 .breadcrumb {
+
   margin-bottom: 20px;
+}
+
+.venue-name {
+  color: #000000;
+  font-family: "Lato";
+  font-weight: 700;
+  font-size: clamp(20px, 5vw, 44px);
+  color: #172A39;
+  margin-bottom: 0;
+  padding-bottom: 25px;
 }
 
 .location-rating {
@@ -19,15 +33,17 @@
   font-size: 16px;
   font-weight: 500;
   align-items: center;
-  font-family: "DM Sans";
-  flex-wrap: wrap;
+  font-family: "DM Sans", Arial, sans-serif;
 }
+
 
 .venue-wrapper {
   display: flex;
   justify-content: space-between;
   gap: 10px;
 }
+
+
 
 .carousel {
   position: relative;
@@ -47,7 +63,6 @@
   right: 12px;
   display: flex;
   gap: 8px;
-  z-index: 999;
 }
 
 .venue-icon-btns {
@@ -62,6 +77,7 @@
 
 .venue-swiperslide {
   width: 100% !important;
+  /*add for ui fix*/
   text-align: center;
   font-size: 18px;
   background: #444;
@@ -84,15 +100,18 @@
   padding: 1rem;
   background-color: #fff;
   margin-top: 1rem;
+  /* height: 176px; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 20px;
+
+  /* Gradient border */
 }
 
 .sports-header {
   font-size: 18px;
-  font-family: "Lato";
+  font-family: "Lato", sans-serif;
   font-weight: 600;
   color: #172a39;
   line-height: clamp(6.04px, 1.8889vw, 27.2px);
@@ -100,14 +119,16 @@
 
 .sports-header strong {
   font-size: 18px;
-  font-family: "Lato";
+  font-family: "Lato", sans-serif;
   font-weight: 600;
 }
 
 .sports-header .note {
   font-size: 18px;
-  font-family: "Lato";
+  font-family: "Lato", sans-serif;
   font-weight: 600;
+  color: #172a39;
+  line-height: clamp(6.04px, 1.8889vw, 27.2px);
   color: #858585;
   margin-left: 10px;
 }
@@ -119,6 +140,7 @@
 }
 
 .sport-card {
+  /* width: 93px; */
   height: 93px;
   border-radius: 4px;
   background-color: #fff;
@@ -127,6 +149,7 @@
   padding: 0.5rem;
   cursor: pointer;
   transition: transform 0.2s ease;
+  border: none;
   border: 1px solid #ececec;
   display: flex;
   flex-direction: column;
@@ -142,6 +165,7 @@
 .sport-card img {
   height: 45px;
   width: 45px;
+  /* margin-bottom: 0.5rem; */
 }
 
 .sport-card p {
@@ -151,6 +175,8 @@
   font-weight: 500;
   font-family: "Figtree", Arial, sans-serif;
 }
+
+
 
 .venue-right h2 {
   font-size: 24px;
@@ -203,8 +229,10 @@
 .venue-action-btn {
   display: flex;
   align-items: center;
+  /* vertically center icon and text */
   justify-content: center;
   gap: 0.5rem;
+  /* space between icon and text */
   flex: 1;
   padding: 0.5rem;
   background: #ffffff;
@@ -212,16 +240,20 @@
   border-radius: 11px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s ease, border 0.3s;
+  transition:
+    background 0.3s ease,
+    border 0.3s;
   font-size: 16px;
   margin-bottom: 10px;
-  background-image: linear-gradient(#fff, #fff), linear-gradient(90deg, #1163c7, #a3d0ff);
+  background-image:
+    linear-gradient(#fff, #fff), linear-gradient(90deg, #1163c7, #a3d0ff);
   background-origin: border-box;
   background-clip: padding-box, border-box;
 }
 
 .venue-icon {
   height: 22px;
+  /* adjust size if needed */
   width: 22px;
 }
 
@@ -232,7 +264,27 @@
   padding: 0.75rem;
   border-radius: 11px;
   font-size: 14px;
+
+  /* Gradient border */
+  border: 2px solid transparent;
+  background-origin: border-box;
+  /* box-shadow: 0px 4.08px 4.08px 0px #1163c740; */
+  background-clip: padding-box, border-box;
   border: 1px solid #d6e4f0;
+}
+
+.venue-location {
+  background: #fff;
+  border-radius: 11px;
+  padding: 1rem;
+  font-size: 14px;
+  border: 2px solid transparent;
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  border: 1px solid #d6e4f0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 0.3889vw, 20px);
 }
 
 .venue-map iframe {
@@ -260,10 +312,23 @@
   justify-content: center;
 }
 
+.vb-section {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  border-radius: 10px;
+  background-color: #ffffff;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  margin-bottom: 20px;
+}
+
 .vb-section label {
   font-size: 18px;
-  font-family: "Lato";
-  font-weight: 400;
+  font-family: "Lato", sans-serif;
+  font-weight: 600;
   color: #172a39;
   line-height: clamp(6.04px, 1.8889vw, 27.2px);
   margin-bottom: 0.3rem;
@@ -278,16 +343,16 @@
   flex-wrap: wrap;
 }
 
+
 .vb-sport-btn {
-  padding: 10px 20px;
+  padding: 0.5rem 1.5rem;
   border: 1px solid #ccc;
-  border-radius: 10px;
+  border-radius: 6px;
   background: white;
-  color: #858585;
-  font-family: 'DM Sans';
-  font-weight: 400;
-  font-size: 16.12px;
-  line-height: 24.95px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  width: 120px;
 }
 
 .vb-period-btn,
@@ -310,6 +375,7 @@
 }
 
 .court-placeholder {
+
   margin-bottom: 0;
 }
 
@@ -365,6 +431,11 @@
   cursor: pointer;
 }
 
+/* Sections (Sports, Amenities) */
+/* .section {
+  margin-top: 20px;
+} */
+
 .section h4 {
   font-size: 16px;
   margin-bottom: 10px;
@@ -391,11 +462,20 @@
   margin-top: 4px;
 }
 
+/* .modal_title .rule p {
+
+  color: #393317;
+  font-family: 'Lato';
+font-weight: 500;
+font-size: 18px;
+
+} */
 .venue-right-section {
   border: 1px solid #d6e4f0;
   border-radius: 12px;
   padding: 1rem;
   background-color: #fff;
+  /* margin-top: 1rem; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -415,10 +495,13 @@
   line-height: 27.2px;
 }
 
+/* Buttons */
 .btn-group {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  /* margin-bottom: 20px; */
+  /* margin-top: 20px; */
 }
 
 .btn-primary,
@@ -443,34 +526,215 @@
 }
 
 .btn-secondary {
+  position: relative;
   background-color: #ffffff;
   color: #1163c7;
+  border: 2px solid transparent;
+  /* box-shadow: 0px 4.08px 4.08px 0px #1163c740; */
   border: 1px solid #d6e4f0;
 }
 
+/* Gradient border animation */
 @keyframes move-border {
   0% {
     background-position: 0% 0%;
   }
+
   100% {
     background-position: 200% 0%;
   }
 }
 
+/* Outer glow animation */
 @keyframes glow-pulse {
   0% {
     box-shadow: 0 0 8px rgba(163, 208, 255, 0.3);
   }
+
   50% {
-    box-shadow: 0 0 12px rgba(163, 208, 255, 0.5), 0 0 20px rgba(163, 208, 255, 0.3);
+    box-shadow:
+      0 0 12px rgba(163, 208, 255, 0.5),
+      0 0 20px rgba(163, 208, 255, 0.3);
   }
+
   100% {
     box-shadow: 0 0 8px rgba(163, 208, 255, 0.3);
   }
 }
 
+.section h4 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag {
+  background-color: #eef3f7;
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 6px;
+  color: #333;
+  white-space: nowrap;
+}
+
+/* Responsive Styles */
+@media (max-width: 945px) {
+  .venue-wrapper {
+    flex-direction: column;
+  }
+
+  .venue-location {
+    gap: 20px;
+  }
+
+  .sports-header {
+    line-height: 27.2px;
+  }
+
+  .venue-left,
+  .venue-right {
+    flex: 1 1 100%;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .gym-right-section-p {
+    font-size: 16px !important;
+    line-height: 23.4px !important;
+  }
+
+  .map-container iframe {
+    height: 325px;
+  }
+
+  .map-container {
+    gap: 20px;
+  }
+}
+
+.amenities-wrapper-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  /* margin-top: 1rem; */
+}
+
+.amenities-boxContainer {
+  background-color: #fff;
+  border: 1px solid #d6e4f0;
+  border-radius: 12px;
+  padding: 1rem;
+  flex: 1;
+  min-width: 890px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.amenities-title {
+  font-family: "Figtree";
+  font-weight: 600;
+  font-size: 15.52px;
+  line-height: 23.27px;
+  letter-spacing: 0;
+  margin-bottom: 0.5rem;
+  color: #000000;
+}
+
+.amenities-tags {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.map-container {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 0.3889vw, 20px);
+}
+
+.amenities-tag {
+  font-family: "Figtree", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 13.58px;
+  line-height: 19.39px;
+  letter-spacing: 0;
+  text-transform: capitalize;
+  /* padding: 6px 12px; */
+  border-radius: 6px;
+  color: #000000;
+  white-space: nowrap;
+  gap: 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rules-boxContainer {
+  background-color: #fff;
+  border: 1px solid #d6e4f0;
+  border-radius: 12px;
+  padding: 1rem;
+  flex: 1;
+  min-width: 405px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.rules-boxContainer {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  /* Gradient border */
+  border: 2px solid transparent;
+  background-image:
+    linear-gradient(#fff, #fff), linear-gradient(90deg, #1163c7, #a3d0ff);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+.rule-box-title {
+  font-family: "Lato", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21.67px;
+  letter-spacing: 0;
+}
+
+.arrow {
+  font-size: 24px;
+  color: #1163c7;
+  font-weight: bold;
+}
+
+.owner-info {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .amenities-wrapper {
+    flex-direction: column;
+  }
+}
+
 .rating-wrapper {
   width: 100%;
+  margin-top: 50px;
+}
+
+x .ratings-carousel {
+  font-family: "Lato", sans-serif;
   margin-top: 50px;
 }
 
@@ -488,7 +752,9 @@
 
 .review-carousel-container {
   display: flex;
+  /* gap: 20px; */
   overflow: hidden;
+  /* flex-wrap: wrap; */
   justify-content: space-between;
   margin-bottom: 40px;
   padding-bottom: 10px;
@@ -497,6 +763,7 @@
 .carousel-buttons {
   display: flex;
   justify-content: center;
+  gap: 30px;
   gap: clamp(10px, 2.0833vw, 30px);
   margin-top: 20px;
   margin-bottom: 50px;
@@ -512,6 +779,32 @@
   font-size: 35px;
   cursor: pointer;
   transition: background 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .ratings-carousel {
+    min-width: 100%;
+  }
+
+  .review-carousel-container {
+    flex-direction: column;
+    align-items: left;
+  }
+
+  .carousel-buttons {
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .carousel-buttons button {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+  }
+}
+
+.banner {
+  margin-bottom: 75px;
 }
 
 .banner-wrapper {
@@ -547,10 +840,13 @@
 .event-banner {
   flex: 0 0 auto;
   margin-right: 20px;
+  /* space between banners */
 }
 
 .event-banner-img {
   width: 300px;
+  /* adjust as needed */
+  /* height: auto; */
   height: 160.2px;
   border-radius: 8px;
   object-fit: cover;
@@ -571,48 +867,44 @@
   width: 20px;
 }
 
+/* Animation Keyframes */
 @keyframes scroll-left {
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-50%);
   }
 }
 
+/* Responsive */
 @media (max-width: 768px) {
-  .ratings-carousel {
-    min-width: 100%;
-  }
-
-  .review-carousel-container {
-    flex-direction: column;
-    align-items: left;
-  }
-
-  .carousel-buttons {
-    flex-direction: row;
-    gap: 10px;
-  }
-
-  .carousel-buttons button {
-    width: 50px;
-    height: 50px;
-    font-size: 24px;
+  .image-banner {
+    width: 100%;
   }
 }
 
-@media (max-width: 540px) {
+@media (max-width: 600px) {
   .venue-detail {
     padding: 16px;
+  }
+
+  .venue-main-header {
+    width: 100vw;
+    height: auto;
     padding-bottom: 20px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
   }
 
   .breadcrumb {
-    font-size: 14px;
+    margin-left: 16px;
+    font-size: 12px;
   }
 
   h1 {
+    margin-left: 16px;
     font-size: 22px;
   }
 
@@ -621,16 +913,35 @@
   }
 
   .location-rating {
+    /* flex-direction: column; */
+    gap: 10px;
+    margin-left: 16px;
     font-size: 14px;
+  }
+
+  .venue-details-container {
+    padding: 16px;
   }
 }
 
 @media (max-width: 600px) {
+
+  /* General Padding */
   .venue-wrapper {
     padding: 0px;
     flex-direction: column;
   }
 
+  .venue-left,
+  .venue-right {
+    flex: 1 1 100%;
+  }
+
+  /* .carousel {
+    width: 300px;
+  } */
+
+  /* Headings and Text */
   .venue-right h2,
   .heading,
   .banner-heading {
@@ -642,26 +953,74 @@
     font-size: 16px;
   }
 
+  /* Buttons */
   .btn-group {
     flex-direction: column;
     gap: 8px;
   }
 
-  .carousel-buttons button {
+  .carousel-buttons button,
+  .carousel-controls button {
     width: 40px;
     height: 40px;
     font-size: 18px;
   }
 
+  /* Tags */
   .tags {
     flex-direction: row;
     gap: 8px;
     flex-wrap: wrap;
   }
 
-  .tag {
+  .tag,
+  .amenity-tag {
     font-size: 12px;
     padding: 5px 10px;
+  }
+
+  /* Image Banner */
+  .image-banner-wrapper {
+    padding: 0.5rem;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .image-banner {
+    display: none;
+  }
+
+  .image-banner:first-child {
+    display: block;
+  }
+
+  /* Amenities / Rules Boxes */
+  .amenities-wrapper {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .amenities-box,
+  .rules-box {
+    min-width: unset;
+    width: 100%;
+    padding: 0.75rem;
+  }
+
+  .rules-box {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .arrow {
+    align-self: flex-end;
+    font-size: 20px;
+  }
+
+  /* Ratings Carousel */
+  .ratings-carousel {
+    min-width: 100%;
+    /* padding: 0 1rem; */
   }
 
   .review-carousel-container {
@@ -675,13 +1034,22 @@
     min-width: 90%;
     scroll-snap-align: start;
   }
+
+  .carousel-buttons {
+    justify-content: center;
+    gap: 10px;
+  }
 }
 
 @media screen and (max-width: 540px) {
+
+
   .vb-sport-btn {
-    padding: 10px;
-    font-size: 16px;
+
+    padding: 5px;
+    font-size: 12px;
   }
+
 }
 
 .gym-right-section-p {
@@ -695,6 +1063,7 @@
 @media (max-width: 1200px) {
   .gym-carry-point {
     flex-direction: column;
+    gap: 0px;
   }
 
   .gym-carry,
@@ -730,6 +1099,7 @@
 }
 
 @media (max-width: 440px) {
+
   .timing-item,
   .range {
     font-size: clamp(12px, 3.1818vw, 14px);
@@ -760,4 +1130,4 @@
     width: clamp(10px, 4.5455vw, 20px);
     height: clamp(10px, 4.5455vw, 20px);
   }
-} */
+}
