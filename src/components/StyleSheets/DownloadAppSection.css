@@ -161,6 +161,13 @@
 }
 
 @media screen and (max-width: 1140px) {
+    .downloads_container::before {
+    display: none;
+  }
+
+  .downloads_container::after {
+    display: none;
+  }
   .downloads_container::after {
     height: 472px;
     width: 380px;
@@ -184,13 +191,7 @@
     display: none;
   }
 
-  .downloads_container::before {
-    display: none;
-  }
 
-  .downloads_container::after {
-    display: none;
-  }
 
   .download-app-section {
     margin: 20px 0;

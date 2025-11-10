@@ -1,29 +1,4 @@
 
-
-
-
-.breadcrumb {
-  font-size: 16px;
-  font-weight: 500;
-  color: #6b7280;
-  font-family: "DM Sans";
-}
-
-
-
-.event-location-rating {
-  display: flex;
-  color: #172a39;
-  font-size: 17px;
-  font-weight: 500;
-  align-items: center;
-  font-family: "DM Sans", Arial, sans-serif;
-}
-
-
-
-
-
 .event-image-carosal {
   height: 500px;
   height: clamp(200px, 34.7222vw, 500px);
@@ -34,7 +9,6 @@
   width: 100%;
   height: 100%;
   border-radius: 12px;
-  /* padding: 1rem; */
 }
 
 .event-swiperslide {

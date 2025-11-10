@@ -6,24 +6,34 @@
   border: none;
 }
 
-.coach_page_section .card_icons .like {
-  position: absolute;
-  top: 10px;
-  z-index: 999;
-  right: 15%;
-  height: 26px;
-  width: 26px;
+
+.card_icons_box {
+    position: absolute;
+    right: 3%;
+    top: 10px;
 }
 
-.coach_page_section .card_icons .share {
-  position: absolute;
-  top: 10px;
-  z-index: 999;
-  right: 3%;
-  height: 26px;
-  width: 26px;
+.card_icons_box button{
+
+  background: transparent;
+  border: none;
 }
 
+.coach_page_section .rate  {
+
+      top: 10px;
+    left: 10px;
+    background: #0000004D;
+    border-radius: 4px;
+    display: flex;
+    padding: 5px 8px;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid #fff;
+    color: #fff;
+    z-index: 5;
+    height: 22px;
+}
 .coach_page_section .card h2 {
   font-weight: 500;
   font-size: 20px;
@@ -45,11 +55,7 @@
   font-size: 14px;
   color: #FC8019;
 
-
-
 }
-
-
 
 .coach_page_section .trainerbox {
 
@@ -60,7 +66,7 @@
   font-weight: 400;
   font-size: 12.06px;
   position: absolute;
-  top: 42%;
+  top: 44%;
   padding: 5px 10px;
   left: 10px;
   border-radius: 5px;

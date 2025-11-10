@@ -81,9 +81,9 @@ export default function SortSection({
         </div>
       </div> */}
 
-      <div className="sort-box">
+      <div className="sort-box pt-3">
         <div className="sort-filter-header">
-          <h3 className="sort-header-sort">Sort By</h3>
+          <h3 className="sort-header-sort mb-0">Sort By</h3>
           <button className="sort-reset-btns" onClick={handleReset}>
             Reset
           </button>

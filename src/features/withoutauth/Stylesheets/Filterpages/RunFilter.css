@@ -5,8 +5,51 @@
   position: relative;
 }
 
+.filter_container{
+
+      border: 0.97px solid #1783D0;
+    padding: 20px;
+    background-color: white;
+    border-radius: 7.74px;
+}
+
+.kids_check_box label{
+
+      font-family: 'DM Sans';
+    font-weight: 500;
+    font-size: 16px;
+    color: #172A39 !important;
+    text-align: start !important;
 
 
+}
+
+.filter_container .reset {
+
+  text-decoration: none;
+    color: #B1B1B1;
+    font-family: 'Lato';
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.kids_check_box input {
+
+      border: 0.97px solid #00000066;
+    height: 18.61px;
+    width: 18.61px;
+    margin-right: 15px;
+}
+
+.filter_container h3 {
+
+
+      font-family: 'Lato';
+    font-weight: 600;
+    font-size: 20px;
+    color: #172A39;
+
+}
 .card_icons .like {
   position: absolute;
   top: 10px;
@@ -101,5 +144,6 @@
     font-family: 'DM Sans';
     font-weight: 500;
     font-size: 16px;
+    color: white;
 
 }

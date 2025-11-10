@@ -5,6 +5,7 @@
   max-width: 100%;
   border: 0.39px solid #cdcdcd;
   margin: 20px 0;
+  box-shadow: unset !important;
 }
 
 .calendar-header {

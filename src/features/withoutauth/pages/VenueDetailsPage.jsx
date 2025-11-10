@@ -379,7 +379,10 @@ function VenueDetailsPage() {
                               onClick={() => handleClickLike(venue)}
                             />
                           </button>
-                        </div>
+                      </div>
+                    {venue?.images?.map((img, index) => (
+                      <SwiperSlide key={index} className="venue-swiperslide">
+                        
                         <img
                           src={img}
                           alt={`event-image-${index}`}

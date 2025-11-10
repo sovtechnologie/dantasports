@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import styled from "../../Stylesheets/Filterpages/HostPlayFilter.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 import { useFetchHostList } from "../../../../hooks/Hostlist/useFetchHostList";
 import { VenueListShimmer } from "../../components/Shimmer/VenueListShimmer";

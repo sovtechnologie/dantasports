@@ -28,6 +28,9 @@ import { useUnlikeCoach } from "../../../../hooks/favouriteCoach/useUnlikeCoach.
 import HeartFilled from "../../assets/VenueCardLogo/heartfilled.png";
 import { useQueryClient } from "@tanstack/react-query";
 import PageSearch from "../../components/PageSearch.jsx";
+import CustomDatePicker from "../../components/CustomDatePicker.jsx";
+import sortIcon from "../../assets/icons/sort.svg";
+import filterIcon from "../../assets/icons/filter.svg";
 
 export default function CoachFilterPage() {
   const queryClient = useQueryClient();
@@ -327,7 +330,7 @@ export default function CoachFilterPage() {
         <PageSearch />
         <Container>
           <Row>
-            <Col lg={3} md={5} className="d-none d-lg-block d-md-block">
+            <Col xl={3} lg={4} md={12} className="d-none d-lg-block d-md-block">
               <SortBy
                 sortBy={filters.sortBy}
                 setSortBy={(value) => setFilters((prev) => ({ ...prev, sortBy: value }))}
@@ -336,8 +339,6 @@ export default function CoachFilterPage() {
               <FilterTow
                 selectedSports={selectedSports}
                 setSelectedSports={setSelectedSports}
-                // selectedDate={selectedDate}
-                // setSelectedDate={setSelectedDate}
                 selectedAge={selectedAge}
                 setSelectedAge={setSelectedAge}
                 selectedBatch={selectedBatch}
@@ -348,15 +349,107 @@ export default function CoachFilterPage() {
               />
 
             </Col>
-            <Col className="d-lg-none d-md-none text-end mb-4 d-flex  justify-content-end">
-              {/* <SortModal />
-              <FilterTowModal /> */}
+             <Col className="d-lg-none d-md-none  text-end mb-3">
+              <div className="modal_wraper d-flex justify-content-end">
+                <div>
+                   <div
+                  class="modal fade"
+                  id="exampleModalToggleFilter"
+                  aria-hidden="true"
+                  aria-labelledby="sortby"
+                  tabindex="-1"
+                >
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                               <FilterTow
+                              selectedSports={selectedSports}
+                              setSelectedSports={setSelectedSports}
+                              selectedAge={selectedAge}
+                              setSelectedAge={setSelectedAge}
+                              selectedBatch={selectedBatch}
+                              setSelectedBatch={setSelectedBatch}
+                              selectedCoachType={selectedCoachType}
+                              setSelectedCoachType={setSelectedCoachType}
+
+                            />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="modal fade"
+                  id="exampleModalToggle2"
+                  aria-hidden="true"
+                  aria-labelledby="exampleModalToggleLabel2"
+                  tabindex="-1"
+                ></div>
+
+                <button
+                  class="btn_mobile"
+                  data-bs-toggle="modal"
+                  href="#exampleModalToggleFilter"
+                  role="button"
+                >
+                  <img src={filterIcon} alt="" />
+                </button>
+                </div>
+                <div>
+                   <div
+                  class="modal fade"
+                  id="exampleModalToggleSort"
+                  aria-hidden="true"
+                  aria-labelledby="sortby"
+                  tabindex="-1"
+                >
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        <SortBy />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="modal fade"
+                  id="exampleModalToggle2"
+                  aria-hidden="true"
+                  aria-labelledby="exampleModalToggleLabel2"
+                  tabindex="-1"
+                ></div>
+
+                <button
+                  class="btn_mobile"
+                  data-bs-toggle="modal"
+                  href="#exampleModalToggleSort"
+                  role="button"
+                >
+                  <img src={sortIcon} alt="" />
+                </button>
+                </div>
+              </div>
             </Col>
-            <Col lg={9} md={7}>
+            <Col xl={9} lg={8} md={12}>
               <div className="row g-3">
                 {formattedCoachList.length > 0 ? (
                   formattedCoachList.map((coach) => (
-                    <div className="col-lg-4 position-relative" key={coach.id}>
+                    <div className="col-xl-4  col-lg-6 col-md-6 position-relative" key={coach.id}>
 
                       <Card>
 
@@ -385,16 +478,11 @@ export default function CoachFilterPage() {
                             </span>
                           </div>
                         </div> */}
-                        <div className="card_icons">
+                        <div className="card_icons_box">
                           <button
                             onClick={() => toggleCoachFavourite(coach)}
                             className="like-btn"
-                            style={{
-                              background: "none",
-                              border: "none",
-                              cursor: "pointer",
-                              padding: 0,
-                            }}
+                            
                           >
                             <img
                               className="like"
@@ -403,17 +491,19 @@ export default function CoachFilterPage() {
                             />
                           </button>
 
-                          <a>
+                          <button>
                             <img className="share" src={share} alt="share" onClick={() => handleShareClick(coach)} />
-                          </a>
+                          </button>
 
-                          <div className="reating">
+                         
+                        </div>
+                         <div className="rate position-absolute d-flex align-items-center">
+                            <img  src={star} alt="" />
                             <span>
-                              <img className="me-2" src={star} alt="" />
+                              
                               {coach.rating} ({coach.ratingCount})
                             </span>
                           </div>
-                        </div>
 
 
                         <div className="trainerbox">

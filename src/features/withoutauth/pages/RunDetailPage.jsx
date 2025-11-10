@@ -246,7 +246,7 @@ export default function EventDetailPage() {
             </div>
 
             <h1 className="event-name">{event.name}</h1>
-            <div className="event-location-rating">
+            <div className="location-rating">
               <span>{event.location}</span>
               <span className="star" style={{ marginLeft: "20px" }}>
                 ★
@@ -258,6 +258,9 @@ export default function EventDetailPage() {
                 {Math.floor(event.rating)}
               </span>{" "}
               <span>({event?.reviewcount} ratings)</span>
+              <span className="ps-2 text_blue">
+                <a href="#">Rate Run</a>
+              </span>
             </div>
           </div>
         </section>

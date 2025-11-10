@@ -31,6 +31,8 @@ function FilterTow({ setSelectedCoachType, selectedCoachType, selectedBatch, set
           setSelectedDate={setSelectedDate}
         /> */}
 
+        <CustomDatePicker/>
+
         <Age selectedAge={selectedAge} setSelectedAge={setSelectedAge} />
 
 

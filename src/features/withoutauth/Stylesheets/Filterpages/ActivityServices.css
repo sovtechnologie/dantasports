@@ -58,3 +58,16 @@
   top: 27px;
   left: 10px;
 }
+
+@media screen and (max-width: 767px) {
+
+  .search-box .seach_icons{
+
+    display: none;
+  }
+  .search-box input{
+
+    padding: 10px;
+    margin-top: 20px;
+  }
+}
