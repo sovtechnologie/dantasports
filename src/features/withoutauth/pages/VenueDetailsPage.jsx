@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-// import "../Stylesheets/VenueDetail.css";
+import "../Stylesheets/VenueDetail.css";
 import venueImage from "../assets/Venue-image.png";
 import ReviewCard from "../components/ReviewCard.jsx";
 import ShareIcon from "../assets/VenueDetailIcon/share.svg";
@@ -228,7 +228,13 @@ function VenueDetailsPage() {
     convenienceFee = response?.convenience_fee;
   }, [response]);
 
-
+  // create payments
+  // const {
+  //     mutate: createPayment,
+  //     data: paymentResponse,
+  //     isLoading: paymentLoading,
+  //     isError: paymentError
+  // } = useCreatePayment();
 
   const { mutate: CreateBookingPayment, isLoading: paymentLoading } =
     useCreateBookingPayment();
@@ -327,7 +333,7 @@ function VenueDetailsPage() {
                 <span className="light-text">
                   {Math.floor(venue.rating)}  ({venue.reviewcount} ratings)
                 </span>
-                <span className="ps-2 text_blue"><a href="#">Rate Turf</a></span>
+                <span className="ps-2 text_blue"><a href="#">Rate Gym</a></span>
               </div>
             </div>
           </div>
@@ -356,7 +362,9 @@ function VenueDetailsPage() {
                     modules={[Autoplay, Pagination]}
                     className="mySwiper"
                   >
-                    <div className="venue-icon-topwrapper">
+                    {venue?.images?.map((img, index) => (
+                      <SwiperSlide key={index} className="venue-swiperslide">
+                        <div className="venue-icon-topwrapper">
                           <button className="venue-icon-btns" onClick={Share}>
                             <img src={ShareIcon} alt="share" className="" />
                           </button>
@@ -372,9 +380,6 @@ function VenueDetailsPage() {
                             />
                           </button>
                         </div>
-                    {venue?.images?.map((img, index) => (
-                      <SwiperSlide key={index} className="venue-swiperslide">
-                        
                         <img
                           src={img}
                           alt={`event-image-${index}`}
@@ -387,25 +392,23 @@ function VenueDetailsPage() {
 
                 <div className="section">
                   <div className="sports-wrapper">
-                    <div className="sports-header">
-                      <h2>About Venue</h2>
-                    </div>
+                    <div className="sports-header">About Venue</div>
                     <div className="event-description">{venue.about}</div>
                   </div>
                 </div>
                 <div className="section">
                   <div className="sports-wrapper">
-                    <div className="sports-header">
-                      <h2>Amenities</h2>
-                    </div>
+                    <div className="sports-header">Amenities</div>
                     <div className="amenities-tags">
                       {venue.amenities.map((item) => (
                         <span className="amenities-tag" key={item}>
+                          {/* <span className="check-icon"> */}
                           <img
                             src={checkoutIcon}
                             alt="check"
                             className="amt-img"
                           />
+                          {/* </span> */}
                           <span className="check-label">{item}</span>
                         </span>
                       ))}
@@ -472,7 +475,7 @@ function VenueDetailsPage() {
                         <div>
                           <button
                             type="button"
-                            class="border-0 bg-white"
+                            class="btn"
                             data-bs-toggle="modal"
                             data-bs-target="#RulesRegulations"
                           >
@@ -517,7 +520,7 @@ function VenueDetailsPage() {
                         <div>
                           <button
                             type="button"
-                            class="border-0 bg-white"
+                            class="btn"
                             data-bs-toggle="modal"
                             data-bs-target="#CancellationPolicy"
                           >

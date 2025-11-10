@@ -12,7 +12,7 @@ const SportsSlider = ({ onSelectSports }) => {
 
   const itemsPerPage = 4;
 
-  // 🔹 API call (without useQuery)
+  // 🔹 API call (without useQuery)y
   useEffect(() => {
     const getSports = async () => {
       try {
@@ -52,16 +52,15 @@ const SportsSlider = ({ onSelectSports }) => {
   const currentItems = filteredSports.slice(startIndex, startIndex + itemsPerPage);
 
   // 🔹 Select/Deselect Sports
+  // 🔹 Select/Deselect Sports
   const toggleSportSelect = (sport) => {
     setSelectedSports((prev) => {
       const alreadySelected = prev.some((s) => s.sports_id === sport.sports_id);
-      if (alreadySelected) {
-        return prev.filter((s) => s.sports_id !== sport.sports_id);
-      } else {
-        return [...prev, sport];
-      }
+      if (alreadySelected) return [];
+      return [sport];
     });
   };
+
 
   // 🔹 Send selected sports to parent
   useEffect(() => {
@@ -103,7 +102,7 @@ const SportsSlider = ({ onSelectSports }) => {
             return (
               <div
                 key={sport.sports_id}
-                className={`sport-item ${isSelected ? "selected" : ""}`}
+                className={`sport-item ${selectedSports ? "selected" : ""}`}
                 onClick={() => toggleSportSelect(sport)}
               >
                 <div className="sport-icon">

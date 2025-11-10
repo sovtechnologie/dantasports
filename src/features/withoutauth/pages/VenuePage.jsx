@@ -31,6 +31,7 @@ function VenuePage() {
   const [showSort, setShowSort] = useState(false);
   const [filterShow, setFilterShow] = useState(false);
 
+
   const isSameDate = (venueDate, selectedDate) => {
     if (!venueDate || !selectedDate) return false;
     const d1 = new Date(venueDate);
@@ -54,7 +55,7 @@ function VenuePage() {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
   const [selectedAmenities, setSelectedAmenities] = useState([]);
-
+  const [lastPayload, setLastPayload] = useState(null);
   const [filteredVenues, setFilteredVenues] = useState([]);
   const [isFiltering, setIsFiltering] = useState(false);
   const [sortBy, setSortBy] = useState("");
@@ -109,6 +110,7 @@ function VenuePage() {
       setIsFiltering(false);
     }
   }, [isSuccess, filterData]);
+
   useEffect(() => {
     if (
       !selectedSports.length &&
@@ -138,10 +140,8 @@ function VenuePage() {
     };
 
     const payload = {
-      ...(selectedSports.length && {
-        sportsId: selectedSports.map((s) => s.id),
-      }),
-      ...(selectedAmenities.length && { amenties: selectedAmenities }),
+      ...(selectedSports.length && { sportsId: selectedSports[0].id }),
+      ...(selectedAmenities.length && { amenties: selectedAmenities[0] }),
       ...(selectedDate && { date: formatDateForMySQL(selectedDate) }),
       ...(selectedTime && { time: formatTimeForMySQL(selectedTime) }),
       lat,
@@ -149,7 +149,12 @@ function VenuePage() {
       userId: auth?.id,
     };
 
-    console.log("📤 Filter API payload:", payload);
+    // 🧠 Compare with previous payload
+    const isSame = JSON.stringify(payload) === JSON.stringify(lastPayload);
+    if (isSame) return; // agar same hai to dobara call mat karo
+
+    console.log("📤 API Triggered:", payload);
+    setLastPayload(payload);
     filterVenues(payload);
   }, [selectedSports, selectedDate, selectedTime, selectedAmenities]);
 

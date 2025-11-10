@@ -104,14 +104,14 @@ border: 0.92px solid #CDCDCD;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
 } */
-/* .sport-item.selected {
+.sport-item.selected {
 
 
   border: none !important;
   background-color: rgba(0, 123, 255, 0.1);
   transform: scale(1.03);
   border-bottom: 1px solid #ddd;
-} */
+}
 
   
 .sport-img{

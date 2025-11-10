@@ -266,14 +266,14 @@ export default function RunFilterPage() {
         <Container>
           <Row>
             <Col lg={4} md={12} xl={3} className="d-none d-lg-block">
-               <SortBy
+              <SortBy
                 sortBy={filters.sortBy}
                 setSortBy={(value) =>
                   setFilters((prev) => ({ ...prev, sortBy: value }))
                 }
               />
-             <div className="mt-3">
-                <Filter
+              <div className="mt-3">
+                {/* <Filter
                   selectedSports={selectedSports}
                   setSelectedSports={setSelectedSports}
                   selectedDate={selectedDate}
@@ -287,11 +287,11 @@ export default function RunFilterPage() {
                   setFilteredVenues={setFilteredRuns}
                   selectedAmenities={selectedAmenities}
                   setSelectedAmenities={setSelectedAmenities}
-                />
+                /> */}
               </div>
-           
 
-             
+
+
             </Col>
 
             <Col className="d-lg-none  text-end mb-4">
@@ -308,7 +308,7 @@ export default function RunFilterPage() {
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                     <div class="modal-header">
-                     
+
                       <button
                         type="button"
                         class="btn-close"
@@ -317,9 +317,9 @@ export default function RunFilterPage() {
                       ></button>
                     </div>
                     <div class="modal-body">
-                     <SortBy/>
+                      <SortBy />
                     </div>
-                    
+
                   </div>
                 </div>
               </div>
@@ -330,7 +330,7 @@ export default function RunFilterPage() {
                 aria-labelledby="exampleModalToggleLabel2"
                 tabindex="-1"
               >
-                
+
               </div>
 
               <button class="btn_mobile"
@@ -339,7 +339,7 @@ export default function RunFilterPage() {
                 role="button">
                 <img src={sortIcon} alt="" />
               </button >
-             
+
             </Col>
 
             <Col lg={8} xl={9} md={12}>
