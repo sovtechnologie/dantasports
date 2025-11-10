@@ -26,9 +26,7 @@ function Amenities({ selectedAmenities = [], setSelectedAmenities }) {
     // ✅ Toggle amenity selection
     const handleAmenityClick = (id) => {
         setSelectedAmenities((prev) =>
-            prev.includes(id)
-                ? prev.filter((a) => a !== id)
-                : [...prev, id]
+            prev[0] === id ? [] : [id] // deselect if same, otherwise replace
         );
     };
 
@@ -44,7 +42,7 @@ function Amenities({ selectedAmenities = [], setSelectedAmenities }) {
                                 <div
                                     className={`inner ${isSelected ? "selected" : ""}`}
                                     onClick={() => handleAmenityClick(item.id)}
-                                    
+
                                 >
 
                                     <a>{item.amenities_name || item.name}</a>

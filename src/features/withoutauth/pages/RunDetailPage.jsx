@@ -265,7 +265,7 @@ export default function EventDetailPage() {
           </div>
         </section>
         <Container>
-          
+
 
           <div className="event-details-container">
             <div className="event-wrapper row">
@@ -316,7 +316,7 @@ export default function EventDetailPage() {
 
                 <div className="event-section">
                   <div className="sports-header">
-                      <h2>Event Guide</h2>
+                    <h2>Event Guide</h2>
                   </div>
                   <div className="event-guide-content">
                     <div className="guide-item">
@@ -474,7 +474,7 @@ export default function EventDetailPage() {
                       {/* <!-- Button trigger modal --> */}
                       <div className="d-flex justify-content-between align-items-center text-center">
                         <div className="rule">
-                          <p className="m-0">Cancellation Policy</p>
+                          <p className="m-0">Cancellation And Reschedule Policy</p>
                         </div>
                         <div>
                           <button

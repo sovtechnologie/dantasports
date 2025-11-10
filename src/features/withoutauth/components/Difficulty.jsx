@@ -30,8 +30,8 @@ function Difficulty({ selectedDifficulty, setSelectedDifficulty }) {
                     <input
                         className="form-check-input"
                         type="checkbox"
-                        checked={selectedDifficulty === 3}
-                        onChange={() => handleSelect(3)}
+                        checked={selectedDifficulty === 0}
+                        onChange={() => handleSelect(0)}
                     />
                 </div>
 
@@ -39,7 +39,7 @@ function Difficulty({ selectedDifficulty, setSelectedDifficulty }) {
                     <label className="form-check-label">Difficult</label>
                     <input
                         className="form-check-input"
-                        type="checkbox"
+                        type="checkbox"s
                         checked={selectedDifficulty === 2}
                         onChange={() => handleSelect(2)}
                     />

@@ -516,7 +516,7 @@ function VenueDetailsPage() {
                       {/* <!-- Button trigger modal --> */}
                       <div className="d-flex justify-content-between align-items-center text-center">
                         <div className="rule">
-                          <p className="m-0">Cancellation Policy</p>
+                          <p className="m-0">Cancellation And Reschedule Policy</p>
                         </div>
                         <div>
                           <button

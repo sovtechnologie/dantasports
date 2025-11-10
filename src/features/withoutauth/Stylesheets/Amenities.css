@@ -80,3 +80,8 @@
 .amenities_card .row::-webkit-scrollbar-thumb:hover {
   background-color: lightgray;
 }
+
+.inner.selected {
+  border: 2px solid skyblue;
+  background-color: rgba(135, 206, 250, 0.1);
+}

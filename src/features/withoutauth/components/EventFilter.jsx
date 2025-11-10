@@ -25,7 +25,7 @@ function EventFilter({
     setSelectedSports([]);
     setSelectedDate(null);
     setSelectedDifficulty(null);
-    setSelectedDistance(800);
+    setSelectedDistance(0);
     setSelectedAmenities([])
 
   };

@@ -400,7 +400,7 @@ export default function EventDetailPage() {
                                             <div className="d-flex justify-content-between align-items-center text-center">
 
                                                 <div className="rule">
-                                                    <p className="m-0">Cancellation Policy</p>
+                                                    <p className="m-0">Cancellation And Reschedule Policy</p>
                                                 </div>
                                                 <div>
                                                     <button type="button" class="btn border-0" data-bs-toggle="modal" data-bs-target="#CancellationPolicy">

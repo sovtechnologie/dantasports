@@ -32,20 +32,28 @@ export default function EventFilterPage() {
   const [eventList, setEventList] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedDifficulty, setSelectedDifficulty] = useState(null);
-  const [selectedDistance, setSelectedDistance] = useState(800);
+  const [selectedDistance, setSelectedDistance] = useState(0);
   const [selectedAmenities, setSelectedAmenities] = useState([]);
-
+  const auth = useSelector((state) => state.auth);
   const [filters, setFilters] = useState({
     sortBy: [],
   });
 
   const payload = { lat, lng, userId: userId || null, type: 1 };
+  console.log("payloadpayload", payload);
   const {
     data: AllEventdata,
     isLoading,
     isError,
     error,
   } = useFetchEvent(payload);
+
+  useEffect(() => {
+    if (AllEventdata?.status === 200) setEventList(AllEventdata.result);
+  }, [AllEventdata]);
+
+  console.log("AllEventdataAllEventdata", AllEventdata);
+  console.log("eventListeventListeventList", eventList);
 
   const likeEvent = useLikeEvent();
   const unlikeEvent = useUnlikeEvent();
@@ -57,6 +65,10 @@ export default function EventFilterPage() {
     const type = event?.type;
     const wasFavourite = event.favourite;
 
+    if (!auth || !auth?.id) {
+      alert("Please login first to like or unlike a Event.");
+      return;
+    }
 
     setEventList((prev) =>
       prev.map((v) =>
@@ -90,6 +102,7 @@ export default function EventFilterPage() {
   };
 
   const filteredEvents = useMemo(() => {
+
     let result = [...eventList];
 
 
@@ -127,10 +140,13 @@ export default function EventFilterPage() {
       result = result.filter((evt) => evt.difficulty === selectedDifficulty);
     }
 
-    if (selectedDistance !== null) {
-      result = result.filter((evt) => evt.distance <= selectedDistance);
+    if (selectedDistance !== null && selectedDistance > 0) {
+      result = result.filter((evt) => {
+        const eventDistance = parseFloat(evt.distance || 0);
+        // Only include events within selectedDistance km range
+        return eventDistance <= selectedDistance;
+      });
     }
-
 
     if (selectedAmenities.length > 0) {
       // Handle both numeric and object cases
@@ -182,11 +198,8 @@ export default function EventFilterPage() {
     }
 
     return result;
-  }, [eventList, search, filters, selectedSports, selectedDate, selectedDifficulty, selectedDistance, selectedAmenities]);
+  }, [eventList, search, filters, selectedSports, selectedDistance, selectedDate, selectedDifficulty, selectedAmenities]);
 
-  useEffect(() => {
-    if (AllEventdata?.status === 200) setEventList(AllEventdata.result);
-  }, [AllEventdata]);
 
   if (isLoading) return <VenueListShimmer />;
   if (isError) return <div>Error loading events: {error?.message}</div>;

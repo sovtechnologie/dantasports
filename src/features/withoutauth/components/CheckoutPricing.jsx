@@ -126,12 +126,14 @@ import CouponModal from "./CoupanModal";
 import { InfoCircle } from "react-bootstrap-icons";
 import black from "../assets/toggleIcon.png"; // arrow icon
 import arrow from "../../withoutauth/assets/icons/black-arrow.svg"
+import InfoModal from "../../../components/InfoModal";
 
 const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFinalAmount, venueId }) => {
   const [insuranceSelected, setInsuranceSelected] = useState(false);
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
   const [discount, setDiscount] = useState(null);
   const [couponDetails, setCouponDetails] = useState("");
+  const [activeModal, setActiveModal] = useState(null); // 'pass' | 'convenience' | null
 
   const basePrice = totalPrice || 0;
   const insuranceFee = 20;
@@ -158,7 +160,7 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFina
         {/* Passes Price */}
         <Row className="align-items-center mb-2">
           <Col xs={8} className="pass_price">
-            Passes price x {count} <InfoCircle size={13} className="text-primary ms-1" />
+            Passes price x {count} <InfoCircle size={13} className="text-primary ms-1" onClick={() => setActiveModal("pass")} />
           </Col>
           <Col xs={4} className="pass_price text-end">
             <span>₹{basePrice}</span>
@@ -168,7 +170,7 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFina
         {/* Convenience Fee */}
         <Row className="align-items-center mb-3">
           <Col xs={8} className="pass_price">
-            Convenience fee <InfoCircle size={13} className="text-primary ms-1" />
+            Convenience fee <InfoCircle size={13} className="text-primary ms-1" onClick={() => setActiveModal("convenience")} />
           </Col>
           <Col xs={4} className="pass_price text-end">
             <span >₹{convenienceFee}</span>
@@ -178,7 +180,7 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFina
         {/* <div className="line"></div> */}
 
         {/* Insurance Option */}
-        <Row className="align-items-center mb-2 border-top border-bottom ">
+        {/* <Row className="align-items-center mb-2 border-top border-bottom ">
           <Col xs={9}>
             <Form.Check
               className="pt-3 pb-3"
@@ -192,7 +194,7 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFina
           <Col xs={3} className="pass_price text-end">
             <span>₹{insuranceFee}</span>
           </Col>
-        </Row>
+        </Row> */}
 
 
         {/* Coupon Section */}
@@ -248,6 +250,20 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFina
           setIsCouponModalOpen(false); // <-- CLOSE MODAL HERE
         }}
       />
+
+      {/* 🔹 Info Modals */}
+      <InfoModal
+        show={activeModal === "pass"}
+        type="pass"
+        onClose={() => setActiveModal(null)}
+      />
+
+      <InfoModal
+        show={activeModal === "convenience"}
+        type="convenience"
+        onClose={() => setActiveModal(null)}
+      />
+
     </div>
   );
 };

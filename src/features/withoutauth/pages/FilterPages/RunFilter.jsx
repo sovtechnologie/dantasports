@@ -62,9 +62,10 @@ export default function RunFilterPage() {
   const [selectedTime, setSelectedTime] = useState(null);
   const [filteredRuns, setFilteredRuns] = useState([]);
   const [selectedAmenities, setSelectedAmenities] = useState([]);
-
+  const [selectedDifficulty, setSelectedDifficulty] = useState(null);
   console.log("selectedAmenities", selectedAmenities);
   const auth = useSelector((state) => state.auth);
+  const [selectedPrice, setSelectedPrice] = useState(0);
   const [runList, setRunList] = useState([]);
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState({
@@ -81,6 +82,8 @@ export default function RunFilterPage() {
   const handleResetFilters = () => {
     setSelectedSports([]);
     setSelectedDate(null);
+    setSelectedDifficulty(null);
+    setSelectedPrice(0);
     setSelectedTime(null);
     setSelectedAmenities([]);
     setSearch("");
@@ -172,13 +175,15 @@ export default function RunFilterPage() {
       });
     }
 
-    if (selectedTime) {
-      const chosenMinutes = parseTimeToMinutes(selectedTime);
-      result = result.filter((evt) => {
-        const evtStart = parseTimeToMinutes(evt.start_time);
-        const evtEnd = parseTimeToMinutes(evt.end_time);
-        return chosenMinutes >= evtStart && chosenMinutes <= evtEnd;
-      });
+    if (selectedDifficulty !== null) {
+      result = result.filter((evt) => evt.difficulty === selectedDifficulty);
+    }
+    console.log("selectedDifficulty", selectedDifficulty);
+
+    if (selectedPrice > 0) {
+      result = result.filter(
+        (evt) => Number(evt.lowest_ticket_price) <= selectedPrice
+      );
     }
 
     if (selectedAmenities.length > 0) {
@@ -236,6 +241,8 @@ export default function RunFilterPage() {
     selectedDate,
     selectedAmenities,
     selectedTime,
+    selectedDifficulty,
+    selectedPrice
   ]);
 
   useEffect(() => {
@@ -279,119 +286,164 @@ export default function RunFilterPage() {
                   setFilters((prev) => ({ ...prev, sortBy: value }))
                 }
               />
-             <div className="mt-3">
+              <div className="mt-3">
                 <div className="filter_container">
                   <div class="d-flex justify-content-between align-items-center mb-2">
                     <h3 class="m-0">Filter</h3>
-                    <a href="" class="reset" type="button">Reset</a>
+                    <a
+                      className="reset"
+                      type="button"
+                      onClick={handleResetFilters}
+                    >
+                      Reset
+                    </a>
+
                   </div>
-                    <CustomDatePicker/>
-                    <Difficulty/>
-                    <PriceSlider/>
-                    <Amenities/>
-                   <Kids/>
+                  <CustomDatePicker
+                    selectedDate={selectedDate}
+                    setSelectedDate={setSelectedDate}
+                  />
+                  <Difficulty
+                    selectedDifficulty={selectedDifficulty}
+                    setSelectedDifficulty={setSelectedDifficulty}
+                  />
+                  <PriceSlider
+                    selectedPrice={selectedPrice}
+                    setSelectedPrice={setSelectedPrice}
+                  />
+
+                  <Amenities
+                    setSelectedAmenities={setSelectedAmenities}
+                    selectedAmenities={selectedAmenities}
+                  />
+                  <Kids />
                 </div>
               </div>
             </Col>
 
             <Col className="d-lg-none  text-end mb-4">
-              
+
               <div className="d-flex modal_wraper_mobile text-end justify-content-end ">
-                   <div
-                    class="modal fade"
-                    id="exampleModalToggle11"
-                    aria-hidden="true"
-                    aria-labelledby="exampleModalToggleLabel"
-                    tabindex="-1"
-                  >
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                     
-                      <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                      ></button>
-                    </div>
-                    <div class="modal-body">
-                     <div className="filter_container">
-                  <div class="d-flex justify-content-between align-items-center mb-2">
-                    <h3 class="m-0">Filter</h3>
-                    <a href="" class="reset" type="button">Reset</a>
-                  </div>
-                    <CustomDatePicker/>
-                    <Difficulty/>
-                    <PriceSlider/>
-                    <Amenities/>
-                   <Kids/>
-                </div>
-                    </div>
-                    
-                  </div>
-                </div>
-              </div>
-              <div
-                class="modal fade"
-                id="exampleModalToggle2"
-                aria-hidden="true"
-                aria-labelledby="exampleModalToggleLabel2"
-                tabindex="-1"
-              >
-                
-              </div>
+                <div
+                  class="modal fade"
+                  id="exampleModalToggle11"
+                  aria-hidden="true"
+                  aria-labelledby="exampleModalToggleLabel"
+                  tabindex="-1"
+                >
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
 
-              <button class="btn_mobile"
-                data-bs-toggle="modal"
-                href="#exampleModalToggle11"
-                role="button">
-                <img src={fliterIcon} alt="" />
-              </button >
-              <div
-                class="modal fade"
-                id="exampleModalToggle"
-                aria-hidden="true"
-                aria-labelledby="exampleModalToggleLabel"
-                tabindex="-1"
-              >
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        <div className="filter_container">
+                          <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h3 class="m-0">Filter</h3>
+                            <a
+                              className="reset"
+                              type="button"
+                              onClick={handleResetFilters}
+                            >
+                              Reset
+                            </a>
 
-                      <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                      ></button>
-                    </div>
-                    <div class="modal-body">
-                      <SortBy />
-                    </div>
+                          </div>
+                          <CustomDatePicker
+                            selectedDate={selectedDate}
+                            setSelectedDate={setSelectedDate}
+                          />
+                          <Difficulty
+                            selectedDifficulty={selectedDifficulty}
+                            setSelectedDifficulty={setSelectedDifficulty}
+                          />
+                          <PriceSlider
+                            selectedPrice={selectedPrice}
+                            setSelectedPrice={setSelectedPrice}
+                          />
 
+                          <Amenities
+                            setSelectedAmenities={setSelectedAmenities}
+                            selectedAmenities={selectedAmenities}
+                          />
+                          <Kids />
+                        </div>
+                      </div>
+
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div
-                class="modal fade"
-                id="exampleModalToggle2"
-                aria-hidden="true"
-                aria-labelledby="exampleModalToggleLabel2"
-                tabindex="-1"
-              >
+                <div
+                  class="modal fade"
+                  id="exampleModalToggle2"
+                  aria-hidden="true"
+                  aria-labelledby="exampleModalToggleLabel2"
+                  tabindex="-1"
+                >
 
+                </div>
+
+                <button class="btn_mobile"
+                  data-bs-toggle="modal"
+                  href="#exampleModalToggle11"
+                  role="button">
+                  <img src={fliterIcon} alt="" />
+                </button >
+                <div
+                  class="modal fade"
+                  id="exampleModalToggle"
+                  aria-hidden="true"
+                  aria-labelledby="exampleModalToggleLabel"
+                  tabindex="-1"
+                >
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        <SortBy
+                          sortBy={filters.sortBy}
+                          setSortBy={(value) =>
+                            setFilters((prev) => ({ ...prev, sortBy: value }))
+                          }
+                        />
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="modal fade"
+                  id="exampleModalToggle2"
+                  aria-hidden="true"
+                  aria-labelledby="exampleModalToggleLabel2"
+                  tabindex="-1"
+                >
+
+                </div>
+
+                <button class="btn_mobile"
+                  data-bs-toggle="modal"
+                  href="#exampleModalToggle"
+                  role="button">
+                  <img src={sortIcon} alt="" />
+                </button >
               </div>
 
-              <button class="btn_mobile"
-                data-bs-toggle="modal"
-                href="#exampleModalToggle"
-                role="button">
-                <img src={sortIcon} alt="" />
-              </button >
-              </div>
-              
-             
+
 
             </Col>
 
@@ -491,19 +543,16 @@ export default function RunFilterPage() {
                           </div> */}
 
                           <div className="d-flex justify-content-between">
-                            <p className="up_to_offer m-0">Upto 50%off</p>
-                            <p className="onwards_rup m-0">₹1000 onwards</p>
+                            <p className="up_to_offer m-0"> {event.coupon_type === "percentage" && event.discount_offer
+                              ? `Upto ${parseFloat(event.discount_offer)}% Off`
+                              : event.coupon_type === "flat" && event.discount_offer
+                                ? `Upto ₹${parseFloat(event.discount_offer)} Off`
+                                : ""}</p>
+                            <p className="onwards_rup m-0">₹ {parseFloat(event.lowest_ticket_price) || 0} onwards</p>
                           </div>
                           <div className="card_line"></div>
 
                           <div className="offer d-flex justify-content-between align-items-center">
-                            {/* <p>
-                              {event.coupon_type === "percentage" && event.offer
-                                ? `Upto ${parseFloat(event.offer)}% Off`
-                                : event.coupon_type === "flat" && event.offer
-                                  ? `Upto ₹${parseFloat(event.offer)} Off`
-                                  : ""}
-                            </p> */}
 
                             <a href={`/run/${event.id}`}>Join Now</a>
                           </div>
@@ -511,7 +560,7 @@ export default function RunFilterPage() {
                         <div className="rating">
                           <span>
                             <img src={star} className="pe-2" alt="" />
-                            4.4
+                            {event.average_rating || 0}({event.review_count || 0})
                           </span>
                         </div>
                         <div className="easy_run">
