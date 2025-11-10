@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "../../withoutauth/Stylesheets/Filterpages/priceRun.css"
 const PriceSlider = () => {
   const [price, setPrice] = useState(150);
-  const range = [0, 50, 100, 150, 200, 250, 300];
+  const range = [0, 50, 100, 150, 200, 250, 300, 350,450];
 
   return (
     <div className="price-container">
