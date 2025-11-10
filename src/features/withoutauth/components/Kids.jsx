@@ -3,7 +3,7 @@ import React from 'react'
 function Kids() {
   return (
     <>
-     <div className="mt-3 kids_check_box">
+     <div className="mt-3 kids_check_box filter_inner_cards">
                       <div class="form-check ps-2 d-flex justify-content-between">
                         <label class="form-check-label" for="flexCheckDefault">
                          Kids Friendly

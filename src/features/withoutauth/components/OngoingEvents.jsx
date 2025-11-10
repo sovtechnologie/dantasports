@@ -30,6 +30,7 @@ const OngoingEvents = ({ banners }) => {
           </div>
         ))}
       </Slider>
+      
     </div>
   );
 };

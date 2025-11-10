@@ -26,10 +26,20 @@ import sortIcon from "../../withoutauth/assets/icons/sort.svg";
 import filterIcon from "../../withoutauth/assets/icons/filter.svg";
 import HeartFilled from "../../withoutauth/assets/VenueCardLogo/heartfilled.png"
 import likeIcon from "../assets/icons/like.svg";
+import OngoingEvents from "../components/OngoingEvents.jsx";
+import { useBanner } from "../../../hooks/useBanner.js";
+// import "../../withoutauth/components/OngoingEvents.jsx";
 
 function VenuePage() {
-  const [showSort, setShowSort] = useState(false);
-  const [filterShow, setFilterShow] = useState(false);
+  // const [showSort, setShowSort] = useState(false);
+  // const [filterShow, setFilterShow] = useState(false);
+
+    // const banners = bannerData?.result || [];
+
+      const { data: bannerData, isLoading:dataLoading, error:dataError } = useBanner(1);
+    
+      const banners = bannerData?.result || [];
+    
 
 
   const isSameDate = (venueDate, selectedDate) => {
@@ -273,7 +283,7 @@ function VenuePage() {
         className="venue_page_section pb-lg-5 pb-3"
         style={{ background: "#F1F3F2" }}
       >
-        <PageSearch />
+        <PageSearch searchValue="vanuePage"/>
         <Container>
           <Row className="g-3">
             {/* Left Filter */}
@@ -454,6 +464,9 @@ function VenuePage() {
             </Col>
 
             <Col lg="8" xl={9} md="12">
+            <Col className="col-12 mb-4">
+                <OngoingEvents banners={banners} />
+            </Col>
               <div className="row g-3">
                 {isFiltering || isPending ? (
                   "Loding......."

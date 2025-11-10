@@ -1,10 +1,22 @@
-.timeslot_section input{
+.timeslot_section input {
 
-    width: 100px;
-    margin-left: 15px;
+    width: 60px;
+    height: 33px;
+    background-color: white;
+    border: .5px solid #CDCDCD;
 
     
 }
+
+.timeslot_section input::placeholder{
+  font-size: 12px;
+}
+
+.timeslot_buttons {
+
+  overflow-x: scroll;
+}
+
 
 .time{
 
@@ -19,17 +31,16 @@
 
 .timeslot_section button{
 
-  padding: 5px;
-  border: 1px solid #ccc;
+  padding: 5px 10px;
   color: #333;
   border-radius: 6px;
   cursor: pointer;
   transition: 0.3s;
   border: 0.76px solid #0000000D;
   background: #0000000D;
-  font-size: 12px;
-  margin: 5px;
-  width: 70px;
+  font-size: 14px;
+  margin: 10px 5px;
+  text-wrap: nowrap;
 
 }
 

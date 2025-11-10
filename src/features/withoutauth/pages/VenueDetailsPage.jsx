@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import "../Stylesheets/VenueDetail.css";
+// import "../Stylesheets/VenueDetail.css";
 import venueImage from "../assets/Venue-image.png";
 import ReviewCard from "../components/ReviewCard.jsx";
 import ShareIcon from "../assets/VenueDetailIcon/share.svg";
@@ -333,7 +333,7 @@ function VenueDetailsPage() {
                 <span className="light-text">
                   {Math.floor(venue.rating)}  ({venue.reviewcount} ratings)
                 </span>
-                <span className="ps-2 text_blue"><a href="#">Rate Gym</a></span>
+                <span className="ps-2 text_blue"><a href="#">Rate Turf</a></span>
               </div>
             </div>
           </div>
@@ -476,7 +476,7 @@ function VenueDetailsPage() {
                         <div>
                           <button
                             type="button"
-                            class="btn"
+                            class="btn p-0"
                             data-bs-toggle="modal"
                             data-bs-target="#RulesRegulations"
                           >
@@ -521,7 +521,7 @@ function VenueDetailsPage() {
                         <div>
                           <button
                             type="button"
-                            class="btn"
+                            class="btn p-0"
                             data-bs-toggle="modal"
                             data-bs-target="#CancellationPolicy"
                           >

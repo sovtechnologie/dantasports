@@ -10,7 +10,7 @@ function CoachAvailable({ coachAvailable, setCoachAvailable }) {
   };
 
   return (
-    <div className="filter_inner_cards border-0">
+    <div className="filter_inner_cards">
       <div className="d-flex justify-content-between ">
         <label className="form-check-label">Only Woman</label>
         <input

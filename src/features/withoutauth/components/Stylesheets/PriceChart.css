@@ -84,13 +84,12 @@
 
 .column h5 {
   font-weight: 500;
-  border-bottom: 1px solid #ddd;
   line-height: 31.14px;
   font-family: "Lato";
   font-size: 20px;
   color: #172a39;
   padding: 5px !important;
-  background-color: #0e0e0e21;
+  background-color: #0050c817;
   
 }
 .day-group p {

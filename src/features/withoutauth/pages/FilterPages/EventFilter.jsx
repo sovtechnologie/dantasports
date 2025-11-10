@@ -22,6 +22,8 @@ import { useNavigate } from "react-router-dom";
 import { Share } from "../../../../utils/share";
 import HeartFilled from "../../assets/VenueCardLogo/heartfilled.png";
 import PageSearch from "../../components/PageSearch.jsx";
+import star from "../../assets/icons/star-white.svg"
+
 export default function EventFilterPage() {
   const queryClient = useQueryClient();
   const userId = useSelector((state) => state.auth.id);
@@ -295,7 +297,8 @@ export default function EventFilterPage() {
 
 
 
-                        <div className="reating">
+                        <div className="rating_box position-absolute d-flex align-items-center">
+                          <img src={star} alt="" />
                           <span>
                             {evt.review_count?.toFixed(1) || 0} (
                             {evt.review_count || 0})

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../Stylesheets/TimeSlotSelector.css";
-
+import addIcon from "../../withoutauth/assets/icons/add.svg"
+import subIcon from "../../withoutauth/assets/icons/sub.svg"
+import { Form, InputGroup, Button, Container, Row, Col } from "react-bootstrap";
 const TimeSlotSelector = ({ date, selectedTime, setSelectedTime }) => {
   const [timeSlots, setTimeSlots] = useState([]);
 
@@ -97,18 +99,30 @@ const TimeSlotSelector = ({ date, selectedTime, setSelectedTime }) => {
   return (
     <section className="timeslot_section">
       <div className="inner">
-        <div className="mb-3 d-flex align-items-center">
-          <label className="time">Time:</label>
+        <div className="mb-3 d-flex align-items-center justify-content-between">
+          <div>
+             <label className="time">Time:</label>
           <input
             type="text"
             className="form-control text-center"
             value={selectedTime || ""}
             readOnly
           />
+          </div>
+          <div>
+            <label className="time">Duration</label>
+
+          <div className="d-flex text-center">
+            <button type="button"><img src={subIcon} alt="" /></button>
+            <input type="text" disabled placeholder="11:30 AM" />
+            <button type="button"><img src={addIcon} alt="" /></button>
+          </div>
+          </div>
+
         </div>
 
         {/* Time Buttons */}
-        <div className="d-flex mb-3 flex-wrap">
+        <div className="d-flex mb-3 timeslot_buttons">
           {timeSlots.map((time, i) => {
             const disabled = isPastTime(time);
             return (
