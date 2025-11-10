@@ -364,25 +364,7 @@ function VenueDetailsPage() {
                   >
                     {venue?.images?.map((img, index) => (
                       <SwiperSlide key={index} className="venue-swiperslide">
-                        <div className="venue-icon-topwrapper">
-                          <button className="venue-icon-btns" onClick={Share}>
-                            <img src={ShareIcon} alt="share" className="" />
-                          </button>
-                          <button
-                            className="venue-icon-btns"
-                          // onClick={() => handleClickLike(venue)}
-                          >
-                            <img
-                              src={venue.favourite ? HeartFilled : LikeIcon}
-                              alt="like"
-                              className="like-icon"
-                              onClick={() => handleClickLike(venue)}
-                            />
-                          </button>
-                      </div>
-                    {venue?.images?.map((img, index) => (
-                      <SwiperSlide key={index} className="venue-swiperslide">
-                        
+
                         <img
                           src={img}
                           alt={`event-image-${index}`}
@@ -390,6 +372,22 @@ function VenueDetailsPage() {
                         />
                       </SwiperSlide>
                     ))}
+                    <div className="venue-icon-topwrapper">
+                      <button className="venue-icon-btns" onClick={Share}>
+                        <img src={ShareIcon} alt="share" className="" />
+                      </button>
+                      <button
+                        className="venue-icon-btns"
+                      // onClick={() => handleClickLike(venue)}
+                      >
+                        <img
+                          src={venue.favourite ? HeartFilled : LikeIcon}
+                          alt="like"
+                          className="like-icon"
+                          onClick={() => handleClickLike(venue)}
+                        />
+                      </button>
+                    </div>
                   </Swiper>
                 </div>
 
