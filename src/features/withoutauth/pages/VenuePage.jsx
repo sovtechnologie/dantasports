@@ -286,8 +286,10 @@ function VenuePage() {
         <PageSearch searchValue="venuepage"/>
         <Container>
           <Row className="g-3">
-            {/* Left Filter */}
             <Col lg="4" xl={3} md="12" className="d-none d-lg-block">
+             <div className="mb-3">
+                <SortBy sortBy={sortBy} setSortBy={(value) => setSortBy(value)} />
+             </div>
               <Filter
                 sportsData={filteredSports}
                 selectedSports={selectedSports}
@@ -304,7 +306,7 @@ function VenuePage() {
                 selectedAmenities={selectedAmenities}
                 setSelectedAmenities={setSelectedAmenities}
               />
-              <SortBy sortBy={sortBy} setSortBy={(value) => setSortBy(value)} />
+             
             </Col>
 
             {/* Mobile Sort/Filter */}

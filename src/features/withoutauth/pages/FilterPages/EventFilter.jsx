@@ -247,9 +247,9 @@ export default function EventFilterPage() {
             </Col>
 
             <Col lg="8" xl={9} md="12">
-            {/* <Col className="col-12 mb-4">
-                  <OngoingEvents banners={banners} />
-            </Col> */}
+              <div className="col-12 mb-3">
+                 <OngoingEvents banners={banners} />
+              </div>
               <div className="row g-3">
                 {filteredEvents.length > 0 ? (
                   filteredEvents.map((evt) => (

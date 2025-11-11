@@ -194,6 +194,7 @@ export default function HostPlayFilterPage() {
 
           {/* Host Cards Section */}
           <Col lg={9} md={12}>
+          
             <Row className="g-3">
               {visibleHosts.length > 0 ? (
                 visibleHosts.map((host) => (
