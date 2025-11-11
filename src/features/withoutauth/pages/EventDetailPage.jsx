@@ -361,7 +361,7 @@ export default function EventDetailPage() {
                                                     <p className="m-0">Terms & Conditions</p>
                                                 </div>
                                                 <div>
-                                                    <button type="button" class="btn p-0" data-bs-toggle="modal" data-bs-target="#RulesRegulations">
+                                                    <button type="button" class="btn p-0 border-0" data-bs-toggle="modal" data-bs-target="#RulesRegulations">
                                                         <img src={arrow} alt="" />
                                                     </button>
                                                 </div>
@@ -490,35 +490,15 @@ export default function EventDetailPage() {
 
                             </div>
                         </div>
-                        {/* <Gallery gallery={event.gallery} /> */}
-                        <GalleryComponent />
+                         <div className="mt-3">
+                            <GalleryComponent />
+                         </div>
                         <div className="ratings-carousel">
                             <EventReviewSlider event={{ review: event?.reviews }} />
-                            {/* <h2 className="review-heading">Ratings & Reviews</h2>
-                    <div className="review-carousel-container">
-                        {event?.reviews?.slice(start, start + visibleCount).map((review) => (
-                            <ReviewCard key={review.id} review={review} />
-                        ))}
-                    </div>
-                    <div className="carousel-buttons">
-                        <button onClick={prev}><img src={leftArrow} alt='left arrow' /></button>
-                        <button onClick={next}><img src={rightArrow} alt='right-arrow' /></button>
-                    </div> */}
                         </div>
 
 
-                        {/* <div className='event-banner-container'>
-                    <h2 className='event-banner-heading'>Ongoing Events</h2>
-                    <div className="event-banner-carousel">
-                        <div className="event-banner-track">
-                            {banners.concat(banners).map((item, i) => ( // Duplicate for seamless looping
-                                <div key={i} className="event-banner">
-                                    <img src={item.banner_image} alt="Event" className="event-banner-img" />
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div> */}
+                       
 
                         <OngoingEvents banners={banners} />
 

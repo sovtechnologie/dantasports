@@ -41,7 +41,7 @@ const GalleryComponent = () => {
             <img
               src={img.src}
               alt={img.alt}
-              style={{ width: "200px", margin: "10px", borderRadius: "8px" }}
+              style={{ width: "200px", margin: "5px", borderRadius: "8px" }}
             />
           </a>
         ))}

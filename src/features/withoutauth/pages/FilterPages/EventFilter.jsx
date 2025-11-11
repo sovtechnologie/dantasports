@@ -247,16 +247,15 @@ export default function EventFilterPage() {
             </Col>
 
             <Col lg="8" xl={9} md="12">
-              <div className="col-12 mb-3">
+              {/* <div className="col-12 mb-3">
                  <OngoingEvents banners={banners} />
-              </div>
+              </div> */}
               <div className="row g-3">
                 {filteredEvents.length > 0 ? (
                   filteredEvents.map((evt) => (
                     <div className="col-lg-4 col-md-6 position-relative" key={evt.id}>
 
                       <Card className="event-card">
-
                         <div
                           className="card_img position-relative"
                           onClick={() => navigate(`/Events/${evt.id}`)}
@@ -330,9 +329,9 @@ export default function EventFilterPage() {
                         >
                           <div className="card_txt">
                             <h2 className="text_wrap card_heading">{evt.event_title}</h2>
-                            <p>
-                              <span>
-                                <img className="pe-2" src={date} alt="" />
+                            <p className="card_date">
+                              <span className="me-2">
+                                <img  src={date} alt="" />
                               </span>
                               {new Date(evt.start_date).toLocaleDateString(
                                 "en-GB",
@@ -351,9 +350,9 @@ export default function EventFilterPage() {
                               )}{" "}
                               | {evt.start_time?.slice(0, 5)} onwards
                             </p>
-                            <p>
-                              <span>
-                                <img className="pe-2" src={map} alt="" />
+                            <p className="card_date">
+                              <span className="me-2">
+                                <img  src={map} alt="" />
                               </span>
                               {evt.locations?.[0]?.area},{" "}
                               {evt.locations?.[0]?.city}

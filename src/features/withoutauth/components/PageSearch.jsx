@@ -38,10 +38,16 @@ const searchDetails = {
        placeholder: "Search Run..",
 
    },
-        PlayPage: {
+     PlayPage: {
 
       title: "Discover Play in near you",
        placeholder: "Search Play..",
+
+   },
+        GymPage: {
+
+      title: "Discover Gym in near you",
+       placeholder: "Search Gym..",
 
    }
 }
