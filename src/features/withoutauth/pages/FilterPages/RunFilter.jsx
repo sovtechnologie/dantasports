@@ -276,7 +276,7 @@ export default function RunFilterPage() {
         className="book_venue_section pb-lg-4 pb-3"
         style={{ background: "#F1F3F2" }}
       >
-        <PageSearch />
+        <PageSearch searchValue="RunPage"/>
         <Container>
           <Row>
             <Col lg={4} md={12} xl={3} className="d-none d-lg-block">

@@ -22,6 +22,8 @@ import arrow from "../assets/icons/arrow.svg";
 import CancellationPolicy from "../components/CancellationPolicy.jsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import shareIcon from "../assets/VenueDetailIcon/share.svg"
+import LikeIcon from "../assets/VenueDetailIcon/linke.svg";
 
 
 
@@ -219,8 +221,9 @@ export default function EventDetailPage() {
     return (
         <>
             <section style={{ background: "#f1f3f2" }} className="pb-lg-5 pb-3">
-                <Container>
-                    <div className='Event-main-header'>
+                <section className="details_page_header">
+                    <div className="container">
+                         <div className='Event-main-header'>
                         <div className="breadcrumb">
                             <span>Event &gt; {event.location} &gt; {event.name}</span>
                         </div>
@@ -229,14 +232,17 @@ export default function EventDetailPage() {
                         <div className="event-location-rating">
                             <span>{event.location}</span>
                             <span className="star" style={{ marginLeft: "20px" }}>★</span> <span className="light-text" style={{ marginLeft: "5px" }}> {Math.floor(event.rating)} ({event?.reviewcount} ratings)</span>
+                            <span className="blue_text ps-2"><a href="">Rate Events</a></span>
                         </div>
                     </div>
+                    </div>
+                </section>
+                <Container>
+                   
 
                     <div className="event-details-container">
                         <div className="event-wrapper row">
-
                             <div className="event-left col-lg-8">
-
                                 <div className="event-image-carosal">
                                     <Swiper
                                         spaceBetween={30}
@@ -258,7 +264,16 @@ export default function EventDetailPage() {
                                             </SwiperSlide>
                                         ))}
                                     </Swiper>
+                                     <div className="venue-icon-topwrapper">
+                                        <button className="venue-icon-btns">
+                                        <img src={shareIcon} alt="share"  />
+                                        </button>
+                                        <button className="venue-icon-btns">
+                                        <img src={LikeIcon} alt="share"  />
+                                        </button>
+                                    </div>
                                 </div>
+                               
 
 
                                 <div className="event-section">
@@ -335,32 +350,7 @@ export default function EventDetailPage() {
 
                                 </div>
 
-                                {/* <div className="event-term_policy">
-                            <div className="event-section terms">
-                                <div className="event-heading">Terms & Conditions
-                                </div>
-                                <div className="event-description" style={{ whiteSpace: "pre-wrap" }}>
-                                    {expandedSection === "terms"
-                                        ? event?.termsAndCondition
-                                        : `${event?.termsAndCondition?.substring(0, 200)}...`}
-                                </div>
-                                <button onClick={() => toggleSection("terms")} className="read-more-btn">
-                                    {expandedSection === "terms" ? "Read less" : "Read more"}
-                                </button>
-                            </div>
-                            <div className="event-section policy">
-                                <div className="event-heading">Cancellation Policy
-                                </div>
-                                <div className="event-description" style={{ whiteSpace: "pre-wrap" }}>
-                                    {expandedSection === "cancel"
-                                        ? event?.cancelPolicy
-                                        : `${event?.cancelPolicy?.substring(0, 200)}...`}
-                                </div>
-                                <button onClick={() => toggleSection("cancel")} className="read-more-btn">
-                                    {expandedSection === "cancel" ? "Read less" : "Read more"}
-                                </button>
-                            </div>
-                        </div> */}
+                             
                                 <div class="row g-3 mt-3">
                                     <div className="col-12 col-lg-6">
                                         <div className="card modal_title">
@@ -371,7 +361,7 @@ export default function EventDetailPage() {
                                                     <p className="m-0">Terms & Conditions</p>
                                                 </div>
                                                 <div>
-                                                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#RulesRegulations">
+                                                    <button type="button" class="btn p-0" data-bs-toggle="modal" data-bs-target="#RulesRegulations">
                                                         <img src={arrow} alt="" />
                                                     </button>
                                                 </div>
@@ -403,7 +393,7 @@ export default function EventDetailPage() {
                                                     <p className="m-0">Cancellation And Reschedule Policy</p>
                                                 </div>
                                                 <div>
-                                                    <button type="button" class="btn border-0" data-bs-toggle="modal" data-bs-target="#CancellationPolicy">
+                                                    <button type="button" class="btn border-0 p-0" data-bs-toggle="modal" data-bs-target="#CancellationPolicy">
                                                         <img src={arrow} alt="" />
                                                     </button>
                                                 </div>

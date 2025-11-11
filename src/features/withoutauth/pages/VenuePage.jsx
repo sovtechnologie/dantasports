@@ -283,7 +283,7 @@ function VenuePage() {
         className="venue_page_section pb-lg-5 pb-3"
         style={{ background: "#F1F3F2" }}
       >
-        <PageSearch searchValue="vanuePage"/>
+        <PageSearch searchValue="venuepage"/>
         <Container>
           <Row className="g-3">
             {/* Left Filter */}

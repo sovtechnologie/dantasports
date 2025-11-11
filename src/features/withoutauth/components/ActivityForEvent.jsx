@@ -43,7 +43,7 @@ function ActivityForEvent({ selectedSports, setSelectedSports }) {
 
     return (
         <div className="filter_inner_cards">
-            <h2 className="text-start event-activity-title">Activity/Services</h2>
+            <h2 className="text-start filter_sub_title">Activity/Services</h2>
 
             <div className="event-search-box position-relative">
                 <img className="event-seach_icons" src={search1} alt="search" />

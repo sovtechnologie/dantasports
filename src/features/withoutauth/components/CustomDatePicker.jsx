@@ -112,7 +112,7 @@ const CustomDatePicker = ({ selectedDate, setSelectedDate }) => {
 
   return (
     <div className="dp-wrapper" ref={pickerRef}>
-      <h2 className="text-start">Date</h2>
+      <h2 className="text-start filter_sub_title">Date</h2>
       <div className="dp-input-container" onClick={() => setOpen(!open)}>
         <input
           type="text"

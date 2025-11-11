@@ -1,3 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+.filter_sub_title{
+
+  color: #172A39;
+  font-family: 'Lato';
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 21px;
+
+}
+
 .details_page_header {
 
       box-shadow: 0px 4px 4px 0px #1163C740;
@@ -6,6 +18,7 @@
       background-color: white;
       margin-bottom: 30px;
 }
+
 
 .breadcrumb  span{
     font-size: 16px;

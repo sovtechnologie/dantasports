@@ -12,14 +12,36 @@ const searchDetails = {
    },
 
    venuepage:{
-      title:"satsih sahu venue page",
-      placeholder: "binod venue",
+      title:"Discover Turf in near you",
+      placeholder: "Search Turf..",
       
    },
    HostPage: {
 
-      title: "hostpage",
-       placeholder: "host venue",
+      title: "Discover Play in near you",
+       placeholder: "Search Play..",
+
+   },
+   CoachPage:{
+      title: "Discover Coach’s in near you",
+      placeholder: "Search Coach..",
+   },
+     EventPage: {
+
+      title: "Discover events in near you",
+       placeholder: "Search Events..",
+
+   },
+       RunPage: {
+
+      title: "Discover Run in near you",
+       placeholder: "Search Run..",
+
+   },
+        PlayPage: {
+
+      title: "Discover Play in near you",
+       placeholder: "Search Play..",
 
    }
 }

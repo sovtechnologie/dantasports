@@ -23,8 +23,14 @@ import { Share } from "../../../../utils/share";
 import HeartFilled from "../../assets/VenueCardLogo/heartfilled.png";
 import PageSearch from "../../components/PageSearch.jsx";
 import star from "../../assets/icons/star-white.svg"
+import OngoingEvents from "../../components/OngoingEvents.jsx";
+import { useBanner } from "../../../../hooks/useBanner.js";
 
 export default function EventFilterPage() {
+
+  const { data: bannerData, isLoading: dataLoading, error: dataError } = useBanner(2);
+  const banners = bannerData?.result || [];
+
   const queryClient = useQueryClient();
   const userId = useSelector((state) => state.auth.id);
   const { lat, lng } = useSelector((state) => state.location);
@@ -212,10 +218,10 @@ export default function EventFilterPage() {
 
         style={{ background: "#F1F3F2" }}
       >
-        <PageSearch />
+         <PageSearch searchValue="EventPage"/>
         <Container>
           <Row>
-            <Col lg={3} md={4} className="d-none d-lg-block d-md-block">
+            <Col xl={3}lg={4} md={12} className="d-none d-lg-block d-md-block">
               <SortBy
                 sortBy={filters.sortBy}
                 setSortBy={(value) =>
@@ -238,49 +244,21 @@ export default function EventFilterPage() {
 
             <Col className="d-lg-none d-md-none mb-3 text-end">
               <SortModal />
-              {/* <EventPageModal /> */}
             </Col>
 
-            <Col lg={9} md={8}>
+            <Col lg="8" xl={9} md="12">
+            {/* <Col className="col-12 mb-4">
+                  <OngoingEvents banners={banners} />
+            </Col> */}
               <div className="row g-3">
                 {filteredEvents.length > 0 ? (
                   filteredEvents.map((evt) => (
                     <div className="col-lg-4 col-md-6 position-relative" key={evt.id}>
-                      <div className="card_icons events">
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            toggleFavourite(evt);
-                          }}
-                          className="icon-btn"
-                          style={{ background: "none", border: "none" }}
-                        >
-                          <img
-                            className="like"
-                            src={evt.favourite ? HeartFilled : likeIcon}
-                            alt="like"
-                          />
-                        </button>
 
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            Share();
-                          }}
-                          className="icon-btn"
-                          style={{ background: "none", border: "none" }}
-                        >
-                          <img
-                            className="share"
-                            src={shareIcon}
-                            alt="share"
-                          />
-                        </button>
-                      </div>
                       <Card className="event-card">
 
                         <div
-                          className="card_img"
+                          className="card_img position-relative"
                           onClick={() => navigate(`/Events/${evt.id}`)}
                           style={{ cursor: "pointer" }}
                         >
@@ -294,8 +272,37 @@ export default function EventFilterPage() {
                             }}
                           />
                         </div>
+                        <div className="card_icons events">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleFavourite(evt);
+                            }}
+                            className="icon-btn"
+                            style={{ background: "none", border: "none" }}
+                          >
+                            <img
+                              className="like"
+                              src={evt.favourite ? HeartFilled : likeIcon}
+                              alt="like"
+                            />
+                          </button>
 
-
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              Share();
+                            }}
+                            className="icon-btn"
+                            style={{ background: "none", border: "none" }}
+                          >
+                            <img
+                              className="share"
+                              src={shareIcon}
+                              alt="share"
+                            />
+                          </button>
+                        </div>
 
                         <div className="rating_box position-absolute d-flex align-items-center">
                           <img src={star} alt="" />
@@ -393,7 +400,9 @@ export default function EventFilterPage() {
                   <div className="no-data">No Event Data Available</div>
                 )}
               </div>
+              
             </Col>
+           
           </Row>
 
           <div className="event-footer-banner">
