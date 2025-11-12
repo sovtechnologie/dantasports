@@ -10,7 +10,7 @@ const DistanceSlider = ({ selectedDistance, setSelectedDistance }) => {
 
   return (
     <div className="distance-container">
-      <h3 className="text-start">Distance</h3>
+      <h2 className="text-start">Distance</h2>
 
       {/* Labels for every 100 km */}
       <div className="distance-values">

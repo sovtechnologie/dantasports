@@ -6,13 +6,6 @@
 }
 
 
-.distance-container h3 {
-      font-family: 'Lato';
-    font-weight: 500;
-    font-size: 17.72px;
-    color: #172A39;
-    margin-bottom: 1rem;
-}
 
 .distance-values {
   display: flex;

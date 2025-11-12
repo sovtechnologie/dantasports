@@ -247,9 +247,9 @@ export default function EventFilterPage() {
             </Col>
 
             <Col lg="8" xl={9} md="12">
-              {/* <div className="col-12 mb-3">
-                 <OngoingEvents banners={banners} />
-              </div> */}
+              <div className="col-12 mb-4">
+              <OngoingEvents banners={banners} />
+            </div>
               <div className="row g-3">
                 {filteredEvents.length > 0 ? (
                   filteredEvents.map((evt) => (
@@ -271,7 +271,7 @@ export default function EventFilterPage() {
                             }}
                           />
                         </div>
-                        <div className="card_icons events">
+                        <div className="card_icons">
                           <button
                             onClick={(e) => {
                               e.stopPropagation();

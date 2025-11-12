@@ -31,8 +31,14 @@ import PageSearch from "../../components/PageSearch.jsx";
 import CustomDatePicker from "../../components/CustomDatePicker.jsx";
 import sortIcon from "../../assets/icons/sort.svg";
 import filterIcon from "../../assets/icons/filter.svg";
+import OngoingEvents from "../../components/OngoingEvents.jsx";
+import { useBanner } from "../../../../hooks/useBanner.js";
 
 export default function CoachFilterPage() {
+   const { data: bannerData, isLoading: bannerLoading, error: bannerError } = useBanner(1);
+const banners = bannerData?.result || [];
+
+
   const queryClient = useQueryClient();
 
   const { lat, lng } = useSelector((state) => state.location);
@@ -446,6 +452,9 @@ export default function CoachFilterPage() {
               </div>
             </Col>
             <Col xl={9} lg={8} md={12}>
+            <div className="col-12 mb-4">
+              <OngoingEvents banners={banners} />
+            </div>
               <div className="row g-3">
                 {formattedCoachList.length > 0 ? (
                   formattedCoachList.map((coach) => (

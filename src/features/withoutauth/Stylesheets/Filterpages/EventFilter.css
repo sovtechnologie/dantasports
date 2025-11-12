@@ -1,4 +1,4 @@
- .card {
+.card {
   box-shadow: 0px 4px 4px 0px #1163c740;
   margin-bottom: 15px;
   border: none;
@@ -6,50 +6,41 @@
 }
 
 .rating_box {
-    top: 10px;
-    left: 10px;
-    background: #0000004D;
-    border-radius: 4px;
-    display: flex;
-    padding: 5px 8px;
-    align-items: center;
-    gap: 5px;
-    border: 1px solid #fff;
-    color: #fff;
-    z-index: 5;
-    height: 22px;
-
+  top: 10px;
+  left: 10px;
+  background: #0000004d;
+  border-radius: 4px;
+  display: flex;
+  padding: 5px 8px;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid #fff;
+  color: #fff;
+  z-index: 5;
+  height: 22px;
 }
-.card.modal_title{
+.card.modal_title {
   box-shadow: unset;
 }
 
-
-
-.card_icons.events{
-
+.card_icons.events {
   position: absolute;
-  top: -10px;
+  top: 10px;
   z-index: 999;
-  right: 33px;
-  
-
 }
 
 .card_icons.events .like {
   right: 15%;
-   height: 26px;
+  height: 26px;
   width: 26px;
   position: absolute;
- 
 }
 
-
-.card_icons.events .share {
-    position: absolute;
-     height: 26px;
-  width: 26px;
-
+.card_icons {
+  position: absolute;
+  top: 10px;
+  z-index: 999;
+  right: 5%;
 }
 
 .book_venue_section .card h2 {
@@ -59,24 +50,18 @@
   margin-bottom: 16px;
 }
 
-
-
 .sports_title p {
   font-weight: 400;
   font-size: 14px;
   color: #fc8019;
   margin-bottom: 0px;
-  font-family: 'DM Sans';
-    font-weight: 500;
-    font-size: 14px;
-
-
+  font-family: "DM Sans";
+  font-weight: 500;
+  font-size: 14px;
 }
 
-.sports_title p span{
-
-    color: #1163C7;
-
+.sports_title p span {
+  color: #1163c7;
 }
 
 .txt_wrapper {
@@ -105,19 +90,14 @@
   transition: 0.3s ease-in-out;
 }
 
-
-
-
 .easy_box {
-
-    position: absolute;
-    top: 43%;
-    left: 10px;
-    background: #0000004D;
-    color: white;
-    padding: 5px;
-    font-size: 12px;
-    border: 1px solid #ffffff9a;
-    border-radius: 4px;
-
+  position: absolute;
+  top: 43%;
+  left: 10px;
+  background: #0000004d;
+  color: white;
+  padding: 5px;
+  font-size: 12px;
+  border: 1px solid #ffffff9a;
+  border-radius: 4px;
 }

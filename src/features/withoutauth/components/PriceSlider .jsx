@@ -13,7 +13,7 @@ const PriceSlider = ({ priceRange, setPriceRange }) => {
 
   return (
     <div className="price-container">
-      <h3>Price</h3>
+      <h2>Price</h2>
       <div className="price-range-labels">
         <span>₹0</span>
         <span>₹10000</span>

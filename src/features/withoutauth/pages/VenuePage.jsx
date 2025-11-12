@@ -28,16 +28,11 @@ import HeartFilled from "../../withoutauth/assets/VenueCardLogo/heartfilled.png"
 import likeIcon from "../assets/icons/like.svg";
 import OngoingEvents from "../components/OngoingEvents.jsx";
 import { useBanner } from "../../../hooks/useBanner.js";
-// import "../../withoutauth/components/OngoingEvents.jsx";
 
 function VenuePage() {
-  // const [showSort, setShowSort] = useState(false);
-  // const [filterShow, setFilterShow] = useState(false);
+ 
 
-    // const banners = bannerData?.result || [];
-
-      const { data: bannerData, isLoading:dataLoading, error:dataError } = useBanner(1);
-    
+      const { data: bannerData, isLoading:dataLoading, error:dataError } = useBanner(1);    
       const banners = bannerData?.result || [];
     
 
@@ -309,59 +304,6 @@ function VenuePage() {
              
             </Col>
 
-            {/* Mobile Sort/Filter */}
-            {/* <Col className="d-lg-none d-md-none text-end">
-              <div className="d-flex text-end justify-content-end mb-3">
-
-                <button className=" border-0 " onClick={() => {
-                  setFilterShow(!filterShow)
-                  setShowSort(false)
-                }}>
-                  <img src={filterIcon} alt="" />
-                </button>
-                <button
-                  className="border-0"
-                  onClick={() => {
-                    setShowSort(prev => !prev)
-                    setFilterShow(false)
-                  }}
-                  aria-expanded={showSort}
-                >
-                  <img src={sortIcon} alt="" />
-                </button>
-              </div>
-
-              {
-                filterShow &&
-
-                <Filter
-                  sportsData={filteredSports}
-                  selectedSports={selectedSports}
-                  setSelectedSports={setSelectedSports}
-                  selectedDate={selectedDate}
-                  setSelectedDate={setSelectedDate}
-                  selectedTime={selectedTime}
-                  setSelectedTime={setSelectedTime}
-                  sportSearch={sportSearch}
-                  setSportSearch={setSportSearch}
-                  searchTerm={searchTerm}
-                  setSearchTerm={setSearchTerm}
-                  setFilteredVenues={setFilteredVenues}
-                  selectedAmenities={selectedAmenities}
-                  setSelectedAmenities={setSelectedAmenities}
-
-                />
-              }
-
-
-             
-
-              {showSort && (
-                <div className="mt-3">
-                  <SortBy setSortBy={(value) => console.log("selected:", value)} />
-                </div>
-              )}
-            </Col> */}
             <Col className="d-lg-none  text-end">
               <div className="modal_wraper d-flex justify-content-end">
                 <div>

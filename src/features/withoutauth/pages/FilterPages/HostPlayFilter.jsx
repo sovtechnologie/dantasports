@@ -227,9 +227,9 @@ export default function HostPlayFilterPage() {
 
                       <h2>Host By: {host.host_name || "Unknown"}</h2>
 
-                      <div className="d-flex align-items-center mb-2">
+                      <div className="d-flex align-items-center mb-3">
                         <img src={calendarIcon} alt="calendar" className="icon me-2" />
-                        <span>
+                        <span className="host_date">
                           {host.date
                             ? new Date(host.date).toLocaleDateString("en-GB", {
                               day: "2-digit",
@@ -242,7 +242,7 @@ export default function HostPlayFilterPage() {
 
                       <div className="d-flex align-items-center mb-3">
                         <img src={mapIcon} alt="location" className="icon me-2" />
-                        <span>
+                        <span className="host_date">
                           {host.city || "Address not available"} {host.state || ""} (~
                           {host.distance_km || 0} Km)
                         </span>

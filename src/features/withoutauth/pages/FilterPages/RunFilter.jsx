@@ -31,6 +31,9 @@ import DistanceSlider from "../../components/DistanceSlider.jsx";
 import PriceSlider from "../../components/PriceSlider.jsx";
 import Kids from "../../components/Kids.jsx";
 import fliterIcon from "../../assets/icons/filter.svg"
+import OngoingEvents from "../../components/OngoingEvents.jsx";
+import { useBanner } from "../../../../hooks/useBanner.js";
+
 function formatTime(timeStr = "00:00") {
   if (!timeStr) return "";
   const [h, m, s] = timeStr.split(":").map(Number);
@@ -54,6 +57,9 @@ function toDateOnly(str) {
 }
 
 export default function RunFilterPage() {
+  const { data: bannerData, isLoading: bannerLoading, error: bannerError } = useBanner(1);
+const banners = bannerData?.result || [];
+
   const queryClient = useQueryClient();
   const userId = useSelector((state) => state.auth.id);
   const { lat, lng } = useSelector((state) => state.location);
@@ -446,8 +452,11 @@ export default function RunFilterPage() {
 
 
             </Col>
-
+            
             <Col lg={8} xl={9} md={12}>
+            <div className="col-12 mb-4">
+              <OngoingEvents banners={banners}/>
+            </div>
               <div className="row g-3">
                 {filteredEvents.length > 0 ? (
                   filteredEvents.map((event) => (

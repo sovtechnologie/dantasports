@@ -1,11 +1,15 @@
 .gallery-container {
     border: none;
-    border-radius: 16px;
+    border-radius: 6px;
     height: 305px;
     overflow-y: auto;
     overflow-x: hidden;
     scroll-behavior: smooth;
     margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 /* ✅ Custom WebKit Scrollbar (for Chrome, Edge, Brave, etc.) */

@@ -26,8 +26,15 @@ import star from "../../assets/icons/star-white.svg"
 import PageSearch from "../../components/PageSearch.jsx";
 import sortIcon from "../../assets/icons/sort.svg";
 import filterIcon from "../../assets/icons/filter.svg";
+import OngoingEvents from "../../components/OngoingEvents.jsx";
+import { useBanner } from "../../../../hooks/useBanner.js";
+
 
 export default function GymFilterPage() {
+
+  const { data: bannerData, isLoading:dataLoading, error:dataError } = useBanner(1);    
+  const banners = bannerData?.result || [];
+
   const userId = useSelector((state) => state.auth.id);
   const { lat, lng } = useSelector((state) => state.location);
   const queryClient = useQueryClient();
@@ -327,6 +334,9 @@ export default function GymFilterPage() {
           </Col>
 
           <Col xl={9} lg={8} md={12}>
+           <Col className="col-12 mb-4">
+                <OngoingEvents banners={banners} />
+            </Col>
             <div className="row g-3">
               {filteredGyms.length > 0 ? (
                 filteredGyms.map((gym) => {

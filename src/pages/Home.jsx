@@ -17,19 +17,29 @@ import BookGym from "../components/BookGym";
 import BookCoach from "../components/BookCoach";
 import "../stylesheets/layouts/Global.css";
 import OngoingEvents from "../features/withoutauth/components/OngoingEvents";
-
+import { useBanner } from "../hooks/useBanner.js";
+import { Row, Col, Container } from "react-bootstrap";
 const Home = () => {
+
+    const { data: bannerData, isLoading: dataLoading, error: dataError } = useBanner(1);
+    const banners = bannerData?.result || [];
     return (
         <div className="main-Home-container">
             <HomeBanner />
-            <QuickBooking/>
-            {/* <OngoingEvents/> */}
+            <QuickBooking />
+            <Container>
+                <Row className="section_title">
+                <Col className="col-12">
+                    <OngoingEvents banners={banners} />
+                </Col>
+            </Row>
+            </Container>
             <BookVenues />
             <BookRun />
-            <BookCoach/>
+            <BookCoach />
             <BookEvents />
             <BookGym />
-            <PlayHost/>
+            <PlayHost />
             <DownloadAppSection />
         </div>
     )

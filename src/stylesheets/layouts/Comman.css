@@ -9,6 +9,27 @@
   line-height: 21px;
 
 }
+.filter_container h2,
+.filter_card h2 {
+
+    font-family: 'Lato';
+    font-weight: 500;
+    font-size: 17.72px;
+    color: #172A39;
+    line-height: 23.03px;
+
+}
+
+.modal-content.custom_modal{
+
+
+  max-width: 450px;
+   border-radius: 32px;
+   padding: 20px;
+   border: 2px solid #1163C7;
+   box-shadow: 0px 4px 4px 0px #1163C740;
+}
+
 
 .details_page_header {
 
