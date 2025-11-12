@@ -5,3 +5,27 @@
     border-radius: 8px;
     margin-bottom: 30px;
 }
+
+.disabled-block {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.apply_btn {
+  background: #ccc;
+  color: #fff;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.apply_btn.active {
+  background: #2160f2;
+  cursor: pointer;
+}
+
+.apply_btn.disabled {
+  background: #999;
+  cursor: not-allowed;
+}

@@ -68,7 +68,18 @@ const mapCoachData = (apiData) => {
         classes: apiData?.classes,
         fees_and_packages: apiData?.fees_and_packages,
         available_days: availableDays,
-        certficiates: apiData?.certficiates,
+        certficiates: Array.isArray(apiData?.certificates)
+            ? apiData.certificates
+                .filter((c, index, self) =>
+                    index === self.findIndex((t) => t.id === c.id)
+                )
+                .map((cert) => ({
+                    id: cert.id,
+                    certificate_name: cert.certificate_name,
+                    certificate_url: cert.certificate_url,
+                }))
+            : [],
+
         images: Array.isArray(apiData?.gallery_images)
             ? apiData?.gallery_images.map((img) => img.image)
             : [RunImage, RunImage, RunImage],
@@ -152,18 +163,18 @@ export default function CoachDetailPage() {
                 <section className="details_page_header">
                     <div className="container">
                         <div className='Coach-main-header'>
-                        <div className="breadcrumb">
-                            <span>Coach &gt; {coach?.location} &gt; {coach?.name}</span>
-                        </div>
+                            <div className="breadcrumb">
+                                <span>Coach &gt; {coach?.location} &gt; {coach?.name}</span>
+                            </div>
 
-                        <h1 className="coachpage-name">{coach?.name}</h1>
-                        <div className="location-rating">
-                            <span>{coach?.location}</span>
-                            <span className="star" style={{ marginLeft: "20px" }}>★</span> <span className="light-text" style={{ marginLeft: "5px" }}>{Math.floor(coach.rating)} ({coach?.reviewcount} ratings)</span>
-                            <span className="ps-2 text_blue"><a href="">Coach Rate</a></span>
+                            <h1 className="coachpage-name">{coach?.name}</h1>
+                            <div className="location-rating">
+                                <span>{coach?.location}</span>
+                                <span className="star" style={{ marginLeft: "20px" }}>★</span> <span className="light-text" style={{ marginLeft: "5px" }}>{Math.floor(coach.rating)} ({coach?.reviewcount} ratings)</span>
+                                <span className="ps-2 text_blue"><a href="">Coach Rate</a></span>
 
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </section>
                 <Container>
@@ -194,12 +205,12 @@ export default function CoachDetailPage() {
 
                                             <button className="venue-icon-btns">
                                                 <img
-                                                src={LikeIcon}
-                                                alt="like"
-                                                className="like-icon"
+                                                    src={LikeIcon}
+                                                    alt="like"
+                                                    className="like-icon"
                                                 />
                                             </button>
-                                            </div>
+                                        </div>
 
                                         {coach?.images?.map((img, index) => (
                                             <SwiperSlide key={index} className="coach-swiperslide">

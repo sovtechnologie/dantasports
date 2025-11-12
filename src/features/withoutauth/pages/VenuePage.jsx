@@ -34,12 +34,12 @@ function VenuePage() {
   // const [showSort, setShowSort] = useState(false);
   // const [filterShow, setFilterShow] = useState(false);
 
-    // const banners = bannerData?.result || [];
+  // const banners = bannerData?.result || [];
 
-      const { data: bannerData, isLoading:dataLoading, error:dataError } = useBanner(1);
-    
-      const banners = bannerData?.result || [];
-    
+  const { data: bannerData, isLoading: dataLoading, error: dataError } = useBanner(1);
+
+  const banners = bannerData?.result || [];
+
 
 
   const isSameDate = (venueDate, selectedDate) => {
@@ -69,6 +69,7 @@ function VenuePage() {
   const [filteredVenues, setFilteredVenues] = useState([]);
   const [isFiltering, setIsFiltering] = useState(false);
   const [sortBy, setSortBy] = useState("");
+  const [canApply, setCanApply] = useState(false); // ✅ Add this line
 
   const likeVenue = useLikeVenue();
   const unlikeVenue = useUnlikeVenue();
@@ -116,19 +117,27 @@ function VenuePage() {
 
   useEffect(() => {
     if (isSuccess && filterData) {
+      console.log("✅ Filtered data received:", filterData.result);
       setFilteredVenues(filterData.result || []);
       setIsFiltering(false);
     }
   }, [isSuccess, filterData]);
 
+
+
   useEffect(() => {
-    if (
-      !selectedSports.length &&
-      !selectedDate &&
-      !selectedTime &&
-      !selectedAmenities.length
-    )
+    const timeout = setTimeout(() => {
+      setCanApply(selectedSports.length > 0);
+    }, 100);
+    return () => clearTimeout(timeout);
+  }, [selectedSports]);
+
+
+  const handleApplyFilters = () => {
+    if (!selectedSports.length) {
+      alert("Please select a sport first");
       return;
+    }
 
     const formatDateForMySQL = (date) => {
       if (!date) return null;
@@ -150,7 +159,7 @@ function VenuePage() {
     };
 
     const payload = {
-      ...(selectedSports.length && { sportsId: selectedSports[0].id }),
+      sportsId: selectedSports[0].id,
       ...(selectedAmenities.length && { amenties: selectedAmenities[0] }),
       ...(selectedDate && { date: formatDateForMySQL(selectedDate) }),
       ...(selectedTime && { time: formatTimeForMySQL(selectedTime) }),
@@ -159,14 +168,10 @@ function VenuePage() {
       userId: auth?.id,
     };
 
-    // 🧠 Compare with previous payload
-    const isSame = JSON.stringify(payload) === JSON.stringify(lastPayload);
-    if (isSame) return; // agar same hai to dobara call mat karo
-
-    console.log("📤 API Triggered:", payload);
-    setLastPayload(payload);
-    filterVenues(payload);
-  }, [selectedSports, selectedDate, selectedTime, selectedAmenities]);
+    console.log("🎯 APPLY CLICK API PAYLOAD:", payload);
+    setIsFiltering(true);
+    filterVenues(payload)
+  };
 
   useEffect(() => {
     const sortArray = Array.isArray(sortBy) ? sortBy : sortBy ? [sortBy] : [];
@@ -204,7 +209,7 @@ function VenuePage() {
     } else {
       setVenueList(processedVenues);
     }
-  }, [sortBy, AllVenuedata, filteredVenues]);
+  }, [sortBy]);
 
   const toggleFavourite = (venue) => {
     const venueId = venue.id;
@@ -283,13 +288,13 @@ function VenuePage() {
         className="venue_page_section pb-lg-5 pb-3"
         style={{ background: "#F1F3F2" }}
       >
-        <PageSearch searchValue="venuepage"/>
+        <PageSearch searchValue="venuepage" />
         <Container>
           <Row className="g-3">
             <Col lg="4" xl={3} md="12" className="d-none d-lg-block">
-             <div className="mb-3">
+              <div className="mb-3">
                 <SortBy sortBy={sortBy} setSortBy={(value) => setSortBy(value)} />
-             </div>
+              </div>
               <Filter
                 sportsData={filteredSports}
                 selectedSports={selectedSports}
@@ -305,8 +310,9 @@ function VenuePage() {
                 setFilteredVenues={setFilteredVenues}
                 selectedAmenities={selectedAmenities}
                 setSelectedAmenities={setSelectedAmenities}
+                onApply={handleApplyFilters}
               />
-             
+
             </Col>
 
             {/* Mobile Sort/Filter */}
@@ -365,25 +371,25 @@ function VenuePage() {
             <Col className="d-lg-none  text-end">
               <div className="modal_wraper d-flex justify-content-end">
                 <div>
-                   <div
-                  class="modal fade"
-                  id="exampleModalToggleFilter"
-                  aria-hidden="true"
-                  aria-labelledby="sortby"
-                  tabindex="-1"
-                >
-                  <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                      </div>
-                      <div class="modal-body">
-                            <Filter
+                  <div
+                    class="modal fade"
+                    id="exampleModalToggleFilter"
+                    aria-hidden="true"
+                    aria-labelledby="sortby"
+                    tabindex="-1"
+                  >
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                        <div class="modal-body">
+                          <Filter
                             sportsData={filteredSports}
                             selectedSports={selectedSports}
                             setSelectedSports={setSelectedSports}
@@ -398,77 +404,78 @@ function VenuePage() {
                             setFilteredVenues={setFilteredVenues}
                             selectedAmenities={selectedAmenities}
                             setSelectedAmenities={setSelectedAmenities}
+                            onApply={handleApplyFilters}
 
                           />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div
-                  class="modal fade"
-                  id="exampleModalToggle2"
-                  aria-hidden="true"
-                  aria-labelledby="exampleModalToggleLabel2"
-                  tabindex="-1"
-                ></div>
+                  <div
+                    class="modal fade"
+                    id="exampleModalToggle2"
+                    aria-hidden="true"
+                    aria-labelledby="exampleModalToggleLabel2"
+                    tabindex="-1"
+                  ></div>
 
-                <button
-                  class="btn_mobile"
-                  data-bs-toggle="modal"
-                  href="#exampleModalToggleFilter"
-                  role="button"
-                >
-                  <img src={filterIcon} alt="" />
-                </button>
+                  <button
+                    class="btn_mobile"
+                    data-bs-toggle="modal"
+                    href="#exampleModalToggleFilter"
+                    role="button"
+                  >
+                    <img src={filterIcon} alt="" />
+                  </button>
                 </div>
                 <div>
-                   <div
-                  class="modal fade"
-                  id="exampleModalToggleSort"
-                  aria-hidden="true"
-                  aria-labelledby="sortby"
-                  tabindex="-1"
-                >
-                  <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                      </div>
-                      <div class="modal-body">
-                        <SortBy />
+                  <div
+                    class="modal fade"
+                    id="exampleModalToggleSort"
+                    aria-hidden="true"
+                    aria-labelledby="sortby"
+                    tabindex="-1"
+                  >
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                        <div class="modal-body">
+                          <SortBy />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div
-                  class="modal fade"
-                  id="exampleModalToggle2"
-                  aria-hidden="true"
-                  aria-labelledby="exampleModalToggleLabel2"
-                  tabindex="-1"
-                ></div>
+                  <div
+                    class="modal fade"
+                    id="exampleModalToggle2"
+                    aria-hidden="true"
+                    aria-labelledby="exampleModalToggleLabel2"
+                    tabindex="-1"
+                  ></div>
 
-                <button
-                  class="btn_mobile"
-                  data-bs-toggle="modal"
-                  href="#exampleModalToggleSort"
-                  role="button"
-                >
-                  <img src={sortIcon} alt="" />
-                </button>
+                  <button
+                    class="btn_mobile"
+                    data-bs-toggle="modal"
+                    href="#exampleModalToggleSort"
+                    role="button"
+                  >
+                    <img src={sortIcon} alt="" />
+                  </button>
                 </div>
               </div>
             </Col>
 
             <Col lg="8" xl={9} md="12">
-            <Col className="col-12 mb-4">
+              <Col className="col-12 mb-4">
                 <OngoingEvents banners={banners} />
-            </Col>
+              </Col>
               <div className="row g-3">
                 {isFiltering || isPending ? (
                   "Loding......."
