@@ -14,7 +14,9 @@ import calendarIcon from "../../assets/playhost/date.svg";
 import mapIcon from "../../assets/playhost/map.svg";
 import profilePlaceholder from "../../assets/playhost/user1.png";
 import PageSearch from "../../components/PageSearch";
-import sortIcon from "../../assets/icons/sort.svg"
+import sortIcon from "../../assets/icons/sort.svg";
+import OngoingEvents from "../../components/OngoingEvents.jsx";
+import { useBanner } from "../../../../hooks/useBanner.js";
 
 function formatTime(timeStr = "00:00") {
   const [h, m] = timeStr.split(":").map(Number);
@@ -24,6 +26,9 @@ function formatTime(timeStr = "00:00") {
 }
 
 export default function HostPlayFilterPage() {
+
+    const { data: bannerData, isLoading: bannerLoading, error: bannerError } = useBanner(1);
+  const banners = bannerData?.result || [];
 
   const [showSort, setShowSort] = useState(false);
   const { lat, lng } = useSelector((state) => state.location);
@@ -194,7 +199,9 @@ export default function HostPlayFilterPage() {
 
           {/* Host Cards Section */}
           <Col lg={9} md={12}>
-          
+          <Col className="col-12 mb-4 onging_title_hid">
+                <OngoingEvents banners={banners} />
+            </Col>
             <Row className="g-3">
               {visibleHosts.length > 0 ? (
                 visibleHosts.map((host) => (
@@ -227,9 +234,9 @@ export default function HostPlayFilterPage() {
 
                       <h2>Host By: {host.host_name || "Unknown"}</h2>
 
-                      <div className="d-flex align-items-center mb-2">
+                      <div className="d-flex align-items-center mb-3">
                         <img src={calendarIcon} alt="calendar" className="icon me-2" />
-                        <span>
+                        <span className="host_date">
                           {host.date
                             ? new Date(host.date).toLocaleDateString("en-GB", {
                               day: "2-digit",
@@ -242,7 +249,7 @@ export default function HostPlayFilterPage() {
 
                       <div className="d-flex align-items-center mb-3">
                         <img src={mapIcon} alt="location" className="icon me-2" />
-                        <span>
+                        <span className="host_date">
                           {host.city || "Address not available"} {host.state || ""} (~
                           {host.distance_km || 0} Km)
                         </span>

@@ -1,6 +1,5 @@
 import React from "react";
 import LightGallery from "lightgallery/react";
-
 // Plugins
 import lgThumbnail from "lightgallery/plugins/thumbnail";
 import lgZoom from "lightgallery/plugins/zoom";
@@ -23,6 +22,9 @@ const GalleryComponent = () => {
     { src: "https://picsum.photos/id/1019/600/400", alt: "Image 3" },
      { src: "https://picsum.photos/id/1015/600/400", alt: "Image 2" },
     { src: "https://picsum.photos/id/1019/600/400", alt: "Image 3" },
+      { src: "https://picsum.photos/id/1019/600/400", alt: "Image 3" },
+     { src: "https://picsum.photos/id/1015/600/400", alt: "Image 2" },
+    { src: "https://picsum.photos/id/1019/600/400", alt: "Image 3" },
     
   ];
 
@@ -41,7 +43,7 @@ const GalleryComponent = () => {
             <img
               src={img.src}
               alt={img.alt}
-              style={{ width: "200px", margin: "5px", borderRadius: "8px" }}
+              style={{ width: "180px", margin: "5px", borderRadius: "8px" }}
             />
           </a>
         ))}
