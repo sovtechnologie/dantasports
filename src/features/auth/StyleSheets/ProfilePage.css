@@ -1,38 +1,13 @@
-/* Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+
+.profile_section  h2 {
+
+  color: #172A39;
+  font-family: 'Lato';
+  font-weight: 700;
+  font-size: 44px;
+  line-height: 36px;
+
 }
-
-/* body {
-  font-family: "Segoe UI", sans-serif;
-  background-color: #f5f7f8;
-  color: #333;
-} */
-
-/* Container */
-.profile-container {
-  display: flex;
-  flex-direction: row;
-  gap: 24px;
-  padding: 20px;
-  max-width: 1200px;
-  margin: auto;
-  flex-wrap: wrap;
-}
-
-/* Left Sidebar */
-.sidebar {
-  flex: 1;
-  min-width: 400px;
-  max-width: 600px;
-  /* background: #fff; */
-  /* padding: 20px; */
-  /* border-radius: 10px; */
-  /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); */
-}
-
 .user-card {
   display: flex;
   justify-content: space-between;
@@ -40,12 +15,9 @@
   background: #ffffff;
   border-radius: 16px;
   padding: 16px 20px;
-  box-shadow:
-    0 0 0 2px #e0e0e0,
-    0 4px 8px rgba(0, 123, 255, 0.2);
-  border: 1px solid #d0e6ff;
-  max-width: 500px;
-  margin: auto;
+ box-shadow: 0px 5.79px 5.79px 0px #1163C740;
+
+ 
   margin-bottom: 40px;
 }
 
@@ -91,28 +63,39 @@
   cursor: pointer;
 }
 
-.account-card {
-  background-color: #ffffff;
-  border-radius: 16px;
-  box-shadow:
-    0 0 0 2px #e0e0e0,
-    0 4px 8px rgba(0, 123, 255, 0.2);
-  max-width: 500px;
-  margin: 40px auto;
-  overflow: hidden;
+.account-card a {
+
+  border-bottom: 1px solid #ECECEC;
 }
 
+.booking_links {
+
+  box-shadow: 0px 5.79px 5.79px 0px #1163C740;
+  border-radius: 18.55px;
+  /* padding: 18px 24px; */
+  background-color: white;
+
+}
 .account-option {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 14px 18px;
-  border-bottom: 1px solid #f0f0f0;
   text-decoration: none;
+  border-bottom: 1px solid #ECECEC !important;
+}
+
+.account-card {
+
+  border-top: 1px solid #ECECEC;
+}
+.account-card:first-child{
+
+  border: none;
 }
 
 .account-option:last-child {
-  border-bottom: none;
+  border-bottom: none !important;
 }
 
 .account-left {
@@ -173,8 +156,8 @@
 /* Right Panel */
 .main-content {
   flex: 3;
-  min-width: 300px;
-  max-width: 650px;
+  /* min-width: 300px; */
+  /* max-width: 650px; */
   background-color: #ffffff;
   border-radius: 10px;
   /* height: 700px; */
@@ -217,12 +200,12 @@
     flex-direction: column;
     padding: 16px;
   }
-
+/* 
   .sidebar,
   .main-content {
     min-width: 100%;
     max-width: 100%;
-  }
+  } */
 
   .booking-card {
     flex-direction: column;

@@ -454,7 +454,7 @@ const banners = bannerData?.result || [];
             </Col>
             
             <Col lg={8} xl={9} md={12}>
-            <div className="col-12 mb-4">
+            <div className="col-12 mb-4 onging_title_hid">
               <OngoingEvents banners={banners}/>
             </div>
               <div className="row g-3">

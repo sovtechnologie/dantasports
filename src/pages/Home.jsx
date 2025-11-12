@@ -28,7 +28,7 @@ const Home = () => {
             <HomeBanner />
             <QuickBooking />
             <Container>
-                <Row className="section_title">
+                <Row className="onging_title_hid mt-lg-5 mt-4">
                 <Col className="col-12">
                     <OngoingEvents banners={banners} />
                 </Col>

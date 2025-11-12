@@ -13,6 +13,7 @@ import HelpIcon from "../assets/HelpIcon.png";
 import LogoutIcon from "../assets/logoutIcon.png";
 import { fetchProfile } from '../../../services/LoginApi/profileApi/endpointApi.js';
 import { useQuery } from '@tanstack/react-query';
+import { Col, Container, Row } from 'react-bootstrap';
 // import TawkLoader from '../components/TawkLoade.jsx';
 
 
@@ -112,71 +113,84 @@ function ProfilePage() {
   return (
     <>
       {/* <TawkLoader /> */}
-      <div className="profile-container">
-        <aside className="sidebar">
-          <div className="user-card">
-            <div className="user-card-left">
-              <img src={ProfileImage} alt="User" className="user-avatar" />
-              <div className="user-info">
-                <div className="user-name">{profile?.full_name || "Noel Jacob"}</div>
-                <div className="user-email">{profile?.email || "noeljacob@gmail.com"}</div>
-                <div className="user-phone">{profile?.mobile_number || "+919898989898"}</div>
-              </div>
-            </div>
-            <div className="user-card-right">
-              <img
-                src={EditIcon}
-                alt="edit profile"
-                className="edit-icon"
-                onClick={() => navigate(`/profile/${id}/edit-profile`)}
-                style={{ cursor: "pointer" }}
-              />
-            </div>
-          </div>
-
-          <div className="account-card">
-            {options.map((option, index) => (
-
-              <NavLink
-                to={`/profile/:id/${option.route || 'bookings'}`}
-                key={index}
-                className={({ isActive }) =>
-                  isActive ? "account-option active-tab" : "account-option"
-                }>
-
-                <div className="account-left">
-                  <img src={option.icon} className="account-icon" />
-                  <span className="account-label">{option.label}</span>
+      <section className='pt-5 pb-5 profile_section' style={{background:"#F1F3F2"}}>
+        <Container>
+        <Row>
+          <Col className='col-12 tite'>
+            <h2 className='mb-5'>Profile</h2>
+          </Col>
+          <Col xl={5} lg={4} className='col-6'>
+            <aside className="sidebar">
+              <div className="user-card">
+                <div className="user-card-left">
+                  <img src={ProfileImage} alt="User" className="user-avatar" />
+                  <div className="user-info">
+                    <div className="user-name">{profile?.full_name || "Noel Jacob"}</div>
+                    <div className="user-email">{profile?.email || "noeljacob@gmail.com"}</div>
+                    <div className="user-phone">{profile?.mobile_number || "+919898989898"}</div>
+                  </div>
                 </div>
-                <div className="account-arrow">›</div>
-              </NavLink>
-            ))}
-          </div>
-
-          <div className="account-card">
-            {options2.map((option, index) => (
-              <div
-                key={index}
-                className="account-option"
-                onClick={option.action || null}
-                style={{ cursor: option.action ? 'pointer' : 'default' }}
-              >
-                <div className="account-left">
-                  <img src={option.icon} className="account-icon" />
-                  <span className="account-label">{option.label}</span>
+                <div className="user-card-right">
+                  <img
+                    src={EditIcon}
+                    alt="edit profile"
+                    className="edit-icon"
+                    onClick={() => navigate(`/profile/${id}/edit-profile`)}
+                    style={{ cursor: "pointer" }}
+                  />
                 </div>
-                <div className="account-arrow">›</div>
               </div>
-            ))}
-          </div>
+              <div className="booking_links">
+                <div className="inner">
+                  <div className="account-card">
+                  {options.map((option, index) => (
 
+                    <NavLink
+                      to={`/profile/:id/${option.route || 'bookings'}`}
+                      key={index}
+                      className={({ isActive }) =>
+                        isActive ? "account-option active-tab" : "account-option"
+                      }>
 
-        </aside>
-        <main className="main-content">
+                      <div className="account-left">
+                        <img src={option.icon} className="account-icon" />
+                        <span className="account-label">{option.label}</span>
+                      </div>
+                      <div className="account-arrow">›</div>
+                    </NavLink>
+                  ))}
+                </div>
+                <div className="account-card">
+                  {options2.map((option, index) => (
+                    <div
+                      key={index}
+                      className="account-option"
+                      onClick={option.action || null}
+                      style={{ cursor: option.action ? 'pointer' : 'default' }}
+                    >
+                      <div className="account-left">
+                        <img src={option.icon} className="account-icon" />
+                        <span className="account-label">{option.label}</span>
+                      </div>
+                      <div className="account-arrow">›</div>
+                    </div>
+                  ))}
+                </div>
+                </div>
+              </div>
 
-          <Outlet context={{ id }} />
-        </main>
-      </div>
+            </aside>
+          </Col>
+          <Col xl={7} lg={8} className='col-6'>
+            <main className="main-content">
+
+              <Outlet context={{ id }} />
+            </main>
+          </Col>
+        </Row>
+      </Container>
+      </section>
+
     </>
   );
 };

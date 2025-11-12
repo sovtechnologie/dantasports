@@ -334,7 +334,7 @@ export default function GymFilterPage() {
           </Col>
 
           <Col xl={9} lg={8} md={12}>
-           <Col className="col-12 mb-4">
+           <Col className="col-12 mb-4 onging_title_hid">
                 <OngoingEvents banners={banners} />
             </Col>
             <div className="row g-3">
