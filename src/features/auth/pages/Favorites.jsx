@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../StyleSheets/Favorites.css';
+import "../StyleSheets/MyBooking.css"
 import { useSelector } from 'react-redux';
 import { useQuery } from '@tanstack/react-query';
 import { fetchFavoriteVenue } from '../../../services/LoginApi/FavouritesVenueApi/endpointApi';
@@ -252,7 +253,7 @@ const Favorites = () => {
 
   return (
     <div className="Favourite-main-container">
-      <div className="favorite-tabs">
+      <div className="tabs">
         {tabs.map((tab) => (
           <button
             key={tab}
@@ -389,7 +390,7 @@ const Favorites = () => {
             <p>No favorite venues yet.</p>
           ) : (
             <>
-              <div className="favorites-list">
+              <div className="favorites-list row g-3">
                 {paginatedVenues.map((venue) => {
                   const sportsIcons = (venue.venue_favourite_sports || []).map(
                     (sport) => sport.image
@@ -414,7 +415,7 @@ const Favorites = () => {
                     favourite: venue.favourite
                   };
                   return (
-                    <div key={venue.id} className="favorite-card">
+                    <div key={venue.id} className="favorite-card col-6">
                       <FavoriteVenueCard venue={formattedVenue} onLikeToggle={() => toggleFavourite(venue)} />
                     </div>
                   );
@@ -482,7 +483,7 @@ const Favorites = () => {
           ) : FavoritesGymData.length === 0 ? (
             <p>No favorite gyms yet.</p>
           ) : (
-            <div className="favorites-list">
+            <div className="favorites-list row">
               {paginatedGyms.map((gym) => {
                 const sportsIcons = (gym.gym_favourite_sports || []).map(
                   (sport) => sport.image
@@ -535,7 +536,7 @@ const Favorites = () => {
           ) : FavoritesEventData.length === 0 ? (
             <p>No favorite events yet.</p>
           ) : (
-            <div className="favorites-list">
+            <div className="favorites-list .row">
               {paginatedEvents.map((event) => {
 
                 const sportsIcons = (event.even_favourite_sports || []).map(
@@ -591,7 +592,7 @@ const Favorites = () => {
           ) : FavoritesCoachData.length === 0 ? (
             <p>No favorite coaches yet.</p>
           ) : (
-            <div className="favorites-list">
+            <div className="favorites-list row">
               {FavoritesCoachData.map((coach) => {
                 const formattedCoach = {
                   id: coach.id,
@@ -612,7 +613,7 @@ const Favorites = () => {
                         : "",
                 };
                 return (
-                  <div key={coach.id} className="favorite-card">
+                  <div key={coach.id} className="favorite-card col-6">
                     <FavoriteVenueCard
                       venue={formattedCoach}
                       onLikeToggle={() => toggleCoachFavourite(coach)}

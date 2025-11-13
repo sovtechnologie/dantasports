@@ -56,7 +56,6 @@ function PageSearch({searchValue = "defaultpage"}) {
    console.log(searchValue);
    
 
-   // const { title, placeholder } = searchDetails[searchValue];
    const details = searchDetails[searchValue] || searchDetails.defaultpage;
   const { title, placeholder } = details;
 

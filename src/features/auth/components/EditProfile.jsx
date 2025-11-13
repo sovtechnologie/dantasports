@@ -172,6 +172,7 @@ const onSubmit = (formData) => {
 
   return (<>
     <div className="EditProfile-container">
+      <h3 className='mb-lg-4 mb-3'>Edit Profile</h3>
       <div className="profile-pic-wrapper">
         <img
           src={profileImage || ProfileImage}
@@ -194,25 +195,25 @@ const onSubmit = (formData) => {
 
       <form className="profile-form" onSubmit={handleSubmit(onSubmit)}>
         <label>
-          FullName
+          {/* FullName */}
           <input {...register('fullName')} placeholder="Enter Full Name" />
           {errors.fullName && <p className="error">{errors.fullName.message}</p>}
         </label>
 
         <label>
-          Email
+          {/* Email */}
           <input type="email" {...register('email')} />
           {errors.email && <p className="error">{errors.email.message}</p>}
         </label>
 
         <label>
-          Date of Birth
+          {/* Date of Birth */}
           <input type="date" {...register('dob')} />
           {errors.dob && <p className="error">{errors.dob.message}</p>}
         </label>
 
         <label>
-          Gender
+          {/* Gender */}
           <select {...register('gender')}>
             <option value="">Select Gender</option>
             <option value="Male">Male</option>
@@ -222,7 +223,7 @@ const onSubmit = (formData) => {
         </label>
 
         <label>
-          Mobile Number
+          {/* Mobile Number */}
           {/* Assuming mobile_number is not editable */}
           <input value={profile?.mobile_number || ''} disabled readOnly />
         </label>

@@ -1,5 +1,5 @@
 .favorite-venue-card-wrapper {
-  width: 260px;
+  /* width: 260px; */
   border-radius: 16px;
   overflow: hidden;
   background: white;
@@ -29,7 +29,7 @@
 .favorite-sport-icon {
   width: 24px;
   height: 24px;
-  background: rgba(0, 0, 0, 0.5);
+  background: #fff;
   padding: 4px;
   border-radius: 50%;
 }
@@ -61,13 +61,11 @@
 }
 
 .favorite-venue-header h4 {
-  font-family: 'Lato', Arial, sans-serif;
+  font-family: 'Lato';
   font-weight: 500;
   font-size: 15.76px;
   line-height: 22.52px;
-  letter-spacing: 0;
-  vertical-align: middle;
-  color: #172A39;
+  color: #272727;
   margin: 0;
 }
 
@@ -76,7 +74,12 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  color: #006eff;
+  color: #272727;
+}
+
+.star{
+
+  color: #2563eb;
 }
 
 .favorite-venue-about {
@@ -94,7 +97,7 @@
 }
 
 .favorite-venue-location {
-  font-family: 'DM Sans', Arial, sans-serif;
+  font-family: 'DM Sans';
   font-weight: 400;
   font-size: 13.51px;
   line-height: 22.52px;
@@ -107,7 +110,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 0.58px solid;
+  border-top: 0.58px solid ; 
   border-image: linear-gradient(180deg, #2971AC 0%, #031B2E 100%);
   border-image-slice: 1;
   padding-top: 10px;

@@ -1,16 +1,9 @@
-.EditProfile-container {
-  margin: 20px auto;
-  padding: 10px 40px;
-  border-radius: 16px;
-  font-family: 'Arial', sans-serif;
-  text-align: center;
-}
+
 
 .profile-pic-wrapper {
   position: relative;
-  width: 150px;
-  height: 150px;
-  margin: 0 auto 10px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
 }
 
@@ -25,7 +18,7 @@
 .camera-icon {
   position: absolute;
   bottom: 0;
-  right: 0;
+  right: -11px;
   color: white;
   border-radius: 50%;
   padding: 6px;
@@ -41,6 +34,7 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+  margin-top: 40px;
 }
 label {
   font-size: 16px;
@@ -51,12 +45,13 @@ label {
 .profile-form input,
 .profile-form select {
   padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
+  border: 1px solid #B1B1B1;
+  border-radius: 9px;
   font-size: 16px;
   width: 100%;
   box-sizing: border-box;
   outline: none;
+  color: #172A39;
 }
 
 .profile-form input:focus,
@@ -67,11 +62,15 @@ label {
 .profile-form button {
   padding: 12px;
   border: none;
-  border-radius: 10px;
-  background-color: #007bff;
+  border-radius: 15px;
+  background-color: #1163C7;
   color: white;
   font-size: 16px;
   cursor: pointer;
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  text-transform: uppercase;
 }
 
 .profile-form button:disabled {

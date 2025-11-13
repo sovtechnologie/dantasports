@@ -115,11 +115,14 @@ function ProfilePage() {
       {/* <TawkLoader /> */}
       <section className='pt-5 pb-5 profile_section' style={{background:"#F1F3F2"}}>
         <Container>
-        <Row>
-          <Col className='col-12 tite'>
+          <Row>
+            <Col className='col-12 tite'>
             <h2 className='mb-5'>Profile</h2>
           </Col>
-          <Col xl={5} lg={4} className='col-6'>
+          </Row>
+        <Row className='g-3'>
+          
+          <Col xl={5} lg={4} md={6}>
             <aside className="sidebar">
               <div className="user-card">
                 <div className="user-card-left">
@@ -181,7 +184,7 @@ function ProfilePage() {
 
             </aside>
           </Col>
-          <Col xl={7} lg={8} className='col-6'>
+          <Col xl={7} lg={8} md={6}>
             <main className="main-content">
 
               <Outlet context={{ id }} />

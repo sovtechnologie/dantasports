@@ -20,6 +20,12 @@
   position: relative;
 }
 
+.sport-modal-content h2 {
+  
+  font-size: 30px;
+  line-height: 40px;
+}
+
 .sport-modal-close {
   position: absolute;
   top: 12px;

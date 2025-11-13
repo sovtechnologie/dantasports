@@ -8,6 +8,17 @@
   line-height: 36px;
 
 }
+
+.profile_section  h3 {
+
+  text-align: start;
+  font-family: 'DM Sans';
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 23.33px;
+  color: #172A39;
+
+}
 .user-card {
   display: flex;
   justify-content: space-between;
@@ -16,9 +27,7 @@
   border-radius: 16px;
   padding: 16px 20px;
  box-shadow: 0px 5.79px 5.79px 0px #1163C740;
-
- 
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .user-card-left {
@@ -153,18 +162,15 @@
   background-color: #e8f0fe;
 }
 
-/* Right Panel */
 .main-content {
+  position: relative;
   flex: 3;
-  /* min-width: 300px; */
-  /* max-width: 650px; */
+  padding: 30px;
   background-color: #ffffff;
-  border-radius: 10px;
-  /* height: 700px; */
+  border-radius: 18px;
   border: 2px solid transparent;
   background-image:
     linear-gradient(#fff, #fff),
-    /* Inner background */
       linear-gradient(
         90deg,
         rgba(163, 208, 255, 0.870588) 10.58%,
@@ -172,19 +178,33 @@
         #1163c7 72.12%,
         #a3d0ff 92.31%
       );
-  /* Border gradient */
   background-origin: border-box;
   background-clip: padding-box, border-box;
 }
 
 .account-option.active-tab {
-  /* background-color: #1163C7; */
   text-decoration: none;
   color: #ffffff;
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+
+
+@media screen and  (max-width: 768px) {
+
+  .profile_section h2{
+
+    font-size: 35px;
+    line-height: 24px;
+  }
+
+  .user-card-right .edit-icon {
+    position: absolute;
+    bottom: 30px;
+    right: 22px;
+    height: 22px;
+    width: 22px;
+}
   .Profile-heading {
     flex-direction: column;
     padding: 16px;
@@ -200,12 +220,7 @@
     flex-direction: column;
     padding: 16px;
   }
-/* 
-  .sidebar,
-  .main-content {
-    min-width: 100%;
-    max-width: 100%;
-  } */
+
 
   .booking-card {
     flex-direction: column;
@@ -216,4 +231,14 @@
     width: 100%;
     height: auto;
   }
+}
+
+@media screen and (max-width: 540px) {
+
+    .profile_section h2{
+
+    font-size: 25px;
+    line-height: 35px;
+  }
+  
 }
