@@ -35,9 +35,9 @@ function VenuePage() {
 
   // const banners = bannerData?.result || [];
 
-      const { data: bannerData, isLoading:dataLoading, error:dataError } = useBanner(1);    
-      const banners = bannerData?.result || [];
-    
+  const { data: bannerData, isLoading: dataLoading, error: dataError } = useBanner(1);
+  const banners = bannerData?.result || [];
+
 
 
   const isSameDate = (venueDate, selectedDate) => {
@@ -418,7 +418,7 @@ function VenuePage() {
             </Col>
 
             <Col lg="8" xl={9} md="12">
-            <Col className="col-12 mb-4 onging_title_hid">
+              <Col className="col-12 mb-4 onging_title_hid">
                 <OngoingEvents banners={banners} />
               </Col>
               <div className="row g-3">

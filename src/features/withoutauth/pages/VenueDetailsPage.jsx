@@ -298,6 +298,48 @@ function VenueDetailsPage() {
       }
     );
   };
+  const formatBookingHeader = (selectedDate, selectedSportName, selectedTime, selectedDuration, selectedCourtName) => {
+    if (!selectedDate || !selectedSportName || !selectedTime) return "";
+
+    // Ensure selectedTime is a Date object
+    const timeObj = selectedTime instanceof Date ? selectedTime : new Date(selectedTime);
+
+    let hours = timeObj.getHours().toString().padStart(2, "0");
+    let minutes = timeObj.getMinutes().toString().padStart(2, "0");
+
+    let time = `${hours}:${minutes}:00`;
+
+    const dateObj = new Date(selectedDate);
+    const day = dateObj.getDate();
+    const weekday = dateObj.toLocaleDateString("en-US", { weekday: "short" });
+
+    // start time
+    let start = new Date(`1970-01-01T${time}`);
+    let startFormatted = start.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    // end time
+    let end = new Date(`1970-01-01T${time}`);
+    end.setMinutes(end.getMinutes() + selectedDuration * 60);
+
+    let endFormatted = end.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    const courtInfo = selectedCourtName ? ` |  ${selectedCourtName}` : "";
+
+    return `${day} ${weekday} | ${selectedSportName} | ${startFormatted} - ${endFormatted}${courtInfo}`;
+  };
+  // Get court name from selectedPitch
+  const selectedCourtName = sportDetailsData?.courts?.find(c => c.id === selectedPitch)?.court_name;
+
+
+
+  const selectedSportName = venue?.sports?.find(s => s.sportId === selectedSport)?.name;
+
 
   if (loading) return <div>Loading venue details...</div>;
   if (error) return <div>Error loading venue details</div>;
@@ -617,6 +659,13 @@ function VenueDetailsPage() {
                   bookingId={bookingId}
                   setBookingId={setBookingId}
                 />
+                <div className="booking-summary-line" style={{ marginLeft: "14%" }}>
+                  <p style={{ fontWeight: "400", marginTop: "8px", color: "#1163c7" }}>
+                    {formatBookingHeader(selectedDate, selectedSportName, selectedTime, selectedDuration, selectedCourtName)}
+                  </p>
+                </div>
+
+
 
                 <div className="venue-right-section mt-3 mb-3">
                   {BookingPriceLoading ? (

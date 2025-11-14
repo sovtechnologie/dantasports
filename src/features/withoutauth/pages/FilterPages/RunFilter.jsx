@@ -58,7 +58,7 @@ function toDateOnly(str) {
 
 export default function RunFilterPage() {
   const { data: bannerData, isLoading: bannerLoading, error: bannerError } = useBanner(1);
-const banners = bannerData?.result || [];
+  const banners = bannerData?.result || [];
 
   const queryClient = useQueryClient();
   const userId = useSelector((state) => state.auth.id);
@@ -74,6 +74,9 @@ const banners = bannerData?.result || [];
   const [selectedPrice, setSelectedPrice] = useState(0);
   const [runList, setRunList] = useState([]);
   const [search, setSearch] = useState("");
+  const [kidsFriendly, setKidsFriendly] = useState(false);
+  const [petFriendly, setPetFriendly] = useState(false);
+
   const [filters, setFilters] = useState({
     service: null,
     difficulty: [],
@@ -92,6 +95,9 @@ const banners = bannerData?.result || [];
     setSelectedPrice(0);
     setSelectedTime(null);
     setSelectedAmenities([]);
+    setKidsFriendly(false);
+    setPetFriendly(false);
+
     setSearch("");
     setFilters({
       service: null,
@@ -152,6 +158,8 @@ const banners = bannerData?.result || [];
     }
   };
 
+
+
   // ✅ Filter Events
   const filteredEvents = useMemo(() => {
     let result = [...runList];
@@ -208,10 +216,31 @@ const banners = bannerData?.result || [];
       });
     }
 
-    // ✅ Sorting
-    // ✅ Multiple sort options combined
+    if (kidsFriendly) {
+      result = result.filter(evt =>
+        String(evt.kids_friendly).trim().toLowerCase() === "yes"
+      );
+    }
+
+    if (petFriendly) {
+      result = result.filter(evt =>
+        String(evt.pet_friendly).trim().toLowerCase() === "yes"
+      );
+    }
+
+    // if (kidsFriendly) {
+    //   result = result.filter(evt => evt.kids_friendly === "Yes");
+    // }
+
+    // if (petFriendly) {
+    //   result = result.filter(evt => evt.pet_friendly === "Yes");
+    // }
+
+
+
+
     if (filters.sortBy?.length > 0) {
-      // If favourite selected → filter only favourites first
+
       if (filters.sortBy.includes("favourite")) {
         result = result.filter(
           (evt) => evt.favourite === 1 || evt.favourite === true
@@ -248,7 +277,9 @@ const banners = bannerData?.result || [];
     selectedAmenities,
     selectedTime,
     selectedDifficulty,
-    selectedPrice
+    selectedPrice,
+    kidsFriendly,
+    petFriendly
   ]);
 
   useEffect(() => {
@@ -282,7 +313,7 @@ const banners = bannerData?.result || [];
         className="book_venue_section pb-lg-4 pb-3"
         style={{ background: "#F1F3F2" }}
       >
-        <PageSearch searchValue="RunPage"/>
+        <PageSearch searchValue="RunPage" />
         <Container>
           <Row>
             <Col lg={4} md={12} xl={3} className="d-none d-lg-block">
@@ -322,7 +353,13 @@ const banners = bannerData?.result || [];
                     setSelectedAmenities={setSelectedAmenities}
                     selectedAmenities={selectedAmenities}
                   />
-                  <Kids />
+                  <Kids
+                    kidsFriendly={kidsFriendly}
+                    setKidsFriendly={setKidsFriendly}
+                    petFriendly={petFriendly}
+                    setPetFriendly={setPetFriendly}
+                  />
+
                 </div>
               </div>
             </Col>
@@ -378,7 +415,13 @@ const banners = bannerData?.result || [];
                             setSelectedAmenities={setSelectedAmenities}
                             selectedAmenities={selectedAmenities}
                           />
-                          <Kids />
+                          <Kids
+                            kidsFriendly={kidsFriendly}
+                            setKidsFriendly={setKidsFriendly}
+                            petFriendly={petFriendly}
+                            setPetFriendly={setPetFriendly}
+                          />
+
                         </div>
                       </div>
 
@@ -452,11 +495,11 @@ const banners = bannerData?.result || [];
 
 
             </Col>
-            
+
             <Col lg={8} xl={9} md={12}>
-            <div className="col-12 mb-4 onging_title_hid">
-              <OngoingEvents banners={banners}/>
-            </div>
+              <div className="col-12 mb-4 onging_title_hid">
+                <OngoingEvents banners={banners} />
+              </div>
               <div className="row g-3">
                 {filteredEvents.length > 0 ? (
                   filteredEvents.map((event) => (

@@ -34,18 +34,79 @@ const MyBookings = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const { data: Bookingdata, isLoading, isError } = useGetAllBooking();
-  const allBookings = Bookingdata?.result?.map(b => ({
+  // const allBookings = Bookingdata?.result?.map(b => ({
+  //   id: b.id,
+  //   title: b.venue_name,
+  //   type: `${b.court_name}, ${b.sports_name}`,
+  //   date: formatDate(b.date),
+  //   venueId: b.venue_id,
+  //   checkReview: b.has_review,
+  //   time: formatTime(b.start_time, b.duration),
+  //   reference: `#${String(b.id).padStart(5, "0")}`,
+  //   image: b.cover_image,
+  // })) ?? [];
+  // console.log("All Booking", allBookings);
+
+  // ------------------------
+  // VENUE BOOKINGS
+  // ------------------------
+  const venueBookings = Bookingdata?.myBookings?.venueBookings?.map(b => ({
     id: b.id,
+    bookingType: "venue",
     title: b.venue_name,
-    type: `${b.court_name}, ${b.sports_name}`,
-    date: formatDate(b.date),
+    subtitle: `${b.court_name} | ${b.sports_name}`,
+    date: b.date,
+    start_time: b.start_time,
+    duration: b.duration,
     venueId: b.venue_id,
-    checkReview: b.has_review,
-    time: formatTime(b.start_time, b.duration),
+    hasReview: b.has_review,
     reference: `#${String(b.id).padStart(5, "0")}`,
     image: b.cover_image,
   })) ?? [];
-  console.log("All Booking", allBookings);
+
+
+  // ------------------------
+  // EVENT BOOKINGS (RUN EVENTS / MEETUP EVENTS)
+  // ------------------------
+  const eventBookings = Bookingdata?.myBookings?.eventBooking?.map(e => ({
+    id: e.booking_id,
+    bookingType: "event",
+    title: e.event_title,
+    subtitle: e.event_type === 1 ? "Meetup Event" : "Running Event",
+    date: e.start_date,
+    start_time: e.start_time,
+    duration: e.duration ?? 60,
+    venueId: e.event_id,
+    hasReview: false,
+    reference: `#${String(e.booking_id).padStart(5, "0")}`,
+    image: e.mobile_image,
+  })) ?? [];
+
+
+  // ------------------------
+  // GYM BOOKINGS
+  // ------------------------
+  const gymBookings = Bookingdata?.myBookings?.getGymBookings?.map(g => ({
+    id: g.booking_id,
+    bookingType: "gym",
+    title: g.gym_name,
+    subtitle: "Gym Session",
+    date: g.start_date,
+    start_time: g.start_time,
+    duration: g.duration ?? 60,
+    venueId: g.gym_id,
+    hasReview: false,
+    reference: `#${String(g.booking_id).padStart(5, "0")}`,
+    image: g.image,
+  })) ?? [];
+
+
+  const allBookings = [
+    ...venueBookings,
+    ...eventBookings,
+    ...gymBookings
+  ];
+
 
   const { data: CompletedBookingData, isLoading: completedLoading, isError: completedError } = useGetCompleteBooking();
   // const AllCompletedBooking = CompletedBookingData?.result[0];

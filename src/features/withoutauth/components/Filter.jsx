@@ -39,18 +39,18 @@ function Filter({
   // ✅ Apply Function
   const handleApply = () => {
     if (!selectedSports.length) {
-      alert("कृपया पहले कोई खेल (sport) चुनें।");
+      alert("please select sports");
       return;
     }
     if (onApply) {
-      onApply(); // यह parent (VenuePage) से API call करेगा
+      onApply();
     }
   };
 
-  // ✅ Sport चुने जाने पर बाकी enable हों
+
   useEffect(() => {
-    setCanApply(selectedSports.length > 0);
-  }, [selectedSports]);
+    setCanApply(selectedSports.length > 0 || selectedAmenities.length > 0);
+  }, [selectedSports, selectedAmenities]);
 
   return (
     <section className="filter_section">
@@ -64,7 +64,7 @@ function Filter({
 
       {/* ✅ Sports Filter */}
       <SportsSlider
-        onSelectSports={setSelectedSports}
+        setSelectedSports={setSelectedSports}
         selectedSports={selectedSports}
       />
 
