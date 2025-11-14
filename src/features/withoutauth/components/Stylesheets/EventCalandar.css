@@ -46,6 +46,8 @@
   gap: 20px;
   margin-top: 20px;
   flex-wrap: nowrap;
+  overflow-y: hidden;
+  overflow-x: scroll;
 }
 .calendar-day.today {
   font-weight: bold;
