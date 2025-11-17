@@ -327,11 +327,11 @@
 
 .award-wrapper{
 
-  height: 200px;
-  width: 300px;
-  margin-bottom: 30px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  height: 180px;
+  /* width: 300px; */
+  margin-bottom: 25px;
+  /* border: 1px solid #ccc; */
+  /* border-radius: 6px; */
 }
 .award-wrapper img {
 

@@ -18,10 +18,11 @@
   padding: 10px 25px;
   border-radius: 8px;
   font-weight: 600;
+  width: 100%;
 }
 
 .apply_btn.active {
-  background: #2160f2;
+  background: #1163C7;
   cursor: pointer;
 }
 

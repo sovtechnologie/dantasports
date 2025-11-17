@@ -112,10 +112,10 @@ const TimeSlotSelector = ({ date, selectedTime, setSelectedTime }) => {
           <div>
             <label className="time">Duration</label>
 
-          <div className="d-flex text-center">
-            <button type="button"><img src={subIcon} alt="" /></button>
+          <div className="d-flex text-center duration_box">
+            <button className="p-0 border-0 bg-white" type="button"><img src={subIcon} alt="" /></button>
             <input type="text" disabled placeholder="11:30 AM" />
-            <button type="button"><img src={addIcon} alt="" /></button>
+            <button className="p-0 border-0 bg-white" type="button"><img src={addIcon} alt="" /></button>
           </div>
           </div>
 
