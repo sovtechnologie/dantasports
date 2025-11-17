@@ -1,4 +1,4 @@
-.duration_box {
+/* .duration_box {
 
   border: 0.82px solid #D8DCE3;
   border-radius: 7px;
@@ -25,32 +25,39 @@
 
 .timeslot_section input::placeholder{
   font-size: 12px;
+} */
+
+.timeslot_section .inner{
+
+  overflow-y: scroll;
+  height: 150px;
+  padding: 15px 10px;
 }
 
-.timeslot_buttons {
+/* .timeslot_buttons {
 
-  overflow-x: scroll;
-}
+  overflow-y: scroll;
+} */
 
 
 /* Custom Scrollbar for Y-axis (WebKit browsers) */
-.timeslot_buttons::-webkit-scrollbar {
+.timeslot_section .inner::-webkit-scrollbar {
   width: 5px; /* vertical scrollbar width */
 }
 
-.timeslot_buttons::-webkit-scrollbar-track {
+.timeslot_section .inner::-webkit-scrollbar-track {
   background: #f1f1f1; /* track color */
   border-radius: 10px;
 }
 
-.timeslot_buttons::-webkit-scrollbar-thumb {
+.timeslot_section .inner::-webkit-scrollbar-thumb {
   background-color: #6da9f1; /* scrollbar color */
   border-radius: 10px;
   transition: background-color 0.3s ease;
 }
 
 /* Hover effect on scrollbar */
-.timeslot_buttons::-webkit-scrollbar-thumb:hover {
+.timeslot_section .inner::-webkit-scrollbar-thumb:hover {
   background-color: lightgray;
 }
 
@@ -78,7 +85,7 @@
   border: 0.76px solid #0000000D;
   background: #0000000D;
   font-size: 14px;
-  margin: 10px 5px;
+  margin: 5px 3px;
   text-wrap: nowrap;
 
 }

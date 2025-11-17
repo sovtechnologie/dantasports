@@ -99,7 +99,7 @@ const TimeSlotSelector = ({ date, selectedTime, setSelectedTime }) => {
   return (
     <section className="timeslot_section">
       <div className="inner">
-        <div className="mb-3 d-flex align-items-center justify-content-between">
+        {/* <div className="mb-3 d-flex align-items-center justify-content-between">
           <div>
              <label className="time">Time:</label>
           <input
@@ -119,10 +119,10 @@ const TimeSlotSelector = ({ date, selectedTime, setSelectedTime }) => {
           </div>
           </div>
 
-        </div>
+        </div> */}
 
         {/* Time Buttons */}
-        <div className="d-flex mb-3 timeslot_buttons">
+        <div className="mb-3 timeslot_buttons">
           {timeSlots.map((time, i) => {
             const disabled = isPastTime(time);
             return (

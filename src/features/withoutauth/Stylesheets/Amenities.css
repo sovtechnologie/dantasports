@@ -62,7 +62,7 @@
 
 /* Custom Scrollbar for Y-axis (WebKit browsers) */
 .amenities_card .row::-webkit-scrollbar {
-  width: 8px; /* vertical scrollbar width */
+  width: 5px; /* vertical scrollbar width */
 }
 
 .amenities_card .row::-webkit-scrollbar-track {
