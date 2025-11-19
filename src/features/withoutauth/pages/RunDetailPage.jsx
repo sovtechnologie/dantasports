@@ -14,7 +14,8 @@ import leftArrow from "../assets/left-arrow.png";
 import rightArrow from "../assets/right-arrow.png";
 import sub from "../../withoutauth/assets/icons/sub.svg";
 import add from "../../withoutauth/assets/icons/add.svg";
-
+import ShareIcon from "../assets/VenueDetailIcon/share.svg";
+import LikeIcon from "../assets/VenueDetailIcon/linke.svg";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
@@ -277,7 +278,6 @@ export default function EventDetailPage() {
   return (
     <>
       <section style={{ background: "#f1f3f2" }} className="pb-lg-5 pb-3">
-
         <section className="details_page_header">
           <div className="container">
             <div className="breadcrumb">
@@ -306,8 +306,6 @@ export default function EventDetailPage() {
           </div>
         </section>
         <Container>
-
-
           <div className="event-details-container">
             <div className="event-wrapper row">
               <div className="event-left col-lg-8 ">
@@ -335,6 +333,14 @@ export default function EventDetailPage() {
                         />
                       </SwiperSlide>
                     ))}
+                    <div className="venue-icon-topwrapper">
+                      <button className="venue-icon-btns">
+                        <img src={ShareIcon} alt="share" />
+                      </button>
+                      <button className="venue-icon-btns">
+                        <img src={LikeIcon} alt="like" className="like-icon" />
+                      </button>
+                    </div>
                   </Swiper>
                 </div>
 
@@ -442,23 +448,21 @@ export default function EventDetailPage() {
                         style={{ whiteSpace: "pre-wrap" }}
                       >
                         {expandedSection === "rules"
-                          ? (event?.rule_and_regulations ?? "No rules specified")
+                          ? (event?.rule_and_regulations ??
+                            "No rules specified")
                           : `${event?.rule_and_regulations?.substring(0, 200) ?? ""}...`}
                       </div>
                       <button
                         onClick={() => toggleSection("rules")}
                         className="read-more-btn"
                       >
-                        {expandedSection === "rules" ? "Read less" : "Read more"}
+                        {expandedSection === "rules"
+                          ? "Read less"
+                          : "Read more"}
                       </button>
                     </div>
                   </div>
-
                 </div>
-
-
-
-
 
                 <div class="row g-3 mt-3">
                   <div className="col-12 col-lg-6">
@@ -515,7 +519,9 @@ export default function EventDetailPage() {
                       {/* <!-- Button trigger modal --> */}
                       <div className="d-flex justify-content-between align-items-center text-center">
                         <div className="rule">
-                          <p className="m-0">Cancellation And Reschedule Policy</p>
+                          <p className="m-0">
+                            Cancellation And Reschedule Policy
+                          </p>
                         </div>
                         <div>
                           <button
@@ -633,7 +639,6 @@ export default function EventDetailPage() {
                 </div>
 
                 <div className="event-right-section">
-
                   <CheckoutPricing
                     totalPrice={finalAmount}
                     convenienceFee={totalPrice ? ConvenienceFee : 0}
@@ -661,52 +666,16 @@ export default function EventDetailPage() {
               </div>
             </div>
 
-            {/* <div className="event-review">
-              <div className="event-review-heading">Rating & Reviews</div>
-              <div className="event-review-container">
-                {event?.reviews
-                  ?.slice(start, start + visibleCount)
-                  .map((review) => (
-                    <ReviewCard key={review.id} review={review} />
-                  ))}
-              </div>
-              <div className="carousel-buttons">
-                <button onClick={prev}>
-                  <img src={leftArrow} alt="left arrow" />
-                </button>
-                <button onClick={next}>
-                  <img src={rightArrow} alt="right-arrow" />
-                </button>
-              </div>
-            </div> */}
+
             <Container className="p-0">
               <EventReviewSlider event={{ review: event?.reviews }} />
             </Container>
-            {/* <Gallery gallery={event.gallery} />
-             */}
+
             <GalleryComponent />
 
             <div className="event-banner-container">
               <OngoingEvents banners={banners} />
-              {/* <h2 className="event-banner-heading">Ongoing Events</h2> */}
-              {/* <div className="event-banner-carousel">
-                <div className="event-banner-track">
-                  {banners.concat(banners).map(
-                    (
-                      item,
-                      i // Duplicate for seamless looping
-                    ) => (
-                      <div key={i} className="event-banner">
-                        <img
-                          src={item.banner_image}
-                          alt="Event"
-                          className="event-banner-img"
-                        />
-                      </div>
-                    )
-                  )}
-                </div>
-              </div> */}
+
             </div>
           </div>
         </Container>

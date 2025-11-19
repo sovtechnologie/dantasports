@@ -4,6 +4,38 @@
   display: none;
 }
 
+/* comman scroll */
+
+.date_box_wrapper{
+
+  overflow-x: scroll;
+
+
+}
+
+
+/* Custom Scrollbar for Y-axis (WebKit browsers) */
+.date_box_wrapper::-webkit-scrollbar {
+  width: 5px; /* vertical scrollbar width */
+}
+
+.date_box_wrapper::-webkit-scrollbar-track {
+  background: #f1f1f1; /* track color */
+  border-radius: 10px;
+}
+
+.date_box_wrapper::-webkit-scrollbar-thumb {
+  background-color: #6da9f1; /* scrollbar color */
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect on scrollbar */
+.date_box_wrapper::-webkit-scrollbar-thumb:hover {
+  background-color: lightgray;
+}
+
+
 .filter_sub_title{
 
   color: #172A39;

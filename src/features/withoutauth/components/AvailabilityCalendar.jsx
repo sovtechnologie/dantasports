@@ -103,8 +103,8 @@ const AvailabilityCalendar = ({ selectedDate, setSelectedDate }) => {
       {/* Scrollable dates */}
       <div
         ref={scrollRef}
-        className="d-flex overflow-hidden pb-2"
-        style={{ scrollBehavior: "smooth", whiteSpace: "nowrap" }}
+        className="d-flex  pb-2 date_box_wrapper"
+        
       >
         {allDates.map((d, idx) => {
           const selected = isSameDay(d, internalSelected);

@@ -327,11 +327,11 @@
 
 .award-wrapper{
 
-  height: 200px;
-  width: 300px;
-  margin-bottom: 30px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  height: 180px;
+  /* width: 300px; */
+  margin-bottom: 25px;
+  /* border: 1px solid #ccc; */
+  /* border-radius: 6px; */
 }
 .award-wrapper img {
 
@@ -345,7 +345,7 @@
   display: flex;
   flex-direction: column;    /* stack cards vertically */
   gap: 20px;                 /* spacing between cards */
-  height: 400px;             /* fixed visible height */
+  height: 200px;             /* fixed visible height */
   overflow-y: auto;          /* enable vertical scroll */
   overflow-x: hidden;        /* hide horizontal scroll */
   scroll-behavior: smooth;   /* smooth scroll */

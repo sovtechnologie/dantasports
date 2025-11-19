@@ -99,7 +99,7 @@ const TimeSlotSelector = ({ date, selectedTime, setSelectedTime }) => {
   return (
     <section className="timeslot_section">
       <div className="inner">
-        <div className="mb-3 d-flex align-items-center justify-content-between">
+        {/* <div className="mb-3 d-flex align-items-center justify-content-between">
           <div>
              <label className="time">Time:</label>
           <input
@@ -112,17 +112,17 @@ const TimeSlotSelector = ({ date, selectedTime, setSelectedTime }) => {
           <div>
             <label className="time">Duration</label>
 
-          <div className="d-flex text-center">
-            <button type="button"><img src={subIcon} alt="" /></button>
+          <div className="d-flex text-center duration_box">
+            <button className="p-0 border-0 bg-white" type="button"><img src={subIcon} alt="" /></button>
             <input type="text" disabled placeholder="11:30 AM" />
-            <button type="button"><img src={addIcon} alt="" /></button>
+            <button className="p-0 border-0 bg-white" type="button"><img src={addIcon} alt="" /></button>
           </div>
           </div>
 
-        </div>
+        </div> */}
 
         {/* Time Buttons */}
-        <div className="d-flex mb-3 timeslot_buttons">
+        <div className="mb-3 timeslot_buttons">
           {timeSlots.map((time, i) => {
             const disabled = isPastTime(time);
             return (
