@@ -24,10 +24,11 @@ export const fetchpaymentandBookingDetails = async (bookingId) => {
   }
 };
 
-export const CancelBooking = async (bookingId) => {
+export const CancelBooking = async ({ bookingId, type }) => {
   try {
     const response = await api.post("user/bookings/cancelBooking", {
       bookingId,
+      type
     });
     return response?.data;
   } catch (error) {
@@ -35,6 +36,7 @@ export const CancelBooking = async (bookingId) => {
     throw error;
   }
 };
+
 
 
 export const CreateBookingPayment = async(payload) =>{

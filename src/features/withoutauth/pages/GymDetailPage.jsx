@@ -10,7 +10,7 @@ import CoachImage from "../assets/CoachesImage.svg";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import CustomMap from "../components/CustomMap";
 import CheckoutPricing from "../components/CheckoutPricing";
 import ReviewCard from "../components/ReviewCard";
@@ -76,12 +76,12 @@ const mapGymData = (apiData) => {
     cancelPolicy: apiData?.cancellation_policy,
     reviews: Array.isArray(apiData?.reviews)
       ? apiData.reviews.map((review) => ({
-          id: review.id,
-          image: review.image,
-          userName: review.user_name || "Anonymous",
-          rating: review.rating || 0,
-          comment: review.comment || "No comment provided",
-        }))
+        id: review.id,
+        image: review.image,
+        userName: review.user_name || "Anonymous",
+        rating: review.rating || 0,
+        comment: review.comment || "No comment provided",
+      }))
       : [{ comment: "Not Available" }],
   };
 };
@@ -95,6 +95,7 @@ export default function GymDetailPage() {
   const [quantity, setQuantity] = useState(0);
   const [passess, setPassess] = useState([{ passId: null, quantity: null }]);
   const [finalAmount, setFinalAmount] = useState(null);
+  const [bookingDataValues, setBookingDataValues] = useState();
 
   const { data: GymDetails, isLoading: GymDetailsLoading } =
     useFetchGymDetail(id);
@@ -234,7 +235,8 @@ export default function GymDetailPage() {
     "monday",
     "tuesday",
     "wednesday",
-    "thursday",
+    // "thursday",
+    "thusday"
   ];
 
   const formatTime = (timeStr) => {
@@ -247,56 +249,94 @@ export default function GymDetailPage() {
   };
 
   // Use gym_timings instead of gym_timing
-  const mappedTimings = (gym?.gym_timings || [])
-    .map((item) =>
-      dayOrder.map((dayKey) => ({
-        day: dayKey.charAt(0).toUpperCase() + dayKey.slice(1),
-        range:
-          item[dayKey] === 1
-            ? `${formatTime(item.start_time.split(".")[0])} - ${formatTime(item.end_time.split(".")[0])}`
-            : "Closed",
-      }))
-    )
-    .flat();
+  const mappedTimings = (gym?.gym_timings || []).map((item) => {
+    return dayOrder.map((dayKey) => ({
+      day: dayKey.charAt(0).toUpperCase() + dayKey.slice(1),
 
-  const half = Math.ceil(mappedTimings.length / 2);
-  const firstCol = mappedTimings.slice(0, half);
-  const secondCol = mappedTimings.slice(half);
+      range:
+        item[dayKey] === 1
+          ? `${formatTime(item.start_time.split(".")[0])} - ${formatTime(
+            item.end_time.split(".")[0]
+          )}`
+          : "Closed",
+    }));
+  })[0];  // because gym_timings array usually has 1 object only
+
+
+  // const half = Math.ceil(mappedTimings.length / 2);
+  // const firstCol = mappedTimings.slice(0, half);
+  // const secondCol = mappedTimings.slice(half);
+
   console.log("mappedTimingsmappedTimingsmappedTimings", mappedTimings);
+
+  useEffect(() => {
+    if (!totalAmount || totalAmount === 0) {
+      setFinalAmount(0);
+      return;
+    }
+
+    const price = Number(totalAmount);
+
+    const conveniencePercent = Number(GymPrice?.[0]?.convenience_fees ?? 2);
+    const gstPercent = Number(GymPrice?.[0]?.gst ?? 18);
+
+    const base_fare_amount = (price * conveniencePercent) / 100;
+    const base_fare_gst = (base_fare_amount * gstPercent) / 100;
+    const total_price = price + base_fare_amount + base_fare_gst;
+
+    setFinalAmount(total_price);
+
+    setBookingDataValues({
+      price,
+      base_fare_amount,
+      base_fare_gst,
+      total_price,
+      gst: gstPercent,
+      convenience_fee: conveniencePercent,
+    });
+
+  }, [totalAmount, GymPrice]);
+
+
+  const totalPassCount = quantity;
+
+
+
+
   return (
     <>
       <section style={{ background: "#f1f3f2" }} className="pb-lg-5 pb-3">
         <section className="details_page_header">
-            <div className="container">
-                <div className="Gym-main-header">
-            <div className="breadcrumb">
-              <span>
-                Gym &gt; {gym?.location} &gt; {gym?.name}
-              </span>
-            </div>
+          <div className="container">
+            <div className="Gym-main-header">
+              <div className="breadcrumb">
+                <span>
+                  Gym &gt; {gym?.location} &gt; {gym?.name}
+                </span>
+              </div>
 
-            <h1 className="gympage-name">{gym?.name}</h1>
-            <div className="gym-location-rating">
-              <span>{gym?.location}</span>
-              <span
-                className="star"
-                style={{ marginLeft: "20px", marginRight: "5px" }}
-              >
-                ★
-              </span>
-              <span className="light-text"> {Math.floor(gym.rating)}</span>
-              <span style={{ marginLeft: "5px" }}>
-                ({gym?.reviewcount} ratings)
-              </span>
-              <span className="ps-2 text_blue">
-                <a href="">Rate Gym</a>
-              </span>
+              <h1 className="gympage-name">{gym?.name}</h1>
+              <div className="gym-location-rating">
+                <span>{gym?.location}</span>
+                <span
+                  className="star"
+                  style={{ marginLeft: "20px", marginRight: "5px" }}
+                >
+                  ★
+                </span>
+                <span className="light-text"> {Math.floor(gym.rating)}</span>
+                <span style={{ marginLeft: "5px" }}>
+                  ({gym?.reviewcount} ratings)
+                </span>
+                <span className="ps-2 text_blue">
+                  <a href="">Rate Gym</a>
+                </span>
+              </div>
             </div>
           </div>
-            </div>
         </section>
         <Container>
-          
+
 
           <div className="gym-details-container">
             <div className="gym-wrapper row">
@@ -372,7 +412,7 @@ export default function GymDetailPage() {
                       <div className="gym-heading">Coaches</div>
                       <div className="coaches-list">
                         {Array.isArray(gym?.coaches) &&
-                        gym.coaches.length > 0 ? (
+                          gym.coaches.length > 0 ? (
                           gym.coaches.map((coach, index) => (
                             <div className="coaches-card" key={index}>
                               <img
@@ -561,8 +601,11 @@ export default function GymDetailPage() {
 
                 <div className="gym-right-section">
                   <CheckoutPricing
-                    totalPrice={totalAmount}
-                    convenienceFee={ConvenienceFee}
+                    totalPrice={finalAmount}
+                    convenienceFee={totalAmount ? ConvenienceFee : 0}
+                    bookingData={bookingDataValues}
+                    price={totalAmount}
+                    count={totalPassCount}
                     type={3}
                     venueId={id}
                     setFinalAmount={setFinalAmount}

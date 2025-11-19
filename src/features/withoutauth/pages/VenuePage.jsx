@@ -254,11 +254,13 @@ function VenuePage() {
     }
   };
 
+
   const handleShareClick = async (venue) => {
-    const shareUrl = window.location.href;
+    const shareUrl = `${window.location.origin}/venue/${venue.id}`;
+
     const shareData = {
       title: venue.venue_name,
-      text: venue.about_venue,
+      text: venue.about_venue || "Check out this venue!",
       url: shareUrl,
     };
 
@@ -276,6 +278,29 @@ function VenuePage() {
       alert("Unable to share this venue.");
     }
   };
+
+  // const handleShareClick = async (venue) => {
+  //   const shareUrl = window.location.href;
+  //   const shareData = {
+  //     title: venue.venue_name,
+  //     text: venue.about_venue,
+  //     url: shareUrl,
+  //   };
+
+  //   try {
+  //     if (navigator.share) {
+  //       await navigator.share(shareData);
+  //     } else {
+  //       await navigator.clipboard.writeText(
+  //         `${venue.venue_name} - ${shareUrl}`
+  //       );
+  //       alert("Venue link copied to clipboard!");
+  //     }
+  //   } catch (err) {
+  //     console.error("Share failed:", err);
+  //     alert("Unable to share this venue.");
+  //   }
+  // };
 
   if (isLoadingData || isLoading || sportsLoading) return <VenueListShimmer />;
   if (isError) return <div>Error loading venues: {error?.message}</div>;

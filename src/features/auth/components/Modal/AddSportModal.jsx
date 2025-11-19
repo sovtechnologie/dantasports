@@ -1,36 +1,46 @@
-import React, { useState } from "react"; 
+import React, { useEffect, useState } from "react";
 import "../StyleSheets/AddSportModal.css";
 import { useSportList } from "../../../../hooks/favouriteSport/useSportList";
 import { useAddSports } from "../../../../hooks/favouriteSport/useAddSports";
 
 
-const AddSportModal = ({ title, onClose, onSubmit }) => {
+const AddSportModal = ({ title, onClose, onSubmit, preSelected = [] }) => {
   const [selectedSport, setSelectedSport] = useState([]);
 
   const { data, isLoading, isError, error } = useSportList();
   const sportList = data?.result || [];
- const { mutate: addSports } = useAddSports();
-  
+  const { mutate: addSports } = useAddSports();
+  useEffect(() => {
+    setSelectedSport(preSelected);
+  }, [preSelected]);
 
   const toggleSportSelection = (sport) => {
-    setSelectedSport((prev) =>
-      prev.find((s) => s.id === sport.id)
-        ? prev.filter((s) => s.id !== sport.id)
-        : [...prev, sport]
-    );
+    setSelectedSport((prev) => {
+      const exists = prev.some(s => s.id === sport.id);
+
+      if (exists && prev.length === 1) {
+        alert("At least 1 sport must remain selected.");
+        return prev;
+      }
+
+      return exists
+        ? prev.filter(s => s.id !== sport.id)
+        : [...prev, sport];
+    });
   };
 
- const handleSave = () => {
-  if (selectedSport.length > 0) {   
-    addSports(selectedSport.map((sport) => sport.id));
-  }
-  handleClose();
-};
 
-const handleClose = () => {
-  setSelectedSport([]);
-  onClose();
-}
+  const handleSave = () => {
+    if (selectedSport.length > 0) {
+      addSports(selectedSport.map((sport) => sport.id));
+    }
+    handleClose();
+  };
+
+  const handleClose = () => {
+    // setSelectedSport([]);
+    onClose();
+  }
 
   if (isLoading) {
     return <div className="loading">Loading...</div>;

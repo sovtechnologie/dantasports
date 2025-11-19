@@ -11,27 +11,49 @@ const BookingCard = ({ booking }) => {
   const isCancelled = booking.status === "cancelled";
   const [isModalOpen, setIsModalOpen] = useState(false);
   const existing = booking.checkReview === 1;
-
+  console.log("bbbbbbbbbbbbb", booking.title);
 
   const { mutate: cancelBooking, isPending } = useCancelBooking();
 
-
-
   const handleCancel = () => {
-    if (window.confirm(" you want to cancel this booking?")) {
-      cancelBooking(booking.id);
+    if (window.confirm("You want to cancel this booking?")) {
+      const payload = {
+        bookingId: booking.id,
+        type:
+          booking.bookingType === "venue"
+            ? 1
+            : booking.bookingType === "event"
+              ? 2
+              : 3,
+      };
+
+      cancelBooking(payload);
     }
   };
+
+  const formatBookingDate = (dateString) => {
+    if (!dateString) return "";
+
+    const date = new Date(dateString);
+
+    return date.toLocaleDateString("en-GB", {
+      weekday: "long",
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+  };
+
 
   return (
     <div className="booking-card-container">
       <img src={booking.image} alt="venue" className="booking-card-image" />
 
       <div className="booking-card-details">
-        <h3 className="booking-title">{booking.title}</h3>
-        <p className="booking-type">{booking.type}</p>
+        <p className="booking-title">{booking.title}</p>
+        {/* <p className="booking-type">{booking.subtitle}</p> */}
         <p className="booking-date-time">
-          <strong>{booking.date}</strong>
+          <strong>{formatBookingDate(booking.date)}</strong>
         </p>
         <p className="booking-date-time">{booking.time}</p>
         <p className="booking-ref">

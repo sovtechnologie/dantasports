@@ -128,23 +128,30 @@ import black from "../assets/toggleIcon.png"; // arrow icon
 import arrow from "../../withoutauth/assets/icons/black-arrow.svg"
 import InfoModal from "../../../components/InfoModal";
 
-const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFinalAmount, venueId }) => {
+const CheckoutPricing = ({ totalPrice, price, convenienceFee, type, count, setFinalAmount, venueId, bookingData }) => {
   const [insuranceSelected, setInsuranceSelected] = useState(false);
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
   const [discount, setDiscount] = useState(null);
   const [couponDetails, setCouponDetails] = useState("");
   const [activeModal, setActiveModal] = useState(null); // 'pass' | 'convenience' | null
 
-  const basePrice = totalPrice || 0;
+  // Force clean value (2 decimal max)
+  const basePrice = Number((totalPrice || 0).toFixed(2));
+
   const insuranceFee = 20;
 
   // Subtotal (before discount)
-  const subtotal = basePrice + (basePrice > 0 ? convenienceFee : 0) + (insuranceSelected ? insuranceFee : 0);
-  const totalAmount = Math.max(subtotal - (discount || 0), 0);
+  // const subtotal = basePrice + (basePrice > 0 ? convenienceFee : 0) + (insuranceSelected ? insuranceFee : 0);
+  const totalAmount = Math.max(totalPrice - (discount || 0), 0);
 
   useEffect(() => {
     setFinalAmount(totalAmount);
   }, [setFinalAmount, totalAmount]);
+
+  const formatConvenienceFee = (fee) => {
+    if (fee == null) return "0";
+    return Number(fee) % 1 === 0 ? `${fee}` : Number(fee).toFixed(2);
+  };
 
 
   useEffect(() => {
@@ -163,7 +170,7 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFina
             Passes price x {count} <InfoCircle size={13} className="text-primary ms-1" onClick={() => setActiveModal("pass")} />
           </Col>
           <Col xs={4} className="pass_price text-end">
-            <span>₹{basePrice}</span>
+            <span>₹{price}</span>
           </Col>
         </Row>
 
@@ -173,7 +180,7 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFina
             Convenience fee <InfoCircle size={13} className="text-primary ms-1" onClick={() => setActiveModal("convenience")} />
           </Col>
           <Col xs={4} className="pass_price text-end">
-            <span >₹{convenienceFee}</span>
+            <span>₹{formatConvenienceFee(convenienceFee)}</span>
           </Col>
         </Row>
 
@@ -228,7 +235,7 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFina
         {/* Total Amount */}
         <Row className="align-items-center mt-2 border-top ">
           <Col className="total_amount pt-3">Total amount</Col>
-          <Col className="text-end total_price pt-3">₹{totalAmount}</Col>
+          <Col className="text-end total_price pt-3">₹{totalAmount.toFixed(2)}</Col>
         </Row>
       </div>
 
@@ -237,7 +244,7 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFina
         isOpen={isCouponModalOpen} onClose={() => setIsCouponModalOpen(false)}
         type={type}
         venueId={venueId}
-        totalAmount={subtotal} // pass subtotal (before discount)
+        totalAmount={totalPrice} // pass subtotal (before discount)
         onApply={({ coupon, apiResponse }) => {
           console.log("Coupon Apply Response:", apiResponse);
           const discountAmt =
@@ -260,6 +267,7 @@ const CheckoutPricing = ({ totalPrice, convenienceFee, type, count = 10, setFina
 
       <InfoModal
         show={activeModal === "convenience"}
+        bookingData={bookingData}
         type="convenience"
         onClose={() => setActiveModal(null)}
       />

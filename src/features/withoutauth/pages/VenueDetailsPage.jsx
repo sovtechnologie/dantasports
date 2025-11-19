@@ -111,6 +111,8 @@ function VenueDetailsPage() {
   const [selectedDuration, setSelectedDuration] = useState(0);
   const [selectedPitch, setSelectedPitch] = useState("");
   const [selectedSport, setSelectedSport] = useState("");
+  const [convenienceFee, setConvenienceFee] = useState(0);
+  const [price, setPrice] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [finalAmount, setFinalAmount] = useState(0);
   const [bookingId, setBookingId] = useState(null);
@@ -159,6 +161,7 @@ function VenueDetailsPage() {
   const banners = bannerData?.result || [];
 
   useEffect(() => {
+    setPrice(0);
     // setBookingId(null);
     setTotalPrice(0);
     setFinalAmount(0);
@@ -174,7 +177,7 @@ function VenueDetailsPage() {
     isLoading: BookingPriceLoading,
   } = usePaymentDetails(bookingId);
   const response = BookingPriceDetails?.result?.[0];
-  let convenienceFee = 0;
+
 
   const handleClickLike = (venue) => {
     if (!venue.favourite) {
@@ -224,8 +227,9 @@ function VenueDetailsPage() {
   }, []);
 
   useEffect(() => {
-    setTotalPrice(response?.total_price);
-    convenienceFee = response?.convenience_fee;
+    setTotalPrice(response?.total_price || 0);
+    setPrice((response?.price || 0))
+    setConvenienceFee(response?.convenience_fee_amount || 0);
   }, [response]);
 
   // create payments
@@ -294,6 +298,8 @@ function VenueDetailsPage() {
           setSelectedPitch("");
           setFinalAmount(null);
           setTotalPrice(0);
+          setConvenienceFee(0);
+          // setPrice(0);
         },
       }
     );
@@ -658,6 +664,7 @@ function VenueDetailsPage() {
                   courtError={errors}
                   bookingId={bookingId}
                   setBookingId={setBookingId}
+                // setPrice={setTotalPrice}
                 />
                 <div className="booking-summary-line" style={{ marginLeft: "14%" }}>
                   <p style={{ fontWeight: "400", marginTop: "8px", color: "#1163c7" }}>
@@ -675,7 +682,9 @@ function VenueDetailsPage() {
                   ) : (
                     <CheckoutPricing
                       totalPrice={totalPrice || 0}
+                      price={price}
                       convenienceFee={convenienceFee}
+                      bookingData={response}
                       count={1}
                       type={1}
                       venueId={id}

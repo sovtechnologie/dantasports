@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../Stylesheets/EventDetails.css"
 import Cookies from 'js-cookie';
 import ReviewCard from "../components/ReviewCard";
@@ -121,7 +121,7 @@ export default function EventDetailPage() {
     const [totalPrice, setTotalPrice] = useState(null);
     const [finalAmount, setFinalAmount] = useState(null);
     const [tickets, setTickets] = useState({ ticketsId: null, quantity: null })
-
+    const [bookingDataValues, setBookingDataValues] = useState();
     const { data: EventDetails, isLoading: eventLoading, error: eventError } = useFetchSingleEvent(id);
     const event = Array.isArray(EventDetails?.result) && EventDetails.result.length > 0
         ? mapEventData(EventDetails.result[0])
@@ -217,28 +217,63 @@ export default function EventDetailPage() {
             },
         });
     };
+    useEffect(() => {
+        if (!totalPrice || totalPrice === 0) {
+            setFinalAmount(0);
+            return;
+        }
+
+        const price = Number(totalPrice);
+
+        const conveniencePercent = Number(EventPrice[0]?.convenience_fees ?? 2); // default 2%
+        const gstPercent = Number(EventPrice[0]?.gst ?? 18); // default 18%
+
+        // Step 1: Base Fare = price ka 2%
+        const base_fare_amount = (price * conveniencePercent) / 100;
+
+        // Step 2: GST = base_fare_amount ka 18%
+        const base_fare_gst = (base_fare_amount * gstPercent) / 100;
+
+        // Step 3: Final Total
+        const total_price = price + base_fare_amount + base_fare_gst;
+
+        setFinalAmount(total_price);
+
+        // Checkout me bhejna hai
+        setBookingDataValues({
+            base_fare_amount,
+            base_fare_gst,
+            total_price,
+            price,
+            gst: gstPercent,
+            convenience_fee: conveniencePercent,
+        });
+
+    }, [totalPrice, EventPrice]);
+
+    const totalPassCount = ticketCounts.reduce((sum, value) => sum + value, 0);
 
     return (
         <>
             <section style={{ background: "#f1f3f2" }} className="pb-lg-5 pb-3">
                 <section className="details_page_header">
                     <div className="container">
-                         <div className='Event-main-header'>
-                        <div className="breadcrumb">
-                            <span>Event &gt; {event.location} &gt; {event.name}</span>
-                        </div>
+                        <div className='Event-main-header'>
+                            <div className="breadcrumb">
+                                <span>Event &gt; {event.location} &gt; {event.name}</span>
+                            </div>
 
-                        <h1 className="event-name">{event.name}</h1>
-                        <div className="event-location-rating">
-                            <span>{event.location}</span>
-                            <span className="star" style={{ marginLeft: "20px" }}>★</span> <span className="light-text" style={{ marginLeft: "5px" }}> {Math.floor(event.rating)} ({event?.reviewcount} ratings)</span>
-                            <span className="blue_text ps-2"><a href="">Rate Events</a></span>
+                            <h1 className="event-name">{event.name}</h1>
+                            <div className="event-location-rating">
+                                <span>{event.location}</span>
+                                <span className="star" style={{ marginLeft: "20px" }}>★</span> <span className="light-text" style={{ marginLeft: "5px" }}> {Math.floor(event.rating)} ({event?.reviewcount} ratings)</span>
+                                <span className="blue_text ps-2"><a href="">Rate Events</a></span>
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </section>
                 <Container>
-                   
+
 
                     <div className="event-details-container">
                         <div className="event-wrapper row">
@@ -264,16 +299,16 @@ export default function EventDetailPage() {
                                             </SwiperSlide>
                                         ))}
                                     </Swiper>
-                                     <div className="venue-icon-topwrapper">
+                                    <div className="venue-icon-topwrapper">
                                         <button className="venue-icon-btns">
-                                        <img src={shareIcon} alt="share"  />
+                                            <img src={shareIcon} alt="share" />
                                         </button>
                                         <button className="venue-icon-btns">
-                                        <img src={LikeIcon} alt="share"  />
+                                            <img src={LikeIcon} alt="share" />
                                         </button>
                                     </div>
                                 </div>
-                               
+
 
 
                                 <div className="event-section">
@@ -350,7 +385,7 @@ export default function EventDetailPage() {
 
                                 </div>
 
-                             
+
                                 <div class="row g-3 mt-3">
                                     <div className="col-12 col-lg-6">
                                         <div className="card modal_title">
@@ -477,8 +512,11 @@ export default function EventDetailPage() {
                                 <div className="event-right-section">
                                     <div className="event-heading">Price details</div>
                                     <CheckoutPricing
-                                        totalPrice={totalPrice}
-                                        convenienceFee={ConvenienceFee}
+                                        totalPrice={finalAmount}
+                                        convenienceFee={totalPrice ? ConvenienceFee : 0}
+                                        bookingData={bookingDataValues}
+                                        count={totalPassCount}
+                                        price={totalPrice}
                                         type={2}
                                         venueId={id}
                                         setFinalAmount={setFinalAmount} />
@@ -490,15 +528,15 @@ export default function EventDetailPage() {
 
                             </div>
                         </div>
-                         <div className="mt-3">
+                        <div className="mt-3">
                             <GalleryComponent />
-                         </div>
+                        </div>
                         <div className="ratings-carousel">
                             <EventReviewSlider event={{ review: event?.reviews }} />
                         </div>
 
 
-                       
+
 
                         <OngoingEvents banners={banners} />
 

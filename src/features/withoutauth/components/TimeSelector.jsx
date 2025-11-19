@@ -63,7 +63,8 @@ const TimeSelector = ({
   setSelectedPitch,
   courtError,
   bookingId,
-  setBookingId
+  setBookingId,
+
 }) => {
   const isLoggedIn = Boolean(Cookies.get('token'));
   const [errorMessage, setErrorMessage] = useState("");
@@ -129,19 +130,97 @@ const TimeSelector = ({
     return diff * slotMinDurationHr;
   }, [selectedTime, end_time, slotMinDurationHr]);
 
+  // const handleDuration = useCallback((delta) => {
+  //   if (!selectedTime) {
+  //     alert("Please select a timeslot first.");
+  //     return;
+  //   }
+  //   const max = getMaxDuration();
+  //   setSelectedDuration(prev => {
+  //     const next = prev + delta;
+  //     if (next < slotMinDurationHr) return slotMinDurationHr;
+  //     if (next > max) return max;
+  //     return next;
+  //   });
+  // }, [selectedTime, getMaxDuration, setSelectedDuration, slotMinDurationHr]);
+
+
+  // const [finalPrice, setFinalPrice] = useState(0);
+
+
+  // const pricePerHour = Number(sport?.price_per_hour || 0);
+
+  // const calculatedPrice = useMemo(() => {
+  //   if (!selectedTime || !selectedDuration) return 0;
+  //   return pricePerHour * selectedDuration;
+  // }, [selectedTime, selectedDuration, pricePerHour]);
+
+  // useEffect(() => {
+  //   setFinalPrice(calculatedPrice);
+  //   setPrice(Number(calculatedPrice.toFixed(0))); // no decimals
+
+  // }, [calculatedPrice]);
+
+
+
+
+
   const handleDuration = useCallback((delta) => {
     if (!selectedTime) {
       alert("Please select a timeslot first.");
       return;
     }
+
     const max = getMaxDuration();
+
     setSelectedDuration(prev => {
       const next = prev + delta;
-      if (next < slotMinDurationHr) return slotMinDurationHr;
-      if (next > max) return max;
-      return next;
+
+      let finalDuration =
+        next < slotMinDurationHr ? slotMinDurationHr :
+          next > max ? max :
+            next;
+
+      if (bookingId) {
+        const bookingPayload = {
+          sportId,
+          venueId,
+          date: getLocalIsoDate(selectedDate),
+          startTime: selectedTime.toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false
+          }),
+          duration: finalDuration * 60,
+          courtId: selectedPitch,
+          bookingId: bookingId
+        };
+
+        updateBooking(bookingPayload, {
+          onSuccess: () => {
+            queryClient.invalidateQueries(["paymentDetails", bookingId]);
+            console.log("Duration Updated Successfully");
+          },
+          onError: (err) => {
+            console.log("Duration Update Failed", err);
+          }
+        });
+      }
+
+      return Number(finalDuration.toFixed(2));
+
     });
-  }, [selectedTime, getMaxDuration, setSelectedDuration, slotMinDurationHr]);
+  }, [
+    selectedTime,
+    getMaxDuration,
+    setSelectedDuration,
+    slotMinDurationHr,
+    bookingId,
+    selectedPitch,
+    sportId,
+    venueId,
+    selectedDate
+  ]);
 
 
   const cutoffHour = 23; // 11 PM
@@ -390,7 +469,7 @@ const TimeSelector = ({
                     backgroundColor: isSelected
                       ? "#007bff"
                       : allCourtsBooked
-                        ? "red"
+                        ? "grey"
                         : "",
                     color: allCourtsBooked ? "white" : isSelected ? "white" : "black"
                   }}

@@ -23,6 +23,14 @@ function formatTime(timeStr, durationMinutes) {
   return `${dt.toLocaleTimeString("en-US", opts)} – ${end.toLocaleTimeString("en-US", opts)}`;
 }
 
+function formatStartEnd(start, end) {
+  const opts = { hour: "2-digit", minute: "2-digit", hour12: true };
+
+  const s = new Date(`2000-01-01T${start}`).toLocaleTimeString("en-US", opts);
+  const e = new Date(`2000-01-01T${end}`).toLocaleTimeString("en-US", opts);
+
+  return `${s} – ${e}`;
+}
 
 
 
@@ -97,7 +105,7 @@ const MyBookings = () => {
     venueId: g.gym_id,
     hasReview: false,
     reference: `#${String(g.booking_id).padStart(5, "0")}`,
-    image: g.image,
+    image: g.mobile_image,
   })) ?? [];
 
 
@@ -124,7 +132,7 @@ const MyBookings = () => {
   console.log("complete booking", AllCompletedBooking);
 
   const { data: CancelledBookingData } = useGetCancelBooking();
-  const AllCancelledBooking = CancelledBookingData?.result?.map(b => ({
+  const VenueCancelled = CancelledBookingData?.myBookings?.venueBookings.map(b => ({
     id: b.id,
     title: b.venue_name,
     type: `${b.court_name}, ${b.sports_name}`,
@@ -134,8 +142,27 @@ const MyBookings = () => {
     time: formatTime(b.start_time, b.duration),
     reference: `#${String(b.id).padStart(5, "0")}`,
     image: b.cover_image,
+    cancel_date: b.updated_at || b.created_at,
   })) ?? [];
-  console.log("my cancelledBooking", AllCancelledBooking);
+
+  const EventCancelled = CancelledBookingData?.myBookings?.eventBooking.map(b => ({
+    id: b.booking_id,
+    title: b.event_title,
+    type: `${b.court_name}, ${b.sports_name}`,
+    date: formatDate(b.book_date),
+    venueId: b.event_id,
+    checkReview: b.has_review,
+    time: formatStartEnd(b.start_time, b.end_time),
+    reference: `#${String(b.booking_id).padStart(5, "0")}`,
+    image: b.desktop_image,
+    cancel_date: b.cancelled_at || b.updated_at || b.created_at
+  })) ?? [];
+  const SortedCancelled = [...EventCancelled, ...VenueCancelled];
+
+  const AllCancelledBooking = SortedCancelled.sort(
+    (a, b) => new Date(b.cancel_date) - new Date(a.cancel_date)
+  );
+
 
   const filteredBookings = React.useMemo(() => {
     switch (activeTab) {

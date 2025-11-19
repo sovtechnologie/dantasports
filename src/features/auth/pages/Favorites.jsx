@@ -199,6 +199,12 @@ const Favorites = () => {
 
   const { mutate: deleteSport, } = useDeleteSport();
   const handleSportDelete = (favoriteSportsId) => {
+
+    if (FavoritesSportData.length <= 1) {
+      alert(" At least 1 sport must remain selected.")
+      return;
+    }
+
     deleteSport(favoriteSportsId);
   };
 
@@ -450,7 +456,7 @@ const Favorites = () => {
                 {paginatedSports.map((sport) => (
                   <div key={sport.favoourite_sports_id} className="favorite-sport-card">
                     <img src={sport.sports_images} alt={sport.sports_name} className="sport-image" />
-                    <h3 className='sport-name'>{sport.sports_name}</h3>
+                    <h1 className='sport-name'>{sport.sports_name}</h1>
                     <button className="remove-sport-button">
                       <img
                         src={DeleteIcon}
@@ -468,6 +474,7 @@ const Favorites = () => {
           {isSportModalOpen && (
             <AddSportModal
               title="Add New Sport"
+              preSelected={FavoritesSportData}
               onClose={() => setIsSportModalOpen(false)}
               onSubmit={handleAddSport}
             />
