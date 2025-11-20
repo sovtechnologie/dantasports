@@ -225,17 +225,17 @@ export default function EventDetailPage() {
 
         const price = Number(totalPrice);
 
-        const conveniencePercent = Number(EventPrice[0]?.convenience_fees ?? 2); // default 2%
-        const gstPercent = Number(EventPrice[0]?.gst ?? 18); // default 18%
+        const conveniencePercent = Number(EventPrice[0]?.convenience_fees);
+        const gstPercent = Number(EventPrice[0]?.gst);
+        const upto = Number(EventPrice[0]?.upto ?? 0);
 
-        // Step 1: Base Fare = price ka 2%
         const base_fare_amount = (price * conveniencePercent) / 100;
+        const smallerValue = base_fare_amount < upto ? base_fare_amount : upto;
 
-        // Step 2: GST = base_fare_amount ka 18%
-        const base_fare_gst = (base_fare_amount * gstPercent) / 100;
+        const base_fare_gst = (smallerValue * gstPercent) / 100;
 
-        // Step 3: Final Total
-        const total_price = price + base_fare_amount + base_fare_gst;
+
+        const total_price = price + smallerValue + base_fare_gst;
 
         setFinalAmount(total_price);
 

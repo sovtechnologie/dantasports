@@ -277,12 +277,15 @@ export default function GymDetailPage() {
 
     const price = Number(totalAmount);
 
-    const conveniencePercent = Number(GymPrice?.[0]?.convenience_fees ?? 2);
-    const gstPercent = Number(GymPrice?.[0]?.gst ?? 18);
+    const conveniencePercent = Number(GymPrice?.[0]?.convenience_fees);
+    const gstPercent = Number(GymPrice?.[0]?.gst);
+    const upto = Number(GymPrice[0]?.upto ?? 0);
 
     const base_fare_amount = (price * conveniencePercent) / 100;
-    const base_fare_gst = (base_fare_amount * gstPercent) / 100;
-    const total_price = price + base_fare_amount + base_fare_gst;
+    const smallerValue = base_fare_amount < upto ? base_fare_amount : upto;
+
+    const base_fare_gst = (smallerValue * gstPercent) / 100;
+    const total_price = price + smallerValue + base_fare_gst;
 
     setFinalAmount(total_price);
 
