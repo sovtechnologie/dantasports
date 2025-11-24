@@ -214,7 +214,7 @@ export default function EventFilterPage() {
 
   return (
     <>
-      <section className="pb-lg-4 pb-3"
+      <section className="pb-lg-4 pb-3 event_section"
 
         style={{ background: "#F1F3F2" }}
       >
@@ -271,7 +271,7 @@ export default function EventFilterPage() {
                             }}
                           />
                         </div>
-                        <div className="card_icons">
+                        <div className="card_icon">
                           <button
                             onClick={(e) => {
                               e.stopPropagation();

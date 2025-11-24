@@ -23,20 +23,20 @@
   box-shadow: unset;
 }
 
-.card_icons.events {
+.card_icon {
   position: absolute;
   top: 10px;
   z-index: 999;
 }
 
-.card_icons.events .like {
+.card_icon.events .like {
   right: 15%;
   height: 26px;
   width: 26px;
   position: absolute;
 }
 
-.card_icons {
+.card_icon {
   position: absolute;
   top: 10px;
   z-index: 999;
@@ -81,6 +81,7 @@
   border: 1px solid transparent;
   display: flex;
   justify-content: center;
+  cursor: pointer;
 }
 
 .offer a:hover {

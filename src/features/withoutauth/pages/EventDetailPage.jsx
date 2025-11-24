@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "../Stylesheets/EventDetails.css"
+import "../Stylesheets/EventDetails.css";
+import "../Stylesheets/CoachDetailPage.css";
 import Cookies from 'js-cookie';
 import ReviewCard from "../components/ReviewCard";
 import Gallery from "../components/Gallery";
@@ -24,6 +25,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import shareIcon from "../assets/VenueDetailIcon/share.svg"
 import LikeIcon from "../assets/VenueDetailIcon/linke.svg";
+import youtube from "../assets/VenueDetailIcon/youtube.svg";
+import coach from "../assets/coach/coach1.jpg";
+
 
 
 
@@ -300,17 +304,18 @@ export default function EventDetailPage() {
                                         ))}
                                     </Swiper>
                                     <div className="venue-icon-topwrapper">
+                                        
                                         <button className="venue-icon-btns">
                                             <img src={shareIcon} alt="share" />
                                         </button>
                                         <button className="venue-icon-btns">
                                             <img src={LikeIcon} alt="share" />
                                         </button>
+                                         <button className="venue-icon-btns">
+                                            <img src={youtube} alt="share" />
+                                        </button>
                                     </div>
                                 </div>
-
-
-
                                 <div className="event-section">
                                     <div className="event-heading">About the Event</div>
                                     <div className="event-description">
@@ -319,7 +324,6 @@ export default function EventDetailPage() {
                                             : `${event?.about?.substring(0, 100)}...`}
                                     </div>
                                 </div>
-
                                 <div className="event-section">
                                     <div className="event-heading">Event Guide</div>
                                     <div className="event-guide-content">
@@ -383,6 +387,31 @@ export default function EventDetailPage() {
                                         </div>
                                     </div>
 
+                                </div>
+                                <div className="row event-section">
+                                    <div className="col-12">
+                                        <h2 className="event-heading mb-3"> Participants /  Organisers</h2>
+                                        <div className="d-flex flex-wrap">
+                                            <div className="text-center me-3">
+                                                <div className="coach_img">
+                                                <img src={coach} alt="" />
+                                            </div>
+                                            <div>
+                                                <p class="coach-name">Bahubali</p>
+                                            <p class="coach-title">PERSONAL</p>
+                                            </div>
+                                            </div>
+                                               <div className="text-center me-3">
+                                                <div className="coach_img">
+                                                <img src={coach} alt="" />
+                                            </div>
+                                            <div>
+                                                <p class="coach-name">Bahubali</p>
+                                            <p class="coach-title">PERSONAL</p>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
 

@@ -59,7 +59,10 @@
 
 .sport-card.selected {
   border-color: #007BFF;
-  background-color: #ffffff;
+  /* background-color: #; */
+  border: 2px solid #007BFF;
+  background-color: hsla(211, 52%, 85%, 0.331);
+
 }
 
 .sport-card-image {

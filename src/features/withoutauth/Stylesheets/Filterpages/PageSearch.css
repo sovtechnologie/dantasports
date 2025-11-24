@@ -10,18 +10,18 @@
 
 /* Animation for placeholder fade */
 .placeholder-anim::placeholder {
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.fade-in::placeholder {
+  transition: opacity 0.5s ease-in-out;
   opacity: 1;
-  transform: translateY(0);
 }
 
 .fade-out::placeholder {
   opacity: 0;
-  transform: translateY(-10px);
 }
+
+.fade-in::placeholder {
+  opacity: 1;
+}
+
 
 
 .search_wrapper h3 {

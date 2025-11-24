@@ -15,7 +15,7 @@ import like from "../../assets/icons/like.svg";
 import share from "../../assets/icons/share.svg";
 import date from "../../assets/icons/date.svg";
 import map from "../../assets/icons/map.svg";
-import coach1 from "../../assets/coach/coach1.png";
+import coach1 from "../../assets/coach/coach2.png";
 import users from "../../assets/downloadAppLogo/team-u1.svg";
 import star from "../../assets/icons/star-white.svg";
 import FilterTow from "../../components/FilterTow.jsx";

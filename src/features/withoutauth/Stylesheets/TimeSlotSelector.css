@@ -75,7 +75,7 @@
 
 }
 
-.timeslot_section button{
+.timeslot_section button {
 
   padding: 5px 10px;
   color: #333;
@@ -87,6 +87,7 @@
   font-size: 14px;
   margin: 5px 3px;
   text-wrap: nowrap;
+  width: 83px;
 
 }
 
@@ -112,4 +113,12 @@
     font-size: 16px;
     color: #1163C7;
     line-height: 24px;
+}
+
+@media screen and (max-with:767px) {
+
+  .timeslot_section button {
+
+    width: 90px;
+  }
 }

@@ -272,8 +272,8 @@
 }
 
 .sport-card {
-  width: 93px;
-  height: 93px;
+  /* width: 93px;
+  height: 93px; */
   border-radius: 4px;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

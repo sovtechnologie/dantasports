@@ -16,6 +16,20 @@
   right: 10px;
 }
 
+.coach_img {
+
+  height: 90px;
+  width: 90px;
+}
+
+.coach_img img {
+
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .event-image-carosal {
   height: 500px;
   height: clamp(200px, 34.7222vw, 500px);
