@@ -22,22 +22,6 @@ const GalleryComponent = () => {
     { src: "https://picsum.photos/id/1019/600/400", alt: "Image 3" },
      { src: "https://picsum.photos/id/1015/600/400", alt: "Image 2" },
     { src: "https://picsum.photos/id/1019/600/400", alt: "Image 3" },
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-      { src: "https://picsum.photos/id/1019/600/400", alt: "Image 3" },
-     { src: "https://picsum.photos/id/1015/600/400", alt: "Image 2" },
-    { src: "https://picsum.photos/id/1019/600/400", alt: "Image 3" },
-=======
-=======
->>>>>>> Stashed changes
-     { src: "https://picsum.photos/id/1018/600/400", alt: "Image 1" },
-    { src: "https://picsum.photos/id/1015/600/400", alt: "Image 2" },
-    { src: "https://picsum.photos/id/1019/600/400", alt: "Image 3" },
-     { src: "https://picsum.photos/id/1015/600/400", alt: "Image 2" },
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
     
   ];
 
@@ -56,15 +40,7 @@ const GalleryComponent = () => {
             <img
               src={img.src}
               alt={img.alt}
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-              style={{ width: "180px", margin: "5px", borderRadius: "8px" }}
-=======
-              style={{ width: "200px", margin: "5px", borderRadius: "8px" }}
->>>>>>> Stashed changes
-=======
-              style={{ width: "200px", margin: "5px", borderRadius: "8px" }}
->>>>>>> Stashed changes
+              style={{ width: "200px", margin: "10px", borderRadius: "8px" }}
             />
           </a>
         ))}

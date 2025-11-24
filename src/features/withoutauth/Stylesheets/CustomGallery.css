@@ -1,34 +1,13 @@
 .gallery-container {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
     border: none;
-    border-radius: 6px;
-    height: 305px;
+    border-radius: 16px;
+    background-color: #eaeceb;
+    padding: 30px 10px;
+    height: 370px;
     overflow-y: auto;
     overflow-x: hidden;
     scroll-behavior: smooth;
-    margin: 10px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-=======
-=======
->>>>>>> Stashed changes
-   border: none;
-  border-radius: 16px;
-  /* background-color: #eaeceb; */
-  /* padding: 30px 20px;  */
-  height: 350px;
-  overflow-y: auto;
-  scroll-behavior: smooth;
-  margin: 20px 0;
-  /* overflow-x: scroll; */
-  
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+    margin: 20px 0;
 }
 
 /* ✅ Custom WebKit Scrollbar (for Chrome, Edge, Brave, etc.) */

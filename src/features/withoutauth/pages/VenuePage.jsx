@@ -315,21 +315,6 @@ function VenuePage() {
         <Container>
           <Row className="g-3">
             <Col lg="4" xl={3} md="12" className="d-none d-lg-block">
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-              <div className="mb-3">
-                <SortBy sortBy={sortBy} setSortBy={(value) => setSortBy(value)} />
-              </div>
-=======
-             <div className="mb-3">
-               <SortBy sortBy={sortBy} setSortBy={(value) => setSortBy(value)}  />
-             </div>
->>>>>>> Stashed changes
-=======
-             <div className="mb-3">
-               <SortBy sortBy={sortBy} setSortBy={(value) => setSortBy(value)}  />
-             </div>
->>>>>>> Stashed changes
               <Filter
                 sportsData={filteredSports}
                 selectedSports={selectedSports}
@@ -345,17 +330,8 @@ function VenuePage() {
                 setFilteredVenues={setFilteredVenues}
                 selectedAmenities={selectedAmenities}
                 setSelectedAmenities={setSelectedAmenities}
-                onApply={handleApplyFilters}
               />
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-
-=======
-             
->>>>>>> Stashed changes
-=======
-             
->>>>>>> Stashed changes
+              <SortBy sortBy={sortBy} setSortBy={(value) => setSortBy(value)} />
             </Col>
 
             <Col className="d-lg-none  text-end">

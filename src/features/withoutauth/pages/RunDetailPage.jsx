@@ -671,15 +671,8 @@ export default function EventDetailPage() {
             <Container className="p-0">
               <EventReviewSlider event={{ review: event?.reviews }} />
             </Container>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-
-=======
-          
->>>>>>> Stashed changes
-=======
-          
->>>>>>> Stashed changes
+            {/* <Gallery gallery={event.gallery} />
+             */}
             <GalleryComponent />
 
             <div className="event-banner-container">
