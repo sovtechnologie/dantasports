@@ -1,5 +1,6 @@
 .gallery-container {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     border: none;
     border-radius: 6px;
     height: 305px;
@@ -12,6 +13,8 @@
     align-items: center;
     text-align: center;
 =======
+=======
+>>>>>>> Stashed changes
    border: none;
   border-radius: 16px;
   /* background-color: #eaeceb; */
@@ -22,6 +25,9 @@
   margin: 20px 0;
   /* overflow-x: scroll; */
   
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 }
 

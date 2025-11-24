@@ -1,4 +1,5 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import React, { useState, useEffect } from "react";
 import "../Stylesheets/TimeSlotSelector.css";
 import addIcon from "../../withoutauth/assets/icons/add.svg"
@@ -190,6 +191,38 @@ function TimeSlotSelector() {
             <InputGroup>
            
 
+=======
+import React, { useState } from "react";
+import { Form, InputGroup, Button, Container, Row, Col } from "react-bootstrap";
+import  addIcon from "../../withoutauth/assets/icons/add.svg"
+import  subIcon from "../../withoutauth/assets/icons/sub.svg"
+function TimeSlotSelector() {
+  const timeSlots = [
+    "11:30 AM",
+    "12:30 PM",
+    "01:30 PM",
+    "02:30 PM",
+    "03:30 PM",
+    "04:30 PM",
+  ];
+
+  const [selectedTime, setSelectedTime] = useState("12:30 PM");
+  const [duration, setDuration] = useState(60); 
+
+  return (
+    <Container className="p-3 border rounded mt-3" style={{ maxWidth: 650 }}>
+      <Row className="align-items-center g-3">
+        <Col md={6}>
+          <Form.Label>Time:</Form.Label>
+          <Form.Control value={selectedTime} readOnly />
+        </Col>
+
+        <Col md={6}>
+          <Form.Label>Duration:</Form.Label>
+            <InputGroup>
+           
+
+>>>>>>> Stashed changes
             <button className="bg-white border-0" onClick={() => setDuration(Math.max(30, duration - 30))}>
               <img src={subIcon} alt="" />
             </button>
@@ -218,6 +251,9 @@ function TimeSlotSelector() {
         ))}
       </div>
     </Container>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
   );
 }

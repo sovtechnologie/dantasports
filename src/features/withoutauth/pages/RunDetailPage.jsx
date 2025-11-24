@@ -672,7 +672,11 @@ export default function EventDetailPage() {
               <EventReviewSlider event={{ review: event?.reviews }} />
             </Container>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+          
+>>>>>>> Stashed changes
 =======
           
 >>>>>>> Stashed changes
