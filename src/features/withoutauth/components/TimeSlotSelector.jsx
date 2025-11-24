@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import React, { useState, useEffect } from "react";
 import "../Stylesheets/TimeSlotSelector.css";
 import addIcon from "../../withoutauth/assets/icons/add.svg"
@@ -158,7 +159,67 @@ const TimeSlotSelector = ({ date, selectedTime, setSelectedTime }) => {
           </div>
         )}
     </section>
+=======
+import React, { useState } from "react";
+import { Form, InputGroup, Button, Container, Row, Col } from "react-bootstrap";
+import  addIcon from "../../withoutauth/assets/icons/add.svg"
+import  subIcon from "../../withoutauth/assets/icons/sub.svg"
+function TimeSlotSelector() {
+  const timeSlots = [
+    "11:30 AM",
+    "12:30 PM",
+    "01:30 PM",
+    "02:30 PM",
+    "03:30 PM",
+    "04:30 PM",
+  ];
+
+  const [selectedTime, setSelectedTime] = useState("12:30 PM");
+  const [duration, setDuration] = useState(60); 
+
+  return (
+    <Container className="p-3 border rounded mt-3" style={{ maxWidth: 650 }}>
+      <Row className="align-items-center g-3">
+        <Col md={6}>
+          <Form.Label>Time:</Form.Label>
+          <Form.Control value={selectedTime} readOnly />
+        </Col>
+
+        <Col md={6}>
+          <Form.Label>Duration:</Form.Label>
+            <InputGroup>
+           
+
+            <button className="bg-white border-0" onClick={() => setDuration(Math.max(30, duration - 30))}>
+              <img src={subIcon} alt="" />
+            </button>
+            <Form.Control className="p-0" value={`${duration} min`} readOnly />
+            <button  className="bg-white border-0" onClick={() => setDuration(duration + 30)}>
+             <img src={addIcon} alt="" />
+            </button>
+          </InputGroup>
+        </Col>
+      </Row>
+
+      {/* Scrollable Time Selection */}
+      <div
+        className="d-flex mt-3 gap-2 overflow-auto"
+        style={{ whiteSpace: "nowrap", paddingBottom: 8 }}
+      >
+        {timeSlots.map((slot) => (
+          <Button
+            key={slot}
+            variant={selectedTime === slot ? "primary" : "outline-secondary"}
+            onClick={() => setSelectedTime(slot)}
+            className="px-3"
+          >
+            {slot}
+          </Button>
+        ))}
+      </div>
+    </Container>
+>>>>>>> Stashed changes
   );
-};
+}
 
 export default TimeSlotSelector;
