@@ -92,12 +92,15 @@ function ViewDetails(props) {
                  <p>Booking Time: 10:00 AM</p>
                  <p> Booking Date: 26/Nov/2025</p>
                </div>
-              <p className=" text-danger">Refund initiated-Refund processed-refund credited in your account</p>
+              <p className=" text-danger">Refund processed</p>
               <div className="d-flex justify-content-between">
-                <p>Refund with in 7 days</p>
                 <p>Refund Date: 27/Nov/2025</p>
                 <p>Refund Time: 12:00 Am</p>
               
+              </div>
+              <div className="d-flex justify-content-between">
+                <p>Refund credited in your account</p>
+                <p>Refund with in 7 days</p>
               </div>
             </div>
           </div>
