@@ -413,7 +413,7 @@ function VenuePage() {
                           ></button>
                         </div>
                         <div class="modal-body">
-                          <SortBy />
+                          <SortBy sortBy={sortBy} setSortBy={(value) => setSortBy(value)} />
                         </div>
                       </div>
                     </div>

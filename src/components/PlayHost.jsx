@@ -9,7 +9,7 @@ import calendarIcon from "../assets/images/home/bookrun/date.svg";
 import locationIcon from "../assets/images/home/bookrun/map.svg";
 import profile1 from "../assets/images/home/playhost/user1.png";
 import profile2 from "../assets/images/home/playhost/user2.png";
-
+import { isIOS, isAndroid } from "react-device-detect";
 import { useFetchHostList } from "../hooks/Hostlist/useFetchHostList.jsx";
 
 // Time formatting (same as old HostCarousel)
@@ -45,6 +45,11 @@ function PlayHost() {
     2: "Coaching",
     3: "Tournament",
     // add more if needed
+  };
+
+
+  const handleClick = () => {
+    window.open('https://play.google.com/store/search?q=playo&c=apps', '_blank')
   };
 
 
@@ -153,7 +158,7 @@ function PlayHost() {
                   </div>
                   <div className="card_line2"></div>
                   <div className="offer d-flex justify-content-between align-items-center">
-                    <Link to={`/Host/${host.id}`}>Join Now</Link>
+                    <Link onClick={handleClick}>Join Now</Link>
                   </div>
                 </Card>
               </Col>

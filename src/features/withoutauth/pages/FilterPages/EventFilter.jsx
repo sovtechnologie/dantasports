@@ -218,10 +218,10 @@ export default function EventFilterPage() {
 
         style={{ background: "#F1F3F2" }}
       >
-         <PageSearch searchValue="EventPage"/>
+        <PageSearch searchValue="EventPage" />
         <Container>
           <Row>
-            <Col xl={3}lg={4} md={12} className="d-none d-lg-block d-md-block">
+            <Col xl={3} lg={4} md={12} className="d-none d-lg-block d-md-block">
               <SortBy
                 sortBy={filters.sortBy}
                 setSortBy={(value) =>
@@ -243,13 +243,16 @@ export default function EventFilterPage() {
             </Col>
 
             <Col className="d-lg-none d-md-none mb-3 text-end">
-              <SortModal />
+              <SortModal sortBy={filters.sortBy}
+                setSortBy={(value) =>
+                  setFilters((prev) => ({ ...prev, sortBy: value }))
+                } />
             </Col>
 
             <Col lg="8" xl={9} md="12">
               <div className="col-12 mb-4 onging_title_hid">
-              <OngoingEvents banners={banners} />
-            </div>
+                <OngoingEvents banners={banners} />
+              </div>
               <div className="row g-3">
                 {filteredEvents.length > 0 ? (
                   filteredEvents.map((evt) => (
@@ -331,7 +334,7 @@ export default function EventFilterPage() {
                             <h2 className="text_wrap card_heading">{evt.event_title}</h2>
                             <p className="card_date">
                               <span className="me-2">
-                                <img  src={date} alt="" />
+                                <img src={date} alt="" />
                               </span>
                               {new Date(evt.start_date).toLocaleDateString(
                                 "en-GB",
@@ -352,7 +355,7 @@ export default function EventFilterPage() {
                             </p>
                             <p className="card_date">
                               <span className="me-2">
-                                <img  src={map} alt="" />
+                                <img src={map} alt="" />
                               </span>
                               {evt.locations?.[0]?.area},{" "}
                               {evt.locations?.[0]?.city}
@@ -399,9 +402,9 @@ export default function EventFilterPage() {
                   <div className="no-data">No Event Data Available</div>
                 )}
               </div>
-              
+
             </Col>
-           
+
           </Row>
 
           <div className="event-footer-banner">

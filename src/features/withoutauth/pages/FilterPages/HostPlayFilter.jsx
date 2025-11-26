@@ -3,7 +3,7 @@ import { Container, Row, Col, Card } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import styled from "../../Stylesheets/Filterpages/HostPlayFilter.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-
+import { isIOS, isAndroid } from "react-device-detect";
 import { useFetchHostList } from "../../../../hooks/Hostlist/useFetchHostList";
 import { VenueListShimmer } from "../../components/Shimmer/VenueListShimmer";
 import AppDownloadBanner from "../../components/AppDownloadBanner";
@@ -27,12 +27,11 @@ function formatTime(timeStr = "00:00") {
 
 export default function HostPlayFilterPage() {
 
-    const { data: bannerData, isLoading: bannerLoading, error: bannerError } = useBanner(1);
+  const { data: bannerData, isLoading: bannerLoading, error: bannerError } = useBanner(1);
   const banners = bannerData?.result || [];
 
   const [showSort, setShowSort] = useState(false);
   const { lat, lng } = useSelector((state) => state.location);
-
   const [hostList, setHostList] = useState([]);
   const [filteredHosts, setFilteredHosts] = useState([]);
   const [search, setSearch] = useState("");
@@ -119,12 +118,17 @@ export default function HostPlayFilterPage() {
     });
   }, [filteredHosts, search, selectedTime]);
 
+  const handleClick = () => {
+    window.open('https://play.google.com/store/search?q=playo&c=apps', '_blank')
+  };
+
+
   if (isLoading) return <VenueListShimmer />;
   if (isError) return <div>Error loading hosts: {error.message}</div>;
 
   return (
     <section style={{ background: "#F1F3F2" }} className="pb-lg-4 pb-3">
-      <PageSearch  searchValue="HostPage"/>
+      <PageSearch searchValue="HostPage" />
       <Container>
         <Row>
           {/* Left Sort Section */}
@@ -150,48 +154,48 @@ export default function HostPlayFilterPage() {
         )} */}
 
 
-           <div className="modal_wraper">
+            <div className="modal_wraper">
               <div
-                  class="modal fade"
-                  id="exampleModalToggle"
-                  aria-hidden="true"
-                  aria-labelledby="sortby"
-                  tabindex="-1"
-                >
-                  <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                      </div>
-                      <div class="modal-body">
-                        <SortBy />
-                      </div>
+                class="modal fade"
+                id="exampleModalToggle"
+                aria-hidden="true"
+                aria-labelledby="sortby"
+                tabindex="-1"
+              >
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body">
+                      <SortBy />
                     </div>
                   </div>
                 </div>
-                <div
-                  class="modal fade"
-                  id="exampleModalToggle2"
-                  aria-hidden="true"
-                  aria-labelledby="exampleModalToggleLabel2"
-                  tabindex="-1"
-                ></div>
+              </div>
+              <div
+                class="modal fade"
+                id="exampleModalToggle2"
+                aria-hidden="true"
+                aria-labelledby="exampleModalToggleLabel2"
+                tabindex="-1"
+              ></div>
 
-                <button
-                  class="btn_mobile"
-                  data-bs-toggle="modal"
-                  href="#exampleModalToggle"
-                  role="button"
-                >
-                  <img src={sortIcon} alt="" />
-                </button>
-           </div>
-           
+              <button
+                class="btn_mobile"
+                data-bs-toggle="modal"
+                href="#exampleModalToggle"
+                role="button"
+              >
+                <img src={sortIcon} alt="" />
+              </button>
+            </div>
+
 
 
 
@@ -199,8 +203,8 @@ export default function HostPlayFilterPage() {
 
           {/* Host Cards Section */}
           <Col lg={9} md={12}>
-          <Col className="col-12 mb-4 onging_title_hid">
-                <OngoingEvents banners={banners} />
+            <Col className="col-12 mb-4 onging_title_hid">
+              <OngoingEvents banners={banners} />
             </Col>
             <Row className="g-3">
               {visibleHosts.length > 0 ? (
@@ -268,7 +272,7 @@ export default function HostPlayFilterPage() {
 
                       <div className="card_line2"></div>
                       <div className="offer">
-                        <a href="">Join Now</a>
+                        <a onClick={handleClick}>Join Now</a>
                       </div>
                     </Card>
                   </Col>

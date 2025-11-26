@@ -182,7 +182,7 @@ function VenueDetailsPage() {
   const handleClickLike = (venue) => {
     if (!venue.favourite) {
       likeVenue.mutate(
-        { id, userId },
+        { venueId: id, userId },
         {
           onSuccess: async () => {
             await queryClient.invalidateQueries([
@@ -426,13 +426,13 @@ function VenueDetailsPage() {
                       </button>
                       <button
                         className="venue-icon-btns"
-                      // onClick={() => handleClickLike(venue)}
+                        onClick={() => handleClickLike(venue)}
                       >
                         <img
                           src={venue.favourite ? HeartFilled : LikeIcon}
                           alt="like"
                           className="like-icon"
-                          onClick={() => handleClickLike(venue)}
+                        // onClick={() => handleClickLike(venue)}
                         />
                       </button>
                     </div>

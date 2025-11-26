@@ -166,7 +166,7 @@ const Login = ({ isModal = false, onSuccess = () => { }, onSwitchToRegister = ()
               placeholder="Enter number"
               disabled={otpSent}
             />
-            <button onClick={handleSendOtp} className="otp-button" disabled={isSendingOtp}>
+            <button onClick={handleSendOtp} disabled={isSendingOtp}>
               {isSendingOtp ? 'Sending...' : 'Send OTP'}
             </button>
           </div>
@@ -186,7 +186,7 @@ const Login = ({ isModal = false, onSuccess = () => { }, onSwitchToRegister = ()
                 }}
                 placeholder="Enter OTP"
               />
-              <button onClick={handleVerifyOtp} className="otp-button" disabled={isVerifyingOtp}>
+              <button onClick={handleVerifyOtp} className={`otp-button ${otpVerified ? "otp-verified" : ""}`} disabled={isVerifyingOtp}>
                 {otpVerified ? 'OTP Verified' : isVerifyingOtp ? 'Verifying...' : 'Verify OTP'}
               </button>
             </div>

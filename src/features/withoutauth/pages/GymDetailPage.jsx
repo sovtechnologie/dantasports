@@ -305,7 +305,6 @@ export default function GymDetailPage() {
 
 
 
-
   return (
     <>
       <section style={{ background: "#f1f3f2" }} className="pb-lg-5 pb-3">

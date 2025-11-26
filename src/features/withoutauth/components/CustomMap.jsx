@@ -1,15 +1,16 @@
-// src/components/MapEmbed.jsx
-import React from 'react';
+import React from "react";
 
 const CustomMap = ({ latitude, longitude }) => {
   if (!latitude || !longitude) return <p>Location data not available</p>;
 
-  const embedUrl = `https://www.google.com/maps?q=${latitude},${longitude}&hl=es;z=14&output=embed`;
-  const mapLink = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+  console.log("Rendering map for:", latitude, longitude);
+
+  const embedUrl = `https://www.google.com/maps?q=${latitude},${longitude}&z=15&output=embed`;
 
   return (
     <div className="map-container">
       <iframe
+        key={`${latitude}-${longitude}`}
         src={embedUrl}
         width="100%"
         height="325"
@@ -17,18 +18,14 @@ const CustomMap = ({ latitude, longitude }) => {
         allowFullScreen=""
         loading="lazy"
         title="Venue Map"
-      ></iframe>
+      />
+
       <a
-        href={mapLink}
+        href={`https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`}
         target="_blank"
         rel="noopener noreferrer"
         className="map-link"
-        style={{
-          display: "inline-block",
-          color: "#007bff",
-          textDecoration: "underline",
-          lineHeight: "19.6px"
-        }}
+        style={{ display: "inline-block", color: "#007bff", textDecoration: "underline" }}
       >
         View on Google Maps
       </a>
@@ -37,6 +34,7 @@ const CustomMap = ({ latitude, longitude }) => {
 };
 
 export default CustomMap;
+
 
 
 

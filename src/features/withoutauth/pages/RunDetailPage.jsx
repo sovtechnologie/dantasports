@@ -116,6 +116,13 @@ export default function EventDetailPage() {
   const [finalAmount, setFinalAmount] = useState(null);
   const [bookingDataValues, setBookingDataValues] = useState();
   const [totalPrice, setTotalPrice] = useState(null);
+  const [mapPosition, setMapPosition] = useState({
+    lat: 0,
+    lng: 0,
+  });
+  const [eventAddress, setEventAddress] = useState("");
+
+
   console.log("totalPricetotalPrice", totalPrice);
   const [tickets, setTickets] = useState({ ticketsId: null, quantity: null });
 
@@ -274,6 +281,35 @@ export default function EventDetailPage() {
   }, [totalPrice, EventPrice]);
 
   const totalPassCount = ticketCounts.reduce((sum, value) => sum + value, 0);
+
+  useEffect(() => {
+    console.log("Event received:", event);
+
+    setEventAddress((prev) => {
+      if (!prev) {
+        return event?.address || "";
+      }
+      return prev;
+    });
+
+    if (
+      mapPosition.lat === 0 &&
+      mapPosition.lng === 0 &&
+      event?.latitude &&
+      event?.longitude
+    ) {
+      console.log("Setting default map position from event:", {
+        lat: event.latitude,
+        lng: event.longitude
+      });
+
+      setMapPosition({
+        lat: event.latitude,
+        lng: event.longitude,
+      });
+    }
+  }, [event]);
+
 
 
   return (
@@ -574,12 +610,14 @@ export default function EventDetailPage() {
                   <div className="event-heading">
                     <h3 className="details_page_titles">Location</h3>
                   </div>
-                  <p>{event.address}</p>
+                  <p>{eventAddress}</p>
+
                   <div className="venue-map">
                     <CustomMap
-                      latitude={event?.latitude}
-                      longitude={event?.longitude}
+                      latitude={mapPosition.lat}
+                      longitude={mapPosition.lng}
                     />
+
                   </div>
                 </div>
 
@@ -591,7 +629,32 @@ export default function EventDetailPage() {
                     <select
                       value={selectedArea || ""}
                       className="meetup-select"
-                      onChange={(e) => setSelectedArea(e.target.value)}
+                      onChange={(e) => {
+                        const area = e.target.value;
+                        setSelectedArea(area);
+
+                        console.log("Selected area:", area);
+
+                        const selectedPoint = event.meetupPoints.find(
+                          (p) => p.area === area
+                        );
+
+                        console.log("Selected meetup point object:", selectedPoint);
+
+                        if (selectedPoint) {
+                          setMapPosition({
+                            lat: selectedPoint.lat,
+                            lng: selectedPoint.lng,
+                          });
+                          setEventAddress(selectedPoint.full_address || `${selectedPoint.area}, ${selectedPoint.city}`);
+                          console.log("Updated mapPosition:", {
+                            lat: selectedPoint.lat,
+                            lng: selectedPoint.lng
+                          });
+                        } else {
+                          console.warn("No meetupPoint found for area:", area);
+                        }
+                      }}
                     >
                       {event?.meetupPoints?.map((item, index) => (
                         <option key={index} value={item.area}>
@@ -599,6 +662,8 @@ export default function EventDetailPage() {
                         </option>
                       ))}
                     </select>
+
+
                   </div>
                 </div>
 

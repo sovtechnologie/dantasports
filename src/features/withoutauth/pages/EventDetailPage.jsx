@@ -73,11 +73,11 @@ const mapEventData = (apiData) => {
       : [RunImage, RunImage, RunImage, RunImage],
     sports: Array.isArray(apiData?.sports)
       ? apiData.sports.map((sport) => ({
-          sportId: sport.id,
-          name: sport.name,
-          icon: sport.image,
-          categoryId: sport.category_id,
-        }))
+        sportId: sport.id,
+        name: sport.name,
+        icon: sport.image,
+        categoryId: sport.category_id,
+      }))
       : "",
     latitude: apiData?.locations[0]?.lat || 0,
     longitude: apiData?.locations[0]?.lng || 0,
@@ -92,17 +92,18 @@ const mapEventData = (apiData) => {
     favourite_venue_id: apiData?.favourite_venue_id,
     termsAndCondition: apiData?.terms_and_condition,
     cancelPolicy: apiData?.cancellation_policy,
+    event_video: apiData?.event_video || "",
     reviews: Array.isArray(apiData?.reviews)
       ? apiData.reviews.map((review) => ({
-          id: review.id,
-          image: review.image,
-          userName: review.user_name || "Anonymous",
-          rating: review.rating || 0,
-          comment: review.comment || "No comment provided",
-          date:
-            formatDate(review.createdAt) ||
-            new Date().toISOString().split("T")[0],
-        }))
+        id: review.id,
+        image: review.image,
+        userName: review.user_name || "Anonymous",
+        rating: review.rating || 0,
+        comment: review.comment || "No comment provided",
+        date:
+          formatDate(review.createdAt) ||
+          new Date().toISOString().split("T")[0],
+      }))
       : [{ comment: "Not Available" }], // Default to first 5 reviews if not available
   };
 };
@@ -114,6 +115,11 @@ export default function EventDetailPage() {
   const [selectedArea, setSelectedArea] = useState("");
   const [locationId, setLocationId] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [mapPosition, setMapPosition] = useState({
+    lat: 0,
+    lng: 0,
+  });
+  const [eventAddress, setEventAddress] = useState("");
   const [totalPrice, setTotalPrice] = useState(null);
   const [finalAmount, setFinalAmount] = useState(null);
   const [tickets, setTickets] = useState({ ticketsId: null, quantity: null });
@@ -263,6 +269,37 @@ export default function EventDetailPage() {
 
   const totalPassCount = ticketCounts.reduce((sum, value) => sum + value, 0);
 
+
+  useEffect(() => {
+    console.log("Event received:", event);
+
+    setEventAddress((prev) => {
+      if (!prev) {
+        return event?.address || "";
+      }
+      return prev;
+    });
+
+    if (
+      mapPosition.lat === 0 &&
+      mapPosition.lng === 0 &&
+      event?.latitude &&
+      event?.longitude
+    ) {
+      console.log("Setting default map position from event:", {
+        lat: event.latitude,
+        lng: event.longitude
+      });
+
+      setMapPosition({
+        lat: event.latitude,
+        lng: event.longitude,
+      });
+    }
+  }, [event]);
+
+
+
   return (
     <>
       <section style={{ background: "#f1f3f2" }} className="pb-lg-5 pb-3">
@@ -328,7 +365,7 @@ export default function EventDetailPage() {
                     <button className="venue-icon-btns">
                       <img src={LikeIcon} alt="share" />
                     </button>
-                    <button className="venue-icon-btns">
+                    <button className="venue-icon-btns" onClick={() => window.open(event.event_video)}>
                       <img src={youtube} alt="share" />
                     </button>
                   </div>
@@ -416,7 +453,7 @@ export default function EventDetailPage() {
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-6">
+                  {/* <div className="col-6">
                     <div className="event-section">
                       <h2 className="event-heading mb-3">
                         {" "}
@@ -443,12 +480,72 @@ export default function EventDetailPage() {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="col-6">
                     <div className="event-section">
-                        <h2 className="event-heading mb-3">Organiser Contact Info</h2>
+                      <h2 className="event-heading mb-3">Participants / Organisers</h2>
+
+                      <div className="d-flex flex-nowrap overflow-x-auto">
+
+                        {EventDetails?.result[0]?.event_celebrities?.map((person) => (
+                          <div key={person.id} className="text-center me-3">
+                            <div className="coach_img">
+                              <img src={person.image} alt={person.name} />
+                            </div>
+                            <div>
+                              <p className="coach-name">{person.name}</p>
+                              <p className="coach-title">{person.title}</p>
+                            </div>
+                          </div>
+                        ))}
+
+                        {/* IF EMPTY */}
+                        {EventDetails?.result[0]?.event_celebrities?.length === 0 && (
+                          <p>No participants available.</p>
+                        )}
+                      </div>
                     </div>
                   </div>
+
+                  <div className="col-6">
+                    <div className="event-section">
+                      <h2 className="event-heading mb-3">Organiser Contact Info</h2>
+
+                      {EventDetails?.result[0]?.event_attendee?.map((contact) => (
+                        <div key={contact.id} className="mb-2">
+
+                          <p>
+                            <strong>Email:</strong>{" "}
+                            <a href={`mailto:${contact.email}`} className="text-primary">
+                              {contact.email}
+                            </a>
+                          </p>
+
+                          <p>
+                            <strong>Phone:</strong>{" "}
+                            <a href={`tel:${contact.support_contact}`} className="text-primary">
+                              {contact.support_contact}
+                            </a>
+                          </p>
+
+                          {/* {contact.alt_phone_number && (
+                            <p>
+                              <strong>Alt Phone:</strong>{" "}
+                              <a href={`tel:${contact.alt_phone_number}`} className="text-primary">
+                                {contact.alt_phone_number}
+                              </a>
+                            </p>
+                          )} */}
+
+                        </div>
+                      ))}
+
+                      {EventDetails?.result[0]?.event_attendee?.length === 0 && (
+                        <p>No organiser contact info found.</p>
+                      )}
+                    </div>
+                  </div>
+
                 </div>
 
                 <div class="row g-3 mt-3">
@@ -559,8 +656,8 @@ export default function EventDetailPage() {
                   </div>
                   <div className="venue-map">
                     <CustomMap
-                      latitude={event?.latitude}
-                      longitude={event?.longitude}
+                      latitude={mapPosition.lat}
+                      longitude={mapPosition.lng}
                     />
                   </div>
                 </div>
@@ -572,8 +669,30 @@ export default function EventDetailPage() {
                       value={selectedArea || ""}
                       className="meetup-select"
                       onChange={(e) => {
-                        setSelectedArea(e.target.value);
-                        setLocationId(e.target.key);
+                        const area = e.target.value;
+                        setSelectedArea(area);
+
+                        console.log("Selected area:", area);
+
+                        const selectedPoint = event.meetupPoints.find(
+                          (p) => p.area === area
+                        );
+
+                        console.log("Selected meetup point object:", selectedPoint);
+
+                        if (selectedPoint) {
+                          setMapPosition({
+                            lat: selectedPoint.lat,
+                            lng: selectedPoint.lng,
+                          });
+                          setEventAddress(selectedPoint.full_address || `${selectedPoint.area}, ${selectedPoint.city}`);
+                          console.log("Updated mapPosition:", {
+                            lat: selectedPoint.lat,
+                            lng: selectedPoint.lng
+                          });
+                        } else {
+                          console.warn("No meetupPoint found for area:", area);
+                        }
                       }}
                     >
                       {event?.meetupPoints?.map((item, index) => (
