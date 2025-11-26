@@ -5,8 +5,12 @@ import CancelIcon from "../assets/Cancel-Icon.png";
 import { Share } from "../../../utils/share.js";
 import { AddReviewModal } from "./Modal/AddReviewModal.jsx";
 import { useCancelBooking } from "../../../hooks/Payments/useCancelBooking.js";
+import ViewDetails from "./StyleSheets/ViewDetails.jsx";
+
 
 const BookingCard = ({ booking }) => {
+
+    const [modalShow, setModalShow] = useState(false);
   const isCompleted = booking.status === "completed";
   const isCancelled = booking.status === "cancelled";
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -48,7 +52,17 @@ const BookingCard = ({ booking }) => {
   return (
     <div className="booking-card-container">
       <img src={booking.image} alt="venue" className="booking-card-image" />
+       <button
+        className="border-0 view_details_btn"
+        onClick={() => setModalShow(true)}
+      >
+        View Details
+      </button>
 
+      <ViewDetails
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
       <div className="booking-card-details">
         <p className="booking-title">{booking.title}</p>
         {/* <p className="booking-type">{booking.subtitle}</p> */}
@@ -90,6 +104,7 @@ const BookingCard = ({ booking }) => {
               {isPending ? "Cancelling..." : "Cancel"}
             </button>
           )}
+         
         </div>
       </div>
 
