@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../Stylesheets/RunDetailPage.css";
+import "../Stylesheets/EventDetails.css";
+import "../Stylesheets/CoachDetailPage.css";
 import Cookies from "js-cookie";
 import ReviewCard from "../components/ReviewCard";
 import Gallery from "../components/Gallery";
@@ -16,6 +18,7 @@ import sub from "../../withoutauth/assets/icons/sub.svg";
 import add from "../../withoutauth/assets/icons/add.svg";
 import ShareIcon from "../assets/VenueDetailIcon/share.svg";
 import LikeIcon from "../assets/VenueDetailIcon/linke.svg";
+import youtube from "../assets/VenueDetailIcon/youtube.svg";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
@@ -377,6 +380,9 @@ export default function EventDetailPage() {
                       <button className="venue-icon-btns">
                         <img src={LikeIcon} alt="like" className="like-icon" />
                       </button>
+                       <button className="venue-icon-btns" onClick={() => window.open(event.event_video)}>
+                                            <img src={youtube} alt="share" />
+                                          </button>
                     </div>
                   </Swiper>
                 </div>
@@ -463,7 +469,7 @@ export default function EventDetailPage() {
                       >
                         {expandedSection === "thingsToCarry"
                           ? (event?.carrything ?? "No items specified")
-                          : `${event?.carrything?.substring(0, 200) ?? ""}...`}
+                          : `${event?.carrything?.substring(0, 150) ?? ""}...`}
                       </div>
                       <button
                         onClick={() => toggleSection("thingsToCarry")}
@@ -487,7 +493,7 @@ export default function EventDetailPage() {
                         {expandedSection === "rules"
                           ? (event?.rule_and_regulations ??
                             "No rules specified")
-                          : `${event?.rule_and_regulations?.substring(0, 200) ?? ""}...`}
+                          : `${event?.rule_and_regulations?.substring(0, 150) ?? ""}...`}
                       </div>
                       <button
                         onClick={() => toggleSection("rules")}
@@ -498,6 +504,64 @@ export default function EventDetailPage() {
                           : "Read more"}
                       </button>
                     </div>
+                  </div>
+                </div>
+                <div className="row">
+                     <div className="col-6">
+                    <div className="event-section">
+                      <h2 className="event-heading mb-3">Participants / Organisers</h2>
+
+                      <div className="d-flex flex-nowrap overflow-x-auto">
+
+                        {EventDetails?.result[0]?.event_celebrities?.map((person) => (
+                          <div key={person.id} className="text-center me-3">
+                            <div className="coach_img">
+                              <img src={person.image} alt={person.name} />
+                            </div>
+                            <div>
+                              <p className="coach-name">{person.name}</p>
+                              <p className="coach-title">{person.title}</p>
+                            </div>
+                          </div>
+                        ))}
+
+                        {/* IF EMPTY */}
+                        {EventDetails?.result[0]?.event_celebrities?.length === 0 && (
+                          <p>No participants available.</p>
+                        )}
+                      </div>
+                    </div>
+                     </div>
+                     
+                  <div className="col-6">
+                    <div className="card info_container p-3 border-0 mt-3">
+                        <h2 className="event-heading mb-3">Organiser Contact Info</h2>
+
+                        <div className="contact-scroll">
+                          {EventDetails?.result[0]?.event_attendee?.map((contact) => (
+                            <div key={contact.id} className="me-4 d-inline-block">
+                              <p>
+                                <strong>Email:</strong>{" "}
+                                <a href={`mailto:${contact.email}`} className="text-primary">
+                                  {contact.email}
+                                </a>
+                              </p>
+
+                              <p>
+                                <strong>Phone:</strong>{" "}
+                                <a href={`tel:${contact.support_contact}`} className="text-primary">
+                                  {contact.support_contact}
+                                </a>
+                              </p>
+                            </div>
+                          ))}
+
+                          {EventDetails?.result[0]?.event_attendee?.length === 0 && (
+                            <p>No organiser contact info found.</p>
+                          )}
+                        </div>
+                      </div>
+
                   </div>
                 </div>
 

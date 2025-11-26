@@ -1,4 +1,21 @@
+.card.info_container{
 
+  height: 225px;
+  
+  overflow: scroll;
+  overflow-x: hidden;
+  box-shadow: unset;
+  border: 1px solid #d6e4f0 !important;
+  border-radius: 12px !important;
+}
+
+
+
+.contact-scroll p ,a {
+
+  color: rgb(75, 73, 73);
+  text-decoration: none;
+}
 .calendar-week .select-date p{
 
   font-size: 16px;

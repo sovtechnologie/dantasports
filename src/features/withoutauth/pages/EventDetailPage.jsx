@@ -508,42 +508,34 @@ export default function EventDetailPage() {
                   </div>
 
                   <div className="col-6">
-                    <div className="event-section">
-                      <h2 className="event-heading mb-3">Organiser Contact Info</h2>
+                    <div className="card info_container p-3 border-0 mt-3">
+                        <h2 className="event-heading mb-3">Organiser Contact Info</h2>
 
-                      {EventDetails?.result[0]?.event_attendee?.map((contact) => (
-                        <div key={contact.id} className="mb-2">
+                        <div className="contact-scroll">
+                          {EventDetails?.result[0]?.event_attendee?.map((contact) => (
+                            <div key={contact.id} className="me-4 d-inline-block">
+                              <p>
+                                <strong>Email:</strong>{" "}
+                                <a href={`mailto:${contact.email}`} className="text-primary">
+                                  {contact.email}
+                                </a>
+                              </p>
 
-                          <p>
-                            <strong>Email:</strong>{" "}
-                            <a href={`mailto:${contact.email}`} className="text-primary">
-                              {contact.email}
-                            </a>
-                          </p>
+                              <p>
+                                <strong>Phone:</strong>{" "}
+                                <a href={`tel:${contact.support_contact}`} className="text-primary">
+                                  {contact.support_contact}
+                                </a>
+                              </p>
+                            </div>
+                          ))}
 
-                          <p>
-                            <strong>Phone:</strong>{" "}
-                            <a href={`tel:${contact.support_contact}`} className="text-primary">
-                              {contact.support_contact}
-                            </a>
-                          </p>
-
-                          {/* {contact.alt_phone_number && (
-                            <p>
-                              <strong>Alt Phone:</strong>{" "}
-                              <a href={`tel:${contact.alt_phone_number}`} className="text-primary">
-                                {contact.alt_phone_number}
-                              </a>
-                            </p>
-                          )} */}
-
+                          {EventDetails?.result[0]?.event_attendee?.length === 0 && (
+                            <p>No organiser contact info found.</p>
+                          )}
                         </div>
-                      ))}
+                      </div>
 
-                      {EventDetails?.result[0]?.event_attendee?.length === 0 && (
-                        <p>No organiser contact info found.</p>
-                      )}
-                    </div>
                   </div>
 
                 </div>
