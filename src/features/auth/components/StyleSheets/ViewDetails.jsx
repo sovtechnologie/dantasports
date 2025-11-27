@@ -21,7 +21,7 @@ function ViewDetails(props) {
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter" className="w-100">
          <div className="header_txt mt-3">
-             <h2 className="text-center">Booking Details</h2> 
+             <h2 className="text-center text-white">Booking Details</h2> 
              {/* <p className="m-0 text-center"><em>Booking ID: #123Turf02</em></p> */}
          </div>
         </Modal.Title>
