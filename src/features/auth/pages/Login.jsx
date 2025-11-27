@@ -166,7 +166,7 @@ const Login = ({ isModal = false, onSuccess = () => { }, onSwitchToRegister = ()
               placeholder="Enter number"
               disabled={otpSent}
             />
-            <button onClick={handleSendOtp} disabled={isSendingOtp}>
+            <button className={"otp-button"} onClick={handleSendOtp} disabled={isSendingOtp}>
               {isSendingOtp ? 'Sending...' : 'Send OTP'}
             </button>
           </div>

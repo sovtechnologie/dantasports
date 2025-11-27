@@ -48,3 +48,16 @@ export const CreateBookingPayment = async(payload) =>{
     throw error;
   }
 }
+
+export const getBookedDetailsById = async ({ bookingId, type }) => {
+  try {
+    const response = await api.post("user/bookings/getBookedDetailsBYId", {
+      bookingId,
+      type
+    });
+    return response?.data;
+  } catch (error) {
+    console.error("Failed to fetch booked details", error);
+    throw error;
+  }
+};

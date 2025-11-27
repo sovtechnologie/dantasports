@@ -509,32 +509,32 @@ export default function EventDetailPage() {
 
                   <div className="col-6">
                     <div className="card info_container p-3 border-0 mt-3">
-                        <h2 className="event-heading mb-3">Organiser Contact Info</h2>
+                      <h2 className="event-heading mb-3">Organiser Contact Info</h2>
 
-                        <div className="contact-scroll">
-                          {EventDetails?.result[0]?.event_attendee?.map((contact) => (
-                            <div key={contact.id} className="me-4 d-inline-block">
-                              <p>
-                                <strong>Email:</strong>{" "}
-                                <a href={`mailto:${contact.email}`} className="text-primary">
-                                  {contact.email}
-                                </a>
-                              </p>
+                      <div className="contact-scroll">
+                        {EventDetails?.result[0]?.event_attendee?.map((contact) => (
+                          <div key={contact.id} className="me-4 d-inline-block">
+                            <p>
+                              <strong>Email:</strong>{" "}
+                              <a href={`mailto:${contact.email}`} className="text-primary">
+                                {contact.email}
+                              </a>
+                            </p>
 
-                              <p>
-                                <strong>Phone:</strong>{" "}
-                                <a href={`tel:${contact.support_contact}`} className="text-primary">
-                                  {contact.support_contact}
-                                </a>
-                              </p>
-                            </div>
-                          ))}
+                            <p>
+                              <strong>Phone:</strong>{" "}
+                              <a href={`tel:${contact.support_contact}`} className="text-primary">
+                                {contact.support_contact}
+                              </a>
+                            </p>
+                          </div>
+                        ))}
 
-                          {EventDetails?.result[0]?.event_attendee?.length === 0 && (
-                            <p>No organiser contact info found.</p>
-                          )}
-                        </div>
+                        {EventDetails?.result[0]?.event_attendee?.length === 0 && (
+                          <p>No organiser contact info found.</p>
+                        )}
                       </div>
+                    </div>
 
                   </div>
 
@@ -747,7 +747,15 @@ export default function EventDetailPage() {
               </div>
             </div>
             <div className="mt-3">
-              <GalleryComponent />
+              <GalleryComponent
+                images={
+                  event?.gallery?.map((g) => ({
+                    src: g.image_url,
+                    alt: g.image_url
+                  })) ?? []
+                }
+              />
+
             </div>
             <div className="ratings-carousel">
               <EventReviewSlider event={{ review: event?.reviews }} />

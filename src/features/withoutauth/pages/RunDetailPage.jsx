@@ -58,6 +58,7 @@ const mapEventData = (apiData) => {
     about: apiData?.about_event || "No description available for this venue.",
     rating: parseFloat(apiData?.average_rating) || 0,
     startDate: apiData?.start_date,
+    event_video: apiData?.event_video || "",
     endDate: apiData?.end_date,
     reviewcount: apiData?.review_count || 0,
     timing: `${formatTime(apiData?.start_time || "")} - ${formatTime(apiData?.end_time || "")}`,
@@ -380,9 +381,9 @@ export default function EventDetailPage() {
                       <button className="venue-icon-btns">
                         <img src={LikeIcon} alt="like" className="like-icon" />
                       </button>
-                       <button className="venue-icon-btns" onClick={() => window.open(event.event_video)}>
-                                            <img src={youtube} alt="share" />
-                                          </button>
+                      <button className="venue-icon-btns" onClick={() => window.open(event.event_video)}>
+                        <img src={youtube} alt="share" />
+                      </button>
                     </div>
                   </Swiper>
                 </div>
@@ -507,7 +508,7 @@ export default function EventDetailPage() {
                   </div>
                 </div>
                 <div className="row">
-                     <div className="col-6">
+                  <div className="col-6">
                     <div className="event-section">
                       <h2 className="event-heading mb-3">Participants / Organisers</h2>
 
@@ -531,36 +532,36 @@ export default function EventDetailPage() {
                         )}
                       </div>
                     </div>
-                     </div>
-                     
+                  </div>
+
                   <div className="col-6">
                     <div className="card info_container p-3 border-0 mt-3">
-                        <h2 className="event-heading mb-3">Organiser Contact Info</h2>
+                      <h2 className="event-heading mb-3">Organiser Contact Info</h2>
 
-                        <div className="contact-scroll">
-                          {EventDetails?.result[0]?.event_attendee?.map((contact) => (
-                            <div key={contact.id} className="me-4 d-inline-block">
-                              <p>
-                                <strong>Email:</strong>{" "}
-                                <a href={`mailto:${contact.email}`} className="text-primary">
-                                  {contact.email}
-                                </a>
-                              </p>
+                      <div className="contact-scroll">
+                        {EventDetails?.result[0]?.event_attendee?.map((contact) => (
+                          <div key={contact.id} className="me-4 d-inline-block">
+                            <p>
+                              <strong>Email:</strong>{" "}
+                              <a href={`mailto:${contact.email}`} className="text-primary">
+                                {contact.email}
+                              </a>
+                            </p>
 
-                              <p>
-                                <strong>Phone:</strong>{" "}
-                                <a href={`tel:${contact.support_contact}`} className="text-primary">
-                                  {contact.support_contact}
-                                </a>
-                              </p>
-                            </div>
-                          ))}
+                            <p>
+                              <strong>Phone:</strong>{" "}
+                              <a href={`tel:${contact.support_contact}`} className="text-primary">
+                                {contact.support_contact}
+                              </a>
+                            </p>
+                          </div>
+                        ))}
 
-                          {EventDetails?.result[0]?.event_attendee?.length === 0 && (
-                            <p>No organiser contact info found.</p>
-                          )}
-                        </div>
+                        {EventDetails?.result[0]?.event_attendee?.length === 0 && (
+                          <p>No organiser contact info found.</p>
+                        )}
                       </div>
+                    </div>
 
                   </div>
                 </div>
@@ -802,7 +803,15 @@ export default function EventDetailPage() {
             </Container>
             {/* <Gallery gallery={event.gallery} />
              */}
-            <GalleryComponent />
+            <GalleryComponent
+              images={
+                event?.gallery?.map((g) => ({
+                  src: g.image_url,
+                  alt: g.image_url
+                })) ?? []
+              }
+            />
+
 
             <div className="event-banner-container">
               <OngoingEvents banners={banners} />

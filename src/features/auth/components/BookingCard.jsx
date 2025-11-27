@@ -10,7 +10,7 @@ import ViewDetails from "./StyleSheets/ViewDetails.jsx";
 
 const BookingCard = ({ booking }) => {
 
-    const [modalShow, setModalShow] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
   const isCompleted = booking.status === "completed";
   const isCancelled = booking.status === "cancelled";
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -52,7 +52,7 @@ const BookingCard = ({ booking }) => {
   return (
     <div className="booking-card-container">
       <img src={booking.image} alt="venue" className="booking-card-image" />
-       <button
+      <button
         className="border-0 view_details_btn"
         onClick={() => setModalShow(true)}
       >
@@ -62,7 +62,9 @@ const BookingCard = ({ booking }) => {
       <ViewDetails
         show={modalShow}
         onHide={() => setModalShow(false)}
+        booking={booking}
       />
+
       <div className="booking-card-details">
         <p className="booking-title">{booking.title}</p>
         {/* <p className="booking-type">{booking.subtitle}</p> */}
@@ -104,7 +106,7 @@ const BookingCard = ({ booking }) => {
               {isPending ? "Cancelling..." : "Cancel"}
             </button>
           )}
-         
+
         </div>
       </div>
 

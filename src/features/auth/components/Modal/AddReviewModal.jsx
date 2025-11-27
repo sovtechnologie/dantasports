@@ -21,7 +21,7 @@ export const AddReviewModal = ({ isOpen, onClose, bookingId, venueId }) => {
         }
         setError('');
         const payload = {
-            rating: rating,           // convert to 0–5
+            rating: rating,         
             comment: reviewText,
             type: "venue",
             reviewableId: venueId,

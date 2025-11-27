@@ -66,19 +66,19 @@ const MyBookings = () => {
     date: b.date,
     start_time: b.start_time,
     duration: b.duration,
+    type: b.type,
     venueId: b.venue_id,
+    time: formatTime(b.start_time, b.duration),
     hasReview: b.has_review,
     reference: `#${String(b.id).padStart(5, "0")}`,
     image: b.cover_image,
   })) ?? [];
 
 
-  // ------------------------
-  // EVENT BOOKINGS (RUN EVENTS / MEETUP EVENTS)
-  // ------------------------
   const eventBookings = Bookingdata?.myBookings?.eventBooking?.map(e => ({
     id: e.booking_id,
     bookingType: "event",
+    type: e.type,
     title: e.event_title,
     subtitle: e.event_type === 1 ? "Meetup Event" : "Running Event",
     date: e.start_date,
@@ -91,12 +91,11 @@ const MyBookings = () => {
   })) ?? [];
 
 
-  // ------------------------
-  // GYM BOOKINGS
-  // ------------------------
+
   const gymBookings = Bookingdata?.myBookings?.getGymBookings?.map(g => ({
     id: g.booking_id,
     bookingType: "gym",
+    type: g.type,
     title: g.gym_name,
     subtitle: "Gym Session",
     date: g.start_date,
@@ -121,7 +120,7 @@ const MyBookings = () => {
   const AllCompletedBooking = CompletedBookingData?.result?.map(b => ({
     id: b.id,
     title: b.venue_name,
-    type: `${b.court_name}, ${b.sports_name}`,
+    type: b.type,
     date: formatDate(b.date),
     venueId: b.venue_id,
     checkReview: b.has_review,
@@ -135,7 +134,7 @@ const MyBookings = () => {
   const VenueCancelled = CancelledBookingData?.myBookings?.venueBookings.map(b => ({
     id: b.id,
     title: b.venue_name,
-    type: `${b.court_name}, ${b.sports_name}`,
+    type: b.type,
     date: formatDate(b.date),
     venueId: b.venue_id,
     checkReview: b.has_review,
@@ -148,7 +147,7 @@ const MyBookings = () => {
   const EventCancelled = CancelledBookingData?.myBookings?.eventBooking.map(b => ({
     id: b.booking_id,
     title: b.event_title,
-    type: `${b.court_name}, ${b.sports_name}`,
+    type: b.type,
     date: formatDate(b.book_date),
     venueId: b.event_id,
     checkReview: b.has_review,
