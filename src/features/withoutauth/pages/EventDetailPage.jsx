@@ -121,6 +121,10 @@ export default function EventDetailPage() {
   });
   const [eventAddress, setEventAddress] = useState("");
   const [totalPrice, setTotalPrice] = useState(null);
+  const [couponInfo, setCouponInfo] = useState({
+    couponId: null,
+    discountAmount: 0,
+  });
   const [finalAmount, setFinalAmount] = useState(null);
   const [tickets, setTickets] = useState({ ticketsId: null, quantity: null });
   const [bookingDataValues, setBookingDataValues] = useState();
@@ -200,9 +204,13 @@ export default function EventDetailPage() {
         // Call createPayment with that bookingId
         CreateBookingPayment(
           {
+
             bookingId,
-            amount: finalAmount, // example amount
-            type: type, // or "UPI" etc.
+            amount: finalAmount,
+            type: type,
+            couponId: couponInfo?.couponId || null,
+            discountAmount: couponInfo?.discountAmount || 0,
+            convenienceFees: EventPrice[0]?.convension_fees
           },
           {
             onSuccess: (paymentData) => {
@@ -725,6 +733,7 @@ export default function EventDetailPage() {
                     convenienceFee={totalPrice ? ConvenienceFee : 0}
                     bookingData={bookingDataValues}
                     count={totalPassCount}
+                    setCouponInfo={setCouponInfo}
                     price={totalPrice}
                     type={2}
                     venueId={id}

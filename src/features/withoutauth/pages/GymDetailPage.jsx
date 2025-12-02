@@ -90,6 +90,10 @@ export default function GymDetailPage() {
   const { id } = useParams();
   const isLoggedIn = Boolean(Cookies.get("token"));
   const [expandedSection, setExpandedSection] = useState(null);
+  const [couponInfo, setCouponInfo] = useState({
+    couponId: null,
+    discountAmount: 0,
+  });
   const [start, setStart] = useState(0);
   const [selectedPass, setSelectedPass] = useState(null);
   const [quantity, setQuantity] = useState(0);
@@ -197,9 +201,13 @@ export default function GymDetailPage() {
         // Call createPayment with that bookingId
         CreateBookingPayment(
           {
+
             bookingId,
-            amount: finalAmount, // example amount
-            type: type, // or "UPI" etc.
+            amount: finalAmount,
+            type: type,
+            couponId: couponInfo?.couponId || null,
+            discountAmount: couponInfo?.discountAmount || 0,
+            convenienceFees: GymPrice[0]?.convension_fees
           },
           {
             onSuccess: (paymentData) => {
@@ -608,6 +616,7 @@ export default function GymDetailPage() {
                     bookingData={bookingDataValues}
                     price={totalAmount}
                     count={totalPassCount}
+                    setCouponInfo={setCouponInfo}
                     type={3}
                     venueId={id}
                     setFinalAmount={setFinalAmount}

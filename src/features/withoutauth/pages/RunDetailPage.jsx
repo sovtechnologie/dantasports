@@ -120,6 +120,11 @@ export default function EventDetailPage() {
   const [finalAmount, setFinalAmount] = useState(null);
   const [bookingDataValues, setBookingDataValues] = useState();
   const [totalPrice, setTotalPrice] = useState(null);
+  const [couponInfo, setCouponInfo] = useState({
+    couponId: null,
+    discountAmount: 0,
+  });
+
   const [mapPosition, setMapPosition] = useState({
     lat: 0,
     lng: 0,
@@ -212,10 +217,16 @@ export default function EventDetailPage() {
         // Call createPayment with that bookingId
         CreateBookingPayment(
           {
-            bookingId,
-            amount: finalAmount, // example amount
-            type: type, // or "UPI" etc.
+
+            bookingId: bookingId,
+            amount: finalAmount,
+            type: type,
+            couponId: couponInfo?.couponId || null,
+            discountAmount: couponInfo?.discountAmount || 0,
+            convenienceFees: EventPrice[0]?.convension_fees
           },
+
+
           {
             onSuccess: (paymentData) => {
               console.log("Payment created:", paymentData);
@@ -775,7 +786,9 @@ export default function EventDetailPage() {
                     convenienceFee={totalPrice ? ConvenienceFee : 0}
                     bookingData={bookingDataValues}
                     count={totalPassCount}
+                    setCouponInfo={setCouponInfo}
                     type={type}
+                    couponInfo={couponInfo}
                     venueId={id}
                     price={totalPrice}
                     setFinalAmount={setFinalAmount}

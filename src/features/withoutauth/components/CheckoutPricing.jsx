@@ -128,7 +128,7 @@ import black from "../assets/toggleIcon.png"; // arrow icon
 import arrow from "../../withoutauth/assets/icons/black-arrow.svg"
 import InfoModal from "../../../components/InfoModal";
 
-const CheckoutPricing = ({ totalPrice, price, convenienceFee, type, count, setFinalAmount, venueId, bookingData }) => {
+const CheckoutPricing = ({ totalPrice, price, convenienceFee, type, count, setFinalAmount, venueId, bookingData, setCouponInfo }) => {
   const [insuranceSelected, setInsuranceSelected] = useState(false);
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
   const [discount, setDiscount] = useState(null);
@@ -144,9 +144,9 @@ const CheckoutPricing = ({ totalPrice, price, convenienceFee, type, count, setFi
   // const subtotal = basePrice + (basePrice > 0 ? convenienceFee : 0) + (insuranceSelected ? insuranceFee : 0);
   const totalAmount = Math.max(totalPrice - (discount || 0), 0);
 
-  useEffect(() => {
-    setFinalAmount(totalAmount);
-  }, [setFinalAmount, totalAmount]);
+  // useEffect(() => {
+  //   setFinalAmount(totalAmount);
+  // }, [setFinalAmount, totalAmount]);
 
   const formatConvenienceFee = (fee) => {
     if (fee == null) return "0";
@@ -254,6 +254,11 @@ const CheckoutPricing = ({ totalPrice, price, convenienceFee, type, count, setFi
           const couponName = coupon?.name || "Applied";
           setCouponDetails({ name: couponName });
           setDiscount(discountAmt);
+          setCouponInfo({
+            couponId: apiResponse?.discount_coupon_id || null,
+            discountAmount: apiResponse.discount_amount,
+          });
+
           setIsCouponModalOpen(false); // <-- CLOSE MODAL HERE
         }}
       />

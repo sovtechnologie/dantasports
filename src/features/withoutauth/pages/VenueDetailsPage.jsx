@@ -111,6 +111,11 @@ function VenueDetailsPage() {
   const [selectedDuration, setSelectedDuration] = useState(0);
   const [selectedPitch, setSelectedPitch] = useState("");
   const [selectedSport, setSelectedSport] = useState("");
+  const [couponInfo, setCouponInfo] = useState({
+    couponId: null,
+    discountAmount: 0,
+  });
+
   const [convenienceFee, setConvenienceFee] = useState(0);
   const [price, setPrice] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -177,7 +182,7 @@ function VenueDetailsPage() {
     isLoading: BookingPriceLoading,
   } = usePaymentDetails(bookingId);
   const response = BookingPriceDetails?.result?.[0];
-
+  console.log("rammmmmmmmmmmm", response);
 
   const handleClickLike = (venue) => {
     if (!venue.favourite) {
@@ -289,7 +294,14 @@ function VenueDetailsPage() {
     // ✅ All validations passed
     if (!bookingId) return;
     CreateBookingPayment(
-      { bookingId, amount: finalAmount, type: 1 },
+      {
+        bookingId: bookingId,
+        amount: finalAmount,
+        type: 1,
+        couponId: couponInfo.couponId || null,
+        discountAmount: couponInfo.discountAmount || 0,
+        convenienceFees: convenienceFee || 0
+      },
       {
         onSuccess: () => {
           setSelectedSport("");
@@ -683,6 +695,7 @@ function VenueDetailsPage() {
                     <CheckoutPricing
                       totalPrice={totalPrice || 0}
                       price={price}
+                      setCouponInfo={setCouponInfo}
                       convenienceFee={convenienceFee}
                       bookingData={response}
                       count={1}

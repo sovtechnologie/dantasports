@@ -24,6 +24,20 @@ export const fetchpaymentandBookingDetails = async (bookingId) => {
   }
 };
 
+export const saveCouponUsesAndConvenienceFess = async (payload) => {
+  try {
+    const response = await api.post(
+      "user/bookings/saveCouponUsesAndConvenienceFess",
+      payload
+    );
+    return response?.data;
+  } catch (error) {
+    console.error("Failed to save coupon uses & convenience fees", error);
+    throw error;
+  }
+};
+
+
 export const CancelBooking = async ({ bookingId, type }) => {
   try {
     const response = await api.post("user/bookings/cancelBooking", {
