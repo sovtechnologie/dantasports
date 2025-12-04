@@ -116,6 +116,7 @@ export default function EventDetailPage() {
   const [convenienceFee, setConvenienceFee] = useState(0);
   const [selectedArea, setSelectedArea] = useState("");
   const [locationId, setLocationId] = useState(null);
+  const [price, setPrice] = useState(0);
   const [selectedDate, setSelectedDate] = useState(null);
   const [finalAmount, setFinalAmount] = useState(null);
   const [bookingDataValues, setBookingDataValues] = useState();
@@ -223,7 +224,7 @@ export default function EventDetailPage() {
             type: type,
             couponId: couponInfo?.couponId || null,
             discountAmount: couponInfo?.discountAmount || 0,
-            convenienceFees: EventPrice[0]?.convension_fees
+            convenienceFees: convenienceFee
           },
 
 
@@ -244,6 +245,7 @@ export default function EventDetailPage() {
                 setSelectedDate(null);
                 setFinalAmount(null);
                 setTotalPrice(0);
+                setPrice(0);
                 setTickets([]);
 
               }
@@ -261,27 +263,28 @@ export default function EventDetailPage() {
   };
 
   useEffect(() => {
-    if (!totalPrice || totalPrice === 0) {
+    if (!price || price === 0) {
       setFinalAmount(0);
       return;
     }
 
-    const price = Number(totalPrice);
+    const priceTot = Number(price);
 
     const conveniencePercent = Number(EventPrice[0]?.convenience_fees);
     const gstPercent = Number(EventPrice[0]?.gst);
     const upto = Number(EventPrice[0]?.upto ?? 0);
 
-    const base_fare_amount = (price * conveniencePercent) / 100;
+    const base_fare_amount = (priceTot * conveniencePercent) / 100;
 
     const smallerValue = base_fare_amount < upto ? base_fare_amount : upto;
 
     const base_fare_gst = (smallerValue * gstPercent) / 100;
+    const conv = smallerValue + base_fare_gst;
+    setConvenienceFee(conv);
 
+    const total_price = priceTot + smallerValue + base_fare_gst;
 
-    const total_price = price + smallerValue + base_fare_gst;
-
-    setFinalAmount(total_price);
+    setTotalPrice(total_price);
 
 
     setBookingDataValues({
@@ -293,7 +296,7 @@ export default function EventDetailPage() {
       convenience_fee: conveniencePercent,
     });
 
-  }, [totalPrice, EventPrice]);
+  }, [price, EventPrice]);
 
   const totalPassCount = ticketCounts.reduce((sum, value) => sum + value, 0);
 
@@ -763,7 +766,7 @@ export default function EventDetailPage() {
                     tickets={EventPrice[0]?.tickets}
                     counts={ticketCounts}
                     onChange={handleTicketChange}
-                    setTotalPrice={setTotalPrice}
+                    setPrice={setPrice}
                     setTickets={setTickets}
                     disabled={!selectedDate}
                   />
@@ -782,15 +785,15 @@ export default function EventDetailPage() {
 
                 <div className="event-right-section">
                   <CheckoutPricing
-                    totalPrice={finalAmount}
-                    convenienceFee={totalPrice ? ConvenienceFee : 0}
+                    totalPrice={totalPrice}
+                    convenienceFee={totalPrice ? convenienceFee : 0}
                     bookingData={bookingDataValues}
                     count={totalPassCount}
                     setCouponInfo={setCouponInfo}
                     type={type}
                     couponInfo={couponInfo}
                     venueId={id}
-                    price={totalPrice}
+                    price={price}
                     setFinalAmount={setFinalAmount}
                   />
                 </div>

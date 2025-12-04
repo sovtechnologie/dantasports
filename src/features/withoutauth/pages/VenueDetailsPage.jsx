@@ -120,6 +120,7 @@ function VenueDetailsPage() {
   const [price, setPrice] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [finalAmount, setFinalAmount] = useState(0);
+  console.log("finalAmountfinalAmountfinalAmountfinalAmountfinalAmount", finalAmount);
   const [bookingId, setBookingId] = useState(null);
   const [errors, setErrors] = useState({
     sport: "",

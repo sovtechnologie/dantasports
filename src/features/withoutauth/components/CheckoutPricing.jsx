@@ -144,9 +144,9 @@ const CheckoutPricing = ({ totalPrice, price, convenienceFee, type, count, setFi
   // const subtotal = basePrice + (basePrice > 0 ? convenienceFee : 0) + (insuranceSelected ? insuranceFee : 0);
   const totalAmount = Math.max(totalPrice - (discount || 0), 0);
 
-  // useEffect(() => {
-  //   setFinalAmount(totalAmount);
-  // }, [setFinalAmount, totalAmount]);
+  useEffect(() => {
+    setFinalAmount(totalAmount);
+  }, [setFinalAmount, totalAmount]);
 
   const formatConvenienceFee = (fee) => {
     if (fee == null) return "0";

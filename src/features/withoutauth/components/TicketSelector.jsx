@@ -3,7 +3,7 @@ import './Stylesheets/TicketSelector.css';
 import addCircle from "../../withoutauth/assets/icons/add.svg"
 import minusCircle from "../../../assets/VenueImage/sub.svg"
 
-const TicketSelector = ({ tickets, counts, onChange, setTotalPrice, setTickets, disabled }) => {
+const TicketSelector = ({ tickets, counts, onChange, setPrice, setTickets, disabled }) => {
 
   const handleIncrement = (index) => {
     if (disabled) return;
@@ -24,10 +24,10 @@ const TicketSelector = ({ tickets, counts, onChange, setTotalPrice, setTickets, 
 
   // Calculate total price inside useEffect to avoid infinite loops
   useEffect(() => {
-    const totalPrice = tickets?.reduce((total, ticket, idx) => {
+    const price = tickets?.reduce((total, ticket, idx) => {
       return total + ticket.price * (counts[idx] || 0);
     }, 0);
-    setTotalPrice(totalPrice);
+    setPrice(price);
     // 2️⃣ Build tickets array for backend
     const selectedTickets = tickets?.map((ticket, idx) => ({
       ticketsId: ticket.id, // make sure this matches backend field name
@@ -36,7 +36,7 @@ const TicketSelector = ({ tickets, counts, onChange, setTotalPrice, setTickets, 
       .filter(t => t.quantity > 0); // send only selected ones
 
     setTickets(selectedTickets);
-  }, [counts, tickets, setTotalPrice, setTickets]);
+  }, [counts, tickets, setPrice, setTickets]);
 
   return (
     <div className="ticket-box">

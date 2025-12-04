@@ -90,15 +90,19 @@ export default function GymDetailPage() {
   const { id } = useParams();
   const isLoggedIn = Boolean(Cookies.get("token"));
   const [expandedSection, setExpandedSection] = useState(null);
+  const [price, setPrice] = useState(0);
   const [couponInfo, setCouponInfo] = useState({
     couponId: null,
     discountAmount: 0,
   });
   const [start, setStart] = useState(0);
   const [selectedPass, setSelectedPass] = useState(null);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [convenienceFee, setConvenienceFee] = useState(0);
   const [quantity, setQuantity] = useState(0);
   const [passess, setPassess] = useState([{ passId: null, quantity: null }]);
   const [finalAmount, setFinalAmount] = useState(null);
+  console.log("finalAmountfinalAmountfinalAmountfinalAmountfinalAmount", finalAmount);
   const [bookingDataValues, setBookingDataValues] = useState();
 
   const { data: GymDetails, isLoading: GymDetailsLoading } =
@@ -149,6 +153,10 @@ export default function GymDetailPage() {
     });
 
   const totalAmount = selectedPass ? selectedPass.price * quantity : 0;
+
+  useEffect(() => {
+    setPrice(totalAmount);
+  }, [totalAmount]);
 
   const prev = () => setStart((prev) => Math.max(prev - 1, 0));
   const next = () =>
@@ -207,7 +215,7 @@ export default function GymDetailPage() {
             type: type,
             couponId: couponInfo?.couponId || null,
             discountAmount: couponInfo?.discountAmount || 0,
-            convenienceFees: GymPrice[0]?.convension_fees
+            convenienceFees: convenienceFee
           },
           {
             onSuccess: (paymentData) => {
@@ -224,6 +232,7 @@ export default function GymDetailPage() {
                 setSelectedPass(null);
                 setQuantity(0);
                 setFinalAmount(0);
+                setPrice(0)
               }
             },
             onError: (error) => {
@@ -278,24 +287,30 @@ export default function GymDetailPage() {
   console.log("mappedTimingsmappedTimingsmappedTimings", mappedTimings);
 
   useEffect(() => {
-    if (!totalAmount || totalAmount === 0) {
+    if (!price || price === 0) {
       setFinalAmount(0);
+      setTotalPrice(0);
       return;
     }
 
-    const price = Number(totalAmount);
+    const basePrice = Number(totalAmount);
+
 
     const conveniencePercent = Number(GymPrice?.[0]?.convenience_fees);
     const gstPercent = Number(GymPrice?.[0]?.gst);
     const upto = Number(GymPrice[0]?.upto ?? 0);
 
-    const base_fare_amount = (price * conveniencePercent) / 100;
+    const base_fare_amount = (basePrice * conveniencePercent) / 100;
     const smallerValue = base_fare_amount < upto ? base_fare_amount : upto;
 
     const base_fare_gst = (smallerValue * gstPercent) / 100;
-    const total_price = price + smallerValue + base_fare_gst;
 
-    setFinalAmount(total_price);
+    const conv = smallerValue + base_fare_gst;
+    setConvenienceFee(conv);
+
+    const total_price = basePrice + smallerValue + base_fare_gst;
+
+    setTotalPrice(total_price);
 
     setBookingDataValues({
       price,
@@ -306,7 +321,7 @@ export default function GymDetailPage() {
       convenience_fee: conveniencePercent,
     });
 
-  }, [totalAmount, GymPrice]);
+  }, [price, GymPrice]);
 
 
   const totalPassCount = quantity;
@@ -611,10 +626,10 @@ export default function GymDetailPage() {
 
                 <div className="gym-right-section">
                   <CheckoutPricing
-                    totalPrice={finalAmount}
-                    convenienceFee={totalAmount ? ConvenienceFee : 0}
+                    totalPrice={totalPrice || 0}
+                    convenienceFee={totalAmount ? convenienceFee : 0}
                     bookingData={bookingDataValues}
-                    price={totalAmount}
+                    price={price}
                     count={totalPassCount}
                     setCouponInfo={setCouponInfo}
                     type={3}
