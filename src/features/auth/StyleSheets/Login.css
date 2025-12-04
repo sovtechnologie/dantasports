@@ -105,6 +105,13 @@ label {
   white-space: nowrap;
 }
 
+.otp-button.otp-verified{
+
+  font-size: 12px;
+  padding: 5px;
+  border-radius: 6px;
+}
+
 .otp-button {
   background: none;
   border: none;

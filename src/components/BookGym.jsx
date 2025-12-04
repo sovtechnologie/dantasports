@@ -131,7 +131,7 @@ function BookGym() {
                     />
                   </div>
 
-                  <div className="card_icons">
+                  <div className="">
                     <div className="card_icons">
                       <button
                         className="like"
@@ -140,13 +140,13 @@ function BookGym() {
                       >
                         <img
                           src={gym.favourite ? HeartFilled : like}
-                          className="like"
+                          className="like1"
                         />
                       </button>
 
                       <button
                         style={{ border: "none", background: "bottom" }}
-                        className="share"
+                        className="share1"
                         onClick={() => handleShare(gym)}
                       >
                         <img src={share} className="share" />
