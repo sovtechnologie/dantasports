@@ -378,7 +378,7 @@ export default function EventFilterPage() {
                   filteredEvents.map((evt) => (
                     <div className="col-lg-4 col-md-6 position-relative" key={evt.id}>
 
-                      <Card className="event-card">
+                      <Card className="event-card d-flex justify-content-between">
                         <div
                           className="card_img"
                           onClick={() => navigate(`/Events/${evt.id}`)}

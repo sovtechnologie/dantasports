@@ -138,7 +138,7 @@ function BookEvents() {
 
             return (
               <Col xl={3} lg={4} md={6} sm={6} key={evt.id}>
-                <Card>
+                <Card className="d-flex justify-content-between">
 
                   <div className="card_img">
                     <img

@@ -120,7 +120,7 @@ function BookGym() {
 
             return (
               <Col xl={3} lg={4} md={6} sm={6} key={gym.id} className="position-relative">
-                <Card  >
+                <Card className="d-flex justify-content-between" >
                   <div className="card_img">
                     <img
                       src={

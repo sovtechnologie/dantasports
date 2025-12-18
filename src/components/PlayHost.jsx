@@ -49,7 +49,7 @@ function PlayHost() {
 
 
   const handleClick = () => {
-    window.open('https://play.google.com/store/search?q=playo&c=apps', '_blank')
+    window.open('https://play.google.com/store/apps', '_blank')
   };
 
 

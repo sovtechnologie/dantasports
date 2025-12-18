@@ -457,7 +457,7 @@ function VenuePage() {
                             key={venue.id}
                             className="col-lg-6 col-md-6 col-xl-4 position-relative"
                           >
-                            <div className="card">
+                            <div className="card d-flex justify-content-between">
                               <div className="card_slider">
                                 <ReactSlickSlider
                                   coverImage={venue.cover_image || latestt}
@@ -586,7 +586,7 @@ function VenuePage() {
                             key={venue.id}
                             className="col-xl-4 col-lg-6 col-md-6 position-relative"
                           >
-                            <div className="card">
+                            <div className="card d-flex justify-content-between">
                               <div className="card_slider">
                                 <ReactSlickSlider
                                   coverImage={venue.cover_image || latestt}
