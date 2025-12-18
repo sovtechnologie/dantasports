@@ -354,9 +354,9 @@ export default function EventDetailPage() {
                 {Math.floor(event.rating)}
               </span>{" "}
               <span>({event?.reviewcount} ratings)</span>
-              <span className="ps-2 text_blue">
+              {/* <span className="ps-2 text_blue">
                 <a href="#">Rate Run</a>
-              </span>
+              </span> */}
             </div>
           </div>
         </section>

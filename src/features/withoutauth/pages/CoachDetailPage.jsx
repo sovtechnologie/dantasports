@@ -171,7 +171,7 @@ export default function CoachDetailPage() {
                             <div className="location-rating">
                                 <span>{coach?.location}</span>
                                 <span className="star" style={{ marginLeft: "20px" }}>★</span> <span className="light-text" style={{ marginLeft: "5px" }}>{Math.floor(coach.rating)} ({coach?.reviewcount} ratings)</span>
-                                <span className="ps-2 text_blue"><a href="">Coach Rate</a></span>
+                                {/* <span className="ps-2 text_blue"><a href="">Coach Rate</a></span> */}
 
                             </div>
                         </div>

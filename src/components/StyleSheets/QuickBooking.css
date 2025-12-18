@@ -3,6 +3,8 @@
     margin-bottom: 15px;
     box-shadow: 0px 5.35px 3.57px 0px #3363EB40;
     border-radius: 15px;
+    max-height: 190px;
+    height: 100%;
 
 
 }
@@ -91,7 +93,12 @@ line-height: 37.25px;
 
 .card_img_booking {
 
-  height: 90px;
+  height: 60px;
+}
+.quick_booking_section .card{
+
+  max-height: unset;
+  height: unset;
 }
 
 

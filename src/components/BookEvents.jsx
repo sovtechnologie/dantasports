@@ -15,6 +15,7 @@ import shareIcon from "../assets/images/home/bookvenues/share.svg";
 import dateIcon from "../assets/images/home/bookrun/date.svg";
 import mapIcon from "../assets/images/home/bookrun/map.svg";
 import HeartFilled from "../features/withoutauth/assets/VenueCardLogo/heartfilled.png";
+import sportIcons from "../assets/images/home/bookcoach/Basketball.svg";
 
 function formatTime(timeStr = "00:00") {
   if (!timeStr) return "";
@@ -120,7 +121,7 @@ function BookEvents() {
   if (error) return <p>Error loading events: {error.message}</p>;
 
   return (
-    <section className="book_venue_section">
+    <section className="book_venue_sections book_events">
       <Container>
         <div className="d-flex justify-content-between align-items-center">
           <div className="section_title">
@@ -176,6 +177,11 @@ function BookEvents() {
 
                     <div className="card_txt">
                       <h2 className="text_wrap card_heading">{evt.event_title}</h2>
+                     <div className="sport_icon d-flex mt-3">
+                                                   <div className="sport">
+                                                      <img src={sportIcons} alt="" />
+                                                   </div>
+                                                 </div>
                       <p className="card_date ">
                         <span className="me-2">
                           <img src={dateIcon} alt="" />

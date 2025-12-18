@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom"; // ✅ import navigate hook
 import "./StyleSheets/QuickBooking.css";
 
 // Import all images
-import book from "../assets/images/home/quickbooking/book.png";
-import play from "../assets/images/home/quickbooking/play.png";
-import run from "../assets/images/home/quickbooking/run.png";
-import coach from "../assets/images/home/quickbooking/coach.png";
-import events from "../assets/images/home/quickbooking/events.png";
-import gym from "../assets/images/home/quickbooking/gym.png";
+import book from "../assets/images/home/quickbooking/Deckturf.png";
+import play from "../assets/images/home/quickbooking/Deckplay.png";
+import run from "../assets/images/home/quickbooking/DeckRun.png";
+import coach from "../assets/images/home/quickbooking/Deckcoach.png";
+import events from "../assets/images/home/quickbooking/DeckEvent.png";
+import gym from "../assets/images/home/quickbooking/Deckgym.png";
 
 function QuickBooking() {
   const navigate = useNavigate(); 

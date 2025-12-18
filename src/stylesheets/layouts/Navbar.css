@@ -231,12 +231,9 @@
 /* Hamburger icon - hidden by default */
 .hamburger {
   display: none;
-  font-size: 24px;
+  font-size: 26px;
   cursor: pointer;
   color: #ffffff;
-  /* position: absolute;
-  top: 15px;
-  right: 15px; */
   margin-bottom: 10px;
 }
 

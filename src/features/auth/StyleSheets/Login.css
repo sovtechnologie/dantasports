@@ -19,9 +19,7 @@
 }
 
 .otp-verified {
-  background-color: #28a745 !important;
-  color: white !important;
-  border: 1px solid #28a745 !important;
+  color: #28a745 !important;
 }
 
 .left-panel h2{
@@ -118,8 +116,8 @@ label {
   color: #007bff;
   cursor: pointer;
   white-space: nowrap;
-  font-family: "DM Sans", sans-serif;
-  font-size: clamp(12px, 1.1111vw, 18px);
+  font-family: "DM Sans";
+  font-size: 12px;
   font-weight: 400;
 
   /* padding-left: 8px; */
@@ -270,4 +268,20 @@ label {
   font-weight: bold;
   border-radius: 6px;
   cursor: pointer;
+}
+
+
+@media screen and (max-width: 540px) {
+
+  .left-panel,
+.right-panel {
+ 
+  padding: 20px;
+}
+
+.checkbox span , .signup-text {
+
+  font-size: 12px;
+}
+  
 }

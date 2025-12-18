@@ -119,8 +119,8 @@ function BookGym() {
               );
 
             return (
-              <Col xl={3} lg={4} md={6} sm={6} key={gym.id}>
-                <Card>
+              <Col xl={3} lg={4} md={6} sm={6} key={gym.id} className="position-relative">
+                <Card  >
                   <div className="card_img">
                     <img
                       src={
@@ -146,10 +146,10 @@ function BookGym() {
 
                       <button
                         style={{ border: "none", background: "bottom" }}
-                        className="share1"
+                        className="share"
                         onClick={() => handleShare(gym)}
                       >
-                        <img src={share} className="share" />
+                        <img src={share} className="share1" />
                       </button>
                     </div>
                   </div>

@@ -18,6 +18,8 @@ import date from "../../assets/icons/date.svg";
 import likeIcon from "../../assets/icons/like.svg";
 import shareIcon from "../../assets/icons/share.svg";
 import fallbackEventImage from "../../assets/events/events1.png";
+import sortIcon from "../../assets/icons/sort.svg";
+import filterIcon from "../../assets/icons/filter.svg";
 import { useNavigate } from "react-router-dom";
 import { Share } from "../../../../utils/share";
 import HeartFilled from "../../assets/VenueCardLogo/heartfilled.png";
@@ -25,6 +27,7 @@ import PageSearch from "../../components/PageSearch.jsx";
 import star from "../../assets/icons/star-white.svg"
 import OngoingEvents from "../../components/OngoingEvents.jsx";
 import { useBanner } from "../../../../hooks/useBanner.js";
+import sportIcons from "../../assets/sport-list/Batminton.png";
 
 export default function EventFilterPage() {
 
@@ -221,7 +224,7 @@ export default function EventFilterPage() {
         <PageSearch searchValue="EventPage" />
         <Container>
           <Row>
-            <Col xl={3} lg={4} md={12} className="d-none d-lg-block d-md-block">
+            {/* <Col xl={3} lg={4} md={12} className="d-none d-lg-block d-md-block">
               <SortBy
                 sortBy={filters.sortBy}
                 setSortBy={(value) =>
@@ -247,6 +250,123 @@ export default function EventFilterPage() {
                 setSortBy={(value) =>
                   setFilters((prev) => ({ ...prev, sortBy: value }))
                 } />
+            </Col> */}
+            <Col xl={3} lg={4} md={12} className="d-none d-lg-block d-md-block">
+             <SortBy
+                sortBy={filters.sortBy}
+                setSortBy={(value) => setFilters((prev) => ({ ...prev, sortBy: value }))}
+              />
+
+              <EventFilter
+                selectedSports={selectedSports}
+                setSelectedSports={setSelectedSports}
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
+                setSelectedDifficulty={setSelectedDifficulty}
+                selectedDifficulty={selectedDifficulty}
+                setSelectedDistance={setSelectedDistance}
+                selectedDistance={selectedDistance}
+                selectedAmenities={selectedAmenities}
+                setSelectedAmenities={setSelectedAmenities}
+              />
+
+            </Col>
+             <Col className="d-lg-none d-md-none  text-end mb-3">
+              <div className="modal_wraper d-flex justify-content-end">
+                <div>
+                   <div
+                  class="modal fade"
+                  id="exampleModalToggleFilter"
+                  aria-hidden="true"
+                  aria-labelledby="sortby"
+                  tabindex="-1"
+                >
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                               <EventFilter
+                selectedSports={selectedSports}
+                setSelectedSports={setSelectedSports}
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
+                setSelectedDifficulty={setSelectedDifficulty}
+                selectedDifficulty={selectedDifficulty}
+                setSelectedDistance={setSelectedDistance}
+                selectedDistance={selectedDistance}
+                selectedAmenities={selectedAmenities}
+                setSelectedAmenities={setSelectedAmenities}
+              />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="modal fade"
+                  id="exampleModalToggle2"
+                  aria-hidden="true"
+                  aria-labelledby="exampleModalToggleLabel2"
+                  tabindex="-1"
+                ></div>
+
+                <button
+                  class="btn_mobile"
+                  data-bs-toggle="modal"
+                  href="#exampleModalToggleFilter"
+                  role="button"
+                >
+                  <img src={filterIcon} alt="" />
+                </button>
+                </div>
+                <div>
+                   <div
+                  class="modal fade"
+                  id="exampleModalToggleSort"
+                  aria-hidden="true"
+                  aria-labelledby="sortby"
+                  tabindex="-1"
+                >
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        <SortBy />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="modal fade"
+                  id="exampleModalToggle2"
+                  aria-hidden="true"
+                  aria-labelledby="exampleModalToggleLabel2"
+                  tabindex="-1"
+                ></div>
+
+                <button
+                  class="btn_mobile"
+                  data-bs-toggle="modal"
+                  href="#exampleModalToggleSort"
+                  role="button"
+                >
+                  <img src={sortIcon} alt="" />
+                </button>
+                </div>
+              </div>
             </Col>
 
             <Col lg="8" xl={9} md="12">
@@ -260,7 +380,7 @@ export default function EventFilterPage() {
 
                       <Card className="event-card">
                         <div
-                          className="card_img position-relative"
+                          className="card_img"
                           onClick={() => navigate(`/Events/${evt.id}`)}
                           style={{ cursor: "pointer" }}
                         >
@@ -280,7 +400,7 @@ export default function EventFilterPage() {
                               e.stopPropagation();
                               toggleFavourite(evt);
                             }}
-                            className="icon-btn"
+                            className="icon-btn me-2"
                             style={{ background: "none", border: "none" }}
                           >
                             <img
@@ -332,6 +452,11 @@ export default function EventFilterPage() {
                         >
                           <div className="card_txt">
                             <h2 className="text_wrap card_heading">{evt.event_title}</h2>
+                            <div className="sport_icon d-flex mt-3">
+                              <div className="sport">
+                                 <img src={sportIcons} alt="" />
+                              </div>
+                            </div>
                             <p className="card_date">
                               <span className="me-2">
                                 <img src={date} alt="" />

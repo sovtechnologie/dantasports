@@ -103,7 +103,7 @@ function ProfilePage() {
   ];
 
   const options2 = [
-    { label: 'Help and Support', icon: HelpIcon },
+    // { label: 'Help and Support', icon: HelpIcon },
     { label: 'Log out', icon: LogoutIcon, action: handleLogout }
   ];
 
@@ -113,11 +113,11 @@ function ProfilePage() {
   return (
     <>
       {/* <TawkLoader /> */}
-      <section className='pt-5 pb-5 profile_section' style={{background:"#F1F3F2"}}>
+      <section className='pt-3 pb-3 pt-lg-5 pb-lg-5 profile_section' style={{background:"#F1F3F2"}}>
         <Container>
           <Row>
             <Col className='col-12 tite'>
-            <h2 className='mb-5'>Profile</h2>
+            <h2 className='mb-lg-5 mb-3'>Profile</h2>
           </Col>
           </Row>
         <Row className='g-3'>

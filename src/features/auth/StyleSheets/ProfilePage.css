@@ -1,11 +1,11 @@
 
 .profile_section  h2 {
 
-  color: #172A39;
+  color: #1163c7;
   font-family: 'Lato';
   font-weight: 700;
-  font-size: 44px;
-  line-height: 36px;
+  font-size: 32px;
+  line-height: 42px;
 
 }
 
@@ -195,8 +195,8 @@
 
   .profile_section h2{
 
-    font-size: 35px;
-    line-height: 24px;
+    font-size: 25px;
+    line-height: 35px;
   }
 
   .user-card-right .edit-icon {

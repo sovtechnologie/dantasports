@@ -394,7 +394,7 @@ function VenueDetailsPage() {
                 <span className="light-text">
                   {Math.floor(venue.rating)}  ({venue.reviewcount} ratings)
                 </span>
-                <span className="ps-2 text_blue"><a href="#">Rate Turf</a></span>
+                {/* <span className="ps-2 text_blue"><a href="#">Rate Turf</a></span> */}
               </div>
             </div>
           </div>

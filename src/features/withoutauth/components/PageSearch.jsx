@@ -6,35 +6,35 @@ import searchIcon from "../../withoutauth/assets/icons/Search.svg";
 const searchDetails = {
   defaultpage: {
     title: "Satish Sahu Venue Page",
-    placeholder: ["Search Venue..", "Find Turf..", "Discover Gym.."],
+    placeholder: ["Search Venue", "City", "Sport"],
   },
   venuepage: {
-    title: "Discover Turf near you",
-    placeholder: ["Search Turf..", "Find Playgrounds..", "Locate Turf Nearby.."],
+    title: "Discover Sports Venues Near You",
+    placeholder: ["Search Venue", "City", "Sport"],
   },
   HostPage: {
     title: "Discover Play near you",
-    placeholder: ["Search Play..", "Find Host..", "Explore Playgrounds.."],
+    placeholder: ["Search Games", "Host", "Skills","Game Type"],
   },
   CoachPage: {
-    title: "Discover Coaches near you",
-    placeholder: ["Search Coach..", "Find Trainer..", "Explore Mentors.."],
+    title: "Discover Coaches Near You",
+    placeholder: ["Search Coach", "Services", "Academy"],
   },
   EventPage: {
-    title: "Discover events near you",
-    placeholder: ["Search Events..", "Find Local Events..", "Explore Sports Meets.."],
+    title: "Discover Fitness Events Near You",
+    placeholder: ["Search Events", "Difficulty", "Event type"],
   },
   RunPage: {
-    title: "Discover Run near you",
-    placeholder: ["Search Run..", "Find Race..", "Explore Running Events.."],
+    title: "Discover Runs & Marathons Near You",
+    placeholder: ["Search Runs", "Community", "Difficulty"],
   },
   PlayPage: {
     title: "Discover Play near you",
     placeholder: ["Search Play..", "Find Game..", "Explore Sports.."],
   },
   GymPage: {
-    title: "Discover Gym near you",
-    placeholder: ["Search Gym..", "Find Fitness Center..", "Locate Gym Nearby.."],
+    title: "Discover Gyms Near You",
+    placeholder: ["Search Gyms", "Location", "Fitness centers"],
   },
 };
 
@@ -72,7 +72,7 @@ function PageSearch({ searchValue = "defaultpage" }) {
             </span>
             <input
               type="text"
-              className={`form-control placeholder-anim ${fadeClass}`}
+              className="form-control placeholder-anim"
               placeholder={currentPlaceholder}
             />
           </Col>

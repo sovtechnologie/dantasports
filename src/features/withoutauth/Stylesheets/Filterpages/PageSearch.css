@@ -7,13 +7,13 @@
    margin-bottom: 30px;
 
 }
-
-/* Animation for placeholder fade */
+/* Base placeholder */
 .placeholder-anim::placeholder {
-  transition: opacity 0.5s ease-in-out;
+  transition: opacity 3s ease-in-out;
   opacity: 1;
 }
 
+/* Fade states */
 .fade-out::placeholder {
   opacity: 0;
 }

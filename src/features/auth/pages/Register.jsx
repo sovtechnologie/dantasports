@@ -217,11 +217,11 @@ const Register = ({ isModal = false, onClose = () => { }, onSuccess = () => { },
 
             <form onSubmit={handleSubmit}>
               <div className="row">
-                <div className='col-6'>
+                <div className='col-lg-6 col-12'>
                 <label htmlFor="name">Full Name</label>
                 <input name="name" id="name" placeholder='Full Name' value={form.name} onChange={handleChange} required className='main-input' />
               </div>
-              <div className='col-6'>
+              <div className='col-lg-6 col-12'>
                 <label htmlFor="email">Email Address</label>
                 <input name="email" placeholder='Email address' id="email" value={form.email} onChange={handleChange} type="email" className='main-input' />
               </div>
@@ -229,7 +229,7 @@ const Register = ({ isModal = false, onClose = () => { }, onSuccess = () => { },
 
 
              <div className="row">
-               <div className='col-6'>
+               <div className='col-lg-6 col-12'>
                 <label htmlFor="phone">Mobile Number</label>
                 <div className="phone-input">
                   <div className="country-code">
@@ -254,7 +254,7 @@ const Register = ({ isModal = false, onClose = () => { }, onSuccess = () => { },
                 </div>
               </div>
 
-              <div className='col-6'>
+              <div className='col-lg-6 col-12'>
                 <label htmlFor="gender">Gender</label>
                 <select name="gender" id="gender" value={form.gender} onChange={handleChange} required>
                   <option value="">Select Gender</option>

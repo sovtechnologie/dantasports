@@ -354,14 +354,14 @@ export default function GymFilterPage() {
                             className="like"
                             onClick={() => toggleFavourite(gym)}
                           >
-                            <img src={gym.favourite ? HeartFilled : like} className="like" />
+                            <img src={gym.favourite ? HeartFilled : like} className="like1" />
                           </button>
 
                           <button
                             className="share"
                             onClick={() => handleShare(gym)}
                           >
-                            <img src={share} className="share" />
+                            <img src={share} className="share1" />
                           </button>
                         </div>
                         {/* <div className="card_icons">

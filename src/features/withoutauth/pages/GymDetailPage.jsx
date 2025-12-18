@@ -353,9 +353,9 @@ export default function GymDetailPage() {
                 <span style={{ marginLeft: "5px" }}>
                   ({gym?.reviewcount} ratings)
                 </span>
-                <span className="ps-2 text_blue">
+                {/* <span className="ps-2 text_blue">
                   <a href="">Rate Gym</a>
-                </span>
+                </span> */}
               </div>
             </div>
           </div>

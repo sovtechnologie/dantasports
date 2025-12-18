@@ -125,7 +125,9 @@ const TimeSlotSelector = ({ date, selectedTime, setSelectedTime }) => {
           })}
         </div>
 
-        {selectedTime && (
+       
+      </div>
+       {selectedTime && (
           <div className="book_a_time">
             <p>
               Badminton |{" "}
@@ -141,7 +143,6 @@ const TimeSlotSelector = ({ date, selectedTime, setSelectedTime }) => {
             </p>
           </div>
         )}
-      </div>
     </section>
   );
 };

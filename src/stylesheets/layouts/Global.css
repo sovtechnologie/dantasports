@@ -33,6 +33,35 @@ a {
   margin: 0 auto !important;
 } */
 
+button.otp-button {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+}
+
+.sport_icon {
+
+    margin-bottom: 18px;
+}
+.sport_icon .sport {
+
+  height: 22px;
+  width: 22px;
+  border: 0.5px solid #B1B1B1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  padding: 3px;
+  margin-right: 8px;
+}
+
+.sport_icon .sport img {
+
+    height: 100%;
+    width: 100%;
+}
+
 
 
 .section_title  h2 {
@@ -351,7 +380,7 @@ a {
 .easy2 {
 
     position: absolute;
-    top: 42%;
+    top: 38%;
     left: 10px;
     background: #0000004D;
     color: white;
@@ -434,7 +463,8 @@ color: #172A39;
 
   .short_card {
 
-    padding: 20px;
+    padding: 10px;
+    border: none;
   }
 
 

@@ -9,14 +9,14 @@ import bannercard from "../assets/homebanner/banner-cards-img.png";
 
 
 function HomeBanner() {
-const texts = [
-  "Reserve Nearby Turfs",
-  "Find Players. Join Games.",
-  "Join Local Run Clubs",
-  "Find Your Coach",
-  "Book Fitness Events",
-  "Pay Per Workout"
-];
+  const texts = [
+    "Reserve Nearby Turfs",
+    "Find Players. Join Games.",
+    "Join Local Run Clubs",
+    "Find Your Coach",
+    "Book Fitness Events",
+    "Pay Per Workout"
+  ];
 
   const [index, setIndex] = useState(0);
   const [fade, setFade] = useState(true);
@@ -51,10 +51,11 @@ const texts = [
                 ></h1>
 
                 <p>
-                  Join India’s growing fitness community today. Danta Sports -
-                  Keep India Fit. All-in-one app for sports and fitness.
-                  Designed to make fitness a lifestyle, not a luxury.
+                  Join India’s fastest growing fitness community.
                 </p>
+                <p>Play, host, run, train and compete with local teams - together, stronger.</p>
+               
+                <p> We Move as One. Keep India Fit.</p>
               </div>
 
               <div className="get_started mb-4 mb-lg-0">

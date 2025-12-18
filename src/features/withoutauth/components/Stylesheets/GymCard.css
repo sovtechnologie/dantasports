@@ -66,12 +66,12 @@
   display: block;
 }
 
-.rating {
+/* .rating {
   display: flex;
   align-items: center;
   gap: 2px;
   font-size: 17px;
-}
+} */
 
 .star {
   color: #006eff;

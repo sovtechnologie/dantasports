@@ -39,17 +39,16 @@
 
     font-family: 'Lato';
     font-weight: 400;
-    font-size: 16px;
+    font-size: 18px;
     color: white;
-    line-height: 26px;
-    margin-bottom: 45px;
-    max-width: 600px;
-    width: 100%;
+    line-height: 30px;
+    margin-bottom: 5px;
 
 }
 
 .get_started {
     display: flex;
+    margin-top: 40px;
 }
 
 .get_started a {
@@ -102,7 +101,7 @@
 
     .blue_arrow {
         position: absolute;
-        top: 1px;
+        top: 2px;
         right: 5px;
         height: 40px;
         width: 40px;

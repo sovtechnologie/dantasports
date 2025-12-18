@@ -26,25 +26,19 @@
   line-height: 17px;
 }
 
-.card_icons  .like{
 
-    position: absolute;
-    top: 10px;
-    z-index: 999;
+.card_icons .like{
+
     right: 15%;
-    height: 26px;
-    width: 26px;
+    top:  8px;
 
 } 
 
 .card_icons  .share{
 
-     position: absolute;
-    top: 10px;
-    z-index: 999;
     right: 3%;
-    height: 26px;
-    width: 26px;
+    position: absolute;
+      top: 8px;
 
 
 }
