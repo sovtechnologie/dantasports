@@ -148,6 +148,7 @@ button.otp-button {
   padding: 25px 12px;
   border: none !important;
   border-radius: 11px;
+  box-shadow: unset;
 }
 
 
