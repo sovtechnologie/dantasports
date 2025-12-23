@@ -97,11 +97,11 @@ const TimeSlotSelector = ({ date, selectedTime, setSelectedTime }) => {
   return (
     <section className="timeslot_section">
       <div className="inner">
-        <div className="mb-3 d-flex align-items-center">
+        <div className="mb-3 d-flex align-items-center justify-content-between">
           <label className="time">Time:</label>
           <input
             type="text"
-            className="form-control text-center"
+            className="form-control text-center ms-3"
             value={selectedTime || ""}
             readOnly
           />
