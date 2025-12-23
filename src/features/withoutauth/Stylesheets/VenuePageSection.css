@@ -10,7 +10,7 @@
 
 .no_off_users{
 
-    margin-bottom: 18px;
+    margin-top: 18px;
 }
 
 
@@ -18,7 +18,7 @@
 .card_slider {
     height: 100%;
     width: 100%;
-    max-height: 222px;
+    max-height: 200px;
      border-radius: 12px 12px 0 0;
      overflow: hidden;
 }

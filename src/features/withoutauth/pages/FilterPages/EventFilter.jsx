@@ -20,7 +20,7 @@ import shareIcon from "../../assets/icons/share.svg";
 import fallbackEventImage from "../../assets/events/events1.png";
 import sortIcon from "../../assets/icons/sort.svg";
 import filterIcon from "../../assets/icons/filter.svg";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Share } from "../../../../utils/share";
 import HeartFilled from "../../assets/VenueCardLogo/heartfilled.png";
 import PageSearch from "../../components/PageSearch.jsx";
@@ -377,8 +377,9 @@ export default function EventFilterPage() {
                 {filteredEvents.length > 0 ? (
                   filteredEvents.map((evt) => (
                     <div className="col-lg-4 col-md-6 position-relative" key={evt.id}>
-
-                      <Card className="event-card d-flex justify-content-between">
+                      <Link to={`/events/${evt.id}`} className="text-decoration-none">
+                      
+                      <Card className="event-card">
                         <div
                           className="card_img"
                           onClick={() => navigate(`/Events/${evt.id}`)}
@@ -452,11 +453,7 @@ export default function EventFilterPage() {
                         >
                           <div className="card_txt">
                             <h2 className="text_wrap card_heading">{evt.event_title}</h2>
-                            <div className="sport_icon d-flex mt-3">
-                              <div className="sport">
-                                 <img src={sportIcons} alt="" />
-                              </div>
-                            </div>
+                            
                             <p className="card_date">
                               <span className="me-2">
                                 <img src={date} alt="" />
@@ -486,7 +483,11 @@ export default function EventFilterPage() {
                               {evt.locations?.[0]?.city}
                             </p>
                           </div>
-
+                          <div className="sport_icon d-flex mt-3">
+                              <div className="sport">
+                                 <img src={sportIcons} alt="" />
+                              </div>
+                            </div>
                           <div className="sports_title d-flex justify-content-between">
                             <p>
                               {evt.coupon_type === "percentage" && evt.offer
@@ -507,20 +508,11 @@ export default function EventFilterPage() {
                             )}
                           </div>
 
-                          {/* <hr /> */}
-                          <div className="offer">
-                            <a
-
-                              onClick={(e) => {
-                                e.preventDefault();
-                                navigate(`/Events/${evt.id}`);
-                              }}
-                            >
-                              Join Now
-                            </a>
-                          </div>
+                        
                         </div>
                       </Card>
+                      </Link>
+
                     </div>
                   ))
                 ) : (

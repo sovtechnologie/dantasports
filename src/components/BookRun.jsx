@@ -117,7 +117,8 @@ function BookRun() {
         <Row className="g-3">
           {visibleEvents.map((evt) => (
             <Col xl={3} lg={4} md={6} sm={6} key={evt.id}>
-              <Card className="d-flex justify-content-between">
+               <Link to={`/Run/${evt.id}`} className="text-decoration-none">
+              <Card className="">
                 <div className="card_img position-relative">
                   <img
                     src={evt.desktop_image || bookrunn}
@@ -177,33 +178,7 @@ function BookRun() {
                     </p>
                   </div>
 
-                  {/* <div className="no_off_users mt-2">
-                    <ul className="d-flex p-0 align-items-center m-0">
-                      {evt.sports?.slice(0, 5).map((sport, index) => (
-                        <li key={index} className="me-2 list-unstyled">
-                          <img
-                            src={sport.image}
-                            alt={sport.name || "sport"}
-                            title={sport.name || "sport"}
-                           
-                          />
-                        </li>
-                      ))}
-
-                      {evt.sports && evt.sports.length > 5 && (
-                        <li
-                          className="list-unstyled"
-                          style={{
-                            color: "#858585",
-                            fontSize: "14px",
-                            lineHeight: 1,
-                          }}
-                        >
-                          +{evt.sports.length - 5} more
-                        </li>
-                      )}
-                    </ul>
-                  </div> */}
+                 
                   <div className="d-flex justify-content-between no_off_users">
                     <p className="up_to_offer m-0">
                       {evt.coupon_type === "percentage" && evt.discount_offer
@@ -219,7 +194,7 @@ function BookRun() {
                         : ""}
                     </p>
                   </div>
-                  <div className="card_line2"></div>
+                  {/* <div className="card_line2"></div> */}
                   <div className="easy2">
                     {evt.difficulty === 0 ? (
                       <span className="Moderate">Moderate</span>
@@ -243,7 +218,7 @@ function BookRun() {
                           : ""}
                     </p> */}
 
-                    <Link to={`/Run/${evt.id}`}>Join Now</Link>
+                    {/* <Link to={`/Run/${evt.id}`}>Join Now</Link> */}
                   </div>
                   <div className="rating_box position-absolute d-flex align-items-center">
                     <img src={star} alt="" />
@@ -255,6 +230,7 @@ function BookRun() {
                   </div>
                 </div>
               </Card>
+              </Link>
             </Col>
           ))}
         </Row>

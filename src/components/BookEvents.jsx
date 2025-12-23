@@ -138,127 +138,106 @@ function BookEvents() {
 
             return (
               <Col xl={3} lg={4} md={6} sm={6} key={evt.id}>
-                <Card className="d-flex justify-content-between">
+                <Link to={`/coach/${evt.id}`} className="text-decoration-none">
+                  <Card>
 
-                  <div className="card_img">
-                    <img
-                      src={evt.desktop_image || bookeventt}
-                      className="w-100"
-                      alt={evt.event_title}
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = bookeventt;
-                      }}
-                    />
-                  </div>
-                  <div className="card_icons1">
-                    <button
-                      onClick={() => toggleFavourite(evt)}
-                      className="icon-btn me-3"
-                      style={{ background: "none", border: "none" }}
-                    >
+                    <div className="card_img">
                       <img
-                        className="like1"
-                        src={evt.favourite ? HeartFilled : likeIcon}
-                        alt="like"
+                        src={evt.desktop_image || bookeventt}
+                        className="w-100"
+                        alt={evt.event_title}
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = bookeventt;
+                        }}
                       />
-                    </button>
-                    <button
-                      onClick={() => handleShare(evt)}
-                      className="icon-btn"
-                      style={{ background: "none", border: "none" }}
-                    >
-                      <img className="share1" src={shareIcon} alt="share" />
-                    </button>
-                  </div>
-
-
-                  <div className="txt_wrapper">
-
-                    <div className="card_txt">
-                      <h2 className="text_wrap card_heading">{evt.event_title}</h2>
-                     <div className="sport_icon d-flex mt-3">
-                                                   <div className="sport">
-                                                      <img src={sportIcons} alt="" />
-                                                   </div>
-                                                 </div>
-                      <p className="card_date ">
-                        <span className="me-2">
-                          <img src={dateIcon} alt="" />
-                        </span>
-                        {eventDate}
-                      </p>
-                      <p className="map_location">
-                        <span className="me-2">
-                          <img src={mapIcon} alt="" />
-                        </span>
-                        {evt.locations[0]?.area}, {evt.locations[0]?.city}
-                      </p>
                     </div>
-                    {/* <div className="no_off_users mt-2">
-                      <ul className="d-flex p-0 align-items-center m-0">
-                        {evt.sports?.slice(0, 5).map((sport, index) => (
-                          <li key={index} className="me-2 list-unstyled">
-                            <img
-                              src={sport.image}
-                              alt={sport.name || "sport"}
-                              title={sport.name || "sport"}
-                              
-                            />
-                          </li>
-                        ))}
-
-                        {evt.sports && evt.sports.length > 5 && (
-                          <li
-                            className="list-unstyled"
-                            style={{
-                              color: "#858585",
-                              fontSize: "14px",
-                              lineHeight: 1,
-                            }}
-                          >
-                            +{evt.sports.length - 5} more
-                          </li>
-                        )}
-                      </ul>
-                    </div> */}
-                    <div className="d-flex justify-content-between no_off_users">
-                      <p className="up_to_offer m-0">
-                        {evt.coupon_type === "percentage" && evt.discount_offer
-                          ? `Upto ${parseFloat(evt.discount_offer)}% Off`
-                          : evt.coupon_type === "flat" && evt.discount_offer
-                            ? `Upto ₹${parseFloat(evt.discount_offer)} Off`
-                            : ""}
-
-                        <p className="onwards_rup mb-0">{evt.pricing
-                          ? `₹${parseFloat(evt.pricing).toFixed(0)} onwards`
-                          : ""}</p></p>
-
-                    </div>
-                    <div className="card_line2"></div>
-                    <div className="easy2">
-                      <span> {evt.difficulty === 0 ? (
-                        <span className="Moderate">Moderate</span>
-                      ) : evt.difficulty === 1 ? (
-                        <span className="easy">Easy</span>
-                      ) : evt.difficulty === 2 ? (
-                        <span className="difficult">Difficult</span>
-                      ) : (
-                        <span className="unknown">Not Specified</span>
-                      )}</span>
+                    <div className="card_icons1">
+                      <button
+                        onClick={() => toggleFavourite(evt)}
+                        className="icon-btn me-3"
+                        style={{ background: "none", border: "none" }}
+                      >
+                        <img
+                          className="like1"
+                          src={evt.favourite ? HeartFilled : likeIcon}
+                          alt="like"
+                        />
+                      </button>
+                      <button
+                        onClick={() => handleShare(evt)}
+                        className="icon-btn"
+                        style={{ background: "none", border: "none" }}
+                      >
+                        <img className="share1" src={shareIcon} alt="share" />
+                      </button>
                     </div>
 
-                    <div className="offer d-flex justify-content-between align-items-center">
+
+                    <div className="txt_wrapper">
+
+                      <div className="card_txt">
+                        <h2 className="text_wrap card_heading">{evt.event_title}</h2>
+                       
+                        <p className="card_date ">
+                          <span className="me-2">
+                            <img src={dateIcon} alt="" />
+                          </span>
+                          {eventDate}
+                        </p>
+                        <p className="map_location">
+                          <span className="me-2">
+                            <img src={mapIcon} alt="" />
+                          </span>
+                          {evt.locations[0]?.area}, {evt.locations[0]?.city}
+                        </p>
+                        
+                      </div>
+                       <div className="d-flex justify-content-between no_off_users">
+                        <p className="up_to_offer m-0">
+                          {evt.coupon_type === "percentage" && evt.discount_offer
+                            ? `Upto ${parseFloat(evt.discount_offer)}% Off`
+                            : evt.coupon_type === "flat" && evt.discount_offer
+                              ? `Upto ₹${parseFloat(evt.discount_offer)} Off`
+                              : ""}
+
+                          <p className="onwards_rup mb-0">{evt.pricing
+                            ? `₹${parseFloat(evt.pricing).toFixed(0)} onwards`
+                            : ""}</p></p>
+
+                      </div>
+                       <div className="sport_icon d-flex mt-3">
+                          <div className="sport">
+                            <img src={sportIcons} alt="" />
+                          </div>
+                        </div>
+
+                     
+                      {/* <div className="card_line2"></div> */}
+                      <div className="easy_events">
+                        <span> {evt.difficulty === 0 ? (
+                          <span className="Moderate">Moderate</span>
+                        ) : evt.difficulty === 1 ? (
+                          <span className="easy">Easy</span>
+                        ) : evt.difficulty === 2 ? (
+                          <span className="difficult">Difficult</span>
+                        ) : (
+                          <span className="unknown">Not Specified</span>
+                        )}</span>
+                      </div>
+
+                      <div className="offer d-flex justify-content-between align-items-center">
 
 
-                      <Link to={`/Events/${evt.id}`}>Join Now</Link>
+                        {/* <Link to={`/Events/${evt.id}`}>Join Now</Link> */}
+                      </div>
+                      <div className="rating_box position-absolute d-flex align-items-center">
+                        <img src={star} alt="" /><span>{evt.average_rating || "0.0"}( {evt.review_count || 0})</span>
+                      </div>
                     </div>
-                    <div className="rating_box position-absolute d-flex align-items-center">
-                      <img src={star}  alt="" /><span>{evt.average_rating || "0.0"}( {evt.review_count || 0})</span>
-                    </div>
-                  </div>
 
-                </Card>
+                  </Card>
+                </Link>
               </Col>
             );
           })}

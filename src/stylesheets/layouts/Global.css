@@ -45,8 +45,8 @@ button.otp-button {
 }
 .sport_icon .sport {
 
-  height: 22px;
-  width: 22px;
+  height: 26px;
+  width: 26px;
   border: 0.5px solid #B1B1B1;
   display: flex;
   align-items: center;
@@ -241,7 +241,7 @@ button.otp-button {
 
 
  .card_img {
-  height: 222px !important; 
+  height: 200px !important; 
   overflow: hidden;
   border-radius: 12px 12px 0 0;
 }
@@ -257,12 +257,12 @@ button.otp-button {
 
 .offer_div{
 
-  margin-bottom: 18px;
+  margin-top: 18px;
 }
 .no_off_users ul li {
 
-  height: 22px;
-  width: 22px;
+  height: 26px;
+  width: 26px;
   border: 0.5px solid #B1B1B1;
   display: flex;
   align-items: center;
@@ -283,8 +283,8 @@ button.otp-button {
 .sport_icons {
 
 
-  height: 22px;
-  width: 22px;
+  height: 26px;
+  width: 26px;
   border: 0.5px solid #B1B1B1;
   display: flex;
   align-items: center;
@@ -367,7 +367,7 @@ button.otp-button {
 .easy_run{
 
    position: absolute;
-    top: 42%;
+    top: 49%;
     left: 10px;
     background: #0000004D;
     color: white;
@@ -378,10 +378,23 @@ button.otp-button {
 
 }
 
+.easy_events{
+
+      position: absolute;
+    top: 40%;
+    left: 10px;
+    background: #0000004D;
+    color: white;
+    padding: 5px 10px;
+    font-size: 12px;
+    border: 1px solid #ffffff9a;
+    border-radius: 4px;
+}
+
 .easy2 {
 
     position: absolute;
-    top: 38%;
+    top: 45%;
     left: 10px;
     background: #0000004D;
     color: white;

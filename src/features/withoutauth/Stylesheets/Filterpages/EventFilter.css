@@ -1,10 +1,9 @@
 .card {
   box-shadow: 0px 4px 4px 0px #1163c740;
-  margin-bottom: 15px;
   border: none;
   position: relative;
   height: 100%;
-  max-height: 460px;
+  max-height: 450px;
 }
 
 .rating_box {
@@ -72,32 +71,11 @@
   padding: 15px;
 }
 
-.offer a {
-  background-color: #1163c7;
-  padding: 5px 16px;
-  font-weight: 400;
-  font-size: 14px;
-  color: white !important;
-  text-decoration: none;
-  line-height: 26px;
-  border-radius: 5px;
-  font-family: "DM Sans";
-  border: 1px solid transparent;
-  display: flex;
-  justify-content: center;
-  cursor: pointer;
-}
 
-.offer a:hover {
-  border: 1px solid #1163c7;
-  background-color: transparent;
-  color: #1163c7 !important;
-  transition: 0.3s ease-in-out;
-}
 
 .easy_box {
   position: absolute;
-  top: 37%;
+  top: 40%;
   left: 10px;
   background: #0000004d;
   color: white;

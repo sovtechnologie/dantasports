@@ -123,7 +123,8 @@ export default function BookVenues() {
         <Row className="g-3">
           {venueList.slice(0, 4).map((venue) => (
             <Col xl={3} lg={4} md={6} sm={6} key={venue.id}>
-              <Card className="custm_height_card border-0 d-flex justify-content-between">
+              <Link to={`/venue/${venue.id}`} className="text-decoration-none">
+              <Card className="custm_height_card border-0">
                 <div className="card_img">
                   <img
                     src={venue.cover_image || latestt}
@@ -174,7 +175,24 @@ export default function BookVenues() {
                     </div>
                   </div>
 
-                  <div className="no_off_users offer_div">
+                 
+
+                  <div className="d-flex justify-content-between ">
+                    <p className="up_to_offer m-0">
+                      {venue.coupon_type === "percentage" && venue.discount_offer
+                        ? `Upto ${parseFloat(venue.discount_offer)}% Off`
+                        : venue.coupon_type === "flat" && venue.discount_offer
+                          ? `Upto ₹${parseFloat(venue.discount_offer)} Off`
+                          : ""}
+                    </p>
+
+                    <p className="onwards_rup m-0">
+                      {venue.pricing
+                        ? `₹${parseFloat(venue.pricing).toFixed(0)} onwards`
+                        : ""}
+                    </p>
+                  </div>
+                   <div className="no_off_users offer_div">
                     <ul className="d-flex p-0  m-0">
                       {venue.sports?.slice(0, 5).map((sport, index) => (
                         <li key={index} className="me-2 list-unstyled">
@@ -202,33 +220,19 @@ export default function BookVenues() {
                     </ul>
                   </div>
 
-                  <div className="d-flex justify-content-between ">
-                    <p className="up_to_offer m-0">
-                      {venue.coupon_type === "percentage" && venue.discount_offer
-                        ? `Upto ${parseFloat(venue.discount_offer)}% Off`
-                        : venue.coupon_type === "flat" && venue.discount_offer
-                          ? `Upto ₹${parseFloat(venue.discount_offer)} Off`
-                          : ""}
-                    </p>
-
-                    <p className="onwards_rup m-0">
-                      {venue.pricing
-                        ? `₹${parseFloat(venue.pricing).toFixed(0)} onwards`
-                        : ""}
-                    </p>
-                  </div>
-                  <div className="card_line"></div>
+                  {/* <div className="card_line"></div> */}
 
 
                   <div className="offer d-flex justify-content-between align-items-center">
 
 
-                    <Link to={`/venue/${venue.id}`}>Book Now</Link>
+                    {/* <Link to={`/venue/${venue.id}`}>Book Now</Link> */}
                   </div>
 
 
                 </div>
               </Card>
+             </Link>
             </Col>
           ))}
         </Row>

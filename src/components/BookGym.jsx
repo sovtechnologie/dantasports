@@ -120,6 +120,7 @@ function BookGym() {
 
             return (
               <Col xl={3} lg={4} md={6} sm={6} key={gym.id} className="position-relative">
+                <Link to={`/Gym/${gym.Id}`}  className="text-decoration-none">
                 <Card className="d-flex justify-content-between" >
                   <div className="card_img">
                     <img
@@ -167,44 +168,10 @@ function BookGym() {
                         {/* Magarpatta City (~O.7 Km) */}
                       </p>
 
-                      {/* <p>
-                        <span className="star pe-2">
-                          <img src={star} alt="rating" />
-                        </span>
-                        <strong className="pe-2">
-                          {gym.average_rating || "0.0"} ({gym.review_count || 0}
-                          )
-                        </strong>
-                        ~ {Math.floor(gym.distance) || 0} km
-                      </p> */}
+                      
                     </div>
 
-                    {/* <div className="sports_title">
-                      <p
-                        className="text-ellipsis"
-                        title={
-                          Array.isArray(gym.amenities)
-                            ? gym.amenities.map((a) => a.name).join(", ")
-                            : "Amenities not available"
-                        }
-                      >
-                        {Array.isArray(gym.amenities) && gym.amenities.length > 0 ? (
-                          <>
-                            {gym.amenities
-                              .slice(0, 5)
-                              .map((a) => a.name)
-                              .join(", ")}
-                            {gym.amenities.length > 5 && (
-                              <span className="more-amenities">
-                                {" "}+{gym.amenities.length - 5}
-                              </span>
-                            )}
-                          </>
-                        ) : (
-                          "Amenities not available"
-                        )}
-                      </p>
-                    </div> */}
+                    
 
                     <div className="d-flex justify-content-between ">
                       <p className="up_to_offer m-0">
@@ -225,9 +192,9 @@ function BookGym() {
                         </div>
                       )}
                     </div>
-                    <div className="card_line3"></div>
+                    {/* <div className="card_line3"></div> */}
                     <div className="offer d-flex justify-content-between align-items-center w-100">
-                      <Link to={`/Gym/${gym.Id}`}>Join Now</Link>
+                      {/* <Link to={`/Gym/${gym.Id}`}>Join Now</Link> */}
                     </div>
                     <div className="rating_box position-absolute d-flex align-items-center">
                       <img src={star}  alt="" />
@@ -238,6 +205,7 @@ function BookGym() {
                     </div>
                   </div>
                 </Card>
+                </Link>
               </Col>
             );
           })}

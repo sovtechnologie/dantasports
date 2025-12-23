@@ -28,6 +28,7 @@ import sortIcon from "../../assets/icons/sort.svg";
 import filterIcon from "../../assets/icons/filter.svg";
 import OngoingEvents from "../../components/OngoingEvents.jsx";
 import { useBanner } from "../../../../hooks/useBanner.js";
+import { Link } from "react-router-dom";
 
 
 export default function GymFilterPage() {
@@ -350,6 +351,8 @@ export default function GymFilterPage() {
 
                   return (
                     <div className="col-lg-6 col-md-6 col-xl-4" key={gym.Id}>
+                      <Link to={`/gym/${gym.Id}`} className="text-decoration-none">
+                     
                       <Card className="card">
                         <div className="card_img">
                           <img src={imageSrc} alt="" className="w-100" />
@@ -370,14 +373,7 @@ export default function GymFilterPage() {
                             <img src={share} className="share1" />
                           </button>
                         </div>
-                        {/* <div className="card_icons">
-                          <a href="#">
-                            <img className="like" src={like} alt="like" />
-                          </a>
-                          <a href="#">
-                            <img className="share" src={share} alt="share" />
-                          </a>
-                        </div> */}
+                       
 
                         <div className="txt_wrapper">
                           <div className="card_txt">
@@ -385,31 +381,10 @@ export default function GymFilterPage() {
                             <p className="sports_title_km">
                               {gym.city} {gym.state}  (~{gym.distance ? gym.distance.toFixed(1) : 0} Km)
                             </p>
-                            {/* <p>
-                              <span><img src={map} className="pe-2" alt="map" /></span>
-                              {gym.full_address || "Address not available"}
-                            </p> */}
+                           
                           </div>
 
-                          {/* <div className="sports_title">
-                            <p className="m-0">
-                              {gym.amenities && gym.amenities.length > 0 ? (
-                                <>
-                                  {gym.amenities
-                                    .slice(0, 5)
-                                    .map((a) => a.name)
-                                    .join(", ")}
-                                  {gym.amenities.length > 5 && (
-                                    <span className="more-amenities">
-                                      {" "}+{gym.amenities.length - 5}
-                                    </span>
-                                  )}
-                                </>
-                              ) : (
-                                "Amenities not available"
-                              )}
-                            </p>
-                          </div> */}
+                         
 
                           <div className="d-flex justify-content-between no_off_users">
                             <p className="up_to_offer m-0"> {gym.coupon_type === "percentage" && gym.discount_offer
@@ -423,11 +398,10 @@ export default function GymFilterPage() {
                               ).price
                               : 0}{" "}onwards</p>
                           </div>
-                          <div className="card_line mb-2"></div>
+                          {/* <div className="card_line mb-2"></div> */}
                           <div className="offer d-flex justify-content-between align-items-center">
 
 
-                            <a href={`/gym/${gym.Id}`}>Join Now</a>
                           </div>
                           <div className="rating">
                             <span><img src={star} className="pe-2" alt="" />{gym.average_rating || "0.0"}  ( {gym.review_count || 0})</span>
@@ -435,7 +409,7 @@ export default function GymFilterPage() {
 
                         </div>
                       </Card>
-
+                       </Link>
                     </div>
                   );
                 })
