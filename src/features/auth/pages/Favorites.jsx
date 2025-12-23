@@ -490,7 +490,7 @@ const Favorites = () => {
           ) : FavoritesGymData.length === 0 ? (
             <p>No favorite gyms yet.</p>
           ) : (
-            <div className="favorites-list row">
+            <div className="favorites-list row g-3">
               {paginatedGyms.map((gym) => {
                 const sportsIcons = (gym.gym_favourite_sports || []).map(
                   (sport) => sport.image
@@ -515,7 +515,7 @@ const Favorites = () => {
                         : "",
                 };
                 return (
-                  <div key={gym.Id} className="favorite-card">
+                  <div key={gym.Id} className="favorite-card col-6">
                     <FavoriteVenueCard venue={formattedGym} onLikeToggle={() => toggleGymFavourite(gym)} />
                   </div>
                 );
@@ -543,7 +543,7 @@ const Favorites = () => {
           ) : FavoritesEventData.length === 0 ? (
             <p>No favorite events yet.</p>
           ) : (
-            <div className="favorites-list .row">
+            <div className="favorites-list row g-3">
               {paginatedEvents.map((event) => {
 
                 const sportsIcons = (event.even_favourite_sports || []).map(
@@ -572,7 +572,7 @@ const Favorites = () => {
 
                 };
                 return (
-                  <div key={event.id} className="favorite-card">
+                  <div key={event.id} className="favorite-card col-6">
                     <FavoriteVenueCard venue={formattedEvent} onLikeToggle={() => toggleEventFavourite(event)} />
                   </div>
                 );
@@ -599,7 +599,7 @@ const Favorites = () => {
           ) : FavoritesCoachData.length === 0 ? (
             <p>No favorite coaches yet.</p>
           ) : (
-            <div className="favorites-list row">
+            <div className="favorites-list row g-3">
               {FavoritesCoachData.map((coach) => {
                 const formattedCoach = {
                   id: coach.id,
