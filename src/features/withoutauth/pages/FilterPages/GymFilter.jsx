@@ -32,7 +32,7 @@ import { useBanner } from "../../../../hooks/useBanner.js";
 
 export default function GymFilterPage() {
 
-  const { data: bannerData, isLoading:dataLoading, error:dataError } = useBanner(1);    
+  const { data: bannerData, isLoading: dataLoading, error: dataError } = useBanner(1);
   const banners = bannerData?.result || [];
 
   const userId = useSelector((state) => state.auth.id);
@@ -57,7 +57,7 @@ export default function GymFilterPage() {
   const likeGym = useLikeGym();
   const unlikeGym = useUnlikeGym();
   const [selectedDate, setSelectedDate] = useState(null);
-  const [priceRange, setPriceRange] = useState([0, 10000]);
+  const [priceRange, setPriceRange] = useState([0, 0]);
   const [selectedAmenities, setSelectedAmenities] = useState([]);
   const [coachAvailable, setCoachAvailable] = useState({
     onlyWomen: false,
@@ -126,13 +126,19 @@ export default function GymFilterPage() {
 
 
 
-
-    if (priceRange && Array.isArray(priceRange)) {
+    if (priceRange[1] > 0) {
       result = result.filter((gym) => {
-        const price = gym?.gym_price_slot?.[0]?.price ?? 0;
-        return price >= priceRange[0] && price <= priceRange[1];
+        const price =
+          gym?.gym_price_slot?.reduce(
+            (min, curr) => (curr.price < min ? curr.price : min),
+            Infinity
+          ) ?? 0;
+
+        return price <= priceRange[1];
       });
     }
+
+
 
     if (selectedAmenities.length > 0) {
       result = result.filter(gym =>
@@ -209,7 +215,7 @@ export default function GymFilterPage() {
 
   return (
     <section style={{ background: "#F1F3F2" }} className="pb-lg-4 pb-3">
-      <PageSearch  searchValue="GymPage" />
+      <PageSearch searchValue="GymPage" />
       <Container>
         <Row>
           <Col xl={3} lg={4} md={12} className="d-none d-lg-block ">
@@ -239,103 +245,103 @@ export default function GymFilterPage() {
             {/* <SortModal /> */}
             {/* <FilterModalThree /> */}
             <div className="modal_wraper">
-                 <div
-                  class="modal fade mobile-filter-modal"
-                  id="mobileSortModal"
-                  aria-hidden="true"
-                  aria-labelledby="mobileFilter"
-                  tabindex="-1"
-                >
-                  <div class="modal-dialog modal-dialog-centered modal-bottom">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                      </div>
-                      <div class="modal-body">
-                        {/* <SortBy /> */}
-                        {/* <p>Filter / Sort Options Here</p> */}
-                          <FilterThree
-                            // selectedDate={selectedDate}
-                            setSelectedDate={setSelectedDate}
-                            priceRange={priceRange}
-                            setPriceRange={setPriceRange}
-                            selectedAmenities={selectedAmenities}
-                            setSelectedAmenities={setSelectedAmenities}
-                            coachAvailable={coachAvailable}
-                            setCoachAvailable={setCoachAvailable}
-                          />
-                      </div>
+              <div
+                class="modal fade mobile-filter-modal"
+                id="mobileSortModal"
+                aria-hidden="true"
+                aria-labelledby="mobileFilter"
+                tabindex="-1"
+              >
+                <div class="modal-dialog modal-dialog-centered modal-bottom">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body">
+                      {/* <SortBy /> */}
+                      {/* <p>Filter / Sort Options Here</p> */}
+                      <FilterThree
+                        // selectedDate={selectedDate}
+                        setSelectedDate={setSelectedDate}
+                        priceRange={priceRange}
+                        setPriceRange={setPriceRange}
+                        selectedAmenities={selectedAmenities}
+                        setSelectedAmenities={setSelectedAmenities}
+                        coachAvailable={coachAvailable}
+                        setCoachAvailable={setCoachAvailable}
+                      />
                     </div>
                   </div>
                 </div>
-
-                <button
-                  class="btn_mobile"
-                  data-bs-toggle="modal"
-                  href="#mobileSortModal"
-                  role="button"
-                >
-                  <img src={filterIcon} alt="" />
-                </button>
-                <div
-                  class="modal fade"
-                  id="exampleModalToggle"
-                  aria-hidden="true"
-                  aria-labelledby="sortby"
-                  tabindex="-1"
-                >
-                  <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                      </div>
-                      <div class="modal-body">
-                         <SortBy
-                          sortBy={filters.sortBy}
-                          setSortBy={(value) =>
-                            setFilters((prev) => ({ ...prev, sortBy: value }))
-                          }
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="modal fade"
-                  id="exampleModalToggle2"
-                  aria-hidden="true"
-                  aria-labelledby="exampleModalToggleLabel2"
-                  tabindex="-1"
-                >
-                  
-                </div>
-
-                <button
-                  class="btn_mobile"
-                  data-bs-toggle="modal"
-                  href="#exampleModalToggle"
-                  role="button"
-                >
-                  <img src={sortIcon} alt="" />
-                </button>
-
-               
               </div>
+
+              <button
+                class="btn_mobile"
+                data-bs-toggle="modal"
+                href="#mobileSortModal"
+                role="button"
+              >
+                <img src={filterIcon} alt="" />
+              </button>
+              <div
+                class="modal fade"
+                id="exampleModalToggle"
+                aria-hidden="true"
+                aria-labelledby="sortby"
+                tabindex="-1"
+              >
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body">
+                      <SortBy
+                        sortBy={filters.sortBy}
+                        setSortBy={(value) =>
+                          setFilters((prev) => ({ ...prev, sortBy: value }))
+                        }
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="modal fade"
+                id="exampleModalToggle2"
+                aria-hidden="true"
+                aria-labelledby="exampleModalToggleLabel2"
+                tabindex="-1"
+              >
+
+              </div>
+
+              <button
+                class="btn_mobile"
+                data-bs-toggle="modal"
+                href="#exampleModalToggle"
+                role="button"
+              >
+                <img src={sortIcon} alt="" />
+              </button>
+
+
+            </div>
           </Col>
 
           <Col xl={9} lg={8} md={12}>
-           <Col className="col-12 mb-4 onging_title_hid">
-                <OngoingEvents banners={banners} />
+            <Col className="col-12 mb-4 onging_title_hid">
+              <OngoingEvents banners={banners} />
             </Col>
             <div className="row g-3">
               {filteredGyms.length > 0 ? (

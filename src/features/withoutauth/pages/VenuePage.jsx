@@ -330,6 +330,7 @@ function VenuePage() {
                 setFilteredVenues={setFilteredVenues}
                 selectedAmenities={selectedAmenities}
                 setSelectedAmenities={setSelectedAmenities}
+                onApply={handleApplyFilters}
               />
               <SortBy sortBy={sortBy} setSortBy={(value) => setSortBy(value)} />
             </Col>

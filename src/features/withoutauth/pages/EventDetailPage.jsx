@@ -134,7 +134,7 @@ export default function EventDetailPage() {
     data: EventDetails,
     isLoading: eventLoading,
     error: eventError,
-  } = useFetchSingleEvent(id);
+  } = useFetchSingleEvent(id, mapPosition.lat, mapPosition.lng);
   const event =
     Array.isArray(EventDetails?.result) && EventDetails.result.length > 0
       ? mapEventData(EventDetails.result[0])

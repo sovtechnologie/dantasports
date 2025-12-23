@@ -20,9 +20,9 @@ export const fetchEventRunListById =async (payload) =>{
   } 
 }
 
-export const fetchSingleEventRunDetail = async(eventId)=>{
+export const fetchSingleEventRunDetail = async(eventId, lat, lng)=>{
   try {
-    const response = await api.post("user/event/getSingleEventList",{eventId});
+    const response = await api.post("user/event/getSingleEventList",{eventId, lat,lng});
     return response.data;
   } catch (error) {
     console.error("Failed to fetch Events Details:", error);
