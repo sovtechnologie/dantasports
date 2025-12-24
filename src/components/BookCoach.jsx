@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import ".//StyleSheets/BookCoach.css";
-
+import { Link } from "react-router-dom";
 import star from "../assets/images/home/bookvenues/star.svg";
 import likeIcon from "../assets/images/home/bookvenues/like.svg";
 import shareIcon from "../assets/images/home/bookvenues/share.svg";
@@ -125,7 +125,8 @@ function BookCoach() {
           ) : coachList.length > 0 ? (
             coachList.map((coach) => (
               <Col xl={3} lg={4} md={6} sm={6} key={coach.id} className="position-relative">
-                <div className="card border-0">
+                 <Link to={`/coach/${coach.id}`} className="text-decoration-none">
+                <div className="card border-0 ">
                   <div className="card_img">
                     <img
                       src={
@@ -171,7 +172,17 @@ function BookCoach() {
                       <p className="adult m-0">{coach.training_type}</p>
                     </div>
 
-                    <div className="sport_icon d-flex mt-3">
+                    
+
+                    <div className="d-flex mt-3">
+                      <p className="map_location">
+                        <span className="me-2">
+                          <img src={mapIcon} alt="map" />
+                        </span>
+                        {coach.locations?.area}, {coach.locations?.city}
+                      </p>
+                    </div>
+                    <div className="sport_icon d-flex mt-2">
                       {coach.linked_sports?.slice(0, 2).map((sport, i) => (
                         <div key={i} className="sport">
                           <img
@@ -182,25 +193,17 @@ function BookCoach() {
                       ))}
                     </div>
 
-                    <div className="d-flex">
-                      <p className="map_location">
-                        <span className="me-2">
-                          <img src={mapIcon} alt="map" />
-                        </span>
-                        {coach.locations?.area}, {coach.locations?.city}
-                      </p>
-                    </div>
+                    {/* <div className="card_line2"></div> */}
 
-                    <div className="card_line2"></div>
-
-                    <div
+                    {/* <div
                       className="offer d-flex justify-content-between align-items-center"
-                      onClick={() => handleClick(coach)}
+                      
                     >
                       <a>Enquire Now</a>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
+                </Link>
               </Col>
             ))
           ) : (

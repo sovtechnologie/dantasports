@@ -587,7 +587,7 @@ function VenuePage() {
                             key={venue.id}
                             className="col-xl-4 col-lg-6 col-md-6 position-relative"
                           >
-                            <div className="card d-flex justify-content-between">
+                            <div className="card">
                               <div className="card_slider">
                                 <ReactSlickSlider
                                   coverImage={venue.cover_image || latestt}
@@ -640,6 +640,24 @@ function VenuePage() {
                                   </p>
                                 </div>
 
+                                
+
+                                <div className="offers  d-flex justify-content-between">
+                                  <p className="up_to_offer m-0">
+                                    {venue.coupon_type === "percentage" &&
+                                      venue.discount_offer
+                                      ? `Upto ${parseFloat(venue.discount_offer)}% Off`
+                                      : venue.coupon_type === "flat" &&
+                                        venue.discount_offer
+                                        ? `Upto ₹${parseFloat(venue.discount_offer)} Off`
+                                        : ""}
+                                  </p>
+
+                                  <p className="onwards_rup m-0">
+                                    ₹{parseFloat(venue.pricing || 0).toFixed(0)}{" "}
+                                    onwards
+                                  </p>
+                                </div>
                                 <div className="no_off_users">
                                   <ul className="d-flex p-0 align-items-center m-0">
                                     {venue.sports
@@ -669,25 +687,8 @@ function VenuePage() {
                                   </ul>
                                 </div>
 
-                                <div className="offers  d-flex justify-content-between">
-                                  <p className="up_to_offer m-0">
-                                    {venue.coupon_type === "percentage" &&
-                                      venue.discount_offer
-                                      ? `Upto ${parseFloat(venue.discount_offer)}% Off`
-                                      : venue.coupon_type === "flat" &&
-                                        venue.discount_offer
-                                        ? `Upto ₹${parseFloat(venue.discount_offer)} Off`
-                                        : ""}
-                                  </p>
-
-                                  <p className="onwards_rup m-0">
-                                    ₹{parseFloat(venue.pricing || 0).toFixed(0)}{" "}
-                                    onwards
-                                  </p>
-                                </div>
-
-                                <div className="card_line"></div>
-                                <BookBtn venueId={venue.id} />
+                                {/* <div className="card_line"></div> */}
+                                {/* <BookBtn venueId={venue.id} /> */}
                               </div>
                             </div>
                           </div>

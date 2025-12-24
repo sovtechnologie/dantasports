@@ -1,9 +1,10 @@
  .card {
   box-shadow: 0px 4px 4px 0px #1163c740;
-  margin-bottom: 15px;
   border: none;
   position: relative;
+  border: 1px solid transparent;
 }
+
 
 
 .card_txt h2,

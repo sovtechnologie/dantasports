@@ -33,6 +33,7 @@ import Kids from "../../components/Kids.jsx";
 import fliterIcon from "../../assets/icons/filter.svg"
 import OngoingEvents from "../../components/OngoingEvents.jsx";
 import { useBanner } from "../../../../hooks/useBanner.js";
+import { Link } from "react-router-dom";
 
 function formatTime(timeStr = "00:00") {
   if (!timeStr) return "";
@@ -504,120 +505,105 @@ export default function RunFilterPage() {
                 {filteredEvents.length > 0 ? (
                   filteredEvents.map((event) => (
                     <div key={event.id} className="col-xl-4 col-lg-6 col-md-6">
-                      <div className="card">
-                        <div className="card_img">
-                          <img
-                            src={event.desktop_image || bookrunn}
-                            className="w-100"
-                            alt=""
-                            onError={(e) => {
-                              e.target.onerror = null;
-                              e.target.src = bookrunn;
-                            }}
-                          />
-                        </div>
-                        <div className="card_icons">
-                          <img
-                            className="like"
-                            src={event.favourite ? HeartFilled : likeIcon}
-                            alt="like"
-                            onClick={() => toggleFavourite(event)}
-                            style={{ cursor: "pointer" }}
-                          />
-                          <img
-                            className="share"
-                            src={shareIcon}
-                            alt="share"
-                            onClick={() => handleShare(event)}
-                            style={{ cursor: "pointer" }}
-                          />
-                        </div>
-                        <div className="txt_wrapper">
-                          <div className="card_txt">
-                            <h2 className="text_wrap card_heading mb-3">
-                              {event.event_title}
-                            </h2>
-                            <p className="card_date mb-3">
-                              <span className="me-2">
-                                <img src={date} alt="" />
-                              </span>
-                              {new Date(event.start_date).toLocaleDateString(
-                                "en-GB",
-                                {
+                      <Link
+                        to={`/run/${event.id}`}
+                        className="text-decoration-none text-reset d-block"
+                      >
+                        <div className="card">
+                          <div className="card_img">
+                            <img
+                              src={event.desktop_image || bookrunn}
+                              className="w-100"
+                              alt=""
+                              onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src = bookrunn;
+                              }}
+                            />
+                          </div>
+
+                          <div className="card_icons">
+                            <img
+                              className="like"
+                              src={event.favourite ? HeartFilled : likeIcon}
+                              alt="like"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                toggleFavourite(event);
+                              }}
+                              style={{ cursor: "pointer" }}
+                            />
+
+                            <img
+                              className="share"
+                              src={shareIcon}
+                              alt="share"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                handleShare(event);
+                              }}
+                              style={{ cursor: "pointer" }}
+                            />
+                          </div>
+
+                          <div className="txt_wrapper">
+                            <div className="card_txt">
+                              <h2 className="text_wrap card_heading mb-3">
+                                {event.event_title}
+                              </h2>
+
+                              <p className="card_date mb-3">
+                                <span className="me-2">
+                                  <img src={date} alt="" />
+                                </span>
+                                {new Date(event.start_date).toLocaleDateString("en-GB", {
                                   day: "2-digit",
                                   month: "short",
-                                }
-                              )}{" "}
-                              -{" "}
-                              {new Date(event.end_date).toLocaleDateString(
-                                "en-GB",
-                                {
+                                })}{" "}
+                                -{" "}
+                                {new Date(event.end_date).toLocaleDateString("en-GB", {
                                   day: "2-digit",
                                   month: "short",
-                                }
-                              )}{" "}
-                              | {formatTime(event.start_time)} onwards
-                            </p>
-                            <p className="card_date mb-3">
-                              <span className="me-2">
-                                <img src={map} alt="" />
-                              </span>
-                              {event.locations?.[0]?.area},{" "}
-                              {event.locations?.[0]?.city}
-                            </p>
+                                })}{" "}
+                                | {formatTime(event.start_time)} onwards
+                              </p>
+
+                              <p className="card_date mb-3">
+                                <span className="me-2">
+                                  <img src={map} alt="" />
+                                </span>
+                                {event.locations?.[0]?.area},{" "}
+                                {event.locations?.[0]?.city}
+                              </p>
+                            </div>
+
+                            <div className="d-flex justify-content-between">
+                              <p className="up_to_offer m-0">
+                                {event.coupon_type === "percentage" && event.discount_offer
+                                  ? `Upto ${parseFloat(event.discount_offer)}% Off`
+                                  : event.coupon_type === "flat" && event.discount_offer
+                                    ? `Upto ₹${parseFloat(event.discount_offer)} Off`
+                                    : ""}
+                              </p>
+
+                              <p className="onwards_rup m-0">
+                                ₹ {parseFloat(event.lowest_ticket_price) || 0} onwards
+                              </p>
+                            </div>
+
+                            {/* <div className="card_line"></div> */}
                           </div>
-                          {/* <div className="no_off_users mt-2">
-                            <ul className="d-flex p-0 align-items-center m-0">
-                              {event.sports?.slice(0, 5).map((sport, index) => (
-                                <li key={index} className="me-2 list-unstyled">
-                                  <img
-                                    src={sport.image}
-                                    alt={sport.name || "sport"}
-                                    title={sport.name || "sport"}
-                                   
-                                  />
-                                </li>
-                              ))}
 
-                              {event.sports && event.sports.length > 5 && (
-                                <li
-                                  className="list-unstyled"
-                                  style={{
-                                    color: "#858585",
-                                    fontSize: "14px",
-                                    lineHeight: 1,
-                                  }}
-                                >
-                                  +{event.sports.length - 5} more
-                                </li>
-                              )}
-                            </ul>
-                          </div> */}
-
-                          <div className="d-flex justify-content-between">
-                            <p className="up_to_offer m-0"> {event.coupon_type === "percentage" && event.discount_offer
-                              ? `Upto ${parseFloat(event.discount_offer)}% Off`
-                              : event.coupon_type === "flat" && event.discount_offer
-                                ? `Upto ₹${parseFloat(event.discount_offer)} Off`
-                                : ""}</p>
-                            <p className="onwards_rup m-0">₹ {parseFloat(event.lowest_ticket_price) || 0} onwards</p>
+                          <div className="rating">
+                            <span>
+                              <img src={star} className="pe-2" alt="" />
+                              {event.average_rating || 0} ({event.review_count || 0})
+                            </span>
                           </div>
-                          <div className="card_line"></div>
 
-                          <div className="offer d-flex justify-content-between align-items-center">
-
-                            <a href={`/run/${event.id}`}>Join Now</a>
-                          </div>
-                        </div>
-                        <div className="rating">
-                          <span>
-                            <img src={star} className="pe-2" alt="" />
-                            {event.average_rating || 0}({event.review_count || 0})
-                          </span>
-                        </div>
-                        <div className="easy_run">
-                          <span>
-                            {" "}
+                          <div className="easy_run">
                             {event.difficulty === 0 ? (
                               <span className="Moderate">Moderate</span>
                             ) : event.difficulty === 1 ? (
@@ -627,9 +613,10 @@ export default function RunFilterPage() {
                             ) : (
                               <span className="unknown">Not Specified</span>
                             )}
-                          </span>
+                          </div>
                         </div>
-                      </div>
+                      </Link>
+
                     </div>
                   ))
                 ) : (

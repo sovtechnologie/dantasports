@@ -2,6 +2,7 @@
 import "../../Stylesheets/Filterpages/CoachFilter.css";
 import "../../Stylesheets/Filterpages/Cards.css";
 import CoachCard from "../../components/CoachCard.jsx";
+import { Link } from "react-router-dom";
 import AppDownloadBanner from "../../components/AppDownloadBanner.jsx";
 import { useState, useEffect, useMemo } from "react";
 import { useFetchCoach } from "../../../../hooks/CoachList/useFetchCoach.js";
@@ -460,9 +461,10 @@ const banners = bannerData?.result || [];
                 {formattedCoachList.length > 0 ? (
                   formattedCoachList.map((coach) => (
                     <div className="col-xl-4  col-lg-6 col-md-6 position-relative" key={coach.id}>
+                        <Link to={`/coach/${coach.id}`} className="text-decoration-none">
 
                       <Card>
-
+                       
                         <div className="card_img">
                           <img
                             src={coach.image}
@@ -474,20 +476,7 @@ const banners = bannerData?.result || [];
                             }}
                           />
                         </div>
-                        {/* <div className="card_icons">
-                          <a href="">
-                            <img className="like" src={like} alt="like" />
-                          </a>
-                          <a href="">
-                            <img className="share" src={share} alt="share" />
-                          </a>
-                          <div className="reating">
-                            <span>
-                              <img className="me-2" src={star} alt="" />
-                              {coach.rating} ({coach.ratingCount})
-                            </span>
-                          </div>
-                        </div> */}
+                     
                         <div className="card_icons_box">
                           <button
                             onClick={() => toggleCoachFavourite(coach)}
@@ -525,6 +514,12 @@ const banners = bannerData?.result || [];
                               <h2 className="m-0 text_wrap">{coach.name}</h2>
                               <p className="m-0 memebercat">{coach.category}</p>
                             </div>
+                             <p className="card_date  ">
+                              <span className="me-2">
+                                <img src={map} alt="" />
+                              </span>
+                              {coach.location}
+                            </p>
                             <div
                               className="coach-sports d-flex align-items-center flex-wrap mt-2"
                               style={{
@@ -570,23 +565,14 @@ const banners = bannerData?.result || [];
                               )}
                             </div>
 
-                            <p className="card_date  ">
-                              <span className="me-2">
-                                <img src={map} alt="" />
-                              </span>
-                              {coach.location}
-                            </p>
+                           
                           </div>
-                          <div className="card_line"></div>
-                          {/* <hr /> */}
-                          <div className="offer" onClick={() => handleClick(coach)}>
-                            <a>
-                              Enquire Now
-                            </a>
-                          </div>
+                         
 
                         </div>
+
                       </Card>
+                       </Link>
                     </div>
                   ))
                 ) : (
