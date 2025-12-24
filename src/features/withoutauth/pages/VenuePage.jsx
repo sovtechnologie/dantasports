@@ -28,6 +28,7 @@ import HeartFilled from "../../withoutauth/assets/VenueCardLogo/heartfilled.png"
 import likeIcon from "../assets/icons/like.svg";
 import OngoingEvents from "../components/OngoingEvents.jsx";
 import { useBanner } from "../../../hooks/useBanner.js";
+import { Link } from "react-router-dom";
 
 function VenuePage() {
   // const [showSort, setShowSort] = useState(false);
@@ -587,6 +588,7 @@ function VenuePage() {
                             key={venue.id}
                             className="col-xl-4 col-lg-6 col-md-6 position-relative"
                           >
+                             <Link to={`/venue/${venue.id}`} className="text-decoration-none">
                             <div className="card">
                               <div className="card_slider">
                                 <ReactSlickSlider
@@ -691,6 +693,7 @@ function VenuePage() {
                                 {/* <BookBtn venueId={venue.id} /> */}
                               </div>
                             </div>
+                            </Link>
                           </div>
                         ))
                     )}
