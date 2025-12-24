@@ -252,7 +252,7 @@ export default function EventFilterPage() {
                 } />
             </Col> */}
             <Col xl={3} lg={4} md={12} className="d-none d-lg-block d-md-block">
-             <SortBy
+              <SortBy
                 sortBy={filters.sortBy}
                 setSortBy={(value) => setFilters((prev) => ({ ...prev, sortBy: value }))}
               />
@@ -271,100 +271,101 @@ export default function EventFilterPage() {
               />
 
             </Col>
-             <Col className="d-lg-none d-md-none  text-end mb-3">
+            <Col className="d-lg-none d-md-none  text-end mb-3">
               <div className="modal_wraper d-flex justify-content-end">
                 <div>
-                   <div
-                  class="modal fade"
-                  id="exampleModalToggleFilter"
-                  aria-hidden="true"
-                  aria-labelledby="sortby"
-                  tabindex="-1"
-                >
-                  <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                      </div>
-                      <div class="modal-body">
-                               <EventFilter
-                selectedSports={selectedSports}
-                setSelectedSports={setSelectedSports}
-                selectedDate={selectedDate}
-                setSelectedDate={setSelectedDate}
-                setSelectedDifficulty={setSelectedDifficulty}
-                selectedDifficulty={selectedDifficulty}
-                setSelectedDistance={setSelectedDistance}
-                selectedDistance={selectedDistance}
-                selectedAmenities={selectedAmenities}
-                setSelectedAmenities={setSelectedAmenities}
-              />
+                  <div
+                    class="modal fade"
+                    id="exampleModalToggleFilter"
+                    aria-hidden="true"
+                    aria-labelledby="sortby"
+                    tabindex="-1"
+                  >
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                        <div class="modal-body">
+                          <EventFilter
+                            selectedSports={selectedSports}
+                            setSelectedSports={setSelectedSports}
+                            selectedDate={selectedDate}
+                            setSelectedDate={setSelectedDate}
+                            setSelectedDifficulty={setSelectedDifficulty}
+                            selectedDifficulty={selectedDifficulty}
+                            setSelectedDistance={setSelectedDistance}
+                            selectedDistance={selectedDistance}
+                            selectedAmenities={selectedAmenities}
+                            setSelectedAmenities={setSelectedAmenities}
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div
-                  class="modal fade"
-                  id="exampleModalToggle2"
-                  aria-hidden="true"
-                  aria-labelledby="exampleModalToggleLabel2"
-                  tabindex="-1"
-                ></div>
+                  <div
+                    class="modal fade"
+                    id="exampleModalToggle2"
+                    aria-hidden="true"
+                    aria-labelledby="exampleModalToggleLabel2"
+                    tabindex="-1"
+                  ></div>
 
-                <button
-                  class="btn_mobile"
-                  data-bs-toggle="modal"
-                  href="#exampleModalToggleFilter"
-                  role="button"
-                >
-                  <img src={filterIcon} alt="" />
-                </button>
+                  <button
+                    class="btn_mobile"
+                    data-bs-toggle="modal"
+                    href="#exampleModalToggleFilter"
+                    role="button"
+                  >
+                    <img src={filterIcon} alt="" />
+                  </button>
                 </div>
                 <div>
-                   <div
-                  class="modal fade"
-                  id="exampleModalToggleSort"
-                  aria-hidden="true"
-                  aria-labelledby="sortby"
-                  tabindex="-1"
-                >
-                  <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                      </div>
-                      <div class="modal-body">
-                        <SortBy />
+                  <div
+                    class="modal fade"
+                    id="exampleModalToggleSort"
+                    aria-hidden="true"
+                    aria-labelledby="sortby"
+                    tabindex="-1"
+                  >
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                        <div class="modal-body">
+                          <SortBy sortBy={filters.sortBy}
+                            setSortBy={(value) => setFilters((prev) => ({ ...prev, sortBy: value }))} />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div
-                  class="modal fade"
-                  id="exampleModalToggle2"
-                  aria-hidden="true"
-                  aria-labelledby="exampleModalToggleLabel2"
-                  tabindex="-1"
-                ></div>
+                  <div
+                    class="modal fade"
+                    id="exampleModalToggle2"
+                    aria-hidden="true"
+                    aria-labelledby="exampleModalToggleLabel2"
+                    tabindex="-1"
+                  ></div>
 
-                <button
-                  class="btn_mobile"
-                  data-bs-toggle="modal"
-                  href="#exampleModalToggleSort"
-                  role="button"
-                >
-                  <img src={sortIcon} alt="" />
-                </button>
+                  <button
+                    class="btn_mobile"
+                    data-bs-toggle="modal"
+                    href="#exampleModalToggleSort"
+                    role="button"
+                  >
+                    <img src={sortIcon} alt="" />
+                  </button>
                 </div>
               </div>
             </Col>
@@ -378,139 +379,139 @@ export default function EventFilterPage() {
                   filteredEvents.map((evt) => (
                     <div className="col-lg-4 col-md-6 position-relative" key={evt.id}>
                       <Link to={`/events/${evt.id}`} className="text-decoration-none">
-                      
-                      <Card className="event-card">
-                        <div
-                          className="card_img"
-                          onClick={() => navigate(`/Events/${evt.id}`)}
-                          style={{ cursor: "pointer" }}
-                        >
-                          <img
-                            src={evt.desktop_image || fallbackEventImage}
-                            className="w-100"
-                            alt={evt.event_title}
-                            onError={(e) => {
-                              e.currentTarget.onerror = null;
-                              e.currentTarget.src = fallbackEventImage;
-                            }}
-                          />
-                        </div>
-                        <div className="card_icon">
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              toggleFavourite(evt);
-                            }}
-                            className="icon-btn me-2"
-                            style={{ background: "none", border: "none" }}
+
+                        <Card className="event-card">
+                          <div
+                            className="card_img"
+                            onClick={() => navigate(`/Events/${evt.id}`)}
+                            style={{ cursor: "pointer" }}
                           >
                             <img
-                              className="like"
-                              src={evt.favourite ? HeartFilled : likeIcon}
-                              alt="like"
+                              src={evt.desktop_image || fallbackEventImage}
+                              className="w-100"
+                              alt={evt.event_title}
+                              onError={(e) => {
+                                e.currentTarget.onerror = null;
+                                e.currentTarget.src = fallbackEventImage;
+                              }}
                             />
-                          </button>
-
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              Share();
-                            }}
-                            className="icon-btn"
-                            style={{ background: "none", border: "none" }}
-                          >
-                            <img
-                              className="share"
-                              src={shareIcon}
-                              alt="share"
-                            />
-                          </button>
-                        </div>
-
-                        <div className="rating_box position-absolute d-flex align-items-center">
-                          <img src={star} alt="" />
-                          <span>
-                            {evt.review_count?.toFixed(1) || 0} (
-                            {evt.review_count || 0})
-                          </span>
-                        </div>
-
-                        <div className="easy_box">
-                          <span>{evt.difficulty === 0 ? (
-                            <span className="Moderate">Moderate</span>
-                          ) : evt.difficulty === 1 ? (
-                            <span className="easy">Easy</span>
-                          ) : evt.difficulty === 2 ? (
-                            <span className="difficult">Difficult</span>
-                          ) : (
-                            <span className="unknown">Not Specified</span>
-                          )}</span>
-                        </div>
-
-                        <div
-                          className="txt_wrapper"
-                          onClick={() => navigate(`/Events/${evt.id}`)}
-                        >
-                          <div className="card_txt">
-                            <h2 className="text_wrap card_heading">{evt.event_title}</h2>
-                            
-                            <p className="card_date">
-                              <span className="me-2">
-                                <img src={date} alt="" />
-                              </span>
-                              {new Date(evt.start_date).toLocaleDateString(
-                                "en-GB",
-                                {
-                                  day: "2-digit",
-                                  month: "short",
-                                }
-                              )}{" "}
-                              -{" "}
-                              {new Date(evt.end_date).toLocaleDateString(
-                                "en-GB",
-                                {
-                                  day: "2-digit",
-                                  month: "short",
-                                }
-                              )}{" "}
-                              | {evt.start_time?.slice(0, 5)} onwards
-                            </p>
-                            <p className="card_date">
-                              <span className="me-2">
-                                <img src={map} alt="" />
-                              </span>
-                              {evt.locations?.[0]?.area},{" "}
-                              {evt.locations?.[0]?.city}
-                            </p>
                           </div>
-                          <div className="sport_icon d-flex mt-3">
+                          <div className="card_icon">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                toggleFavourite(evt);
+                              }}
+                              className="icon-btn me-2"
+                              style={{ background: "none", border: "none" }}
+                            >
+                              <img
+                                className="like"
+                                src={evt.favourite ? HeartFilled : likeIcon}
+                                alt="like"
+                              />
+                            </button>
+
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                Share();
+                              }}
+                              className="icon-btn"
+                              style={{ background: "none", border: "none" }}
+                            >
+                              <img
+                                className="share"
+                                src={shareIcon}
+                                alt="share"
+                              />
+                            </button>
+                          </div>
+
+                          <div className="rating_box position-absolute d-flex align-items-center">
+                            <img src={star} alt="" />
+                            <span>
+                              {evt.review_count?.toFixed(1) || 0} (
+                              {evt.review_count || 0})
+                            </span>
+                          </div>
+
+                          <div className="easy_box">
+                            <span>{evt.difficulty === 0 ? (
+                              <span className="Moderate">Moderate</span>
+                            ) : evt.difficulty === 1 ? (
+                              <span className="easy">Easy</span>
+                            ) : evt.difficulty === 2 ? (
+                              <span className="difficult">Difficult</span>
+                            ) : (
+                              <span className="unknown">Not Specified</span>
+                            )}</span>
+                          </div>
+
+                          <div
+                            className="txt_wrapper"
+                            onClick={() => navigate(`/Events/${evt.id}`)}
+                          >
+                            <div className="card_txt">
+                              <h2 className="text_wrap card_heading">{evt.event_title}</h2>
+
+                              <p className="card_date">
+                                <span className="me-2">
+                                  <img src={date} alt="" />
+                                </span>
+                                {new Date(evt.start_date).toLocaleDateString(
+                                  "en-GB",
+                                  {
+                                    day: "2-digit",
+                                    month: "short",
+                                  }
+                                )}{" "}
+                                -{" "}
+                                {new Date(evt.end_date).toLocaleDateString(
+                                  "en-GB",
+                                  {
+                                    day: "2-digit",
+                                    month: "short",
+                                  }
+                                )}{" "}
+                                | {evt.start_time?.slice(0, 5)} onwards
+                              </p>
+                              <p className="card_date">
+                                <span className="me-2">
+                                  <img src={map} alt="" />
+                                </span>
+                                {evt.locations?.[0]?.area},{" "}
+                                {evt.locations?.[0]?.city}
+                              </p>
+                            </div>
+                            <div className="sport_icon d-flex mt-3">
                               <div className="sport">
-                                 <img src={sportIcons} alt="" />
+                                <img src={sportIcons} alt="" />
                               </div>
                             </div>
-                          <div className="sports_title d-flex justify-content-between">
-                            <p>
-                              {evt.coupon_type === "percentage" && evt.offer
-                                ? `Upto ${parseFloat(evt.offer)}% Off`
-                                : evt.coupon_type === "flat" && evt.offer
-                                  ? `Upto ₹${parseFloat(evt.offer)} Off`
-                                  : ""}
-                            </p>
-
-                            {evt.lowest_ticket_price ? (
+                            <div className="sports_title d-flex justify-content-between">
                               <p>
-                                <span>
-                                  ₹{parseInt(evt.lowest_ticket_price)} onwards
-                                </span>
+                                {evt.coupon_type === "percentage" && evt.offer
+                                  ? `Upto ${parseFloat(evt.offer)}% Off`
+                                  : evt.coupon_type === "flat" && evt.offer
+                                    ? `Upto ₹${parseFloat(evt.offer)} Off`
+                                    : ""}
                               </p>
-                            ) : (
-                              <p></p>
-                            )}
-                          </div>
 
-                        
-                        </div>
-                      </Card>
+                              {evt.lowest_ticket_price ? (
+                                <p>
+                                  <span>
+                                    ₹{parseInt(evt.lowest_ticket_price)} onwards
+                                  </span>
+                                </p>
+                              ) : (
+                                <p></p>
+                              )}
+                            </div>
+
+
+                          </div>
+                        </Card>
                       </Link>
 
                     </div>

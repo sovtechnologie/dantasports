@@ -374,13 +374,18 @@ function ViewDetails({ booking, ...props }) {
                         <p className="text-success fw-bold">Payment Successful</p>
 
                         <div className="d-flex justify-content-between">
-                          <p>Payment Date: {formatDate(data.payment_date)}</p>
+                          <p>Refund Date: {formatDate(data.payment_date)}</p>
                           <p>Time: {formatTimeFromISO(data.payment_date)}</p>
                         </div>
 
                         <div className="d-flex justify-content-between">
-                          <p>Paid Amount:</p>
+                          <p>Refund Amount:</p>
                           <p className="fw-bold">{data.paid_amount}</p>
+                        </div>
+
+                        <div className="d-flex justify-content-between">
+                          <p>Refund credited to your account</p>
+
                         </div>
 
                         {refundStatus?.data?.paymentInstrument?.utr && (
