@@ -21,7 +21,7 @@ const PriceSlider = ({ priceRange, setPriceRange }) => {
         min={0}
         max={10000}
         step={100}
-        value={priceRange[1]}   // ✅ NUMBER ONLY
+        value={priceRange[1]}   
         onChange={handleChange}
         className="price-slider"
       />

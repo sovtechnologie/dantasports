@@ -33,7 +33,7 @@ const AvailabilityCalendar = ({ selectedDate, setSelectedDate }) => {
   const generateDates = () => {
     const dates = [];
     // start from previous month to next 11 months (same as your earlier logic)
-    let start = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+    let start = new Date();
     let end = new Date(today.getFullYear(), today.getMonth() + 11, 0);
 
     for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
@@ -104,25 +104,25 @@ const AvailabilityCalendar = ({ selectedDate, setSelectedDate }) => {
       <div
         ref={scrollRef}
         className="d-flex  pb-2 date_box_wrapper"
-        
+
       >
         {allDates.map((d, idx) => {
           const selected = isSameDay(d, internalSelected);
           return (
-           <>
-             <div className="date_btn">
-               <button
-              key={idx}
-              className={` ${selected ? "active_btn" : "btn-light text-muted"
-                }`}
-              
-              onClick={() => handleDateClick(d)}
-            >
-              <span>{d.getDate()}</span><br/>
-              <span>{d.toLocaleDateString("en-US", { weekday: "short" })}</span>
-               </button>
-             </div>
-           </>
+            <>
+              <div className="date_btn">
+                <button
+                  key={idx}
+                  className={` ${selected ? "active_btn" : "btn-light text-muted"
+                    }`}
+
+                  onClick={() => handleDateClick(d)}
+                >
+                  <span>{d.getDate()}</span><br />
+                  <span>{d.toLocaleDateString("en-US", { weekday: "short" })}</span>
+                </button>
+              </div>
+            </>
           );
         })}
       </div>

@@ -12,6 +12,8 @@ export default function PaymentSuccess() {
     const hostName = queryParams.get("hostName");
     const venueName = queryParams.get("venueName");
     const bookingdate = queryParams.get("bookingDate")
+    const paymentMethod = queryParams.get("paymentMethod");
+    const courtName = queryParams.get("courtName");
 
 
     return (
@@ -24,6 +26,8 @@ export default function PaymentSuccess() {
                 hostName={hostName}
                 venueName={venueName}
                 bookingdate={bookingdate}
+                paymentMethod={paymentMethod}
+                courtName={courtName}
             />
         </div>
     );

@@ -15,7 +15,7 @@ const BookingCard = ({ booking }) => {
   const isCancelled = booking.status === "cancelled";
   const [isModalOpen, setIsModalOpen] = useState(false);
   const existing = booking.checkReview === 1;
-  console.log("bbbbbbbbbbbbb", booking.title);
+  
 
   const { mutate: cancelBooking, isPending } = useCancelBooking();
 

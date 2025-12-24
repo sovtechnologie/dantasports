@@ -11,6 +11,7 @@ const Login = ({ isModal = false, onSuccess = () => { }, onSwitchToRegister = ()
   const [showOtpPopup, setShowOtpPopup] = useState(false); // new state
   const [otpJustSent, setOtpJustSent] = useState(false);
 
+
   // tempory code
 
 
@@ -167,7 +168,7 @@ const Login = ({ isModal = false, onSuccess = () => { }, onSwitchToRegister = ()
               disabled={otpSent}
             />
             <button className={"otp-button"} onClick={handleSendOtp} disabled={isSendingOtp}>
-              {isSendingOtp ? 'Sending...' : 'Send OTP'}
+              {isSendingOtp ? 'Sending...' : otpSent ? 'OTP Sent' : 'Send OTP'}
             </button>
           </div>
 

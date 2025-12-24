@@ -265,19 +265,25 @@ export default function GymDetailPage() {
     return `${h}:${minute} ${ampm}`;
   };
 
-  // Use gym_timings instead of gym_timing
-  const mappedTimings = (gym?.gym_timings || []).map((item) => {
-    return dayOrder.map((dayKey) => ({
-      day: dayKey.charAt(0).toUpperCase() + dayKey.slice(1),
 
-      range:
-        item[dayKey] === 1
-          ? `${formatTime(item.start_time.split(".")[0])} - ${formatTime(
-            item.end_time.split(".")[0]
-          )}`
-          : "Closed",
-    }));
-  })[0];  // because gym_timings array usually has 1 object only
+  const mappedTimings = dayOrder.map((dayKey) => {
+    const dayName = dayKey.charAt(0).toUpperCase() + dayKey.slice(1);
+
+    // collect all slots for this day
+    const ranges = (gym?.gym_timings || [])
+      .filter(item => item[dayKey] === 1)
+      .map(item =>
+        `${formatTime(item.start_time.split(".")[0])} - ${formatTime(
+          item.end_time.split(".")[0]
+        )}`
+      );
+
+    return {
+      day: dayName,
+      range: ranges.length > 0 ? ranges.join(", ") : "Closed",
+    };
+  });
+
 
 
   // const half = Math.ceil(mappedTimings.length / 2);

@@ -122,7 +122,7 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import "../StyleSheets/ViewDetails.css";
-import { Container } from "react-bootstrap";
+import { Container, Spinner } from "react-bootstrap";
 import list from "../../../withoutauth/assets/VenueCardLogo/list.svg";
 import map from "../../../withoutauth/assets/VenueCardLogo/map.svg";
 import { getBookedDetailsById } from "../../../../services/LoginApi/PaymentApi/endpointsApi";
@@ -146,13 +146,15 @@ function ViewDetails({ booking, ...props }) {
     return `${start.toLocaleTimeString("en-US", opts)} – ${end.toLocaleTimeString("en-US", opts)}`;
   }
 
-  function formatTime(timeStr) {
-    if (!timeStr) return "";
-    const [h, m, s] = timeStr.split(":").map(Number);
-    const dt = new Date();
-    dt.setHours(h, m, s);
-    return dt.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
+  function formatTimeFromISO(dateStr) {
+    if (!dateStr) return "";
+    return new Date(dateStr).toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
   }
+
 
   function formatDate(dateStr) {
     if (!dateStr) return "";
@@ -188,7 +190,12 @@ function ViewDetails({ booking, ...props }) {
         type: booking.type,
       });
 
-      setDetails(res?.result?.data?.[0] || res);
+
+      setDetails({
+        booking: res?.result.data?.[0] || null,
+        refundStatus: res?.result.refundStatus || null,
+      });
+
     } catch (err) {
       console.log("Error fetching booking details", err);
     } finally {
@@ -196,7 +203,13 @@ function ViewDetails({ booking, ...props }) {
     }
   };
 
-  const data = details || booking;
+  const data = details?.booking || booking || {};
+  const refundStatus = details?.refundStatus || null;
+
+  const paymentCode = refundStatus?.code || "";
+
+  const isGymBooking = Number(data.type) === 3;
+  const isEventOrRunBooking = Number(data.type) === 2;
 
   if (!booking) return null;
 
@@ -215,132 +228,174 @@ function ViewDetails({ booking, ...props }) {
           </Modal.Header>
 
           <Modal.Body>
-            <div className="d-flex mb-4">
-              <img src={list} alt="icon" />
-            </div>
 
-            {/* ------------ BOOKING INFO ------------ */}
+            {loading && (
+              <div className="text-center py-5">
+                <Spinner animation="border" />
+                <p className="mt-2">Loading booking details...</p>
+              </div>
+            )}
+            {!loading && (
+              <>
+                <div className="d-flex mb-4">
+                  <img src={list} alt="icon" />
+                </div>
 
-            <div className="lsiting">
-              <p><span className="me-3">Booking ID:</span>#{data.booking_id}</p>
-            </div>
+                {/* ------------ BOOKING INFO ------------ */}
 
-            <div className="lsiting">
-              <p>
-                <span className="me-3">Date | Time:</span>
-                {formatDate(data.date)}
-                <span className="time ms-2">{formatTimeDuration(data.start_time, data.duration)}</span>
-              </p>
-            </div>
+                {/* ------------ BOOKING INFO ------------ */}
 
-            <div className="lsiting">
-              <p><span className="me-2">Turf Name:</span>{data.venue_name}</p>
-            </div>
+                <div className="lsiting">
+                  <p><span className="me-3">Booking ID:</span>#{data.booking_id}</p>
+                </div>
 
-            <div className="lsiting">
-              <p><span className="me-2">Court:</span>{data.court_name || "N/A"}</p>
-            </div>
+                {/* ---------- GYM BOOKING UI ---------- */}
+                {isGymBooking && (
+                  <>
+                    <div className="lsiting">
+                      <p><span className="me-2">Gym Name:</span>{data.gym_name}</p>
+                    </div>
 
-            <div className="lsiting">
-              <p><span className="me-2">Sport Name:</span>{data.sports_name || "N/A"}</p>
-            </div>
+                    <div className="lsiting">
+                      <p><span className="me-2">Coupan:</span>{data.coupon_code}</p>
+                    </div>
 
-            <div className="lsiting d-flex justify-content-between">
-              <p><span className="me-3">Location :</span>{data.full_address || "N/A"}</p>
-              <img src={map} alt="map" />
-            </div>
+                    <div className="lsiting">
+                      <p><span className="me-2">Use Passes</span>{data.use_passes}</p>
+                    </div>
+                    <div className="lsiting">
+                      <p><span className="me-2">Total Passes</span>{data.quantity}</p>
+                    </div>
 
-            {/* ------------ CUSTOMER DETAILS ------------ */}
+                  </>
+                )}
 
-            <div className="lsiting"><p className="mb-2"><strong>Customer Details:</strong></p></div>
+                {/* ---------- TURF / VENUE BOOKING UI ---------- */}
+                {!isGymBooking && (
+                  <>
+                    <div className="lsiting">
+                      <p>
+                        <span className="me-3">Date | Time:</span>
+                        {formatDate(data.date)}
+                        <span className="time ms-2">
+                          {formatTimeDuration(data.start_time, data.duration)}
+                        </span>
+                      </p>
+                    </div>
 
-            <div className="outerbox">
-              <ul className="p-0 m-0">
-                <li><span className="me-3">Name:</span>{data.full_name}</li>
-                <li><span className="me-3">Email:</span>{data.email}</li>
-                <li><span className="me-3">Contact:</span>{data.mobile_number}</li>
-              </ul>
-            </div>
+                    <div className="lsiting">
+                      <p><span className="me-2">{isEventOrRunBooking ? "Run/Event:" : "Turf Name:"}</span>{data.venue_name}</p>
+                    </div>
 
+                    <div className="lsiting">
+                      <p><span className="me-2">Court:</span>{data.court_name || "N/A"}</p>
+                    </div>
 
+                    <div className="lsiting">
+                      <p><span className="me-2">Sport Name:</span>{data.sports_name || "N/A"}</p>
+                    </div>
+                  </>
+                )}
 
-            <div className="lsiting"><p className="mb-2"><strong>Bill Summary:</strong></p></div>
+                <div className="lsiting d-flex justify-content-between">
+                  <p><span className="me-3">Location :</span>{data.full_address || "N/A"}</p>
+                  <img src={map} alt="map" />
+                </div>
 
-            <div className="outerbox">
-              <ul className="p-0 m-0">
-                <li><span className="me-3">Booking amount:</span>{data.booking_amount}</li>
-                <li><span className="me-3">Convenience fee:</span>{data.convenience_fee}</li>
-                <li><span className="me-3">Discount:</span>{data.discount_amount}</li>
-                <li><span className="me-3">Total paid:</span>{data.paid_amount}</li>
-              </ul>
-            </div>
+                {/* ------------ CUSTOMER DETAILS ------------ */}
 
+                <div className="lsiting"><p className="mb-2"><strong>Customer Details:</strong></p></div>
 
-
-            <div className="lsiting"><p className="mb-2"><strong>Payment Details:</strong></p></div>
-
-            <div className="outerbox">
-              <ul className="p-0 m-0">
-                <li><span className="me-3">Method:</span>{data.paymentInstrument?.type || "N/A"}</li>
-                <li><span className="me-3">Payment Date:</span>{formatDate(data.payment_date)}</li>
-              </ul>
-            </div>
-
-
-            <div className="lsiting">
-              <div className="booked">
-
-                <p className="text-success">
-                  {data.booking_status === 1 ? "Booked" : "Cancelled"}
-                </p>
-
-                <div className="d-flex justify-content-between">
-                  <p>Booking Time: {formatTime(data.start_time)}</p>
-                  <p>Booking Date: {formatDate(data.date)}</p>
+                <div className="outerbox">
+                  <ul className="p-0 m-0">
+                    <li><span className="me-3">Name:</span>{data.full_name}</li>
+                    <li><span className="me-3">Email:</span>{data.email}</li>
+                    <li><span className="me-3">Contact:</span>{data.mobile_number}</li>
+                  </ul>
                 </div>
 
 
-                {/* ---- REFUND STARTED ---- */}
-                {Number(data.is_refunded) === 1 && Number(data.refund_status) === 0 && (
-                  <>
-                    <p className="text-warning">Refund Initiated</p>
+
+                <div className="lsiting"><p className="mb-2"><strong>Bill Summary:</strong></p></div>
+
+                <div className="outerbox">
+                  <ul className="p-0 m-0">
+                    <li><span className="me-3">Booking amount:</span>{data.booking_amount}</li>
+                    <li><span className="me-3">Convenience fee:</span>{data.convenience_fee}</li>
+                    <li><span className="me-3">Discount:</span>{data.discount_amount}</li>
+                    <li><span className="me-3">Total paid:</span>{data.paid_amount}</li>
+                  </ul>
+                </div>
+
+
+
+                <div className="lsiting"><p className="mb-2"><strong>Payment Details:</strong></p></div>
+
+                <div className="outerbox">
+                  <ul className="p-0 m-0">
+                    <li><span className="me-3">Method:</span>{data.paymentInstrument?.type || "N/A"}</li>
+                    <li><span className="me-3">Payment Date:</span>{formatDate(data.payment_date)}</li>
+                  </ul>
+                </div>
+
+
+                <div className="lsiting">
+                  <div className="booked">
+
+                    <p className="text-success">
+                      {data.booking_status === 1 ? "Booked" : "Cancelled"}
+                    </p>
 
                     <div className="d-flex justify-content-between">
-                      <p>Your refund is under process</p>
-                      <p className="text-muted">Within 7 working days</p>
+                      <p>Booking Time: {formatTimeFromISO(data.payment_date)}</p>
+
+                      {/* <p>Booking Date: {formatDate(data.date)}</p> */}
                     </div>
 
-                    {data.refund_transaction_id && (
-                      <p className="text-muted">Refund ID: {data.refund_transaction_id}</p>
+
+                    {paymentCode === "PAYMENT_PENDING" && (
+                      <>
+                        <p className="text-warning fw-bold">Payment Pending</p>
+
+                        <div className="d-flex justify-content-between">
+                          <p>Your payment is under process</p>
+                          <p className="text-muted">Please wait</p>
+                        </div>
+
+                        <p className="text-muted small">
+                          Amount will be updated once payment is confirmed.
+                        </p>
+                      </>
                     )}
-                  </>
-                )}
 
-                {/* ---- REFUND COMPLETED ---- */}
-                {Number(data.is_refunded) === 1 && Number(data.refund_status) === 1 && (
-                  <>
-                    <p className="text-danger">Refund Successful</p>
+                    {/* 🟢 PAYMENT / REFUND SUCCESS */}
+                    {paymentCode === "PAYMENT_SUCCESS" && (
+                      <>
+                        <p className="text-success fw-bold">Payment Successful</p>
 
-                    <div className="d-flex justify-content-between">
-                      <p>Refund Date: {formatDate(data.refund_date)}</p>
-                      <p>Time: {formatRefundTime(data.refund_date)}</p>
-                    </div>
+                        <div className="d-flex justify-content-between">
+                          <p>Payment Date: {formatDate(data.payment_date)}</p>
+                          <p>Time: {formatTimeFromISO(data.payment_date)}</p>
+                        </div>
 
-                    <div className="d-flex justify-content-between">
-                      <p>Refund Amount:</p>
-                      <p className="fw-bold">{data.convenience_fee}</p>
-                    </div>
+                        <div className="d-flex justify-content-between">
+                          <p>Paid Amount:</p>
+                          <p className="fw-bold">{data.paid_amount}</p>
+                        </div>
 
-                    <p className="text-muted">Refund credited to your account</p>
-
-                    {data.refund_transaction_id && (
-                      <p className="text-muted">Transaction ID: {data.refund_transaction_id}</p>
+                        {refundStatus?.data?.paymentInstrument?.utr && (
+                          <p className="text-muted">
+                            UTR: {refundStatus.data.paymentInstrument.utr}
+                          </p>
+                        )}
+                      </>
                     )}
-                  </>
-                )}
 
-              </div>
-            </div>
+
+                  </div>
+                </div>
+              </>
+            )}
 
           </Modal.Body>
         </Modal>
