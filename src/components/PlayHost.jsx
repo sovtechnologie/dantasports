@@ -99,6 +99,7 @@ function PlayHost() {
               SKILL_MAP[host.game_skill] || SKILL_MAP[0];
             return (
               <Col xl={3} lg={4} md={6} sm={6} key={host.id}>
+               <Link onClick={handleClick} className="text-decoration-none">
                 <Card className="playhost_card">
                   <div className="badge_label">
                     <p>{ACTIVITY_TYPE_LABEL[host.activity_type] || "Regular"}</p>
@@ -158,9 +159,12 @@ function PlayHost() {
                   </div>
                   <div className="card_line2"></div>
                   <div className="offer d-flex justify-content-between align-items-center">
-                    <Link onClick={handleClick}>Join Now</Link>
+                   <a href="" className="text-decoration-none">
+                     Join Now
+                   </a>
                   </div>
                 </Card>
+                </Link>
               </Col>
             );
           })}
