@@ -31,16 +31,13 @@ const DownloadAppSection = () => {
   }, []);
 
   return (
-    <Container className="downloads_container">
-      <Row className="download-app-section">
-        <Col lg={8} sm={12}>
-                {/* Decorative shapes */}
-        <div className="shape big-blob"></div>
-        <div className="shape small-dot"></div>
-        <div className="shape middle-dot"></div>
-        <div className="shape bottom-dot"></div>
-
-        <div className="text-content">
+    
+    <>
+    
+      <section className="dawnload_app_section">
+        <Container style={{background: "#1163C7"}}>
+           <Col className="col-12">
+           <div className="text-content">
           <p className="tagline">#It's Not About Skills It's About You!</p>
           <h2 className="heading">Get the Danta Sports App now!</h2>
           <p className={`subtext ${animate ? "subtext-animate" : ""}`}>
@@ -57,14 +54,17 @@ const DownloadAppSection = () => {
             </a>
           </div>
         </div>
-        </Col>
-         <Col >
-         <div className="lineicon">
-          <img src={line2} alt="" />
-         </div>
-         </Col>
-      </Row>
-    </Container>
+           </Col>
+           <Col className="col-lg-4">
+              <div className="mobile_img">
+                <img src={iphoneImage} className="" alt="" />
+              </div>
+              
+         
+           </Col>
+        </Container>
+      </section>
+    </>
   );
 };
 

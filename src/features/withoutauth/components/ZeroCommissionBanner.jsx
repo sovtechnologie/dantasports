@@ -12,7 +12,7 @@ const ZeroCommissionBanner = () => {
       <div className="zero-banner-content row justify-content-center ">
        <div className="col-lg-8 col-12 m-auto py-3 ">
          <h2 className='text-center'>
-          Why Partner With DantaSports? <span>Go Digital Without Losing Control
+          Why Partner With DantaSports? <br/> <span>Go Digital Without Losing Control
           </span>
         </h2>
         <p className='text-center'>Most platforms charge high commissions and lock you into rigid systems. DantaSports offers a

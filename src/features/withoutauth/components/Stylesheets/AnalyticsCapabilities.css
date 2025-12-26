@@ -5,6 +5,19 @@
   font-family: "Lato", sans-serif;
 }
 
+
+ul.coach_listing li {
+
+  list-style-type: disc;
+  color: #000000;
+  font-size: 18px;
+  font-weight: 400;
+  margin-top: 15px;
+}
+ul.coach_listing li::marker {
+  color: #1163C7; /* bullet color */
+ 
+}
 .analytics-content .highlight {
   color: #1163c7;
 }

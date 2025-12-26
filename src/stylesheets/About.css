@@ -161,7 +161,7 @@
 .text-block p {
   font-family: "DM Sans", sans-serif;
   font-weight: 400;
-  font-size: clamp(16px, 1.4vw, 24px);
+  font-size: clamp(16px, 1.4vw, 18px);
   line-height: clamp(1.5rem, 2.25vw, 1.8rem);
   letter-spacing: clamp(0.2px, 0.0285vw, 0.41px);
 

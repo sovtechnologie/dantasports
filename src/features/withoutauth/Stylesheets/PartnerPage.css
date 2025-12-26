@@ -42,7 +42,7 @@
 .header-left p {
   color: #757575;
   font-weight: 400;
-  max-width: 558px;
+  /* max-width: 558px; */
   letter-spacing: 0.41px;
   font-family: "DM Sans", sans-serif;
   font-size: clamp(12px, 1.25vw, 18px);

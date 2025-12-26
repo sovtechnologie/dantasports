@@ -4,10 +4,10 @@ import leftpattern from "../assets/left-datastats-pattern.png";
 import rightpattern from  "../assets/right-datastats-pattern.png";
 
 const stats = [
-  { value: "1M+", label: "Users" },
+  { value: "1K+", label: "Users" },
   { value: "75+", label: "Sports" },
-  { value: "5M+", label: "Sports Activities Enabled" },
-  { value: "6M+", label: "Players Connections Enabled" },
+  { value: "5K+", label: "Sports Activities Enabled" },
+  { value: "6K+", label: "Players Connections Enabled" },
 ];
 
 const DantaStats = () => {

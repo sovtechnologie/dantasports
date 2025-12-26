@@ -119,9 +119,7 @@ focus on playing.
         </section>
         
 
-       <div className="container p-0">
-         <DownloadAppSection />
-       </div>
+     <DownloadAppSection />
 
 
 

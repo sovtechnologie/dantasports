@@ -10,6 +10,9 @@ import AnalyticsCapabilities from '../components/AnalyticsCapabilities.jsx';
 import PaymentSolutions from '../components/PaymentSolutions.jsx';
 import PaymentFeatures from '../components/PaymentFeatures.jsx';
 import OnboardingSupport from '../components/OnboardingSupport.jsx';
+import PartnerWithUs from '../components/PartnerWithUs.jsx';
+import Ready from '../components/Ready.jsx';
+import CoachSection from '../components/CoachSection.jsx';
 
 
 const images = [
@@ -53,14 +56,7 @@ function PartnerPage() {
                             </div>
                         </div>
 
-                        <div className="header-right">
-                            <img src={images[currentImage]} alt="Corporate Wellness" className="carousel-img" />
-                            <div className="pagination-dots">
-                                {images.map((_, i) => (
-                                    <span key={i} className={`dot ${i === currentImage ? 'active' : ''}`} />
-                                ))}
-                            </div>
-                        </div>
+                    
                     </div>
                 </div>
                 <section style={{ background: "#F1F3F2" }} className='pt-4 pt-lg-5 pb-lg-5 pb-4'>
@@ -79,8 +75,13 @@ function PartnerPage() {
                 </div>
                 <div className="container">
                     <div className='row'>
-                        <div className="col-12 col-lg-10 m-auto">
+                        <div className="col-12  m-auto">
                             <AnalyticsCapabilities />
+                        </div>
+                    </div>
+                    <div className="row my-lg-5 my-4">
+                        <div className="col-12">
+                            <CoachSection/>
                         </div>
                     </div>
                 </div>
@@ -98,6 +99,8 @@ function PartnerPage() {
                 <div className='container'>
                     <OnboardingSupport />
                 </div>
+                <PartnerWithUs/>
+                <Ready/>
             </section>
         </>
     )

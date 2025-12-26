@@ -26,14 +26,14 @@ const features = [
 const OnboardingSupport = () => {
     return (
         <section className="row g-y my-lg-5 my-4">
-            <div className="col-lg-6 col-md-6 col-12">
+            <div className="col-12">
                 <div className="facility-text" >
                 <h2>
-                    Easy Onboarding with   <br />
+                    Easy Onboarding with  
                     <span className="highlight"> 24/7 Support</span>
                 </h2>
                 
-                <ul className="facility-features" style={{marginTop:"40px"}}>
+                <ul className="facility-features d-flex flex-wrap flex-lg-nowrap" style={{marginTop:"40px"}}>
                     {features.map((feature, idx) => (
                         <li key={idx}>
                             <img src={feature.icon} alt="" />
@@ -47,11 +47,7 @@ const OnboardingSupport = () => {
 
             </div>
             </div>
-            <div className="col-lg-6 col-md-6 col-10 m-auto">
-                <div className="facility-image">
-                <img src={phonesImage3} className="w-100 h-100" alt="Facility Management App Preview" />
-            </div>
-            </div>
+          
         </section>
     );
 };

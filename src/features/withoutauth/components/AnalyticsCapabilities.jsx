@@ -4,7 +4,7 @@ import analyticsImage from "../assets/facilitylogo/Phone-two-image.png"; // adju
 import bookingIcon from "../assets/facilitylogo/Slot-Icon-image.png"; // replace with actual icons
 import reportIcon from "../assets/facilitylogo/Role-Icon-image.png";
 import insightsIcon from "../assets/facilitylogo/Dashboard-Icon-image.png";
-import phonesImage2 from "../assets/facilitylogo/Phone_image_2.png"; 
+import phonesImage2 from "../assets/facilitylogo/account.jpeg"; 
 
 const analyticsFeatures = [
     {
@@ -52,8 +52,6 @@ const AnalyticsCapabilities = () => {
 
             </div>
             </div>
-            
-            
         </section>
     );
 };

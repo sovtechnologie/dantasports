@@ -27,42 +27,42 @@ function About() {
         <div>
           <div className="container">
             <div className="Corporate-header">
-            <div className="header-left">
-              <h1>
-                Building India’s Largest
-                <br />
-                <span>Fitness Community</span>
-              </h1>
-              <p>
-                DantaSports is a unified fitness platform built to bring people
-                together through play, training, and community.
-              </p>
-              <p>
-                We help sports and fitness enthusiasts discover venues, join games,
-                stay active consistently, and grow together on and off the field
-              </p>
-              <div className="button-group">
-                <button className="primary-btn">Get Started </button>
-                <button className="secondary-btn"> Book a Venue</button>
+              <div className="header-left">
+                <h1>
+                  Building India’s Largest
+                  <br />
+                  <span>Fitness Community</span>
+                </h1>
+                <p>
+                  DantaSports is a unified fitness platform built to bring people
+                  together through play, training, and community.
+                </p>
+                <p>
+                  We help sports and fitness enthusiasts discover venues, join games,
+                  stay active consistently, and grow together on and off the field
+                </p>
+                <div className="button-group">
+                  <button className="primary-btn">Get Started </button>
+                  <button className="secondary-btn"> Book a Venue</button>
+                </div>
               </div>
-            </div>
 
-            <div className="header-right">
-              <img
-                src={images[currentImage]}
-                alt="Corporate Wellness"
-                className="carousel-img"
-              />
-              <div className="pagination-dots">
-                {images.map((_, i) => (
-                  <span
-                    key={i}
-                    className={`dot ${i === currentImage ? "active" : ""}`}
-                  />
-                ))}
+              <div className="header-right">
+                <img
+                  src={images[currentImage]}
+                  alt="Corporate Wellness"
+                  className="carousel-img"
+                />
+                <div className="pagination-dots">
+                  {images.map((_, i) => (
+                    <span
+                      key={i}
+                      className={`dot ${i === currentImage ? "active" : ""}`}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
           </div>
           <div className="container">
             <DantaStats />
@@ -119,7 +119,7 @@ function About() {
                   A Note from the <span className="highlight">Founder</span>{" "}
                 </h2>
               </Col>
-              <Col className="col-12">
+              <Col className="col-lg-6 col-md-6 col-12">
                 <div className="text-block">
                   <p>
                     When I started DantaSports, it wasn’t to build just another
@@ -156,6 +156,23 @@ function About() {
                     <b>- Sabyasachi Mangaraj</b>
                   </p>
                   <p>CoFounder, DantaSports</p>
+                </div>
+              </Col>
+              <Col className="col-lg-6 col-md-6 col-12 border-start border-secondary ps-3">
+                <div className="text-block">
+                  <p>
+                    I built Danta Sports with a simple belief - fitness isn’t about skill, it’s about YOU.
+                    Your journey, your effort, your consistency.
+                  </p>
+                  <p>Most people want to stay active, but finding the right sports venue, gym, or trainer is still a struggle. Progress gets lost, routines break, and motivation fades. <b>Danta Sports was created to remove these barriers.</b></p>
+                  <p>With Danta, you can book sports venues, check in at gyms, train with certified coaches, and track your progress - all in one place.
+                    Our community challenges, gamification, and the Danta Score keep you inspired every day.
+                  </p>
+                  <p>Danta Sports is not about being the best.</p>
+                  <p>It’s about showing up, growing, and becoming a better version of yourself - at your pace.</p>
+                  <p>Thank you for being part of this journey.</p>
+                  <p><b>-Deepak Jaiswal</b></p>
+                  <p>Cofounder Danta sports</p>
                 </div>
               </Col>
             </Row>

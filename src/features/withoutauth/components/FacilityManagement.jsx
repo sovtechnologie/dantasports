@@ -21,7 +21,7 @@ const features = [
     {
         icon: dashboardIcon,
         title: "One Dashboard, Total Control",
-        description: "Centralise tracking for bookings, revenue, and customer data in one user-friendly dashboard."
+        description: "Control bookings, prevent conflicts, and scale your venue without extra costs."
     },
 ];
 
