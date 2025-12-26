@@ -7,21 +7,30 @@ import rightArrow from "../assets/right-arrow.png";
 
 const testimonials = [
   {
-    name: 'Alice Johnson',
-    role: 'Team Velocity',
-    message: `This AI platform made the entire process so simple! I found the perfect program and received a scholarship I never thought I could get. I’m now thriving in my final year.`,
+    name: 'Amit Verma',
+    role: 'Certified Personal Trainer | Pune',
+    message: `“DantaSports has simplified how I work with my clients. I can create training plans, track
+sessions, schedule workouts, and manage all my clients in one place. I don’t need
+spreadsheets or WhatsApp follow-ups anymore. It helps me stay organised and deliver better
+results consistently.”`,
     image: userAvatar,
   },
   {
-    name: 'Ravi Patel',
-    role: 'Cricket United',
-    message: `I never imagined I'd get this much support. From admissions to visa, the tool helped me at every step. Grateful for the opportunity it unlocked for me!`,
+    name: 'Rahul Mehta',
+    role: 'Football Enthusiast | Bengaluru',
+    message: `“I moved to a new city and didn’t know anyone to play with. Through DantaSports, I found
+football games near me, joined sessions with strangers, and eventually made friends. I’ve even
+hosted my own games now. It feels less like an app and more like a real sports community.”`,
     image: userAvatar,
   },
   {
-    name: 'Lina Zhang',
-    role: 'Falcon Flyers',
-    message: `From the moment I signed up, I felt guided. It found three great matches and even helped with documentation and timelines. I'm finally pursuing my dream career!`,
+    name: 'Suresh Patil',
+    role: 'Turf Owner | Mumbai',
+    message: `“What I liked about DantaSports is the no-commission approach. Onboarding was simple,
+and the dashboard makes it easy to manage bookings, track usage, and handle
+customers without manual calls. It feels like software built for venue owners, not against
+them.”
+`,
     image: userAvatar,
   },
   {
@@ -30,25 +39,14 @@ const testimonials = [
     message: `Superb experience! The recommendations were spot-on, and I secured a spot in a top sports university. Totally worth it.`,
     image: userAvatar,
   },
-  {
-    name: 'Emily Smith',
-    role: 'Champion Makers',
-    message: `This tool is a game changer. I got clarity, structure, and support—plus I found a program that was the perfect fit for my career goals.`,
-    image: userAvatar,
-  },
-  {
-    name: 'Tariq Al Habibi',
-    role: 'Desert Hawks',
-    message: `I’ve tried many platforms before, but nothing compares to this. Fast, intuitive, and incredibly accurate with matching me to the right opportunities.`,
-    image: userAvatar,
-  },
+
 ];
 
 
 const Testimonials = () => {
 
-      const [currentIndex, setCurrentIndex] = useState(0);
-  const visibleCards = window.innerWidth <= 600 ? 1 : 3; 
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const visibleCards = window.innerWidth <= 600 ? 1 : 3;
 
   const next = () => {
     setCurrentIndex((prev) =>
@@ -72,7 +70,7 @@ const Testimonials = () => {
     <section className="testimonials-section">
       <h2>Testimonials</h2>
       <div className="testimonials-wrapper">
-      {visibleTestimonials.map((testimonial, index) => (
+        {visibleTestimonials.map((testimonial, index) => (
           <div className="testimonial-card" key={index}>
             <div className="testimonial-header">
               <img src={testimonial.image} alt={testimonial.name} />
@@ -86,8 +84,8 @@ const Testimonials = () => {
         ))}
       </div>
       <div className="testimonial-controls">
-        <button onClick={prev}><img src={leftArrow}/></button>
-        <button onClick={next}><img src={rightArrow}/></button>
+        <button onClick={prev}><img src={leftArrow} /></button>
+        <button onClick={next}><img src={rightArrow} /></button>
       </div>
     </section>
   );

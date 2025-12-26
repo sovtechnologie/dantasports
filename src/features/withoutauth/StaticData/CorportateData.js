@@ -4,25 +4,25 @@ import image from "../assets/free 1.png";
 export const benefits = [
   {
     title: "Boost Team Spirit",
-    subtitle: "When you play together, you work better together",
+    subtitle: "Sports-driven engagement builds stronger collaboration and morale across teams.",
     highlight: "Team Spirit",
     icon: image, // Replace with your image path or component
   },
   {
-    title: "Supercharge Productivity",
-    subtitle: "Physical activity isn’t just fun. It’s fuel for the brain!",
+    title: "Improve",
+    subtitle: "Regular physical activity supports focus, energy, and performance at work.",
     highlight: "Productivity",
     icon: image,
   },
   {
-    title: "Reduces Stress Levels",
-    subtitle: "Ever notice how a good workout feels like hitting the reset button.",
-    highlight: "Stress Levels",
+    title: "Reduce ",
+    subtitle: "Structured sports programs act as a natural reset for mental well-being.",
+    highlight: "Stress & Burnout",
     icon: image,
   },
   {
-    title: "Enhance Company Culture",
-    subtitle: "A company that plays together, stays together!",
+    title: "Strengthen",
+    subtitle: "Teams that play together build lasting connections beyond the workplace.",
     highlight: "Company Culture",
     icon: image,
   },

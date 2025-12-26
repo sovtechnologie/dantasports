@@ -1,21 +1,8 @@
-
-
-.Corporate-main-Container {
-  display: flex;
-  flex-direction: column;
-}
-
-#box_shadow {
-
-  box-shadow: 0px 4px 4px 0px #1163C740;
-
-}
-
 .Corporate-header {
   display: flex;
   flex-direction: row;
   background-color: #ffffff;
-  padding: clamp(30px, 3.47vw, 50px) clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
+  padding: 60px 0;
   gap: clamp(6px, 0.694vw, 10px);
   flex-wrap: nowrap;
 }
@@ -125,15 +112,10 @@
   border-radius: 8px;
 }
 
-.datastat-wrapper {
-  margin-top: 40px;
-  margin-bottom: 40px;
-  padding: 0px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
-}
+
 
 .mission-vision-section {
-  padding: clamp(30px, 3.47vw, 40px) clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
-  background-color: #fff;
+  margin: 60px 0;
 }
 
 
@@ -184,15 +166,29 @@
   letter-spacing: clamp(0.2px, 0.0285vw, 0.41px);
 
   vertical-align: middle;
-  color: #333; /* or any preferred color */
-  margin: 0;
+  color: #333;
+  /* or any preferred color */
+  margin: normal;
 }
 
-.DownloadApp-wrapper .downloads_container::after{
+.DownloadApp-wrapper .downloads_container::after {
 
   top: -80px;
 }
 
+@media screen and (max-width: 767px) {
+
+  .mission-vision-section {
+    margin: 30px 0;
+  }
+
+  .Corporate-header {
+
+    padding: 30px 0;
+  }
+
+
+}
 
 
 @media (max-width: 530px) {
@@ -206,12 +202,15 @@
     max-width: 100%;
     height: clamp(200px, 26.7vw, 385px);
   }
+
   .content-block {
     flex-direction: column;
   }
+
   .content-block.reverse {
     flex-direction: column;
   }
+
   .content-image {
     width: 100%;
   }

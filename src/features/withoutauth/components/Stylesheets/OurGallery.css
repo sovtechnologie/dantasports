@@ -19,11 +19,11 @@
 
 .gallery-cards {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   gap: 10px;
   flex-wrap: wrap;
   margin-bottom: 20px;
-  padding: 20px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
+  /* padding: 20px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem); */
 }
 
 .gallery-card {

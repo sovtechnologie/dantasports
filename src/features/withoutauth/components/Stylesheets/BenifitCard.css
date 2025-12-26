@@ -1,12 +1,9 @@
 .carousel-card-container {
   width: 100%;
   overflow: hidden;
-  /* padding: 20px; */
   padding: 0 clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
-  /* margin-top: clamp(25px, 2.78vw, 40px); */
   margin-bottom: clamp(25px, 2.78vw, 40px);
   box-sizing: border-box;
-  background-color: #F1F3F2;
   padding: 30px 0;
 }
 
@@ -23,7 +20,7 @@
 }
 
 .card {
-  min-width: 360px;
+  /* min-width: 360px; */
   /* max-width: 300px; */
   background: white;
   border: 1px solid #ccc;
@@ -32,8 +29,8 @@
   padding: 10px;
   text-align: center;
   flex-shrink: 0;
-  height: clamp(180px, 13.46vw, 194px);
-  width: clamp(260px, 15.24vw, 277px);
+  height: clamp(180px, 14.46vw, 230px);
+  /* width: clamp(260px, 15.24vw, 277px); */
   display: flex;
   flex-direction: column;
   gap: 16px;

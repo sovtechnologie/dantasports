@@ -1,15 +1,3 @@
-/* body {
-  font-family: "Segoe UI", sans-serif;
-  background: #f1f3f2;
-  color: #333;
-  margin: 0;
-  padding: 0;
-} */
-
-body{
-
-  overflow-x: hidden;
-}
 
 
 .corporate_events .card {
@@ -35,13 +23,10 @@ body{
   display: flex;
   gap: clamp(6px, 0.694vw, 10px);
   flex-direction: row;
-  background-color: #ffffff;
-  /* width: 100%; */
   border-radius: 0 0 clamp(30px, 4.17vw, 60px) clamp(30px, 4.17vw, 60px);
-  padding: clamp(30px, 3.47vw, 50px) clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
-  /* border-top: 2px solid #1163c7; */
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
   flex-wrap: nowrap;
+  justify-content: space-between;
+  padding: 60px 0;
 }
 
 .header-left h1 {
@@ -62,7 +47,7 @@ body{
   margin-bottom: clamp(6px, 0.694vw, 10px);
   color: #757575;
   font-weight: 400;
-  max-width: 350px;
+  max-width: 550px;
   letter-spacing: 0.41px;
 }
 
@@ -144,9 +129,10 @@ body{
   background-color: #1163c7;
 }
 
-.corporate-booking h1 {
+.corporate-booking h2 {
   text-align: center;
-  margin: 20px 0;
+  padding-top: 20px;
+  /* margin: 20px 0; */
   font-family: "Lato", sans-serif;
   font-weight: 700;
   font-size: clamp(27px, 4.33vw, 48px);
@@ -156,7 +142,7 @@ body{
 }
 
 /* Color the span inside h1 */
-.corporate-booking h1 span {
+.corporate-booking h2 span {
   color: #1163c7;
 }
 
@@ -164,10 +150,10 @@ body{
   display: flex;
   flex-direction: row;
   background-color: #ffffff;
-  padding: 50px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
+  padding: 50px 0;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
   flex-wrap: nowrap;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   gap: 30px;
 }
 
@@ -195,43 +181,31 @@ body{
   max-width: 100%;
 } */
 
-.right-sport-event h1 {
+.right-sport-event h2 {
   font-family: "Lato", sans-serif;
-  font-size: clamp(20px, 3.33vw, 48px);
+  font-size: clamp(20px, 3.33vw, 40px);
   font-weight: 700;
   color: #1d2b4f;
 }
 
-.right-sport-event h1 span {
+.right-sport-event h2 span {
   color: #1163c7;
 }
 
 .right-sport-event p {
   font-size: 1.1rem;
-  margin-top: 10px;
   color: #000000;
   max-width: clamp(200px, 42vw, 607px);
   font-family: 'DM Sans';
   font-weight: 400;
-  font-size: clamp(16px, 1.67vw, 24px);
+  font-size: clamp(16px, 1.67vw, 18px);
   line-height: clamp(10px, 3.25vw, 1.8rem);
   letter-spacing: clamp(0.2px, 0.0285vw, 0.41px);
-  vertical-align: middle;
 }
 
-.corporate-service-container {
-  display: flex;
-  justify-content: center;
-  /* Horizontally center */
-  align-items: center;
-  /* Vertically center */
-  text-align: center;
-  margin: 20px 0;
-  /* Top and bottom margin */
-  padding: 20px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
-}
 
-.corporate-service-container h1 {
+
+.corporate-service-container h2 {
   font-family: "Lato", sans-serif;
   font-weight: 700;
   font-size: clamp(27px, 3.33vw, 48px);
@@ -242,7 +216,7 @@ body{
   /* Remove default h1 margin if needed */
 }
 
-.corporate-service-container h1 span {
+.corporate-service-container h2 span {
   color: #1163c7;
   /* Blue color for span */
 }
@@ -320,6 +294,17 @@ body{
   margin-top: clamp(16px, 2.78vw, 40px);
   margin-bottom: clamp(16px, 2.78vw, 40px);
   padding: 0 clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
+}
+
+@media screen and (max-width: 767px) {
+  .Corporate-header{
+
+    padding: 30px 0;
+  }
+  .Corporate-sport-event{
+
+    padding: 25px 0;
+  }
 }
 
 @media (max-width: 530px) {

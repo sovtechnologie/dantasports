@@ -19,7 +19,7 @@ const DantaStats = () => {
       <div className="danta-overlay">
         <h2 className="stats-heading">Danta Stats</h2>
         <p className="stats-subheading">
-          "Where the Crowd Competes and Legends Are Born"
+         "Where the crowd competes, connects, and grows together"
         </p>
         <div className="stats-grid">
           {stats.map((stat, index) => (

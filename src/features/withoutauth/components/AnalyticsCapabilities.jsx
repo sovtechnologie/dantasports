@@ -26,11 +26,14 @@ const analyticsFeatures = [
 
 const AnalyticsCapabilities = () => {
     return (
-        <section className="analytics-section">
-            <div className="analytics-image">
-                <img src={phonesImage2} alt="Analytics App Preview" />
+        <section className="row">
+            <div className="col-lg-6 col-md-6 col-10 m-auto">
+                <div className="analytics-image d-none d-lg-block">
+                <img src={phonesImage2} className="w-100 h-100" alt="Analytics App Preview" />
+               </div>
             </div>
-            <div className="analytics-content">
+            <div className="col-lg-6 col-md-6 col-12">
+                <div className="analytics-content">
                 <h2>
                     Unlocking Advanced <br />
                     <span className="highlight">Analytics Capabilities</span>
@@ -48,6 +51,9 @@ const AnalyticsCapabilities = () => {
                 </ul>
 
             </div>
+            </div>
+            
+            
         </section>
     );
 };
