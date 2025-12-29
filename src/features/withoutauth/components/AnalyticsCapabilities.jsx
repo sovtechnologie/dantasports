@@ -28,7 +28,7 @@ const AnalyticsCapabilities = () => {
     return (
         <section className="row">
             <div className="col-lg-6 col-md-6 col-10 m-auto">
-                <div className="analytics-image d-none d-lg-block">
+                <div className="analytics-image d-none d-lg-block d-md-block">
                 <img src={phonesImage2} className="w-100 h-100" alt="Analytics App Preview" />
                </div>
             </div>

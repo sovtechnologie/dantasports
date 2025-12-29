@@ -57,7 +57,7 @@ function CoachSection() {
               </div>
             </div>
             <div className="col-lg-6 col-md-6 col-10 m-auto">
-              <div className="analytics-image d-none d-lg-block">
+              <div className="analytics-image ">
                 <img
                   src={CoachDashboard}
                   className="w-100 h-100"
@@ -67,8 +67,8 @@ function CoachSection() {
             </div>
           </div>
             <div className="row">
-                <div className="col-lg-6 col-md-6 col-10 m-auto">
-              <div className="analytics-image d-none d-lg-block">
+                <div className="col-lg-6 col-md-6 col-10 m-auto d-none d-lg-block">
+              <div className="analytics-image ">
                 <img
                   src={gym}
                   className="w-100 h-100"
@@ -133,7 +133,7 @@ function CoachSection() {
               </div>
             </div>
             <div className="col-lg-6 col-md-6 col-10 m-auto">
-                <div className="analytics-image d-none d-lg-block">
+                <div className="analytics-image">
                     <img
                     src={runevents}
                     className="w-100 h-100"

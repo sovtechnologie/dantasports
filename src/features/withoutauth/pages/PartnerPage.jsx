@@ -75,7 +75,7 @@ function PartnerPage() {
                 </div>
                 <div className="container">
                     <div className='row'>
-                        <div className="col-12  m-auto">
+                        <div className="col-12">
                             <AnalyticsCapabilities />
                         </div>
                     </div>
