@@ -82,11 +82,11 @@ const CorporateBookingForm = () => {
         <div className="form-left">
           <h2>Talk to Our Team</h2>
           <p>For a customized proposal as per your needs.</p>
-          <hr/>
+          <hr />
           <ul>
-            <li><img src={checkOutIcon}  alt='check it'/> Trusted By Some Of The Biggest Corporates In Industry</li>
-            <li><img src={checkOutIcon} alt='check it'/> 1500+ Venues</li>
-            <li><img src={checkOutIcon} alt='check it'/> 60+ Cities</li>
+            <li><img src={checkOutIcon} alt='check it' /> Trusted By Some Of The Biggest Corporates In Industry</li>
+            <li><img src={checkOutIcon} alt='check it' /> 1500+ Venues</li>
+            <li><img src={checkOutIcon} alt='check it' /> 60+ Cities</li>
           </ul>
         </div>
         <form className="form-right" onSubmit={handleSubmit}>

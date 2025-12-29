@@ -1,16 +1,16 @@
-.Corporate-header {
+/* .Corporate-header {
   display: flex;
   flex-direction: row;
   background-color: #ffffff;
   padding: 60px 0;
   gap: clamp(6px, 0.694vw, 10px);
   flex-wrap: nowrap;
-}
+} */
 
-.header-left {
+/* .header-left {
   flex: 1;
   min-width: 0;
-}
+} */
 
 .header-left h1 {
   font-size: clamp(24px, 4.44vw, 64px);
@@ -30,7 +30,7 @@
   margin-bottom: clamp(6px, 0.694vw, 10px);
   color: #757575;
   font-weight: 400;
-  max-width: 558px;
+  /* max-width: 558px; */
   letter-spacing: 0.41px;
 }
 

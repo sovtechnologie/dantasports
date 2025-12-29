@@ -201,6 +201,11 @@
 
 @media screen and (max-width: 991px) {
 
+    .dawnload_app_section .container{
+
+    padding: 15px;
+  }
+
   .dawnload_app_section{
 
     margin: 40px 10px;

@@ -5,6 +5,8 @@ import icon from "../assets/homebanner/icon.svg";
 import blueArrow from "../assets/homebanner/blue-arrow.svg";
 import white from "../assets/homebanner/white-arrow.svg";
 import bannerimg from "../assets/homebanner/banner-img.png";
+// import bannervdo from "../assets/homebanner/bannervdo.mp4";
+import bannervdo from "../assets/homebanner/banner-img.gif";
 import bannercard from "../assets/homebanner/bannercards.png";
 
 
@@ -54,7 +56,7 @@ function HomeBanner() {
                   Join India’s fastest growing fitness community.
                 </p>
                 <p>Play, host, run, train and compete with local teams - together, stronger.</p>
-               
+
                 <p> We Move as One. Keep India Fit.</p>
               </div>
 
@@ -75,7 +77,15 @@ function HomeBanner() {
 
             <Col lg={5} md={7} className="text-end m-auto">
               <div className="img_container">
-                <img className="w-100 h-100" src={bannerimg} alt="" />
+                {/* <video
+                  className="w-100 h-100"
+                  src={bannervdo}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                /> */}
+                <img src={bannervdo} className="w-100" alt="" />
               </div>
             </Col>
           </Row>

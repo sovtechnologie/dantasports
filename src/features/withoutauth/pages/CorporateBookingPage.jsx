@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import '../Stylesheets/CorporateBookingPage.css';
 import caroselImage from "../assets/carousel-image1.png";
-import caroselImage2 from "../assets/carousel-image2.png";
+import banner from "../assets/icons/CorporateBooking-banner.png";
+import CorporateBooking from "../assets/icons/CorporateBooking.png";
 import SportEventImage from "../assets/Sport-event-image.png";
 import BenefitCard from '../components/BenefitCard';
 import SportEventCardList from '../components/SportEventCardList';
@@ -12,30 +13,17 @@ import DownloadAppSection from '../../../components/DownloadAppSection.jsx';
 
 
 
-const images = [
-  caroselImage,
-  caroselImage2,
-  caroselImage,
-  caroselImage2,
-];
+
 
 function CorporateBookingPage() {
-  const [currentImage, setCurrentImage] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % images.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <>
       <section>
 
         <div className="container">
-          <div className="Corporate-header">
-            <div className="header-left">
+          <div className="Corporate-header row">
+            <div className="header-left col-lg-6 col-md-6 col-12">
               <h1>
                 Let Us Take Charge of <br />
                 <span>Your Employee Wellness</span>
@@ -49,13 +37,8 @@ events, venue bookings, and long-term activity programs-without operational over
               </div>
             </div>
 
-            <div className="header-right">
-              <img src={images[currentImage]} alt="Corporate Wellness" className="carousel-img" />
-              <div className="pagination-dots">
-                {images.map((_, i) => (
-                  <span key={i} className={`dot ${i === currentImage ? 'active' : ''}`} />
-                ))}
-              </div>
+            <div className="header-right col-lg-4 m-auto col-md-6 col-8">
+              <img className='w-100' src={banner} alt="" />
             </div>
           </div>
         </div>
@@ -76,12 +59,14 @@ events, venue bookings, and long-term activity programs-without operational over
 
 
 
-        <div className="container">
-          <div className="Corporate-sport-event">
-          <div className="left-sport-event">
-            <img src={SportEventImage} alt="Corporate Wellness" className="carousel-sport-img" />
+        <div className="container my-lg-5 my-4">
+          <div className="Corporate-sport-event row">
+          <div className="col-lg-4 col-md-6 col-8 m-auto">
+            <div className="left-sport-event">
+            <img src={CorporateBooking} alt="Corporate Wellness" className="w-100" />
           </div>
-          <div className="right-sport-event">
+          </div>
+          <div className="right-sport-event col-lg-6 col-md-6 col-12">
             <h2>
               Corporate Sports Events, 
               <span>End-to-End</span>

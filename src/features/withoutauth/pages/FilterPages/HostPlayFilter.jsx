@@ -270,10 +270,10 @@ export default function HostPlayFilterPage() {
                         </span>
                       </div>
 
-                      <div className="card_line2"></div>
+                      {/* <div className="card_line2"></div>
                       <div className="offer">
                         <a onClick={handleClick}>Join Now</a>
-                      </div>
+                      </div> */}
                     </Card>
                   </Col>
                 ))

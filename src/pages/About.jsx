@@ -1,33 +1,25 @@
 import React, { useEffect, useState } from "react";
 import "../stylesheets/About.css";
 
-import caroselImage from "../assets/carousel-image1.png";
-import caroselImage2 from "../assets/carousel-image2.png";
+import about from "../assets/aboutus/about-banner.jpeg";
 import DantaStats from "../components/DantaStats";
 import visionImg from "../assets/Mission-Image.png";
 import CultureValues from "../components/CultureValues";
 import Testimonials from "../components/Testimonials";
 import DownloadAppSection from "../components/DownloadAppSection";
 import { Col, Container, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-const images = [caroselImage, caroselImage2, caroselImage, caroselImage2];
 
 function About() {
-  const [currentImage, setCurrentImage] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % images.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
   return (
     <>
       <section>
         <div>
           <div className="container">
-            <div className="Corporate-header">
-              <div className="header-left">
+            <div className="Corporate-header row my-lg-5 my-md-4 my-3">
+              <div className="header-left col-lg-6 col-md-6 col-12">
                 <h1>
                   Building India’s Largest
                   <br />
@@ -42,26 +34,17 @@ function About() {
                   stay active consistently, and grow together on and off the field
                 </p>
                 <div className="button-group">
-                  <button className="primary-btn">Get Started </button>
+                  <Link to={"/"}>
+                     <button className="primary-btn">Get Started </button>
+                  </Link>
                   <button className="secondary-btn"> Book a Venue</button>
                 </div>
               </div>
 
-              <div className="header-right">
-                <img
-                  src={images[currentImage]}
-                  alt="Corporate Wellness"
-                  className="carousel-img"
-                />
-                <div className="pagination-dots">
-                  {images.map((_, i) => (
-                    <span
-                      key={i}
-                      className={`dot ${i === currentImage ? "active" : ""}`}
-                    />
-                  ))}
-                </div>
+              <div className="col-lg-6 col-md-6 col-8 m-auto">
+                  <img className="w-100" src={about} alt="" />
               </div>
+              
             </div>
           </div>
           <div className="container">
