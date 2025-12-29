@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import "../stylesheets/layouts/Navbar.css";
 import { isIOS, isAndroid } from "react-device-detect";
-import whiteLogo from "../assets/sportdantaLogo/whiteLogo.svg";
+import whiteLogo from "../assets/sportdantaLogo/dantasports-white.png";
 import blueLogo from "../assets/sportdantaLogo/blueLogo.svg";
 import userLogo from "../assets/UserLogo.png";
 import arrowlogo from "../assets/arrowlogo.png";

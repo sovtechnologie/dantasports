@@ -5,7 +5,7 @@ import icon from "../assets/homebanner/icon.svg";
 import blueArrow from "../assets/homebanner/blue-arrow.svg";
 import white from "../assets/homebanner/white-arrow.svg";
 import bannerimg from "../assets/homebanner/banner-img.png";
-import bannercard from "../assets/homebanner/banner-cards-img.png";
+import bannercard from "../assets/homebanner/bannercards.png";
 
 
 function HomeBanner() {

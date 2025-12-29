@@ -1,3 +1,7 @@
+
+
+/* new */
+
 .dawnload_app_section {
   
   position: relative;
@@ -9,7 +13,7 @@
      border-radius: 20px;
 }
 
-.dawnload_app_section .text-content::after {
+.dawnload_app_section .container::after {
   content: "";
   background-image: url("/public/assets/Home/line.png");
   position: absolute;
@@ -18,7 +22,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   bottom: 0px;
-  left: 125px;
+  left: 40px;
   z-index: 99;
 }
 
@@ -31,20 +35,22 @@
     background-repeat: no-repeat;
     background-size: cover;
     top: -6px;
-    right: 125px;
+    right: 40px;
 }
 
-.mobile_img {
+
+.dawnload_app_section .mobile_img {
 
   position: absolute;
   width: 480px;
   height: 580px;
   top: -50px;
-  right: 15%;
+  right: 9%;
   z-index: 999;
 }
 
-.mobile_img img {
+
+.dawnload_app_section .mobile_img img {
 
   height: 100%;
   width: 100%;
@@ -154,46 +160,41 @@
 }
 
 
-@media screen and (max-width: 1540px) {
+@media screen and (max-width: 1490px) {
 
-  .dawnload_app_section .text-content::after,
-  .dawnload_app_section .container::before{
+  .dawnload_app_section .container::before,
+  .dawnload_app_section .container::after{
 
     display: none;
   }
-  .mobile_img{
+  .dawnload_app_section .container{
 
-    right: 2%;
+    padding: 30px;
   }
+ 
   
 }
 
-@media screen and (max-width: 1240px) {
+@media screen and (max-width: 1140px) {
 
-  .mobile_img{
+  
+.dawnload_app_section .mobile_img{
 
-    display: none !important;
-  }
-    .downloads_container::before {
-    display: none;
-  }
+  display: none;
+}
+.store-buttons{
 
-  .downloads_container::after {
-    display: none;
-  }
-  .downloads_container::after {
-    height: 472px;
-    width: 380px;
+  margin-bottom: unset;
+}
 
-    top: 0px;
-    right: 0%;
-  }
+
+
+
 
   .download-app-section {
     padding: 30px;
   }
   .dawnload_app_section .container{
-
     padding: 30px;
   }
 }

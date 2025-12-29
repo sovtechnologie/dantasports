@@ -70,8 +70,10 @@ function About() {
 
           <section className="mission-vision-section">
             <div className="container">
-              <div className="content-block">
-                <img src={visionImg} alt="Mission" className="content-image" />
+              <div className="row">
+                <div className="col-lg-6 col-md-6 col-12">
+                    <div className="content-block">
+                {/* <img src={visionImg} alt="Mission" className="content-image" /> */}
                 <div className="text-block">
                   <h3>
                     Our <span className="highlight">Mission</span>
@@ -88,9 +90,10 @@ function About() {
                   </p>
                 </div>
               </div>
-
-              <div className="content-block reverse">
-                <img src={visionImg} alt="Vision" className="content-image" />
+                </div>
+                <div className="col-lg-6 col-md-6 col-12">
+                    <div className="content-block reverse">
+                {/* <img src={visionImg} alt="Vision" className="content-image" /> */}
                 <div className="text-block">
                   <h3>
                     Our <span className="highlight">Vision</span>
@@ -106,6 +109,11 @@ function About() {
                   </p>
                 </div>
               </div>
+                </div>
+              </div>
+             
+
+            
             </div>
           </section>
 
