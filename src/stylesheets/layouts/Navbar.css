@@ -4,6 +4,10 @@
   background-color: #1163C7;
 }
 
+    .navbar-logo {
+        width: 150px;
+        height: 62px;
+    }
 
 .navbar {
   /* width: 100%; */

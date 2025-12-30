@@ -21,14 +21,14 @@ const features = [
     {
         icon: dashboardIcon,
         title: "One Dashboard, Total Control",
-        description: "Centralise tracking for bookings, revenue, and customer data in one user-friendly dashboard."
+        description: "Control bookings, prevent conflicts, and scale your venue without extra costs."
     },
 ];
 
 const FacilityManagement = () => {
     return (
-        <section className="facility-container">
-            <div className="facility-text">
+        <section className="row g-3 py-5">
+            <div className="facility-text col-lg-6 col-md-6 col-12">
                 <h2>
                     Streamlined Facility <br />
                     <span className="highlight">Management Solutions</span>
@@ -47,12 +47,13 @@ const FacilityManagement = () => {
                 </ul>
 
             </div>
-            <div className="facility-image">
-                <img src={phonesImage1} alt="Facility Management App Preview" />
-                {/* <img src={phonesImage1} alt="Facility Management App Preview" />
-                <img src={phonesImage2} alt="Facility Management App Preview" />
-                <img src={phonesImage3} alt="Facility Management App Preview" /> */}
+            <div className="col-lg-6 col-md-6 col-10 m-auto">
+               <div className="facility-image m-auto text-center">
+                <img src={phonesImage1} alt="Facility Management App Preview" className="w-100 h-100" />
+            
             </div>
+            </div>
+           
         </section>
     );
 };

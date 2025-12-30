@@ -11,32 +11,32 @@ const values = [
   {
     icon: ownershipIcon,
     title: 'High Ownership',
-    description: 'We take bold risks, embrace mistakes, and take full ownership of every outcome.',
+    description: 'We take responsibility end-to-end. Every outcome matters.',
   },
   {
     icon: playerIcon,
     title: 'Player Experience Is Paramount',
-    description: 'We exist for our players and our partners.',
+    description: 'it doesn’t serve our players and partners, it doesn’t ship.',
   },
   {
     icon: teamIcon,
     title: 'Team > Individuals',
-    description: 'No individual goals, everything is a team.',
+    description: 'We win together. Growth is collective.',
   },
   {
     icon: innovationIcon,
     title: 'Constant Excellence & Innovation at Speed',
-    description: 'Slowing down is never an option. We push boundaries, delivering top-quality solutions.',
+    description: 'We move fast, learn faster, and build better every day.',
   },
   {
     icon: longTermIcon,
     title: 'Building For The Long Term',
-    description: 'Exceptional execution over days, months, years.',
+    description: 'Short-term wins never come at the cost of long-term trust.',
   },
   {
     icon: detailIcon,
     title: 'Attention To Detail',
-    description: 'The magic is in the details. We focus on perfecting every aspect.',
+    description: 'Great experiences are built in the smallest moments.',
   },
 ];
 

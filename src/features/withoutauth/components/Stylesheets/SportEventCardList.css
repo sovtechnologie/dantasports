@@ -1,23 +1,9 @@
 /* Card list wrapper */
 .sport-event-card-wrapper {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding: clamp(30px, 3.47vw, 50px) clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
-  box-sizing: border-box;
   background-color: #F1F3F2;
 }
 
-.sport-card-list-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  /* gap: 32px; */
-  /* max-width: 1200px; */
-  column-gap: 10px;
-  row-gap: 20px;
-  width: 100%;
-  box-sizing: border-box;
-}
+
 
 .sport-card-cb {
   background-color: #fff;
@@ -26,7 +12,6 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   padding: 20px;
   text-align: center;
-  /* width: clamp(260px, 22.069vw, 361px); */
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -59,24 +44,4 @@
   margin: 0px;
 }
 
-/* 📱 Mobile: scrollable */
-@media (max-width: 1100px) {
-  .sport-card-list-container {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 16px;
-    padding: 0 16px 10px;
-    /* ✅ Hide scrollbar */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE/Edge */
-  }
 
-  .sport-card-list-container::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
-  }
-  .sport-card {
-    flex: 0 0 auto;
-    /* scroll-snap-align: start; */
-  }
-}

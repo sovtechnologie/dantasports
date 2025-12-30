@@ -121,7 +121,7 @@ function BookGym() {
             return (
               <Col xl={3} lg={4} md={6} sm={6} key={gym.id} className="position-relative">
                 <Link to={`/Gym/${gym.Id}`}  className="text-decoration-none">
-                <Card className="d-flex justify-content-between" >
+                <Card >
                   <div className="card_img">
                     <img
                       src={

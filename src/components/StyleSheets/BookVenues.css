@@ -1,7 +1,6 @@
 .book_venue_section .card {
 
-   /* max-height: 450px; */
-   /* min-height: 390px; */
+
    height: 100%;
    border: none;
 
@@ -103,11 +102,11 @@
 
 @media screen and (max-width:767px) {
 
-    .book_venue_section .card {
+    /* .book_venue_section .card {
 
    max-height: 350px;
 
-}
+} */
     
 }
 @media screen and (max-width: 540px) {
@@ -118,12 +117,12 @@
         line-height: 30px;
     }
 
-        .book_venue_section .card {
+        /* .book_venue_section .card {
 
    max-height: unset;
    height: unset;
 
-}
+} */
 
 .text_wrap2{
 

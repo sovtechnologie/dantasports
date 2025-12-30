@@ -2,12 +2,11 @@
 
 .testimonials-section {
   font-family: "DM Sans", sans-serif;
-  padding: clamp(30px, 3.47vw, 40px) clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
   text-align: left;
 }
 
 .testimonials-section h2 {
-  font-size: 24px;
+  font-size: 30px;
   font-weight: 400;
   margin-bottom: 30px;
   font-family: "Lato", sans-serif;

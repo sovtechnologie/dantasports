@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Stylesheets/OurGallery.css';
-import galleryImg from '../assets/OurGalleryImage.png'; // Replace with your actual image
+import galleryImg from '../assets/Gallery/gallery.jpeg'; // Replace with your actual image
 
 const galleryData = Array(30).fill({
     title: 'SRV Media Sports Event',
@@ -31,23 +31,11 @@ const OurGallery = () => {
             </h2>
 
             <div className="gallery-cards">
-                {currentCards.map((item, index) => (
-                    <div
-                        className="gallery-card"
-                        style={{ backgroundImage: `url(${item.image})` }}
-                        key={index}
-                    >
-                        <div className="gallery-overlay">
-                            <h3>{item.title}</h3>
-                            <p>{item.location}</p>
-                        </div>
-                    </div>
-
-                ))}
+               <img className='w-100 rounded-3' src={galleryImg} alt="" />
             </div>
 
-            <hr style={{width:"100%" }} />
-            <div className="gallery-footer">
+            {/* <hr style={{width:"100%" }} /> */}
+            {/* <div className="gallery-footer">
                 <div className="gallery-page-indicator">
                     <span className="page-number">{String(currentPage).padStart(2, '0')}</span> of {totalPages}
                 </div>
@@ -55,7 +43,7 @@ const OurGallery = () => {
                     <button onClick={handlePrev} className="nav-btn">{'←'}</button>
                     <button onClick={handleNext} className="nav-btn">{'→'}</button>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };

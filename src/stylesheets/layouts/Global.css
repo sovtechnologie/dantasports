@@ -240,16 +240,19 @@ button.otp-button {
 
 
 
+
+
  .card_img {
   height: 200px !important; 
   overflow: hidden;
   border-radius: 12px 12px 0 0;
+  width: 100%;
 }
 
 .card_img img{
 
-    height: 100%;
-    width: 100%;
+    height: 100% !important;
+    width: 100% !important;
     object-fit: cover !important;
 
 
@@ -367,7 +370,7 @@ button.otp-button {
 .easy_run{
 
    position: absolute;
-    top: 49%;
+    top: 47%;
     left: 10px;
     background: #0000004D;
     color: white;
@@ -394,7 +397,7 @@ button.otp-button {
 .easy2 {
 
     position: absolute;
-    top: 45%;
+    top: 46%;
     left: 10px;
     background: #0000004D;
     color: white;
@@ -462,13 +465,18 @@ color: #172A39;
 
 @media screen and (max-width: 767px) {
 
+  .easy_events{
+
+    top: 37%;
+  }
+
    .card_img {
 
     height: 180px !important;
    }
    .easy2{
 
-    top: 36%;
+    top: 42%;
    }
    .coach_section_home .trainerbox{
 

@@ -1,10 +1,4 @@
-/* body {
-  font-family: "Segoe UI", sans-serif;
-  background: #f1f3f2;
-  color: #333;
-  margin: 0;
-  padding: 0;
-} */
+
 
 .Partner-main-Container {
   display: flex;
@@ -20,11 +14,12 @@
   background-color: #ffffff;
   /* width: 100%; */
   border-radius: 0 0 clamp(30px, 4.17vw, 60px) clamp(30px, 4.17vw, 60px);
-  padding: clamp(30px, 3.47vw, 50px) clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
+  /* padding: clamp(30px, 3.47vw, 50px) clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);/ */
   /* border-top: 2px solid #1163c7; */
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  /* box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05); */
   gap: clamp(6px, 0.694vw, 10px);
   flex-wrap: nowrap;
+  padding: 60px 0;
 }
 
 .header-left {
@@ -47,7 +42,7 @@
 .header-left p {
   color: #757575;
   font-weight: 400;
-  max-width: 558px;
+  /* max-width: 558px; */
   letter-spacing: 0.41px;
   font-family: "DM Sans", sans-serif;
   font-size: clamp(12px, 1.25vw, 18px);
@@ -130,12 +125,8 @@
 .dot.active {
   background-color: #1163c7;
 }
-.zero-banner-wrapper {
- margin-top: clamp(25px, 2.78vw, 40px);
-  /* margin-bottom: clamp(25px, 2.78vw, 40px); */
-  /* padding: 0 clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);/ */
-  background-color: #F1F3F2;
-}
+
+
 @media (max-width: 530px) {
   .Partner-header {
     flex-direction: column;

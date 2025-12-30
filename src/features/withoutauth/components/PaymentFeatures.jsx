@@ -32,17 +32,22 @@ const bookingFeatures = [
 const PaymentFeatures = () => {
     return (
         <div className="solutions-wrapper">
-            <h2 className="solutions-heading">Streamlined Accounting and <br />
+           <div className="text-center">
+             <h2 className="solutions-heading">Streamlined Accounting and <br />
               <span> Payments Solutions</span></h2>
-            <p>Discover the advantages of efficient financial management</p>
-            <div className="solutions-grid">
+              <p>Discover the advantages of efficient financial management</p>
+           </div>
+            <div className="row g-3">
                 {bookingFeatures.map((feature, index) => (
-                    <div className="solution-card" key={index}>
-                        <img src={iconImage} alt="icon" className="solution-icon" />
+                    <div className="col-lg-6 col-md-6 col-sm-6" key={index}>
+                        <div className="solution-card">
+                          <img src={iconImage} alt="icon" className="solution-icon" />
                         <div>
                             <h4 className="solution-title">{feature.title}</h4>
                             <p className="solution-description">{feature.desc}</p>
                         </div>
+                        </div>
+                       
                     </div>
                 ))}
             </div>

@@ -157,12 +157,12 @@ function PlayHost() {
                     </span>
 
                   </div>
-                  <div className="card_line2"></div>
+                  {/* <div className="card_line2"></div>
                   <div className="offer d-flex justify-content-between align-items-center">
                    <a href="" className="text-decoration-none">
                      Join Now
                    </a>
-                  </div>
+                  </div> */}
                 </Card>
                 </Link>
               </Col>

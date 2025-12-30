@@ -8,12 +8,18 @@ const ZeroCommissionBanner = () => {
       className="zero-banner container"
     //   style={{ backgroundImage: `url(${sectionBanner})` }}
     >
-        {/* <img src={leftsectionBanner} alt='banner' style={{marginLeft:"185px",width:"494px"}}/> */}
-      <div className="zero-banner-content">
-        <h2>
-          Why Pay Heavy Commissions? <span>Go Zero</span>
+      {/* <img src={leftsectionBanner} alt='banner' style={{marginLeft:"185px",width:"494px"}}/> */}
+      <div className="zero-banner-content row justify-content-center ">
+       <div className="col-lg-8 col-12 m-auto py-3 ">
+         <h2 className='text-center'>
+          Why Partner With DantaSports? <br/> <span>Go Digital Without Losing Control
+          </span>
         </h2>
-        <p>Transform Your Booking Experience with Danta</p>
+        <p className='text-center'>Most platforms charge high commissions and lock you into rigid systems. DantaSports offers a
+          vendor-first, commission-light model designed to maximize your earnings and operational
+          efficiency.
+        </p>
+       </div>
       </div>
       {/* <img src={rightsectionBanner} alt='banner'/> */}
     </div>

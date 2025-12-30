@@ -22,6 +22,12 @@ import ProfitImage from "../assets/profit-growth.png";
     highlight: "Profits",
     icon: ProfitImage,
   },
+   {
+    title: "Unified ",
+    subtitle: "Manage your dashboard-bookings, revenue, staff access, and customer data.",
+    highlight: "dashboard",
+    icon: ProfitImage,
+  },
 
 ];
 

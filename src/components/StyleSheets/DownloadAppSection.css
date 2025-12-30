@@ -1,47 +1,62 @@
-.download-app-section {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: white;
-  flex-wrap: wrap;
+
+
+/* new */
+
+.dawnload_app_section {
+  
   position: relative;
-  overflow: hidden;
-  margin-bottom: 20px;
-  background-color: #1163c7;
-  border-radius: 20px;
-  padding: 65px 120px 10px 125px;
-  margin: 100px 0;
+  margin: 100px 10px;
+}
+.dawnload_app_section .container {
+
+   padding: 65px 120px 100px 125px;
+     border-radius: 20px;
 }
 
-.downloads_container {
-  position: relative;
-}
-
-.downloads_container::before {
+.dawnload_app_section .container::after {
   content: "";
   background-image: url("/public/assets/Home/line.png");
   position: absolute;
-  height: 570px;
-  width: 158px;
+  height: 222px;
+  width: 160px;
   background-repeat: no-repeat;
   background-size: cover;
-  bottom: -90px;
-  left: 0px;
+  bottom: 0px;
+  left: 40px;
   z-index: 99;
 }
 
-.downloads_container::after {
+.dawnload_app_section .container::before {
   content: "";
-  background-image: url("/public/assets/Home/iPhone.png");
+  background-image: url("/public/assets/Home/line2.png");
   position: absolute;
-  height: 520px;
-  width: 420px;
-  background-repeat: no-repeat;
-  background-repeat: no-repeat;
-  background-size: cover;
-  top: 30px;
-  right: 5%;
+    height: 222px;
+    width: 250px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    top: -6px;
+    right: 40px;
 }
+
+
+.dawnload_app_section .mobile_img {
+
+  position: absolute;
+  width: 480px;
+  height: 580px;
+  top: -50px;
+  right: 9%;
+  z-index: 999;
+}
+
+
+.dawnload_app_section .mobile_img img {
+
+  height: 100%;
+  width: 100%;
+}
+
+
 
 
 
@@ -144,44 +159,57 @@
   border: 1px solid white;
 }
 
-.image-container img {
-  position: absolute;
-  height: 580px;
-  top: -20px;
-}
 
-.lineicon {
+@media screen and (max-width: 1490px) {
 
-  position: absolute;
-  right: 10px;
-  height: 200px;
-  width: 180px;
-  top: -10px;
+  .dawnload_app_section .container::before,
+  .dawnload_app_section .container::after{
+
+    display: none;
+  }
+  .dawnload_app_section .container{
+
+    padding: 30px;
+  }
+ 
   
 }
 
 @media screen and (max-width: 1140px) {
-    .downloads_container::before {
-    display: none;
-  }
 
-  .downloads_container::after {
-    display: none;
-  }
-  .downloads_container::after {
-    height: 472px;
-    width: 380px;
+  
+.dawnload_app_section .mobile_img{
 
-    top: 0px;
-    right: 0%;
-  }
+  display: none;
+}
+.store-buttons{
+
+  margin-bottom: unset;
+}
+
+
+
+
 
   .download-app-section {
+    padding: 30px;
+  }
+  .dawnload_app_section .container{
     padding: 30px;
   }
 }
 
 @media screen and (max-width: 991px) {
+
+    .dawnload_app_section .container{
+
+    padding: 15px;
+  }
+
+  .dawnload_app_section{
+
+    margin: 40px 10px;
+  }
   .store-buttons {
     margin-bottom: unset;
   }
@@ -193,9 +221,7 @@
 
 
 
-  .download-app-section {
-    margin: 20px 0;
-  }
+
 }
 
 @media screen and (max-width: 768px) {

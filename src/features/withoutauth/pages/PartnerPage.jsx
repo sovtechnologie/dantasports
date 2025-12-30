@@ -10,6 +10,10 @@ import AnalyticsCapabilities from '../components/AnalyticsCapabilities.jsx';
 import PaymentSolutions from '../components/PaymentSolutions.jsx';
 import PaymentFeatures from '../components/PaymentFeatures.jsx';
 import OnboardingSupport from '../components/OnboardingSupport.jsx';
+import PartnerWithUs from '../components/PartnerWithUs.jsx';
+import Ready from '../components/Ready.jsx';
+import CoachSection from '../components/CoachSection.jsx';
+import CorporateBookingForm from '../components/CorporateBookingForm.jsx';
 
 
 const images = [
@@ -31,54 +35,78 @@ function PartnerPage() {
 
 
     return (
-        <div className="Partner-main-Container">
-            <div className="Partner-header">
-                <div className="header-left">
-                    <h1>
-                        Transform Your Sports <br />
-                        <span>Club Digitally at Danta</span>
-                    </h1>
-                    <p className='pt-lg-5'>Join the 3,000+ facilities nationwide using Dantasports.com
-                        Do you operate sports facilities or events? Click Become A Partner or Book a Call to find out how Dantasports can help you</p>
-                    <div className="button-group pt-lg-4">
-                        <button className="primary-btn-one">Request a Demo</button>
-                        <button className="secondary-btn-two">Book a Call With Us</button>
+        <>
+            <section>
+                <div className="container">
+                    <div className="Partner-header">
+                        <div className="header-left">
+                            <h1>
+                                Grow Your Sports Business. <br />
+                                <span>Zero Heavy Commissions.</span>
+                            </h1>
+                            <p className='pt-lg-5'>Transform how you manage bookings, clients, and revenue with India’s fastest-growing sports &
+                                fitness platform.
+                            </p>
+                            <p>DantaSports is built for sports venue owners, gym operators, coaches, trainers, and event
+                                organizers who want to grow digitally without losing margins to high commissions. We provide
+                                powerful SaaS tools, discovery visibility, and a community-driven marketplace-so you stay in
+                                control while scaling faster.</p>
+                            <div className="button-group pt-lg-4">
+                                <button className="primary-btn-one">Request a Demo</button>
+                                <button className="secondary-btn-two">Book a Call With Us</button>
+                            </div>
+                        </div>
+
+                    
+                    </div>
+                </div>
+                <section style={{ background: "#F1F3F2" }} className='pt-4 pt-lg-5 pb-lg-5 pb-4'>
+                    <div className="zero-banner-wrapper">
+                        <ZeroCommissionBanner />
+                    </div>
+                    <div className='partner-carousel'>
+                        <BenefitCard benefits={partnerData} />
+                    </div>
+                </section>
+
+                <div className="container">
+                    <div className='partner-facility'>
+                        <FacilityManagement />
+                    </div>
+                </div>
+                <div className="container">
+                    <div className='row'>
+                        <div className="col-12">
+                            <AnalyticsCapabilities />
+                        </div>
+                    </div>
+                    <div className="row my-lg-5 my-4">
+                        <div className="col-12">
+                            <CoachSection/>
+                        </div>
                     </div>
                 </div>
 
-                <div className="header-right">
-                    <img src={images[currentImage]} alt="Corporate Wellness" className="carousel-img" />
-                    <div className="pagination-dots">
-                        {images.map((_, i) => (
-                            <span key={i} className={`dot ${i === currentImage ? 'active' : ''}`} />
-                        ))}
+                <section style={{ background: "#F1F3F2" }} className='my-lg-5 my-4 py-lg-5 py-4'>
+                    <div className="container">
+                        <div className='partner-payment'>
+                            <PaymentSolutions />
+                        </div>
+                        <div className='partner-payment'>
+                            <PaymentFeatures />
+                        </div>
                     </div>
+                </section>
+                <div className='container'>
+                    <OnboardingSupport />
                 </div>
-            </div>
-
-            <div className="zero-banner-wrapper pt-4 pt-lg-5">
-                <ZeroCommissionBanner />
-            </div>
-
-            <div className='partner-carousel'>
-                <BenefitCard benefits={partnerData}/>
-            </div>
-            <div className='partner-facility'>
-                <FacilityManagement />
-            </div>  
-             <div className='partner-Analytics'>
-                <AnalyticsCapabilities />
-            </div>
-            <div className='partner-payment'>
-                <PaymentSolutions />
-            </div>
-            <div className='partner-payment'>
-                <PaymentFeatures />
-            </div>
-            <div className='partner-facility'>
-                <OnboardingSupport />
-            </div>
-        </div>
+                <PartnerWithUs/>
+                <Ready/>
+             <div className="mt-5">
+             <CorporateBookingForm />
+           </div>
+            </section>
+        </>
     )
 }
 
