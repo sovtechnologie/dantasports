@@ -21,19 +21,19 @@ function Ready() {
 
               <div className="mt-3">
                 <Link
-                  to="/request-demo"
+                  to=""
                   className="btn btn-light rounded-pill px-4 py-2 fw-semibold m-2" style={{color: "#1163C7"}}
                 >
                   Request a Demo
                 </Link>
                  <Link
-                  to="/request-demo"
+                  to=""
                   className="btn btn-light rounded-pill px-4 py-2 fw-semibold m-2"style={{color: "#1163C7"}}
                 >
                  Book a Call With Us
                 </Link>
                  <Link
-                  to="/request-demo"
+                  to=""
                   className="btn btn-light rounded-pill px-4 py-2 fw-semibold m-2"style={{color: "#1163C7"}}
                 >
                   Become a Partner
