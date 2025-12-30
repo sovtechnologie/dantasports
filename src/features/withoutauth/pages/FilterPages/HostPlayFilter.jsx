@@ -17,6 +17,7 @@ import PageSearch from "../../components/PageSearch";
 import sortIcon from "../../assets/icons/sort.svg";
 import OngoingEvents from "../../components/OngoingEvents.jsx";
 import { useBanner } from "../../../../hooks/useBanner.js";
+import { Link } from "react-router-dom";
 
 function formatTime(timeStr = "00:00") {
   const [h, m] = timeStr.split(":").map(Number);
@@ -210,6 +211,8 @@ export default function HostPlayFilterPage() {
               {visibleHosts.length > 0 ? (
                 visibleHosts.map((host) => (
                   <Col lg={6} xl={4} md={6} key={host.id}>
+                    <Link onClick={handleClick} className="text-decoration-none">
+                   
                     <Card className="card card_payhost">
                       <div className="badge_label mb-2">
                         <p>{ACTIVITY_TYPE_LABEL[host.activity_type] || "Regular"}</p>
@@ -275,6 +278,7 @@ export default function HostPlayFilterPage() {
                         <a onClick={handleClick}>Join Now</a>
                       </div> */}
                     </Card>
+                    </Link>
                   </Col>
                 ))
               ) : (
