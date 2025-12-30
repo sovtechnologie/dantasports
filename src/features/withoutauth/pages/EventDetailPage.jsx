@@ -249,6 +249,8 @@ export default function EventDetailPage() {
   useEffect(() => {
     if (!price || price === 0) {
       setFinalAmount(0);
+      setConvenienceFee(0);
+      setTotalPrice(0);
       return;
     }
 

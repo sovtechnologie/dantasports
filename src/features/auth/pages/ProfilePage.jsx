@@ -107,91 +107,91 @@ function ProfilePage() {
     { label: 'Log out', icon: LogoutIcon, action: handleLogout }
   ];
 
-  if (isFetching) return <p>Loading profile...</p>;
-  if (!profile) return <p>Error loading profile data.</p>;
+  // if (isFetching) return <p>Loading profile...</p>;
+  // if (!profile) return <p>Error loading profile data.</p>;
 
   return (
     <>
       {/* <TawkLoader /> */}
-      <section className='pt-3 pb-3 pt-lg-5 pb-lg-5 profile_section' style={{background:"#F1F3F2"}}>
+      <section className='pt-3 pb-3 pt-lg-5 pb-lg-5 profile_section' style={{ background: "#F1F3F2" }}>
         <Container>
           <Row>
             <Col className='col-12 tite'>
-            <h2 className='mb-lg-5 mb-3'>Profile</h2>
-          </Col>
+              <h2 className='mb-lg-5 mb-3'>Profile</h2>
+            </Col>
           </Row>
-        <Row className='g-3'>
-          
-          <Col xl={5} lg={4} md={6}>
-            <aside className="sidebar">
-              <div className="user-card">
-                <div className="user-card-left">
-                  <img src={ProfileImage} alt="User" className="user-avatar" />
-                  <div className="user-info">
-                    <div className="user-name">{profile?.full_name || "Noel Jacob"}</div>
-                    <div className="user-email">{profile?.email || "noeljacob@gmail.com"}</div>
-                    <div className="user-phone">{profile?.mobile_number || "+919898989898"}</div>
+          <Row className='g-3'>
+
+            <Col xl={5} lg={4} md={6}>
+              <aside className="sidebar">
+                <div className="user-card">
+                  <div className="user-card-left">
+                    <img src={profile?.profile_image} alt="User" className="user-avatar" />
+                    <div className="user-info">
+                      <div className="user-name">{profile?.full_name || "Noel Jacob"}</div>
+                      <div className="user-email">{profile?.email || "noeljacob@gmail.com"}</div>
+                      <div className="user-phone">{profile?.mobile_number || "+919898989898"}</div>
+                    </div>
+                  </div>
+                  <div className="user-card-right">
+                    <img
+                      src={EditIcon}
+                      alt="edit profile"
+                      className="edit-icon"
+                      onClick={() => navigate(`/profile/${id}/edit-profile`)}
+                      style={{ cursor: "pointer" }}
+                    />
                   </div>
                 </div>
-                <div className="user-card-right">
-                  <img
-                    src={EditIcon}
-                    alt="edit profile"
-                    className="edit-icon"
-                    onClick={() => navigate(`/profile/${id}/edit-profile`)}
-                    style={{ cursor: "pointer" }}
-                  />
-                </div>
-              </div>
-              <div className="booking_links">
-                <div className="inner">
-                  <div className="account-card">
-                  {options.map((option, index) => (
+                <div className="booking_links">
+                  <div className="inner">
+                    <div className="account-card">
+                      {options.map((option, index) => (
 
-                    <NavLink
-                      to={`/profile/:id/${option.route || 'bookings'}`}
-                      key={index}
-                      className={({ isActive }) =>
-                        isActive ? "account-option active-tab" : "account-option"
-                      }>
+                        <NavLink
+                          to={`/profile/:id/${option.route || 'bookings'}`}
+                          key={index}
+                          className={({ isActive }) =>
+                            isActive ? "account-option active-tab" : "account-option"
+                          }>
 
-                      <div className="account-left">
-                        <img src={option.icon} className="account-icon" />
-                        <span className="account-label">{option.label}</span>
-                      </div>
-                      <div className="account-arrow">›</div>
-                    </NavLink>
-                  ))}
-                </div>
-                <div className="account-card">
-                  {options2.map((option, index) => (
-                    <div
-                      key={index}
-                      className="account-option"
-                      onClick={option.action || null}
-                      style={{ cursor: option.action ? 'pointer' : 'default' }}
-                    >
-                      <div className="account-left">
-                        <img src={option.icon} className="account-icon" />
-                        <span className="account-label">{option.label}</span>
-                      </div>
-                      <div className="account-arrow">›</div>
+                          <div className="account-left">
+                            <img src={option.icon} className="account-icon" />
+                            <span className="account-label">{option.label}</span>
+                          </div>
+                          <div className="account-arrow">›</div>
+                        </NavLink>
+                      ))}
                     </div>
-                  ))}
+                    <div className="account-card">
+                      {options2.map((option, index) => (
+                        <div
+                          key={index}
+                          className="account-option"
+                          onClick={option.action || null}
+                          style={{ cursor: option.action ? 'pointer' : 'default' }}
+                        >
+                          <div className="account-left">
+                            <img src={option.icon} className="account-icon" />
+                            <span className="account-label">{option.label}</span>
+                          </div>
+                          <div className="account-arrow">›</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-                </div>
-              </div>
 
-            </aside>
-          </Col>
-          <Col xl={7} lg={8} md={6}>
-            <main className="main-content">
+              </aside>
+            </Col>
+            <Col xl={7} lg={8} md={6}>
+              <main className="main-content">
 
-              <Outlet context={{ id }} />
-            </main>
-          </Col>
-        </Row>
-      </Container>
+                <Outlet context={{ id }} />
+              </main>
+            </Col>
+          </Row>
+        </Container>
       </section>
 
     </>

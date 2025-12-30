@@ -212,6 +212,32 @@ export default function EventFilterPage() {
   }, [eventList, search, filters, selectedSports, selectedDistance, selectedDate, selectedDifficulty, selectedAmenities]);
 
 
+  const handleShareClick = async (evt) => {
+    const shareUrl = `${window.location.origin}/events/${evt.id}`;
+
+    const shareData = {
+      title: evt.event_title,
+      text: evt.description || "Check out this event!",
+      url: shareUrl,
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(
+          `${evt.event_title} - ${shareUrl}`
+        );
+        alert("Event link copied to clipboard!");
+      }
+    } catch (err) {
+      console.error("Share failed:", err);
+      alert("Unable to share this event.");
+    }
+  };
+
+
+
   if (isLoading) return <VenueListShimmer />;
   if (isError) return <div>Error loading events: {error?.message}</div>;
 
@@ -415,7 +441,7 @@ export default function EventFilterPage() {
                             <button
                               onClick={(e) => {
                                 e.stopPropagation();
-                                Share();
+                                handleShareClick(evt);
                               }}
                               className="icon-btn"
                               style={{ background: "none", border: "none" }}

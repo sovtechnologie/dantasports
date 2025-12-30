@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import "../../withoutauth/Stylesheets/Filterpages/PageSearch.css";
 import searchIcon from "../../withoutauth/assets/icons/Search.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearchTerm } from "../../../redux/Slices/searchSlice";
 
 const searchDetails = {
   defaultpage: {
@@ -14,7 +16,7 @@ const searchDetails = {
   },
   HostPage: {
     title: "Discover Play near you",
-    placeholder: ["Search Games", "Host", "Skills","Game Type"],
+    placeholder: ["Search Games", "Host", "Skills", "Game Type"],
   },
   CoachPage: {
     title: "Discover Coaches Near You",
@@ -59,6 +61,14 @@ function PageSearch({ searchValue = "defaultpage" }) {
     return () => clearInterval(interval);
   }, [placeholder]);
 
+  const dispatch = useDispatch();
+  const searchTerm = useSelector((state) => state.search.searchTerm);
+
+  const handleChange = (e) => {
+    dispatch(setSearchTerm(e.target.value));
+  };
+
+
   return (
     <section className="search_wrapper">
       <Container>
@@ -72,8 +82,10 @@ function PageSearch({ searchValue = "defaultpage" }) {
             </span>
             <input
               type="text"
-              className="form-control placeholder-anim"
+              value={searchTerm}
+              onChange={handleChange}
               placeholder={currentPlaceholder}
+              className="form-control placeholder-anim"
             />
           </Col>
         </Row>

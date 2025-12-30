@@ -7,6 +7,7 @@ import storage from 'redux-persist/lib/storage'; // defaults to localStorage
 import { combineReducers } from 'redux';
 import authReducer from './Slices/authSlice.js';
 import locationReducer from "./Slices/locationSlice.js"
+import searchReducer from './Slices/searchSlice.js';
 // import createEncryptor from 'redux-persist-transform-encrypt';
 
 
@@ -30,6 +31,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   auth: authReducer,
   location:locationReducer,
+   search: searchReducer, 
   // other reducers...
 });
 

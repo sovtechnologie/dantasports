@@ -61,7 +61,7 @@ function VenuePage() {
 
   // FILTER STATES
   const [selectedSports, setSelectedSports] = useState([]);
-  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState("");
   const [selectedAmenities, setSelectedAmenities] = useState([]);
   const [lastPayload, setLastPayload] = useState(null);
@@ -210,7 +210,10 @@ function VenuePage() {
     }
   }, [sortBy]);
 
-  const toggleFavourite = (venue) => {
+  const handleLikeClick = (e, venue) => {
+    e.preventDefault();   // Link navigation roke
+    e.stopPropagation();  // Card click bubble roke
+    // toggleFavourite(venue);
     const venueId = venue.id;
     if (!auth || !auth?.id) {
       alert("Please login first to like or unlike a venue.");
@@ -256,7 +259,10 @@ function VenuePage() {
   };
 
 
-  const handleShareClick = async (venue) => {
+  const handleShareBtnClick = async (e, venue) => {
+    e.preventDefault();
+    e.stopPropagation();
+    // handleShareClick(venue);
     const shareUrl = `${window.location.origin}/venue/${venue.id}`;
 
     const shareData = {
@@ -302,6 +308,24 @@ function VenuePage() {
   //     alert("Unable to share this venue.");
   //   }
   // };
+  const searchTermes = useSelector((state) => state.search.searchTerm);
+
+  const displayedVenues = useMemo(() => {
+    const list = filteredVenues.length > 0 ? filteredVenues : venueList;
+
+    if (!searchTermes) return list;
+
+    const lowerText = searchTermes.toLowerCase();
+
+    return list.filter((venue) =>
+      venue.venue_name?.toLowerCase().includes(lowerText) ||
+      venue.city?.toLowerCase().includes(lowerText) ||
+      venue.sports?.some((sport) =>
+        sport.name?.toLowerCase().includes(lowerText)
+      )
+    );
+  }, [searchTermes, venueList, filteredVenues]);
+
 
   if (isLoadingData || isLoading || sportsLoading) return <VenueListShimmer />;
   if (isError) return <div>Error loading venues: {error?.message}</div>;
@@ -477,7 +501,7 @@ function VenuePage() {
 
                                 <div
                                   className="save_btn"
-                                  onClick={() => toggleFavourite(venue)}
+                                  onClick={(e) => handleLikeClick(e, venue)}
                                 >
                                   <img
                                     src={venue.favourite ? HeartFilled : likeIcon}
@@ -488,7 +512,7 @@ function VenuePage() {
 
                                 <div
                                   className="share_btn"
-                                  onClick={() => handleShareClick(venue)}
+                                  onClick={(e) => handleShareBtnClick(e, venue)}
                                 >
                                   <img
                                     src={share}
@@ -577,7 +601,7 @@ function VenuePage() {
                         </div>
                       )
                     ) : (
-                      venueList
+                      displayedVenues
                         .filter(
                           (venue) =>
                             !selectedDate ||
@@ -588,111 +612,111 @@ function VenuePage() {
                             key={venue.id}
                             className="col-xl-4 col-lg-6 col-md-6 position-relative"
                           >
-                             <Link to={`/venue/${venue.id}`} className="text-decoration-none">
-                            <div className="card">
-                              <div className="card_slider">
-                                <ReactSlickSlider
-                                  coverImage={venue.cover_image || latestt}
-                                />
-                              </div>
-
-                              <div className="reating">
-                                <div className="start">
-                                  <img src={whaitestart} alt="star" />
-                                  <span className="ps-2">
-                                    {venue.average_rating || "0.0"} (
-                                    {venue.review_count || 0})
-                                  </span>
-                                </div>
-
-                                <div
-                                  className="save_btn"
-                                  onClick={() => toggleFavourite(venue)}
-                                >
-                                  <img
-                                    src={venue.favourite ? HeartFilled : likeIcon}
-                                    alt="save"
-                                    style={{ cursor: "pointer" }}
+                            <Link to={`/venue/${venue.id}`} className="text-decoration-none">
+                              <div className="card">
+                                <div className="card_slider">
+                                  <ReactSlickSlider
+                                    coverImage={venue.cover_image || latestt}
                                   />
                                 </div>
 
-                                <div
-                                  className="share_btn"
-                                  onClick={() => handleShareClick(venue)}
-                                >
-                                  <img
-                                    src={share}
-                                    alt="share"
-                                    style={{ cursor: "pointer" }}
-                                  />
+                                <div className="reating">
+                                  <div className="start">
+                                    <img src={whaitestart} alt="star" />
+                                    <span className="ps-2">
+                                      {venue.average_rating || "0.0"} (
+                                      {venue.review_count || 0})
+                                    </span>
+                                  </div>
+
+                                  <div
+                                    className="save_btn"
+                                    onClick={(e) => handleLikeClick(e, venue)}
+                                  >
+                                    <img
+                                      src={venue.favourite ? HeartFilled : likeIcon}
+                                      alt="save"
+                                      style={{ cursor: "pointer" }}
+                                    />
+                                  </div>
+
+                                  <div
+                                    className="share_btn"
+                                    onClick={(e) => handleShareBtnClick(e, venue)}
+                                  >
+                                    <img
+                                      src={share}
+                                      alt="share"
+                                      style={{ cursor: "pointer" }}
+                                    />
+                                  </div>
                                 </div>
-                              </div>
 
-                              <div className="inner_txt">
-                                <div className="d-flex justify-content-between mb-3 align-items-center">
-                                  <h2 className="text_wrap2 card_heading m-0">
-                                    {venue.venue_name}
-                                  </h2>
-                                  <p className="m-0 card_date custom_width_km">
-                                    ~
-                                    {venue.distance_km
-                                      ? venue.distance_km.toFixed(1)
-                                      : "0"}{" "}
-                                    km
-                                  </p>
-                                </div>
+                                <div className="inner_txt">
+                                  <div className="d-flex justify-content-between mb-3 align-items-center">
+                                    <h2 className="text_wrap2 card_heading m-0">
+                                      {venue.venue_name}
+                                    </h2>
+                                    <p className="m-0 card_date custom_width_km">
+                                      ~
+                                      {venue.distance_km
+                                        ? venue.distance_km.toFixed(1)
+                                        : "0"}{" "}
+                                      km
+                                    </p>
+                                  </div>
 
-                                
 
-                                <div className="offers  d-flex justify-content-between">
-                                  <p className="up_to_offer m-0">
-                                    {venue.coupon_type === "percentage" &&
-                                      venue.discount_offer
-                                      ? `Upto ${parseFloat(venue.discount_offer)}% Off`
-                                      : venue.coupon_type === "flat" &&
+
+                                  <div className="offers  d-flex justify-content-between">
+                                    <p className="up_to_offer m-0">
+                                      {venue.coupon_type === "percentage" &&
                                         venue.discount_offer
-                                        ? `Upto ₹${parseFloat(venue.discount_offer)} Off`
-                                        : ""}
-                                  </p>
+                                        ? `Upto ${parseFloat(venue.discount_offer)}% Off`
+                                        : venue.coupon_type === "flat" &&
+                                          venue.discount_offer
+                                          ? `Upto ₹${parseFloat(venue.discount_offer)} Off`
+                                          : ""}
+                                    </p>
 
-                                  <p className="onwards_rup m-0">
-                                    ₹{parseFloat(venue.pricing || 0).toFixed(0)}{" "}
-                                    onwards
-                                  </p>
+                                    <p className="onwards_rup m-0">
+                                      ₹{parseFloat(venue.pricing || 0).toFixed(0)}{" "}
+                                      onwards
+                                    </p>
+                                  </div>
+                                  <div className="no_off_users">
+                                    <ul className="d-flex p-0 align-items-center m-0">
+                                      {venue.sports
+                                        ?.slice(0, 5)
+                                        .map((sport, index) => (
+                                          <li key={index} className="me-2">
+                                            <img
+                                              src={sport.image || users}
+                                              alt={sport.name || "user"}
+                                              title={sport.name || "user"}
+                                            />
+                                          </li>
+                                        ))}
+
+                                      {venue.sports &&
+                                        venue.sports.length > 5 && (
+                                          <li
+                                            className="me-2"
+                                            style={{
+                                              color: "#858585",
+                                              lineHeight: 1,
+                                            }}
+                                          >
+                                            +{venue.sports.length - 5} more
+                                          </li>
+                                        )}
+                                    </ul>
+                                  </div>
+
+                                  {/* <div className="card_line"></div> */}
+                                  {/* <BookBtn venueId={venue.id} /> */}
                                 </div>
-                                <div className="no_off_users">
-                                  <ul className="d-flex p-0 align-items-center m-0">
-                                    {venue.sports
-                                      ?.slice(0, 5)
-                                      .map((sport, index) => (
-                                        <li key={index} className="me-2">
-                                          <img
-                                            src={sport.image || users}
-                                            alt={sport.name || "user"}
-                                            title={sport.name || "user"}
-                                          />
-                                        </li>
-                                      ))}
-
-                                    {venue.sports &&
-                                      venue.sports.length > 5 && (
-                                        <li
-                                          className="me-2"
-                                          style={{
-                                            color: "#858585",
-                                            lineHeight: 1,
-                                          }}
-                                        >
-                                          +{venue.sports.length - 5} more
-                                        </li>
-                                      )}
-                                  </ul>
-                                </div>
-
-                                {/* <div className="card_line"></div> */}
-                                {/* <BookBtn venueId={venue.id} /> */}
                               </div>
-                            </div>
                             </Link>
                           </div>
                         ))
@@ -704,8 +728,8 @@ function VenuePage() {
           </Row>
 
           <AppDownloadBanner />
-        </Container>
-      </section>
+        </Container >
+      </section >
     </>
   );
 }

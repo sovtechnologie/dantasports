@@ -1,38 +1,27 @@
 import React, { useRef, useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "../../withoutauth/Stylesheets/Filterpages/AvailabilityCalendar.css";
 
-/**
- * AvailabilityCalendar
- * Props:
- *  - selectedDate: Date | string | null  (can be null/"" when cleared)
- *  - setSelectedDate: function(Date|null)
- */
 const AvailabilityCalendar = ({ selectedDate, setSelectedDate }) => {
   const today = new Date();
   const scrollRef = useRef(null);
 
-  // safely coerce selectedDate to a Date object for internal use
   const coerceToDate = (d) => {
     if (!d) return null;
     if (d instanceof Date && !isNaN(d)) return d;
-    // try Date.parse for strings
     const parsed = new Date(d);
     return isNaN(parsed) ? null : parsed;
   };
 
-  // internalSelected is either a Date or falls back to today when needed
-  const internalSelected = coerceToDate(selectedDate) || today;
+  // ❌ DO NOT fallback to today
+  const internalSelected = coerceToDate(selectedDate);
 
   const monthNames = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
   ];
 
-  // Generate continuous dates for ~1 year range (you can adjust)
   const generateDates = () => {
     const dates = [];
-    // start from previous month to next 11 months (same as your earlier logic)
     let start = new Date();
     let end = new Date(today.getFullYear(), today.getMonth() + 11, 0);
 
@@ -44,7 +33,6 @@ const AvailabilityCalendar = ({ selectedDate, setSelectedDate }) => {
 
   const allDates = generateDates();
 
-  // Utility: compare day ignoring time
   const isSameDay = (d1, d2) => {
     if (!d1 || !d2) return false;
     return (
@@ -54,45 +42,37 @@ const AvailabilityCalendar = ({ selectedDate, setSelectedDate }) => {
     );
   };
 
-  // Scroll helper
   const scroll = (offset) => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: offset, behavior: "smooth" });
-    }
+    scrollRef.current?.scrollBy({ left: offset, behavior: "smooth" });
   };
 
-  // derive displayed month/year from internalSelected
-  const currentMonth = internalSelected.getMonth();
-  const currentYear = internalSelected.getFullYear();
+  const currentMonth = (internalSelected || today).getMonth();
+  const currentYear = (internalSelected || today).getFullYear();
 
-  // Auto scroll to selectedDate (or today) on mount
+  // ✅ SCROLL ONLY WHEN USER SELECTS A DATE
   useEffect(() => {
-    if (scrollRef.current) {
-      const target = coerceToDate(selectedDate) || today;
-      const idx = allDates.findIndex((d) => isSameDay(d, target));
-      if (idx !== -1) {
-        const btn = scrollRef.current.children[idx];
-        if (btn) btn.scrollIntoView({ behavior: "smooth", inline: "center" });
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // run once on mount
+    if (!internalSelected || !scrollRef.current) return;
 
-  // handler for clicking a date: send Date object to parent (or null if clearing)
+    const idx = allDates.findIndex((d) => isSameDay(d, internalSelected));
+    if (idx !== -1) {
+      const btn = scrollRef.current.children[idx];
+      btn?.scrollIntoView({ behavior: "smooth", inline: "center" });
+    }
+  }, [internalSelected]); // 🔥 IMPORTANT
+
   const handleDateClick = (d) => {
-    if (setSelectedDate) setSelectedDate(new Date(d));
+    setSelectedDate?.(new Date(d));
   };
 
   return (
     <div className="p-3 border rounded mt-3">
       <h5 className="filter_title">Availability</h5>
 
-      {/* Header */}
       <div className="d-flex justify-content-center align-items-center mb-3">
         <button className="btn border-0 btn-sm me-3" onClick={() => scroll(-300)}>
           &lt;
         </button>
-        <h6 className="m-0" style={{ color: "#1163c7", fontWeight: "600" }}>
+        <h6 className="m-0" style={{ color: "#1163c7", fontWeight: 600 }}>
           {monthNames[currentMonth]} {currentYear}
         </h6>
         <button className="btn btn-sm ms-3" onClick={() => scroll(300)}>
@@ -100,29 +80,19 @@ const AvailabilityCalendar = ({ selectedDate, setSelectedDate }) => {
         </button>
       </div>
 
-      {/* Scrollable dates */}
-      <div
-        ref={scrollRef}
-        className="d-flex  pb-2 date_box_wrapper"
-
-      >
+      <div ref={scrollRef} className="d-flex pb-2 date_box_wrapper">
         {allDates.map((d, idx) => {
           const selected = isSameDay(d, internalSelected);
           return (
-            <>
-              <div className="date_btn">
-                <button
-                  key={idx}
-                  className={` ${selected ? "active_btn" : "btn-light text-muted"
-                    }`}
-
-                  onClick={() => handleDateClick(d)}
-                >
-                  <span>{d.getDate()}</span><br />
-                  <span>{d.toLocaleDateString("en-US", { weekday: "short" })}</span>
-                </button>
-              </div>
-            </>
+            <div key={idx} className="date_btn">
+              <button
+                className={selected ? "active_btn" : "btn-light text-muted"}
+                onClick={() => handleDateClick(d)}
+              >
+                <span>{d.getDate()}</span><br />
+                <span>{d.toLocaleDateString("en-US", { weekday: "short" })}</span>
+              </button>
+            </div>
           );
         })}
       </div>

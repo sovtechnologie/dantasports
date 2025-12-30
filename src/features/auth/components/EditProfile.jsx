@@ -110,41 +110,41 @@ const EditProfile = () => {
   //   );
   // };
 
-const onSubmit = (formData) => {
-  const formPayload = new FormData();
-  formPayload.append("id", user?.id);
-  formPayload.append("fullName", formData.fullName);
-  formPayload.append("email", formData.email);
-  formPayload.append("dob", formatDate(formData.dob));
-  formPayload.append("gender", formData.gender);
-  formPayload.append("mobileNumber", profile?.mobile_number || '');
+  const onSubmit = (formData) => {
+    const formPayload = new FormData();
+    formPayload.append("id", user?.id);
+    formPayload.append("fullName", formData.fullName);
+    formPayload.append("email", formData.email);
+    formPayload.append("dob", formatDate(formData.dob));
+    formPayload.append("gender", formData.gender);
+    formPayload.append("mobileNumber", profile?.mobile_number || '');
 
-  if (selectedFile) {
-    formPayload.append("profileImage", selectedFile); // Add image
-  }
+    if (selectedFile) {
+      formPayload.append("profileImage", selectedFile); // Add image
+    }
 
-  mutate(formPayload, {
-    onSuccess: async () => {
-      await queryClient.invalidateQueries(['profile']);
-      setSuccessMessage('Profile updated successfully!');
-      setTimeout(() => setSuccessMessage(''), 3000);
-    },
-    onError: (error) => {
-      const message = error?.response?.data?.message;
-      if (message?.includes("Duplicate entry") && message?.includes("users.email")) {
-        setError("email", {
-          type: "manual",
-          message: "This email is already in use. Please use a different one.",
-        });
-      } else {
-        setError("fullName", {
-          type: "manual",
-          message: "Failed to update profile. Please try again later.",
-        });
-      }
-    },
-  });
-};
+    mutate(formPayload, {
+      onSuccess: async () => {
+        await queryClient.invalidateQueries(['profile']);
+        setSuccessMessage('Profile updated successfully!');
+        setTimeout(() => setSuccessMessage(''), 3000);
+      },
+      onError: (error) => {
+        const message = error?.response?.data?.message;
+        if (message?.includes("Duplicate entry") && message?.includes("users.email")) {
+          setError("email", {
+            type: "manual",
+            message: "This email is already in use. Please use a different one.",
+          });
+        } else {
+          setError("fullName", {
+            type: "manual",
+            message: "Failed to update profile. Please try again later.",
+          });
+        }
+      },
+    });
+  };
 
 
   useEffect(() => {
@@ -161,14 +161,14 @@ const onSubmit = (formData) => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-       setSelectedFile(file);
+      setSelectedFile(file);
       setProfileImage(URL.createObjectURL(file));
     }
   };
 
 
-  if (isFetching) return <p>Loading profile...</p>;
-  if (!profile) return <p>Error loading profile data.</p>;
+  // if (isFetching) return <p>Loading profile...</p>;
+  // if (!profile) return <p>Error loading profile data.</p>;
 
   return (<>
     <div className="EditProfile-container">

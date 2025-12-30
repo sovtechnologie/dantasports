@@ -1,6 +1,6 @@
 export const Share = async () => {
     const shareData = {
-        title: "Dants-sport",
+        title: "Danta-sport",
         text: "Check out this app: Dants-sport",
         url: window.location.href,
     };

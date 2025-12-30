@@ -29,6 +29,7 @@ import rightArrow from "../assets/right-arrow.png";
 import { useCreateQuery } from "../../../hooks/CoachList/useCreateQuery";
 import { Container } from "react-bootstrap";
 import EventReviewSlider from "../components/EventReviewSlider";
+import { useSelector } from "react-redux";
 
 
 
@@ -119,6 +120,8 @@ export default function CoachDetailPage() {
     const [expandedSection, setExpandedSection] = useState(null);
     const [start, setStart] = useState(0);
     const [showModal, setShowModal] = useState(false)
+    const [enquiryMessage, setEnquiryMessage] = useState("");
+    const userId_id = useSelector((state) => state.auth.id);
     const createQueryMutation = useCreateQuery();
 
     const toggleSection = (sectionName) => {
@@ -141,19 +144,29 @@ export default function CoachDetailPage() {
         ? mapCoachData(CoachDetails?.result[0])
         : '';
 
-    const handleEnquiry = (id) => {
+
+
+    const handleSubmitEnquiry = (message) => {
         createQueryMutation.mutate(
-            { academyCoachesId: id },
+            {
+                academyCoachesId: coach?.id,
+                reciverId: userId_id,
+                message: message,
+                chatType: 2,
+                title: "Enquiry",
+                body: message,
+            },
             {
                 onSuccess: () => {
-                    setShowModal(true);
+                    setShowModal(false);
                 },
                 onError: (error) => {
                     console.error("Failed to create query:", error);
                 },
             }
         );
-    }
+    };
+
 
 
 
@@ -360,8 +373,21 @@ export default function CoachDetailPage() {
 
 
                                 <div className="coach-right-section-button">
-                                    <button className="coach-btn" onClick={() => handleEnquiry(coach?.id)} >{createQueryMutation.isLoading ? "Processing..." : "Enquire now"}</button>
-                                    {showModal && <EnquiryModal onClose={() => setShowModal(false)} />}
+                                    <button
+                                        className="coach-btn"
+                                        onClick={() => setShowModal(true)}
+                                    >
+                                        {createQueryMutation.isLoading ? "Processing..." : "Enquire now"}
+                                    </button>
+
+                                    {showModal && (
+                                        <EnquiryModal
+                                            onClose={() => setShowModal(false)}
+                                            onSubmit={handleSubmitEnquiry}
+                                        />
+                                    )}
+
+
                                 </div>
 
                             </div>

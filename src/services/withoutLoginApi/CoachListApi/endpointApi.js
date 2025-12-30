@@ -20,12 +20,15 @@ export const fetchCoachDetails = async(id) =>{
     }
 }
 
-export const CreateQuery = async(academyCoachesId) =>{
-    try {
-        const response = await api.post("user/academyCoaches/createQuery",{academyCoachesId});
-        return response.data;
-    } catch (error) {
-          console.error("Failed to Create Query:", error);
-        throw error;
-    }
-}
+export const CreateQuery = async (payload) => {
+  try {
+    const response = await api.post(
+      "user/academyCoaches/createQuery",
+      payload
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Failed to Create Query:", error);
+    throw error;
+  }
+};

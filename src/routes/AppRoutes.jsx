@@ -78,10 +78,10 @@ export default function AppRoutes() {
 
   return (
     <div>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div><Home /></div>}>
         <ScrollToTop />
         <Routes>
-          <Route path="*" element={<NotFound />} />s
+          <Route path="*" element={<NotFound />} />
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           {/* <Route path="/login" element={<Login />} /> */}

@@ -11,6 +11,10 @@ const Login = ({ isModal = false, onSuccess = () => { }, onSwitchToRegister = ()
   const [showOtpPopup, setShowOtpPopup] = useState(false); // new state
   const [otpJustSent, setOtpJustSent] = useState(false);
 
+  const RESEND_TIME = 30;
+
+  const [resendTimer, setResendTimer] = useState(0);
+  const [canResend, setCanResend] = useState(false);
 
   // tempory code
 
@@ -91,12 +95,18 @@ const Login = ({ isModal = false, onSuccess = () => { }, onSwitchToRegister = ()
     }
 
     try {
+      setCanResend(false);
+      setResendTimer(RESEND_TIME);
+
       await dispatch(sendOtp(phone)).unwrap();
       setOtpJustSent(true);
+
     } catch (err) {
       console.error("❌ Send OTP failed:", err);
     }
   };
+
+
 
   const handleVerifyOtp = async () => {
     const errors = validateLoginForm();
@@ -128,6 +138,20 @@ const Login = ({ isModal = false, onSuccess = () => { }, onSwitchToRegister = ()
       navigate('/');
     }
   };
+
+  useEffect(() => {
+    let interval;
+
+    if (resendTimer > 0) {
+      interval = setInterval(() => {
+        setResendTimer((prev) => prev - 1);
+      }, 1000);
+    } else if (resendTimer === 0 && otpSent) {
+      setCanResend(true); // timer khatam → resend allow
+    }
+
+    return () => clearInterval(interval);
+  }, [resendTimer, otpSent]);
 
 
 
@@ -167,8 +191,23 @@ const Login = ({ isModal = false, onSuccess = () => { }, onSwitchToRegister = ()
               placeholder="Enter number"
               disabled={otpSent}
             />
-            <button className={"otp-button"} onClick={handleSendOtp} disabled={isSendingOtp}>
-              {isSendingOtp ? 'Sending...' : otpSent ? 'OTP Sent' : 'Send OTP'}
+            <button
+              className={`otp-button ${otpSent
+                ? canResend
+                  ? "resend-active"
+                  : "resend-disabled"
+                : ""
+                }`}
+              onClick={handleSendOtp}
+              disabled={isSendingOtp || (otpSent && !canResend)}
+            >
+              {isSendingOtp
+                ? "Sending..."
+                : otpSent
+                  ? canResend
+                    ? "Resend OTP"
+                    : `Resend OTP (${resendTimer}s)`
+                  : "Send OTP"}
             </button>
           </div>
 
@@ -211,12 +250,12 @@ const Login = ({ isModal = false, onSuccess = () => { }, onSwitchToRegister = ()
           </div>
 
           {/* Sign Up Link */}
-          <p className="signup-text">
+          {/* <p className="signup-text">
             Don’t have an account?{' '}
             <button type="button" className="link-button" onClick={onSwitchToRegister}>
               Sign up
             </button>
-          </p>
+          </p> */}
 
 
           {/* Error Display */}

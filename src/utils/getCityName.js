@@ -1,5 +1,7 @@
 export async function getCityName(lat, lng) {
   const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+  console.log("API KEY =>", process.env.REACT_APP_GOOGLE_API_KEY);
+
   const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`;
 
   const response = await fetch(url);

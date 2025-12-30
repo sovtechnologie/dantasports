@@ -110,6 +110,18 @@ label {
   border-radius: 6px;
 }
 
+.resend-disabled {
+  /* background-color: #ccc !important; */
+  color: #666 !important;
+  cursor: not-allowed;
+}
+
+.resend-active {
+  /* background-color: #0d6efd !important;  */
+  color: rgb(83, 12, 215);
+}
+
+
 .otp-button {
   background: none;
   border: none;
@@ -124,7 +136,7 @@ label {
 }
 
 .otp-button:disabled {
-  background-color: #aac6f3;
+  /* background-color: #aac6f3; */
   cursor: not-allowed;
 }
 

@@ -98,8 +98,8 @@ function BookRun() {
     }
   };
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error loading events: {error.message}</p>;
+  // if (isLoading) return <p>Loading...</p>;
+  // if (error) return <p>Error loading events: {error.message}</p>;
 
   const visibleEvents = eventList.slice(0, 4);
 
@@ -117,100 +117,100 @@ function BookRun() {
         <Row className="g-3">
           {visibleEvents.map((evt) => (
             <Col xl={3} lg={4} md={6} sm={6} key={evt.id}>
-               <Link to={`/Run/${evt.id}`} className="text-decoration-none">
-              <Card className="">
-                <div className="card_img position-relative">
-                  <img
-                    src={evt.desktop_image || bookrunn}
-                    className=""
-                    alt={evt.event_title}
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src = bookrunn;
-                    }}
-                  />
-                </div>
+              <Link to={`/Run/${evt.id}`} className="text-decoration-none">
+                <Card className="">
+                  <div className="card_img position-relative">
+                    <img
+                      src={evt.desktop_image || bookrunn}
+                      className=""
+                      alt={evt.event_title}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = bookrunn;
+                      }}
+                    />
+                  </div>
 
-                {/* Like & Share */}
-                <div className="card_icons">
-                  <img
-                    className="like"
-                    src={evt.favourite ? HeartFilled : likeIcon}
-                    alt="like"
-                    onClick={() => toggleFavourite(evt)}
-                    style={{ cursor: "pointer" }}
-                  />
-                  <img
-                    className="share"
-                    src={shareIcon}
-                    alt="share"
-                    onClick={() => handleShare(evt)}
-                    style={{ cursor: "pointer" }}
-                  />
-                </div>
+                  {/* Like & Share */}
+                  <div className="card_icons">
+                    <img
+                      className="like"
+                      src={evt.favourite ? HeartFilled : likeIcon}
+                      alt="like"
+                      onClick={() => toggleFavourite(evt)}
+                      style={{ cursor: "pointer" }}
+                    />
+                    <img
+                      className="share"
+                      src={shareIcon}
+                      alt="share"
+                      onClick={() => handleShare(evt)}
+                      style={{ cursor: "pointer" }}
+                    />
+                  </div>
 
-                <div className="txt_wrapper">
-                  <div className="card_txt">
-                    <h2 className="text_wrap card_heading">
-                      {evt.event_title}
-                    </h2>
+                  <div className="txt_wrapper">
+                    <div className="card_txt">
+                      <h2 className="text_wrap card_heading">
+                        {evt.event_title}
+                      </h2>
 
-                    <p className="card_date">
-                      <span className="me-2">
-                        <img src={dateIcon} alt="date" />
-                      </span>
-                      {`${new Date(evt.start_date).toLocaleDateString("en-GB", {
-                        day: "2-digit",
-                        month: "short",
-                      })} - ${new Date(evt.end_date).toLocaleDateString(
-                        "en-GB",
-                        {
+                      <p className="card_date">
+                        <span className="me-2">
+                          <img src={dateIcon} alt="date" />
+                        </span>
+                        {`${new Date(evt.start_date).toLocaleDateString("en-GB", {
                           day: "2-digit",
                           month: "short",
-                        }
-                      )} | ${formatTime(evt.start_time)} onwards`}
-                    </p>
-                    <p className="map_location text_wrap4">
-                      <span className="me-2">
-                        <img src={mapIcon} alt="map" />
-                      </span>
-                      {evt.locations[0]?.area}, {evt.locations[0]?.city}
-                    </p>
-                  </div>
+                        })} - ${new Date(evt.end_date).toLocaleDateString(
+                          "en-GB",
+                          {
+                            day: "2-digit",
+                            month: "short",
+                          }
+                        )} | ${formatTime(evt.start_time)} onwards`}
+                      </p>
+                      <p className="map_location text_wrap4">
+                        <span className="me-2">
+                          <img src={mapIcon} alt="map" />
+                        </span>
+                        {evt.locations[0]?.area}, {evt.locations[0]?.city}
+                      </p>
+                    </div>
 
-                 
-                  <div className="d-flex justify-content-between no_off_users">
-                    <p className="up_to_offer m-0">
-                      {evt.coupon_type === "percentage" && evt.discount_offer
-                        ? `Upto ${parseFloat(evt.discount_offer)}% Off`
-                        : evt.coupon_type === "flat" && evt.discount_offer
-                          ? `Upto ₹${parseFloat(evt.discount_offer)} Off`
+
+                    <div className="d-flex justify-content-between no_off_users">
+                      <p className="up_to_offer m-0">
+                        {evt.coupon_type === "percentage" && evt.discount_offer
+                          ? `Upto ${parseFloat(evt.discount_offer)}% Off`
+                          : evt.coupon_type === "flat" && evt.discount_offer
+                            ? `Upto ₹${parseFloat(evt.discount_offer)} Off`
+                            : ""}
+                      </p>
+                      <p className="onwards_rup m-0">
+                        {" "}
+                        {evt.pricing
+                          ? `₹${parseFloat(evt.pricing).toFixed(0)} onwards`
                           : ""}
-                    </p>
-                    <p className="onwards_rup m-0">
-                      {" "}
-                      {evt.pricing
-                        ? `₹${parseFloat(evt.pricing).toFixed(0)} onwards`
-                        : ""}
-                    </p>
-                  </div>
-                  {/* <div className="card_line2"></div> */}
-                  <div className="easy2">
-                    {evt.difficulty === 0 ? (
-                      <span className="Moderate">Moderate</span>
-                    ) : evt.difficulty === 1 ? (
-                      <span className="easy">Easy</span>
-                    ) : evt.difficulty === 2 ? (
-                      <span className="difficult">Difficult</span>
-                    ) : (
-                      <span className="unknown">Not Specified</span>
-                    )}
-                  </div>
+                      </p>
+                    </div>
+                    {/* <div className="card_line2"></div> */}
+                    <div className="easy2">
+                      {evt.difficulty === 0 ? (
+                        <span className="Moderate">Moderate</span>
+                      ) : evt.difficulty === 1 ? (
+                        <span className="easy">Easy</span>
+                      ) : evt.difficulty === 2 ? (
+                        <span className="difficult">Difficult</span>
+                      ) : (
+                        <span className="unknown">Not Specified</span>
+                      )}
+                    </div>
 
 
-                  {/* Offer / Join Now */}
-                  <div className="offer d-flex justify-content-between align-items-center">
-                    {/* <p>
+                    {/* Offer / Join Now */}
+                    <div className="offer d-flex justify-content-between align-items-center">
+                      {/* <p>
                       {evt.coupon_type === "percentage" && evt.offer
                         ? `Upto ${parseFloat(evt.offer)}% Off`
                         : evt.coupon_type === "flat" && evt.offer
@@ -218,18 +218,18 @@ function BookRun() {
                           : ""}
                     </p> */}
 
-                    {/* <Link to={`/Run/${evt.id}`}>Join Now</Link> */}
-                  </div>
-                  <div className="rating_box position-absolute d-flex align-items-center">
-                    <img src={star} alt="" />
-                    <span>
+                      {/* <Link to={`/Run/${evt.id}`}>Join Now</Link> */}
+                    </div>
+                    <div className="rating_box position-absolute d-flex align-items-center">
+                      <img src={star} alt="" />
+                      <span>
 
-                      {evt.average_rating || "0.0"}  (
-                      {evt.review_count || 0})
-                    </span>
+                        {evt.average_rating || "0.0"}  (
+                        {evt.review_count || 0})
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </Card>
+                </Card>
               </Link>
             </Col>
           ))}

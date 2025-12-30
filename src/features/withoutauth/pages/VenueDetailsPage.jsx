@@ -169,6 +169,7 @@ function VenueDetailsPage() {
   useEffect(() => {
     setPrice(0);
     // setBookingId(null);
+    setConvenienceFee(0);
     setTotalPrice(0);
     setFinalAmount(0);
   }, [selectedDate, selectedSport, selectedTime]);
@@ -365,8 +366,8 @@ function VenueDetailsPage() {
   if (!venue || Object.keys(venue).length === 0) {
     return <div>No venue data available</div>;
   }
-  if (Bannerloading) return <div>Loading banners...</div>;
-  if (BannerError) return <div>Error loading banners</div>;
+  // if (Bannerloading) return <div>Loading banners...</div>;
+  // if (BannerError) return <div>Error loading banners</div>;
 
   return (
     <>
