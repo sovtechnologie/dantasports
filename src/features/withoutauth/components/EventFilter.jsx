@@ -6,6 +6,7 @@ import Difficulty from "./Difficulty";
 import Amenities from "./Amenities";
 import DistanceSlider from "./DistanceSlider";
 import ActivityForEvent from "./ActivityForEvent";
+import PriceSlider from "./PriceSlider";
 
 function EventFilter({
   selectedSports,
@@ -14,8 +15,8 @@ function EventFilter({
   setSelectedDate,
   selectedDifficulty,
   setSelectedDifficulty,
-  selectedDistance,
-  setSelectedDistance,
+  selectedPrice,
+  setSelectedPrice,
   selectedAmenities,
   setSelectedAmenities
 }) {
@@ -25,7 +26,7 @@ function EventFilter({
     setSelectedSports([]);
     setSelectedDate(null);
     setSelectedDifficulty(null);
-    setSelectedDistance(0);
+    setSelectedPrice(0);
     setSelectedAmenities([])
 
   };
@@ -60,9 +61,9 @@ function EventFilter({
           setSelectedDifficulty={setSelectedDifficulty}
         />
 
-        <DistanceSlider
-          selectedDistance={selectedDistance}
-          setSelectedDistance={setSelectedDistance}
+        <PriceSlider
+          selectedPrice={selectedPrice}
+          setSelectedPrice={setSelectedPrice}
         />
 
         <Amenities

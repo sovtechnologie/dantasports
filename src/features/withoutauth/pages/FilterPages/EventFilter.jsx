@@ -43,7 +43,7 @@ export default function EventFilterPage() {
   const [eventList, setEventList] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedDifficulty, setSelectedDifficulty] = useState(null);
-  const [selectedDistance, setSelectedDistance] = useState(0);
+  const [selectedPrice, setSelectedPrice] = useState(0);
   const [selectedAmenities, setSelectedAmenities] = useState([]);
   const auth = useSelector((state) => state.auth);
   const [filters, setFilters] = useState({
@@ -59,6 +59,9 @@ export default function EventFilterPage() {
     error,
   } = useFetchEvent(payload);
 
+  const pageSearchTerm = useSelector((state) => state.search.searchTerm);
+
+
   useEffect(() => {
     if (AllEventdata?.status === 200) setEventList(AllEventdata.result);
   }, [AllEventdata]);
@@ -71,7 +74,9 @@ export default function EventFilterPage() {
 
 
 
-  const toggleFavourite = async (event) => {
+  const toggleFavourite = async (e, event) => {
+    e.preventDefault();
+    e.stopPropagation();
     const eventId = event.id;
     const type = event?.type;
     const wasFavourite = event.favourite;
@@ -151,12 +156,10 @@ export default function EventFilterPage() {
       result = result.filter((evt) => evt.difficulty === selectedDifficulty);
     }
 
-    if (selectedDistance !== null && selectedDistance > 0) {
-      result = result.filter((evt) => {
-        const eventDistance = parseFloat(evt.distance || 0);
-        // Only include events within selectedDistance km range
-        return eventDistance <= selectedDistance;
-      });
+    if (selectedPrice > 0) {
+      result = result.filter(
+        (evt) => Number(evt.lowest_ticket_price) <= selectedPrice
+      );
     }
 
     if (selectedAmenities.length > 0) {
@@ -208,11 +211,26 @@ export default function EventFilterPage() {
       }
     }
 
+    if (pageSearchTerm) {
+      const lower = pageSearchTerm.toLowerCase();
+
+      result = result.filter((evt) =>
+        evt.event_title?.toLowerCase().includes(lower) ||
+        evt.locations?.[0]?.city?.toLowerCase().includes(lower) ||
+        evt.locations?.[0]?.area?.toLowerCase().includes(lower) ||
+        evt.sports?.some((s) =>
+          s.name?.toLowerCase().includes(lower)
+        )
+      );
+    }
+
     return result;
-  }, [eventList, search, filters, selectedSports, selectedDistance, selectedDate, selectedDifficulty, selectedAmenities]);
+  }, [eventList, pageSearchTerm, search, filters, selectedSports, selectedPrice, selectedDate, selectedDifficulty, selectedAmenities]);
 
 
-  const handleShareClick = async (evt) => {
+  const handleShareClick = async (e, evt) => {
+    e.preventDefault();
+    e.stopPropagation();
     const shareUrl = `${window.location.origin}/events/${evt.id}`;
 
     const shareData = {
@@ -290,8 +308,8 @@ export default function EventFilterPage() {
                 setSelectedDate={setSelectedDate}
                 setSelectedDifficulty={setSelectedDifficulty}
                 selectedDifficulty={selectedDifficulty}
-                setSelectedDistance={setSelectedDistance}
-                selectedDistance={selectedDistance}
+                setSelectedPrice={setSelectedPrice}
+                selectedPrice={selectedPrice}
                 selectedAmenities={selectedAmenities}
                 setSelectedAmenities={setSelectedAmenities}
               />
@@ -325,8 +343,8 @@ export default function EventFilterPage() {
                             setSelectedDate={setSelectedDate}
                             setSelectedDifficulty={setSelectedDifficulty}
                             selectedDifficulty={selectedDifficulty}
-                            setSelectedDistance={setSelectedDistance}
-                            selectedDistance={selectedDistance}
+                            setSelectedPrice={setSelectedPrice}
+                            selectedPrice={selectedPrice}
                             selectedAmenities={selectedAmenities}
                             setSelectedAmenities={setSelectedAmenities}
                           />
@@ -425,8 +443,8 @@ export default function EventFilterPage() {
                           <div className="card_icon">
                             <button
                               onClick={(e) => {
-                                e.stopPropagation();
-                                toggleFavourite(evt);
+                                // e.stopPropagation();
+                                toggleFavourite(e, evt);
                               }}
                               className="icon-btn me-2"
                               style={{ background: "none", border: "none" }}
@@ -440,8 +458,8 @@ export default function EventFilterPage() {
 
                             <button
                               onClick={(e) => {
-                                e.stopPropagation();
-                                handleShareClick(evt);
+                                // e.stopPropagation();
+                                handleShareClick(e, evt);
                               }}
                               className="icon-btn"
                               style={{ background: "none", border: "none" }}

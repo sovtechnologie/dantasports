@@ -202,11 +202,14 @@ export default function EventDetailPage() {
       return;
     }
 
+    const isPaidEvent = EventDetails?.result?.[0]?.is_paid_event;
+
     const bookingPayload = {
       locationId: 1,
       bookingDate: selectedDate,
       eventId: id,
       tickets: tickets,
+      isPaidEvent: isPaidEvent
     };
 
     BookEvent(bookingPayload, {
@@ -215,7 +218,19 @@ export default function EventDetailPage() {
         // If your API returns "insertId" or something else, change this accordingly
         console.log("My Booking Id", bookingId);
 
-        // Call createPayment with that bookingId
+        if (isPaidEvent === 0) {
+          alert("Event booked successfully");
+
+          // optional reset
+          setSelectedArea("");
+          setSelectedDate(null);
+          setFinalAmount(null);
+          setTotalPrice(0);
+          setPrice(0);
+          setTickets([]);
+
+          return;
+        }
         CreateBookingPayment(
           {
 
@@ -758,6 +773,8 @@ export default function EventDetailPage() {
                     setSelectedDate={setSelectedDate}
                     startDateProp={event?.startDate}
                     endDateProp={event?.endDate}
+                    eventCalendar={EventDetails?.result?.[0]?.event_calendar}
+                    eventDates={EventDetails?.result?.[0]?.event_dates || []}
                   />
                 </div>
 

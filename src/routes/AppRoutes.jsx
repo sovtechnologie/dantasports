@@ -78,7 +78,7 @@ export default function AppRoutes() {
 
   return (
     <div>
-      <Suspense fallback={<div><Home /></div>}>
+      <Suspense fallback={<div>Loading....</div>}>
         <ScrollToTop />
         <Routes>
           <Route path="*" element={<NotFound />} />

@@ -36,8 +36,8 @@ import OngoingEvents from "../../components/OngoingEvents.jsx";
 import { useBanner } from "../../../../hooks/useBanner.js";
 
 export default function CoachFilterPage() {
-   const { data: bannerData, isLoading: bannerLoading, error: bannerError } = useBanner(1);
-const banners = bannerData?.result || [];
+  const { data: bannerData, isLoading: bannerLoading, error: bannerError } = useBanner(1);
+  const banners = bannerData?.result || [];
 
 
   const queryClient = useQueryClient();
@@ -213,7 +213,9 @@ const banners = bannerData?.result || [];
 
   const [likedCoaches, setLikedCoaches] = useState({});
 
-  const toggleCoachFavourite = (coach) => {
+  const toggleCoachFavourite = (e, coach) => {
+    e.preventDefault();
+    e.stopPropagation();
     if (!auth || !auth?.id) {
       alert("Please login first to like or unlike a coach.");
       return;
@@ -280,7 +282,9 @@ const banners = bannerData?.result || [];
     }
   };
 
-  const handleShareClick = async (coach) => {
+  const handleShareClick = async (e, coach) => {
+    e.preventDefault();
+    e.stopPropagation();
     const shareUrl = window.location.href;
     const shareData = {
       title: coach.name,
@@ -334,7 +338,7 @@ const banners = bannerData?.result || [];
         style={{ background: "#F1F3F2" }}
         className="coach_page_section pb-lg-4 pb-3"
       >
-        <PageSearch  searchValue="CoachPage" />
+        <PageSearch searchValue="CoachPage" />
         <Container>
           <Row>
             <Col xl={3} lg={4} md={12} className="d-none d-lg-block d-md-block">
@@ -356,223 +360,223 @@ const banners = bannerData?.result || [];
               />
 
             </Col>
-             <Col className="d-lg-none d-md-none  text-end mb-3">
+            <Col className="d-lg-none d-md-none  text-end mb-3">
               <div className="modal_wraper d-flex justify-content-end">
                 <div>
-                   <div
-                  class="modal fade"
-                  id="exampleModalToggleFilter"
-                  aria-hidden="true"
-                  aria-labelledby="sortby"
-                  tabindex="-1"
-                >
-                  <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                      </div>
-                      <div class="modal-body">
-                               <FilterTow
-                              selectedSports={selectedSports}
-                              setSelectedSports={setSelectedSports}
-                              selectedAge={selectedAge}
-                              setSelectedAge={setSelectedAge}
-                              selectedBatch={selectedBatch}
-                              setSelectedBatch={setSelectedBatch}
-                              selectedCoachType={selectedCoachType}
-                              setSelectedCoachType={setSelectedCoachType}
+                  <div
+                    class="modal fade"
+                    id="exampleModalToggleFilter"
+                    aria-hidden="true"
+                    aria-labelledby="sortby"
+                    tabindex="-1"
+                  >
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                        <div class="modal-body">
+                          <FilterTow
+                            selectedSports={selectedSports}
+                            setSelectedSports={setSelectedSports}
+                            selectedAge={selectedAge}
+                            setSelectedAge={setSelectedAge}
+                            selectedBatch={selectedBatch}
+                            setSelectedBatch={setSelectedBatch}
+                            selectedCoachType={selectedCoachType}
+                            setSelectedCoachType={setSelectedCoachType}
 
-                            />
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div
-                  class="modal fade"
-                  id="exampleModalToggle2"
-                  aria-hidden="true"
-                  aria-labelledby="exampleModalToggleLabel2"
-                  tabindex="-1"
-                ></div>
+                  <div
+                    class="modal fade"
+                    id="exampleModalToggle2"
+                    aria-hidden="true"
+                    aria-labelledby="exampleModalToggleLabel2"
+                    tabindex="-1"
+                  ></div>
 
-                <button
-                  class="btn_mobile"
-                  data-bs-toggle="modal"
-                  href="#exampleModalToggleFilter"
-                  role="button"
-                >
-                  <img src={filterIcon} alt="" />
-                </button>
+                  <button
+                    class="btn_mobile"
+                    data-bs-toggle="modal"
+                    href="#exampleModalToggleFilter"
+                    role="button"
+                  >
+                    <img src={filterIcon} alt="" />
+                  </button>
                 </div>
                 <div>
-                   <div
-                  class="modal fade"
-                  id="exampleModalToggleSort"
-                  aria-hidden="true"
-                  aria-labelledby="sortby"
-                  tabindex="-1"
-                >
-                  <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                      </div>
-                      <div class="modal-body">
-                        <SortBy />
+                  <div
+                    class="modal fade"
+                    id="exampleModalToggleSort"
+                    aria-hidden="true"
+                    aria-labelledby="sortby"
+                    tabindex="-1"
+                  >
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                        <div class="modal-body">
+                          <SortBy />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div
-                  class="modal fade"
-                  id="exampleModalToggle2"
-                  aria-hidden="true"
-                  aria-labelledby="exampleModalToggleLabel2"
-                  tabindex="-1"
-                ></div>
+                  <div
+                    class="modal fade"
+                    id="exampleModalToggle2"
+                    aria-hidden="true"
+                    aria-labelledby="exampleModalToggleLabel2"
+                    tabindex="-1"
+                  ></div>
 
-                <button
-                  class="btn_mobile"
-                  data-bs-toggle="modal"
-                  href="#exampleModalToggleSort"
-                  role="button"
-                >
-                  <img src={sortIcon} alt="" />
-                </button>
+                  <button
+                    class="btn_mobile"
+                    data-bs-toggle="modal"
+                    href="#exampleModalToggleSort"
+                    role="button"
+                  >
+                    <img src={sortIcon} alt="" />
+                  </button>
                 </div>
               </div>
             </Col>
-            
+
             <Col xl={9} lg={8} md={12}>
-            <div className="col-12 mb-4 onging_title_hid">
-              <OngoingEvents banners={banners} />
-            </div>
+              <div className="col-12 mb-4 onging_title_hid">
+                <OngoingEvents banners={banners} />
+              </div>
               <div className="row g-3">
                 {formattedCoachList.length > 0 ? (
                   formattedCoachList.map((coach) => (
                     <div className="col-xl-4  col-lg-6 col-md-6 position-relative" key={coach.id}>
-                        <Link to={`/coach/${coach.id}`} className="text-decoration-none">
+                      <Link to={`/coach/${coach.id}`} className="text-decoration-none">
 
-                      <Card>
-                       
-                        <div className="card_img">
-                          <img
-                            src={coach.image}
-                            className="w-100"
-                            alt={coach.name || "Coach"}
-                            onError={(e) => {
-                              e.currentTarget.onerror = null;
-                              e.currentTarget.src = coach1;
-                            }}
-                          />
-                        </div>
-                     
-                        <div className="card_icons_box">
-                          <button
-                            onClick={() => toggleCoachFavourite(coach)}
-                            className="like-btn"
-                            
-                          >
+                        <Card>
+
+                          <div className="card_img">
                             <img
-                              className="like"
-                              src={coach.favourite ? HeartFilled : like}
-                              alt={coach.favourite ? "liked" : "like"}
+                              src={coach.image}
+                              className="w-100"
+                              alt={coach.name || "Coach"}
+                              onError={(e) => {
+                                e.currentTarget.onerror = null;
+                                e.currentTarget.src = coach1;
+                              }}
                             />
-                          </button>
+                          </div>
 
-                          <button>
-                            <img className="share" src={share} alt="share" onClick={() => handleShareClick(coach)} />
-                          </button>
+                          <div className="card_icons_box">
+                            <button
+                              onClick={(e) => toggleCoachFavourite(e, coach)}
+                              className="like-btn"
 
-                         
-                        </div>
-                         <div className="rate position-absolute d-flex align-items-center">
-                            <img  src={star} alt="" />
+                            >
+                              <img
+                                className="like"
+                                src={coach.favourite ? HeartFilled : like}
+                                alt={coach.favourite ? "liked" : "like"}
+                              />
+                            </button>
+
+                            <button>
+                              <img className="share" src={share} alt="share" onClick={(e) => handleShareClick(e, coach)} />
+                            </button>
+
+
+                          </div>
+                          <div className="rate position-absolute d-flex align-items-center">
+                            <img src={star} alt="" />
                             <span>
-                              
+
                               {coach.rating} ({coach.ratingCount})
                             </span>
                           </div>
 
 
-                        <div className="trainerbox">
-                          <span className="trainer_type">{coach.tag}</span>
-                        </div>
-                        <div className="txt_wrapper">
-                          <div className="card_txt">
-                            <div className="d-flex justify-content-between mb-3 align-items-center">
-                              <h2 className="m-0 text_wrap">{coach.name}</h2>
-                              <p className="m-0 memebercat">{coach.category}</p>
-                            </div>
-                             <p className="card_date  ">
-                              <span className="me-2">
-                                <img src={map} alt="" />
-                              </span>
-                              {coach.location}
-                            </p>
-                            <div
-                              className="coach-sports d-flex align-items-center flex-wrap mt-2"
-                              style={{
-                                overflow: "visible",
-                                position: "relative",
-                                zIndex: 10,
-                                gap: "5px",
-                              }}
-                            >
-                              {coach.linked_sports?.slice(0, 5).map((sport, index) => (
-                                <div
-                                  key={index}
-                                  className="sport_icons"
-                                >
-                                  <img
-                                    src={sport.sports_images}
-                                    alt={sport.sports_name}
-                                    title={sport.sports_name}
-                                    style={{
-                                      width: "100%",
-                                      height: "100%",
-                                      objectFit: "cover",
-                                      display: "block",
-                                    }}
-                                    onError={(e) => {
-                                      e.currentTarget.src = "/default-sport.png";
-                                    }}
-                                  />
-                                </div>
-                              ))}
-
-                              {coach.linked_sports?.length > 5 && (
-                                <span
-                                  style={{
-                                    fontSize: "13px",
-                                    color: "#333",
-                                    fontWeight: 600,
-                                    marginLeft: "6px",
-                                  }}
-                                >
-                                  +{coach.linked_sports.length - 5}
-                                </span>
-                              )}
-                            </div>
-
-                           
+                          <div className="trainerbox">
+                            <span className="trainer_type">{coach.tag}</span>
                           </div>
-                         
+                          <div className="txt_wrapper">
+                            <div className="card_txt">
+                              <div className="d-flex justify-content-between mb-3 align-items-center">
+                                <h2 className="m-0 text_wrap">{coach.name}</h2>
+                                <p className="m-0 memebercat">{coach.category}</p>
+                              </div>
+                              <p className="card_date  ">
+                                <span className="me-2">
+                                  <img src={map} alt="" />
+                                </span>
+                                {coach.location}
+                              </p>
+                              <div
+                                className="coach-sports d-flex align-items-center flex-wrap mt-2"
+                                style={{
+                                  overflow: "visible",
+                                  position: "relative",
+                                  zIndex: 10,
+                                  gap: "5px",
+                                }}
+                              >
+                                {coach.linked_sports?.slice(0, 5).map((sport, index) => (
+                                  <div
+                                    key={index}
+                                    className="sport_icons"
+                                  >
+                                    <img
+                                      src={sport.sports_images}
+                                      alt={sport.sports_name}
+                                      title={sport.sports_name}
+                                      style={{
+                                        width: "100%",
+                                        height: "100%",
+                                        objectFit: "cover",
+                                        display: "block",
+                                      }}
+                                      onError={(e) => {
+                                        e.currentTarget.src = "/default-sport.png";
+                                      }}
+                                    />
+                                  </div>
+                                ))}
 
-                        </div>
+                                {coach.linked_sports?.length > 5 && (
+                                  <span
+                                    style={{
+                                      fontSize: "13px",
+                                      color: "#333",
+                                      fontWeight: 600,
+                                      marginLeft: "6px",
+                                    }}
+                                  >
+                                    +{coach.linked_sports.length - 5}
+                                  </span>
+                                )}
+                              </div>
 
-                      </Card>
-                       </Link>
+
+                            </div>
+
+
+                          </div>
+
+                        </Card>
+                      </Link>
                     </div>
                   ))
                 ) : (

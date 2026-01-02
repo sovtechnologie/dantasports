@@ -66,7 +66,9 @@ export default function GymFilterPage() {
   });
 
   // --- LIKE / UNLIKE ---
-  const toggleFavourite = (gym) => {
+  const toggleFavourite = (e, gym) => {
+    e.preventDefault();
+    e.stopPropagation();
     const gymId = gym.Id;
     setGymList((prev) =>
       prev.map((v) =>
@@ -199,7 +201,9 @@ export default function GymFilterPage() {
 
   if (isLoading) return <VenueListShimmer />;
   if (isError) return <div>Error loading gyms: {error.message}</div>;
-  const handleShare = (gym) => {
+  const handleShare = (e, gym) => {
+    e.preventDefault();
+    e.stopPropagation();
     const shareData = {
       title: gym.gym_name,
       text: `Check out ${gym.gym_name} on Danta Sports!`,
@@ -352,64 +356,64 @@ export default function GymFilterPage() {
                   return (
                     <div className="col-lg-6 col-md-6 col-xl-4" key={gym.Id}>
                       <Link to={`/gym/${gym.Id}`} className="text-decoration-none">
-                     
-                      <Card className="card">
-                        <div className="card_img">
-                          <img src={imageSrc} alt="" className="w-100" />
-                        </div>
 
-                        <div className="card_icons">
-                          <button
-                            className="like"
-                            onClick={() => toggleFavourite(gym)}
-                          >
-                            <img src={gym.favourite ? HeartFilled : like} className="like1" />
-                          </button>
-
-                          <button
-                            className="share"
-                            onClick={() => handleShare(gym)}
-                          >
-                            <img src={share} className="share1" />
-                          </button>
-                        </div>
-                       
-
-                        <div className="txt_wrapper">
-                          <div className="card_txt">
-                            <h2 className="text_wrap card_heading">{gym.gym_name}</h2>
-                            <p className="sports_title_km">
-                              {gym.city} {gym.state}  (~{gym.distance ? gym.distance.toFixed(1) : 0} Km)
-                            </p>
-                           
+                        <Card className="card">
+                          <div className="card_img">
+                            <img src={imageSrc} alt="" className="w-100" />
                           </div>
 
-                         
+                          <div className="card_icons">
+                            <button
+                              className="like"
+                              onClick={(e) => toggleFavourite(e, gym)}
+                            >
+                              <img src={gym.favourite ? HeartFilled : like} className="like1" />
+                            </button>
 
-                          <div className="d-flex justify-content-between no_off_users">
-                            <p className="up_to_offer m-0"> {gym.coupon_type === "percentage" && gym.discount_offer
-                              ? `Upto ${parseFloat(gym.discount_offer)}% Off`
-                              : gym.coupon_type === "flat" && gym.discount_offer
-                                ? `Upto ₹${parseFloat(gym.discount_offer)} Off`
-                                : ""}</p>
-                            <p className="onwards_rup m-0">₹{gym.gym_price_slot && gym.gym_price_slot.length > 0
-                              ? gym.gym_price_slot.reduce((min, curr) =>
-                                curr.price < min.price ? curr : min
-                              ).price
-                              : 0}{" "}onwards</p>
-                          </div>
-                          {/* <div className="card_line mb-2"></div> */}
-                          <div className="offer d-flex justify-content-between align-items-center">
-
-
-                          </div>
-                          <div className="rating">
-                            <span><img src={star} className="pe-2" alt="" />{gym.average_rating || "0.0"}  ( {gym.review_count || 0})</span>
+                            <button
+                              className="share"
+                              onClick={(e) => handleShare(e, gym)}
+                            >
+                              <img src={share} className="share1" />
+                            </button>
                           </div>
 
-                        </div>
-                      </Card>
-                       </Link>
+
+                          <div className="txt_wrapper">
+                            <div className="card_txt">
+                              <h2 className="text_wrap card_heading">{gym.gym_name}</h2>
+                              <p className="sports_title_km">
+                                {gym.city} {gym.state}  (~{gym.distance ? gym.distance.toFixed(1) : 0} Km)
+                              </p>
+
+                            </div>
+
+
+
+                            <div className="d-flex justify-content-between no_off_users">
+                              <p className="up_to_offer m-0"> {gym.coupon_type === "percentage" && gym.discount_offer
+                                ? `Upto ${parseFloat(gym.discount_offer)}% Off`
+                                : gym.coupon_type === "flat" && gym.discount_offer
+                                  ? `Upto ₹${parseFloat(gym.discount_offer)} Off`
+                                  : ""}</p>
+                              <p className="onwards_rup m-0">₹{gym.gym_price_slot && gym.gym_price_slot.length > 0
+                                ? gym.gym_price_slot.reduce((min, curr) =>
+                                  curr.price < min.price ? curr : min
+                                ).price
+                                : 0}{" "}onwards</p>
+                            </div>
+                            {/* <div className="card_line mb-2"></div> */}
+                            <div className="offer d-flex justify-content-between align-items-center">
+
+
+                            </div>
+                            <div className="rating">
+                              <span><img src={star} className="pe-2" alt="" />{gym.average_rating || "0.0"}  ( {gym.review_count || 0})</span>
+                            </div>
+
+                          </div>
+                        </Card>
+                      </Link>
                     </div>
                   );
                 })

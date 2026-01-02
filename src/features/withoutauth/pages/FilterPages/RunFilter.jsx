@@ -125,7 +125,9 @@ export default function RunFilterPage() {
   const likeEvent = useLikeEvent();
   const unlikeEvent = useUnlikeEvent();
 
-  const toggleFavourite = (event) => {
+  const toggleFavourite = (e, event) => {
+    e.preventDefault();
+    e.stopPropagation();
     const eventId = event.id;
     const type = event?.type;
 
@@ -294,7 +296,10 @@ export default function RunFilterPage() {
   if (isError) return <div>Error loading events: {error.message}</div>;
 
   // ✅ Handle Share
-  const handleShare = (event) => {
+  const handleShare = (e, event) => {
+
+    e.preventDefault();
+    e.stopPropagation();
     const url = `${window.location.origin}/event/${event.id}`;
     if (navigator.share) {
       navigator.share({
@@ -528,9 +533,7 @@ export default function RunFilterPage() {
                               src={event.favourite ? HeartFilled : likeIcon}
                               alt="like"
                               onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                toggleFavourite(event);
+                                toggleFavourite(e, event);
                               }}
                               style={{ cursor: "pointer" }}
                             />
@@ -540,9 +543,7 @@ export default function RunFilterPage() {
                               src={shareIcon}
                               alt="share"
                               onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                handleShare(event);
+                                handleShare(e, event);
                               }}
                               style={{ cursor: "pointer" }}
                             />
