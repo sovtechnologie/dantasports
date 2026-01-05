@@ -8,35 +8,35 @@ import { setSearchTerm } from "../../../redux/Slices/searchSlice";
 const searchDetails = {
   defaultpage: {
     title: "Satish Sahu Venue Page",
-    placeholder: ["Search Venue", "City", "Sport"],
+    placeholder: ["Search By Venue", "Search By City", " Search By Sport"],
   },
   venuepage: {
     title: "Discover Sports Venues Near You",
-    placeholder: ["Search Venue", "City", "Sport"],
+    placeholder: ["Search By Venue", "Search By City", "Search By Sport"],
   },
   HostPage: {
     title: "Discover Play near you",
-    placeholder: ["Search Games", "Host", "Skills", "Game Type"],
+    placeholder: ["Search By Games", "Search By Host", "Search By Skills", "Search By Game Type"],
   },
   CoachPage: {
     title: "Discover Coaches Near You",
-    placeholder: ["Search Coach", "Services", "Academy"],
+    placeholder: ["Search By Coach", "Search By Services", "Search By Academy"],
   },
   EventPage: {
     title: "Discover Fitness Events Near You",
-    placeholder: ["Search Events", "Difficulty", "Event type"],
+    placeholder: ["Search By Events", "Search By Difficulty", "Search By Event type"],
   },
   RunPage: {
     title: "Discover Runs & Marathons Near You",
-    placeholder: ["Search Runs", "Community", "Difficulty"],
+    placeholder: ["Search By Runs", "Search By Community", "Search By Difficulty"],
   },
   PlayPage: {
     title: "Discover Play near you",
-    placeholder: ["Search Play..", "Find Game..", "Explore Sports.."],
+    placeholder: ["Search By Play", "Search By Find Game..", "Search By Explore Sports"],
   },
   GymPage: {
     title: "Discover Gyms Near You",
-    placeholder: ["Search Gyms", "Location", "Fitness centers"],
+    placeholder: ["Search By Gyms", "Search By Location", "Search By Fitness centers"],
   },
 };
 

@@ -59,8 +59,6 @@ const DownloadAppSection = () => {
               <div className="mobile_img">
                 <img src={iphoneImage} className="" alt="" />
               </div>
-              
-         
            </Col>
         </Container>
       </section>

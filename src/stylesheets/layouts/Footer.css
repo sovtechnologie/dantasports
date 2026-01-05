@@ -11,6 +11,15 @@
   height: 100%;
   width: 100%;
 }
+.follow_us .links:first-child{
+
+  margin-left: unset;
+}
+.follow_us .links{
+
+  margin-left: 20px;
+}
+
 
 .title p {
   font-family: "DM Sans";

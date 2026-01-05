@@ -14,6 +14,7 @@ import PartnerWithUs from '../components/PartnerWithUs.jsx';
 import Ready from '../components/Ready.jsx';
 import CoachSection from '../components/CoachSection.jsx';
 import CorporateBookingForm from '../components/CorporateBookingForm.jsx';
+import PartnerForm from '../components/PartnerForm.jsx';
 
 
 const images = [
@@ -102,8 +103,8 @@ function PartnerPage() {
                 </div>
                 <PartnerWithUs/>
                 <Ready/>
-             <div className="mt-5">
-             <CorporateBookingForm />
+             <div>
+             <PartnerForm/>
            </div>
             </section>
         </>

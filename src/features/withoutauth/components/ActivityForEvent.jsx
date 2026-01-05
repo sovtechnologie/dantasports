@@ -58,7 +58,8 @@ function ActivityForEvent({ selectedSports, setSelectedSports }) {
             {loading ? (
                 <p className="text-center py-3">Loading...</p>
             ) : (
-                <div className="event-activity-grid">
+                <div className="active_wrapper">
+                  <div className="event-activity-grid">
                     {filtered.length > 0 ? (
                         filtered.map((item) => {
                             const id = Number(item.id);
@@ -77,6 +78,8 @@ function ActivityForEvent({ selectedSports, setSelectedSports }) {
                         <p className="text-center w-100 py-3 m-0">No results found</p>
                     )}
                 </div>
+                </div>
+                
             )}
         </div>
     );

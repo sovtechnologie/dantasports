@@ -16,7 +16,7 @@ const values = [
   {
     icon: playerIcon,
     title: 'Player Experience Is Paramount',
-    description: 'it doesn’t serve our players and partners, it doesn’t ship.',
+    description: 'If it doesn’t serve our players and partners, it doesn’t ship.',
   },
   {
     icon: teamIcon,

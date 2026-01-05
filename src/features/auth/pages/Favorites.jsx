@@ -421,7 +421,7 @@ const Favorites = () => {
                     favourite: venue.favourite
                   };
                   return (
-                    <div key={venue.id} className="favorite-card col-6">
+                    <div key={venue.id} className="favorite-card col-lg-6 col-12">
                       <FavoriteVenueCard venue={formattedVenue} onLikeToggle={() => toggleFavourite(venue)} />
                     </div>
                   );
@@ -452,8 +452,9 @@ const Favorites = () => {
             <p>No favorite sports yet.</p>
           ) : (
             <>
-              <div className="sport-list">
+              <div className="sport-list row g-2 g-md-3 g-lg-3 mt-5 mt-lg-0">
                 {paginatedSports.map((sport) => (
+                  <div className="col-lg-3 col-md-4 col-sm-4 col-6 ">
                   <div key={sport.favoourite_sports_id} className="favorite-sport-card">
                     <img src={sport.sports_images} alt={sport.sports_name} className="sport-image" />
                     <h1 className='sport-name'>{sport.sports_name}</h1>
@@ -465,6 +466,7 @@ const Favorites = () => {
                         onClick={() => handleSportDelete(sport.favoourite_sports_id)}
                       />
                     </button>
+                  </div>
                   </div>
                 ))}
               </div>
@@ -515,7 +517,7 @@ const Favorites = () => {
                         : "",
                 };
                 return (
-                  <div key={gym.Id} className="favorite-card col-6">
+                  <div key={gym.Id} className="favorite-card col-lg-6 col-12">
                     <FavoriteVenueCard venue={formattedGym} onLikeToggle={() => toggleGymFavourite(gym)} />
                   </div>
                 );
@@ -572,7 +574,7 @@ const Favorites = () => {
 
                 };
                 return (
-                  <div key={event.id} className="favorite-card col-6">
+                  <div key={event.id} className="favorite-card col-lg-6 col-12">
                     <FavoriteVenueCard venue={formattedEvent} onLikeToggle={() => toggleEventFavourite(event)} />
                   </div>
                 );
@@ -620,7 +622,7 @@ const Favorites = () => {
                         : "",
                 };
                 return (
-                  <div key={coach.id} className="favorite-card col-6">
+                  <div key={coach.id} className="favorite-card col-lg-6 col-12">
                     <FavoriteVenueCard
                       venue={formattedCoach}
                       onLikeToggle={() => toggleCoachFavourite(coach)}

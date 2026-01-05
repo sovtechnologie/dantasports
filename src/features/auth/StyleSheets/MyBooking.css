@@ -6,10 +6,30 @@
 .tabs {
   display: flex;
   gap: 0.7rem;
-  flex-wrap: wrap;
   margin-bottom: 1rem;
   border-bottom: 1px solid #EEEFF2;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
+
+/* Webkit scrollbar */
+.tabs::-webkit-scrollbar {
+  height: 4px; /* horizontal scrollbar height */
+}
+
+.tabs::-webkit-scrollbar-track {
+  background: transparent; /* ya #f1f1f1 */
+}
+
+.tabs::-webkit-scrollbar-thumb {
+  background: #cccccc2d;
+  border-radius: 10px;
+}
+
+.tabs::-webkit-scrollbar-thumb:hover {
+  background: #aeb4be;
+}
+
 
 .tab {
   padding: 20px 20px 20px 0;
@@ -155,5 +175,10 @@
 
   .booking-actions {
     justify-content: center;
+  }
+  .tab{
+
+    padding: 10px;
+    font-size: 18px;
   }
 }

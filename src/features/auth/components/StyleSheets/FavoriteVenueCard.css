@@ -57,7 +57,7 @@
 .favorite-venue-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  margin-bottom: 5px;
 }
 
 .favorite-venue-header h4 {
@@ -67,6 +67,7 @@
   line-height: 22.52px;
   color: #272727;
   margin: 0;
+  text-align: start;
 }
 
 .favorite-venue-rating {
@@ -104,6 +105,7 @@
   letter-spacing: 0;
   color: #6b7280;
   margin-top: -8px;
+  text-align: start;
 }
 
 .favorite-venue-footer {

@@ -30,7 +30,7 @@ function QuickBooking() {
           <h2>Quick Booking</h2>
         </div>
 
-        <Row>
+        <Row className="g-3">
           {cardsData.map((card, i) => (
             <Col key={i} lg={2} md={3} className="col-6">
               <Card

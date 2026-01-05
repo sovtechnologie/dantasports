@@ -55,11 +55,11 @@ const AddSportModal = ({ title, onClose, onSubmit, preSelected = [] }) => {
         <button className="sport-modal-close" onClick={onClose}>×</button>
         <h2>{title || "Select a Sport"}</h2>
 
-        <div className="sport-grid">
+        <div className="sport-grids">
           {sportList.map((sport) => (
             <div
               key={sport.id}
-              className={`sport-card ${selectedSport.some((s) => s.id === sport.id) ? "selected" : ""}`}
+              className={`sport-cards ${selectedSport.some((s) => s.id === sport.id) ? "selected" : ""}`}
               onClick={() => toggleSportSelection(sport)}
             >
               <img src={sport.sports_images} alt={sport.sports_name} className="sport-card-image" />

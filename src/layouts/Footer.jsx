@@ -27,7 +27,7 @@ function Footer() {
                   India's Leading <br /> Sports Venue Booking App
                 </p>
               </div>
-              <div className="follow_us d-flex justify-content-lg-between mt-4 pe-lg-5">
+              <div className="follow_us d-flex  mt-4 ">
                 <div className="links">
                   <a
                     href="https://www.facebook.com/profile.php?id=61555453983938"
@@ -95,10 +95,10 @@ function Footer() {
                   <h3>Services</h3>
                   <ul className="p-0 m-0">
                     <li>
-                      <Link to="/venue">Book</Link>
+                      <Link to="/venue">Turf</Link>
                     </li>
                     <li>
-                      <Link to="/Host">Host/Play</Link>
+                      <Link to="/Host">Play</Link>
                     </li>
                     <li>
                       <Link to="/Run">Run</Link>

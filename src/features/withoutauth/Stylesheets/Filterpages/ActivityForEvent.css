@@ -1,9 +1,9 @@
 /* 🌟 Main Container */
 .filter_inner_cards {
-      border: 0.81px solid #CDCDCD;
-    border-radius: 7.74px;
-    padding: 12px 8px;
-    margin: 20px 0;
+  border: 0.81px solid #CDCDCD;
+  border-radius: 7.74px;
+  padding: 12px 8px;
+  margin: 20px 0;
 }
 
 /* 🏷️ Title */
@@ -48,27 +48,32 @@
   opacity: 0.7;
 }
 
-/* ⚽ Activity Grid */
+
+
+.active_wrapper {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 150px;
+}
+
 .event-activity-grid {
+
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
+
 }
 
 /* 🟢 Buttons */
 .event-activity-btn {
-  flex: 1 1 calc(33.333% - 10px);
-  background-color: #f1f3f2;
-  border: 1px solid transparent;
-  border-radius: 10px;
-  padding: 10px 12px;
-  font-size: 14px;
-  font-weight: 500;
-  text-align: center;
-  color: #333;
+  border: 1px solid #cfcfcf;
+  background: #f9f9f9;
+  border-radius: 6px;
+  padding: 6px 0;
+  font-size: 13px;
   cursor: pointer;
-  transition: all 0.25s ease-in-out;
-  min-width: 110px;
+  transition: 0.2s;
+
 }
 
 .event-activity-btn:hover {
@@ -87,13 +92,19 @@
 /* 📱 Responsive Design */
 @media (max-width: 768px) {
   .event-activity-btn {
-    flex: 1 1 calc(50% - 10px);
+    /* flex: 1 1 calc(50% - 10px); */
     font-size: 13px;
+
+  }
+
+  .active_wrapper {
+
+    height: unset;
   }
 }
 
-@media (max-width: 480px) {
+/* @media (max-width: 480px) {
   .event-activity-btn {
     flex: 1 1 100%;
   }
-}
+} */

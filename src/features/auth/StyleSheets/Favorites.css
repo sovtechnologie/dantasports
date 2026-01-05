@@ -43,16 +43,15 @@
   color: #999;
 }
 
-.sport-list {
+/* .sport-list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
   position: relative;
-}
+} */
 
 .favorite-sport-card {
-  height: 150px;
-  width: 160px;
+  
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -92,7 +91,7 @@
 
 .add-sport-button {
   position: absolute;
-  top: 20px;
+  top: 50px;
   right: 10px;
   display: flex;
   align-items: center;
@@ -143,16 +142,12 @@
     justify-content: center;
   }
 
-  .sport-list {
-    grid-template-columns: repeat(2, 1fr);
-  }
+
 
   .add-sport-button {
-    top: 43.5rem;
-    right: 40px;
-    width: 35%;
-    justify-content: center;
-    font-size: 14px;
+  
+    font-size: 12px;
+    top: 65px;
   }
 
   .add-sport-icon {

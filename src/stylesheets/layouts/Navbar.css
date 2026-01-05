@@ -116,8 +116,9 @@
   letter-spacing: 0;
   text-align: center;
 }
+
 .nav-Filter-link.active-link {
-  /* color: black; Ant Design primary blue */
+
   font-weight: 600;
   position: relative;
 }
@@ -242,6 +243,7 @@
 }
 
 /* Show hamburger and make menu collapsible on small screens */
+
 
 @media (max-width: 750px) {
 

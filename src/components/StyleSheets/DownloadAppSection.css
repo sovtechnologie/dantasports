@@ -4,13 +4,14 @@
 
 .dawnload_app_section {
   
-  position: relative;
   margin: 100px 10px;
 }
 .dawnload_app_section .container {
 
    padding: 65px 120px 100px 125px;
      border-radius: 20px;
+  position: relative;
+
 }
 
 .dawnload_app_section .container::after {
@@ -22,7 +23,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   bottom: 0px;
-  left: 40px;
+  left: 0px;
   z-index: 99;
 }
 
@@ -35,7 +36,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     top: -6px;
-    right: 40px;
+    right: 0px;
 }
 
 
@@ -160,6 +161,7 @@
 }
 
 
+
 @media screen and (max-width: 1490px) {
 
   .dawnload_app_section .container::before,
@@ -173,6 +175,20 @@
   }
  
   
+}
+
+@media screen and (max-width: 1240px) {
+
+
+    .dawnload_app_section .container::before,
+  .dawnload_app_section .container::after{
+
+    display: none;
+  }
+  .dawnload_app_section .mobile_img img{
+
+    display: none;
+  }
 }
 
 @media screen and (max-width: 1140px) {

@@ -36,14 +36,14 @@
   cursor: pointer;
 }
 
-.sport-grid {
+.sport-grids {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
   gap: 16px;
   margin-top: 20px;
 }
 
-.sport-card {
+.sport-cards {
   border: 1px solid transparent;
   border-radius: 4px;
   padding: 12px;
@@ -53,11 +53,11 @@
   border: 1px solid #ECECEC;
 }
 
-.sport-card:hover {
+.sport-cards:hover {
   background-color: #ffffff;
 }
 
-.sport-card.selected {
+.sport-cards.selected {
   border-color: #007BFF;
   /* background-color: #; */
   border: 2px solid #007BFF;

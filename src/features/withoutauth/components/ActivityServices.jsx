@@ -59,6 +59,7 @@ function ActivityServices({ selectedSports, setSelectedSports }) {
       {loading ? (
         <p className="text-center py-3">Loading...</p>
       ) : (
+        <div className="active_wrapper">
         <div className="activity-grid">
           {filtered.length > 0 ? (
             filtered.map((item, index) => (
@@ -74,6 +75,7 @@ function ActivityServices({ selectedSports, setSelectedSports }) {
           ) : (
             <p className="text-center w-100 py-3 m-0">No results found</p>
           )}
+        </div>
         </div>
       )}
     </div>
