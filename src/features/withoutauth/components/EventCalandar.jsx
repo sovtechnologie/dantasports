@@ -14,7 +14,8 @@ import {
 } from 'date-fns-tz';
 import { useMemo, useState } from "react";
 export const EventCalandar = ({ selectedDate, setSelectedDate, startDateProp,
-    endDateProp, }) => {
+    endDateProp, eventCalendar,
+    eventDates = [], }) => {
     console.log(startDateProp,
         endDateProp)
     const timeZone = 'Asia/Kolkata';
@@ -41,21 +42,39 @@ export const EventCalandar = ({ selectedDate, setSelectedDate, startDateProp,
     // });
 
     const dayList = useMemo(() => {
+        // 🔹 CASE 1: event_calendar === 2 → event_dates array
+        if (eventCalendar === 2) {
+            return eventDates
+                .map((item) => {
+                    const z = startOfDay(toZonedTime(new Date(item.dates), timeZone));
+                    return {
+                        full: z,
+                        day: format(z, "d"),
+                        monthLabel: format(z, "MMM"),
+                        isPast: isBefore(z, todayZoned),
+                    };
+                })
+                .filter((d) => !d.isPast); // ❌ past remove
+        }
+
+        // 🔹 CASE 2: start & end date (existing logic)
         if (!startDateProp || !endDateProp) return [];
-        const interval = {
+
+        return eachDayOfInterval({
             start: startOfDay(toZonedTime(startDateProp, timeZone)),
             end: startOfDay(toZonedTime(endDateProp, timeZone)),
-        };
-        return eachDayOfInterval(interval).map((d) => {
-            const z = toZonedTime(d, timeZone);
-            return {
-                full: z,
-                day: format(z, 'd'),
-                monthLabel: format(z, 'MMM'),
-                isPast: isBefore(z, todayZoned),
-            };
-        });
-    }, [startDateProp, endDateProp, timeZone]);
+        })
+            .map((d) => {
+                const z = toZonedTime(d, timeZone);
+                return {
+                    full: z,
+                    day: format(z, "d"),
+                    monthLabel: format(z, "MMM"),
+                    isPast: isBefore(z, todayZoned),
+                };
+            })
+            .filter((d) => !d.isPast); // ❌ past remove
+    }, [eventCalendar, eventDates, startDateProp, endDateProp]);
 
     const monthLabel = format(startDate, 'MMM');
     return (

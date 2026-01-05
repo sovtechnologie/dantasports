@@ -335,6 +335,8 @@ function ViewDetails({ booking, ...props }) {
                   <ul className="p-0 m-0">
                     <li><span className="me-3">Method:</span>{data.paymentInstrument?.type || "N/A"}</li>
                     <li><span className="me-3">Payment Date:</span>{formatDate(data.payment_date)}</li>
+                    <li><span className="me-3">Payment Time:</span> {formatTimeFromISO(data.payment_date)}</li>
+                    {data.booking_status === 1 ? <li><span className="me-3">Transaction Id:</span> {data.merchent_transaction_id}</li> : ""}
                   </ul>
                 </div>
 
@@ -345,12 +347,12 @@ function ViewDetails({ booking, ...props }) {
                     <p className="text-success">
                       {data.booking_status === 1 ? "Booked" : "Cancelled"}
                     </p>
+                    {/* {data.booking_status === 1 ?
+                      <div className="d-flex justify-content-between">
+                        <p>Booking Time: {formatTimeFromISO(data.payment_date)}</p>
 
-                    <div className="d-flex justify-content-between">
-                      <p>Booking Time: {formatTimeFromISO(data.payment_date)}</p>
-
-                      {/* <p>Booking Date: {formatDate(data.date)}</p> */}
-                    </div>
+                        {/* <p>Booking Date: {formatDate(data.date)}</p> */}
+                    {/* </div> : ""} */}
 
 
                     {paymentCode === "PAYMENT_PENDING" && (
@@ -371,11 +373,11 @@ function ViewDetails({ booking, ...props }) {
                     {/* 🟢 PAYMENT / REFUND SUCCESS */}
                     {paymentCode === "PAYMENT_SUCCESS" && (
                       <>
-                        <p className="text-success fw-bold">Payment Successful</p>
+                        <p className="text-danger fw-bold">Refund Successful</p>
 
                         <div className="d-flex justify-content-between">
-                          <p>Refund Date: {formatDate(data.payment_date)}</p>
-                          <p>Time: {formatTimeFromISO(data.payment_date)}</p>
+                          <p>Refund Date: {formatDate(data.refund_date)}</p>
+                          <p>Time: {formatTimeFromISO(data.refund_date)}</p>
                         </div>
 
                         <div className="d-flex justify-content-between">
@@ -384,7 +386,7 @@ function ViewDetails({ booking, ...props }) {
                         </div>
 
                         <div className="d-flex justify-content-between">
-                          <p>Refund credited to your account</p>
+                          <p>Refund credited to your Source account</p>
 
                         </div>
 
@@ -405,7 +407,7 @@ function ViewDetails({ booking, ...props }) {
           </Modal.Body>
         </Modal>
       </Container>
-    </section>
+    </section >
   );
 }
 
