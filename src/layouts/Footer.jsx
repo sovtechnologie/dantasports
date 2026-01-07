@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Col, Row } from "react-bootstrap";
 import "../stylesheets/layouts/Footer.css"; // Ensure this path is correct
 import "../stylesheets/layouts/Global.css";
-import dantasports from "../assets/sportdantaLogo/dantasports.png"; // Replace with correct logo path
+import dantasports from "../assets/sportdantaLogo/logo-white.jpeg"; // Replace with correct logo path
 import { Link } from "react-router-dom";
 import phone from "../assets/footerLogo/phone.svg";
 import email from "../assets/footerLogo/email.svg";
@@ -20,7 +20,7 @@ function Footer() {
           <Row>
             <Col lg={3} md={4}>
               <div className="dantaspot_logo">
-                <img src={dantasports} alt="" />
+                <img className="w-100" src={dantasports} alt="" />
               </div>
               <div className="title mt-3">
                 <p>

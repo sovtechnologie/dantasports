@@ -87,12 +87,12 @@
   margin-bottom: 0;
 }
 
-.subtext {
+.dawnload_app_section .subtext {
   font-family: "DM Sans";
   font-weight: 400;
   line-height: 30px;
   font-size: 18px;
-  color: #fff;
+  color: #fff !important;
   transition:
     opacity 0.4s,
     transform 0.4s;

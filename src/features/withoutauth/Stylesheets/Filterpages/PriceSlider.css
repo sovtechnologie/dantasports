@@ -28,7 +28,7 @@
     #ccc calc((var(--value) / 5000) * 100%),
     #ccc 100%
   );
-  background: #0000004D;
+  background: #bebaba69;
 
   outline: none;
   cursor: pointer;
@@ -44,7 +44,7 @@
   background: #1163c7;
   cursor: pointer;
   border: none;
-  margin-top: -4px;
+  margin-top: -2px;
 }
 
 .price-slider::-moz-range-thumb {

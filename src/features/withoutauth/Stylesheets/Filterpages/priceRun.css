@@ -16,11 +16,12 @@
 }
 
 .price-values span.active-price {
-  color: rgb(11, 7, 238);
+  color: #1163C7;
   font-weight: bold;
 }
 
 .price-slider {
   width: 100%;
-  accent-color: rgb(11, 7, 238);
+  accent-color: #1163c7;
+  
 }
