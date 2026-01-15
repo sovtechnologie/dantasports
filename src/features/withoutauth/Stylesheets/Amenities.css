@@ -18,13 +18,8 @@
 }
 
 
-.amenities_card .row{
 
-    overflow-y: scroll;
-    overflow-x: hidden;
-    max-height: 150px;
-    height: 100%;
-}
+
 
 .amenities_card .inner {
 
@@ -34,10 +29,18 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 5px 2px;
     border-radius: 3.75px;
     margin: 3px;
+    min-width: 110px;
+    height: 40px;
     
+}
+
+.amenities_box {
+
+  height: 200px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .amenities_card .inner a {
@@ -84,4 +87,19 @@
 .inner.selected {
   border: 2px solid skyblue;
   background-color: rgba(135, 206, 250, 0.1);
+}
+
+@media screen and (max-width: 540px) {
+
+  .amenities_card .inner{
+
+    min-width: unset;
+    
+  }
+
+  .amenities_box{
+
+    height: unset;
+  }
+  
 }

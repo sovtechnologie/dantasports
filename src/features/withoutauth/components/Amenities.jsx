@@ -33,12 +33,13 @@ function Amenities({ selectedAmenities = [], setSelectedAmenities }) {
     return (
         <div className="amenities_card">
             <h2 className="mb-3 text-start">Amenities</h2>
-            <div className="row">
+            <div className="amenities_box">
+            <div className="d-flex flex-wrap ">
                 {amenities.length > 0 ? (
                     amenities.map((item) => {
                         const isSelected = selectedAmenities.includes(item.id);
                         return (
-                            <div className="col-4 p-0" key={item.id}>
+                            <div className="d-flex flex-wrap " key={item.id}>
                                 <div
                                     className={`inner ${isSelected ? "selected" : ""}`}
                                     onClick={() => handleAmenityClick(item.id)}
@@ -53,6 +54,7 @@ function Amenities({ selectedAmenities = [], setSelectedAmenities }) {
                 ) : (
                     <p className="text-center w-100">Loading amenities...</p>
                 )}
+            </div>
             </div>
         </div>
     );

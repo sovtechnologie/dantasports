@@ -20,7 +20,9 @@ function Footer() {
           <Row>
             <Col lg={3} md={4}>
               <div className="dantaspot_logo">
-                <img className="w-100" src={dantasports} alt="" />
+                <Link to="/">
+                    <img className="w-100" src={dantasports} alt="" />
+                </Link>
               </div>
               <div className="title mt-3">
                 <p>
@@ -76,9 +78,9 @@ function Footer() {
                       <Link to="/about">About us</Link>
                     </li>
                     
-                    <li>
+                    {/* <li>
                       <Link to="/contact">Contact</Link>
-                    </li>
+                    </li> */}
                     
                     <li>
                       <Link to="/Partner">Partner With us</Link>
