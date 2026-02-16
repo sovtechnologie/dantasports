@@ -36,9 +36,7 @@ function AccountDeactivate() {
                         <li>You will receive an email confirmation once deletion completes.</li>
                       </ol>
                       <p>
-                        Alternatively, email us at 
-                        <a href="mailto:support@dantasports.com">support@dantasports.com</a> 
-                        from your registered email address with the subject "Delete my account".
+                        Alternatively, email us at <a href="mailto:support@dantasports.com">support@dantasports.com</a> from your registered email address with the subject "Delete my account".
                         </p>
                    </div>
                 </Col>

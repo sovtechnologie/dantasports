@@ -30,7 +30,7 @@ const InfoModal = ({ show, type, onClose, bookingData = {} }) => {
                     </div>
 
                     <div className="info-modal-body">
-                        • Total court price including application taxes<br />
+                        • Total court price including applicable taxes<br />
                         • Invoice can be collected directly from the venue at the time of play
                     </div>
                 </>
@@ -40,18 +40,14 @@ const InfoModal = ({ show, type, onClose, bookingData = {} }) => {
             {type === "convenience" && (
                 <>
                     <div className="info-modal-header">
-                        <span>Convenience Fee</span>
+                        <span>Convenience Fee </span>
                         <button className="close-btn" onClick={onClose}>✕</button>
                     </div>
 
                     <div className="info-modal-body">
-                        <div>• Base Fee: INR {base_fare_amount.toFixed(2)} ({convenience_fee} of the Base Fee)</div>
-                        <div>• GST: INR {base_fare_gst.toFixed(2)} ({gst}% of thye Base Fee)</div>
-                        {/* <div>• Convenience Fee Amount: ₹{convenience_fee_amount.toFixed(2)}</div> */}
-
-                        {/* <div className="mt-2 fw-bold">
-                            Total Price: ₹{total_price.toFixed(2)}
-                        </div> */}
+                        <div>• Base Fee: INR {base_fare_amount.toFixed(2)} ({convenience_fee}% of the Base Fee)</div>
+                        <div>• GST: INR {base_fare_gst.toFixed(2)} ({gst}% of the Base Fee)</div>
+                        
                     </div>
                 </>
             )}

@@ -8,7 +8,7 @@
 
 
 
-.rating_box {
+/* .rating_box {
   top: 10px;              
   left: 10px;            
  background: #0000004D;
@@ -21,7 +21,7 @@
   color: #fff;
   z-index: 5;    
   height: 24px;
-}
+} */
 
 .rating_box img {
   width: 10px;
@@ -32,9 +32,8 @@
 
 .rating_box span{
 
-    font-family: 'DM Sans';
-    font-weight: 500;
-    font-size: 10px;
+    
+    font-size: 16px;
     color: white;
 
 }
