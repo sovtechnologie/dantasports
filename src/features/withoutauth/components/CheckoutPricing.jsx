@@ -167,7 +167,7 @@ const CheckoutPricing = ({ totalPrice, price, convenienceFee, type, count, setFi
         {/* Passes Price */}
         <Row className="align-items-center mb-2">
           <Col xs={8} className="pass_price">
-            Passes price x {count} <InfoCircle size={13} className="text-primary ms-1" onClick={() => setActiveModal("pass")} />
+            Court  Price   <InfoCircle size={13} className="text-primary ms-1" onClick={() => setActiveModal("pass")} />
           </Col>
           <Col xs={4} className="pass_price text-end">
             <span>₹{price}</span>

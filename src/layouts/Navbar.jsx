@@ -286,44 +286,7 @@ function Navbar() {
                   )}
                 </div> */}
 
-                    <Link
-                      to="/venue"
-                      className={`nav-Filter-link ${isActive("/venue") ? "active-link" : ""}`}
-                    >
-                      Turf
-                    </Link>
-
-                    <Link
-                      to="/Host"
-                      className={`nav-Filter-link ${isActive("/Host") ? "active-link" : ""}`}
-                    >
-                      Play
-                    </Link>
-                    <Link
-                      to="/Run"
-                      className={`nav-Filter-link ${isActive("/Run") ? "active-link" : ""}`}
-                    >
-                      Run
-                    </Link>
-                    <Link
-                      to="/Coach"
-                      className={`nav-Filter-link ${isActive("/Coach") ? "active-link" : ""}`}
-                    >
-                      Coach
-                    </Link>
-                    <Link
-                      to="/Events"
-                      className={`nav-Filter-link ${isActive("/Events") ? "active-link" : ""}`}
-                    >
-                      Events
-                    </Link>
-                    <Link
-                      to="/Gym"
-                      className={`nav-Filter-link ${isActive("/Gym") ? "active-link" : ""}`}
-                    >
-                      Gym
-                    </Link>
-                    <div className="location-search-container">
+<div className="location-search-container">
                       <input
                         type="text"
                         placeholder="Search by location"
@@ -374,6 +337,44 @@ function Navbar() {
                         </ul>
                       )}
                     </div>
+                    <Link
+                      to="/venue"
+                      className={`nav-Filter-link ${isActive("/venue") ? "active-link" : ""}`}
+                    >
+                      Turf
+                    </Link>
+
+                    <Link
+                      to="/Host"
+                      className={`nav-Filter-link ${isActive("/Host") ? "active-link" : ""}`}
+                    >
+                      Play
+                    </Link>
+                    <Link
+                      to="/Run"
+                      className={`nav-Filter-link ${isActive("/Run") ? "active-link" : ""}`}
+                    >
+                      Run
+                    </Link>
+                    <Link
+                      to="/Coach"
+                      className={`nav-Filter-link ${isActive("/Coach") ? "active-link" : ""}`}
+                    >
+                      Coach
+                    </Link>
+                    <Link
+                      to="/Events"
+                      className={`nav-Filter-link ${isActive("/Events") ? "active-link" : ""}`}
+                    >
+                      Events
+                    </Link>
+                    <Link
+                      to="/Gym"
+                      className={`nav-Filter-link ${isActive("/Gym") ? "active-link" : ""}`}
+                    >
+                      Gym
+                    </Link>
+                    
                   </div>
                 </>
               )}
