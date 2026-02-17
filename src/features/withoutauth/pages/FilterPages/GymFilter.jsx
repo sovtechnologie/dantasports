@@ -199,8 +199,7 @@ export default function GymFilterPage() {
 
   }, [AllGymdata]);
 
-  if (isLoading) return <VenueListShimmer />;
-  if (isError) return <div>Error loading gyms: {error.message}</div>;
+  
   const handleShare = (e, gym) => {
     e.preventDefault();
     e.stopPropagation();
@@ -218,6 +217,8 @@ export default function GymFilterPage() {
     }
   };
 
+  if (isLoading) return <VenueListShimmer />;
+  if (isError) return <div>Error loading gyms: {error.message}</div>;
   return (
     <section style={{ background: "#F1F3F2" }} className="pb-lg-4 pb-3">
       <PageSearch searchValue="GymPage" />
