@@ -19,13 +19,16 @@ import "../stylesheets/layouts/Global.css";
 import OngoingEvents from "../features/withoutauth/components/OngoingEvents";
 import { useBanner } from "../hooks/useBanner.js";
 import { Row, Col, Container } from "react-bootstrap";
+// import Skeleton from "react-loading-skeleton";
+// import "react-loading-skeleton/dist/skeleton.css";
+
 const Home = () => {
 
     const { data: bannerData, isLoading: dataLoading, error: dataError } = useBanner(1);
     const banners = bannerData?.result || [];
     return (
         <div className="main-Home-container">
-            <HomeBanner />
+        <HomeBanner />
             <QuickBooking />
             <Container>
                 <Row className="onging_title_hid mt-lg-5 mt-4">
