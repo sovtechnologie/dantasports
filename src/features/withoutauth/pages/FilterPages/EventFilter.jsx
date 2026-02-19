@@ -45,6 +45,10 @@ export default function EventFilterPage() {
   const [selectedDifficulty, setSelectedDifficulty] = useState(null);
   const [selectedPrice, setSelectedPrice] = useState(0);
   const [selectedAmenities, setSelectedAmenities] = useState([]);
+  const [visibleCount, setVisibleCount] = useState(9);
+const [isFetchingMore, setIsFetchingMore] = useState(false);
+const observerRef = React.useRef(null);
+
   const auth = useSelector((state) => state.auth);
   const [filters, setFilters] = useState({
     sortBy: [],
@@ -226,6 +230,46 @@ export default function EventFilterPage() {
 
     return result;
   }, [eventList, pageSearchTerm, search, filters, selectedSports, selectedPrice, selectedDate, selectedDifficulty, selectedAmenities]);
+useEffect(() => {
+  setVisibleCount(9);
+}, [
+  selectedSports,
+  selectedDate,
+  selectedDifficulty,
+  selectedPrice,
+  selectedAmenities,
+  search,
+  pageSearchTerm,
+  filters,
+]);
+
+useEffect(() => {
+  const currentRef = observerRef.current;
+  if (!currentRef) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting) {
+        if (visibleCount < filteredEvents.length) {
+          setIsFetchingMore(true);
+
+          setTimeout(() => {
+            setVisibleCount((prev) => prev + 9);
+            setIsFetchingMore(false);
+          }, 400);
+        }
+      }
+    },
+    { threshold: 0.8 }
+  );
+
+  observer.observe(currentRef);
+
+  return () => {
+    observer.unobserve(currentRef);
+    observer.disconnect();
+  };
+}, [visibleCount, filteredEvents.length]);
 
 
   const handleShareClick = async (e, evt) => {
@@ -420,7 +464,8 @@ export default function EventFilterPage() {
               </div>
               <div className="row g-3">
                 {filteredEvents.length > 0 ? (
-                  filteredEvents.map((evt) => (
+                    <>
+                {filteredEvents.slice(0, visibleCount).map((evt) => (
                     <div className="col-lg-4 col-md-6 position-relative" key={evt.id}>
                       <Link to={`/events/${evt.id}`} className="text-decoration-none">
 
@@ -559,11 +604,29 @@ export default function EventFilterPage() {
                       </Link>
 
                     </div>
-                  ))
+                    
+                  ))}
+    {visibleCount < filteredEvents.length && (
+      <>
+        {isFetchingMore && (
+          <div className="text-center my-4 col-12">
+            <div className="spinner-border text-success" role="status"></div>
+            <p className="mt-2">Loading more events...</p>
+          </div>
+        )}
+        <div ref={observerRef} className="col-12"></div>
+      </>
+    )}
+
+</>
+                  
                 ) : (
                   <div className="no-data">No Event Data Available</div>
                 )}
+
+                
               </div>
+              
 
             </Col>
 

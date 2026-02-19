@@ -38,6 +38,10 @@ export default function HostPlayFilterPage() {
   const [search, setSearch] = useState("");
   const [selectedTime, setSelectedTime] = useState(null);
   const [sortBy, setSortBy] = useState([]);
+  const [visibleCount, setVisibleCount] = useState(9);
+const [isFetchingMore, setIsFetchingMore] = useState(false);
+const observerRef = React.useRef(null);
+
 
   const { data: AllHostdata, isLoading, isError, error } = useFetchHostList({ lat, lng });
 const pageSearchTerm = useSelector((state) => state.search.searchTerm);
@@ -134,6 +138,39 @@ const pageSearchTerm = useSelector((state) => state.search.searchTerm);
     });
   }, [filteredHosts, search, selectedTime,pageSearchTerm]);
 
+  useEffect(() => {
+  setVisibleCount(9);
+}, [filteredHosts, search, selectedTime, pageSearchTerm, sortBy]);
+
+useEffect(() => {
+  const currentRef = observerRef.current;
+  if (!currentRef) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting) {
+        if (visibleCount < visibleHosts.length) {
+          setIsFetchingMore(true);
+
+          setTimeout(() => {
+            setVisibleCount((prev) => prev + 9);
+            setIsFetchingMore(false);
+          }, 400);
+        }
+      }
+    },
+    { threshold: 0.8 }
+  );
+
+  observer.observe(currentRef);
+
+  return () => {
+    observer.unobserve(currentRef);
+    observer.disconnect();
+  };
+}, [visibleCount, visibleHosts.length]);
+
+
   const handleClick = () => {
     window.open('https://play.google.com/store/apps', '_blank')
   };
@@ -224,7 +261,8 @@ const pageSearchTerm = useSelector((state) => state.search.searchTerm);
             </Col>
             <Row className="g-3">
               {visibleHosts.length > 0 ? (
-                visibleHosts.map((host) => (
+                <>{
+              visibleHosts.slice(0, visibleCount).map((host) => (
                   <Col lg={6} xl={4} md={6} key={host.id}>
                     <Link onClick={handleClick} className="text-decoration-none">
                    
@@ -295,7 +333,19 @@ const pageSearchTerm = useSelector((state) => state.search.searchTerm);
                     </Card>
                     </Link>
                   </Col>
-                ))
+                ))}
+                {visibleCount < visibleHosts.length && (
+  <>
+    {isFetchingMore && (
+      <Col xs={12} className="text-center my-4">
+        <div className="spinner-border text-success"></div>
+        <p className="mt-2">Loading more hosts...</p>
+      </Col>
+    )}
+    <div ref={observerRef}></div>
+  </>
+)}</>
+
               ) : (
                 <div className="text-center py-5 fw-semibold text-muted">
                   No hosts found

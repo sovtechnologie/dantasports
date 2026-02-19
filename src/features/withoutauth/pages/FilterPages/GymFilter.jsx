@@ -29,12 +29,15 @@ import filterIcon from "../../assets/icons/filter.svg";
 import OngoingEvents from "../../components/OngoingEvents.jsx";
 import { useBanner } from "../../../../hooks/useBanner.js";
 import { Link } from "react-router-dom";
-
+import { useRef } from "react";
 
 export default function GymFilterPage() {
 
   const { data: bannerData, isLoading: dataLoading, error: dataError } = useBanner(1);
   const banners = bannerData?.result || [];
+const [visibleCount, setVisibleCount] = useState(9);
+const [isFetchingMore, setIsFetchingMore] = useState(false);
+const observerRef = useRef(null);
 
   const userId = useSelector((state) => state.auth.id);
   const { lat, lng } = useSelector((state) => state.location);
@@ -107,6 +110,8 @@ export default function GymFilterPage() {
       );
     }
   };
+
+
 
   // --- RESET ---
   const handleReset = () => {
@@ -206,6 +211,45 @@ export default function GymFilterPage() {
 
     return result;
   }, [gymList, filters, search, selectedDate, priceRange, selectedAmenities, coachAvailable,pageSearchTerm]);
+
+useEffect(() => {
+  setVisibleCount(9);
+}, [
+  search,
+  filters,
+  selectedDate,
+  priceRange,
+  selectedAmenities,
+  coachAvailable,
+  pageSearchTerm
+]);
+useEffect(() => {
+  const currentRef = observerRef.current;
+  if (!currentRef) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting) {
+        if (visibleCount < filteredGyms.length) {
+          setIsFetchingMore(true);
+
+          setTimeout(() => {
+            setVisibleCount((prev) => prev + 9);
+            setIsFetchingMore(false);
+          }, 400);
+        }
+      }
+    },
+    { threshold: 0.8 } // 👈 1 se better hai
+  );
+
+  observer.observe(currentRef);
+
+  return () => {
+    observer.unobserve(currentRef);
+    observer.disconnect();
+  };
+}, [visibleCount, filteredGyms.length]);
 
 
 
@@ -366,7 +410,7 @@ export default function GymFilterPage() {
             </Col>
             <div className="row g-3">
               {filteredGyms.length > 0 ? (
-                filteredGyms.map((gym) => {
+             filteredGyms.slice(0, visibleCount).map((gym) => {
                   const imageSrc = gym.desktop_image || gym.mobile_image || fallbackGymImg;
 
                   return (
@@ -437,6 +481,20 @@ export default function GymFilterPage() {
                 <div className="no-data-card">No gyms found</div>
               )}
             </div>
+            {/* Infinite Scroll Trigger */}
+{visibleCount < filteredGyms.length && (
+  <>
+    <div ref={observerRef}></div>
+
+    {isFetchingMore && (
+      <div className="text-center my-4">
+        <div className="spinner-border text-success" role="status"></div>
+        <p className="mt-2">Loading more gyms...</p>
+      </div>
+    )}
+  </>
+)}
+
           </Col>
         </Row>
 

@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
+import { useRef } from "react";
 import "../../Stylesheets/Filterpages/RunFilter.css";
 import "../../Stylesheets/Filterpages/Cards.css";
 import { Container, Row, Col } from "react-bootstrap";
@@ -77,6 +78,9 @@ export default function RunFilterPage() {
   const [search, setSearch] = useState("");
   const [kidsFriendly, setKidsFriendly] = useState(false);
   const [petFriendly, setPetFriendly] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(9);
+const [isFetchingMore, setIsFetchingMore] = useState(false);
+const observerRef = useRef(null);
 
   const [filters, setFilters] = useState({
     service: null,
@@ -303,6 +307,48 @@ export default function RunFilterPage() {
   ]);
 
   useEffect(() => {
+  setVisibleCount(9);
+}, [
+  search,
+  filters,
+  selectedSports,
+  selectedDate,
+  selectedAmenities,
+  selectedDifficulty,
+  selectedPrice,
+  kidsFriendly,
+  petFriendly,
+  pageSearchTerm
+]);
+
+useEffect(() => {
+  if (!observerRef.current) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting) {
+        if (visibleCount < filteredEvents.length) {
+          setIsFetchingMore(true);
+
+          setTimeout(() => {
+            setVisibleCount((prev) => prev + 9);
+            setIsFetchingMore(false);
+          }, 500);
+        }
+      }
+    },
+    { threshold: 1 }
+  );
+
+  observer.observe(observerRef.current);
+
+  return () => {
+    observer.disconnect();
+  };
+}, [visibleCount, filteredEvents.length]);
+
+
+  useEffect(() => {
     if (AllRundata?.status === 200) {
       setRunList(AllRundata.result);
       setFilteredRuns(AllRundata.result); // ✅ initialize
@@ -525,7 +571,8 @@ export default function RunFilterPage() {
               </div>
               <div className="row g-3">
                 {filteredEvents.length > 0 ? (
-                  filteredEvents.map((event) => (
+                filteredEvents.slice(0, visibleCount).map((event) => (
+
                     <div key={event.id} className="col-xl-4 col-lg-6 col-md-6">
                       <Link
                         to={`/run/${event.id}`}
@@ -640,6 +687,21 @@ export default function RunFilterPage() {
                 ) : (
                   <div className="text-center">No Events Found</div>
                 )}
+
+                {/* Infinite Scroll Loader */}
+{visibleCount < filteredEvents.length && (
+  <>
+    <div ref={observerRef}></div>
+
+    {!isFetchingMore && (
+      <div className="text-center my-4">
+        <div className="spinner-border text-success" role="status"></div>
+        <p className="mt-2">Loading more events...</p>
+      </div>
+    )}
+  </>
+)}
+
               </div>
             </Col>
           </Row>

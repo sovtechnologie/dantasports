@@ -34,11 +34,17 @@ import sortIcon from "../../assets/icons/sort.svg";
 import filterIcon from "../../assets/icons/filter.svg";
 import OngoingEvents from "../../components/OngoingEvents.jsx";
 import { useBanner } from "../../../../hooks/useBanner.js";
+import { useRef } from "react";
+
 
 export default function CoachFilterPage() {
   const { data: bannerData, isLoading: bannerLoading, error: bannerError } = useBanner(1);
   const banners = bannerData?.result || [];
 
+const observerRef = useRef(null);
+
+const [visibleCount, setVisibleCount] = useState(9);
+const [isFetchingMore, setIsFetchingMore] = useState(false);
 
   const queryClient = useQueryClient();
 
@@ -354,7 +360,52 @@ if (pageSearchTerm?.trim()) {
   }
 };
 
+  useEffect(() => {
+  if (!observerRef.current) return;
 
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const target = entries[0];
+
+      if (
+        target.isIntersecting &&
+        visibleCount < formattedCoachList.length
+      ) {
+        setIsFetchingMore(true);
+
+        setTimeout(() => {
+          setVisibleCount((prev) => prev + 9);
+          setIsFetchingMore(false);
+        }, 600);
+      }
+    },
+    {
+      root: null,
+      rootMargin: "100px",
+      threshold: 0.1,
+    }
+  );
+
+  observer.observe(observerRef.current);
+
+  return () => {
+    if (observerRef.current) {
+      observer.unobserve(observerRef.current);
+    }
+  };
+}, [visibleCount, formattedCoachList.length]);
+
+useEffect(() => {
+  setVisibleCount(9);
+}, [
+  selectedSports,
+  selectedAge,
+  selectedBatch,
+  selectedCoachType,
+  selectedDate,
+  filters,
+  pageSearchTerm
+]);
 
 
 
@@ -379,6 +430,9 @@ if (pageSearchTerm?.trim()) {
     { id: 5, type: "img", src: users, alt: "User4" },
     { id: 5, type: "img", src: users, alt: "User5" },
   ];
+
+
+
 
   return (
     <>
@@ -518,7 +572,9 @@ if (pageSearchTerm?.trim()) {
               </div>
               <div className="row g-3">
                 {formattedCoachList.length > 0 ? (
-                  formattedCoachList.map((coach) => (
+                  formattedCoachList
+  .slice(0, visibleCount)
+  .map((coach) => (
                     <div className="col-xl-4  col-lg-6 col-md-6 position-relative" key={coach.id}>
                       <Link to={`/coach/${coach.id}`} className="text-decoration-none">
 
@@ -641,6 +697,15 @@ if (pageSearchTerm?.trim()) {
             </Col>
           </Row>
           <div className="coach-footer-banner">
+            <div ref={observerRef}></div>
+
+{isFetchingMore && (
+  <div className="text-center my-4">
+    <div className="spinner-border text-success" role="status"></div>
+    <p className="mt-2">Loading more coaches...</p>
+  </div>
+)}
+
             <AppDownloadBanner />
           </div>
         </Container>
