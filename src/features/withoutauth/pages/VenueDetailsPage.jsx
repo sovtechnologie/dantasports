@@ -695,6 +695,7 @@ function VenueDetailsPage() {
                     </div>
                   ) : (
                     <CheckoutPricing
+                    priceLabel="Court Price"
                       totalPrice={totalPrice || 0}
                       price={price}
                       setCouponInfo={setCouponInfo}

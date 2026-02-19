@@ -24,6 +24,7 @@ function ProfilePage() {
   const navigate = useNavigate();
   const [isChatOpen, setIsChatOpen] = useState(false);
 
+const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const { data, isLoading: isFetching } = useQuery({
     queryKey: ['profile'],
@@ -87,13 +88,16 @@ function ProfilePage() {
 
 
 
-  const handleLogout = () => {
-    const confirmLogout = window.confirm("Are you sure you want to log out?");
-    if (confirmLogout) {
-      dispatch(logout());
-      navigate('/');
-    }
-  };
+ const handleLogout = () => {
+  setShowLogoutModal(true);
+};
+
+const confirmLogout = () => {
+  dispatch(logout());
+  setShowLogoutModal(false);
+  navigate('/');
+};
+
 
 
   const options = [
@@ -114,6 +118,30 @@ function ProfilePage() {
     <>
       {/* <TawkLoader /> */}
       <section className='pt-3 pb-3 pt-lg-5 pb-lg-5 profile_section' style={{ background: "#F1F3F2" }}>
+        {showLogoutModal && (
+  <div className="logout-modal-overlay">
+    <div className="logout-modal">
+      <h4>Confirm Logout</h4>
+      <p>Are you sure you want to logout from your account?</p>
+
+      <div className="logout-modal-buttons">
+        <button
+          className="cancel-btn"
+          onClick={() => setShowLogoutModal(false)}
+        >
+          Cancel
+        </button>
+        <button
+          className="confirm-btn"
+          onClick={confirmLogout}
+        >
+          Yes, Logout
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
         <Container>
           <Row>
             <Col className='col-12 tite'>
@@ -125,14 +153,32 @@ function ProfilePage() {
             <Col xl={5} lg={4} md={6}>
               <aside className="sidebar">
                 <div className="user-card">
-                  <div className="user-card-left">
-                    <img src={profile?.profile_image} alt="User" className="user-avatar" />
-                    <div className="user-info">
-                      <div className="user-name">{profile?.full_name || "Noel Jacob"}</div>
-                      <div className="user-email">{profile?.email || "noeljacob@gmail.com"}</div>
-                      <div className="user-phone">{profile?.mobile_number || "+919898989898"}</div>
-                    </div>
-                  </div>
+                <div className="user-card-left">
+  {isFetching ? (
+    <>
+      <div className="skeleton skeleton-avatar"></div>
+      <div className="user-info ms-3">
+        <div className="skeleton skeleton-text" style={{ width: "140px" }}></div>
+        <div className="skeleton skeleton-text" style={{ width: "180px" }}></div>
+        <div className="skeleton skeleton-text" style={{ width: "120px" }}></div>
+      </div>
+    </>
+  ) : (
+    <>
+      <img
+        src={profile?.profile_image || ProfileImage}
+        alt="User"
+        className="user-avatar"
+      />
+      <div className="user-info">
+        <div className="user-name">{profile?.full_name}</div>
+        <div className="user-email">{profile?.email}</div>
+        <div className="user-phone">{profile?.mobile_number}</div>
+      </div>
+    </>
+  )}
+</div>
+
                   <div className="user-card-right">
                     <img
                       src={EditIcon}

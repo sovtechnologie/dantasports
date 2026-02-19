@@ -203,6 +203,18 @@ function ViewDetails({ booking, ...props }) {
     }
   };
 
+  const handleMapClick = () => {
+  if (!data.full_address) return;
+
+  const encodedAddress = encodeURIComponent(data.full_address);
+
+  // Google Maps search URL
+  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+
+  window.open(googleMapsUrl, "_blank");
+};
+
+
   const data = details?.booking || booking || {};
   const refundStatus = details?.refundStatus || null;
 
@@ -212,6 +224,7 @@ function ViewDetails({ booking, ...props }) {
   const isEventOrRunBooking = Number(data.type) === 2;
 
   if (!booking) return null;
+
 
   // ---------------------- UI START ----------------------------
 
@@ -299,7 +312,13 @@ function ViewDetails({ booking, ...props }) {
 
                 <div className="lsiting d-flex justify-content-between">
                   <p><span className="me-3">Location :</span>{data.full_address || "N/A"}</p>
-                  <img src={map} alt="map" />
+                  <img
+  src={map}
+  alt="map"
+  style={{ cursor: "pointer" }}
+  onClick={handleMapClick}
+/>
+
                 </div>
 
                 {/* ------------ CUSTOMER DETAILS ------------ */}

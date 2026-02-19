@@ -89,7 +89,7 @@ const mapCoachData = (apiData) => {
                 name: coach.name,
                 title: coach.type,
                 image: coach.image || CoachImage
-            })) : '',
+            })) : [],
         sports: Array.isArray(apiData?.linked_sports)
             ? apiData.linked_sports.map((sport) => ({
                 sportId: sport.id,
@@ -167,6 +167,31 @@ export default function CoachDetailPage() {
         );
     };
 
+const handleShare = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const shareUrl = window.location.href;
+
+    if (navigator.share) {
+        try {
+            await navigator.share({
+                title: coach?.name || "Coach Details",
+                text: `Check out this coach: ${coach?.name}`,
+                url: shareUrl,
+            });
+        } catch (error) {
+            console.log("Share cancelled", error);
+        }
+    } else {
+        try {
+            await navigator.clipboard.writeText(shareUrl);
+            alert("Link copied to clipboard!");
+        } catch (err) {
+            alert("Unable to copy link");
+        }
+    }
+};
 
 
 
@@ -213,7 +238,7 @@ export default function CoachDetailPage() {
                                     >
                                         <div className="venue-icon-topwrapper">
                                             <button className="venue-icon-btns">
-                                                <img src={ShareIcon} alt="share" />
+                                                <img src={ShareIcon} alt="share"  onClick={handleShare}/>
                                             </button>
 
                                             <button className="venue-icon-btns">

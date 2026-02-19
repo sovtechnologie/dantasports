@@ -103,9 +103,10 @@ function PartnerPage() {
                 </div>
                 <PartnerWithUs/>
                 <Ready/>
-             <div>
-             <PartnerForm/>
-           </div>
+         <div id="partner-form">
+  <PartnerForm />
+</div>
+
             </section>
         </>
     )

@@ -2,6 +2,13 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 function Ready() {
+
+    const handleScroll = () => {
+    const section = document.getElementById("partner-form");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   return (
     <>
       <section
@@ -20,24 +27,30 @@ function Ready() {
               </p>
 
               <div className="mt-3">
-                <Link
-                  to=""
-                  className="btn btn-light rounded-pill px-4 py-2 fw-semibold m-2" style={{color: "#1163C7"}}
-                >
-                  Request a Demo
-                </Link>
-                 <Link
-                  to=""
-                  className="btn btn-light rounded-pill px-4 py-2 fw-semibold m-2"style={{color: "#1163C7"}}
-                >
-                 Book a Call With Us
-                </Link>
-                 <Link
-                  to=""
-                  className="btn btn-light rounded-pill px-4 py-2 fw-semibold m-2"style={{color: "#1163C7"}}
-                >
-                  Become a Partner
-                </Link>
+               <button
+                onClick={handleScroll}
+                className="btn btn-light rounded-pill px-4 py-2 fw-semibold m-2"
+                style={{ color: "#1163C7" }}
+              >
+                Request a Demo
+              </button>
+
+               
+              <button
+                onClick={handleScroll}
+                className="btn btn-light rounded-pill px-4 py-2 fw-semibold m-2"
+                style={{ color: "#1163C7" }}
+              >
+                Book a Call With Us
+              </button>
+
+              <button
+                onClick={handleScroll}
+                className="btn btn-light rounded-pill px-4 py-2 fw-semibold m-2"
+                style={{ color: "#1163C7" }}
+              >
+                Become a Partner
+              </button>
               </div>
             </div>
           </div>

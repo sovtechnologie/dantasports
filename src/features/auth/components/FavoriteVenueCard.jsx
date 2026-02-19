@@ -15,12 +15,35 @@ const handleLikeClick = (e) => {
 };
 
 
-  const handleShareClick = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log('Shared venue:', venue.id);
-    // Implement share logic
+const handleShare = async (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  const userId = venue?.user_id || venue?.id; 
+  // Agar tumhare paas logged-in user id redux se aa rahi hai
+  // to usko use karna better hoga
+
+  const shareUrl = `${window.location.origin}/profile/${userId}/favorites`;
+
+  const shareData = {
+    title: "My Favorites",
+    text: "Check my favorite items",
+    url: shareUrl,
   };
+
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+    } else {
+      await navigator.clipboard.writeText(shareUrl);
+      alert("Link copied!");
+    }
+  } catch (err) {
+    console.log("Share cancelled:", err?.message);
+  }
+};
+
+
 
   return (
     <div className="favorite-venue-card-wrapper">
@@ -47,7 +70,7 @@ const handleLikeClick = (e) => {
               className="favorite-like-icon"
             />
           </button>
-          <button className="favorite-icon-btns" onClick={handleShareClick}>
+          <button className="favorite-icon-btns" onClick={handleShare}>
             <img src={ShareLogo} alt="Share" className="favorite-share-icon" />
           </button>
         </div>

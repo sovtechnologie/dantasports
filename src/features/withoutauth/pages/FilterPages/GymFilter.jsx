@@ -64,6 +64,7 @@ export default function GymFilterPage() {
     onlyWomen: false,
     coachAvailable: false,
   });
+    const pageSearchTerm = useSelector((state) => state.search.searchTerm);
 
   // --- LIKE / UNLIKE ---
   const toggleFavourite = (e, gym) => {
@@ -189,8 +190,22 @@ export default function GymFilterPage() {
       );
     }
 
+ if (pageSearchTerm?.trim()) {
+  const lower = pageSearchTerm.toLowerCase().trim();
+
+  result = result.filter((gym) =>
+    gym.gym_name?.toLowerCase().includes(lower) ||
+    gym.city?.toLowerCase().includes(lower) ||
+    gym.state?.toLowerCase().includes(lower) ||
+    gym.sports?.some((sport) =>
+      sport.name?.toLowerCase().includes(lower)
+    )
+  );
+}
+
+
     return result;
-  }, [gymList, filters, search, selectedDate, priceRange, selectedAmenities, coachAvailable]);
+  }, [gymList, filters, search, selectedDate, priceRange, selectedAmenities, coachAvailable,pageSearchTerm]);
 
 
 

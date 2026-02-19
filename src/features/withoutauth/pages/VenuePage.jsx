@@ -9,6 +9,8 @@ import whaitestart from "./../assets/downloadAppLogo/white-star.svg";
 import users from "../assets/downloadAppLogo/team-u1.svg";
 import SortBy from "../components/SortBy";
 import Filter from "../components/Filter";
+import { useRef } from "react";
+
 import SortModal from "../components/SortModal";
 import FliterModal from "../components/FliterModal";
 import AppDownloadBanner from "../components/AppDownloadBanner";
@@ -35,6 +37,7 @@ function VenuePage() {
   // const [filterShow, setFilterShow] = useState(false);
 
   // const banners = bannerData?.result || [];
+const observerRef = useRef(null);
 
   const { data: bannerData, isLoading: dataLoading, error: dataError } = useBanner(1);
   const banners = bannerData?.result || [];
@@ -58,6 +61,8 @@ function VenuePage() {
   const [venueList, setVenueList] = useState([]);
   const [isLoadingData, setIsLoadingData] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+const [visibleCount, setVisibleCount] = useState(9);
+const [isFetchingMore, setIsFetchingMore] = useState(false);
 
   // FILTER STATES
   const [selectedSports, setSelectedSports] = useState([]);
@@ -113,6 +118,23 @@ function VenuePage() {
     isPending,
     isSuccess,
   } = useFilterVenue();
+
+ 
+  
+
+const loadMore = () => {
+  if (isFetchingMore) return;
+
+  setIsFetchingMore(true);
+
+  setTimeout(() => {
+    setVisibleCount((prev) => prev + 9);
+    setIsFetchingMore(false);
+  }, 500); // small delay for smooth UX
+};
+
+
+
 
   useEffect(() => {
     if (isSuccess && filterData) {
@@ -326,8 +348,63 @@ function VenuePage() {
     );
   }, [searchTermes, venueList, filteredVenues]);
 
+  const finalVenues =
+  selectedSports.length > 0 ||
+  selectedAmenities.length > 0 ||
+  selectedDate ||
+  selectedTime
+    ? filteredVenues
+    : displayedVenues;
 
-  if (isLoadingData || isLoading || sportsLoading) return <VenueListShimmer />;
+useEffect(() => {
+  if (!observerRef.current) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const target = entries[0];
+
+      if (
+        target.isIntersecting &&
+        visibleCount < finalVenues.length
+      ) {
+        setIsFetchingMore(true);
+
+        setTimeout(() => {
+          setVisibleCount((prev) => prev + 9);
+          setIsFetchingMore(false);
+        }, 600); // smooth delay
+      }
+    },
+    {
+      root: null,
+      rootMargin: "100px",
+      threshold: 0.1,
+    }
+  );
+
+  observer.observe(observerRef.current);
+
+  return () => {
+    if (observerRef.current) {
+      observer.unobserve(observerRef.current);
+    }
+  };
+}, [visibleCount, finalVenues.length]);
+
+
+
+  useEffect(() => {
+  setVisibleCount(9);
+}, [filteredVenues, displayedVenues]);
+
+if (isLoadingData || isLoading || sportsLoading) {
+  return (
+    <div className="py-5">
+      <VenueListShimmer />
+    </div>
+  );
+}
+
   if (isError) return <div>Error loading venues: {error?.message}</div>;
 
   return (
@@ -478,7 +555,9 @@ function VenuePage() {
                       selectedDate ||
                       selectedTime ? (
                       filteredVenues.length > 0 ? (
-                        filteredVenues.map((venue) => (
+                       finalVenues
+  .slice(0, visibleCount)
+  .map((venue) => (
                           <div
                             key={venue.id}
                             className="col-lg-6 col-md-6 col-xl-4 position-relative"
@@ -601,13 +680,15 @@ function VenuePage() {
                         </div>
                       )
                     ) : (
-                      displayedVenues
-                        .filter(
-                          (venue) =>
-                            !selectedDate ||
-                            isSameDate(venue.created_at, selectedDate)
-                        )
-                        .map((venue) => (
+                    displayedVenues
+  .filter(
+    (venue) =>
+      !selectedDate ||
+      isSameDate(venue.created_at, selectedDate)
+  )
+  .slice(0, visibleCount)  
+  .map((venue) => (
+
                           <div
                             key={venue.id}
                             className="col-xl-4 col-lg-6 col-md-6 position-relative"
@@ -726,7 +807,14 @@ function VenuePage() {
               </div>
             </Col>
           </Row>
+<div ref={observerRef}></div>
 
+{isFetchingMore && (
+  <div className="text-center my-4">
+    <div className="spinner-border text-success" role="status"></div>
+    <p className="mt-2">Loading more venues...</p>
+  </div>
+)}
           <AppDownloadBanner />
         </Container >
       </section >

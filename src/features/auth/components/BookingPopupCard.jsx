@@ -36,6 +36,28 @@ const BookingPopupCard = () => {
   if (isLoading) return <div>Loading banners...</div>;
   if (error) return <div>Error loading banners</div>;
 
+  const handleShare = async () => {
+  const currentUrl = window.location.href; 
+
+  const shareData = {
+    title: "Booking Confirmation",
+    text: `Booking #${bookingId} confirmed`,
+    url: currentUrl,
+  };
+
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+    } else {
+      await navigator.clipboard.writeText(currentUrl);
+      alert("Link copied!");
+    }
+  } catch (err) {
+    console.log("Share cancelled:", err?.message);
+  }
+};
+
+
   // Safe date formatting
   const formattedDate = bookingdate
     ? (() => {
@@ -103,7 +125,7 @@ const BookingPopupCard = () => {
           <div className="ref-info">
             <div className="ref-row">
               <div>
-                <p className="ref-label">Host name</p>
+                <p className="ref-label">User name</p>
                 <p className="ref-value">{hostName || "N/A"}</p>
 
               </div>
@@ -118,14 +140,14 @@ const BookingPopupCard = () => {
               <div>
                 <p className="ref-label">Payment Method</p>
                 <p className="ref-value">{paymentMethod}</p>
-                {type === "1" && courtName && (
+                {/* {type === "1" && courtName && (
                   <>
 
                     <p className="ref-label">Court</p>
                     <p className="ref-value">{courtName}</p>
                   </>
 
-                )}
+                )} */}
               </div>
               <div>
                 <p className="ref-label">Payment Time</p>
@@ -145,7 +167,7 @@ const BookingPopupCard = () => {
           </div>
           <div className="ref-footer">
             <button className="ref-btn">
-              <img src={ShareIcon} alt="Share" /> Share
+              <img src={ShareIcon} alt="Share" onClick={handleShare}/> Share
             </button>
             <div className="ref-divider" />
             <button className="ref-btn" onClick={() => {

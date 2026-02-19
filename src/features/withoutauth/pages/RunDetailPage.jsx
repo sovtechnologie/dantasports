@@ -17,11 +17,12 @@ import rightArrow from "../assets/right-arrow.png";
 import sub from "../../withoutauth/assets/icons/sub.svg";
 import add from "../../withoutauth/assets/icons/add.svg";
 import ShareIcon from "../assets/VenueDetailIcon/share.svg";
-import LikeIcon from "../assets/VenueDetailIcon/linke.svg";
+import likeIcon from "../assets/icons/like.svg";
 import youtube from "../assets/VenueDetailIcon/youtube.svg";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
+import HeartFilled from "../assets/VenueCardLogo/heartfilled.png"
 import "swiper/css/navigation";
 import { useFetchSingleEvent } from "../../../hooks/EventList/useFetchSingleEvent";
 import { useFetchSingleEventPrice } from "../../../hooks/EventList/useFetchEventPrice";
@@ -41,6 +42,10 @@ import TermsAndConditions from "../../../pages/TermsAndConditions.jsx";
 import TermsConditionsModal from "../components/TermsConditionsModal.jsx";
 import EventReviewSlider from "../components/EventReviewSlider.jsx";
 import OngoingEvents from "../components/OngoingEvents.jsx";
+import { useQueryClient } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
+import { useLikeEvent } from "../../../hooks/favouriteEvent/useLikeEvent.js";
+import { useUnlikeEvent } from "../../../hooks/favouriteEvent/useUnLikeEvent.js";
 
 const initialTickets = [
   { id: 1, label: "5Km Run", price: 999 },
@@ -51,6 +56,7 @@ const initialTickets = [
 
 const mapEventData = (apiData) => {
   return {
+      id: apiData?.id,
     type: apiData?.event_type,
     name: apiData?.event_title || "Unknown Venue",
     location: apiData?.locations[0]?.area || "Unknown Area",
@@ -112,6 +118,7 @@ const mapEventData = (apiData) => {
 export default function EventDetailPage() {
   const { id } = useParams();
   const isLoggedIn = Boolean(Cookies.get("token"));
+    const [runList, setRunList] = useState([]);
   const [expandedSection, setExpandedSection] = useState(null);
   const [convenienceFee, setConvenienceFee] = useState(0);
   const [selectedArea, setSelectedArea] = useState("");
@@ -121,10 +128,19 @@ export default function EventDetailPage() {
   const [finalAmount, setFinalAmount] = useState(null);
   const [bookingDataValues, setBookingDataValues] = useState();
   const [totalPrice, setTotalPrice] = useState(null);
+  const [isFavourite, setIsFavourite] = useState(false);
+
   const [couponInfo, setCouponInfo] = useState({
     couponId: null,
     discountAmount: 0,
   });
+
+  const queryClient = useQueryClient();
+const auth = useSelector((state) => state.auth);
+const userId = auth?.id;
+
+const likeEvent = useLikeEvent();
+const unlikeEvent = useUnlikeEvent();
 
   const [mapPosition, setMapPosition] = useState({
     lat: 0,
@@ -346,6 +362,101 @@ export default function EventDetailPage() {
     }
   }, [event]);
 
+  const handleShare = async () => {
+  const shareData = {
+    title: event?.name,
+    text: `Check out this event: ${event?.name}`,
+    url: window.location.href,
+  };
+
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);   // Mobile share popup
+    } else {
+      await navigator.clipboard.writeText(window.location.href);
+      alert("Link copied to clipboard!");
+    }
+  } catch (err) {
+    console.log("Share failed:", err);
+  }
+};
+
+const toggleFavourite = (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  // 🔐 Login check
+  if (!userId) {
+    alert("Please login first to like or unlike.");
+    return;
+  }
+
+  // 🔍 Safe ID extraction
+  const eventId = Number(event?.id);
+  const favouriteId = event?.favourite_venue_id;
+
+  console.log("Event ID:", eventId);
+  console.log("User ID:", userId);
+  console.log("Favourite ID:", favouriteId);
+  console.log("Current isFavourite:", isFavourite);
+
+  // 🚫 Invalid event
+  if (!eventId || isNaN(eventId)) {
+    console.error("Invalid event ID");
+    return;
+  }
+
+  // 🔥 UNLIKE
+  if (isFavourite) {
+    if (!favouriteId) {
+      console.error("No favourite ID found for unlike");
+      return;
+    }
+
+    unlikeEvent.mutate(
+      { favouriteEventId: favouriteId },
+      {
+        onSuccess: () => {
+          console.log("Unliked successfully");
+          setIsFavourite(false);
+          queryClient.invalidateQueries(["SingleEvent", id]);
+        },
+        onError: (error) => {
+          console.error("Unlike Error:", error);
+        },
+      }
+    );
+  }
+
+  // 🔥 LIKE
+  else {
+    likeEvent.mutate(
+      {
+        eventId: eventId,
+        userId: Number(userId),
+      },
+      {
+        onSuccess: () => {
+          console.log("Liked successfully");
+          setIsFavourite(true);
+          queryClient.invalidateQueries(["SingleEvent", id]);
+        },
+        onError: (error) => {
+          console.error("Like Error:", error);
+        },
+      }
+    );
+  }
+};
+
+
+
+
+useEffect(() => {
+  if (event && typeof event.favourite === "number") {
+    setIsFavourite(event.favourite === 1);
+  }
+}, [event]);
 
 
   return (
@@ -408,10 +519,20 @@ export default function EventDetailPage() {
                     ))}
                     <div className="venue-icon-topwrapper">
                       <button className="venue-icon-btns">
-                        <img src={ShareIcon} alt="share" />
+                        <img src={ShareIcon} alt="share" onClick={handleShare} />
                       </button>
                       <button className="venue-icon-btns">
-                        <img src={LikeIcon} alt="like" className="like-icon" />
+            <img
+  src={isFavourite ? HeartFilled : likeIcon}
+  onClick={toggleFavourite}
+  style={{
+    cursor: "pointer",
+    transition: "0.2s ease",
+    transform: isFavourite ? "scale(1.1)" : "scale(1)"
+  }}
+/>
+
+
                       </button>
                       <button className="venue-icon-btns" onClick={() => window.open(event.event_video)}>
                         <img src={youtube} alt="share" />
@@ -805,6 +926,7 @@ export default function EventDetailPage() {
 
                 <div className="event-right-section">
                   <CheckoutPricing
+                   priceLabel="Tickets Price"
                     totalPrice={totalPrice}
                     convenienceFee={totalPrice ? convenienceFee : 0}
                     bookingData={bookingDataValues}

@@ -45,7 +45,8 @@ const InfoModal = ({ show, type, onClose, bookingData = {} }) => {
                     </div>
 
                     <div className="info-modal-body">
-                        <div>• Base Fee: INR {base_fare_amount.toFixed(2)} ({convenience_fee}% of the Base Fee)</div>
+                        <div>• Base Fee: INR {base_fare_amount.toFixed(2)} ({Math.round(convenience_fee)}% of the Base Fee)
+</div>
                         <div>• GST: INR {base_fare_gst.toFixed(2)} ({gst}% of the Base Fee)</div>
                         
                     </div>

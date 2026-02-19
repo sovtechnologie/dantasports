@@ -13,7 +13,7 @@ export default function PaymentSuccess() {
     const venueName = queryParams.get("venueName");
     const bookingdate = queryParams.get("bookingDate")
     const paymentMethod = queryParams.get("paymentMethod");
-    const courtName = queryParams.get("courtName");
+    // const courtName = queryParams.get("courtName");
 
 
     return (
@@ -27,7 +27,7 @@ export default function PaymentSuccess() {
                 venueName={venueName}
                 bookingdate={bookingdate}
                 paymentMethod={paymentMethod}
-                courtName={courtName}
+                // courtName={courtName}
             />
         </div>
     );

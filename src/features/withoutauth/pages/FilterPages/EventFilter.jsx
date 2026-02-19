@@ -250,7 +250,7 @@ export default function EventFilterPage() {
       }
     } catch (err) {
       console.error("Share failed:", err);
-      alert("Unable to share this event.");
+      // alert("Unable to share this event.");
     }
   };
 

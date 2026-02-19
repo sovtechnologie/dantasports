@@ -332,6 +332,36 @@ export default function GymDetailPage() {
 
   const totalPassCount = quantity;
 
+const handleShare = async (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  const shareUrl = window.location.href;
+
+  const shareData = {
+    title: gym?.name || "Gym Details",
+    text: `Check out this gym: ${gym?.name}`,
+    url: shareUrl,
+  };
+
+  try {
+    // 📱 Mobile Native Share
+    if (navigator.share) {
+      await navigator.share(shareData);
+      return;
+    }
+
+    // 💻 Desktop fallback → copy silently
+    if (navigator.clipboard) {
+      await navigator.clipboard.writeText(
+        `${gym?.name} - ${shareUrl}`
+      );
+    }
+
+  } catch (err) {
+    console.log("Share cancelled:", err?.message);
+  }
+};
 
 
   return (
@@ -399,7 +429,7 @@ export default function GymDetailPage() {
                   </Swiper>
                   <div className="venue-icon-topwrapper">
                     <button className="venue-icon-btns">
-                      <img src={shareIcon} alt="share" />
+                      <img src={shareIcon} alt="share" onClick={handleShare} />
                     </button>
                     <button className="venue-icon-btns">
                       <img src={LikeIcon} alt="share" />
@@ -632,6 +662,7 @@ export default function GymDetailPage() {
 
                 <div className="gym-right-section">
                   <CheckoutPricing
+                    priceLabel="Passes Price"
                     totalPrice={totalPrice || 0}
                     convenienceFee={totalAmount ? convenienceFee : 0}
                     bookingData={bookingDataValues}

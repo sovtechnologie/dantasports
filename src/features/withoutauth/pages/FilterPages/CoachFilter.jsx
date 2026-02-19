@@ -56,9 +56,12 @@ export default function CoachFilterPage() {
   const [selectedAge, setSelectedAge] = useState([]);
   const [selectedBatch, setSelectedBatch] = useState([]);
   const [selectedCoachType, setSelectedCoachType] = useState(null);
+const [selectedDate, setSelectedDate] = useState(null);
 
 
 
+
+const pageSearchTerm = useSelector((state) => state.search.searchTerm);
 
 
   const navigate = useNavigate();
@@ -76,6 +79,8 @@ export default function CoachFilterPage() {
 
   const handleReset = () => {
     setSearch("");
+    setSelectedDate(null);
+
     setFilters({});
     setSelectedCoach(null);
     // setSelectedDate(null);
@@ -100,11 +105,35 @@ export default function CoachFilterPage() {
       if (searchText && !coachName.includes(searchText)) return false;
 
       if (selectedSports.length > 0) {
-        const coachSportIds = coach.linked_sports?.map((s) => s.sports_id) || [];
+        const coachSportIds = coach.linked_sports?.map((s) => s.id) || [];
         console.log("coachSportIdscoachSportIds", coachSportIds);
         const matches = selectedSports.some((id) => coachSportIds.includes(id));
         if (!matches) return false;
       }
+
+ if (selectedDate) {
+  const selected = new Date(selectedDate).setHours(0, 0, 0, 0);
+
+  const created = coach.created_at
+    ? new Date(coach.created_at).setHours(0, 0, 0, 0)
+    : null;
+
+  const updated = coach.updated_at
+    ? new Date(coach.updated_at).setHours(0, 0, 0, 0)
+    : null;
+
+  if (!created) return false;
+
+  // Agar updated_at nahi hai to sirf created_at se compare karo
+  const endDate = updated || created;
+
+  if (selected < created || selected > endDate) {
+    return false;
+  }
+}
+
+
+
 
 
       if (selectedCoach) {
@@ -138,7 +167,19 @@ export default function CoachFilterPage() {
         return false;
       }
 
+if (pageSearchTerm?.trim()) {
+      const searchText = pageSearchTerm.toLowerCase().trim();
 
+      const nameMatch = coach.name?.toLowerCase().includes(searchText);
+      const cityMatch = coach.locations?.city?.toLowerCase().includes(searchText);
+      const areaMatch = coach.locations?.area?.toLowerCase().includes(searchText);
+      const sportMatch = coach.linked_sports?.some((sport) =>
+        sport.sports_name?.toLowerCase().includes(searchText)
+      );
+
+      if (!nameMatch && !cityMatch && !areaMatch && !sportMatch)
+        return false;
+    }
 
 
 
@@ -283,29 +324,36 @@ export default function CoachFilterPage() {
   };
 
   const handleShareClick = async (e, coach) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const shareUrl = window.location.href;
-    const shareData = {
-      title: coach.name,
-      text: coach.about,
-      url: shareUrl,
-    };
+  e.preventDefault();
+  e.stopPropagation();
 
-    try {
-      if (navigator.share) {
-        await navigator.share(shareData);
-      } else {
-        await navigator.clipboard.writeText(
-          `${coach.name} - ${shareUrl}`
-        );
-        alert("Venue link copied to clipboard!");
-      }
-    } catch (err) {
-      console.error("Share failed:", err);
-      alert("Unable to share this venue.");
-    }
+  const shareUrl = `${window.location.origin}/coach/${coach.id}`;
+
+  const shareData = {
+    title: coach.name,
+    text: `Check out this coach: ${coach.name}`,
+    url: shareUrl,
   };
+
+  try {
+    // 🔥 Check proper support
+    if (navigator.share && window.isSecureContext) {
+      await navigator.share(shareData);
+    } else {
+      // Fallback copy
+      await navigator.clipboard.writeText(shareUrl);
+      alert("Coach link copied to clipboard!");
+    }
+  } catch (err) {
+    console.error("Share failed:", err);
+
+    // If user cancelled share → don't show error
+    if (err.name !== "AbortError") {
+      alert("Unable to share this coach.");
+    }
+  }
+};
+
 
 
 
@@ -356,6 +404,8 @@ export default function CoachFilterPage() {
                 setSelectedBatch={setSelectedBatch}
                 selectedCoachType={selectedCoachType}
                 setSelectedCoachType={setSelectedCoachType}
+                selectedDate={selectedDate}              // 👈 ADD
+  setSelectedDate={setSelectedDate}   
 
               />
 
@@ -390,6 +440,8 @@ export default function CoachFilterPage() {
                             setSelectedBatch={setSelectedBatch}
                             selectedCoachType={selectedCoachType}
                             setSelectedCoachType={setSelectedCoachType}
+                            selectedDate={selectedDate}              // 👈 ADD
+  setSelectedDate={setSelectedDate}   
 
                           />
                         </div>
@@ -432,7 +484,10 @@ export default function CoachFilterPage() {
                           ></button>
                         </div>
                         <div class="modal-body">
-                          <SortBy />
+                        <SortBy
+                sortBy={filters.sortBy}
+                setSortBy={(value) => setFilters((prev) => ({ ...prev, sortBy: value }))}
+              />
                         </div>
                       </div>
                     </div>

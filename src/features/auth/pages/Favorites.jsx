@@ -552,7 +552,7 @@ const Favorites = () => {
                   (sport) => sport.image
                 );
                 const formattedEvent = {
-                  id: event.Id,
+                  id: event.id,
                   image: event.desktop_image,
                   sportsIcons: sportsIcons,
                   name: event.event_title,

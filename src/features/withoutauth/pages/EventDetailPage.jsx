@@ -314,6 +314,37 @@ export default function EventDetailPage() {
     }
   }, [event]);
 
+const handleShare = async (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  const shareUrl = window.location.href;
+
+  const shareData = {
+    title: event?.name || "Event Details",
+    text: `Check out this event: ${event?.name}`,
+    url: shareUrl,
+  };
+
+  try {
+    // 📱 Mobile Native Share
+    if (navigator.share) {
+      await navigator.share(shareData);
+      return;
+    }
+
+    // 💻 Desktop fallback → copy silently
+    if (navigator.clipboard) {
+      await navigator.clipboard.writeText(
+        `${event?.name} - ${shareUrl}`
+      );
+    }
+
+  } catch (err) {
+    // User cancel kare toh kuch nahi karna
+    console.log("Share cancelled:", err?.message);
+  }
+};
 
 
   return (
@@ -376,7 +407,10 @@ export default function EventDetailPage() {
                   </Swiper>
                   <div className="venue-icon-topwrapper">
                     <button className="venue-icon-btns">
-                      <img src={shareIcon} alt="share" />
+                     <button className="venue-icon-btns" onClick={handleShare}>
+  <img src={shareIcon} alt="share" />
+</button>
+
                     </button>
                     <button className="venue-icon-btns">
                       <img src={LikeIcon} alt="share" />
@@ -737,6 +771,7 @@ export default function EventDetailPage() {
                 <div className="event-right-section">
                   <div className="event-heading">Price details</div>
                   <CheckoutPricing
+                    priceLabel="Tickets Price"
                     totalPrice={totalPrice}
                     convenienceFee={totalPrice ? convenienceFee : 0}
                     bookingData={bookingDataValues}

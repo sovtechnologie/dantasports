@@ -122,6 +122,9 @@ export default function RunFilterPage() {
     error,
   } = useFetchEvent(payload);
 
+    const pageSearchTerm = useSelector((state) => state.search.searchTerm);
+  
+
   const likeEvent = useLikeEvent();
   const unlikeEvent = useUnlikeEvent();
 
@@ -270,6 +273,19 @@ export default function RunFilterPage() {
       }
     }
 
+     if (pageSearchTerm) {
+      const lower = pageSearchTerm.toLowerCase();
+
+      result = result.filter((evt) =>
+        evt.event_title?.toLowerCase().includes(lower) ||
+        evt.locations?.[0]?.city?.toLowerCase().includes(lower) ||
+        evt.locations?.[0]?.area?.toLowerCase().includes(lower) ||
+        evt.sports?.some((s) =>
+          s.name?.toLowerCase().includes(lower)
+        )
+      );
+    }
+
     return result;
   }, [
     runList,
@@ -282,7 +298,8 @@ export default function RunFilterPage() {
     selectedDifficulty,
     selectedPrice,
     kidsFriendly,
-    petFriendly
+    petFriendly,
+    pageSearchTerm
   ]);
 
   useEffect(() => {

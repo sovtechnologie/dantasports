@@ -14,6 +14,8 @@ import { getCityName } from "../utils/getCityName";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { setLocation } from "../redux/Slices/locationSlice";
 import { googleMapsLoader } from "../utils/locationSearch.js";
+import { useQuery } from "@tanstack/react-query";
+import { fetchProfile } from "../services/LoginApi/profileApi/endpointApi.js";
 
 function Navbar() {
   const { lat, lng } = useSelector((state) => state.location);
@@ -31,6 +33,15 @@ function Navbar() {
   const inputRef = useRef(null);
 
   console.log(location.pathname, "testing");
+   const { data, isLoading: isFetching } = useQuery({
+      queryKey: ['profile'],
+      queryFn: fetchProfile,
+    });
+  
+    const profileImage = data?.data;
+// const profileImage = useSelector((state) => state.auth?.user?.profile_image);
+
+console.log("profileImageprofileImageprofileImage",profileImage);
 
   const handleClick = () => {
     const url = isAndroid
@@ -379,13 +390,23 @@ function Navbar() {
                 </>
               )}
 
-              <Link
-                to={userId && token ? `/profile/${userId}` : "#"}
-                className="user-icon"
-                onClick={handleProfileClick}
-              >
-                <img src={userLogo} alt="User Profile" />
-              </Link>
+            <Link
+  to={userId && token ? `/profile/${userId}` : "#"}
+  className="user-icon"
+  onClick={handleProfileClick}
+>
+  <img
+    // src={profileImage || userLogo}
+     src={profileImage?.profile_image || userLogo}
+    alt="User Profile"
+    className="navbar-profile-img"
+    onError={(e) => {
+      e.target.onerror = null;
+      e.target.src = userLogo;
+    }}
+  />
+</Link>
+
             </div>
           </div>
           {showLoginModal && (

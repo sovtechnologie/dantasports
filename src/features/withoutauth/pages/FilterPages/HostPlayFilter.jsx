@@ -40,6 +40,7 @@ export default function HostPlayFilterPage() {
   const [sortBy, setSortBy] = useState([]);
 
   const { data: AllHostdata, isLoading, isError, error } = useFetchHostList({ lat, lng });
+const pageSearchTerm = useSelector((state) => state.search.searchTerm);
 
   useEffect(() => {
     if (AllHostdata?.status === 200) {
@@ -103,6 +104,20 @@ export default function HostPlayFilterPage() {
   // ✅ Filter by search or time
   const visibleHosts = useMemo(() => {
     return (filteredHosts || []).filter((host) => {
+      if (pageSearchTerm?.trim()) {
+      const searchText = pageSearchTerm.toLowerCase().trim();
+
+      const nameMatch = host.host_name?.toLowerCase().includes(searchText);
+      const cityMatch = host.city?.toLowerCase().includes(searchText);
+      const stateMatch = host.state?.toLowerCase().includes(searchText);
+      const activityMatch = ACTIVITY_TYPE_LABEL[host.activity_type]
+        ?.toLowerCase()
+        .includes(searchText);
+
+      if (!nameMatch && !cityMatch && !stateMatch && !activityMatch) {
+        return false;
+      }
+    }
       if (search && !host.host_name?.toLowerCase().includes(search.toLowerCase())) return false;
       if (selectedTime && host.start_time && host.end_time) {
         const [startH, startM] = host.start_time.split(":").map(Number);
@@ -117,7 +132,7 @@ export default function HostPlayFilterPage() {
       }
       return true;
     });
-  }, [filteredHosts, search, selectedTime]);
+  }, [filteredHosts, search, selectedTime,pageSearchTerm]);
 
   const handleClick = () => {
     window.open('https://play.google.com/store/apps', '_blank')

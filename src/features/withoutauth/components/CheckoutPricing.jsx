@@ -128,7 +128,7 @@ import black from "../assets/toggleIcon.png"; // arrow icon
 import arrow from "../../withoutauth/assets/icons/black-arrow.svg"
 import InfoModal from "../../../components/InfoModal";
 
-const CheckoutPricing = ({ totalPrice, price, convenienceFee, type, count, setFinalAmount, venueId, bookingData, setCouponInfo }) => {
+const CheckoutPricing = ({ totalPrice, price, convenienceFee, type, count, setFinalAmount, venueId, bookingData, setCouponInfo,  priceLabel = "Court Price"  }) => {
   const [insuranceSelected, setInsuranceSelected] = useState(false);
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
   const [discount, setDiscount] = useState(null);
@@ -167,7 +167,7 @@ const CheckoutPricing = ({ totalPrice, price, convenienceFee, type, count, setFi
         {/* Passes Price */}
         <Row className="align-items-center mb-2">
           <Col xs={8} className="pass_price">
-            Court  Price   <InfoCircle size={13} className="text-primary ms-1" onClick={() => setActiveModal("pass")} />
+          {priceLabel}  <InfoCircle size={13} className="text-primary ms-1" onClick={() => setActiveModal("pass")} />
           </Col>
           <Col xs={4} className="pass_price text-end">
             <span>₹{price}</span>
