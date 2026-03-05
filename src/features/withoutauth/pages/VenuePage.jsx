@@ -69,6 +69,7 @@ const [isFetchingMore, setIsFetchingMore] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState("");
   const [selectedAmenities, setSelectedAmenities] = useState([]);
+  const [showTopBtn, setShowTopBtn] = useState(false);
   const [lastPayload, setLastPayload] = useState(null);
   const [filteredVenues, setFilteredVenues] = useState([]);
   const [isFiltering, setIsFiltering] = useState(false);
@@ -97,6 +98,34 @@ const [isFetchingMore, setIsFetchingMore] = useState(false);
     }
   }, [AllVenuedata]);
 
+useEffect(() => {
+  const handleScroll = () => {
+    const scrollTop =
+      document.documentElement.scrollTop || document.body.scrollTop;
+
+    if (scrollTop > 300) {
+      setShowTopBtn(true);
+    } else {
+      setShowTopBtn(false);
+    }
+  };
+
+  window.addEventListener("scroll", handleScroll);
+
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+  };
+}, []);
+
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+};
   const { data: sportsDataResponse, isLoading: sportsLoading } = useQuery({
     queryKey: ["sportsList"],
     queryFn: fetchSportList,
@@ -816,7 +845,18 @@ if (isLoadingData || isLoading || sportsLoading) {
   </div>
 )}
           <AppDownloadBanner />
+   
         </Container >
+        {showTopBtn && (
+  <button
+    onClick={scrollToTop}
+    className="scrollTopBtn"
+  >
+    ↑
+  </button>
+)}
+
+
       </section >
     </>
   );

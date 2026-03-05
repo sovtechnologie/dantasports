@@ -78,6 +78,7 @@ export default function RunFilterPage() {
   const [search, setSearch] = useState("");
   const [kidsFriendly, setKidsFriendly] = useState(false);
   const [petFriendly, setPetFriendly] = useState(false);
+  const [showTopBtn, setShowTopBtn] = useState(false);
   const [visibleCount, setVisibleCount] = useState(9);
 const [isFetchingMore, setIsFetchingMore] = useState(false);
 const observerRef = useRef(null);
@@ -167,6 +168,35 @@ const observerRef = useRef(null);
       );
     }
   };
+
+  useEffect(() => {
+  const handleScroll = () => {
+    const scrollTop =
+      document.documentElement.scrollTop || document.body.scrollTop;
+
+    if (scrollTop > 300) {
+      setShowTopBtn(true);
+    } else {
+      setShowTopBtn(false);
+    }
+  };
+
+  window.addEventListener("scroll", handleScroll);
+
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+  };
+}, []);
+
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+};
 
 
 
@@ -712,6 +742,14 @@ useEffect(() => {
             <AppDownloadBanner />
           </div>
         </Container>
+        {showTopBtn && (
+  <button
+    onClick={scrollToTop}
+    className="scrollTopBtn"
+  >
+    ↑
+  </button>
+)}
       </section>
     </>
   );

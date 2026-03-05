@@ -37,6 +37,7 @@ export default function HostPlayFilterPage() {
   const [filteredHosts, setFilteredHosts] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedTime, setSelectedTime] = useState(null);
+    const [showTopBtn, setShowTopBtn] = useState(false);
   const [sortBy, setSortBy] = useState([]);
   const [visibleCount, setVisibleCount] = useState(9);
 const [isFetchingMore, setIsFetchingMore] = useState(false);
@@ -175,6 +176,35 @@ useEffect(() => {
     window.open('https://play.google.com/store/apps', '_blank')
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop =
+        document.documentElement.scrollTop || document.body.scrollTop;
+  
+      if (scrollTop > 300) {
+        setShowTopBtn(true);
+      } else {
+        setShowTopBtn(false);
+      }
+    };
+  
+    window.addEventListener("scroll", handleScroll);
+  
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+  
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  };
+
 
   if (isLoading) return <VenueListShimmer />;
   if (isError) return <div>Error loading hosts: {error.message}</div>;
@@ -226,7 +256,7 @@ useEffect(() => {
                       ></button>
                     </div>
                     <div class="modal-body">
-                      <SortBy />
+                     <SortBy sortBy={sortBy} setSortBy={setSortBy} />
                     </div>
                   </div>
                 </div>
@@ -361,6 +391,14 @@ useEffect(() => {
           <AppDownloadBanner />
         </div>
       </Container>
+        {showTopBtn && (
+  <button
+    onClick={scrollToTop}
+    className="scrollTopBtn"
+  >
+    ↑
+  </button>
+)}
     </section>
   );
 }

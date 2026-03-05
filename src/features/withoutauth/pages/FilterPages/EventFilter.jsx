@@ -43,6 +43,8 @@ export default function EventFilterPage() {
   const [eventList, setEventList] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedDifficulty, setSelectedDifficulty] = useState(null);
+    const [showTopBtn, setShowTopBtn] = useState(false);
+  
   const [selectedPrice, setSelectedPrice] = useState(0);
   const [selectedAmenities, setSelectedAmenities] = useState([]);
   const [visibleCount, setVisibleCount] = useState(9);
@@ -243,6 +245,36 @@ useEffect(() => {
   filters,
 ]);
 
+
+ useEffect(() => {
+  const handleScroll = () => {
+    const scrollTop =
+      document.documentElement.scrollTop || document.body.scrollTop;
+
+    if (scrollTop > 300) {
+      setShowTopBtn(true);
+    } else {
+      setShowTopBtn(false);
+    }
+  };
+
+  window.addEventListener("scroll", handleScroll);
+
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+  };
+}, []);
+
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+};
+
 useEffect(() => {
   const currentRef = observerRef.current;
   if (!currentRef) return;
@@ -298,6 +330,7 @@ useEffect(() => {
     }
   };
 
+  
 
 
   if (isLoading) return <VenueListShimmer />;
@@ -636,6 +669,14 @@ useEffect(() => {
             <AppDownloadBanner />
           </div>
         </Container>
+              {showTopBtn && (
+  <button
+    onClick={scrollToTop}
+    className="scrollTopBtn"
+  >
+    ↑
+  </button>
+)}
       </section>
     </>
   );

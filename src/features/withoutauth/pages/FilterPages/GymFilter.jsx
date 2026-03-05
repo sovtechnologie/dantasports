@@ -56,6 +56,8 @@ const observerRef = useRef(null);
   const [gyms, setGyms] = useState([]);
 
   const [sortBy, setSortBy] = useState([]);
+      const [showTopBtn, setShowTopBtn] = useState(false);
+  
   const payload = { lat, lng, userId: userId || null };
   const { data: AllGymdata, isLoading, isError, error } = useFetchGym(payload);
   const likeGym = useLikeGym();
@@ -275,6 +277,36 @@ useEffect(() => {
       alert("Link copied to clipboard!");
     }
   };
+
+   useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop =
+        document.documentElement.scrollTop || document.body.scrollTop;
+  
+      if (scrollTop > 300) {
+        setShowTopBtn(true);
+      } else {
+        setShowTopBtn(false);
+      }
+    };
+  
+    window.addEventListener("scroll", handleScroll);
+  
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+  
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  };
+  
 
   if (isLoading) return <VenueListShimmer />;
   if (isError) return <div>Error loading gyms: {error.message}</div>;
@@ -502,6 +534,15 @@ useEffect(() => {
           <AppDownloadBanner />
         </div>
       </Container>
+
+      {showTopBtn && (
+  <button
+    onClick={scrollToTop}
+    className="scrollTopBtn"
+  >
+    ↑
+  </button>
+)}
     </section>
   );
 }
