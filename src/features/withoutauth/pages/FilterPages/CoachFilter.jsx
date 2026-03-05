@@ -84,14 +84,33 @@ const pageSearchTerm = useSelector((state) => state.search.searchTerm);
     error,
   } = useFetchCoach({ lat, lng, userId: auth?.id, });
 
-  const handleReset = () => {
-    setSearch("");
-    setSelectedDate(null);
-
-    setFilters({});
-    setSelectedCoach(null);
-    // setSelectedDate(null);
-
+useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop =
+        document.documentElement.scrollTop || document.body.scrollTop;
+  
+      if (scrollTop > 300) {
+        setShowTopBtn(true);
+      } else {
+        setShowTopBtn(false);
+      }
+    };
+  
+    window.addEventListener("scroll", handleScroll);
+  
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+  
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   };
 
   useEffect(() => {
@@ -432,34 +451,7 @@ useEffect(() => {
     { id: 5, type: "img", src: users, alt: "User5" },
   ];
 
-useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop =
-        document.documentElement.scrollTop || document.body.scrollTop;
-  
-      if (scrollTop > 300) {
-        setShowTopBtn(true);
-      } else {
-        setShowTopBtn(false);
-      }
-    };
-  
-    window.addEventListener("scroll", handleScroll);
-  
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-  
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-  };
+
 
 
 
