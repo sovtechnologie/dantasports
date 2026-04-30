@@ -1,11 +1,19 @@
 /* VenueCarousel.css */
 
 .eventsectioncontainer {
-  padding: 0px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
-  font-family: "Inter", sans-serif;
+  padding: 0 clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
+  font-family: "DM Sans", sans-serif;
   background-color: #fff;
   overflow: hidden;
   margin-top: 60px;
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.section-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .eventsheader {

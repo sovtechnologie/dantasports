@@ -2,6 +2,7 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import NotFound from "../pages/NotFound";
 import SearchResult from "../features/withoutauth/pages/SearchResult";
+import PageLoader from "../components/PageLoader";
 
 const ScrollToTop = lazy(() => import("../components/ScrollToTop"));
 
@@ -77,7 +78,7 @@ export default function AppRoutes() {
 
   return (
     <div style={{ marginTop: "4.6rem" }}>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<PageLoader />}>
         <ScrollToTop />
         <Routes>
           <Route path="*" element={<NotFound />} />s

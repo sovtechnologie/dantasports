@@ -1,46 +1,40 @@
-/* InfoCard.css */
+/* ─── InfoCard ─── */
 .info-card-link {
-  text-decoration: none; /* remove underline */
-  color: inherit; /* inherit parent color */
-  display: block; /* make it behave like a block container */
-  /* width: fit-content;    optional: to keep card sizing */
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 
 .info-card {
-  width: 18vw;
-  /* height: 230px; */
-  border-radius: 29.6px;
+  border-radius: 24px;
   background-color: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-  /* margin: 25px 12px 0px 12px; */
   height: 195px;
-  width: 250px;
+  width: 220px;
   margin-top: 20px;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.info-card:hover {
+  transform: scale(1.06) translateY(-6px);
+  box-shadow: 0 12px 32px rgba(17, 99, 199, 0.22);
 }
 
 .info-card.hover-effect {
   box-shadow: 0 8px 24px rgba(17, 99, 199, 0.18);
   transform: scale(1.04) translateY(-5px);
-  transition:
-    box-shadow 0.3s,
-    transform 0.3s;
 }
 
-.info-card:hover {
-  transform: scale(1.04) translateY(-5px);
-  box-shadow: 0 8px 24px rgba(17, 99, 199, 0.18);
-}
-
+/* ─── Image Wrapper ─── */
 .video-wrapper {
   position: relative;
   width: 100%;
-  padding-top: 38.25%; /* 16:9 ratio => 9/16 = 0.5625 = 56.25% */
+  padding-top: 38.25%;
   overflow: hidden;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
@@ -55,12 +49,17 @@
   object-fit: cover;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-  /* height: 116px; */
+  transition: transform 0.4s ease;
 }
 
+.info-card:hover .info-card-video {
+  transform: scale(1.06);
+}
+
+/* ─── Card Content ─── */
 .info-card-content {
   background-color: #ffffff;
-  padding: 12px 16px;
+  padding: 10px 14px;
   height: 45%;
   display: flex;
   flex-direction: column;
@@ -69,76 +68,37 @@
 
 .info-card-content h3 {
   margin: 0;
-  font-size: 24px;
-  font-weight: 400;
+  font-size: 20px;
+  font-weight: 600;
   color: #172a39;
   text-align: left;
   font-family: "Lato", Arial, sans-serif;
-  /* margin-left: 20px; */
-
 }
 
 .info-card-content p {
-  margin: 4px 0 0 0;
-  font-size: 20px;
+  margin: 4px 0 0;
+  font-size: 14px;
   color: #858585;
   font-family: "DM Sans", Arial, sans-serif;
   font-weight: 400;
-  /* margin-left: 20px; */
   line-height: normal;
 }
 
+/* ─── Animated Subtext ─── */
 .subtext {
   font-family: "DM Sans", Arial, sans-serif;
   font-weight: 600;
-  font-size: 28px;
-  line-height: 39.2px;
+  font-size: clamp(14px, 1.4vw, 22px);
+  line-height: 1.4;
   letter-spacing: 0;
   color: #172a39;
-  margin-top: 0px;
-  transition:
-    opacity 0.4s,
-    transform 0.4s;
+  margin-top: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
   white-space: normal;
   word-break: break-word;
 }
+
 .subtext-animate {
   opacity: 0;
-  transform: translateY(-30px);
+  transform: translateY(-16px);
 }
-
-
-
-/* 
-@media (max-width: 768px) {
-  .info-card {
-    width: 100%;
-    height: auto;
-    margin: 16px 0;
-    border-radius: 16px;
-  }
-
-  .video-wrapper {
-    padding-top: 70.25%; 
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-  }
-  .info-card-video {
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-  }
-
-  .info-card-content {
-    padding: 10px 14px;
-  }
-
-  .info-card-content h3 {
-    font-size: 12px;
-  }
-
-  .info-card-content p {
-    font-size: 8px;
-  }
-
-
-} */

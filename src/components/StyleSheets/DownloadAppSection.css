@@ -1,3 +1,4 @@
+/* ─── Download App Section ─── */
 .download-app-section {
   display: flex;
   align-items: center;
@@ -11,6 +12,7 @@
   margin-bottom: 20px;
 }
 
+/* ─── Text Content ─── */
 .text-content {
   max-width: 700px;
   z-index: 2;
@@ -26,59 +28,80 @@
 .tagline {
   font-family: "DM Sans", Arial, sans-serif;
   font-weight: 600;
-  font-size: 28px;
-  line-height: 39.2px;
   font-size: clamp(1rem, 0.7646rem + 1.0949vw, 1.75rem);
   letter-spacing: 0;
   color: #172a39;
-  margin: 0px;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.download-app-section.app-visible .tagline {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .heading {
   font-family: "Lato", Arial, sans-serif;
   font-weight: 700;
-  font-size: 50px;
   font-size: clamp(2rem, 1.6469rem + 1.6423vw, 3.125rem);
-  line-height: 70px;
-  letter-spacing: 0;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
   color: #1163c7;
-  margin: 10px 0;
-  margin-bottom: 24px;
+  margin: 10px 0 24px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease 0.12s, transform 0.6s ease 0.12s;
 }
 
+.download-app-section.app-visible .heading {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Animated Subtext ─── */
 .subtext {
   font-family: "DM Sans", Arial, sans-serif;
   font-weight: 600;
   font-size: clamp(1rem, 0.7646rem + 1.0949vw, 1.75rem);
-  
-  line-height: 39.2px;
+  line-height: 1.5;
   letter-spacing: 0;
   color: #172a39;
-  margin-top: 0px;
-  transition:
-    opacity 0.4s,
-    transform 0.4s;
+  margin-top: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
   white-space: normal;
   word-break: break-word;
   height: 60px;
-}
-.subtex-one {
-  font-size: 15.47px;
-  font-weight: 400;
-  font-family: "DM Sans", Arial, sans-serif;
-  color: #858585;
-  line-height: 22.39px !important;
-}
-.subtext-animate {
   opacity: 0;
-  transform: translateY(-30px);
+  transform: translateY(20px);
 }
 
+.download-app-section.app-visible .subtext {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease 0.24s, transform 0.6s ease 0.24s;
+}
+
+.subtext-animate {
+  opacity: 0 !important;
+  transform: translateY(-16px) !important;
+}
+
+/* ─── Store Buttons ─── */
 .store-buttons {
   display: flex;
   gap: 16px;
   margin-top: 30px;
-  max-height: 60px !important;
+  max-height: 60px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease 0.36s, transform 0.6s ease 0.36s;
+}
+
+.download-app-section.app-visible .store-buttons {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .google-btn,
@@ -91,45 +114,64 @@
     clamp(1rem, 0.7646rem + 1.0949vw, 1.75rem);
   border-radius: 9999px;
   font-weight: 600;
-  /* font-size: 15px; */
   font-size: clamp(0.75rem, 0.7007rem + 0.2632vw, 0.9375rem);
   line-height: 28px;
   letter-spacing: 0;
-  max-height: 60px !important;
+  max-height: 60px;
   max-width: 177px;
-  font-family: "Poppins";
+  font-family: "DM Sans", sans-serif;
   justify-content: center;
   min-width: 120px;
   white-space: nowrap;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.25s ease;
 }
-.apple-btn img {
-  width: 25px;
+
+.google-btn:hover,
+.apple-btn:hover {
+  transform: translateY(-3px) scale(1.04);
 }
-.google-btn img {
-  width: 25px;
-}
+
+.apple-btn img { width: 25px; }
+.google-btn img { width: 25px; }
+
 .google-btn {
   background-color: #1163c7;
   color: white;
-  /* border: 2px solid #1163c7; */
+  box-shadow: 0 4px 14px rgba(17, 99, 199, 0.35);
+}
+
+.google-btn:hover {
+  box-shadow: 0 8px 24px rgba(17, 99, 199, 0.45);
 }
 
 .apple-btn {
   background-color: white;
-  /* border: 2px solid #1163c7; */
   color: #1163c7;
-  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
 }
 
+.apple-btn:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+/* ─── iPhone Image ─── */
 .image-container {
   flex: 1;
   text-align: end;
   display: flex;
   align-items: flex-end;
-  /* Align image to the bottom */
   justify-content: flex-end;
   position: relative;
   z-index: 4;
+  opacity: 0;
+  transform: translateX(32px);
+  transition: opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;
+}
+
+.download-app-section.app-visible .image-container {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .iphone-image {
@@ -138,23 +180,35 @@
   object-fit: contain;
   position: relative;
   z-index: 4;
+  filter: drop-shadow(0 20px 40px rgba(17, 99, 199, 0.2));
+  animation: iphoneFloat 5s ease-in-out infinite;
 }
 
-/* Decorative Background Shapes */
+@keyframes iphoneFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+/* ─── Decorative Shapes ─── */
 .shape {
   position: absolute;
   z-index: 1;
-  opacity: 0.2;
   pointer-events: none;
 }
 
 .big-blob {
   width: clamp(11.25rem, 8.1113rem + 14.5985vw, 21.25rem);
   height: clamp(11.25rem, 8.1113rem + 14.5985vw, 21.25rem);
-  background-color: #1163c7;
+  background: radial-gradient(circle, rgba(17, 99, 199, 0.15) 0%, rgba(17, 99, 199, 0.05) 70%);
   border-radius: 50%;
   top: 136px;
   left: -30px;
+  animation: blobPulse 6s ease-in-out infinite;
+}
+
+@keyframes blobPulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.08); opacity: 0.9; }
 }
 
 .small-dot {
@@ -167,76 +221,34 @@
   left: 58%;
   z-index: 3;
   box-shadow: 0 0 0 999px #ffffff;
-  /* Higher than .middle-dot */
 }
 
 .middle-dot {
   width: 270px;
   height: 270px;
-  background-image: radial-gradient(#000000 1px, transparent 1px);
+  background-image: radial-gradient(#1163c7 1px, transparent 1px);
   background-size: 10px 10px;
   border-radius: 50%;
   position: absolute;
   top: 20%;
   left: 60%;
-  opacity: 0.1;
+  opacity: 0.07;
   z-index: 2;
 }
 
 .bottom-dot {
   width: 220px;
   height: 220px;
-  background-image: radial-gradient(#000 1px, transparent 1px);
+  background-image: radial-gradient(#1163c7 1px, transparent 1px);
   background-size: 10px 10px;
   border-radius: 50%;
   position: absolute;
   bottom: 10px;
   right: -10px;
-  opacity: 0.1;
+  opacity: 0.07;
 }
 
-/* Responsive */
-/* 
-@media (max-width: 768px) {
-    .download-app-section {
-        flex-direction: column;
-        text-align: center;
-        gap: 40px;
-    }
-
-    .text-content {
-        max-width: 100%;
-    }
-
-    .heading {
-        font-size: 24px;
-    }
-
-    .subtext {
-        font-size: 15px;
-    }
-
-    .store-buttons {
-        justify-content: center;
-    }
-    .google-btn{
-        font-size: 12px;
-    }
-
-    .big-blob {
-        width: 180px;
-        height: 180px;
-        top: -40px;
-        left: -30px;
-    }
-
-    .bottom-dot {
-        width: 100px;
-        height: 100px;
-        right: -30px;
-    }
-} */
-
+/* ─── Responsive ─── */
 @media (max-width: 768px) {
   .download-app-section {
     flex-direction: column;
@@ -254,76 +266,17 @@
     max-width: 100%;
   }
 
-  .tagline {
-    font-size: 20px;
-    line-height: 28px;
-  }
+  .tagline { font-size: 20px; line-height: 28px; }
+  .heading { font-size: 32px; line-height: 42px; }
+  .subtext { font-size: 18px; line-height: 28px; }
 
-  .heading {
-    font-size: 32px;
-    line-height: 42px;
-  }
+  .store-buttons { flex-direction: row; align-items: stretch; width: 100%; gap: 10px; margin-top: 0; }
 
-  .subtext {
-    font-size: 18px;
-    line-height: 28px;
-  }
+  .image-container { justify-content: center; margin-top: 30px; }
+  .iphone-image { display: none; }
 
-  .store-button {
-    flex-direction: row;
-    align-items: stretch;
-    width: 100%;
-    gap: 10px;
-    margin-top: 0;
-  }
-
-  /* .google-btn,
-  .apple-btn {
-    width: 40%;
-    justify-content: center;
-    font-size: 10px;
-    padding: 10px;
-  } */
-
-  /* .google-btn,
-  .apple-btn img {
-    height: 18px;
-  } */
-
-  .image-container {
-    justify-content: center;
-    margin-top: 30px;
-  }
-
-  .iphone-image {
-    display: none;
-  }
-
-  /* Resize and reposition decorative shapes */
-  .big-blob {
-    width: 180px;
-    height: 180px;
-    top: 40px;
-    left: -60px;
-  }
-
-  .small-dot {
-    width: 50px;
-    height: 50px;
-    top: 60%;
-    left: 60%;
-  }
-
-  .middle-dot {
-    width: 150px;
-    height: 150px;
-    top: 40%;
-    left: 15%;
-  }
-
-  .bottom-dot {
-    width: 150px;
-    height: 150px;
-    right: -40px;
-  }
+  .big-blob { width: 180px; height: 180px; top: 40px; left: -60px; }
+  .small-dot { width: 50px; height: 50px; top: 60%; left: 60%; }
+  .middle-dot { width: 150px; height: 150px; top: 40%; left: 15%; }
+  .bottom-dot { width: 150px; height: 150px; right: -40px; }
 }

@@ -1,7 +1,8 @@
 import React from "react";
 import "./StyleSheets/DantaStats.css";
 import leftpattern from "../assets/left-datastats-pattern.png";
-import rightpattern from  "../assets/right-datastats-pattern.png";
+import rightpattern from "../assets/right-datastats-pattern.png";
+import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 
 const stats = [
   { value: "1M+", label: "Users" },
@@ -11,11 +12,14 @@ const stats = [
 ];
 
 const DantaStats = () => {
+  const [ref, isVisible] = useIntersectionObserver({ threshold: 0.2 });
+
   return (
     <section
-      className="danta-stats"
+      ref={ref}
+      className={`danta-stats${isVisible ? " stats-visible" : ""}`}
     >
-        <img src={leftpattern}/>
+      <img src={leftpattern} alt="" aria-hidden="true" loading="lazy" />
       <div className="danta-overlay">
         <h2 className="stats-heading">Danta Stats</h2>
         <p className="stats-subheading">
@@ -29,9 +33,8 @@ const DantaStats = () => {
             </div>
           ))}
         </div>
-        {/* <img src={rightpattern}/> */}
       </div>
-        <img src={rightpattern}/>
+      <img src={rightpattern} alt="" aria-hidden="true" loading="lazy" />
     </section>
   );
 };

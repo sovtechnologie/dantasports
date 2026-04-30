@@ -1,48 +1,67 @@
+/* ─── Gym Card ─── */
 .gym-card {
   width: 300px;
-  border-radius: 14.47px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.29);
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   background-color: white;
   overflow: hidden;
-  font-family: sans-serif;
+  font-family: "DM Sans", sans-serif;
   border: 1px solid #e5e5e5;
   position: relative;
   height: max-content;
-  padding: 6.63px;
+  padding: 7px;
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease,
+              border-color 0.3s ease;
+  will-change: transform;
+}
+
+.gym-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(17, 99, 199, 0.16);
+  border-color: rgba(17, 99, 199, 0.2);
 }
 
 .gym-image {
   width: 100%;
   height: 140px;
   object-fit: cover;
-  border-radius: 8px;
-  cursor: pointer;
+  border-radius: 10px;
+  transition: transform 0.4s ease;
+  display: block;
 }
+
+.gym-card:hover .gym-image {
+  transform: scale(1.04);
+}
+
 .icon-top-right {
   position: absolute;
- top: 12px !important;
-  right: 10px !important;
+  top: 12px;
+  right: 10px;
   display: flex;
   gap: 2px;
 }
+
 .icon-img-btn {
   width: 20px;
   height: 20px;
-  background: #00000080;
+  background: rgba(0, 0, 0, 0.5);
   border-radius: 50%;
   padding: 3px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   margin-top: 8px;
-  /* margin-right: 7px; */
 }
+
 .icon-btns {
   background: none;
   border: none;
 }
 
 .card-content {
-  padding-top: 6.63px;
+  padding-top: 8px;
 }
 
 .title-rating {
@@ -52,12 +71,10 @@
 }
 
 .gym-title {
-  margin: 0;
-  flex: 1;
-  font-size: 17px;
-  font-weight: 500;
   margin: 0 0 4px;
-  color: #000000;
+  font-size: 16px;
+  font-weight: 600;
+  color: #172a39;
   font-family: "DM Sans", sans-serif;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -70,33 +87,27 @@
   display: flex;
   align-items: center;
   gap: 2px;
-  font-size: 17px;
+  font-size: 15px;
 }
 
 .star {
-  color: #006eff;
-  font-size: 17px;
+  color: #1163c7;
+  font-size: 15px;
 }
 
-.rating-value {
-  font-weight: 500;
-  font-family: "DM Sans", Arial, sans-serif;
-  font-size: 17px;
-  color: #272727;
-}
-
+.rating-value,
 .rating-count {
   font-weight: 500;
   font-family: "DM Sans", Arial, sans-serif;
-  font-size: 17px;
+  font-size: 15px;
   color: #272727;
 }
 
 .gym-location {
-  font-size: 15px;
+  font-size: 13px;
   font-family: "DM Sans", Arial, sans-serif;
   color: #858585;
-  margin: 4px 0 4px;
+  margin: 4px 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -106,17 +117,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid #2971ac;
-  padding: 8px 0px;
-  padding-bottom: 0px;
-  font-size: 15px;
+  border-top: 1px solid rgba(17, 99, 199, 0.2);
+  padding: 8px 0 0;
+  font-size: 13px;
 }
 
 .discount {
-  font-size: 15px;
+  font-size: 13px;
   font-family: "DM Sans", Arial, sans-serif;
   color: #fc8019;
-  font-weight: 400;
+  font-weight: 500;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -125,10 +135,10 @@
 }
 
 .price {
-  font-size: 15px;
+  font-size: 13px;
   font-family: "DM Sans", Arial, sans-serif;
   color: #006eff;
-  font-weight: 400;
+  font-weight: 500;
   white-space: nowrap;
   overflow: hidden;
   text-align: right;
@@ -139,15 +149,12 @@
 
 @media (max-width: 500px) {
   .gym-card {
-    width: 100% !important;
-    max-width: 100% !important;
-    height: auto !important;
-    max-height: 100% !important;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
   }
-
   .gym-image {
-    width: 100% !important;
-    height: auto !important;
-    max-width: 100% !important;
+    width: 100%;
+    height: auto;
   }
 }

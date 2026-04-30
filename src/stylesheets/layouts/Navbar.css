@@ -1,14 +1,11 @@
-/* body {
-  overflow-x: hidden;
-} */
-
+/* ─── Root ─── */
 #root {
   max-width: 1920px;
   margin: 0 auto;
 }
 
+/* ─── Navbar ─── */
 .navbar {
-  /* width: 100%; */
   position: fixed;
   top: 0;
   left: 0;
@@ -17,43 +14,49 @@
   padding: 12px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
   display: flex;
   justify-content: center;
-  transition: background-color 0.3s ease;
   background-color: white;
-  /* box-shadow: 0 4px 12px rgba(17, 99, 199, 0.08); */
   max-width: 1920px;
   margin: 0 auto;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 
 .navbar.home {
   background-color: #1163c7;
+  box-shadow: none;
 }
 
+/* ─── Container ─── */
 .navbar-container {
   width: 100%;
-  /* max-width: 1238px; */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   height: 50px;
-  gap: 0px;
+  gap: 0;
 }
 
+/* ─── Brand / Logo ─── */
 .navbar-brand {
   font-size: 1.5rem;
   font-weight: bold;
   text-decoration: none;
   color: #0a0a0a;
+  transition: transform 0.25s ease;
+}
+
+.navbar-brand:hover {
+  transform: scale(1.04);
 }
 
 .navbar-logo {
   width: 54px;
   height: 54px;
-  top: 23px;
-  left: 101px;
   opacity: 1;
 }
 
+/* ─── Nav Links ─── */
 .navbar-link {
   text-decoration: none;
   color: #0a0a0a;
@@ -64,25 +67,45 @@
   letter-spacing: 0;
   text-align: center;
 }
+
 .nav-Filter-wrapper {
   display: flex;
   flex-direction: row;
-  /* gap: 40px; */
   gap: clamp(15px, 2.778vw, 48px);
   margin-left: 15px;
   margin-right: clamp(15px, 2.778vw, 48px);
 }
+
 .nav-Filter-links {
   text-decoration: none;
   color: #ffffff;
   font-family: "DM Sans", Arial, sans-serif;
   font-weight: 500;
-  /* font-size: 20px; */
-  font-size: clamp(13px, 1.389vw, 24px);
-
+  font-size: clamp(13px, 1.389vw, 20px);
   line-height: 28px;
   letter-spacing: 0;
   text-align: center;
+  position: relative;
+  padding-bottom: 2px;
+  transition: opacity 0.2s ease;
+}
+
+.nav-Filter-links::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 1px;
+  transform: translateX(-50%);
+  transition: width 0.25s ease;
+}
+
+.nav-Filter-links:hover::after,
+.nav-Filter-links.active-link::after {
+  width: 100%;
 }
 
 .nav-Filter-link {
@@ -90,91 +113,128 @@
   color: #0a0a0a;
   font-family: "DM Sans", Arial, sans-serif;
   font-weight: 500;
-  /* font-size: 20px; */
-  font-size: clamp(13px, 1.389vw, 24px);
+  font-size: clamp(13px, 1.389vw, 20px);
   line-height: 28px;
   letter-spacing: 0;
   text-align: center;
+  position: relative;
+  padding-bottom: 2px;
+  transition: color 0.2s ease;
 }
+
+.nav-Filter-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: #1163c7;
+  border-radius: 1px;
+  transform: translateX(-50%);
+  transition: width 0.25s ease;
+}
+
+.nav-Filter-link:hover::after,
+.nav-Filter-link.active-link::after {
+  width: 100%;
+}
+
 .nav-Filter-link.active-link {
-  color: #1163c7; /* Ant Design primary blue */
+  color: #1163c7;
   font-weight: 600;
 }
 
+/* ─── Actions ─── */
 .navbar-actions {
   display: flex;
   align-items: center;
   margin-left: auto;
 }
 
+/* ─── App Button ─── */
 .app-btn {
-  /* padding: 7px 17px; */
   padding: clamp(3px, 0.486vw, 10px) clamp(8px, 1.181vw, 24px);
   border-radius: 30px;
-  border: 1px solid #1163c7;
-  background-color: transparent;
-  font-weight: 500;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  background-color: white;
+  font-weight: 600;
   cursor: pointer;
-  color: #0a0a0a;
-  /* font-size: 20px; */
-  font-size: clamp(13px, 1.389vw, 24px);
+  color: #172a39;
+  font-size: clamp(13px, 1.389vw, 20px);
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: clamp(8px, 0.5556vw, 8px);
+  gap: clamp(6px, 0.5556vw, 8px);
   margin-right: clamp(13px, 1.389vw, 24px);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.25s ease;
 }
 
+.app-btn:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* ─── User Icon ─── */
 .user-icon {
-  border: 1px solid #1163c7;
+  border: 1.5px solid #1163c7;
   border-radius: 50%;
-  /* width: 38px; */
   width: clamp(30px, 2.639vw, 48px);
-  /* height: 38px; */
   height: clamp(30px, 2.639vw, 48px);
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
+
+.user-icon:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(17, 99, 199, 0.25);
+}
+
 .user-icon img {
   height: clamp(16px, 1.389vw, 24px);
   width: clamp(16px, 1.389vw, 24px);
 }
 
-/* Blue style overrides on homepage */
+/* ─── Home overrides ─── */
 .navbar.home .navbar-link,
 .navbar.home .navbar-brand,
 .navbar.home .app-btn,
 .navbar.home .user-icon {
   color: #ffffff;
-  border-color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.6);
 }
 
 .navbar.home .app-btn {
   background-color: white;
   color: #172a39;
-  /* border: 1px solid #1163c7; */
 }
 
 .navbar.home .user-icon {
   background-color: white;
-  border: 1px solid #1163c7;
+  border-color: #1163c7;
   color: #1163c7;
 }
 
+/* ─── Location Search ─── */
 .location-search-container {
   display: flex;
   align-items: center;
-  border: 1px solid #ccc;
+  border: 1.5px solid #e0e0e0;
   border-radius: 10px;
-  /* padding: 0px 10px; */
   max-width: 250px;
   background-color: white;
   position: relative;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
-.location-search-container input {
-  height: auto;
+
+.location-search-container:focus-within {
+  border-color: #1163c7;
+  box-shadow: 0 0 0 3px rgba(17, 99, 199, 0.1);
 }
+
 .location-search-container input.location_Search_Input {
   flex-grow: 1;
   border: none;
@@ -182,6 +242,7 @@
   padding: 10px;
   border-radius: 10px 0 0 10px;
   font-size: 14px;
+  font-family: "DM Sans", sans-serif;
 }
 
 .location-search-container img {
@@ -193,48 +254,57 @@
   user-select: none;
 }
 
-/* Hamburger icon - hidden by default */
+/* ─── Hamburger ─── */
 .hamburger {
   display: none;
   font-size: 24px;
   cursor: pointer;
   color: #ffffff;
+  transition: transform 0.2s ease;
 }
 
-/* Show hamburger and make menu collapsible on small screens */
+.hamburger:hover {
+  transform: scale(1.1);
+}
+
+/* ─── Mobile ─── */
 @media (max-width: 750px) {
-  .hamburger {
-    display: block;
-  }
+  .hamburger { display: block; }
+
   .nav-Filter-links {
     color: #0a0a0a;
     font-size: 15px;
   }
+
   .navbar-actions {
     display: none;
     flex-direction: column;
     width: 100%;
-    background-color: white !important;
+    background-color: white;
     position: absolute;
-    padding: 10px 0px;
-    top: 64px; /* adjust according to your navbar height */
+    padding: 16px 0;
+    top: 64px;
     left: 0;
-    /* padding: 16px; */
     z-index: 998;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    animation: slideDown 0.25s ease;
   }
 
-  .navbar-actions.active {
-    display: flex;
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
+
+  .navbar-actions.active { display: flex; }
 
   .nav-Filter-wrapper {
     flex-direction: column;
-    /* align-items: flex-start; */
     gap: 12px;
     margin: 0 auto;
   }
+
   .navbar.home .app-btn {
-    border: 1px solid #1163c7;
+    border: 1.5px solid #1163c7;
     color: #0a0a0a;
     font-size: 15px;
     padding: 6px 12px;
@@ -242,24 +312,16 @@
 
   .app-btn {
     width: 100%;
-    margin: 0px 0;
+    margin: 0;
     margin-top: 12px;
-    border: 1px solid #1163c7;
+    border: 1.5px solid #1163c7;
     max-width: fit-content;
     color: #0a0a0a;
   }
 
-  .user-icon {
-    margin-top: 12px;
-  }
+  .user-icon { margin-top: 12px; }
 
-  .navbar {
-    background-color: #1163c7 !important;
-  }
-  .navbar-logo {
-    filter: brightness(0) invert(1);
-  }
-  .location-search-container img {
-    margin-left: 0px;
-  }
+  .navbar { background-color: #1163c7 !important; }
+  .navbar-logo { filter: brightness(0) invert(1); }
+  .location-search-container img { margin-left: 0; }
 }

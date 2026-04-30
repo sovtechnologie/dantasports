@@ -1,19 +1,28 @@
 .card {
   background: #fff;
-  border-radius: 14px;
-  box-shadow: 0px 3px 2px 0px #0001;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
   padding: 18px 17px 12px 17px;
   min-width: 220px;
-  font-family: "Segoe UI", Arial, sans-serif;
-  border: 1px solid #ded9d9;
+  font-family: "DM Sans", Arial, sans-serif;
+  border: 1px solid #ede6e6;
   position: relative;
   max-width: 298px;
   max-height: 300px;
   display: flex;
   flex-direction: column;
-  /* gap: clamp(4.44px, 1.3889vw, 20px); */
   gap: 10px;
-  border: 1px solid #ede6e6;
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease,
+              border-color 0.3s ease;
+  will-change: transform;
+}
+
+.card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(17, 99, 199, 0.14);
+  border-color: rgba(17, 99, 199, 0.2);
 }
 
 .type {
