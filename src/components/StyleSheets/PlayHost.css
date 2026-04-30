@@ -1,159 +1,127 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
-
-
-
-
-.playhost_card {
-    box-shadow: 0px 4px 4px 0px #1163C740;
-    /* margin-bottom: 15px; */
-    border: none;
-    position: relative;
-    /* height: 100%; */
-    border: none;
-    padding: 16px 16px 10px 16px !important;
-    /* border-radius: 12px; */
-    position: relative;
-    /* max-height: 410px;
-    height: 100%; */
+/* ─── PlayHost Card ─── */
+.ph-card {
+  padding: 20px !important;
+  cursor: pointer;
+  display: flex !important;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 220px;
+  background: white;
+  position: relative;
+  overflow: hidden;
 }
 
-.host_date {
-
-    color: #858585;
-  font-family: 'DM Sans';
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 17px;
+/* Subtle gradient top accent */
+.ph-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #1163C7, #1a7ae0);
+  border-radius: 18px 18px 0 0;
 }
 
-
-.card_icons .like{
-
-    right: 15%;
-    top:  8px;
-
-} 
-
-.card_icons  .share{
-
-    right: 3%;
-    position: absolute;
-      top: 8px;
-
-
+/* ─── Type badge ─── */
+.ph-type-badge {
+  display: inline-block;
+  background: rgba(17,99,199,.08);
+  color: #1163C7;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  width: fit-content;
+  letter-spacing: .3px;
 }
 
-
-
-.sports_title p {
-
-    color: #858585;
-    font-weight: 400;
-    font-size: 14px;
-    padding-bottom: 10px;
-
+/* ─── Attendees ─── */
+.ph-attendees {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
-
-.offer p {
-
-    font-weight: 400;
-    font-size: 14px;
-    color: #FC8019;
-    margin-bottom: 0px;
+.ph-avatars {
+  display: flex;
+  align-items: center;
 }
-
-
-
-
-
-.play_host_section .card h2 {
-
-    color: #272727;
-    font-family: 'Lato';
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 30px;
-    margin-bottom: 1rem;
-    margin-top: 20px;
-
-   
-}
-
-.going {
-
-  font-family: 'DM Sans';
-  font-weight: 400;
-  font-size: 28px;
-  line-height: 34.5px;
-  color: #000;
-
-}
-
-
-.badge_label p {
-  color: #000;
-  font-size: 28px;
-  font-weight: 400;
-  line-height: 28px;
-}
-
-.profile_img {
-  width: 64px;
-  height: 64px;
+.ph-avatar {
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   object-fit: cover;
+  border: 2px solid white;
+  box-shadow: 0 2px 6px rgba(0,0,0,.1);
+  margin-left: -8px;
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+.ph-avatar:first-child { margin-left: 0; }
+.ph-card:hover .ph-avatar { transform: scale(1.08); }
+
+.ph-going {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #172A39;
+}
+.ph-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #1163C7;
+  flex-shrink: 0;
 }
 
-.profile_img.overlap {
-  margin-left: -10px;
+/* ─── Host by ─── */
+.ph-host-by {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #555;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ph-host-by strong { color: #172A39; font-weight: 600; }
+
+/* ─── Meta rows ─── */
+.ph-meta {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: #858585;
+}
+.ph-meta img { width: 14px; height: 14px; flex-shrink: 0; }
+.ph-meta span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.icon {
-  width: 16px;
-  height: 16px;
+/* ─── Footer ─── */
+.ph-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid rgba(17,99,199,.1);
 }
-
-.novice_txt {
-
-  font-family: 'DM Sans';
+.ph-skill {
+  font-family: 'DM Sans', sans-serif;
   font-weight: 700;
-  font-size: 22px;
-  line-height: 33.5px;
-
+  font-size: 14px;
 }
-
-@media screen and (max-width: 1240px) {
-
-  .profile_img {
-  width: 40px;
-  height: 40px;
+.ph-join {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  color: #1163C7;
+  transition: transform .25s ease;
 }
-
-
-  
-}
-
-@media screen and (max-width: 1340px) {
-
-  .going {
-    font-size: 20px;
-    line-height: 30.5px;
-}
-  
-}
-@media screen and (max-width: 767px) {
-
-  .going{
-
-    font-size: 20px;
-    line-height: 28px;
-  }
-  .play_host_section .card h2 {
-    margin-top: 0px;
-  }
-  .novice_txt{
-
-    font-size: 20px;
-    line-height: 30px;
-  }
-}
+.ph-card:hover .ph-join { transform: translateX(4px); }

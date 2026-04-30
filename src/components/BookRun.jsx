@@ -1,242 +1,131 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Card } from "react-bootstrap";
-import ".//StyleSheets/BookRun.css";
+import { Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useQueryClient } from "@tanstack/react-query";
+import "./StyleSheets/BookVenues.css";
+import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import star from "../assets/images/home/bookvenues/star.svg";
 import likeIcon from "../assets/images/home/bookvenues/like.svg";
-import HeartFilled from "../features/withoutauth/assets/VenueCardLogo/heartfilled.png"
 import shareIcon from "../assets/images/home/bookvenues/share.svg";
 import dateIcon from "../assets/images/home/bookrun/date.svg";
 import mapIcon from "../assets/images/home/bookrun/map.svg";
-import { useSelector } from "react-redux";
+import HeartFilled from "../features/withoutauth/assets/VenueCardLogo/heartfilled.png";
+import fallback from "../assets/images/home/bookrun/bookrun.png";
 import { useFetchEvent } from "../hooks/EventList/useFetchEvents.js";
 import { useLikeEvent } from "../hooks/favouriteEvent/useLikeEvent.js";
 import { useUnlikeEvent } from "../hooks/favouriteEvent/useUnLikeEvent.js";
-import { Link } from "react-router-dom";
-import { useQueryClient } from "@tanstack/react-query";
-import bookrunn from "../assets/images/home/bookrun/bookrun.png";
 
-function formatTime(timeStr = "00:00") {
-  if (!timeStr) return "";
-  const parts = timeStr.split(":");
-  const h = Number(parts[0] || 0);
-  const m = Number(parts[1] || 0);
-  const s = parts.length > 2 ? Number(parts[2]) : 0;
-  const dt = new Date();
-  dt.setHours(h, m, s);
-  return dt.toLocaleTimeString("en-US", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
-  });
+function formatTime(t = "00:00") {
+  if (!t) return "";
+  const [h, m, s = 0] = t.split(":").map(Number);
+  const d = new Date(); d.setHours(h, m, s);
+  return d.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
 }
 
-function BookRun() {
-  const { lat, lng } = useSelector((state) => state.location);
-  const userId = useSelector((state) => state.auth.id);
-  const auth = useSelector((state) => state.auth);
+const DIFFICULTY = { 0: "Moderate", 1: "Easy", 2: "Difficult" };
+
+export default function BookRun() {
+  const { lat, lng } = useSelector((s) => s.location);
+  const userId = useSelector((s) => s.auth.id);
+  const auth   = useSelector((s) => s.auth);
   const queryClient = useQueryClient();
-  const { data, isLoading, error } = useFetchEvent({
-    lat,
-    lng,
-    type: 2,
-    userId,
-  });
-  const events = data?.result || [];
+  const [sectionRef, sectionVisible] = useIntersectionObserver({ threshold: 0.06 });
+  const [list, setList] = useState([]);
 
-  const likeEvent = useLikeEvent();
+  const { data, isLoading } = useFetchEvent({ lat, lng, type: 2, userId });
+  const likeEvent   = useLikeEvent();
   const unlikeEvent = useUnlikeEvent();
-  const [eventList, setEventList] = useState([]);
 
-  useEffect(() => {
-    setEventList(events);
-  }, [events]);
+  useEffect(() => { if (data?.result) setList(data.result); }, [data]);
 
-  const toggleFavourite = (event) => {
-    const eventId = event.id;
-
-    if (!auth || !auth?.id) {
-      alert("Please login first to like or unlike a run.");
-      return;
-    }
-
-    setEventList((prev) =>
-      prev.map((v) =>
-        v.id === eventId ? { ...v, favourite: !v.favourite } : v
-      )
-    );
-
-    if (!event.favourite) {
-      likeEvent.mutate(
-        { eventId, userId, type: event.type },
-        {
-          onSuccess: () =>
-            queryClient.invalidateQueries(["EventList", userId || null]),
-        }
-      );
-    } else {
-      unlikeEvent.mutate(
-        { favouriteEventId: event.favourite_event_id },
-        {
-          onSuccess: () =>
-            queryClient.invalidateQueries(["EventList", userId || null]),
-        }
-      );
-    }
-  };
-
-  const handleShare = (event) => {
-    const url = `${window.location.origin}/Run/${event.id}`;
-    if (navigator.share) {
-      navigator.share({
-        title: event.event_title,
-        text: "Check out this event!",
-        url,
+  const toggleFav = (e, evt) => {
+    e.preventDefault(); e.stopPropagation();
+    if (!auth?.id) { alert("Please login first."); return; }
+    const id = evt.id;
+    setList((p) => p.map((v) => v.id === id ? { ...v, favourite: !v.favourite } : v));
+    if (!evt.favourite) {
+      likeEvent.mutate({ eventId: id, userId, type: evt.type }, {
+        onSuccess: () => queryClient.invalidateQueries(["EventList", userId]),
       });
     } else {
-      navigator.clipboard.writeText(url);
-      alert("Link copied to clipboard!");
+      unlikeEvent.mutate({ favouriteEventId: evt.favourite_event_id }, {
+        onSuccess: () => queryClient.invalidateQueries(["EventList", userId]),
+      });
     }
   };
 
-  // if (isLoading) return <p>Loading...</p>;
-  // if (error) return <p>Error loading events: {error.message}</p>;
+  const handleShare = (e, evt) => {
+    e.preventDefault(); e.stopPropagation();
+    const url = `${window.location.origin}/Run/${evt.id}`;
+    if (navigator.share) navigator.share({ title: evt.event_title, url });
+    else navigator.clipboard.writeText(url);
+  };
 
-  const visibleEvents = eventList.slice(0, 4);
+  if (isLoading || !list.length) return null;
 
   return (
-    <section className="book_venue_section custm_ht">
+    <section className={`hs-section hs-section--alt${sectionVisible ? " section-in" : ""}`} ref={sectionRef}>
       <Container>
-        <div className="d-flex justify-content-between align-items-center">
-          <div className="section_title">
-            <h2>Book Run</h2>
+        <div className="hs-header">
+          <div className="hs-title-wrap">
+            <span className="hs-eyebrow">Active Lifestyle</span>
+            <h2 className="hs-title">Book Run</h2>
           </div>
-          <div className="see_all">
-            <a href="">See All</a>
-          </div>
+          <Link to="/Run" className="hs-see-all">
+            See All
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </Link>
         </div>
-        <Row className="g-3">
-          {visibleEvents.map((evt) => (
-            <Col xl={3} lg={4} md={6} sm={6} key={evt.id}>
-              <Link to={`/Run/${evt.id}`} className="text-decoration-none">
-                <Card className="">
-                  <div className="card_img position-relative">
-                    <img
-                      src={evt.desktop_image || bookrunn}
-                      className=""
-                      alt={evt.event_title}
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = bookrunn;
-                      }}
-                    />
-                  </div>
 
-                  {/* Like & Share */}
-                  <div className="card_icons">
-                    <img
-                      className="like"
-                      src={evt.favourite ? HeartFilled : likeIcon}
-                      alt="like"
-                      onClick={() => toggleFavourite(evt)}
-                      style={{ cursor: "pointer" }}
-                    />
-                    <img
-                      className="share"
-                      src={shareIcon}
-                      alt="share"
-                      onClick={() => handleShare(evt)}
-                      style={{ cursor: "pointer" }}
-                    />
-                  </div>
-
-                  <div className="txt_wrapper">
-                    <div className="card_txt">
-                      <h2 className="text_wrap card_heading">
-                        {evt.event_title}
-                      </h2>
-
-                      <p className="card_date">
-                        <span className="me-2">
-                          <img src={dateIcon} alt="date" />
-                        </span>
-                        {`${new Date(evt.start_date).toLocaleDateString("en-GB", {
-                          day: "2-digit",
-                          month: "short",
-                        })} - ${new Date(evt.end_date).toLocaleDateString(
-                          "en-GB",
-                          {
-                            day: "2-digit",
-                            month: "short",
-                          }
-                        )} | ${formatTime(evt.start_time)} onwards`}
-                      </p>
-                      <p className="map_location text_wrap4">
-                        <span className="me-2">
-                          <img src={mapIcon} alt="map" />
-                        </span>
-                        {evt.locations[0]?.area}, {evt.locations[0]?.city}
-                      </p>
-                    </div>
-
-
-                    <div className="d-flex justify-content-between no_off_users">
-                      <p className="up_to_offer m-0">
-                        {evt.coupon_type === "percentage" && evt.discount_offer
-                          ? `Upto ${parseFloat(evt.discount_offer)}% Off`
-                          : evt.coupon_type === "flat" && evt.discount_offer
-                            ? `Upto ₹${parseFloat(evt.discount_offer)} Off`
-                            : ""}
-                      </p>
-                      <p className="onwards_rup m-0">
-                        {" "}
-                        {evt.pricing
-                          ? `₹${parseFloat(evt.pricing).toFixed(0)} onwards`
-                          : ""}
-                      </p>
-                    </div>
-                    {/* <div className="card_line2"></div> */}
-                    <div className="easy2">
-                      {evt.difficulty === 0 ? (
-                        <span className="Moderate">Moderate</span>
-                      ) : evt.difficulty === 1 ? (
-                        <span className="easy">Easy</span>
-                      ) : evt.difficulty === 2 ? (
-                        <span className="difficult">Difficult</span>
-                      ) : (
-                        <span className="unknown">Not Specified</span>
-                      )}
-                    </div>
-
-
-                    {/* Offer / Join Now */}
-                    <div className="offer d-flex justify-content-between align-items-center">
-                      {/* <p>
-                      {evt.coupon_type === "percentage" && evt.offer
-                        ? `Upto ${parseFloat(evt.offer)}% Off`
-                        : evt.coupon_type === "flat" && evt.offer
-                          ? `Upto ₹${parseFloat(evt.offer)} Off`
-                          : ""}
-                    </p> */}
-
-                      {/* <Link to={`/Run/${evt.id}`}>Join Now</Link> */}
-                    </div>
-                    <div className="rating_box position-absolute d-flex align-items-center">
-                      <img src={star} alt="" />
-                      <span>
-
-                        {evt.average_rating || "0.0"}  (
-                        {evt.review_count || 0})
-                      </span>
-                    </div>
-                  </div>
-                </Card>
-              </Link>
-            </Col>
+        <div className="hs-grid">
+          {list.slice(0, 4).map((evt) => (
+            <Link to={`/Run/${evt.id}`} className="hs-card" key={evt.id}>
+              <div className="hs-card-img">
+                <img src={evt.desktop_image || fallback} alt={evt.event_title} loading="lazy"
+                  onError={(e) => { e.target.src = fallback; }} />
+                <div className="hs-rating">
+                  <img src={star} alt="★" />
+                  <span>{evt.average_rating || "0.0"} ({evt.review_count || 0})</span>
+                </div>
+                <div className="hs-actions">
+                  <button className="hs-action-btn" onClick={(e) => toggleFav(e, evt)} aria-label="Like">
+                    <img src={evt.favourite ? HeartFilled : likeIcon} alt="like" />
+                  </button>
+                  <button className="hs-action-btn" onClick={(e) => handleShare(e, evt)} aria-label="Share">
+                    <img src={shareIcon} alt="share" />
+                  </button>
+                </div>
+                {evt.difficulty !== undefined && (
+                  <div className="hs-badge">{DIFFICULTY[evt.difficulty] || "Not Specified"}</div>
+                )}
+              </div>
+              <div className="hs-card-body">
+                <h3 className="hs-card-name">{evt.event_title}</h3>
+                <p className="hs-card-meta">
+                  <img src={dateIcon} alt="" />
+                  <span>{new Date(evt.start_date).toLocaleDateString("en-GB", { day: "2-digit", month: "short" })} | {formatTime(evt.start_time)}</span>
+                </p>
+                <p className="hs-card-meta">
+                  <img src={mapIcon} alt="" />
+                  <span>{evt.locations?.[0]?.area}, {evt.locations?.[0]?.city}</span>
+                </p>
+                <div className="hs-card-footer">
+                  <span className="hs-offer">
+                    {evt.coupon_type === "percentage" && evt.discount_offer ? `Upto ${parseFloat(evt.discount_offer)}% Off` :
+                     evt.coupon_type === "flat" && evt.discount_offer ? `Upto ₹${parseFloat(evt.discount_offer)} Off` : ""}
+                  </span>
+                  <span className="hs-price">
+                    {evt.lowest_ticket_price ? `₹${parseInt(evt.lowest_ticket_price)} onwards` : ""}
+                  </span>
+                </div>
+              </div>
+            </Link>
           ))}
-        </Row>
+        </div>
       </Container>
     </section>
   );
 }
-
-export default BookRun;

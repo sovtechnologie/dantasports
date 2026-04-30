@@ -1,168 +1,221 @@
-.footer_section{
-  background-color: white;
-  padding-top: 30px;
+/* ═══════════════════════════════════════════
+   FOOTER — consistent across ALL pages
+   ═══════════════════════════════════════════ */
+
+.footer_section {
+  background: linear-gradient(180deg, #0d4fa0 0%, #0a3d7a 100%);
+  padding: 48px 0 0;
+  margin-top: 40px;
+  color: rgba(255,255,255,.85);
 }
 
-.follow_us .links {
-  height: 30px;
-  width: 30px;
+/* ─── Brand ─── */
+.footer_brand { display: flex; flex-direction: column; gap: 14px; }
+
+.footer_logo {
+  width: 140px;
+  height: auto;
+  object-fit: contain;
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+  filter: brightness(0) invert(1);
 }
-.follow_us .links img {
-  height: 100%;
-  width: 100%;
-}
-.follow_us .links:first-child{
+.footer_logo:hover { transform: scale(1.05); }
 
-  margin-left: unset;
-}
-.follow_us .links{
-
-  margin-left: 20px;
-}
-
-.dantaspot_logo {
-        width: 168px;
-        height: 70px;
-    }
-
-
-.title p {
-  font-family: "DM Sans";
+.footer_tagline {
+  font-family: "DM Sans", sans-serif;
   font-weight: 400;
-  font-size: 16px;
-  line-height: 19.2px;
-  color: #172a39;
-}
-.sub_inner h3,
-.sub_inners h3  {
-  color: #1163c7;
-  font-family: "Lato";
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 24px;
-  margin-bottom: 15px;
-}
-.sub_inner a,
-.sub_inners a {
-  text-decoration: none;
-  color: #3a3a3a;
-  font-family: "DM Sans";
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 32px;
-}
-
-.sub_inner a:hover,
-.sub_inners a:hover  {
-  color: #1163c7;
-  text-decoration: underline;
-  transition: 0.3s ease-in-out;
-}
-.sub_footer {
-  padding: 15px;
-}
-.sub_footer ul li {
-  margin: 0 20px;
-}
-.sub_footer ul li a {
-  text-decoration: none;
-  color: #3a3a3a;
-  font-family: "Plus Jakarta Sans";
-  font-weight: 500;
   font-size: 14px;
-  line-height: 24px;
+  line-height: 1.5;
+  color: rgba(255,255,255,.75);
+  margin: 0;
 }
 
-.sub_footer ul li a:hover {
-  text-decoration: underline;
-  transition: 0.3s ease-in-out;
+/* ─── Social icons ─── */
+.footer_social {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.social_link {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .25s ease, transform .3s cubic-bezier(.34,1.56,.64,1), border-color .25s ease;
+}
+.social_link:hover {
+  background: rgba(255,255,255,.25);
+  border-color: rgba(255,255,255,.5);
+  transform: translateY(-3px) scale(1.1);
+}
+.social_link img {
+  width: 18px;
+  height: 18px;
+  filter: brightness(0) invert(1);
+  object-fit: contain;
 }
 
-.sub_footer p {
-  color: #3a3a3a;
-  font-family: "DM Sans";
-  font-weight: 300;
+/* ─── App store buttons ─── */
+.footer_app_btns {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.app_store_btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.25);
+  color: rgba(255,255,255,.9);
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background .25s ease, transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+.app_store_btn:hover {
+  background: rgba(255,255,255,.22);
+  transform: translateY(-2px);
+  color: white;
+}
+.app_store_btn img {
+  width: 18px;
+  height: 18px;
+  filter: brightness(0) invert(1);
+  object-fit: contain;
+}
+
+/* ─── Headings ─── */
+.footer_heading {
+  color: white;
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
   font-size: 16px;
-  line-height: 24px;
-}
-
-hr {
-  background-color: #dfdfdf;
-  margin: 10px !important;
-  padding: 0;
-}
-
-
-
-@media screen and (max-width: 991px) {
-  .sub_footer .row {
-    flex-direction: column-reverse;
-  }
-
-  
-}
-
-@media screen and (max-width: 767px) {
-
-  .sub_inner a, .sub_inners a{
-
-    line-height: 28px;
-  }
-
-  .sub_footer{
-
-    padding: 0 0 10px 0;
-  }
-
-  .sub_inner ul li {
-
+  line-height: 1.4;
+  margin-bottom: 16px;
   position: relative;
-  padding-left: 22px !important;
+  display: inline-block;
 }
-.sub_inner ul li::before{
-
+.footer_heading::after {
   content: '';
   position: absolute;
-  height: 8px;
-  width: 8px;
+  bottom: -4px;
   left: 0;
-  top: 10px;
-  background-color: #989fa961;
-  border-radius: 50%;
-  
+  width: 28px;
+  height: 2px;
+  background: rgba(255,255,255,.5);
+  border-radius: 1px;
 }
 
-  .dantaspot_logo{
-
-    width: 100px;
-    height: 60px;
-  }
-
-  .dantaspot_logo img {
-
-    height: 100%;
-    width:  100%;
-    object-fit: contain;
-  }
-  .sub_footer ul li {
-    margin: 0 10px;
-  }
-  .sub_footer ul li a {
-    font-size: 13px;
-  }
-  .sub_inner h3, .sub_inners h3{
-
-    margin: 20px 0;
-  }
+/* ─── Nav links ─── */
+.footer_links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.footer_links li a {
+  text-decoration: none;
+  color: rgba(255,255,255,.72);
+  font-family: "DM Sans", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  transition: color .2s ease, transform .2s ease;
+  display: inline-block;
+}
+.footer_links li a:hover {
+  color: white;
+  transform: translateX(4px);
 }
 
+/* ─── Cities ─── */
+.footer_cities {
+  display: flex;
+  gap: 20px;
+}
+
+/* ─── Contact ─── */
+.footer_contact {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.footer_contact li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.footer_contact li img {
+  width: 18px;
+  height: 18px;
+  filter: brightness(0) invert(1);
+  opacity: .8;
+  flex-shrink: 0;
+}
+.footer_contact li a {
+  text-decoration: none;
+  color: rgba(255,255,255,.8);
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  transition: color .2s ease;
+}
+.footer_contact li a:hover { color: white; }
+
+/* ─── Bottom bar ─── */
+.footer_bottom {
+  margin-top: 40px;
+  border-top: 1px solid rgba(255,255,255,.12);
+  padding: 16px 0;
+  background: rgba(0,0,0,.15);
+}
+.footer_copy {
+  color: rgba(255,255,255,.6);
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  margin: 0;
+}
+.footer_legal {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+}
+.footer_legal li a {
+  text-decoration: none;
+  color: rgba(255,255,255,.6);
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  transition: color .2s ease;
+}
+.footer_legal li a:hover { color: white; text-decoration: underline; }
+
+/* ─── Responsive ─── */
+@media screen and (max-width: 767px) {
+  .footer_section { padding: 36px 0 0; }
+  .footer_cities { gap: 12px; }
+  .footer_heading { margin-top: 8px; }
+  .footer_bottom { padding: 14px 0; }
+  .footer_legal { justify-content: center; }
+}
 @media screen and (max-width: 540px) {
-
-  .sub_footer p {
-    font-size: 12px;
-  }
-   .sub_inner h3, .sub_inners h3{
-
-    margin: 15px 0;
-  }
+  .footer_copy { font-size: 12px; }
+  .footer_legal li a { font-size: 12px; }
+  .app_store_btn { font-size: 12px; padding: 6px 10px; }
 }

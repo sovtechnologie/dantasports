@@ -1,217 +1,129 @@
-/* .Corporate-header {
-  display: flex;
-  flex-direction: row;
-  background-color: #ffffff;
-  padding: 60px 0;
-  gap: clamp(6px, 0.694vw, 10px);
-  flex-wrap: nowrap;
-} */
+/* ─── About Page ─── */
 
-/* .header-left {
-  flex: 1;
-  min-width: 0;
-} */
-
+/* ─── Header ─── */
 .header-left h1 {
-  font-size: clamp(24px, 4.44vw, 64px);
+  font-size: clamp(26px, 4vw, 60px);
   font-weight: 700;
   color: #172a39;
-  font-family: "Lato", Arial, sans-serif;
-  margin: clamp(12px, 1.39vw, 20px) 0px;
+  font-family: 'Lato', Arial, sans-serif;
+  margin: clamp(12px, 1.39vw, 20px) 0;
+  line-height: 1.15;
 }
-
-.header-left h1 span {
-  color: #1163c7;
-}
+.header-left h1 span { color: #1163c7; }
 
 .header-left p {
-  font-size: clamp(16px, 1.25vw, 18px);
-  margin-top: clamp(6px, 0.694vw, 10px);
-  margin-bottom: clamp(6px, 0.694vw, 10px);
+  font-size: clamp(15px, 1.1vw, 18px);
+  margin-top: 8px;
+  margin-bottom: 8px;
   color: #757575;
   font-weight: 400;
-  /* max-width: 558px; */
-  letter-spacing: 0.41px;
+  letter-spacing: .3px;
+  line-height: 1.65;
 }
 
+/* ─── Buttons ─── */
 .button-group {
-  margin-top: clamp(10px, 2.47vw, 50px);
+  margin-top: clamp(16px, 2.5vw, 48px);
   display: flex;
-  gap: 12px;
+  gap: 14px;
   flex-wrap: wrap;
 }
 
-.primary-btn,
-.secondary-btn {
+.primary-btn, .secondary-btn {
   border-radius: 50px;
-  border: 1px solid #1163c7;
+  border: 1.5px solid #1163c7;
   cursor: pointer;
   font-weight: 600;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  height: clamp(32px, 4.03vw, 58px);
-  width: clamp(106px, 11.67vw, 168px);
-  font-family: "Poppins";
-  font-size: clamp(12px, 1.39vw, 20px);
-  font-weight: 400;
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease, background .3s ease;
+  height: clamp(36px, 4vw, 56px);
+  width: clamp(110px, 11vw, 168px);
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(13px, 1.1vw, 18px);
 }
-
 .primary-btn {
   background-color: #1163c7;
   color: white;
+  box-shadow: 0 4px 14px rgba(17,99,199,.35);
 }
-
 .primary-btn:hover {
-  background-color: #0d4da0;
+  background-color: #0d4fa0;
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 8px 24px rgba(17,99,199,.45);
 }
-
 .secondary-btn {
   background-color: white;
   color: #1163c7;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
 }
-
 .secondary-btn:hover {
-  background-color: #ffffff;
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 8px 20px rgba(0,0,0,.14);
 }
 
-.header-right {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: clamp(12px, 1.39vw, 20px);
+/* ─── About image ─── */
+.header-left + div img,
+.col-lg-6 img.w-100 {
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.12);
+  transition: transform .5s ease, box-shadow .5s ease;
+}
+.col-lg-6 img.w-100:hover {
+  transform: scale(1.02);
+  box-shadow: 0 16px 48px rgba(0,0,0,.18);
 }
 
-.carousel-img {
-  width: 100%;
-  max-width: clamp(200px, 34.72vw, 500px);
-  border-radius: 16px;
-  object-fit: cover;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-}
-
-.pagination-dots {
-  display: flex;
-  justify-content: center;
-  margin-top: 12px;
-}
-
-.dot {
-  width: 8px;
-  height: 8px;
-  background-color: #ccc;
-  border-radius: 50%;
-  margin: 0 4px;
-  transition: background-color 0.3s ease;
-}
-
-.dot.active {
-  background-color: #1163c7;
-  height: 7px;
-  width: 17px;
-  border-radius: 8px;
-}
-
-
-
-.mission-vision-section {
-  margin: 60px 0;
-}
-
-
+/* ─── Mission / Vision ─── */
+.mission-vision-section { margin: 60px 0; }
 
 .content-block {
   display: flex;
-  align-items: center;
-  margin-bottom: clamp(24px, 4.17vw, 60px);
-  gap: clamp(12px, 1.39vw, 20px);
-
-
+  align-items: flex-start;
+  margin-bottom: clamp(24px, 4vw, 60px);
+  gap: clamp(12px, 1.4vw, 20px);
 }
-
-.content-block.reverse {
-  flex-direction: row-reverse;
-}
-
-.content-image {
-  border-radius: 12px;
-  object-fit: cover;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  height: clamp(160px, 27.01vw, 389px);
-  width: clamp(200px, 42.5vw, 612px);
-}
-
+.content-block.reverse { flex-direction: row-reverse; }
 
 .text-block h3 {
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   font-weight: 700;
-  font-size: clamp(28px, 3.33vw, 48px);
-  line-height: clamp(24px, 5.59vw, 80.6px);
-  letter-spacing: clamp(0.2px, 0.0285vw, 0.41px);
-  vertical-align: middle;
-  margin-top: clamp(16px, 3.13vw, 45px);
-  margin-bottom: 9px;
-  color: #000;
+  font-size: clamp(26px, 3vw, 44px);
+  line-height: 1.2;
+  letter-spacing: .3px;
+  margin-top: clamp(12px, 2vw, 36px);
+  margin-bottom: 12px;
+  color: #172a39;
 }
 
-.highlight {
-  color: #0066cc;
-}
+.highlight { color: #1163c7; }
 
 .text-block p {
-  font-family: "DM Sans", sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-weight: 400;
-  font-size: clamp(16px, 1.4vw, 18px);
-  line-height: clamp(1.5rem, 2.25vw, 1.8rem);
-  letter-spacing: clamp(0.2px, 0.0285vw, 0.41px);
-
-  vertical-align: middle;
-  color: #333;
-  /* or any preferred color */
-  margin: normal;
+  font-size: clamp(15px, 1.1vw, 18px);
+  line-height: 1.7;
+  letter-spacing: .3px;
+  color: #444;
+  margin-bottom: 10px;
 }
 
-.DownloadApp-wrapper .downloads_container::after {
+/* ─── Culture wrapper ─── */
+.culture-wrapper { margin: 20px 0; }
 
-  top: -80px;
+/* ─── Founder note ─── */
+.culture-heading {
+  font-size: clamp(24px, 3vw, 44px);
+  font-weight: 700;
+  font-family: 'Lato', sans-serif;
+  color: #172a39;
 }
 
+/* ─── Download wrapper ─── */
+.DownloadApp-wrapper { margin-top: 40px; }
+
+/* ─── Responsive ─── */
 @media screen and (max-width: 767px) {
-
-  .mission-vision-section {
-    margin: 30px 0;
-  }
-
-  .Corporate-header {
-
-    padding: 30px 0;
-  }
-
-
+  .mission-vision-section { margin: 30px 0; }
 }
-
-
 @media (max-width: 530px) {
-  .Corporate-header {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .carousel-img {
-    width: 100%;
-    max-width: 100%;
-    height: clamp(200px, 26.7vw, 385px);
-  }
-
-  .content-block {
-    flex-direction: column;
-  }
-
-  .content-block.reverse {
-    flex-direction: column;
-  }
-
-  .content-image {
-    width: 100%;
-  }
+  .content-block, .content-block.reverse { flex-direction: column; }
 }

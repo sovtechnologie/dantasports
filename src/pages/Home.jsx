@@ -1,12 +1,6 @@
-import "../stylesheets/layouts/Home.css"; // Assuming you have a CSS file for styling
-import VenueCarousel from "../components/VenueCarousel";
+import "../stylesheets/layouts/Home.css";
+import "../stylesheets/layouts/Global.css";
 import DownloadAppSection from "../components/DownloadAppSection";
-import EventCarousel from "../components/EventCarousal";
-import RunCarousel from "../components/RunCarousal";
-import { UpcommingVenues } from "../components/UpcommingVenue";
-import CoachCarousel from "../components/CoachCarousal";
-import HostCarousel from "../components/HostCarousel";
-import GymCarousal from "../components/GymCarousal"
 import HomeBanner from "../components/HomeBanner";
 import QuickBooking from "../components/QuickBooking";
 import BookVenues from "../components/BookVenues";
@@ -15,37 +9,34 @@ import BookEvents from "../components/BookEvents";
 import PlayHost from "../components/PlayHost";
 import BookGym from "../components/BookGym";
 import BookCoach from "../components/BookCoach";
-import "../stylesheets/layouts/Global.css";
 import OngoingEvents from "../features/withoutauth/components/OngoingEvents";
 import { useBanner } from "../hooks/useBanner.js";
 import { Row, Col, Container } from "react-bootstrap";
-// import Skeleton from "react-loading-skeleton";
-// import "react-loading-skeleton/dist/skeleton.css";
 
 const Home = () => {
+  const { data: bannerData } = useBanner(1);
+  const banners = bannerData?.result || [];
 
-    const { data: bannerData, isLoading: dataLoading, error: dataError } = useBanner(1);
-    const banners = bannerData?.result || [];
-    return (
-        <div className="main-Home-container">
-        <HomeBanner />
-            <QuickBooking />
-            <Container>
-                <Row className="onging_title_hid mt-lg-5 mt-4">
-                <Col className="col-12">
-                    <OngoingEvents banners={banners} />
-                </Col>
-            </Row>
-            </Container>
-            <BookVenues />
-            <BookRun />
-            <BookCoach />
-            <BookEvents />
-            <BookGym />
-            <PlayHost />
-            <DownloadAppSection />
-        </div>
-    )
-}
+  return (
+    <div className="main-Home-container">
+      <HomeBanner />
+      <QuickBooking />
+      <Container>
+        <Row className="onging_title_hid mt-lg-5 mt-4">
+          <Col className="col-12">
+            <OngoingEvents banners={banners} />
+          </Col>
+        </Row>
+      </Container>
+      <BookVenues />
+      <BookRun />
+      <BookCoach />
+      <BookEvents />
+      <BookGym />
+      <PlayHost />
+      <DownloadAppSection />
+    </div>
+  );
+};
 
 export default Home;

@@ -1,177 +1,115 @@
-import React from "react";
-import { Container, Row, Col, Card } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import "./StyleSheets/PlayHost.css";
+import { useSelector } from "react-redux";
 import "./StyleSheets/BookVenues.css";
-
+import "./StyleSheets/PlayHost.css";
+import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import calendarIcon from "../assets/images/home/bookrun/date.svg";
 import locationIcon from "../assets/images/home/bookrun/map.svg";
 import profile1 from "../assets/images/home/playhost/user1.png";
 import profile2 from "../assets/images/home/playhost/user2.png";
-import { isIOS, isAndroid } from "react-device-detect";
 import { useFetchHostList } from "../hooks/Hostlist/useFetchHostList.jsx";
 
-// Time formatting (same as old HostCarousel)
-function formatTime(timeStr = "00:00") {
-  if (!timeStr) return "";
-  const parts = timeStr.split(":");
-  const h = Number(parts[0] || 0);
-  const m = Number(parts[1] || 0);
-  const s = parts.length > 2 ? Number(parts[2]) : 0;
-  const dt = new Date();
-  dt.setHours(h, m, s);
-  return dt.toLocaleTimeString("en-US", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
-  });
+function formatTime(t = "00:00") {
+  if (!t) return "";
+  const [h, m, s = 0] = t.split(":").map(Number);
+  const d = new Date(); d.setHours(h, m, s);
+  return d.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
 }
 
-function PlayHost() {
-  const { lat, lng } = useSelector((state) => state.location);
-  const { data, isLoading, error } = useFetchHostList({ lat, lng });
+const SKILL_MAP = {
+  0: { label: "Novice",  color: "#18429F" },
+  1: { label: "Learner", color: "#0FA903" },
+  2: { label: "Skilled", color: "#FFA200" },
+  3: { label: "Expert",  color: "#E65B00" },
+  4: { label: "Elite",   color: "#4C2DFF" },
+};
 
-  const SKILL_MAP = {
-    0: { label: "Novice", color: "#18429F" },
-    1: { label: "Learner", color: "#0FA903" },
-    2: { label: "Skilled", color: "#FFA200" },
-    3: { label: "Expert", color: "#E65B00" },
-    4: { label: "Elite", color: "#4C2DFF" },
-  };
+const ACTIVITY_LABEL = { 1: "Regular", 2: "Coaching", 3: "Tournament" };
 
-  const ACTIVITY_TYPE_LABEL = {
-    1: "Regular",
-    2: "Coaching",
-    3: "Tournament",
-    // add more if needed
-  };
-
-
-  const handleClick = () => {
-    window.open('https://play.google.com/store/apps', '_blank')
-  };
-
-
-
+export default function PlayHost() {
+  const { lat, lng } = useSelector((s) => s.location);
+  const [sectionRef, sectionVisible] = useIntersectionObserver({ threshold: 0.06 });
+  const { data, isLoading } = useFetchHostList({ lat, lng });
   const hosts = data?.result || [];
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error loading hosts: {error.message}</p>;
+  const handleClick = () => window.open("https://play.google.com/store/apps", "_blank");
+
+  if (isLoading || !hosts.length) return null;
 
   return (
-    <section className="play_host_section pb-4">
+    <section className={`hs-section hs-section--alt${sectionVisible ? " section-in" : ""}`} ref={sectionRef}>
       <Container>
-        <div className="d-flex justify-content-between align-items-center">
-          <div className="section_title">
-            <h2>Play </h2>
+        <div className="hs-header">
+          <div className="hs-title-wrap">
+            <span className="hs-eyebrow">Community</span>
+            <h2 className="hs-title">Play &amp; Host</h2>
           </div>
-          <div className="see_all">
-            <Link to="/Host">See All</Link>
-          </div>
+          <Link to="/Host" className="hs-see-all">
+            See All
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </Link>
         </div>
 
-        <Row className="g-3">
+        <div className="hs-grid">
           {hosts.slice(0, 4).map((host) => {
-            // ✅ Host image fallback (profile1)
-            const hostImage =
-              host.host_image && host.host_image.trim() !== ""
-                ? host.host_image
-                : profile1;
+            const skill = SKILL_MAP[host.game_skill] || SKILL_MAP[2];
+            const dateText = `${new Date(host?.date).toLocaleDateString("en-GB", { day: "2-digit", month: "short" })} | ${formatTime(host?.start_time)}`;
+            const attendees = host?.userProfile_image?.length
+              ? host.userProfile_image
+              : [{ profile_image: profile1 }, { profile_image: profile2 }];
 
-            // ✅ Player images fallback
-            const attendees =
-              host?.userProfile_image && Array.isArray(host.userProfile_image)
-                ? host.userProfile_image
-                : [
-                  { profile_image: profile1 },
-                  { profile_image: profile2 },
-                ];
-
-            const dateText = `${new Date(host?.date).toLocaleDateString("en-GB", {
-              day: "2-digit",
-              month: "short",
-            }) || ""
-              } | ${formatTime(host?.start_time)} - ${formatTime(
-                host?.end_time?.slice(0, 5)
-              )}`;
-            const skill =
-              SKILL_MAP[host.game_skill] || SKILL_MAP[0];
             return (
-              <Col xl={3} lg={4} md={6} sm={6} key={host.id}>
-               <Link onClick={handleClick} className="text-decoration-none">
-                <Card className="playhost_card">
-                  <div className="badge_label">
-                    <p>{ACTIVITY_TYPE_LABEL[host.activity_type] || "Regular"}</p>
+              <div className="hs-card ph-card" key={host.id} onClick={handleClick} role="button" tabIndex={0}
+                onKeyDown={(e) => e.key === "Enter" && handleClick()}>
+                {/* Activity type badge */}
+                <div className="ph-type-badge">{ACTIVITY_LABEL[host.activity_type] || "Regular"}</div>
+
+                {/* Attendees */}
+                <div className="ph-attendees">
+                  <div className="ph-avatars">
+                    {attendees.slice(0, 3).map((a, i) => (
+                      <img key={i} src={a.profile_image || profile1} alt="player"
+                        className="ph-avatar" style={{ zIndex: 3 - i }}
+                        onError={(e) => { e.target.src = profile1; }} />
+                    ))}
                   </div>
-
-                  <div className="d-flex align-items-center my-3">
-                    <div className="profile_group d-flex">
-                      <img
-                        src={host.host_image || profile1}
-                        alt="host"
-                        className="profile_img"
-                      />
-                      <img
-                        src={
-                          (Array.isArray(host.userProfile_image) &&
-                            host.userProfile_image[0]?.profile_image) ||
-                          profile2
-                        }
-                        alt="player"
-                        className="profile_img overlap"
-                      />
-                    </div>
-                    <span className="blue_dot"></span><p className="m-0 ps-3 going">
-                      {host.going || 0} Going
-                    </p>
+                  <div className="ph-going">
+                    <span className="ph-dot" />
+                    <span>{host.going || 0} Going</span>
                   </div>
+                </div>
 
+                {/* Host name */}
+                <p className="ph-host-by">
+                  Host By: <strong>{host.host_name || "Unknown"}</strong>
+                </p>
 
-                  <h2 className="text_wrap3">Host By: {host.host_name || "Unknown"}</h2>
+                {/* Date */}
+                <div className="ph-meta">
+                  <img src={calendarIcon} alt="" />
+                  <span>{dateText}</span>
+                </div>
 
-                  <div className="d-flex align-items-center mb-3">
-                    <img
-                      src={calendarIcon}
-                      alt="calendar"
-                      className="icon me-2"
-                    />
-                    <span className="host_date text_wrap3">{dateText}</span>
-                  </div>
+                {/* Location */}
+                <div className="ph-meta">
+                  <img src={locationIcon} alt="" />
+                  <span>{host.city || "—"}, {host.state || ""} (~{host.distance_km?.toFixed(1) || "0"} km)</span>
+                </div>
 
-                  <div className="d-flex align-items-center mb-3">
-                    <img
-                      src={locationIcon}
-                      alt="location"
-                      className="icon me-2"
-                    />
-                    <span className="host_date text_wrap3">
-                      {host.city || "Address not available"} {host.state || "Address not available"} (
-
-                      ~{host.distance_km?.toFixed(1) || "0"} km)
-                    </span>
-                  </div>
-                  <div className="d-flex justify-content-between align-items-center  pt-3">
-                    <span className="novice_txt" style={{ color: skill.color }}>
-                      {skill.label}
-                    </span>
-
-                  </div>
-                  {/* <div className="card_line2"></div>
-                  <div className="offer d-flex justify-content-between align-items-center">
-                   <a href="" className="text-decoration-none">
-                     Join Now
-                   </a>
-                  </div> */}
-                </Card>
-                </Link>
-              </Col>
+                {/* Skill */}
+                <div className="ph-footer">
+                  <span className="ph-skill" style={{ color: skill.color }}>{skill.label}</span>
+                  <span className="ph-join">Join →</span>
+                </div>
+              </div>
             );
           })}
-        </Row>
+        </div>
       </Container>
     </section>
   );
 }
-
-export default PlayHost;

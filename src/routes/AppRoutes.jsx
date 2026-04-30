@@ -77,8 +77,14 @@ export default function AppRoutes() {
   const location = useLocation();
 
   return (
-    <div>
-      <Suspense fallback={<div>Loading....</div>}>
+    <div style={{ marginTop: "64px" }}>
+      <Suspense fallback={
+        <div style={{minHeight:'60vh',display:'flex',alignItems:'center',justifyContent:'center',flexDirection:'column',gap:16}}>
+          <div style={{width:44,height:44,border:'4px solid #e8f0fd',borderTop:'4px solid #1163c7',borderRadius:'50%',animation:'spin .8s linear infinite'}}/>
+          <p style={{fontFamily:'DM Sans,sans-serif',fontSize:14,color:'#858585',margin:0}}>Loading…</p>
+          <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
+        </div>
+      }>
         <ScrollToTop />
         <Routes>
           <Route path="*" element={<NotFound />} />

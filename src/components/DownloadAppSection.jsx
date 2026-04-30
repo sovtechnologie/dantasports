@@ -1,69 +1,79 @@
 import React, { useEffect, useState } from "react";
-import "./StyleSheets/DownloadAppSection.css"; // Assuming you have a CSS file for styling
-import iphoneImage from "../assets/downloadAppLogo/iPhone.png"; // adjust the path as needed
+import "./StyleSheets/DownloadAppSection.css";
+import iphoneImage from "../assets/downloadAppLogo/iPhone.png";
 import appleicon from "../assets/downloadAppLogo/appleicon.svg";
 import googleplaystoreicon from "../assets/downloadAppLogo/play-store.svg";
-import { Row,Col,Container} from "react-bootstrap";
-import lineImg from '../assets/downloadAppLogo/line.png';
-import line2 from '../assets/images/home/icons/line2.png';
+import { Container, Row, Col } from "react-bootstrap";
+import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 
-const subtexts = [
-  "For seamless bookings and exclusive access to top sports venues near you.",
-  "To Connect. Host. Play!",
-  "To Join the Run Club!",
-  "To Find the Right Coach for You!",
+const SUBTEXTS = [
+  "Seamless bookings & exclusive access to top sports venues.",
+  "Connect. Host. Play!",
+  "Join the Run Club!",
+  "Find the Right Coach for You!",
   "Discover Gyms Around You!",
 ];
 
-const DownloadAppSection = () => {
-  const [subtextIndex, setSubtextIndex] = useState(0);
+export default function DownloadAppSection() {
+  const [idx, setIdx]       = useState(0);
   const [animate, setAnimate] = useState(false);
+  const [ref, isVisible]    = useIntersectionObserver({ threshold: 0.12 });
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const id = setInterval(() => {
       setAnimate(true);
-      setTimeout(() => {
-        setSubtextIndex((prev) => (prev + 1) % subtexts.length);
-        setAnimate(false);
-      }, 400); // Animation duration
+      setTimeout(() => { setIdx((p) => (p + 1) % SUBTEXTS.length); setAnimate(false); }, 400);
     }, 4000);
-    return () => clearInterval(interval);
+    return () => clearInterval(id);
   }, []);
 
   return (
-    
-    <>
-    
-      <section className="dawnload_app_section">
-        <Container style={{background: "#1163C7"}}>
-           <Col className="col-12">
-           <div className="text-content">
-          <p className="tagline">#It's Not About Skills It's About You!</p>
-          <h2 className="heading">Get the Danta Sports App now!</h2>
-          <p className={`subtext ${animate ? "subtext-animate" : ""}`}>
-            {subtexts[subtextIndex]}
-          </p>
-          <div className="store-buttons mt-3">
-            <a href="https://play.google.com/store/apps" className="google-btn">
-              <img src={googleplaystoreicon} alt="Google Play" />
-              Google Play
-            </a>
-            <a href="https://apps.apple.com/apps" className="apple-btn">
-              <img src={appleicon} alt="Apple Store" />
-              Apple Store
-            </a>
-          </div>
-        </div>
-           </Col>
-           <Col className="col-lg-4">
-              <div className="mobile_img">
-                <img src={iphoneImage} className="" alt="" />
-              </div>
-           </Col>
-        </Container>
-      </section>
-    </>
-  );
-};
+    <section className={`da-section${isVisible ? " da-visible" : ""}`} ref={ref}>
+      {/* Decorative blobs */}
+      <div className="da-blob da-blob-1" aria-hidden="true" />
+      <div className="da-blob da-blob-2" aria-hidden="true" />
+      <div className="da-dots da-dots-1" aria-hidden="true" />
+      <div className="da-dots da-dots-2" aria-hidden="true" />
 
-export default DownloadAppSection;
+      <Container>
+        <Row className="align-items-center">
+          {/* Text */}
+          <Col lg={7} className="da-text-col">
+            <span className="da-eyebrow">Download Now</span>
+            <h2 className="da-heading">Get the Danta Sports App!</h2>
+            <p className="da-tagline">#It's Not About Skills — It's About You!</p>
+            <p className={`da-subtext${animate ? " da-subtext--out" : ""}`}>
+              {SUBTEXTS[idx]}
+            </p>
+            <div className="da-btns">
+              <a href="https://play.google.com/store/apps" className="da-btn da-btn--google"
+                target="_blank" rel="noopener noreferrer">
+                <img src={googleplaystoreicon} alt="Google Play" />
+                <div>
+                  <span className="da-btn-small">Get it on</span>
+                  <span className="da-btn-big">Google Play</span>
+                </div>
+              </a>
+              <a href="https://apps.apple.com/apps" className="da-btn da-btn--apple"
+                target="_blank" rel="noopener noreferrer">
+                <img src={appleicon} alt="App Store" />
+                <div>
+                  <span className="da-btn-small">Download on the</span>
+                  <span className="da-btn-big">App Store</span>
+                </div>
+              </a>
+            </div>
+          </Col>
+
+          {/* Phone image */}
+          <Col lg={5} className="da-img-col">
+            <div className="da-phone-wrap">
+              <div className="da-phone-glow" aria-hidden="true" />
+              <img src={iphoneImage} alt="Danta Sports App" className="da-phone-img" loading="lazy" />
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    </section>
+  );
+}

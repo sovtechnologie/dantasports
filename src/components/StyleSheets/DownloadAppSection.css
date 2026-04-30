@@ -1,307 +1,231 @@
+/* ═══════════════════════════════════════════════════════
+   DOWNLOAD APP SECTION — Redesigned
+   ═══════════════════════════════════════════════════════ */
 
-
-/* new */
-
-.dawnload_app_section {
-  
-  margin: 100px 10px;
-}
-.dawnload_app_section .container {
-
-   padding: 65px 120px 100px 125px;
-     border-radius: 20px;
+.da-section {
+  background: linear-gradient(135deg, #0a3d7a 0%, #1163C7 50%, #1a7ae0 100%);
+  background-size: 200% 200%;
+  animation: daGradient 10s ease infinite;
+  padding: 80px 0;
   position: relative;
-
+  overflow: hidden;
+  margin: 60px 0 0;
 }
 
-.dawnload_app_section .container::after {
-  content: "";
-  background-image: url("/public/assets/Home/line.png");
+@keyframes daGradient {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ─── Blobs ─── */
+.da-blob {
   position: absolute;
-  height: 222px;
-  width: 160px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  bottom: 0px;
-  left: 0px;
-  z-index: 99;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(80px);
+}
+.da-blob-1 {
+  width: 400px; height: 400px;
+  background: rgba(255,255,255,.07);
+  top: -100px; left: -100px;
+  animation: daFloat 9s ease-in-out infinite;
+}
+.da-blob-2 {
+  width: 300px; height: 300px;
+  background: rgba(26,122,224,.3);
+  bottom: -80px; right: -60px;
+  animation: daFloat 11s ease-in-out infinite reverse;
+}
+@keyframes daFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-24px); }
 }
 
-.dawnload_app_section .container::before {
-  content: "";
-  background-image: url("/public/assets/Home/line2.png");
+/* ─── Dot patterns ─── */
+.da-dots {
   position: absolute;
-    height: 222px;
-    width: 250px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    top: -6px;
-    right: 0px;
+  border-radius: 50%;
+  background-image: radial-gradient(rgba(255,255,255,.15) 1px, transparent 1px);
+  background-size: 14px 14px;
+  pointer-events: none;
 }
+.da-dots-1 { width: 220px; height: 220px; top: 10%; right: 5%; opacity: .5; }
+.da-dots-2 { width: 160px; height: 160px; bottom: 10%; left: 5%; opacity: .4; }
 
-
-.dawnload_app_section .mobile_img {
-
-  position: absolute;
-  width: 480px;
-  height: 580px;
-  top: -50px;
-  right: 9%;
-  z-index: 999;
-}
-
-
-.dawnload_app_section .mobile_img img {
-
-  height: 100%;
-  width: 100%;
-}
-
-
-
-
-
-.text-content>*:not(:last-child) {
-  margin-bottom: 18px;
-}
-
-.tagline {
-  font-family: "DM Sans", Arial, sans-serif;
-  font-weight: 600;
-  font-size: 28px;
-  line-height: 39.2px;
-  font-size: clamp(1rem, 0.7646rem + 1.0949vw, 1.75rem);
-  letter-spacing: 0;
-  color: #fff;
-  margin: 0px;
-}
-
-.heading {
-  font-family: "Lato";
-  font-weight: 700;
-  letter-spacing: 0;
-  color: #fff;
-  margin: 10px 0;
-  margin-bottom: 24px;
-  font-size: 45px;
-  margin-bottom: 0;
-}
-
-.dawnload_app_section .subtext {
-  font-family: "DM Sans";
-  font-weight: 400;
-  line-height: 30px;
-  font-size: 18px;
-  color: #fff !important;
-  transition:
-    opacity 0.4s,
-    transform 0.4s;
-  white-space: normal;
-  word-break: break-word;
-}
-
-.subtex-one {
-  font-size: 15.47px;
-  font-weight: 400;
-  font-family: "DM Sans";
-  color: #fff;
-}
-
-.subtext-animate {
-  opacity: 0;
-  transform: translateY(-30px);
-}
-
-.store-buttons {
+/* ─── Text column ─── */
+.da-text-col {
+  position: relative;
+  z-index: 2;
   display: flex;
+  flex-direction: column;
   gap: 16px;
-  margin-top: 5px;
-  max-height: 60px !important;
-  margin-bottom: 65px;
 }
 
-.google-btn,
-.apple-btn {
+/* Entrance animations */
+.da-section .da-eyebrow,
+.da-section .da-heading,
+.da-section .da-tagline,
+.da-section .da-subtext,
+.da-section .da-btns {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.da-section.da-visible .da-eyebrow  { opacity: 1; transform: none; transition-delay: .05s; }
+.da-section.da-visible .da-heading  { opacity: 1; transform: none; transition-delay: .15s; }
+.da-section.da-visible .da-tagline  { opacity: 1; transform: none; transition-delay: .25s; }
+.da-section.da-visible .da-subtext  { opacity: 1; transform: none; transition-delay: .35s; }
+.da-section.da-visible .da-btns     { opacity: 1; transform: none; transition-delay: .45s; }
+
+.da-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  color: rgba(255,255,255,.7);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.da-heading {
+  font-family: 'Lato', sans-serif;
+  font-weight: 800;
+  font-size: clamp(28px, 3.5vw, 52px);
+  color: white;
+  line-height: 1.1;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.da-tagline {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: clamp(14px, 1.1vw, 17px);
+  color: rgba(255,255,255,.8);
+  margin: 0;
+}
+
+.da-subtext {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: clamp(14px, 1.1vw, 17px);
+  color: rgba(255,255,255,.75);
+  min-height: 28px;
+  transition: opacity .4s ease, transform .4s ease;
+}
+.da-subtext--out { opacity: 0; transform: translateY(-12px); }
+
+/* ─── Buttons ─── */
+.da-btns {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.da-btn {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
+  padding: 12px 22px;
+  border-radius: 14px;
   text-decoration: none;
-  padding: clamp(0.8rem, 0.7567rem + 0.2015vw, 0.938rem) clamp(1rem, 0.7646rem + 1.0949vw, 1.75rem);
-  border-radius: 9999px;
-  font-weight: 600;
-  font-size: clamp(0.75rem, 0.7007rem + 0.2632vw, 0.9375rem);
-  line-height: 28px;
-  letter-spacing: 0;
-  max-height: 60px !important;
-  max-width: 177px;
-  font-family: "Poppins";
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease;
+  min-width: 160px;
+}
+.da-btn:hover { transform: translateY(-4px) scale(1.04); }
+
+.da-btn img { width: 28px; height: 28px; object-fit: contain; flex-shrink: 0; }
+
+.da-btn div { display: flex; flex-direction: column; }
+.da-btn-small {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+.da-btn-big {
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.da-btn--google {
+  background: white;
+  color: #172A39;
+  box-shadow: 0 6px 24px rgba(0,0,0,.2);
+}
+.da-btn--google:hover { box-shadow: 0 12px 36px rgba(0,0,0,.28); color: #172A39; }
+.da-btn--google .da-btn-small { color: #858585; }
+
+.da-btn--apple {
+  background: rgba(255,255,255,.12);
+  color: white;
+  border: 1.5px solid rgba(255,255,255,.4);
+  backdrop-filter: blur(4px);
+}
+.da-btn--apple:hover { background: rgba(255,255,255,.22); border-color: rgba(255,255,255,.7); color: white; }
+.da-btn--apple .da-btn-small { color: rgba(255,255,255,.7); }
+
+/* ─── Phone image ─── */
+.da-img-col {
+  position: relative;
+  z-index: 2;
+  display: flex;
   justify-content: center;
-  min-width: 120px;
-  white-space: nowrap;
+  align-items: flex-end;
 }
 
-.apple-btn img {
-  width: 25px;
+.da-phone-wrap {
+  position: relative;
+  max-width: 320px;
+  width: 100%;
+  opacity: 0;
+  transform: translateX(40px) scale(.95);
+  transition: opacity .8s ease .3s, transform .8s cubic-bezier(.34,1.56,.64,1) .3s;
+}
+.da-section.da-visible .da-phone-wrap {
+  opacity: 1;
+  transform: translateX(0) scale(1);
 }
 
-.google-btn img {
-  width: 25px;
+.da-phone-glow {
+  position: absolute;
+  inset: -30px;
+  background: radial-gradient(circle, rgba(255,255,255,.15) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: daPulse 4s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes daPulse {
+  0%, 100% { transform: scale(1); opacity: .6; }
+  50%       { transform: scale(1.1); opacity: .9; }
 }
 
-.google-btn {
-  background-color: #fff;
-  color: #1163c7;
+.da-phone-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  position: relative;
+  z-index: 2;
+  animation: daPhoneFloat 6s ease-in-out infinite;
+  filter: drop-shadow(0 24px 48px rgba(0,0,0,.35));
+}
+@keyframes daPhoneFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-16px); }
 }
 
-.apple-btn {
-  background-color: #1163c7;
-  color: #fff;
-  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.15);
-  border: 1px solid white;
+/* ─── Responsive ─── */
+@media (max-width: 991px) {
+  .da-section { padding: 60px 0; }
+  .da-img-col { margin-top: 40px; }
+  .da-phone-wrap { max-width: 260px; }
 }
-
-
-
-@media screen and (max-width: 1490px) {
-
-  .dawnload_app_section .container::before,
-  .dawnload_app_section .container::after{
-
-    display: none;
-  }
-  .dawnload_app_section .container{
-
-    padding: 30px;
-  }
- 
-  
-}
-
-@media screen and (max-width: 1240px) {
-
-
-    .dawnload_app_section .container::before,
-  .dawnload_app_section .container::after{
-
-    display: none;
-  }
-  .dawnload_app_section .mobile_img img{
-
-    display: none;
-  }
-}
-
-@media screen and (max-width: 1140px) {
-
-  
-.dawnload_app_section .mobile_img{
-
-  display: none;
-}
-.store-buttons{
-
-  margin-bottom: unset;
-}
-
-
-
-
-
-  .download-app-section {
-    padding: 30px;
-  }
-  .dawnload_app_section .container{
-    padding: 30px;
-  }
-}
-
-@media screen and (max-width: 991px) {
-
-    .dawnload_app_section .container{
-
-    padding: 15px;
-  }
-
-  .dawnload_app_section{
-
-    margin: 40px 10px;
-  }
-  .store-buttons {
-    margin-bottom: unset;
-  }
-
-  .lineicon{
-
-    display: none;
-  }
-
-
-
-
-}
-
-@media screen and (max-width: 768px) {
-
-
-  .google-btn {
-    background-color: #fff;
-    color: #1163c7;
-  }
-
-  .download-app-section {
-    align-items: center;
-    text-align: center;
-  }
-
-  .text-content {
-    margin-top: 0;
-    padding-top: 0;
-    align-items: center;
-    max-width: 100%;
-  }
-
-  .tagline {
-    font-size: 20px;
-    line-height: 28px;
-  }
-
-  .heading {
-    font-size: 32px;
-    line-height: 42px;
-  }
-
-  .subtext {
-    font-size: 18px;
-    line-height: 28px;
-  }
-
-  .store-button {
-    flex-direction: row;
-    align-items: stretch;
-    width: 100%;
-    gap: 10px;
-    margin-top: 0;
-  }
-  .image-container {
-    justify-content: center;
-    margin-top: 30px;
-  }
-
-  .iphone-image {
-    display: none;
-  }
-
-
-}
-
-@media screen and (max-width: 540px) {
-
-
-      .download-app-section {
-        padding: 20px 10px;
-    }
-        .sub_footer ul li {
-        margin: 0 4px;
-    }
-
+@media (max-width: 767px) {
+  .da-section { padding: 48px 0; margin: 40px 0 0; }
+  .da-btns { flex-direction: column; }
+  .da-btn { min-width: auto; }
+  .da-phone-img { max-width: 220px; margin: 0 auto; }
 }
