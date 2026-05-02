@@ -10,7 +10,6 @@ import {
 } from 'date-fns';
 import {
   toZonedTime,
-  getTimezoneOffset
 } from 'date-fns-tz';
 
 const Calendar = ({ selectedDate, setSelectedDate }) => {
@@ -41,7 +40,6 @@ const Calendar = ({ selectedDate, setSelectedDate }) => {
   const nextWeek = () => setStartDate(d => addDays(d, 7));
   const monthLabel = format(startDate, 'MMMM');
 
-  console.log("my selected data is", selectedDate);
   return (
     <div className="calendar-container">
       <div className="calendar-header">

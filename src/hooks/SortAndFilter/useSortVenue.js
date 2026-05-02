@@ -8,11 +8,9 @@ export const useSortVenue = () => {
             if (!payload) {
                 throw new Error("payload must be an required");
             }
-            console.log("in mutation section payload", payload);
             return Sort(payload);
         },
         onSuccess: (data) => {
-            console.log("Sort venue successfully:", data);
             return data;
         },
         onError: (error) => {
@@ -23,7 +21,6 @@ export const useSortVenue = () => {
                 errMsg = error.message;
             }
             alert(errMsg);
-            console.error("Error sorting venue:", error);
         },
     })
 }

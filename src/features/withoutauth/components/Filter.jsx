@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Amenities from "./Amenities";
 import "../Stylesheets/FilterSection.css";
+import "../Stylesheets/Filterpages/FilterSystem.css";
 import TimeSlotSelector from "./TimeSlotSelector";
 import AvailabilityCalendar from "./AvailabilityCalendar";
 import SportsSlider from "./SportsSlider";
 
-function Filter({
+export default function Filter({
   selectedSports,
   setSelectedSports,
   selectedDate,
@@ -23,67 +24,82 @@ function Filter({
 }) {
   const [canApply, setCanApply] = useState(false);
 
-  // ✅ Reset Function
+  useEffect(() => {
+    setCanApply(selectedSports.length > 0 || selectedAmenities.length > 0);
+  }, [selectedSports, selectedAmenities]);
+
   const handleReset = (e) => {
     e.preventDefault();
     setSelectedSports([]);
     setSelectedAmenities([]);
     setSelectedDate(null);
     setSelectedTime(null);
-    setSearchTerm("");
+    if (setSearchTerm) setSearchTerm("");
     setFilteredVenues(venues);
     setCanApply(false);
     if (onReset) onReset();
   };
 
-  // ✅ Apply Function
   const handleApply = () => {
     if (!selectedSports.length) {
-      alert("please select sports");
+      alert("Please select a sport first");
       return;
     }
-    if (onApply) {
-      onApply();
-    }
+    if (onApply) onApply();
   };
 
-
-  useEffect(() => {
-    setCanApply(selectedSports.length > 0 || selectedAmenities.length > 0);
-  }, [selectedSports, selectedAmenities]);
+  const activeCount = [
+    selectedSports?.length > 0,
+    !!selectedDate,
+    !!selectedTime,
+    selectedAmenities?.length > 0,
+  ].filter(Boolean).length;
 
   return (
     <section className="filter_section">
       {/* Header */}
-      <div className="filter_header d-flex justify-content-between align-items-center">
-        <h2 className="m-0">Filter</h2>
-        <a href="#" onClick={handleReset}>
-          Reset
-        </a>
+      <div className="filter_header d-flex justify-content-between align-items-center mb-3">
+        <h2 className="m-0">
+          Filter
+          {activeCount > 0 && (
+            <span style={{
+              marginLeft: 8,
+              background: "#1163C7",
+              color: "white",
+              borderRadius: "50%",
+              width: 18, height: 18,
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: 10,
+              fontWeight: 700,
+              verticalAlign: "middle",
+            }}>
+              {activeCount}
+            </span>
+          )}
+        </h2>
+        {activeCount > 0 && (
+          <button type="button" onClick={handleReset}>Reset</button>
+        )}
       </div>
 
-      {/* ✅ Sports Filter */}
+      {/* Sports */}
       <SportsSlider
         setSelectedSports={setSelectedSports}
         selectedSports={selectedSports}
       />
 
-      {/* ✅ Date Filter */}
-      <div
-        className={`filter_block ${!selectedSports.length ? "disabled-block" : ""
-          }`}
-      >
+      {/* Date */}
+      <div className={`filter_block${!selectedSports.length ? " disabled-block" : ""}`}>
         <AvailabilityCalendar
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
         />
       </div>
 
-      {/* ✅ Time Slot Filter */}
-      <div
-        className={`filter_block ${!selectedSports.length ? "disabled-block" : ""
-          }`}
-      >
+      {/* Time */}
+      <div className={`filter_block${!selectedSports.length ? " disabled-block" : ""}`}>
         <TimeSlotSelector
           date={selectedDate}
           selectedTime={selectedTime}
@@ -91,24 +107,22 @@ function Filter({
         />
       </div>
 
-      {/* ✅ Amenities Filter */}
+      {/* Amenities */}
       <Amenities
         selectedAmenities={selectedAmenities}
         setSelectedAmenities={setSelectedAmenities}
       />
 
-      {/* ✅ Apply Button */}
-      <div className="text-center mt-3">
+      {/* Apply */}
+      <div className="mt-3">
         <button
-          className={`apply_btn ${canApply ? "active" : "disabled"}`}
+          className={`apply_btn${canApply ? " active" : " disabled"}`}
           onClick={handleApply}
           disabled={!canApply}
         >
-          Apply
+          {canApply ? "Apply Filters" : "Select a sport to apply"}
         </button>
       </div>
     </section>
   );
 }
-
-export default Filter;

@@ -165,15 +165,6 @@ function ViewDetails({ booking, ...props }) {
     });
   }
 
-  function formatRefundTime(dateStr) {
-    if (!dateStr) return "";
-    return new Date(dateStr).toLocaleTimeString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-    });
-  }
-
   // ---------------------- API CALL ----------------------------
 
   useEffect(() => {
@@ -196,8 +187,8 @@ function ViewDetails({ booking, ...props }) {
         refundStatus: res?.result.refundStatus || null,
       });
 
-    } catch (err) {
-      console.log("Error fetching booking details", err);
+    } catch {
+      // Booking details fetch failed silently
     } finally {
       setLoading(false);
     }

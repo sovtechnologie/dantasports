@@ -86,9 +86,9 @@
 }
 
 .time-btn.selected {
-  background-color: #007bff;
+  background-color: #1163C7;
   color: white;
-  border-color: #007bff;
+  border-color: #1163C7;
 }
 
 /* .timeline-bar-wrapper {
@@ -154,7 +154,7 @@
 }
 
 .timeline-slot.selected {
-  background-color: #007bff;
+  background-color: #1163C7;
 }
 
 .arrow {

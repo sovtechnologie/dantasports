@@ -48,6 +48,8 @@ const carddata = [
   },
 ];
 
-export default {
+const infoCardData = {
   carddata,
 };
+
+export default infoCardData;

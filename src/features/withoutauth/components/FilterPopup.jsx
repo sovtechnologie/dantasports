@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Stylesheets/FilterPopup.css";
 import Calendar from "./FilterCalendar";
-import CancelIcon from "../assets/CancelIcon.png";
-import FootballIcon from "../assets/Football.png";
+import CancelIcon from "../../../assets/svg-icons/cancel-circle.svg";
+import FootballIcon from "../../../assets/svg-icons/football.svg";
 
 
 const timeSlots = ["11:30 AM", "12:30 PM", "1:30 PM", "2:30 PM"];

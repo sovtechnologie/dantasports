@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './StyleSheets/VenueCarousel.css';
-import leftArrow from "../assets/VenueImage/left-arrow.png";
-import rightArrow from "../assets/VenueImage/right-arrow.png";
-import cursorArrow from "../assets/cursorArrow.png";
+import leftArrow from "../assets/svg-icons/chevron-left-circle.svg";
+import rightArrow from "../assets/svg-icons/chevron-right-circle.svg";
+import cursorArrow from "../assets/svg-icons/arrow-right.svg";
 import { useFetchVenue } from '../hooks/VenueList/useFetchVenue.js';
 import VenueCardHome from './VenueCardHome.jsx';
 import { useSelector } from 'react-redux';

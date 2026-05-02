@@ -119,26 +119,19 @@
 
 
 import React, { useEffect, useState } from "react";
-import { Card, Row, Col, Form } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Stylesheets/CheckoutPricing.css";
 import CouponModal from "./CoupanModal";
 import { InfoCircle } from "react-bootstrap-icons";
-import black from "../assets/toggleIcon.png"; // arrow icon
 import arrow from "../../withoutauth/assets/icons/black-arrow.svg"
 import InfoModal from "../../../components/InfoModal";
 
 const CheckoutPricing = ({ totalPrice, price, convenienceFee, type, count, setFinalAmount, venueId, bookingData, setCouponInfo,  priceLabel = "Court Price"  }) => {
-  const [insuranceSelected, setInsuranceSelected] = useState(false);
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
   const [discount, setDiscount] = useState(null);
   const [couponDetails, setCouponDetails] = useState("");
   const [activeModal, setActiveModal] = useState(null); // 'pass' | 'convenience' | null
-
-  // Force clean value (2 decimal max)
-  const basePrice = Number((totalPrice || 0).toFixed(2));
-
-  const insuranceFee = 20;
 
   // Subtotal (before discount)
   // const subtotal = basePrice + (basePrice > 0 ? convenienceFee : 0) + (insuranceSelected ? insuranceFee : 0);
@@ -246,7 +239,6 @@ const CheckoutPricing = ({ totalPrice, price, convenienceFee, type, count, setFi
         venueId={venueId}
         totalAmount={totalPrice} // pass subtotal (before discount)
         onApply={({ coupon, apiResponse }) => {
-          console.log("Coupon Apply Response:", apiResponse);
           const discountAmt =
             apiResponse?.discount_amount
               ? parseFloat(apiResponse.discount_amount)
@@ -258,8 +250,7 @@ const CheckoutPricing = ({ totalPrice, price, convenienceFee, type, count, setFi
             couponId: apiResponse?.discount_coupon_id || null,
             discountAmount: apiResponse.discount_amount,
           });
-
-          setIsCouponModalOpen(false); // <-- CLOSE MODAL HERE
+          setIsCouponModalOpen(false);
         }}
       />
 

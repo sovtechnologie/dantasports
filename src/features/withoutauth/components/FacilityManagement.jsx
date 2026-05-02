@@ -1,9 +1,8 @@
 import React from "react";
 import "./Stylesheets/FacilityManagement.css";
-import phonesImage from "../assets/facilitylogo/Phone_image.png"; // adjust path as needed
-import slotIcon from "../assets/facilitylogo/Slot-Icon-image.png"; // replace with actual icon paths
-import rolesIcon from "../assets/facilitylogo/Role-Icon-image.png";
-import dashboardIcon from "../assets/facilitylogo/Dashboard-Icon-image.png";
+import slotIcon from "../../../assets/svg-icons/calendar.svg";
+import rolesIcon from "../../../assets/svg-icons/team.svg";
+import dashboardIcon from "../../../assets/svg-icons/detail.svg";
 import phonesImage1 from "../assets/facilitylogo/Phone_image_1.png"; 
 
 

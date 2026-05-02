@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from './StyleSheets/HostCarousal.module.css';
-import leftArrow from "../assets/VenueImage/left-arrow.png";
-import rightArrow from "../assets/VenueImage/right-arrow.png";
-import cursorArrow from "../assets/cursorArrow.png";
+import leftArrow from "../assets/svg-icons/chevron-left-circle.svg";
+import rightArrow from "../assets/svg-icons/chevron-right-circle.svg";
+import cursorArrow from "../assets/svg-icons/arrow-right.svg";
 import { useFetchHostList } from '../hooks/Hostlist/useFetchHostList.jsx';
 import { useSelector } from 'react-redux';
 import { HostCard } from './HostCard.jsx';
@@ -70,7 +70,7 @@ const HostCarousel = () => {
         <div className={styled.eventsectioncontainer}>
             <div className={styled.eventsheader}>
                 <h3>Book Game</h3>
-                <Link to="/Host" className={styled.seeall}>
+                <Link to="/host" className={styled.seeall}>
                     See All
                     <img src={cursorArrow} style={{ marginLeft: "8px", width: "10px" }} alt='cursorArrow' />
                 </Link>

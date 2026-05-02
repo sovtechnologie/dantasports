@@ -1,337 +1,87 @@
+/* ─── Corporate Booking Page ─── */
 
-
-.corporate_events .card {
-
-  min-width: unset !important;
-
-
-}
-
-.corporate_events .card:hover{
-
-  border: 1px solid transparent;
-  transition: .3s ease-in-out;
-}
-.Corporate-main-Container {
+/* Hero CTAs */
+.partner-hero-ctas {
   display: flex;
-  flex-direction: column;
-  /* justify-content: center; */
-  /* padding: 0 16px; */
-}
-
-.Corporate-header {
-  /* display: flex;
-  gap: clamp(6px, 0.694vw, 10px);
-  flex-direction: row;
-  border-radius: 0 0 clamp(30px, 4.17vw, 60px) clamp(30px, 4.17vw, 60px);
-  flex-wrap: nowrap;
-  justify-content: space-between; */
-  padding: 60px 0;
-}
-
-.header-left h1 {
-  font-size: clamp(27px, 4.44vw, 64px);
-  font-weight: 700;
-  color: #172a39;
-  font-family: "Lato", Arial, sans-serif;
-  margin: clamp(10px, 1.39vw, 20px) 0px;
-}
-
-.header-left h1 span {
-  color: #1163c7;
-}
-
-.header-left p {
-  font-size: clamp(12px, 1.25vw, 18px);
-  margin-top: clamp(6px, 0.694vw, 10px);
-  margin-bottom: clamp(6px, 0.694vw, 10px);
-  color: #757575;
-  font-weight: 400;
-  /* max-width: 550px; */
-  letter-spacing: 0.41px;
-}
-
-.button-group {
-  margin-top: clamp(5px, 2.5vw + 14px, 50px);
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.primary-btn,
-.secondary-btn {
-  /* padding: 12px 20px; */
-  border-radius: 50px;
-  border: 1px solid #1163c7;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  height: 58px;
-  width: 161px;
-  font-family: "Poppins";
-  font-family: "Poppins";
-  font-size: 20px;
-  font-weight: 400;
-}
-
-.primary-btn {
-  background-color: #1163c7;
-  color: white;
-}
-
-.primary-btn:hover {
-  background-color: #0d4da0;
-}
-
-.secondary-btn {
-  background-color: white;
-  color: #1163c7;
-}
-
-.secondary-btn:hover {
-  background-color: #e6f0fd;
-}
-
-.header-right {
-  /* flex: 1; */
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: clamp(12px, 1.39vw, 20px);
-}
-
-.carousel-img {
-  width: 100%;
-  max-width: clamp(200px, 34.72vw, 500px);
-  border-radius: 16px;
-  object-fit: cover;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-}
-
-.pagination-dots {
-  display: flex;
+  gap: 14px;
   justify-content: center;
-  margin-top: 12px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+  animation: fadeDown .6s ease .3s both;
 }
 
-.dot {
-  width: 8px;
-  height: 8px;
-  background-color: #ccc;
-  border-radius: 50%;
-  margin: 0 4px;
-  transition: background-color 0.3s ease;
-}
-
-.dot.active {
-  background-color: #1163c7;
-}
-
+/* Trusted section */
 .corporate-booking h2 {
   text-align: center;
   padding-top: 20px;
-  /* margin: 20px 0; */
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   font-weight: 700;
-  font-size: clamp(27px, 4.33vw, 48px);
-  line-height: 120%;
-  letter-spacing: 0.41px;
-  vertical-align: middle;
+  font-size: clamp(24px, 3.5vw, 44px);
+  line-height: 1.2;
+  color: #172A39;
+}
+.corporate-booking h2 span { color: #1163C7; }
+
+/* Corporate events section */
+.corp-img-wrap {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0,0,0,.12);
+  transition: transform .5s ease;
+}
+.corp-img-wrap:hover { transform: scale(1.02); }
+.corp-img-wrap img { display: block; }
+
+.corp-section-title {
+  font-family: 'Lato', sans-serif;
+  font-weight: 800;
+  font-size: clamp(22px, 2.8vw, 36px);
+  color: #172A39;
+  margin: 8px 0 16px;
+  line-height: 1.2;
+}
+.corp-section-title span { color: #1163C7; }
+
+.corp-body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(14px, 1.1vw, 17px);
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 20px;
 }
 
-/* Color the span inside h1 */
-.corporate-booking h2 span {
-  color: #1163c7;
-}
-
-
-
-
-
-
-
-.right-sport-event h2 {
-  font-family: "Lato", sans-serif;
-  font-size: clamp(20px, 3.33vw, 40px);
-  font-weight: 700;
-  color: #1d2b4f;
-}
-
-.right-sport-event h2 span {
-  color: #1163c7;
-}
-
-.right-sport-event p {
-  font-size: 1.1rem;
-  color: #000000;
-  max-width: clamp(200px, 42vw, 607px);
-  font-family: 'DM Sans';
-  font-weight: 400;
-  font-size: clamp(16px, 1.67vw, 18px);
-  line-height: clamp(10px, 3.25vw, 1.8rem);
-  letter-spacing: clamp(0.2px, 0.0285vw, 0.41px);
-}
-
-
-
-.corporate-service-container h2 {
-  font-family: "Lato", sans-serif;
-  font-weight: 700;
-  font-size: clamp(27px, 3.33vw, 48px);
-  line-height: 120%;
-  letter-spacing: 0.41px;
-  vertical-align: middle;
+.corp-feature-list {
+  list-style: none;
+  padding: 0;
   margin: 0;
-  /* Remove default h1 margin if needed */
-}
-
-.corporate-service-container h2 span {
-  color: #1163c7;
-  /* Blue color for span */
-}
-
-.primary-btn-one,
-.secondary-btn-two {
-  /* padding: 12px 20px; */
-  border-radius: 50px;
-  border: 1px solid #1163c7;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  /* height: 58px; */
-  font-family: "Poppins";
-  font-size: clamp(10px, 1.39vw, 20px);
-  padding: clamp(4px, 0.35vw, 6px) clamp(12px, 1.53vw, 26px);
-  font-weight: 400;
-}
-
-.primary-btn-one {
-  background-color: #1163c7;
-  color: white;
-}
-
-.primary-btn-one:hover {
-  background-color: #0d4da0;
-}
-
-.secondary-btn-two {
-  background-color: white;
-  color: #1163c7;
-}
-
-.secondary-btn-two:hover {
-  background-color: #e6f0fd;
-}
-
-.header-right {
-  /* flex: 1; */
-  min-width: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding-top: 20px;
+  gap: 10px;
+}
+.corp-feature-list li {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(14px, 1vw, 16px);
+  color: #444;
+  padding-left: 24px;
+  position: relative;
+  line-height: 1.5;
+}
+.corp-feature-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #1163C7;
+  font-weight: 700;
 }
 
-.carousel-img {
-  width: 100%;
-  max-width: clamp(200px, 34.72vw, 500px);
-  border-radius: 16px;
-  object-fit: cover;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+/* Benefit cards */
+.corporate_events .card { min-width: unset !important; }
+.corporate_events .card:hover { border: 1px solid transparent; transition: .3s ease-in-out; }
+
+/* Responsive */
+@media (max-width: 767px) {
+  .Corporate-sport-event { padding: 25px 0; }
 }
-
-.pagination-dots {
-  display: flex;
-  justify-content: center;
-  margin-top: 12px;
-}
-
-.dot {
-  width: 8px;
-  height: 8px;
-  background-color: #ccc;
-  border-radius: 50%;
-  margin: 0 4px;
-  transition: background-color 0.3s ease;
-}
-
-.dot.active {
-  background-color: #1163c7;
-}
-.zero-banner-wrapper {
-  margin-top: clamp(16px, 2.78vw, 40px);
-  margin-bottom: clamp(16px, 2.78vw, 40px);
-  padding: 0 clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
-}
-
-@media screen and (max-width: 767px) {
-  .Corporate-header{
-
-    padding: 30px 0;
-  }
-  .Corporate-sport-event{
-
-    padding: 25px 0;
-  }
-}
-
 @media (max-width: 530px) {
-  .Corporate-header {
-    flex-direction: column;
-  }
-  .right-sport-event p {
-    max-width: 100%;
-    font-size: 16px;
-  }
-  .carousel-sport-img {
-    width: 100%;
-  }
-  .header-right img {
-    width: 100%;
-    max-width: 100%;
-    max-height: 200px;
-  }
-
-  .Corporate-sport-event {
-    flex-direction: column;
-    padding-bottom: 20px;
-  }
-  .left-sport-event img {
-    max-width: 100%;
-    height: clamp(200px, 26.7vw, 385px);
-  }
-  .right-sport-event p {
-    max-width: 100%;
-    font-size: 16px;
-    line-height: normal;
-  }
-  .carousel-sport-img {
-    width: 100%;
-  }
-  .gallery-container{
-    padding-top: 0px !important;
-  }
-
-    
-}
-
-/* Desktop view — no scroll */
-@media (min-width: 1200px) {
-  .carousel {
-    overflow-x: hidden;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  /* Hide scrollbar */
-  .carousel::-webkit-scrollbar {
-    display: none;
-  }
-
-  .card {
-    /* flex: 0 0 22%;  */
-    margin-bottom: 20px;
-  }
+  .partner-hero-ctas { flex-direction: column; align-items: center; }
 }

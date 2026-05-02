@@ -1,240 +1,376 @@
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+/* ═══════════════════════════════════════════════════════
+   REGISTER PAGE — Full Redesign
+   Brand blue design language
+   ═══════════════════════════════════════════════════════ */
 
-/* Background overlay */
+@keyframes regFadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
+@keyframes regFadeIn { from{opacity:0} to{opacity:1} }
+
+/* ─── Overlay ─── */
 .overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  /* background: rgba(30, 30, 30, 0.4); */
+  inset: 0;
+  background: rgba(8, 47, 94, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  font-family: "Segoe UI", sans-serif;
-
-  padding: 10px;
+  padding: 16px;
+  animation: regFadeIn .25s ease both;
 }
 
-/* Modal container */
+/* ─── Modal card ─── */
 .register-modal {
-  background-color: white;
-  width: 530px;
-  height: auto;
-  border-radius: 16px;
-  padding: clamp(24px, 2.7778vw, 40px);
+  background: white;
+  width: 100%;
+  max-width: 560px;
+  max-height: 92vh;
+  overflow-y: auto;
+  border-radius: 24px;
+  padding: clamp(24px, 4vw, 40px);
   position: relative;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 24px 80px rgba(8, 47, 94, 0.28);
+  animation: regFadeUp .35s cubic-bezier(.34,1.56,.64,1) both;
+  scrollbar-width: thin;
+  scrollbar-color: #c0d4f0 transparent;
 }
+.register-modal::-webkit-scrollbar { width: 4px; }
+.register-modal::-webkit-scrollbar-thumb { background: #c0d4f0; border-radius: 2px; }
 
-/* Close button */
+/* ─── Close button ─── */
 .close-button {
   position: absolute;
-  top: 20px;
-  right: 24px;
-  font-size: 30px;
-  cursor: pointer;
+  top: 16px;
+  right: 20px;
+  width: 32px; height: 32px;
   border-radius: 50%;
-  background: none;
+  background: #f0f4ff;
   border: none;
-  font-size: 40px;
-  height: 35px;
-  width: 35px;
+  font-size: 20px;
+  line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  color: #555;
+  transition: background .2s ease, color .2s ease, transform .25s ease;
+}
+.close-button:hover {
+  background: #e8f0fd;
+  color: #1163C7;
+  transform: scale(1.1);
 }
 
+/* ─── Header ─── */
 .register-modal h2 {
-  text-align: center;
-  font-weight: 600;
+  font-family: 'Lato', sans-serif;
+  font-weight: 900;
+  font-size: clamp(20px, 3vw, 28px);
   color: #0d1b2a;
-  font-family: "DM Sans", sans-serif;
-  margin-bottom: 20px;
-  line-height: 40x;
-  font-size: 20px;
-  line-height: 30px;
+  margin: 0 0 24px;
+  line-height: 1.2;
+  text-align: center;
+}
+.register-modal h2 span {
+  color: #1163C7;
+  display: block;
+  font-size: clamp(22px, 3.5vw, 32px);
 }
 
-.register-modal h2 span{
-
-  color: #1163c7;
-  font-size: 25px;
-  line-height: 35px;
+/* ─── Decorative top bar ─── */
+.register-modal::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #0a3d7a, #1163C7, #1a7ae0);
+  border-radius: 24px 24px 0 0;
 }
 
+/* ─── Form ─── */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ─── Labels ─── */
 .register-modal label {
+  display: block;
   margin-bottom: 5px;
-  color: #858585 !important;
-  font-family: "DM Sans", sans-serif;
-  font-size: clamp(12px, 1.1111vw, 16px);
-  font-weight: 400;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #858585;
+  text-transform: uppercase;
+  letter-spacing: .6px;
 }
 
+/* ─── Inputs ─── */
 .register-modal input,
-.register-modal select {
+.register-modal select,
+.main-input {
   width: 100%;
-  padding: 8px;
-  /* margin-bottom: 10px; */
-  border-radius: 6px;
-  border: 1px solid #0066cc !important;
-  font-size: 14px;
-  box-sizing: border-box;
   height: 46px;
+  padding: 0 14px;
+  border: 1.5px solid #e8edf5;
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: #172A39;
+  background: #f8fafc;
+  box-sizing: border-box;
+  transition: border-color .25s ease, box-shadow .25s ease, background .25s ease;
+  outline: none;
 }
-
-.main-input:focus,
-.register-modal select:focus {
-  width: 100%;
-  /* padding: 8px; */
-  /* margin-bottom: 20px; */
-  /* border-radius: 10px; */
-  /* border: 1px solid #ccc; */
-  /* font-size: 14px; */
-  /* box-sizing: border-box; */
-  /* border-color: #1163c7; */
+.register-modal input:focus,
+.register-modal select:focus,
+.main-input:focus {
+  border-color: #1163C7;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(17,99,199,.1);
 }
+.register-modal input::placeholder { color: #b0b0b0; }
+select { color: #172A39 !important; cursor: pointer; }
+select option { color: #172A39; }
 
-select{
-
-  color: #858585 !important;
-}
-/* Phone input row */
+/* ─── Phone input row ─── */
 .phone-input,
 .otp-input {
   display: flex;
   align-items: center;
-  border: 1px solid #ccc;
+  border: 1.5px solid #e8edf5;
   border-radius: 10px;
+  background: #f8fafc;
   overflow: hidden;
-  margin-bottom: 6px;
+  transition: border-color .25s ease, box-shadow .25s ease;
+}
+.phone-input:focus-within,
+.otp-input:focus-within {
+  border-color: #1163C7;
+  box-shadow: 0 0 0 3px rgba(17,99,199,.1);
   background: white;
 }
-.otp-input input,
-.phone-input input {
-  display: flex;
-  align-items: center;
-  border: none;
+.phone-input input,
+.otp-input input {
   flex: 1;
-  padding: 3px;
-  font-size: 12px;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  height: 44px;
+  padding: 0 10px;
+  font-size: 14px;
+  color: #172A39;
   outline: none;
 }
 
+/* Country code */
 .country-code {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 12px !important;
-  border-radius: 10px;
-  border: none;
+  padding: 0 12px;
+  border-right: 1.5px solid #e8edf5;
+  height: 44px;
+  flex-shrink: 0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #172A39;
   white-space: nowrap;
-  font-family: "DM Sans", sans-serif;
-  font-size: clamp(12px, 1.1111vw, 16px);
-  font-weight: 400;
-  color: #6d6c6c;
 }
-
 .country-code img {
-  width: 20px;
-  height: 14px;
+  width: 20px; height: 14px;
   border-radius: 2px;
+  object-fit: cover;
 }
 
+/* OTP button */
 .otp-btn {
+  flex-shrink: 0;
+  padding: 0 14px;
+  height: 44px;
   background: none;
   border: none;
-  color: #0066cc;
-  font-weight: 600;
+  border-left: 1.5px solid #e8edf5;
+  color: #1163C7;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
   cursor: pointer;
-  font-size: 10px;
   white-space: nowrap;
-  margin-right: 6px;
+  transition: background .2s ease, color .2s ease;
+}
+.otp-btn:hover:not(:disabled) { background: #e8f0fd; }
+.otp-btn:disabled { color: #b0b0b0; cursor: not-allowed; }
+
+/* ─── OTP verified badge ─── */
+.otp-verified {
+  color: #1163C7 !important;
+  font-weight: 700;
 }
 
+/* ─── Checkboxes ─── */
 .checkbox-row {
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 2px;
-  font-size: 14px;
-  color: #333;
+  align-items: flex-start;
+  gap: 10px;
 }
-
 .checkbox-row input[type="checkbox"] {
-  margin-top: 1px;
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px;
+  margin-top: 2px;
+  accent-color: #1163C7;
+  cursor: pointer;
+  border-radius: 4px;
 }
-.checkbox-row input {
-  width: auto;
-}
-
 .checkbox-row p {
-  margin: 6px;
-  font-size: 12px;
-  line-height: 1;
-}
-
-.checkbox-row a {
-  color: #007bff; /* Optional: link color */
-  text-decoration: underline;
-}
-
-/* .error-box {
-  margin-bottom: 10px;
-  background-color: #ffe0e0;
-  padding: 10px;
-  border-radius: 6px;
-} */
-
-.error-text {
-  color: #d8000c;
   margin: 0;
-  font-size: 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  color: #858585;
+  line-height: 1.5;
+}
+.checkbox-row a {
+  color: #1163C7;
+  text-decoration: underline;
+  font-weight: 600;
+}
+.checkbox-row a:hover { color: #0d4fa0; }
+
+/* ─── Errors ─── */
+.error-list {
+  background: #fff0f0;
+  border: 1px solid rgba(220,38,38,.2);
+  border-radius: 10px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.error-text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: #dc2626;
+  margin: 0;
 }
 
-/* Submit row */
+/* ─── Submit row ─── */
 .submit-row {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   flex-direction: column;
-  gap: 15px;
+  gap: 14px;
+  margin-top: 4px;
+}
+.signup-btn {
+  width: 100%;
+  height: 48px;
+  background: linear-gradient(135deg, #1163C7, #0d4fa0);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: .5px;
+  cursor: pointer;
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease;
+  box-shadow: 0 4px 16px rgba(17,99,199,.35);
+}
+.signup-btn:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 8px 28px rgba(17,99,199,.45);
+}
+.signup-btn:disabled {
+  background: #b0b8c8;
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
 }
 
-.signup-btn {
-  background-color: #1163c7;
+/* Login link */
+.submit-row p,
+.login-link {
+  text-align: center;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: #858585;
+  margin: 0;
+}
+.link-button {
+  background: none;
+  border: none;
+  color: #1163C7;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  transition: color .2s ease;
+}
+.link-button:hover { color: #0d4fa0; }
+
+/* ─── Dev OTP popup ─── */
+.otp-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.otp-popup {
+  background: white;
+  border-radius: 16px;
+  padding: 28px 32px;
+  text-align: center;
+  box-shadow: 0 16px 48px rgba(0,0,0,.2);
+  min-width: 240px;
+}
+.otp-popup h4 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #0d1b2a;
+  margin: 0 0 12px;
+}
+.otp-popup p {
+  font-family: 'Lato', sans-serif;
+  font-weight: 900;
+  font-size: 32px;
+  color: #1163C7;
+  letter-spacing: 6px;
+  margin: 0 0 16px;
+}
+.otp-popup button {
+  padding: 10px 24px;
+  background: linear-gradient(135deg, #1163C7, #0d4fa0);
   color: white;
-  padding: 8px;
   border: none;
   border-radius: 10px;
-  font-weight: 500;
-  font-size: 16px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
   cursor: pointer;
-  width: 100%;
-
+  transition: transform .25s ease;
 }
+.otp-popup button:hover { transform: scale(1.04); }
 
-.submit-row p {
-  font-size: 16px;
-  color: #333;
-  margin-bottom: 0;
-}
-
-.submit-row a {
-  color: #0066cc;
-  text-decoration: none;
-}
-
-@media (max-width: 1000px) {
+/* ─── Responsive ─── */
+@media (max-width: 600px) {
   .register-modal {
-    margin-top: 150px;
+    padding: 24px 20px;
+    border-radius: 20px;
+    max-height: 95vh;
   }
+  .register-modal h2 { font-size: 18px; }
+  .register-modal h2 span { font-size: 22px; }
 }
-.close-button:hover {
-  color: #1163c7;
+@media (max-width: 1000px) {
+  .register-modal { margin-top: 0; }
 }

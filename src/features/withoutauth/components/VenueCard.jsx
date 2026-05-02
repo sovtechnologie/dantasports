@@ -1,15 +1,16 @@
 import React from "react";
-import "./Stylesheets/VenueCard.css";
-import ShareLogo from "../assets/VenueCardLogo/ShareLogo.png";
-import HeartOutline from "../assets/VenueCardLogo/LikeLogo.png";
-import HeartFilled from "../assets/VenueCardLogo/heartfilled.png";
+import "../../../components/StyleSheets/BookVenues.css";
+import ShareLogo from "../../../assets/svg-icons/share-circle.svg";
+import HeartOutline from "../../../assets/svg-icons/heart-outline.svg";
+import HeartFilled from "../../../assets/svg-icons/heart-filled.svg";
 import image from "../assets/image.png";
 import { Share } from "../../../utils/share.js";
 import { Link } from "react-router-dom";
+import star from "../../../assets/images/home/bookvenues/star.svg";
+import mapIcon from "../../../assets/images/home/bookrun/map.svg";
 
 const VenueCard = ({ venue, isLiked, onLikeToggle }) => {
   const handleLikeClick = (e) => {
-    console.log("venueCard like");
     e.preventDefault();
     e.stopPropagation();
     onLikeToggle(); // Call parent toggle
@@ -18,71 +19,58 @@ const VenueCard = ({ venue, isLiked, onLikeToggle }) => {
   const handleShareClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log("Shared venue:", venue.id);
     Share(); // Call the share function from utils
     // Implement share logic
   };
 
   return (
-    <div className="venue-card-wrapper">
-      <Link
-        to={`/venue/${venue.id}`}
-        style={{ textDecoration: "none", color: "inherit" }}
-      >
-        <div className="venue-image-container">
+      <Link to={`/venue/${venue.id}`} className="hs-card hs-list-card">
+        <div className="hs-card-img">
           <img
             src={venue.image || image}
             alt={venue.name}
-            className="venue-image"
             onError={(e) => (e.target.src = image)}
           />
 
-          <div className="venue-sports-icons">
+          <div className="hs-rating">
+            <img src={star} alt="" />
+            <span>{venue.rating || "0.0"} ({venue.reviews || 0})</span>
+          </div>
+
+          <div className="hs-sports hs-sports-overlay">
             {venue?.sportsIcons?.slice(0,5)?.map((icon, idx) => (
-              <img
-                src={icon?.image}
-                key={idx}
-                alt="sport"
-                className="sport-iconvenue"
-              />
+              <div className="hs-sport-icon" key={idx}>
+                <img src={icon?.image} alt="sport" />
+              </div>
             ))}
           </div>
 
-          <div className="venue-top-icons">
-            <button className="icon-btns" onClick={handleLikeClick}>
+          <div className="hs-actions">
+            <button className="hs-action-btn" onClick={handleLikeClick} aria-label="Like">
               <img
                 src={isLiked ? HeartFilled : HeartOutline}
-                alt="Like"
-                className="Like-icon"
+                alt=""
               />
             </button>
-            <button className="icon-btns" onClick={handleShareClick}>
-              <img src={ShareLogo} alt="Share" className="share-icon" />
+            <button className="hs-action-btn" onClick={handleShareClick} aria-label="Share">
+              <img src={ShareLogo} alt="" />
             </button>
           </div>
         </div>
 
-        <div className="venue-details">
-          <div className="venue-header">
-            <h4>{venue.name}</h4>
-            <p className="venue-rating">
-              <span className="venue-star">★</span>
-              <span className="value">
-                {venue.rating} ({venue.reviews})
-              </span>
-            </p>
+        <div className="hs-card-body">
+          <p className="hs-card-name">{venue.name}</p>
+          {venue.about && <p className="hs-card-subtext">{venue.about}</p>}
+          <div className="hs-card-meta">
+            <img src={mapIcon} alt="" />
+            <span>{venue.address} (~{venue.distance} Km)</span>
           </div>
-          <p className="venue-about">{venue.about}</p>
-          <p className="venue-locations">
-            {venue.address} (~{venue.distance} Km)
-          </p>
-          <div className="venue-footer">
-            <span className="venue-discount">{venue.offer}</span>
-            <span className="venue-price">{venue.price} onwards</span>
+          <div className="hs-card-footer">
+            <span className="hs-offer">{venue.offer}</span>
+            <span className="hs-price">{venue.price} onwards</span>
           </div>
         </div>
       </Link>
-    </div>
   );
 };
 

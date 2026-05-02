@@ -21,7 +21,6 @@ function PartnerForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
     // API call here
   };
 

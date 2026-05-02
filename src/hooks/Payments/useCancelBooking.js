@@ -9,15 +9,14 @@ export const useCancelBooking = () => {
     mutationFn: (payload) => CancelBooking(payload),
 
     onSuccess: () => {
-      console.log("Booking cancelled successfully");
 
       // Refetch updated booking lists
       queryClient.invalidateQueries(["CancelBookingData"]);
       queryClient.invalidateQueries(["AllBookingData"]);
     },
 
-    onError: (error) => {
-      console.error("Cancel failed", error);
+    onError: () => {
+      // Cancel failed silently — booking state unchanged
     },
   });
 };

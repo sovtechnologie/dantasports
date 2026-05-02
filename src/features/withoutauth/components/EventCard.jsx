@@ -1,18 +1,17 @@
 import React from 'react';
-import "./Stylesheets/EventCard.css";
+import "../../../components/StyleSheets/BookVenues.css";
 import { Link } from 'react-router-dom';
-import HeartOutline from "../assets/VenueCardLogo/LikeLogo.png";
-import HeartFilled from "../assets/VenueCardLogo/heartfilled.png";
-import shareIcon from '../assets/VenueCardLogo/ShareLogo.png';
+import HeartOutline from "../../../assets/svg-icons/heart-outline.svg";
+import HeartFilled from "../../../assets/svg-icons/heart-filled.svg";
+import shareIcon from '../../../assets/svg-icons/share-circle.svg';
 import CalandarIcon from "../assets/Calandarlogo.svg"
 import LocationIcon from "../assets/LocationLogo.svg";
 import eventImage from '../assets/EventImage2.svg';
 import { Share } from '../../../utils/share';
+import star from "../../../assets/images/home/bookvenues/star.svg";
 
 export default function EventCard({ event, isLiked, onLikeToggle }) {
-    console.log(event)
     const handleLikeClick = (e) => {
-        console.log("EventCard like")
         e.preventDefault();
         e.stopPropagation();
         onLikeToggle(); // Call parent toggle
@@ -21,69 +20,64 @@ export default function EventCard({ event, isLiked, onLikeToggle }) {
     const handleShareClick = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        console.log("Shared venue:", event.id);
         Share(); // Call the share function from utils
         // Implement share logic
     };
 
     return (
-        <Link to={`/Events/${event.id}`} className="event-card">
-            <div className="event-image-section">
-                <img src={event.image} alt={event.name} className="event-img" onError={(e) => {
+        <Link to={`/events/${event.id}`} className="hs-card hs-list-card">
+            <div className="hs-card-img">
+                <img src={event.image} alt={event.name} onError={(e) => {
                     e.currentTarget.onerror = null;
                     e.currentTarget.src = eventImage;
                 }} />
-                <div className="icon-top-right">
-                    <button className="icon-btns" onClick={handleLikeClick}>
-                        <img src={isLiked ? HeartFilled : HeartOutline} alt="like" className="icon-img-btn" />
+                <div className="hs-rating">
+                    <img src={star} alt="" />
+                    <span>{event.rating || "0.0"} ({event.RatingCount || 0})</span>
+                </div>
+                <div className="hs-actions">
+                    <button className="hs-action-btn" onClick={handleLikeClick} aria-label="Like">
+                        <img src={isLiked ? HeartFilled : HeartOutline} alt="" />
                     </button>
 
-                    <button className="icon-btns" onClick={handleShareClick}>
-                        <img src={shareIcon} alt="share" className="icon-img-btn" />
+                    <button className="hs-action-btn" onClick={handleShareClick} aria-label="Share">
+                        <img src={shareIcon} alt="" />
                     </button>
 
                 </div>
-                <div className="icon-bottomleft">
+                <div className="hs-sports hs-sports-overlay">
                     {event.sportIcon?.map((sport, idx) => (
-                        <img
-                            key={sport.id || idx}
-                            src={sport.image}
-                            alt={sport.name}
-                            className="icon-imgbtn"
-                            onError={(e) => {
-                                e.currentTarget.onerror = null;
-                                e.currentTarget.src = '/fallback-sport-icon.png';
-                            }}
-                        />
+                        <div className="hs-sport-icon" key={sport.id || idx} title={sport.name}>
+                            <img
+                                src={sport.image}
+                                alt={sport.name}
+                                onError={(e) => {
+                                    e.currentTarget.onerror = null;
+                                    e.currentTarget.src = '/fallback-sport-icon.png';
+                                }}
+                            />
+                        </div>
                     ))}
                 </div>
 
             </div>
 
-            <div className="event-content">
-                <div className='events-middle'>
-                    <h3 className="event-title">{event.name}</h3>
-                    <div className="event-rating">
-                        <span className="star" >★</span> <span className="light-text">{event.rating} ({event.RatingCount})</span>
-                    </div>
-                </div>
+            <div className="hs-card-body">
+                <p className="hs-card-name">{event.name}</p>
 
-
-                <div className='events-middle' style={{ display: 'flex', justifyContent: 'space-between', flexDirection: "column" }}>
-                    <div className="event-time">
-                        <img src={CalandarIcon} alt='Calandar icon' className='event-time-img' />
+                    <div className="hs-card-meta">
+                        <img src={CalandarIcon} alt='' />
                         <span>{event.date}</span>
                     </div>
-                    <div className="event-location">
-                        <img src={LocationIcon} alt='location icon' className='event-time-img' />
+                    <div className="hs-card-meta">
+                        <img src={LocationIcon} alt='' />
                         <span>{event.location}</span>
                     </div>
-                </div>
 
 
-                <div className="event-footer">
-                    <span className="event-offer">{event.offer}</span>
-                    <span className="event-price">{event.price}</span>
+                <div className="hs-card-footer">
+                    <span className="hs-offer">{event.offer}</span>
+                    <span className="hs-price">{event.price}</span>
                 </div>
             </div>
         </Link>

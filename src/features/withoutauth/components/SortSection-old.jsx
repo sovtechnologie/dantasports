@@ -1,30 +1,13 @@
-import React, { useMemo, useState } from "react";
+import React from "react";
 import "./Stylesheets/SortSection.css";
-import SearchIcon from "../assets/Search-icon.png";
 
 export default function SortSection({
   filters,
   setFilters,
-  search,
-  setSearch,
   handleReset,
-  runList,
-  selectedEvent,
-  setSelectedEvent,
 }) {
-  const [showDropdown, setShowDropdown] = useState(false);
-
   const handleCheckbox = (e) =>
     setFilters({ ...filters, [e.target.name]: e.target.checked });
-
-  const suggestions = useMemo(() => {
-    if (!search) return [];
-    return runList
-      .filter((evt) =>
-        evt.event_title.toLowerCase().includes(search.toLowerCase())
-      )
-      .slice(0, 5);
-  }, [search, runList]);
 
   return (
     <aside className="sort-left-section">

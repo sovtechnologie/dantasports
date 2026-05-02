@@ -1,5 +1,5 @@
 import React from "react";
-import iconImage from "../assets/facilitylogo/Role-Icon-image.png"; // Replace with your actual image path
+import iconImage from "../../../assets/svg-icons/check-circle.svg";
 import "./Stylesheets/PaymentFeatures.css"
 
 const bookingFeatures = [

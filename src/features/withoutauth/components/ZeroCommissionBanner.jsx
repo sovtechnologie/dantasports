@@ -1,7 +1,5 @@
 import React from 'react';
 import './Stylesheets/ZeroCommissionBanner.css';
-import leftsectionBanner from '../assets/BannerPattern.png'; // Ensure the image is in your src/assets folder or correct relative path
-import rightsectionBanner from "../assets/rightBannerPattern.png";
 const ZeroCommissionBanner = () => {
   return (
     <div

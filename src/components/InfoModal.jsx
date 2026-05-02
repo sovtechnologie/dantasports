@@ -8,9 +8,7 @@ const InfoModal = ({ show, type, onClose, bookingData = {} }) => {
         base_fare_amount = 0,
         base_fare_gst = 0,
         convenience_fee = 0,
-        convenience_fee_amount = 0,
-        original_base_fare_amount = 0,
-        total_price = 0, gst = 0
+        gst = 0
     } = bookingData;
 
     return (

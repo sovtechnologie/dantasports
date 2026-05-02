@@ -1,17 +1,14 @@
 import React from 'react';
 import './StyleSheets/FavoriteVenueCard.css';
-import ShareLogo from '../assets/VenueCardLogo/ShareLogo.png';
-import HeartOutline from '../assets/VenueCardLogo/LikeLogo.png';
-import HeartFilled from '../assets/VenueCardLogo/heartfilled.png';
+import ShareLogo from '../../../assets/svg-icons/share-circle.svg';
+import HeartFilled from '../../../assets/svg-icons/heart-filled.svg';
 import image from '../assets/image.png';
 
 const FavoriteVenueCard = ({ venue, onLikeToggle }) => {
 const handleLikeClick = (e) => {
   e.preventDefault();
   e.stopPropagation();
-  console.log("Heart clicked");
   onLikeToggle();
-  
 };
 
 
@@ -38,8 +35,8 @@ const handleShare = async (e) => {
       await navigator.clipboard.writeText(shareUrl);
       alert("Link copied!");
     }
-  } catch (err) {
-    console.log("Share cancelled:", err?.message);
+  } catch {
+    // Share cancelled or failed silently
   }
 };
 

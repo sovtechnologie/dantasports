@@ -1,32 +1,80 @@
-.filter_section{
-    border: 0.97px solid #1783D0;
-    background-color: white;
-    padding: 30px 20px;
-    border-radius: 8px;
-    margin-bottom: 30px;
-}
+/* FilterSection — uses FilterSystem.css for all base styles */
 
-.disabled-block {
-  opacity: 0.5;
-  pointer-events: none;
-}
-
+/* ─── Apply button ─── */
 .apply_btn {
-  background: #ccc;
-  color: #fff;
-  border: none;
-  padding: 10px 25px;
-  border-radius: 8px;
-  font-weight: 600;
   width: 100%;
-}
-
-.apply_btn.active {
-  background: #1163C7;
+  padding: 12px 20px;
+  border-radius: 50px;
+  border: none;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
   cursor: pointer;
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease, background .25s ease;
+  letter-spacing: .3px;
+}
+.apply_btn.active {
+  background: linear-gradient(135deg, #1163C7, #0d4fa0);
+  color: white;
+  box-shadow: 0 4px 16px rgba(17,99,199,.35);
+}
+.apply_btn.active:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 24px rgba(17,99,199,.45);
+}
+.apply_btn.disabled {
+  background: #e8edf5;
+  color: #b0b8c8;
+  cursor: not-allowed;
 }
 
-.apply_btn.disabled {
-  background: #999;
-  cursor: not-allowed;
+/* ─── Disabled filter block ─── */
+.disabled-block {
+  opacity: 0.45;
+  pointer-events: none;
+  filter: grayscale(30%);
+  transition: opacity .3s ease;
+}
+
+/* ─── Filter section wrapper ─── */
+.filter_section {
+  background: #ffffff;
+  border: 1px solid #e8edf5;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(17,99,199,.08);
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.filter_section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #1163C7, #1a7ae0);
+  border-radius: 14px 14px 0 0;
+}
+
+.filter_header h2 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: #172A39;
+}
+.filter_header a {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  color: #858585;
+  text-decoration: none;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid #e8edf5;
+  transition: color .25s ease, border-color .25s ease, background .25s ease;
+}
+.filter_header a:hover {
+  color: #1163C7;
+  border-color: #1163C7;
+  background: #e8f0fd;
 }

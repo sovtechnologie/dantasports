@@ -8,15 +8,11 @@ export const useFilterVenue = () => {
             if (!payload) {
                 throw new Error("payload must be an required");
             }
-            console.log("in mutation section payload", payload);
             return venueFilter( payload );
         },
         onSuccess: (data) => {
-            console.log("filter venue successfully:", data);
             return data;
         },
-        onError: (error) => {
-            console.error("Error filter venue:", error);
-        },
+        onError: () => {},
     })
 }

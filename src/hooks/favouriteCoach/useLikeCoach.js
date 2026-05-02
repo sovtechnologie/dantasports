@@ -7,7 +7,6 @@ export const useLikeCoach = () => {
       if ( !userId || !coachesId) {
         throw new Error("coachesId is required");
       }
-      console.log("Calling addFavoriteCoach with:", { coachesId ,userId });
       return addFavoriteCoach({ userId ,coachesId });
     },
   });

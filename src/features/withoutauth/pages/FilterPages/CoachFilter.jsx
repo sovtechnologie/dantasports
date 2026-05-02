@@ -1,44 +1,36 @@
 
 import "../../Stylesheets/Filterpages/CoachFilter.css";
 import "../../Stylesheets/Filterpages/Cards.css";
-import CoachCard from "../../components/CoachCard.jsx";
+import "../../Stylesheets/Filterpages/FilterSystem.css";
 import { Link } from "react-router-dom";
 import AppDownloadBanner from "../../components/AppDownloadBanner.jsx";
 import { useState, useEffect, useMemo } from "react";
 import { useFetchCoach } from "../../../../hooks/CoachList/useFetchCoach.js";
 import { VenueListShimmer } from "../../components/Shimmer/VenueListShimmer.jsx";
 import { useSelector } from "react-redux";
-import AdvancedFilter from "../../components/AdvanceFilter.jsx";
-import SortSection from "../../components/SortSection-old.jsx";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import SortBy from "../../components/SortBy.jsx";
 import like from "../../assets/icons/like.svg";
 import share from "../../assets/icons/share.svg";
-import date from "../../assets/icons/date.svg";
 import map from "../../assets/icons/map.svg";
 import coach1 from "../../assets/coach/coach2.png";
-import users from "../../assets/downloadAppLogo/team-u1.svg";
 import star from "../../assets/icons/star-white.svg";
 import FilterTow from "../../components/FilterTow.jsx";
-import SortModal from "../../components/SortModal.jsx";
-import FliterModal from "../../components/FliterModal.jsx";
-import FilterTowModal from "../../components/FilterTowModal.jsx";
-import { useNavigate } from "react-router-dom";
 import { useLikeCoach } from "../../../../hooks/favouriteCoach/useLikeCoach.js";
 import { useUnlikeCoach } from "../../../../hooks/favouriteCoach/useUnlikeCoach.js";
-import HeartFilled from "../../assets/VenueCardLogo/heartfilled.png";
+import HeartFilled from "../../../../assets/svg-icons/heart-filled.svg";
 import { useQueryClient } from "@tanstack/react-query";
 import PageSearch from "../../components/PageSearch.jsx";
-import CustomDatePicker from "../../components/CustomDatePicker.jsx";
 import sortIcon from "../../assets/icons/sort.svg";
 import filterIcon from "../../assets/icons/filter.svg";
 import OngoingEvents from "../../components/OngoingEvents.jsx";
 import { useBanner } from "../../../../hooks/useBanner.js";
 import { useRef } from "react";
+import InlineLoader from "../../../../components/InlineLoader.jsx";
 
 
 export default function CoachFilterPage() {
-  const { data: bannerData, isLoading: bannerLoading, error: bannerError } = useBanner(1);
+  const { data: bannerData } = useBanner(1);
   const banners = bannerData?.result || [];
 
 const observerRef = useRef(null);
@@ -58,7 +50,7 @@ const [isFetchingMore, setIsFetchingMore] = useState(false);
   // CoachFilterPage.jsx me top pe
   const [selectedSports, setSelectedSports] = useState([]); // 👈 yeh add karo
 
-  const [selectedCoach, setSelectedCoach] = useState(null);
+  const [selectedCoach] = useState(null);
   // const [selectedDate, setSelectedDate] = useState(null);
   const [selectedAge, setSelectedAge] = useState([]);
   const [selectedBatch, setSelectedBatch] = useState([]);
@@ -71,10 +63,8 @@ const [selectedDate, setSelectedDate] = useState(null);
 const pageSearchTerm = useSelector((state) => state.search.searchTerm);
 
 
-  const navigate = useNavigate();
   const auth = useSelector((state) => state.auth);
 
-  console.log("Fetching coaches with payload:", { lat, lng, userId: auth?.id });
 
 
   const {
@@ -116,7 +106,6 @@ useEffect(() => {
   useEffect(() => {
     if (AllCoachdata?.status === 200) {
 
-      console.log("API result:", AllCoachdata.result);
       setCoachList(AllCoachdata.result);
     }
   }, [AllCoachdata]);
@@ -132,7 +121,6 @@ useEffect(() => {
 
       if (selectedSports.length > 0) {
         const coachSportIds = coach.linked_sports?.map((s) => s.id) || [];
-        console.log("coachSportIdscoachSportIds", coachSportIds);
         const matches = selectedSports.some((id) => coachSportIds.includes(id));
         if (!matches) return false;
       }
@@ -278,8 +266,6 @@ if (pageSearchTerm?.trim()) {
   const unlikeCoach = useUnlikeCoach();
 
 
-  const [likedCoaches, setLikedCoaches] = useState({});
-
   const toggleCoachFavourite = (e, coach) => {
     e.preventDefault();
     e.stopPropagation();
@@ -288,8 +274,6 @@ if (pageSearchTerm?.trim()) {
       return;
     }
 
-    console.log("Coach clicked:", coach);
-    console.log("Current favourite:", coach.favourite);
 
 
 
@@ -427,31 +411,11 @@ useEffect(() => {
   pageSearchTerm
 ]);
 
-
-
-
-
-  const handleClick = (coach) => {
-
-    navigate(`/Coach/${coach?.id}`);
-  };
-
-
   if (isLoading) return <VenueListShimmer />;
   if (isError)
     return (
       <div>Error loading coaches: {error?.message || "Unknown error"}</div>
     );
-
-  const userList = [
-    { id: 1, type: "img", src: users, alt: "User1" },
-    { id: 2, type: "img", src: users, alt: "User2" },
-    { id: 3, type: "img", src: users, alt: "User3" },
-    { id: 5, type: "img", src: users, alt: "User4" },
-    { id: 5, type: "img", src: users, alt: "User5" },
-  ];
-
-
 
 
 
@@ -719,14 +683,7 @@ useEffect(() => {
           </Row>
           <div className="coach-footer-banner">
             <div ref={observerRef}></div>
-
-{isFetchingMore && (
-  <div className="text-center my-4">
-    <div className="spinner-border text-success" role="status"></div>
-    <p className="mt-2">Loading more coaches...</p>
-  </div>
-)}
-
+            {isFetchingMore && <InlineLoader text="Loading more coaches…" />}
             <AppDownloadBanner />
           </div>
         </Container>

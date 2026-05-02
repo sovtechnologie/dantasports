@@ -1,878 +1,299 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* ═══════════════════════════════════════════════════════
+   VENUE CHECKOUT PAGE — Full Redesign
+   Matches VenueDetailsPage & CoachDetailPage design language
+   ═══════════════════════════════════════════════════════ */
+
+/* ─── Keyframes ─── */
+@keyframes vcFadeUp   { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:none} }
+@keyframes vcFadeIn   { from{opacity:0} to{opacity:1} }
+@keyframes vcBarShift { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+
+/* ─── Page wrapper ─── */
+.vc-page {
+  background: #f7f9fb;
+  min-height: 100vh;
+  font-family: 'DM Sans', sans-serif;
 }
 
-body {
-  font-family: "Segoe UI", sans-serif;
-  background: #f1f3f2;
-  color: #333;
-}
-
-.venue-detail {
-  font-family: "Segoe UI", sans-serif;
-  padding: 20px;
-  max-width: 1200px;
-  margin: auto;
-  color: #222;
-}
-
-.venue-main-header {
-  position: relative;
-  left: 0%;
-  right: 50%;
-  width: 100%;
-  background-color: #ffffff;
-  margin-bottom: 25px;
-  /* border-bottom-left-radius: 50px; */
-  border-bottom-left-radius: clamp(30px, 11.3636vw, 50px);
-  /* border-bottom-right-radius: 50px; */
-  border-bottom-right-radius: clamp(30px, 11.3636vw, 50px);
-  height: 208px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  /* padding: 0px 100px; */
-  padding: 0px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
-  justify-content: center;
-}
-
-.breadcrumb {
-  font-size: 16px;
-  font-weight: 500;
-  color: #6b7280;
-  /* margin-bottom: 10px;
-  margin-left: 5rem;
-  padding-top: 20px; */
-  font-family: "DM Sans", Arial, sans-serif;
-}
-
-/* h1 {
-  margin-left: 5rem;
-  margin-bottom: 15px;
-} */
-
-.location-rating {
-  display: flex;
-  gap: 20px;
-  color: #172a39;
-  /* margin-bottom: 15px; */
-  /* margin-left: 5rem; */
-  font-size: 16px;
-  font-weight: 500;
-  font-family: "DM Sans", Arial, sans-serif;
-}
-
-.venue-details-container {
-  padding: 0px clamp(1rem, -0.6478rem + 7.6642vw, 6.25rem);
-}
-
-/* Wrapper */
-.venue-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  /* padding: 24px; */
-  /* max-width: 1400px; */
-  margin: auto;
-  /* gap: 24px; */
-  justify-content: space-between;
-}
-
-/* Left Side (Image Carousel) */
-.venue-left {
-  flex: 1 1 55%;
-  position: relative;
-  max-width: 821px;
-  width: clamp(300px, 57.0139vw, 821px);
-}
-
-.carousel {
+/* ═══════════════════════════════════════════
+   HERO HEADER
+═══════════════════════════════════════════ */
+.vc-hero {
+  background: linear-gradient(135deg, #0a3d7a 0%, #1163C7 55%, #1a7ae0 100%);
+  background-size: 200% 200%;
+  animation: vcBarShift 12s ease infinite;
+  padding: 32px 0 28px;
   position: relative;
   overflow: hidden;
-  border-radius: 11px;
-  margin-bottom: 20px;
 }
-/* 
-.carousel-image {
-  width: 100%;
-  height: 461px;
-  border-radius: 11px;
-  object-fit: fill;
-}
-
-.carousel-hover {
-  position: absolute;
-  top: 0;
-  width: 50%;
-  height: 100%;
-  z-index: 2;
-  cursor: pointer;
-}
-
-.carousel-hover.left {
-  left: 0;
-}
-
-.carousel-hover.right {
-  right: 0;
-}
-
-.carousel-dots {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  position: absolute;
-  bottom: 10px;
-  width: 100%;
-}
-
-.dot {
-  height: 10px;
-  width: 10px;
-  background-color: #ccc;
-  border-radius: 50%;
-  display: inline-block;
-  cursor: pointer;
-}
-
-.dot.active {
-  background-color: #007bff;
-} */
-
-.swiper {
-  width: 100%;
-  height: 500px;
-  border-radius: 12px;
-  /* padding: 1rem; */
-}
-
-.venue-swiperslide {
-  text-align: center;
-  font-size: 18px;
-  background: #444;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.venue-swiperslide-img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.sports-wrapper {
-  border: 1px solid #d6e4f0;
-  border-radius: 12px;
-  padding: 1rem;
-  background-color: #fff;
-  margin-top: 1rem;
-  /* height: 176px; */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 20px;
-
-  /* Gradient border */
-}
-
-.sports-header {
-  font-size: 18px;
-  font-family: "Lato", sans-serif;
-  font-weight: 600;
-  color: #172a39;
-  line-height: clamp(6.04px, 1.8889vw, 27.2px);
-}
-
-.sports-header strong {
-  font-size: 18px;
-  font-family: "Lato", sans-serif;
-  font-weight: 600;
-}
-
-.sports-header .note {
-  font-size: 18px;
-  font-family: "Lato", sans-serif;
-  font-weight: 600;
-  color: #172a39;
-  line-height: clamp(6.04px, 1.8889vw, 27.2px);
-  color: #858585;
-  margin-left: 10px;
-}
-
-.sports-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-}
-
-.sport-card {
-  /* width: 93px; */
-  height: 93px;
-  border-radius: 4px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  padding: 0.5rem;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-  border: none;
-  border: 1px solid #ececec;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.sport-card:hover {
-  transform: translateY(-2px);
-  outline: 2px solid #1163c7;
-}
-
-.sport-card img {
-  height: 45px;
-  width: 45px;
-  /* margin-bottom: 0.5rem; */
-}
-
-.sport-card p {
-  font-size: 12px;
-  margin: 0;
-  color: #000000;
-  font-weight: 500;
-  font-family: "Figtree", Arial, sans-serif;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .sports-grid {
-    justify-content: space-between;
-  }
-
-  .sport-card {
-    flex: 1 1 28%;
-    max-width: 90px;
-  }
-}
-
-/* Right Side (Venue Info) */
-.venue-right {
-  background-color: #f1f3f2;
-  border-radius: 10px;
-  border: 1px solid #f1f3f2;
-  max-width: 405px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  background-color: #f1f3f2;
-  border-radius: 10px;
-  border: 1px solid #f1f3f2;
-  width: clamp(200px, 27.9861vw, 403px);
-}
-
-.vb-calendar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: bold;
-}
-
-.vb-dates {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.vb-date-item {
-  padding: 0.5rem;
-  text-align: center;
-  border-radius: 10px;
-  width: 13%;
-  cursor: pointer;
-}
-
-.vb-date-item.active {
-  background-color: #0050c8;
-  color: white;
-}
-
-.vb-section {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-  margin-top: 20px;
-  border-radius: 10px;
-  background-color: #ffffff;
-  padding: 20px;
-  border: 1px solid #e0e0e0;
-  box-shadow: 0px 4.08px 4.08px 0px #1163c740;
-}
-.vb-pitch-options {
-  box-shadow: 0px 4.08px 4.08px 0px #1163c740;
-}
-
-.vb-section label {
-  font-size: 18px;
-  font-family: "Lato", sans-serif;
-  font-weight: 600;
-  color: #172a39;
-  line-height: clamp(6.04px, 1.8889vw, 27.2px);
-  margin-bottom: 0.3rem;
-}
-
-.vb-sport-options,
-.vb-time-periods,
-.vb-time-slots,
-.vb-pitch-options {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.vb-sport-btn {
-  padding: 0.5rem 1.5rem;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background: white;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.vb-period-btn,
-.vb-slot-btn {
-  padding: 0.5rem 1.5rem;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background: white;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.vb-pitch-btn {
-  padding: 0.4rem 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background: white;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.vb-sport-btn.active,
-.vb-period-btn.active,
-.vb-slot-btn.active,
-.vb-pitch-btn.active {
-  background-color: #1163c7;
-  color: white;
-  border: none;
-}
-
-.vb-duration-time {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.vb-duration-box,
-.vb-time-box {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-
-.vb-availability-bar {
-  display: flex;
-  height: 4px;
-  margin-top: 0.5rem;
-}
-
-.vb-availability-bar .green {
-  background: green;
-  flex: 1;
-  margin-right: 2px;
-}
-
-.vb-availability-bar .red {
-  background: red;
-  flex: 1;
-  margin-right: 2px;
-}
-
-.vb-proceed-btn {
-  width: 100%;
-  padding: 0.75rem;
-  background-color: #0050c8;
-  color: white;
-  font-weight: bold;
-  border: none;
-  border-radius: 10px;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-/* Sections (Sports, Amenities) */
-/* .section {
-  margin-top: 20px;
-} */
-
-.section h4 {
-  font-size: 16px;
-  margin-bottom: 10px;
-}
-
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.tag {
-  background-color: #eef3f7;
-  padding: 6px 12px;
-  font-size: 13px;
-  border-radius: 6px;
-  color: #333;
-  white-space: nowrap;
-}
-
-/* Responsive Styles */
-@media (max-width: 1024px) {
-  .venue-wrapper {
-    flex-direction: column;
-  }
-
-  .venue-left,
-  .venue-right {
-    flex: 1 1 100%;
-  }
-}
-
-@media (max-width: 600px) {
-  .venue-wrapper {
-    padding: 16px;
-  }
-
-  .venue-right h2 {
-    font-size: 20px;
-  }
-
-  .btn-group {
-    flex-direction: column;
-  }
-
-  .carousel-controls button {
-    width: 20px;
-    height: 20px;
-    font-size: 14px;
-  }
-
-  .tags {
-    gap: 8px;
-  }
-
-  .tag {
-    font-size: 12px;
-    padding: 5px 10px;
-  }
-}
-
-.amenities-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3rem;
-  /* margin-top: 1rem; */
-}
-
-.amenities-box {
-  background-color: #fff;
-  border: 1px solid #d6e4f0;
-  border-radius: 12px;
-  padding: 1rem;
-  flex: 1;
-  min-width: 895px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.owner-info {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #555;
-}
-.rules-box {
-  background-color: #fff;
-  border: 1px solid #d6e4f0;
-  border-radius: 12px;
-  padding: 1rem;
-  flex: 1;
-  min-width: 395px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.section-title {
-  font-family: "Figtree", Arial, sans-serif;
-  font-weight: 600;
-  font-size: 15.52px;
-  line-height: 23.27px;
-  letter-spacing: 0;
-  margin-bottom: 0.5rem;
-  color: #000000;
-}
-
-.amenity-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 45px;
-}
-
-.amenity-tag {
-  font-family: "Figtree", Arial, sans-serif;
-  font-weight: 400;
-  font-size: 13.58px;
-  line-height: 19.39px;
-  letter-spacing: 0;
-  text-transform: capitalize;
-  /* padding: 6px 12px; */
-  border-radius: 6px;
-  color: #000000;
-  white-space: nowrap;
-  gap: 0.4rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-/* .check-icon img {
-  width: 18px;
-  height: 18px;
-  display: inline-block;
-}
-
-.check-label {
-  display: inline;
-  font-size: 14px;
-} */
-
-.dots {
-  width: 16px;
-  height: 16px;
-  background-color: #1163c7;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.rules-box {
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  /* Gradient border */
-  border: 2px solid transparent;
+.vc-hero::before {
+  content: '';
+  position: absolute; inset: 0;
   background-image:
-    linear-gradient(#fff, #fff), linear-gradient(90deg, #1163c7, #a3d0ff);
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+}
+.vc-hero-inner {
+  position: relative; z-index: 2;
+  padding: 0 clamp(1rem, 5vw, 6rem);
+  animation: vcFadeUp .6s ease both;
 }
 
-.section-title {
-  font-family: "Lato", sans-serif;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 21.67px;
-  letter-spacing: 0;
+/* Breadcrumb */
+.vc-breadcrumb {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 13px; color: rgba(255,255,255,.7);
+  font-family: 'DM Sans', sans-serif;
+  margin-bottom: 12px; flex-wrap: wrap;
+}
+.vc-breadcrumb a { color: rgba(255,255,255,.7); text-decoration: none; transition: color .2s ease; }
+.vc-breadcrumb a:hover { color: white; }
+.vc-breadcrumb span { color: rgba(255,255,255,.4); }
+.vc-breadcrumb .vc-bc-current { color: white; font-weight: 500; }
+
+/* Name */
+.vc-hero-name {
+  font-family: 'Lato', sans-serif; font-weight: 900;
+  font-size: clamp(24px, 4vw, 48px); color: white;
+  margin: 0 0 10px; line-height: 1.1; letter-spacing: -0.5px;
+  text-shadow: 0 2px 16px rgba(0,0,0,.2);
 }
 
-.arrow {
-  font-size: 24px;
-  color: #1163c7;
-  font-weight: bold;
+/* Meta */
+.vc-hero-meta {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
 }
-
-.form-error {
-  color: red;
-  font-size: 0.85rem;
-  margin-top: 4px;
+.vc-hero-meta-item {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 13px; color: rgba(255,255,255,.85);
 }
-
-/* Responsive */
-@media (max-width: 768px) {
-  .amenities-wrapper {
-    flex-direction: column;
-  }
+.vc-hero-rating {
+  display: flex; align-items: center; gap: 5px;
+  background: rgba(255,255,255,.15); backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,.25); border-radius: 20px;
+  padding: 4px 12px; font-size: 13px; font-weight: 600; color: white;
 }
+.vc-star { color: #FFD700; font-size: 14px; }
+.vc-reviews { color: rgba(255,255,255,.7); font-weight: 400; }
 
-.rating-wrapper {
-  width: 100%;
-  margin-top: 50px;
+/* Wave */
+.vc-hero-wave { line-height: 0; margin-top: -1px; }
+.vc-hero-wave svg { width: 100%; height: 40px; display: block; }
+
+/* ═══════════════════════════════════════════
+   MAIN LAYOUT
+═══════════════════════════════════════════ */
+.vc-body {
+  padding: 28px clamp(1rem, 5vw, 6rem) 64px;
+  max-width: 1420px; margin: 0 auto;
 }
-
-.ratings-carousel {
-  /* min-width: 1200px; */
-  /* margin: auto; */
-  /* padding: 0px 100px; */
-  font-family: "Lato", sans-serif;
-  margin-top: 50px;
-}
-
-.heading {
-  font-size: 24px;
-  font-weight: 500;
-  color: #0c1f3f;
-  margin-bottom: 20px;
-  font-family: "Lato", Arial, sans-serif;
-}
-
-.review-carousel-container {
+.vc-layout {
   display: flex;
-  /* gap: 25px; */
-  overflow: hidden;
-  padding-bottom: 10px;
-  /* flex-wrap: wrap; */
-  justify-content: space-between;
-  margin-bottom: 20px;
+  gap: 28px;
+  align-items: flex-start;
 }
 
-.carousel-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  gap: clamp(10px, 2.0833vw, 30px);
-  margin-top: 20px;
-  margin-bottom: 50px;
+/* ═══════════════════════════════════════════
+   LEFT COLUMN
+═══════════════════════════════════════════ */
+.vc-left {
+  flex: 1 1 62%;
+  display: flex; flex-direction: column; gap: 20px;
 }
 
-.carousel-buttons button {
-  width: clamp(50px, 4.1667vw, 60px);
-  height: clamp(50px, 4.1667vw, 60px);
-  background-color: #1163c7;
-  border: none;
-  color: #ffffff;
-  border-radius: 50%;
-  font-size: 35px;
-  cursor: pointer;
-  transition: background 0.3s ease;
+/* Carousel */
+.vc-carousel {
+  border-radius: 20px; overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,.12);
+  animation: vcFadeIn .7s ease both;
+}
+.vc-carousel .swiper {
+  width: 100%; height: clamp(240px, 36vw, 480px); border-radius: 20px;
+}
+.vc-carousel .venue-swiperslide-img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
 }
 
-/* Responsive Behavior */
-@media (max-width: 1024px) {
-  .review-carousel-container {
-    flex-direction: row;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-  }
-
-  .review-card {
-    flex: 0 0 auto;
-    scroll-snap-align: center;
-  }
+/* Section card */
+.vc-card {
+  background: white; border-radius: 16px; padding: 22px 24px;
+  border: 1px solid #edf0f7; box-shadow: 0 1px 6px rgba(0,0,0,.05);
+  animation: vcFadeUp .6s ease both;
+}
+.vc-card-title {
+  font-family: 'Lato', sans-serif; font-weight: 700;
+  font-size: 16px; color: #0d1b2a; margin: 0 0 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.vc-card-title::before {
+  content: ''; display: inline-block; width: 3px; height: 18px;
+  background: linear-gradient(180deg, #1163C7, #1a7ae0);
+  border-radius: 2px; flex-shrink: 0;
+}
+.vc-card-subtitle {
+  font-family: 'DM Sans', sans-serif; font-size: 12px;
+  color: #858585; font-weight: 500; margin-left: 4px;
 }
 
-@media (max-width: 768px) {
-  .ratings-carousel {
-    min-width: 100%;
-  }
-
-  .review-carousel-container {
-    flex-direction: column;
-    align-items: left;
-  }
-
-  .carousel-buttons {
-    flex-direction: row;
-    gap: 10px;
-  }
-
-  .carousel-buttons button {
-    width: 50px;
-    height: 50px;
-    font-size: 24px;
-  }
+/* Sports grid */
+.vc-sports-grid {
+  display: flex; flex-wrap: wrap; gap: 12px;
 }
-.banner {
-  margin-bottom: 75px;
+.vc-sport-card {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 12px 16px; background: #f8f9fb;
+  border: 1.5px solid #edf0f7; border-radius: 14px;
+  min-width: 90px; cursor: pointer;
+  transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
 }
-.banner-wrapper {
-  max-width: 100%;
+.vc-sport-card:hover, .vc-sport-card:focus-visible {
+  border-color: #1163C7; box-shadow: 0 4px 16px rgba(17,99,199,.12);
+  transform: translateY(-3px); outline: none;
+}
+.vc-sport-card img { width: 40px; height: 40px; object-fit: contain; }
+.vc-sport-card p {
+  font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600;
+  color: #172A39; margin: 0; text-align: center;
 }
 
-.event-banner-container {
-  overflow: hidden;
-  padding: 12px;
+/* About text */
+.vc-text {
+  font-size: 14px; color: #555; line-height: 1.75; margin: 0;
 }
 
-.event-banner-heading {
-  font-size: 24px;
-  font-family: "Lato", sans-serif;
-  font-weight: 500;
-  line-height: 21.67px;
-  color: #172a39;
-  margin-bottom: 30px;
+/* Amenities */
+.vc-amenities-grid {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.vc-amenity-chip {
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 14px; background: #f0f4ff;
+  border: 1px solid rgba(17,99,199,.15); border-radius: 20px;
+  font-family: 'DM Sans', sans-serif; font-size: 13px;
+  font-weight: 500; color: #1163C7;
+}
+.vc-amenity-chip img { width: 14px; height: 14px; object-fit: contain; }
+
+/* ═══════════════════════════════════════════
+   RIGHT COLUMN — BOOKING PANEL
+═══════════════════════════════════════════ */
+.vc-right {
+  flex: 0 0 360px;
+  position: sticky; top: 80px;
+  display: flex; flex-direction: column; gap: 16px;
 }
 
-.event-banner-carousel {
-  overflow: hidden;
-  position: relative;
-  width: 100%;
+/* Booking panel */
+.vc-booking-panel {
+  background: white; border-radius: 20px;
+  border: 1px solid #edf0f7; box-shadow: 0 4px 24px rgba(17,99,199,.08);
+  overflow: hidden; animation: vcFadeUp .7s ease .1s both;
+}
+.vc-panel-header {
+  background: linear-gradient(135deg, #0a3d7a, #1163C7);
+  padding: 18px 20px; display: flex; align-items: center; justify-content: space-between;
+}
+.vc-panel-title {
+  font-family: 'Lato', sans-serif; font-weight: 700; font-size: 16px; color: white; margin: 0;
+}
+.vc-panel-body {
+  padding: 18px 20px; display: flex; flex-direction: column; gap: 14px;
 }
 
-.event-banner-track {
-  display: flex;
-  width: max-content;
-  animation: scroll-left 40s linear infinite;
+/* Field label */
+.vc-field-label {
+  font-family: 'Lato', sans-serif; font-weight: 600; font-size: 13px;
+  color: #0d1b2a; margin: 0 0 8px; display: block;
 }
 
-.event-banner {
-  flex: 0 0 auto;
-  margin-right: 20px; /* space between banners */
+/* Sport buttons */
+.vc-sport-options {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.vc-sport-btn {
+  padding: 7px 14px; border-radius: 20px;
+  border: 1.5px solid #edf0f7; background: #f8f9fb;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+  color: #555; cursor: pointer;
+  transition: border-color .2s ease, background .2s ease, color .2s ease;
+}
+.vc-sport-btn:hover { border-color: rgba(17,99,199,.3); background: #f0f4ff; color: #1163C7; }
+.vc-sport-btn.active { background: #1163C7; border-color: #1163C7; color: white; }
+
+/* Pitch buttons */
+.vc-pitch-options { display: flex; flex-wrap: wrap; gap: 8px; }
+.vc-pitch-btn {
+  padding: 7px 14px; border-radius: 10px;
+  border: 1.5px solid #edf0f7; background: #f8f9fb;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+  color: #555; cursor: pointer;
+  transition: border-color .2s ease, background .2s ease, color .2s ease;
+}
+.vc-pitch-btn:hover { border-color: rgba(17,99,199,.3); background: #f0f4ff; color: #1163C7; }
+.vc-pitch-btn.active { background: #1163C7; border-color: #1163C7; color: white; }
+
+/* Placeholder text */
+.vc-placeholder {
+  font-family: 'DM Sans', sans-serif; font-size: 13px;
+  color: #b0b0b0; font-style: italic; margin: 0;
 }
 
-.event-banner-img {
-  width: 300px; /* adjust as needed */
-  /* height: auto; */
-  height: 160px;
-  border-radius: 8px;
-  object-fit: cover;
+/* Error text */
+.vc-error {
+  font-family: 'DM Sans', sans-serif; font-size: 12px;
+  color: #dc2626; margin: 0;
 }
 
-.amenities_tag {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
+/* Proceed button */
+.vc-proceed-btn {
+  width: 100%; padding: 14px;
+  background: linear-gradient(135deg, #1163C7, #0d4fa0);
+  color: white; border: none; border-radius: 12px;
+  font-family: 'Lato', sans-serif; font-weight: 700; font-size: 15px;
+  letter-spacing: .5px; cursor: pointer;
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease;
+  box-shadow: 0 4px 16px rgba(17,99,199,.35);
 }
-.amt-img {
-  height: 20px;
-  width: 20px;
-}
-
-.map-container {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(10px, 0.3889vw, 20px);
-}
-
-/* Animation Keyframes */
-@keyframes scroll-left {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+.vc-proceed-btn:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 8px 28px rgba(17,99,199,.45);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .image-banner {
-    width: 100%;
-  }
+/* Reviews */
+.vc-reviews-section { margin-top: 8px; animation: vcFadeUp .6s ease .2s both; }
+.vc-reviews-title {
+  font-family: 'Lato', sans-serif; font-weight: 700; font-size: 20px;
+  color: #0d1b2a; margin: 0 0 20px;
 }
 
-/* MODAL STYLES */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Modal overlay */
+.vc-modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.45); z-index: 999;
+  display: flex; justify-content: center; align-items: center;
   padding: 1rem;
 }
-
-.modal-content {
-  position: relative;
-  border-radius: 1rem;
-  width: 100%;
-  max-width: 960px;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+.vc-modal-content {
+  position: relative; border-radius: 16px;
+  width: 100%; max-width: 960px;
+  max-height: 90vh; overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0,0,0,.2);
 }
 
-.modal-close {
-  position: absolute;
-  top: 1rem;
-  right: 1.5rem;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  color: #007aff;
-  cursor: pointer;
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  .vc-layout { flex-direction: column; }
+  .vc-right { position: static; flex: 1 1 100%; }
 }
-
-.gym-right-section-p {
-  font-family: "DM Sans", sans-serif;
-  font-weight: 400;
-  font-size: clamp(3.56px, 1.1111vw, 16px);
-  line-height: clamp(5.2px, 1.63vw, 23.4px);
-  color: #172a39;
+@media (max-width: 768px) {
+  .vc-body { padding: 20px 1rem 48px; }
+  .vc-hero-inner { padding: 0 1rem; }
+  .vc-carousel .swiper { height: 220px; }
 }
-
-@media (max-width: 1200px) {
-  .gym-carry-point {
-    flex-direction: column;
-    gap: 0px;
-  }
-  .gym-carry,
-  .gym-pickPoints,
-  .terms,
-  .policy {
-    width: 100%;
-  }
-  .gym-carry {
-    height: auto;
-  }
-  .timing-item,
-  .range {
-    font-size: 16px;
-  }
-}
-
-@media (max-width: 945px) {
-  .gym-wrapper {
-    flex-direction: column;
-  }
-  .gym-left,
-  .gym-right {
-    width: 100%;
-  }
-
-  .gym-carry-point {
-    flex-direction: column;
-  }
-}
-
-@media (max-width: 440px) {
-  .timing-item,
-  .range {
-    font-size: clamp(12px, 3.1818vw, 14px);
-  }
-  .coach-name {
-    font-size: clamp(12px, 3.1818vw, 14px);
-  }
-  .coach-title {
-    font-size: clamp(11px, 2.7273vw, 12px);
-  }
-  .gym-description {
-    font-size: clamp(15px, 3.6364vw, 16px);
-  }
-
-  .amenities_tag {
-    gap: 2px;
-    font-size: clamp(12px, 3.6364vw, 16px);
-  }
-  .gym-amenities {
-    gap: 10px;
-  }
-  .amt-img {
-    width: clamp(10px, 4.5455vw, 20px);
-    height: clamp(10px, 4.5455vw, 20px);
-  }
+@media (max-width: 480px) {
+  .vc-hero-name { font-size: 22px; }
 }

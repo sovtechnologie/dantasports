@@ -1,8 +1,6 @@
 import "./Stylesheets/EventCalandar.css"
 import {
     format,
-    addDays,
-    subDays,
     isBefore,
     startOfDay,
     isSameDay,
@@ -10,18 +8,16 @@ import {
 } from 'date-fns';
 import {
     toZonedTime,
-    getTimezoneOffset
 } from 'date-fns-tz';
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 export const EventCalandar = ({ selectedDate, setSelectedDate, startDateProp,
     endDateProp, eventCalendar,
     eventDates = [], }) => {
-    console.log(startDateProp,
-        endDateProp)
     const timeZone = 'Asia/Kolkata';
-    const today = new Date();
-    const todayZoned = startOfDay(toZonedTime(today, timeZone));
-    const [startDate, setStartDate] = useState(startOfDay(todayZoned));
+    const todayZoned = useMemo(
+        () => startOfDay(toZonedTime(new Date(), timeZone)),
+        []
+    );
 
     // Generate days in IST
     // const weekDays = Array.from({ length: 5 }).map((_, i) => {
@@ -74,9 +70,7 @@ export const EventCalandar = ({ selectedDate, setSelectedDate, startDateProp,
                 };
             })
             .filter((d) => !d.isPast); // ❌ past remove
-    }, [eventCalendar, eventDates, startDateProp, endDateProp]);
-
-    const monthLabel = format(startDate, 'MMM');
+    }, [eventCalendar, eventDates, startDateProp, endDateProp, todayZoned]);
     return (
         <>
             <div className="Event-calendar-container">

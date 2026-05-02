@@ -8,14 +8,10 @@ export const useCreateVenueBooking = () => {
       if (!payload) {
         throw new Error("payload must be an required");
       }
-      console.log("in mutation section payload", payload);
       return createBooking(payload);
     },
     onSuccess: (data) => {
-      console.log("Book venue successfully:", data);
     },
-    onError: (error) => {
-      console.error("Error book venue:", error);
-    },
+    onError: () => {},
   });
 };

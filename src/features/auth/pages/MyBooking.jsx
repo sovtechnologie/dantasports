@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import "../StyleSheets/MyBooking.css";
-import BookingImage from "../assets/bookingImage.png";
 import BookingCard from '../components/BookingCard';
 import { useGetAllBooking } from "../../../hooks/BookingVenue/useGetAllBooking.js";
 import { useGetCompleteBooking } from "../../../hooks/BookingVenue/useGetCompleteBooking.js";
@@ -41,7 +40,7 @@ const MyBookings = () => {
   const [activeTab, setActiveTab] = useState("upcoming");
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { data: Bookingdata, isLoading, isError } = useGetAllBooking();
+  const { data: Bookingdata } = useGetAllBooking();
   // const allBookings = Bookingdata?.result?.map(b => ({
   //   id: b.id,
   //   title: b.venue_name,
@@ -58,7 +57,7 @@ const MyBookings = () => {
   // ------------------------
   // VENUE BOOKINGS
   // ------------------------
-  const venueBookings = Bookingdata?.myBookings?.venueBookings?.map(b => ({
+  const venueBookings = useMemo(() => Bookingdata?.myBookings?.venueBookings?.map(b => ({
     id: b.id,
     bookingType: "venue",
     title: b.venue_name,
@@ -72,10 +71,10 @@ const MyBookings = () => {
     hasReview: b.has_review,
     reference: `#${String(b.id).padStart(5, "0")}`,
     image: b.cover_image,
-  })) ?? [];
+  })) ?? [], [Bookingdata]);
 
 
-  const eventBookings = Bookingdata?.myBookings?.eventBooking?.map(e => ({
+  const eventBookings = useMemo(() => Bookingdata?.myBookings?.eventBooking?.map(e => ({
     id: e.booking_id,
     bookingType: "event",
     type: e.type,
@@ -88,11 +87,11 @@ const MyBookings = () => {
     hasReview: false,
     reference: `#${String(e.booking_id).padStart(5, "0")}`,
     image: e.mobile_image,
-  })) ?? [];
+  })) ?? [], [Bookingdata]);
 
 
 
-  const gymBookings = Bookingdata?.myBookings?.getGymBookings?.map(g => ({
+  const gymBookings = useMemo(() => Bookingdata?.myBookings?.getGymBookings?.map(g => ({
     id: g.booking_id,
     bookingType: "gym",
     type: g.type,
@@ -105,19 +104,19 @@ const MyBookings = () => {
     hasReview: false,
     reference: `#${String(g.booking_id).padStart(5, "0")}`,
     image: g.mobile_image,
-  })) ?? [];
+  })) ?? [], [Bookingdata]);
 
 
-  const allBookings = [
+  const allBookings = useMemo(() => [
     ...venueBookings,
     ...eventBookings,
     ...gymBookings
-  ];
+  ], [venueBookings, eventBookings, gymBookings]);
 
 
-  const { data: CompletedBookingData, isLoading: completedLoading, isError: completedError } = useGetCompleteBooking();
+  const { data: CompletedBookingData } = useGetCompleteBooking();
   // const AllCompletedBooking = CompletedBookingData?.result[0];
-  const AllCompletedBooking = CompletedBookingData?.result?.map(b => ({
+  const AllCompletedBooking = useMemo(() => CompletedBookingData?.result?.map(b => ({
     id: b.id,
     title: b.venue_name,
     type: b.type,
@@ -127,11 +126,10 @@ const MyBookings = () => {
     time: formatTime(b.start_time, b.duration),
     reference: `#${String(b.id).padStart(5, "0")}`,
     image: b.cover_image,
-  })) ?? [];
-  console.log("complete booking", AllCompletedBooking);
+  })) ?? [], [CompletedBookingData]);
 
   const { data: CancelledBookingData } = useGetCancelBooking();
-  const VenueCancelled = CancelledBookingData?.myBookings?.venueBookings.map(b => ({
+  const VenueCancelled = useMemo(() => CancelledBookingData?.myBookings?.venueBookings.map(b => ({
     id: b.id,
     title: b.venue_name,
     type: b.type,
@@ -142,9 +140,9 @@ const MyBookings = () => {
     reference: `#${String(b.id).padStart(5, "0")}`,
     image: b.cover_image,
     cancel_date: b.updated_at || b.created_at,
-  })) ?? [];
+  })) ?? [], [CancelledBookingData]);
 
-  const EventCancelled = CancelledBookingData?.myBookings?.eventBooking.map(b => ({
+  const EventCancelled = useMemo(() => CancelledBookingData?.myBookings?.eventBooking.map(b => ({
     id: b.booking_id,
     title: b.event_title,
     type: b.type,
@@ -155,15 +153,15 @@ const MyBookings = () => {
     reference: `#${String(b.booking_id).padStart(5, "0")}`,
     image: b.desktop_image,
     cancel_date: b.cancelled_at || b.updated_at || b.created_at
-  })) ?? [];
-  const SortedCancelled = [...EventCancelled, ...VenueCancelled];
+  })) ?? [], [CancelledBookingData]);
+  const SortedCancelled = useMemo(() => [...EventCancelled, ...VenueCancelled], [EventCancelled, VenueCancelled]);
 
-  const AllCancelledBooking = SortedCancelled.sort(
+  const AllCancelledBooking = useMemo(() => [...SortedCancelled].sort(
     (a, b) => new Date(b.cancel_date) - new Date(a.cancel_date)
-  );
+  ), [SortedCancelled]);
 
 
-  const filteredBookings = React.useMemo(() => {
+  const filteredBookings = useMemo(() => {
     switch (activeTab) {
       case "upcoming":
         return allBookings;

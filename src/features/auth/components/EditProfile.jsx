@@ -6,10 +6,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useQuery } from '@tanstack/react-query';
 import * as yup from 'yup';
 import './StyleSheets/EditProfile.css';
-import ProfileImage from "../assets/profileImage.png";
+import ProfileImage from "../../../assets/svg-icons/user-circle.svg";
 import { useEditProfile } from '../../../hooks/Profile/useEditProfile.js';
 import { fetchProfile } from '../../../services/LoginApi/profileApi/endpointApi.js';
-import EditProfileICon from "../assets/profileEditIcon.png";
+import EditProfileICon from "../../../assets/svg-icons/profile-edit.svg";
 
 const schema = yup.object().shape({
   fullName: yup.string().required('Full name is required'),
@@ -35,7 +35,7 @@ const EditProfile = () => {
   const { user } = useSelector((state) => state.auth);
   const { mutate, isLoading: isSaving } = useEditProfile();
 
-  const { data, isLoading: isFetching } = useQuery({
+  const { data } = useQuery({
     queryKey: ['profile'],
     queryFn: fetchProfile,
   });
@@ -44,7 +44,6 @@ const EditProfile = () => {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const profile = data?.data;
-  console.log("Profile data:", profile);
 
   const {
     register,

@@ -8,7 +8,6 @@ export const useCreatePayment = () => {
   return useMutation({
     mutationFn: (bookingId) => createPayment(bookingId),
     onSuccess: (data, bookingId) => {
-      console.log("Payment created for booking:", bookingId, data);
 
       // Example: redirect if paymentUrl present
       if (data?.url) {
@@ -25,10 +24,7 @@ export const useCreatePayment = () => {
       } else if (error.message) {
         errMsg = error.message;
       }
-      alert("error",errMsg);
-      console.error("Payment creation failed for booking:", bookingId, error);
-
-      // Optional: display toast or notification
+      alert("error", errMsg);
     },
   });
 };

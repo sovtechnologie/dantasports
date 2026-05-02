@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { useRef } from "react";
 import "../../Stylesheets/Filterpages/RunFilter.css";
 import "../../Stylesheets/Filterpages/Cards.css";
+import "../../Stylesheets/Filterpages/FilterSystem.css";
 import { Container, Row, Col } from "react-bootstrap";
 import AppDownloadBanner from "../../components/AppDownloadBanner.jsx";
 import Filter from "../../components/Filter.jsx";
@@ -12,7 +13,7 @@ import bookrun from "../../assets/bookrun/bookrun.png";
 import map from "../../assets/playhost/map.svg";
 import date from "../../assets/playhost/date.svg";
 import likeIcon from "../../assets/icons/like.svg";
-import HeartFilled from "../../assets/VenueCardLogo/heartfilled.png"
+import HeartFilled from "../../../../assets/svg-icons/heart-filled.svg"
 import shareIcon from "../../assets/icons/share.svg";
 import star from "../../assets/icons/star-white.svg";
 import bookrunn from "../../assets/bookrun/bookrun.png";
@@ -35,6 +36,7 @@ import fliterIcon from "../../assets/icons/filter.svg"
 import OngoingEvents from "../../components/OngoingEvents.jsx";
 import { useBanner } from "../../../../hooks/useBanner.js";
 import { Link } from "react-router-dom";
+import InlineLoader from "../../../../components/InlineLoader.jsx";
 
 function formatTime(timeStr = "00:00") {
   if (!timeStr) return "";
@@ -71,7 +73,6 @@ export default function RunFilterPage() {
   const [filteredRuns, setFilteredRuns] = useState([]);
   const [selectedAmenities, setSelectedAmenities] = useState([]);
   const [selectedDifficulty, setSelectedDifficulty] = useState(null);
-  console.log("selectedAmenities", selectedAmenities);
   const auth = useSelector((state) => state.auth);
   const [selectedPrice, setSelectedPrice] = useState(0);
   const [runList, setRunList] = useState([]);
@@ -232,7 +233,6 @@ const scrollToTop = () => {
     if (selectedDifficulty !== null) {
       result = result.filter((evt) => evt.difficulty === selectedDifficulty);
     }
-    console.log("selectedDifficulty", selectedDifficulty);
 
     if (selectedPrice > 0) {
       result = result.filter(
@@ -246,7 +246,6 @@ const scrollToTop = () => {
         typeof a === "object" ? a.id : a
       );
 
-      console.log("✅ selectedAmenityIds", selectedAmenityIds);
 
       result = result.filter((evt) => {
         const eventAmenityIds = evt.amenities?.map((a) => a.id) || [];
@@ -722,13 +721,7 @@ useEffect(() => {
 {visibleCount < filteredEvents.length && (
   <>
     <div ref={observerRef}></div>
-
-    {!isFetchingMore && (
-      <div className="text-center my-4">
-        <div className="spinner-border text-success" role="status"></div>
-        <p className="mt-2">Loading more events...</p>
-      </div>
-    )}
+    {isFetchingMore && <InlineLoader text="Loading more runs…" />}
   </>
 )}
 

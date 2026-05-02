@@ -12,14 +12,12 @@ function ActivityServices({ selectedSports, setSelectedSports }) {
     const getSportsList = async () => {
       try {
         const res = await fetchSportsList(2);
-        console.log("✅ Sports List API Response:", res);
         if (res?.status === 200 && Array.isArray(res?.result)) {
           setActivities(res.result);
         } else {
           setActivities([]);
         }
-      } catch (error) {
-        console.error("❌ Error fetching sports list:", error);
+      } catch {
         setActivities([]);
       } finally {
         setLoading(false);
@@ -39,7 +37,6 @@ function ActivityServices({ selectedSports, setSelectedSports }) {
       ? selectedSports.filter((id) => id !== item.id)
       : [...selectedSports, item.id];
     setSelectedSports(updated);
-    console.log("🎯 Selected Sports IDs:", updated);
   };
 
   return (

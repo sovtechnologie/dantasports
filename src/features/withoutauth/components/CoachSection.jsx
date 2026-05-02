@@ -1,33 +1,10 @@
 import React from "react";
 import "./Stylesheets/AnalyticsCapabilities.css";
 import "./Stylesheets/FacilityManagement.css";
-import analyticsImage from "../assets/facilitylogo/Phone-two-image.png"; // adjust as needed
-import bookingIcon from "../assets/facilitylogo/Slot-Icon-image.png"; // replace with actual icons
-import reportIcon from "../assets/facilitylogo/Role-Icon-image.png";
-import insightsIcon from "../assets/facilitylogo/Dashboard-Icon-image.png";
-import phonesImage2 from "../assets/facilitylogo/Phone_image_2.png";
 import CoachDashboard from "../assets/facilitylogo/coach-dashboard.jpeg";
 import gym from "../assets/facilitylogo/Gym.png";
 import runevents from "../assets/facilitylogo/runevents.jpeg";
 function CoachSection() {
-  const analyticsFeatures = [
-    {
-    //   icon: bookingIcon,
-      title: "Real-time Booking Trends",
-      description: "Identify peak booking hours to enhance pricing strategies.",
-    },
-    {
-    //   icon: reportIcon,
-      title: "Revenue & Performance Reports",
-      description:
-        "Utilise comprehensive reports for informed decision-making.",
-    },
-    {
-    //   icon: insightsIcon,
-      title: "Customer Insights",
-      description: "Gain understanding of repeat bookings and preferences.",
-    },
-  ];
   return (
     <>
       <section>

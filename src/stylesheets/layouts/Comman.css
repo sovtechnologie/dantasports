@@ -25,7 +25,7 @@
 }
 
 .date_box_wrapper::-webkit-scrollbar-thumb {
-  background-color: #6da9f1; /* scrollbar color */
+  background-color: #1163C7; /* scrollbar color */
   border-radius: 10px;
   transition: background-color 0.3s ease;
 }
@@ -497,13 +497,13 @@ button.sport-card.selected-sport {
 }
 
 .vb-availability-bar .green {
-  background: green;
+  background: #1163C7;
   flex: 1;
   margin-right: 2px;
 }
 
 .vb-availability-bar .red {
-  background: red;
+  background: #b0b8c8;
   flex: 1;
   margin-right: 2px;
 }
@@ -511,7 +511,7 @@ button.sport-card.selected-sport {
 .vb-proceed-btn {
   width: 100%;
   padding: 0.75rem;
-  background-color: #0050c8;
+  background-color: #1163C7;
   color: white;
   font-weight: bold;
   border: none;
@@ -542,7 +542,7 @@ button.sport-card.selected-sport {
 }
 
 .form-error {
-  color: red;
+  color: #dc2626;
   font-size: 0.85rem;
   margin-top: 4px;
 }

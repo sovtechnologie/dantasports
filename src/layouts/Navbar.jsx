@@ -1,12 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import "../stylesheets/layouts/Navbar.css";
 import { isIOS, isAndroid } from "react-device-detect";
-import whiteLogo from "../assets/sportdantaLogo/dantasports-white.png";
-import userLogo from "../assets/UserLogo.png";
-import arrowlogo from "../assets/arrowlogo.png";
+import whiteLogo from "../assets/sportdantaLogo/whiteLogo.svg";
+import userLogo from "../assets/svg-icons/user-circle.svg";
+import arrowlogo from "../assets/svg-icons/chevron-down-circle.svg";
 import LoginModal from "../features/auth/components/loginModal";
 import locationlogo from "../features/withoutauth/assets/location.svg";
 import { getCityName } from "../utils/getCityName";
@@ -18,30 +18,31 @@ import { fetchProfile } from "../services/LoginApi/profileApi/endpointApi.js";
 
 const NAV_LINKS = [
   { label: "Turf",   path: "/venue"  },
-  { label: "Play",   path: "/Host"   },
-  { label: "Run",    path: "/Run"    },
-  { label: "Coach",  path: "/Coach"  },
-  { label: "Events", path: "/Events" },
-  { label: "Gym",    path: "/Gym"    },
+  { label: "Play",   path: "/host"   },
+  { label: "Run",    path: "/run"    },
+  { label: "Coach",  path: "/coach"  },
+  { label: "Events", path: "/events" },
+  { label: "Gym",    path: "/gym"    },
 ];
 
 function Navbar() {
-  const { lat, lng } = useSelector((state) => state.location);
-  const dispatch    = useDispatch();
-  const location    = useLocation();
-  const isHome      = location.pathname === "/";
-  const isActive    = (path) => location.pathname === path;
-  const userId      = useSelector((state) => state.auth?.id);
-  const token       = Cookies.get("token");
+  const { lat, lng }  = useSelector((s) => s.location);
+  const dispatch      = useDispatch();
+  const location      = useLocation();
+  const isHome        = location.pathname === "/";
+  const isActive      = (path) => location.pathname === path || location.pathname === path.toLowerCase();
+  const userId        = useSelector((s) => s.auth?.id);
+  const token         = Cookies.get("token");
 
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [predictions, setPredictions] = useState([]);
-  const [service, setService] = useState(null);
+  const [searchTerm, setSearchTerm]         = useState("");
+  const [predictions, setPredictions]       = useState([]);
+  const [service, setService]               = useState(null);
+  const [scrolled, setScrolled]             = useState(false);
   const inputRef = useRef(null);
 
-  // Profile image
+  /* ── Profile image ── */
   const { data: profileData } = useQuery({
     queryKey: ["profile"],
     queryFn: fetchProfile,
@@ -50,7 +51,14 @@ function Navbar() {
   });
   const profileImage = profileData?.data?.profile_image || null;
 
-  // App store redirect
+  /* ── Scroll shadow ── */
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  /* ── App store redirect ── */
   const handleAppClick = () => {
     const url = isAndroid
       ? "market://details?id=com.dantasports.app"
@@ -60,6 +68,7 @@ function Navbar() {
     window.location.href = url;
   };
 
+  /* ── Profile click guard ── */
   const handleProfileClick = (e) => {
     if (!userId || !token) {
       e.preventDefault();
@@ -67,95 +76,84 @@ function Navbar() {
     }
   };
 
-  // Sync city name
+  /* ── Sync city name ── */
   useEffect(() => {
     getCityName(lat, lng).then((city) => setSearchTerm(city || ""));
   }, [lat, lng]);
 
-  // Load Google Places
+  /* ── Load Google Places ── */
   useEffect(() => {
-    const loadPlaces = async () => {
+    const load = async () => {
       await googleMapsLoader.importLibrary("places");
-      if (window.google) {
-        setService(new window.google.maps.places.AutocompleteService());
-      }
+      if (window.google) setService(new window.google.maps.places.AutocompleteService());
     };
-    loadPlaces();
+    load();
   }, []);
 
-  // Close mobile menu on route change
-  useEffect(() => {
-    setMobileMenuOpen(false);
-  }, [location.pathname]);
+  /* ── Close mobile menu on route change ── */
+  useEffect(() => { setMobileMenuOpen(false); }, [location.pathname]);
 
-  const handleInput = (e) => {
+  /* ── Location input handler ── */
+  const handleInput = useCallback((e) => {
     const value = e.target.value;
     setSearchTerm(value);
     if (value && service && lat && lng) {
       service.getPlacePredictions(
-        {
-          input: value,
-          componentRestrictions: { country: "in" },
+        { input: value, componentRestrictions: { country: "in" },
           location: new window.google.maps.LatLng(lat, lng),
-          radius: 50000,
-          types: ["(cities)"],
-        },
+          radius: 50000, types: ["(cities)"] },
         (preds) => setPredictions(preds || [])
       );
     } else {
       setPredictions([]);
     }
-  };
+  }, [service, lat, lng]);
 
-  const handleSelect = (prediction) => {
+  /* ── Location select handler ── */
+  const handleSelect = useCallback((prediction) => {
     setPredictions([]);
-    const placesService = new window.google.maps.places.PlacesService(
-      document.createElement("div")
-    );
-    placesService.getDetails(
+    const svc = new window.google.maps.places.PlacesService(document.createElement("div"));
+    svc.getDetails(
       { placeId: prediction.place_id, fields: ["geometry", "address_components", "formatted_address"] },
       (place) => {
-        if (place?.geometry) {
-          const newLat = place.geometry.location.lat();
-          const newLng = place.geometry.location.lng();
-          const localityComp = place.address_components?.find((c) =>
-            c.types.includes("locality")
-          );
-          const cityName =
-            localityComp?.long_name ||
-            place.address_components?.find((c) =>
-              c.types.includes("administrative_area_level_2")
-            )?.long_name ||
-            place.formatted_address;
-          setSearchTerm(cityName || "");
-          dispatch(setLocation({ lat: newLat, lng: newLng, autoDetect: false }));
-        }
+        if (!place?.geometry) return;
+        const newLat = place.geometry.location.lat();
+        const newLng = place.geometry.location.lng();
+        const locality = place.address_components?.find((c) => c.types.includes("locality"));
+        const city =
+          locality?.long_name ||
+          place.address_components?.find((c) => c.types.includes("administrative_area_level_2"))?.long_name ||
+          place.formatted_address;
+        setSearchTerm(city || "");
+        dispatch(setLocation({ lat: newLat, lng: newLng, autoDetect: false }));
       }
     );
-  };
+  }, [dispatch]);
 
   return (
     <>
-      <nav className="navbar" style={{ position: "fixed" }}>
+      <nav className={`navbar${scrolled ? " navbar--scrolled" : ""}`}>
         <div className="navbar-container">
-          {/* Logo */}
+
+          {/* ── Logo ── */}
           <Link to="/" className="navbar-brand" onClick={() => setMobileMenuOpen(false)}>
             <img src={whiteLogo} alt="Danta Sports" className="navbar-logo" />
           </Link>
 
-          {/* Hamburger */}
-          <div
+          {/* ── Hamburger ── */}
+          <button
             className="hamburger"
             onClick={() => setMobileMenuOpen((o) => !o)}
-            aria-label="Toggle menu"
-            role="button"
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen ? <FaTimes /> : <FaBars />}
-          </div>
+          </button>
 
-          {/* Actions */}
+          {/* ── Actions ── */}
           <div className={`navbar-actions${mobileMenuOpen ? " active" : ""}`}>
-            {/* Location search — only on inner pages */}
+
+            {/* Location search — inner pages only */}
             {!isHome && (
               <div className="location-search-container" style={{ marginRight: 12 }}>
                 <input
@@ -165,44 +163,18 @@ function Navbar() {
                   className="location_Search_Input"
                   value={searchTerm}
                   onChange={handleInput}
+                  autoComplete="off"
                 />
                 <img src={locationlogo} alt="location" />
                 {predictions.length > 0 && (
-                  <ul
-                    style={{
-                      position: "absolute",
-                      top: "100%",
-                      left: 0,
-                      right: 0,
-                      background: "#fff",
-                      border: "1px solid #ddd",
-                      borderTop: "none",
-                      listStyle: "none",
-                      margin: 0,
-                      padding: 0,
-                      maxHeight: 200,
-                      overflowY: "auto",
-                      zIndex: 9999,
-                      borderRadius: "0 0 10px 10px",
-                      boxShadow: "0 8px 24px rgba(0,0,0,.12)",
-                    }}
-                  >
+                  <ul className="location-dropdown">
                     {predictions.map((p) => (
                       <li
                         key={p.place_id}
                         onClick={() => handleSelect(p)}
-                        style={{
-                          padding: "10px 14px",
-                          cursor: "pointer",
-                          borderBottom: "1px solid #f0f0f0",
-                          color: "#333",
-                          fontSize: 14,
-                          fontFamily: "DM Sans, sans-serif",
-                          transition: "background .15s",
-                        }}
-                        onMouseEnter={(e) => (e.currentTarget.style.background = "#f5f8ff")}
-                        onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+                        className="location-dropdown-item"
                       >
+                        <span className="location-dropdown-icon">📍</span>
                         {p.description}
                       </li>
                     ))}
@@ -218,7 +190,7 @@ function Navbar() {
                   key={path}
                   to={path}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`${isHome ? "nav-Filter-links" : "nav-Filter-link"}${isActive(path) ? " active-link" : ""}`}
+                  className={`nav-Filter-link${isActive(path) ? " active-link" : ""}`}
                 >
                   {label}
                 </Link>
@@ -238,6 +210,7 @@ function Navbar() {
               to={userId && token ? `/profile/${userId}` : "#"}
               className="user-icon"
               onClick={handleProfileClick}
+              aria-label="Profile"
             >
               <img
                 src={profileImage || userLogo}

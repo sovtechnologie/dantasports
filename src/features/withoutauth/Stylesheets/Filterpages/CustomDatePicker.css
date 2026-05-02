@@ -68,7 +68,7 @@
   border: none;
   background: none;
   font-size: 18px;
-  color: #1976d2;
+  color: #1163C7;
   cursor: pointer;
 }
 
@@ -110,13 +110,13 @@
 }
 
 .dp-selected {
-  background: #1976d2;
+  background: #1163C7;
   color: #fff;
   font-weight: 500;
 }
 
 .dp-today {
-  background: #1976d2; /* Red background for current date */
+  background: #1163C7; /* Brand blue for current date */
   color: #fff;
   font-weight: 500;
 }

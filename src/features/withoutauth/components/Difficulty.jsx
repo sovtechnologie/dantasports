@@ -1,52 +1,43 @@
 import React from "react";
-import "../../withoutauth/Stylesheets/Filterpages/ActivityForEvent.css";
+import "../Stylesheets/Filterpages/FilterSystem.css";
 
-function Difficulty({ selectedDifficulty, setSelectedDifficulty }) {
-    const handleSelect = (value) => {
-        // same checkbox toggle logic
-        if (selectedDifficulty === value) {
-            setSelectedDifficulty(null); // unselect if same clicked
-        } else {
-            setSelectedDifficulty(value);
-        }
-    };
+const OPTIONS = [
+  { value: 1, label: "Easy",     cls: "diff-easy", desc: "Beginner friendly" },
+  { value: 0, label: "Moderate", cls: "diff-mod",  desc: "Some experience needed" },
+  { value: 2, label: "Difficult",cls: "diff-hard", desc: "Advanced level" },
+];
 
-    return (
-        <>
-            <h2 className="mt-3 text-start">Difficulty</h2>
-            <div className="filter_inner_cards kids_check_box">
-                <div className="d-flex justify-content-between align-items-center mb-2">
-                    <label className="form-check-label">Easy</label>
-                    <input
-                        className="form-check-input"
-                        type="checkbox"
-                        checked={selectedDifficulty === 1}
-                        onChange={() => handleSelect(1)}
-                    />
+export default function Difficulty({ selectedDifficulty, setSelectedDifficulty }) {
+  const toggle = (v) => setSelectedDifficulty(selectedDifficulty === v ? null : v);
+
+  return (
+    <div style={{ marginTop: 16 }}>
+      <p className="filter_sub_title" style={{ marginBottom: 8 }}>⚡ Difficulty</p>
+      <div className="difficulty-options">
+        {OPTIONS.map((opt) => {
+          const active = selectedDifficulty === opt.value;
+          return (
+            <div
+              key={opt.value}
+              className={`difficulty-option ${opt.cls}${active ? " diff-active" : ""}`}
+              onClick={() => toggle(opt.value)}
+              role="checkbox"
+              aria-checked={active}
+              tabIndex={0}
+              onKeyDown={(e) => e.key === "Enter" && toggle(opt.value)}
+            >
+              <div className="difficulty-label">
+                <span className="difficulty-dot" />
+                <div>
+                  <div style={{ fontWeight: 600, fontSize: 13, color: "#172A39" }}>{opt.label}</div>
+                  <div style={{ fontSize: 11, color: "#858585", fontFamily: "DM Sans,sans-serif" }}>{opt.desc}</div>
                 </div>
-
-                <div className="d-flex justify-content-between align-items-center mb-2">
-                    <label className="form-check-label">Moderate</label>
-                    <input
-                        className="form-check-input"
-                        type="checkbox"
-                        checked={selectedDifficulty === 0}
-                        onChange={() => handleSelect(0)}
-                    />
-                </div>
-
-                <div className="d-flex justify-content-between align-items-center">
-                    <label className="form-check-label">Difficult</label>
-                    <input
-                        className="form-check-input"
-                        type="checkbox"s
-                        checked={selectedDifficulty === 2}
-                        onChange={() => handleSelect(2)}
-                    />
-                </div>
+              </div>
+              <div className={`sort-checkbox${active ? " checked" : ""}`} />
             </div>
-        </>
-    );
+          );
+        })}
+      </div>
+    </div>
+  );
 }
-
-export default Difficulty;

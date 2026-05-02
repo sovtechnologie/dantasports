@@ -7,7 +7,6 @@ export const useLikeGym = () => {
       if (!gymId || !userId) {
         throw new Error("gymId and userId are required");
       }
-      console.log("Calling AddfavoriteGym with:", { gymId, userId });
       return addFavoriteGym({ gymId, userId });
     },
   });

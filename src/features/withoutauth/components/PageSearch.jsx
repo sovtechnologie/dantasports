@@ -1,97 +1,184 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import "../../withoutauth/Stylesheets/Filterpages/PageSearch.css";
-import searchIcon from "../../withoutauth/assets/icons/Search.svg";
+import "../Stylesheets/Filterpages/FilterSystem.css";
+import searchIcon from "../assets/icons/Search.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchTerm } from "../../../redux/Slices/searchSlice";
 
-const searchDetails = {
+const PAGE_CONFIG = {
   defaultpage: {
-    title: "Satish Sahu Venue Page",
-    placeholder: ["Search By Venue", "Search By City", " Search By Sport"],
+    title: "Find What You're Looking For",
+    sub: "Search across venues, sports, and cities",
+    placeholders: ["Search by venue", "Search by city", "Search by sport"],
+  },
+  VenuePage: {
+    title: "Discover Sports Venues Near You",
+    sub: "Book turfs, courts, and grounds instantly",
+    placeholders: ["Search by venue name", "Search by city", "Search by sport"],
   },
   venuepage: {
     title: "Discover Sports Venues Near You",
-    placeholder: ["Search By Venue", "Search By City", "Search By Sport"],
+    sub: "Book turfs, courts, and grounds instantly",
+    placeholders: ["Search by venue name", "Search by city", "Search by sport"],
   },
   HostPage: {
-    title: "Discover Play near you",
-    placeholder: ["Search By Games", "Search By Host", "Search By Skills", "Search By Game Type"],
+    title: "Find Games & Players Near You",
+    sub: "Join a game or host your own",
+    placeholders: ["Search by game type", "Search by host", "Search by skill level"],
   },
   CoachPage: {
-    title: "Discover Coaches Near You",
-    placeholder: ["Search By Coach", "Search By Services", "Search By Academy"],
+    title: "Find Expert Coaches Near You",
+    sub: "Train with certified coaches and academies",
+    placeholders: ["Search by coach name", "Search by sport", "Search by academy"],
   },
   EventPage: {
     title: "Discover Fitness Events Near You",
-    placeholder: ["Search By Events", "Search By Difficulty", "Search By Event type"],
+    sub: "Tournaments, marathons, and fitness challenges",
+    placeholders: ["Search by event name", "Search by difficulty", "Search by event type"],
   },
   RunPage: {
     title: "Discover Runs & Marathons Near You",
-    placeholder: ["Search By Runs", "Search By Community", "Search By Difficulty"],
-  },
-  PlayPage: {
-    title: "Discover Play near you",
-    placeholder: ["Search By Play", "Search By Find Game..", "Search By Explore Sports"],
+    sub: "Join run clubs and community events",
+    placeholders: ["Search by run name", "Search by community", "Search by difficulty"],
   },
   GymPage: {
     title: "Discover Gyms Near You",
-    placeholder: ["Search By Gyms", "Search By Location", "Search By Fitness centers"],
+    sub: "Pay per workout, no long-term commitment",
+    placeholders: ["Search by gym name", "Search by location", "Search by fitness type"],
   },
 };
 
-function PageSearch({ searchValue = "defaultpage" }) {
-  const details = searchDetails[searchValue] || searchDetails.defaultpage;
-  const { title, placeholder } = details;
+export default function PageSearch({ searchValue = "defaultpage" }) {
+  const config = PAGE_CONFIG[searchValue] || PAGE_CONFIG.defaultpage;
+  const { title, sub, placeholders } = config;
 
-  const [currentPlaceholder, setCurrentPlaceholder] = useState(placeholder[0]);
-  const [fadeClass, setFadeClass] = useState("fade-in");
+  const [phIdx, setPhIdx]     = useState(0);
+  const [fadeClass, setFade]  = useState("fade-in");
+  const [focused, setFocused] = useState(false);
 
+  const dispatch   = useDispatch();
+  const searchTerm = useSelector((s) => s.search.searchTerm);
+
+  // Rotate placeholder
   useEffect(() => {
-    let index = 0;
-    const interval = setInterval(() => {
-      setFadeClass("fade-out");
+    const id = setInterval(() => {
+      setFade("fade-out");
       setTimeout(() => {
-        index = (index + 1) % placeholder.length;
-        setCurrentPlaceholder(placeholder[index]);
-        setFadeClass("fade-in");
-      }, 500); // fade-out duration
-    }, 2500); // change every 2.5 seconds
+        setPhIdx((p) => (p + 1) % placeholders.length);
+        setFade("fade-in");
+      }, 450);
+    }, 2800);
+    return () => clearInterval(id);
+  }, [placeholders.length]);
 
-    return () => clearInterval(interval);
-  }, [placeholder]);
-
-  const dispatch = useDispatch();
-  const searchTerm = useSelector((state) => state.search.searchTerm);
-
-  const handleChange = (e) => {
-    dispatch(setSearchTerm(e.target.value));
-  };
-
+  const handleChange = (e) => dispatch(setSearchTerm(e.target.value));
+  const handleClear  = () => dispatch(setSearchTerm(""));
 
   return (
     <section className="search_wrapper">
-      <Container>
-        <Row className="justify-content-center align-items-center g-3">
-          <Col lg={6} md={6}>
-            <h3>{title}</h3>
+      <Container style={{ position: "relative", zIndex: 2 }}>
+        <Row className="align-items-center g-3">
+          {/* Title */}
+          <Col lg={5} md={5}>
+            <h3 style={{ margin: 0 }}>{title}</h3>
+            <p style={{
+              fontFamily: "DM Sans, sans-serif",
+              fontSize: 13,
+              color: "rgba(255,255,255,.72)",
+              margin: "4px 0 0",
+            }}>
+              {sub}
+            </p>
           </Col>
-          <Col lg={6} md={6} className="position-relative sech_icon">
-            <span>
-              <img src={searchIcon} alt="search icon" />
-            </span>
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={handleChange}
-              placeholder={currentPlaceholder}
-              className="form-control placeholder-anim"
-            />
+
+          {/* Search input */}
+          <Col lg={7} md={7}>
+            <div
+              className="sech_icon"
+              style={{
+                position: "relative",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              {/* Search icon */}
+              <span style={{
+                position: "absolute",
+                left: 16,
+                top: "50%",
+                transform: "translateY(-50%)",
+                width: 20,
+                height: 20,
+                zIndex: 2,
+                display: "flex",
+                alignItems: "center",
+                pointerEvents: "none",
+              }}>
+                <img src={searchIcon} alt="" style={{ width: "100%", height: "100%", opacity: .6 }} />
+              </span>
+
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={handleChange}
+                onFocus={() => setFocused(true)}
+                onBlur={() => setFocused(false)}
+                placeholder={placeholders[phIdx]}
+                className={`form-control placeholder-anim ${fadeClass}`}
+                style={{
+                  paddingLeft: 48,
+                  paddingRight: searchTerm ? 40 : 16,
+                  height: 48,
+                  borderRadius: 50,
+                  border: focused
+                    ? "1.5px solid #1163C7"
+                    : "1.5px solid rgba(17,99,199,.25)",
+                  boxShadow: focused
+                    ? "0 4px 24px rgba(17,99,199,.2), 0 0 0 3px rgba(17,99,199,.1)"
+                    : "0 4px 20px rgba(0,0,0,.1)",
+                  fontFamily: "DM Sans, sans-serif",
+                  fontSize: 14,
+                  color: "#172A39",
+                  background: "white",
+                  transition: "border-color .25s ease, box-shadow .25s ease",
+                  outline: "none",
+                }}
+              />
+
+              {/* Clear button */}
+              {searchTerm && (
+                <button
+                  onClick={handleClear}
+                  style={{
+                    position: "absolute",
+                    right: 14,
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    background: "#e0e0e0",
+                    border: "none",
+                    borderRadius: "50%",
+                    width: 22,
+                    height: 22,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer",
+                    fontSize: 12,
+                    color: "#555",
+                    zIndex: 2,
+                    transition: "background .2s ease",
+                  }}
+                  onMouseEnter={(e) => (e.target.style.background = "#ccc")}
+                  onMouseLeave={(e) => (e.target.style.background = "#e0e0e0")}
+                  aria-label="Clear search"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
           </Col>
         </Row>
       </Container>
     </section>
   );
 }
-
-export default PageSearch;

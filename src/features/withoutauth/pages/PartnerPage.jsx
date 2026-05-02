@@ -1,115 +1,112 @@
-import React, { useEffect, useState } from 'react'
+import React from "react";
 import "../Stylesheets/PartnerPage.css";
-import caroselImage from "../assets/carousel-image1.png";
-import caroselImage2 from "../assets/carousel-image2.png";
-import ZeroCommissionBanner from '../components/ZeroCommissionBanner';
-import BenefitCard from '../components/BenefitCard';
+import "../../../stylesheets/pages.css";
+import { Container } from "react-bootstrap";
+import ZeroCommissionBanner from "../components/ZeroCommissionBanner";
+import BenefitCard from "../components/BenefitCard";
 import partnerData from "../StaticData/PartnerData.js";
-import FacilityManagement from '../components/FacilityManagement.jsx';
-import AnalyticsCapabilities from '../components/AnalyticsCapabilities.jsx';
-import PaymentSolutions from '../components/PaymentSolutions.jsx';
-import PaymentFeatures from '../components/PaymentFeatures.jsx';
-import OnboardingSupport from '../components/OnboardingSupport.jsx';
-import PartnerWithUs from '../components/PartnerWithUs.jsx';
-import Ready from '../components/Ready.jsx';
-import CoachSection from '../components/CoachSection.jsx';
-import CorporateBookingForm from '../components/CorporateBookingForm.jsx';
-import PartnerForm from '../components/PartnerForm.jsx';
-
-
-const images = [
-    caroselImage,
-    caroselImage2,
-    caroselImage,
-    caroselImage2,
-];
+import FacilityManagement from "../components/FacilityManagement.jsx";
+import AnalyticsCapabilities from "../components/AnalyticsCapabilities.jsx";
+import PaymentSolutions from "../components/PaymentSolutions.jsx";
+import PaymentFeatures from "../components/PaymentFeatures.jsx";
+import OnboardingSupport from "../components/OnboardingSupport.jsx";
+import PartnerWithUs from "../components/PartnerWithUs.jsx";
+import Ready from "../components/Ready.jsx";
+import CoachSection from "../components/CoachSection.jsx";
+import PartnerForm from "../components/PartnerForm.jsx";
 
 function PartnerPage() {
-    const [currentImage, setCurrentImage] = useState(0);
+  const handleDemo = () => {
+    document.getElementById("partner-form")?.scrollIntoView({ behavior: "smooth" });
+  };
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentImage((prev) => (prev + 1) % images.length);
-        }, 3000);
-        return () => clearInterval(interval);
-    }, []);
+  return (
+    <>
+      {/* ── Hero ── */}
+      <div className="page-hero">
+        <Container>
+          <span className="page-hero-eyebrow">Partner With Us</span>
+          <h1 className="page-hero-title">
+            Grow Your Sports Business.<br />
+            <span>Zero Heavy Commissions.</span>
+          </h1>
+          <p className="page-hero-sub">
+            Transform how you manage bookings, clients, and revenue with India's
+            fastest-growing sports &amp; fitness platform.
+          </p>
+          <div className="partner-hero-ctas">
+            <button className="pg-btn-primary" onClick={handleDemo}>
+              Request a Demo
+            </button>
+            <button className="pg-btn-ghost" onClick={handleDemo}>
+              Book a Call With Us
+            </button>
+          </div>
+        </Container>
+        <div className="page-hero-wave">
+          <svg viewBox="0 0 1440 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,24 C360,48 1080,0 1440,24 L1440,48 L0,48 Z" fill="#F1F3F2" />
+          </svg>
+        </div>
+      </div>
 
+      {/* ── Benefits ── */}
+      <section style={{ background: "#F1F3F2" }} className="pt-4 pt-lg-5 pb-lg-5 pb-4">
+        <div className="zero-banner-wrapper">
+          <ZeroCommissionBanner />
+        </div>
+        <div className="partner-carousel">
+          <BenefitCard benefits={partnerData} />
+        </div>
+      </section>
 
-    return (
-        <>
-            <section>
-                <div className="container">
-                    <div className="Partner-header">
-                        <div className="header-left">
-                            <h1>
-                                Grow Your Sports Business. <br />
-                                <span>Zero Heavy Commissions.</span>
-                            </h1>
-                            <p className='pt-lg-5'>Transform how you manage bookings, clients, and revenue with India’s fastest-growing sports &
-                                fitness platform.
-                            </p>
-                            <p>DantaSports is built for sports venue owners, gym operators, coaches, trainers, and event
-                                organizers who want to grow digitally without losing margins to high commissions. We provide
-                                powerful SaaS tools, discovery visibility, and a community-driven marketplace-so you stay in
-                                control while scaling faster.</p>
-                            <div className="button-group pt-lg-4">
-                                <button className="primary-btn-one">Request a Demo</button>
-                                <button className="secondary-btn-two">Book a Call With Us</button>
-                            </div>
-                        </div>
+      {/* ── Facility Management ── */}
+      <Container>
+        <div className="partner-facility">
+          <FacilityManagement />
+        </div>
+      </Container>
 
-                    
-                    </div>
-                </div>
-                <section style={{ background: "#F1F3F2" }} className='pt-4 pt-lg-5 pb-lg-5 pb-4'>
-                    <div className="zero-banner-wrapper">
-                        <ZeroCommissionBanner />
-                    </div>
-                    <div className='partner-carousel'>
-                        <BenefitCard benefits={partnerData} />
-                    </div>
-                </section>
+      {/* ── Analytics & Coach ── */}
+      <Container>
+        <div className="row">
+          <div className="col-12">
+            <AnalyticsCapabilities />
+          </div>
+        </div>
+        <div className="row my-lg-5 my-4">
+          <div className="col-12">
+            <CoachSection />
+          </div>
+        </div>
+      </Container>
 
-                <div className="container">
-                    <div className='partner-facility'>
-                        <FacilityManagement />
-                    </div>
-                </div>
-                <div className="container">
-                    <div className='row'>
-                        <div className="col-12">
-                            <AnalyticsCapabilities />
-                        </div>
-                    </div>
-                    <div className="row my-lg-5 my-4">
-                        <div className="col-12">
-                            <CoachSection/>
-                        </div>
-                    </div>
-                </div>
+      {/* ── Payment ── */}
+      <section style={{ background: "#F1F3F2" }} className="my-lg-5 my-4 py-lg-5 py-4">
+        <Container>
+          <div className="partner-payment">
+            <PaymentSolutions />
+          </div>
+          <div className="partner-payment">
+            <PaymentFeatures />
+          </div>
+        </Container>
+      </section>
 
-                <section style={{ background: "#F1F3F2" }} className='my-lg-5 my-4 py-lg-5 py-4'>
-                    <div className="container">
-                        <div className='partner-payment'>
-                            <PaymentSolutions />
-                        </div>
-                        <div className='partner-payment'>
-                            <PaymentFeatures />
-                        </div>
-                    </div>
-                </section>
-                <div className='container'>
-                    <OnboardingSupport />
-                </div>
-                <PartnerWithUs/>
-                <Ready/>
-         <div id="partner-form">
-  <PartnerForm />
-</div>
+      {/* ── Onboarding ── */}
+      <Container>
+        <OnboardingSupport />
+      </Container>
 
-            </section>
-        </>
-    )
+      <PartnerWithUs />
+      <Ready />
+
+      {/* ── Form ── */}
+      <div id="partner-form">
+        <PartnerForm />
+      </div>
+    </>
+  );
 }
 
-export default PartnerPage
+export default PartnerPage;

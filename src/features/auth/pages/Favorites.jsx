@@ -6,13 +6,11 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchFavoriteVenue } from '../../../services/LoginApi/FavouritesVenueApi/endpointApi';
 import { fetchfavoriteSport } from '../../../services/LoginApi/FavouriteSportApi/endpointApi.js';
 import FavoriteVenueCard from '../components/FavoriteVenueCard';
-import CricketLogo from "../assets/VenueCardLogo/CricketLogo.png";
-import FootballLogo from "../assets/VenueCardLogo/FootballLogo.png";
 import { useUnlikeVenue } from "../../../hooks/favouriteVenue/useUnlikeVenue.js";
 import { useDeleteSport } from '../../../hooks/favouriteSport/useDeleteSport.js';
 import { useQueryClient } from '@tanstack/react-query';
 import AddSportModal from "../components/Modal/AddSportModal.jsx";
-import DeleteIcon from "../assets/DeleteIcon.png";
+import DeleteIcon from "../../../assets/svg-icons/trash.svg";
 import { fetchFavoriteGym } from '../../../services/LoginApi/FavouriteGymApi/endpointApi.js';
 import { fetchFavoriteEvent } from '../../../services/LoginApi/FavouriteEventApi/endpointApi.js';
 import { useUnlikeGym } from '../../../hooks/FavouriteGym/useUnlikeGym.js';
@@ -30,7 +28,6 @@ const tabs = ["Venue", "Gym", "Event", "Coach", "Sport"];
 
 const Favorites = () => {
   const token = useSelector((state) => state.auth.token);
-  const userId = useSelector((state) => state.auth.id);
   const [activeTab, setActiveTab] = useState("Venue");
   const [currentPage, setCurrentPage] = useState(1);
   const [isSportModalOpen, setIsSportModalOpen] = useState(false);
@@ -56,8 +53,6 @@ const Favorites = () => {
 
   const FavoritesGymData = Array.isArray(gymData?.result) ? gymData.result : [];
 
-  console.log("FavoritesGymData", FavoritesGymData);
-
   const { data: eventData, isLoading: isFavoriteEvent, isError: isFavouriteEventError } = useQuery({
     queryKey: ['favoritesEvent', lat, lng],
     queryFn: () => fetchFavoriteEvent(lat, lng),
@@ -65,7 +60,6 @@ const Favorites = () => {
   });
 
   const FavoritesEventData = Array.isArray(eventData?.data) ? eventData.data : [];
-  console.log("FavoritesEventData", FavoritesEventData);
 
   const { data: coachData, isLoading: isFavoriteCoach, isError: isFavouriteCoachError } = useQuery({
     queryKey: ['favoritesCoach', lat, lng],
@@ -74,7 +68,6 @@ const Favorites = () => {
   });
 
   const FavoritesCoachData = Array.isArray(coachData?.result) ? coachData.result : [];
-  console.log("FavoritesCoachData", FavoritesCoachData);
 
 
   const FavoritesSportData = sportList?.result || [];
@@ -102,7 +95,6 @@ const Favorites = () => {
   });
 
   const FavoritesVenueData = data?.result || [];
-  console.log("FavoritesVenueData", FavoritesVenueData);
 
 
   const { mutate: unlikeVenue } = useUnlikeVenue();
@@ -123,7 +115,6 @@ const Favorites = () => {
       gym.favourite_gym_id || gym.favourite_id || gym.favourite_gym; // ✅ Add this fallback
 
     if (!favouriteId) {
-      console.warn("Gym favourite_id is missing for:", gym);
       return;
     }
 
@@ -131,7 +122,6 @@ const Favorites = () => {
       { gymFavouriteId: favouriteId },
       {
         onSuccess: async () => {
-          console.log("Successfully unliked gym:", favouriteId);
           await queryClient.invalidateQueries(["favoritesGym"]);
         },
         onError: (error) => {
@@ -147,7 +137,6 @@ const Favorites = () => {
   const toggleCoachFavourite = (coach) => {
     const favouriteId = coach.favourite_coach_id || coach.favourite_coach || coach.favouriteCoachesId;
     if (!favouriteId) {
-      console.warn("Coach favourite_id is missing for:", coach);
       return;
     }
 
@@ -155,7 +144,6 @@ const Favorites = () => {
       { favouriteCoachesId: favouriteId }, // ✅ correct key name
       {
         onSuccess: async () => {
-          console.log("✅ Successfully unliked coach:", favouriteId);
           await queryClient.invalidateQueries(["favoritesCoach"]);
         },
         onError: (error) => {
@@ -173,7 +161,6 @@ const Favorites = () => {
   const toggleEventFavourite = (event) => {
     const favouriteId = event.favourite_id || event.favourite_event_id;
     if (!favouriteId) {
-      console.warn("Event favourite_id is missing!");
       return;
     }
 
@@ -218,8 +205,6 @@ const Favorites = () => {
   };
 
   const handleAddSport = () => {
-    // Add sport logic (connect API/form here)
-    console.log("Sport added");
     setIsSportModalOpen(false);
   };
 
@@ -236,7 +221,6 @@ const Favorites = () => {
   );
 
 
-  const totalSportPages = Math.ceil(FavoritesSportData.length / SPORTS_PER_PAGE);
   const paginatedGyms = FavoritesGymData.slice(
     (gymPage - 1) * ITEMS_PER_PAGE,
     gymPage * ITEMS_PER_PAGE

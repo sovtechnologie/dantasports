@@ -1,7 +1,7 @@
 import React from "react";
-import venueIcon from "../assets/Venue-Card-Image.png";
-import SchuleImage from "../assets/Schedule-Image.png";
-import ChampionImage from "../assets/Champion-Image.png";
+import venueIcon from "../../../assets/svg-icons/sport-ball.svg";
+import SchuleImage from "../../../assets/svg-icons/calendar.svg";
+import ChampionImage from "../../../assets/svg-icons/medal.svg";
 import "./Stylesheets/SportEventCardList.css";
 
 const cardData = [

@@ -51,8 +51,8 @@
 }
 
 .custom-checkbox.active {
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: #1163C7;
+  border-color: #1163C7;
 }
 
 .difficulty-list {
@@ -119,7 +119,7 @@
 .service-btn.active,
 .amenity-btn.active,
 .difficulty-row.active {
-  background-color: #007bff;
+  background-color: #1163C7;
   color: white;
   border-radius: 6px;
 }

@@ -18,7 +18,7 @@ function InfoCard({ title, subtitle, image, routePath, className = "" }) {
       }, 400); // Animation duration
     }, 4000);
     return () => clearInterval(interval);
-  }, []);
+  }, [subtitle.length]);
   return (
     <Link to={routePath} className="info-card-link">
       <div className={`info-card ${className}`}>

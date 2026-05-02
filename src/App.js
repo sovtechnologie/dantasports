@@ -1,4 +1,5 @@
 import "./App.css";
+import "./stylesheets/pages.css";
 import AppRoutes from "./routes/AppRoutes";
 import Cookies from "js-cookie";
 import ErrorBoundary from "./components/ErrorBoundary";

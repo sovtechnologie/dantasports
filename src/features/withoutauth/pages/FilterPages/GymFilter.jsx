@@ -1,5 +1,6 @@
 import "../../Stylesheets/Filterpages/GymFilter.css";
 import "../../Stylesheets/Filterpages/Cards.css";
+import "../../Stylesheets/Filterpages/FilterSystem.css";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
@@ -17,7 +18,7 @@ import SortModal from "../../components/SortModal.jsx";
 import FilterModalThree from "../../components/FilterModalThree.jsx";
 
 import like from "../../assets/icons/like.svg";
-import HeartFilled from "../../assets/VenueCardLogo/heartfilled.png";
+import HeartFilled from "../../../../assets/svg-icons/heart-filled.svg";
 import share from "../../assets/icons/share.svg";
 import map from "../../assets/icons/map.svg";
 import date from "../../assets/icons/date.svg";
@@ -30,6 +31,7 @@ import OngoingEvents from "../../components/OngoingEvents.jsx";
 import { useBanner } from "../../../../hooks/useBanner.js";
 import { Link } from "react-router-dom";
 import { useRef } from "react";
+import InlineLoader from "../../../../components/InlineLoader.jsx";
 
 export default function GymFilterPage() {
 
@@ -517,13 +519,7 @@ useEffect(() => {
 {visibleCount < filteredGyms.length && (
   <>
     <div ref={observerRef}></div>
-
-    {isFetchingMore && (
-      <div className="text-center my-4">
-        <div className="spinner-border text-success" role="status"></div>
-        <p className="mt-2">Loading more gyms...</p>
-      </div>
-    )}
+    {isFetchingMore && <InlineLoader text="Loading more gyms…" />}
   </>
 )}
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./StyleSheets/BookingCard.css";
-import ShareIcon from "../assets/Share-Icon.png";
-import CancelIcon from "../assets/Cancel-Icon.png";
+import ShareIcon from "../../../assets/svg-icons/share-circle.svg";
+import CancelIcon from "../../../assets/svg-icons/cancel-circle.svg";
 import { Share } from "../../../utils/share.js";
 import { AddReviewModal } from "./Modal/AddReviewModal.jsx";
 import { useCancelBooking } from "../../../hooks/Payments/useCancelBooking.js";

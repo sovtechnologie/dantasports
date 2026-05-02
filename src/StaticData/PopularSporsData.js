@@ -1,10 +1,10 @@
-import Football from "../assets/PopularSportLogo/Football.png";
-import Cricket from "../assets/PopularSportLogo/Cricket.png";
-import Basketball from "../assets/PopularSportLogo/Basketball.png";
-import TableTennis from "../assets/PopularSportLogo/tabletennis.png";
-import Badminton from "../assets/PopularSportLogo/batminton.png";
-import Running from "../assets/PopularSportLogo/Running.png";
-import Swimming from "../assets/PopularSportLogo/Swimming.png";
+import Football from "../assets/svg-icons/football.svg";
+import Cricket from "../assets/svg-icons/cricket.svg";
+import Basketball from "../assets/svg-icons/basketball.svg";
+import TableTennis from "../assets/svg-icons/table-tennis.svg";
+import Badminton from "../assets/svg-icons/badminton.svg";
+import Running from "../assets/svg-icons/running.svg";
+import Swimming from "../assets/svg-icons/swimming.svg";
 
 
 const sports = [

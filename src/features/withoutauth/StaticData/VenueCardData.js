@@ -1,7 +1,7 @@
 
 import image from "../assets/image.png";
-import CricketLogo from "../assets/VenueCardLogo/CricketLogo.png";
-import FootballLogo from "../assets/VenueCardLogo/FootballLogo.png";
+import CricketLogo from "../../../assets/svg-icons/cricket.svg";
+import FootballLogo from "../../../assets/svg-icons/football.svg";
 
 const VenueCardData = [
     {

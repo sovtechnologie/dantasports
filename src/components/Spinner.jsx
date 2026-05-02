@@ -2,7 +2,7 @@
 import React from 'react';
 import './StyleSheets/Spinner.css';
 
-function Spinner({ size = 40, color = "#007bff" }) {
+function Spinner({ size = 40, color = "#1163C7" }) {
     return (
         <div className="custom-spinner-wrapper">
             <div

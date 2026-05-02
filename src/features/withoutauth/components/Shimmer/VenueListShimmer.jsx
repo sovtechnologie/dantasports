@@ -2,30 +2,39 @@ import React from "react";
 import "../Stylesheets/Shimmer/VenueListShimmer.css";
 
 export const VenueListShimmer = () => {
-    return (
-        <div style={{ display: 'flex', gap: '20px', padding: '100px 20px', marginTop: '30px' }}>
-            {/* Left filter panel */}
-            <div style={{ flex: '0 0 22%' }}>
-                <div className="skeleton filter-large">
-                </div>
-                <div className="skeleton filter-small" />
-            </div>
+  return (
+    <div className="shimmer-page">
+      {/* Top search bar skeleton */}
+      <div className="shimmer-search-bar">
+        <div className="shimmer-pulse shimmer-search-input" />
+      </div>
 
-            {/* Right cards grid: 4x3 */}
-            <div style={{
-                flex: '1',
-                display: 'grid',
-                gridTemplateColumns: 'repeat(3, 1fr)',
-                gap: '20px'
-            }}>
-                {Array.from({ length: 12 }).map((_, i) => (
-                    <div key={i} style={{ borderRadius: '12px', overflow: 'hidden' }}>
-                        <div className="skeleton card-img" />
-                        <div className="skeleton card-title" />
-                        <div className="skeleton card-text" />
-                    </div>
-                ))}
-            </div>
+      <div className="shimmer-layout">
+        {/* Left filter panel */}
+        <div className="shimmer-sidebar">
+          <div className="shimmer-pulse shimmer-filter-block" />
+          <div className="shimmer-pulse shimmer-filter-block shimmer-filter-sm" />
+          <div className="shimmer-pulse shimmer-filter-block shimmer-filter-xs" />
         </div>
-    )
-}
+
+        {/* Right cards grid */}
+        <div className="shimmer-grid">
+          {Array.from({ length: 9 }).map((_, i) => (
+            <div className="shimmer-card" key={i}>
+              <div className="shimmer-pulse shimmer-card-img" />
+              <div className="shimmer-card-body">
+                <div className="shimmer-pulse shimmer-card-title" />
+                <div className="shimmer-pulse shimmer-card-text" />
+                <div className="shimmer-pulse shimmer-card-text shimmer-card-text-sm" />
+                <div className="shimmer-card-footer">
+                  <div className="shimmer-pulse shimmer-card-badge" />
+                  <div className="shimmer-pulse shimmer-card-price" />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};

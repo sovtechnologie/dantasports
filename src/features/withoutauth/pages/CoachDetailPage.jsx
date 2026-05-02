@@ -1,432 +1,453 @@
 import "../Stylesheets/CoachDetailPage.css";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-import RunImage from "../assets/RunImage.svg";
-import ShareIcon from "../assets/VenueDetailIcon/share.svg";
-import LikeIcon from "../assets/VenueDetailIcon/linke.svg";
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import { useMemo, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+import { useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Container } from "react-bootstrap";
+
+import RunImage    from "../assets/RunImage.svg";
+import CoachImage  from "../assets/CoachesImage.svg";
 import calandarlogo from "../assets/calandarImage.svg";
-import adultlogo from "../assets/adultlogo.svg";
-import sessionlogo from "../assets/Sessionlogo.svg"
-import CustomMap from "../components/CustomMap";
+import adultlogo   from "../assets/adultlogo.svg";
+import sessionlogo from "../assets/Sessionlogo.svg";
 import locationlogo from "../assets/LocationLogo.svg";
 import Certificate1 from "../assets/certificate-name.png";
-import certificatlogo from "../assets/Certificatelogo.svg"
-import ReviewCard from "../components/ReviewCard";
-import EnquiryModal from "../components/EnquiryModal";
-import { useParams } from "react-router-dom";
-import CoachImage from "../assets/CoachesImage.svg"
-import footballIcon from "../assets/sport-list/Football-Icon.png"
-import { useFetchCoachDetails } from "../../../hooks/CoachList/useFetchCoachDetail";
-import { formatTime } from "../../../utils/formatTime";
-import { formatDate } from "date-fns";
-import leftArrow from "../assets/left-arrow.png";
-import rightArrow from "../assets/right-arrow.png";
-import { useCreateQuery } from "../../../hooks/CoachList/useCreateQuery";
-import { Container } from "react-bootstrap";
+import footballIcon from "../../../assets/svg-icons/football.svg";
+
+import CustomMap      from "../components/CustomMap";
+import EnquiryModal   from "../components/EnquiryModal";
 import EventReviewSlider from "../components/EventReviewSlider";
-import { useSelector } from "react-redux";
+import Spinner        from "../../../components/Spinner";
 
+import { useFetchCoachDetails } from "../../../hooks/CoachList/useFetchCoachDetail";
+import { useCreateQuery }       from "../../../hooks/CoachList/useCreateQuery";
 
+/* ── Data mapper ── */
+const mapCoachData = (d) => {
+  const loc = d?.locations?.[0] || {};
+  const DAYS = ["monday","tuesday","wednesday","thursday","friday","saturday","sunday"];
+  const availableDays = DAYS.filter(k => d?.[k] === 1)
+    .map(k => k.charAt(0).toUpperCase() + k.slice(1))
+    .join(", ") || "Not Available";
 
-
-
-
-
-const mapCoachData = (apiData) => {
-    const daysMap = [
-        { key: "monday", label: "Monday" },
-        { key: "tuesday", label: "Tuesday" },
-        { key: "wednesday", label: "Wednesday" },
-        { key: "thursday", label: "Thursday" },
-        { key: "friday", label: "Friday" },
-        { key: "saturday", label: "Saturday" },
-        { key: "sunday", label: "Sunday" },
-    ];
-
-    const availableDays = daysMap
-        .filter(day => apiData?.[day.key] === 1)
-        .map(day => day.label)
-        .join(", ") || "Not Available";
-    return {
-        id: apiData?.id,
-        name: apiData?.name || "Unknown Venue",
-        location: apiData?.locations[0]?.area || "Unknown Area",
-        latitude: apiData?.locations[0]?.lat || 0,
-        longitude: apiData?.locations[0]?.lng || 0,
-        about: apiData?.about || "",
-        type: apiData?.type,
-        rating: parseFloat(apiData?.average_rating) || 0,
-        reviewcount: apiData?.review_count || 0,
-        address: `${apiData?.locations[0]?.full_address || ''}`.trim().replace(/^,|,$/g, '')
-            || "Not Available",
-        multilocation: apiData?.locations,
-        training_type: apiData?.training_type,
-        classes: apiData?.classes,
-        fees_and_packages: apiData?.fees_and_packages,
-        available_days: availableDays,
-        certficiates: Array.isArray(apiData?.certificates)
-            ? apiData.certificates
-                .filter((c, index, self) =>
-                    index === self.findIndex((t) => t.id === c.id)
-                )
-                .map((cert) => ({
-                    id: cert.id,
-                    certificate_name: cert.certificate_name,
-                    certificate_url: cert.certificate_url,
-                }))
-            : [],
-
-        images: Array.isArray(apiData?.gallery_images)
-            ? apiData?.gallery_images.map((img) => img.image)
-            : [RunImage, RunImage, RunImage],
-        coaches: Array.isArray(apiData?.gym_coaches)
-            ? apiData?.gym_coaches.map((coach) => ({
-                name: coach.name,
-                title: coach.type,
-                image: coach.image || CoachImage
-            })) : [],
-        sports: Array.isArray(apiData?.linked_sports)
-            ? apiData.linked_sports.map((sport) => ({
-                sportId: sport.id,
-                name: sport.sports_name,
-                icon: sport.sports_images
-            }))
-            : [{ name: 'Cricket', icon: footballIcon },
-            { name: 'Football', icon: footballIcon },
-            { name: 'Pickle Ball', icon: footballIcon }],
-        amenities: Array.isArray(apiData?.amenities)
-            ? apiData.amenities.map((a) => a.name)
-            : ["Not Available"],
-        reviews: Array.isArray(apiData?.reviews)
-            ? apiData.reviews.map((review) => ({
-                id: review.id,
-                image: review.image,
-                userName: review.user_name || "Anonymous",
-                rating: review.rating || 0,
-                comment: review.comment || "No comment provided",
-                // date: formatDate(review.createdAt) || new Date().toISOString().split('T')[0],
-            }))
-            : [{ comment: "Not Available" }], // Default to first 5 reviews if not available
-    };
+  return {
+    id: d?.id,
+    name: d?.name || "Unknown Coach",
+    location: loc.area || "Unknown Area",
+    latitude: loc.lat || 0,
+    longitude: loc.lng || 0,
+    about: d?.about || "",
+    type: d?.type,
+    rating: parseFloat(d?.average_rating) || 0,
+    reviewcount: d?.review_count || 0,
+    address: (loc.full_address || "").trim().replace(/^,|,$/g, "") || "Not Available",
+    multilocation: Array.isArray(d?.locations) ? d.locations : [],
+    training_type: d?.training_type,
+    classes: d?.classes,
+    fees_and_packages: d?.fees_and_packages,
+    available_days: availableDays,
+    certificates: Array.isArray(d?.certificates)
+      ? d.certificates
+          .filter((c, i, s) => i === s.findIndex(t => t.id === c.id))
+          .map(c => ({ id: c.id, name: c.certificate_name, url: c.certificate_url }))
+      : [],
+    images: Array.isArray(d?.gallery_images) && d.gallery_images.length
+      ? d.gallery_images.map(img => img.image).filter(Boolean)
+      : [RunImage],
+    coaches: Array.isArray(d?.gym_coaches)
+      ? d.gym_coaches.map(c => ({ name: c.name, title: c.type, image: c.image || CoachImage }))
+      : [],
+    sports: Array.isArray(d?.linked_sports)
+      ? d.linked_sports.map(s => ({ id: s.id, name: s.sports_name, icon: s.sports_images }))
+      : [{ id: 1, name: "Football", icon: footballIcon }],
+    reviews: Array.isArray(d?.reviews)
+      ? d.reviews.map(r => ({
+          id: r.id, image: r.image,
+          userName: r.user_name || "Anonymous",
+          rating: r.rating || 0,
+          comment: r.comment || "No comment",
+        }))
+      : [],
+  };
 };
 
 export default function CoachDetailPage() {
-    const { id } = useParams();
-    const [expandedSection, setExpandedSection] = useState(null);
-    const [start, setStart] = useState(0);
-    const [showModal, setShowModal] = useState(false)
-    const [enquiryMessage, setEnquiryMessage] = useState("");
-    const userId_id = useSelector((state) => state.auth.id);
-    const createQueryMutation = useCreateQuery();
+  const { id } = useParams();
+  const userId  = useSelector(s => s.auth.id);
 
-    const toggleSection = (sectionName) => {
-        setExpandedSection(prev => (prev === sectionName ? null : sectionName));
-    };
+  const [aboutExpanded, setAboutExpanded]   = useState(false);
+  const [feesExpanded,  setFeesExpanded]    = useState(false);
+  const [showModal,     setShowModal]       = useState(false);
 
+  const { data: CoachDetails, isLoading } = useFetchCoachDetails(id);
+  const coach = Array.isArray(CoachDetails?.result) && CoachDetails.result.length > 0
+    ? mapCoachData(CoachDetails.result[0])
+    : null;
 
-    const prev = () => setStart((prev) => Math.max(prev - 1, 0));
-    const next = () =>
-        setStart((prev) =>
-            Math.min(prev + 1, coach?.reviews?.length - visibleCount)
-        );
+  const createQueryMutation = useCreateQuery();
 
-    const visibleCount = useMemo(() => {
-        return window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3;
-    }, []);
-
-    const { data: CoachDetails, isLoading: CoachDetailsLoading } = useFetchCoachDetails(id);
-    const coach = Array.isArray(CoachDetails?.result) && CoachDetails?.result.length > 0
-        ? mapCoachData(CoachDetails?.result[0])
-        : '';
-
-
-
-    const handleSubmitEnquiry = (message) => {
-        createQueryMutation.mutate(
-            {
-                academyCoachesId: coach?.id,
-                reciverId: userId_id,
-                message: message,
-                chatType: 2,
-                title: "Enquiry",
-                body: message,
-            },
-            {
-                onSuccess: () => {
-                    setShowModal(false);
-                },
-                onError: (error) => {
-                    console.error("Failed to create query:", error);
-                },
-            }
-        );
-    };
-
-const handleShare = async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const shareUrl = window.location.href;
-
+  const handleShare = async () => {
+    const url = window.location.href;
     if (navigator.share) {
-        try {
-            await navigator.share({
-                title: coach?.name || "Coach Details",
-                text: `Check out this coach: ${coach?.name}`,
-                url: shareUrl,
-            });
-        } catch (error) {
-            console.log("Share cancelled", error);
-        }
+      try { await navigator.share({ title: coach?.name, text: `Check out this coach: ${coach?.name}`, url }); }
+      catch {}
     } else {
-        try {
-            await navigator.clipboard.writeText(shareUrl);
-            alert("Link copied to clipboard!");
-        } catch (err) {
-            alert("Unable to copy link");
-        }
+      try { await navigator.clipboard.writeText(url); alert("Link copied!"); }
+      catch { alert("Unable to copy link"); }
     }
-};
+  };
 
+  const handleSubmitEnquiry = (message) => {
+    createQueryMutation.mutate(
+      { academyCoachesId: coach?.id, reciverId: userId, message, chatType: 2, title: "Enquiry", body: message },
+      { onSuccess: () => setShowModal(false) }
+    );
+  };
 
+  if (isLoading) return (
+    <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <Spinner size={44} color="#1163c7" />
+    </div>
+  );
 
-    return (
-        <>
-            <section style={{ background: "#F1F3F2" }} className="pb-3 pb-lg-5">
-                <section className="details_page_header">
-                    <div className="container">
-                        <div className='Coach-main-header'>
-                            <div className="breadcrumb">
-                                <span>Coach &gt; {coach?.location} &gt; {coach?.name}</span>
-                            </div>
+  if (!coach) return (
+    <div style={{ padding: 40, textAlign: "center", color: "#dc2626" }}>
+      Coach not found
+    </div>
+  );
 
-                            <h1 className="coachpage-name">{coach?.name}</h1>
-                            <div className="location-rating">
-                                <span>{coach?.location}</span>
-                                <span className="star" style={{ marginLeft: "20px" }}>★</span> <span className="light-text" style={{ marginLeft: "5px" }}>{Math.floor(coach.rating)} ({coach?.reviewcount} ratings)</span>
-                                {/* <span className="ps-2 text_blue"><a href="">Coach Rate</a></span> */}
+  const typeLabel = coach.type === 1 ? "Trainer" : coach.type === 2 ? "Academy" : "Coach";
 
-                            </div>
-                        </div>
+  return (
+    <div className="cd-page">
+
+      {/* ── Hero ── */}
+      <div className="cd-hero">
+        <div className="cd-hero-inner">
+          {/* Breadcrumb */}
+          <nav className="cd-breadcrumb" aria-label="Breadcrumb">
+            <Link to="/">Home</Link>
+            <span>›</span>
+            <Link to="/coach">Coaches</Link>
+            <span>›</span>
+            <span className="cd-bc-current">{coach.name}</span>
+          </nav>
+
+          {/* Type badge */}
+          <div className="cd-hero-badge">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <circle cx="5" cy="5" r="4" fill="rgba(255,255,255,.4)"/>
+              <path d="M3 5l1.5 1.5L7 3.5" stroke="white" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            {typeLabel}
+          </div>
+
+          {/* Name */}
+          <h1 className="cd-hero-name">{coach.name}</h1>
+
+          {/* Meta */}
+          <div className="cd-hero-meta">
+            <div className="cd-hero-location">
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                <path d="M6.5 1C4.57 1 3 2.57 3 4.5c0 2.8 3.5 7 3.5 7S10 7.3 10 4.5C10 2.57 8.43 1 6.5 1z" fill="rgba(255,255,255,.8)"/>
+                <circle cx="6.5" cy="4.5" r="1.3" fill="rgba(255,255,255,.5)"/>
+              </svg>
+              {coach.location}
+            </div>
+
+            <div className="cd-hero-rating">
+              <span className="cd-star">★</span>
+              <span>{coach.rating.toFixed(1)}</span>
+              <span className="cd-reviews">({coach.reviewcount} reviews)</span>
+            </div>
+
+            {coach.training_type && (
+              <div className="cd-hero-badge" style={{ margin: 0 }}>
+                {coach.training_type}
+              </div>
+            )}
+          </div>
+
+          {/* Actions */}
+          <div className="cd-hero-actions">
+            <button className="cd-action-btn" onClick={handleShare} aria-label="Share">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <circle cx="11" cy="2.5" r="1.5" stroke="currentColor" strokeWidth="1.4"/>
+                <circle cx="11" cy="11.5" r="1.5" stroke="currentColor" strokeWidth="1.4"/>
+                <circle cx="3" cy="7" r="1.5" stroke="currentColor" strokeWidth="1.4"/>
+                <path d="M4.4 6.2l5.2-3M4.4 7.8l5.2 3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+              </svg>
+              Share
+            </button>
+            <button className="cd-action-btn" onClick={() => setShowModal(true)} aria-label="Enquire">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M2 2h10a1 1 0 011 1v6a1 1 0 01-1 1H5l-3 2V3a1 1 0 011-1z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round"/>
+              </svg>
+              Enquire
+            </button>
+          </div>
+        </div>
+
+        {/* Wave */}
+        <div className="cd-hero-wave">
+          <svg viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,20 C360,40 1080,0 1440,20 L1440,40 L0,40 Z" fill="#f7f9fb"/>
+          </svg>
+        </div>
+      </div>
+
+      {/* ── Body ── */}
+      <div className="cd-body">
+        <div className="cd-layout">
+
+          {/* ══ LEFT ══ */}
+          <div className="cd-left">
+
+            {/* Carousel */}
+            <div className="cd-carousel">
+              <Swiper
+                spaceBetween={0}
+                centeredSlides={false}
+                autoplay={{ delay: 3000, disableOnInteraction: false }}
+                pagination={{ clickable: true }}
+                modules={[Autoplay, Pagination]}
+                className="mySwiper"
+              >
+                <div className="venue-icon-topwrapper">
+                  <button className="venue-icon-btns" onClick={handleShare} aria-label="Share">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <circle cx="12" cy="3" r="1.8" stroke="#1163C7" strokeWidth="1.4"/>
+                      <circle cx="12" cy="13" r="1.8" stroke="#1163C7" strokeWidth="1.4"/>
+                      <circle cx="4" cy="8" r="1.8" stroke="#1163C7" strokeWidth="1.4"/>
+                      <path d="M5.7 7l4.6-3M5.7 9l4.6 3" stroke="#1163C7" strokeWidth="1.4" strokeLinecap="round"/>
+                    </svg>
+                  </button>
+                </div>
+                {coach.images.map((img, i) => (
+                  <SwiperSlide key={i} className="coach-swiperslide">
+                    <img src={img} alt={`${coach.name} — photo ${i + 1}`} className="coach-swiperslide-img" />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+
+            {/* About */}
+            {coach.about && (
+              <div className="cd-card" style={{ animationDelay: ".1s" }}>
+                <h2 className="cd-card-title">About {coach.name}</h2>
+                <p className="cd-about-text">
+                  {aboutExpanded ? coach.about : `${coach.about.substring(0, 200)}${coach.about.length > 200 ? "…" : ""}`}
+                </p>
+                {coach.about.length > 200 && (
+                  <button className="cd-read-more" onClick={() => setAboutExpanded(p => !p)}>
+                    {aboutExpanded ? "Read less ↑" : "Read more ↓"}
+                  </button>
+                )}
+              </div>
+            )}
+
+            {/* Sessions + Fees */}
+            <div className="cd-two-col">
+              {/* Sessions */}
+              <div className="cd-card" style={{ animationDelay: ".15s" }}>
+                <h2 className="cd-card-title">Sessions</h2>
+                <div className="cd-session-grid">
+                  {coach.available_days && (
+                    <div className="cd-session-item">
+                      <div className="cd-session-icon">
+                        <img src={calandarlogo} alt="days" />
+                      </div>
+                      <div>
+                        <p className="cd-session-label">Available Days</p>
+                        <p className="cd-session-value">{coach.available_days}</p>
+                      </div>
                     </div>
-                </section>
-                <Container>
-                    <div className="coach-details-container">
-                        <div className="coach-wrapper row">
-
-                            <div className="coach-left col-lg-8">
-
-                                <div className="coach-image-carosal">
-                                    <Swiper
-                                        spaceBetween={30}
-                                        centeredSlides={true}
-                                        autoplay={{
-                                            delay: 2500,
-                                            disableOnInteraction: false,
-                                        }}
-                                        pagination={{
-                                            clickable: true,
-                                        }}
-                                        // navigation={true}
-                                        modules={[Autoplay, Pagination,]}
-                                        className="mySwiper"
-                                    >
-                                        <div className="venue-icon-topwrapper">
-                                            <button className="venue-icon-btns">
-                                                <img src={ShareIcon} alt="share"  onClick={handleShare}/>
-                                            </button>
-
-                                            <button className="venue-icon-btns">
-                                                <img
-                                                    src={LikeIcon}
-                                                    alt="like"
-                                                    className="like-icon"
-                                                />
-                                            </button>
-                                        </div>
-
-                                        {coach?.images?.map((img, index) => (
-                                            <SwiperSlide key={index} className="coach-swiperslide">
-                                                <img src={img} alt={`coach-image-${index}`} className="coach-swiperslide-img" />
-                                            </SwiperSlide>
-                                        ))}
-                                    </Swiper>
-                                </div>
-
-                                <div className="coach-section">
-                                    <div className="coach-heading">About {coach?.name}</div>
-                                    <div className="coach-description">
-                                        {expandedSection === "about"
-                                            ? coach?.about
-                                            : `${coach?.about?.substring(0, 100)}...`}
-                                    </div>
-                                    <button onClick={() => toggleSection("about")} className="read-more-btn">
-                                        {expandedSection === "about" ? "Read less" : "Read more"}
-                                    </button>
-                                </div>
-
-                                <div className="coach-carry-point">
-                                    <div className="coach-section coach-carry">
-                                        <div className="coach-heading">About the Sessions</div>
-                                        <div className="session-list">
-                                            <div className="session-conatiner">
-                                                <img src={calandarlogo} alt="calandarlogo" />
-                                                <p className="m-0">{coach.available_days}</p>
-                                            </div>
-                                            <div className="session-conatiner">
-                                                <img src={adultlogo} alt="adultlogo" />
-                                                <p className="m-0">{coach?.training_type}</p>
-                                            </div>
-                                            <div className="session-conatiner">
-                                                <img src={sessionlogo} alt="sessionlogo" />
-                                                <p className="m-0">{coach?.classes}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="coach-section coach-pickPoints">
-                                        <div className="coach-heading">Fee & Packages</div>
-                                        {/* <div className="carry-list"> */}
-                                        <p style={{ whiteSpace: "pre-wrap" }}>
-                                            {expandedSection === "FreePackges"
-                                                ? coach?.fees_and_packages
-                                                : `${coach?.fees_and_packages?.substring(0, 200)}...`}
-                                        </p>
-                                        <button onClick={() => toggleSection("FreePackges")} className="read-more-btn">
-                                            {expandedSection === "FreePackges" ? "Read less" : "Read more"}
-                                        </button>
-
-                                        {/* </div> */}
-                                    </div>
-
-                                </div>
-
-                                {coach?.type === 2 && (
-                                    <div className="coach-carry-point">
-                                        <div className="coach-section coach-pickPoints">
-                                            <div className="coach-heading">Coaches</div>
-                                            <div className="coaches-list">
-                                                {coach?.coaches?.map((coach, index) => (
-                                                    <div className="coaches-card" key={index}>
-                                                        <img src={coach.image} alt={coach.name} className="coach-image" />
-                                                        <p className="coach-name">{coach.name}</p>
-                                                        <p className="coach-title">{coach.title}</p>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
-                                        <div className="coach-section coach-pickPoints">
-                                            <div className="coach-heading">Sports</div>
-                                            <div className="sports-list">
-                                                {coach?.sports?.map((sport, index) => (
-                                                    <div className="sportes-card" key={index}>
-                                                        <img src={sport.icon} alt={sport.name} className="sports-img" />
-                                                        <p className="sport-name">{sport.name}</p>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                )}
-
-                            </div>
-
-                            <div className="coach-right col-lg-4">
-
-                                <div className="coach-right-section">
-                                    <div className="coach-heading">Location</div>
-                                    <div className="gym-right-section-p"> <p>{coach?.address}</p></div>
-                                    <div className="coach-map">
-                                        <CustomMap latitude={coach?.latitude} longitude={coach?.longitude} />
-                                    </div>
-
-                                </div>
-
-                                <div className="coach-right-section">
-                                    <div className="coach-heading">Other Serviceable Location</div>
-                                    {coach?.multilocation?.map((loc, index) => {
-                                        const mapLink = `https://www.google.com/maps?q=${loc.lat},${loc.lng}`;
-
-                                        return (
-                                            <a
-                                                href={mapLink}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                key={index}
-                                                className="location-item"
-                                            >
-                                                <div className="icon">
-                                                    <img src={locationlogo} alt="location" className="locationlogo" />
-                                                </div>
-                                                <div className="location-text">
-                                                    <div className="address">{loc.area}</div>
-                                                    <div className="subtext-one">Click to view on map</div>
-                                                </div>
-                                                <div className="arrow">&#8250;</div>
-                                            </a>
-                                        );
-                                    })}
-
-                                </div>
-
-
-
-                                <div className="coach-right-section">
-                                    <div className="coach-heading">
-                                        <h5 className="coach-heading mb-3">Awards & Recognitions</h5>
-                                    </div>
-                                    <div className="awards_cards">
-
-                                        {coach?.certficiates?.map(cert => (
-                                            <div className="award-wrapper" key={cert.id}>
-                                                <img src={Certificate1} alt={cert.certificate_name} className="certificatelogo" />
-
-                                                <div className="award-des">
-                                                    <ul className="p-0">
-                                                        <li>{cert.certificate_name}</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-
-
-                                <div className="coach-right-section-button">
-                                    <button
-                                        className="coach-btn"
-                                        onClick={() => setShowModal(true)}
-                                    >
-                                        {createQueryMutation.isLoading ? "Processing..." : "Enquire now"}
-                                    </button>
-
-                                    {showModal && (
-                                        <EnquiryModal
-                                            onClose={() => setShowModal(false)}
-                                            onSubmit={handleSubmitEnquiry}
-                                        />
-                                    )}
-
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div className="ratings-carousel">
-                            <EventReviewSlider event={{ review: coach?.reviews }} />
-                        </div>
+                  )}
+                  {coach.training_type && (
+                    <div className="cd-session-item">
+                      <div className="cd-session-icon">
+                        <img src={adultlogo} alt="type" />
+                      </div>
+                      <div>
+                        <p className="cd-session-label">Training Type</p>
+                        <p className="cd-session-value">{coach.training_type}</p>
+                      </div>
                     </div>
-                </Container>
-            </section>
+                  )}
+                  {coach.classes && (
+                    <div className="cd-session-item">
+                      <div className="cd-session-icon">
+                        <img src={sessionlogo} alt="classes" />
+                      </div>
+                      <div>
+                        <p className="cd-session-label">Classes</p>
+                        <p className="cd-session-value">{coach.classes}</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
 
+              {/* Fees */}
+              {coach.fees_and_packages && (
+                <div className="cd-card" style={{ animationDelay: ".18s" }}>
+                  <h2 className="cd-card-title">Fees &amp; Packages</h2>
+                  <p className="cd-about-text" style={{ whiteSpace: "pre-wrap" }}>
+                    {feesExpanded
+                      ? coach.fees_and_packages
+                      : `${coach.fees_and_packages.substring(0, 180)}${coach.fees_and_packages.length > 180 ? "…" : ""}`}
+                  </p>
+                  {coach.fees_and_packages.length > 180 && (
+                    <button className="cd-read-more" onClick={() => setFeesExpanded(p => !p)}>
+                      {feesExpanded ? "Read less ↑" : "Read more ↓"}
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
 
-        </>
-    )
+            {/* Academy coaches + sports */}
+            {coach.type === 2 && (
+              <>
+                {coach.coaches.length > 0 && (
+                  <div className="cd-card" style={{ animationDelay: ".2s" }}>
+                    <h2 className="cd-card-title">Our Coaches</h2>
+                    <div className="cd-coaches-grid">
+                      {coach.coaches.map((c, i) => (
+                        <div className="cd-coach-card" key={i}>
+                          <img src={c.image} alt={c.name} className="cd-coach-avatar"
+                            onError={e => { e.target.src = CoachImage; }} />
+                          <p className="cd-coach-name">{c.name}</p>
+                          <p className="cd-coach-role">{c.title === 1 ? "Trainer" : "Academy"}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {coach.sports.length > 0 && (
+                  <div className="cd-card" style={{ animationDelay: ".22s" }}>
+                    <h2 className="cd-card-title">Sports Offered</h2>
+                    <div className="cd-sports-grid">
+                      {coach.sports.map((s) => (
+                        <div className="cd-sport-chip" key={s.id}>
+                          <img src={s.icon || footballIcon} alt={s.name}
+                            onError={e => { e.target.src = footballIcon; }} />
+                          <span>{s.name}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+
+            {/* Reviews */}
+            {coach.reviews.length > 0 && (
+              <div className="cd-reviews-section">
+                <h2 className="cd-reviews-title">Reviews</h2>
+                <EventReviewSlider event={{ review: coach.reviews }} />
+              </div>
+            )}
+          </div>
+
+          {/* ══ RIGHT ══ */}
+          <div className="cd-right">
+
+            {/* Location */}
+            <div className="cd-right-card">
+              <p className="cd-right-title">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M7 1C4.79 1 3 2.79 3 5c0 3.25 4 8 4 8s4-4.75 4-8c0-2.21-1.79-4-4-4z" fill="#1163C7" opacity=".8"/>
+                  <circle cx="7" cy="5" r="1.5" fill="white"/>
+                </svg>
+                Location
+              </p>
+              <p className="cd-address-text">{coach.address}</p>
+              <div className="cd-map-wrap">
+                <CustomMap latitude={coach.latitude} longitude={coach.longitude} />
+              </div>
+            </div>
+
+            {/* Other locations */}
+            {coach.multilocation.length > 0 && (
+              <div className="cd-right-card">
+                <p className="cd-right-title">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <circle cx="7" cy="7" r="5.5" stroke="#1163C7" strokeWidth="1.4"/>
+                    <path d="M7 4v3l2 1.5" stroke="#1163C7" strokeWidth="1.4" strokeLinecap="round"/>
+                  </svg>
+                  Other Locations
+                </p>
+                {coach.multilocation.map((loc, i) => (
+                  <a
+                    key={i}
+                    href={`https://www.google.com/maps?q=${loc.lat},${loc.lng}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cd-location-item"
+                  >
+                    <div className="cd-location-icon">
+                      <img src={locationlogo} alt="location" />
+                    </div>
+                    <div className="cd-location-body">
+                      <p className="cd-location-area">{loc.area}</p>
+                      <p className="cd-location-hint">View on map</p>
+                    </div>
+                    <span className="cd-location-arrow">›</span>
+                  </a>
+                ))}
+              </div>
+            )}
+
+            {/* Certificates */}
+            {coach.certificates.length > 0 && (
+              <div className="cd-right-card">
+                <p className="cd-right-title">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <rect x="1.5" y="2.5" width="11" height="9" rx="1.5" stroke="#1163C7" strokeWidth="1.4"/>
+                    <path d="M4 6h6M4 8.5h4" stroke="#1163C7" strokeWidth="1.4" strokeLinecap="round"/>
+                  </svg>
+                  Awards &amp; Certifications
+                </p>
+                <div className="cd-certs-list">
+                  {coach.certificates.map((cert) => (
+                    <div className="cd-cert-item" key={cert.id}>
+                      <div className="cd-cert-icon">
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                          <circle cx="9" cy="7" r="4" stroke="currentColor" strokeWidth="1.4"/>
+                          <path d="M5 13l1.5 4L9 15l2.5 2L13 13" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
+                      <p className="cd-cert-name">{cert.name}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Enquire button */}
+            <button
+              className="cd-enquire-btn"
+              onClick={() => setShowModal(true)}
+              disabled={createQueryMutation.isLoading}
+            >
+              {createQueryMutation.isLoading ? "Sending…" : "Enquire Now"}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Enquiry modal */}
+      {showModal && (
+        <EnquiryModal
+          onClose={() => setShowModal(false)}
+          onSubmit={handleSubmitEnquiry}
+        />
+      )}
+    </div>
+  );
 }

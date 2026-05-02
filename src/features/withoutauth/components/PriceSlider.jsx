@@ -1,44 +1,74 @@
-import React, { useState, useEffect } from "react";
-import "../../withoutauth/Stylesheets/Filterpages/priceRun.css";
+import React, { useEffect, useState } from "react";
+import "../Stylesheets/Filterpages/FilterSystem.css";
 
-const PriceSlider = ({ selectedPrice, setSelectedPrice }) => {
-  const [price, setPrice] = useState(selectedPrice || 0);
-  const range = [0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500];
+const MAX = 500;
 
-  // 🔁 Update parent state whenever price changes
+export default function PriceSlider({ selectedPrice, setSelectedPrice, priceRange, setPriceRange }) {
+  // Support both single-value (Run/Event) and range (Gym) modes
+  const isRange = typeof priceRange !== "undefined";
+  const [val, setVal] = useState(selectedPrice || 0);
+
   useEffect(() => {
-    setSelectedPrice(price);
-  }, [price, setSelectedPrice]);
+    if (!isRange) setSelectedPrice(val);
+  }, [val]);
+
+  const pct = isRange
+    ? ((priceRange?.[1] || 0) / 10000) * 100
+    : (val / MAX) * 100;
+
+  if (isRange) {
+    const maxVal = priceRange?.[1] || 0;
+    return (
+      <div className="price-container">
+        <p className="filter_sub_title" style={{ marginBottom: 8 }}>💰 Price Range</p>
+        <div className="price-header">
+          <span style={{ fontFamily: "DM Sans,sans-serif", fontSize: 12, color: "#858585" }}>₹0</span>
+          <span className="price-current">Up to ₹{maxVal.toLocaleString()}</span>
+          <span style={{ fontFamily: "DM Sans,sans-serif", fontSize: 12, color: "#858585" }}>₹10,000</span>
+        </div>
+        <div className="price-slider-wrap">
+          <input
+            type="range"
+            min={0}
+            max={10000}
+            step={500}
+            value={maxVal}
+            onChange={(e) => setPriceRange([0, Number(e.target.value)])}
+            className="price-slider"
+            style={{ "--slider-pct": `${pct}%` }}
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="price-container">
-      <h2>Price</h2>
-
-      {/* numbers above slider */}
-      <div className="price-values">
-        {range.map((item) => (
-          <span
-            key={item}
-            className={price === item ? "active-price" : ""}
-            onClick={() => setPrice(item)}
-          >
-            {item}
-          </span>
-        ))}
+      <p className="filter_sub_title" style={{ marginBottom: 8 }}>💰 Max Price</p>
+      <div className="price-header">
+        <span style={{ fontFamily: "DM Sans,sans-serif", fontSize: 12, color: "#858585" }}>₹0</span>
+        <span className="price-current">
+          {val === 0 ? "Any price" : `Up to ₹${val}`}
+        </span>
+        <span style={{ fontFamily: "DM Sans,sans-serif", fontSize: 12, color: "#858585" }}>₹{MAX}</span>
       </div>
-
-      {/* slider itself */}
-      <input
-        type="range"
-        min="0"
-        max="500"
-        step="50"
-        value={selectedPrice}
-        onChange={(e) => setPrice(Number(e.target.value))}
-        className="price-slider"
-      />
+      <div className="price-slider-wrap">
+        <input
+          type="range"
+          min={0}
+          max={MAX}
+          step={50}
+          value={val}
+          onChange={(e) => setVal(Number(e.target.value))}
+          className="price-slider"
+          style={{ "--slider-pct": `${pct}%` }}
+        />
+      </div>
+      <div className="price-range-labels">
+        <span>Free</span>
+        <span>₹{MAX / 2}</span>
+        <span>₹{MAX}+</span>
+      </div>
     </div>
   );
-};
-
-export default PriceSlider;
+}

@@ -11,15 +11,15 @@ import events from "../assets/images/home/quickbooking/DeckEvent.png";
 import gym    from "../assets/images/home/quickbooking/Deckgym.png";
 
 const CARDS = [
-  { title: "Turf",   sub: "Book Sports Turf",   img: book,   path: "/venue",  emoji: "🏟️", color: "#e8f0fd" },
-  { title: "Play",   sub: "Find Players Fast",   img: play,   path: "/Host",   emoji: "⚽", color: "#fef3e8" },
-  { title: "Run",    sub: "Join Run Clubs",      img: run,    path: "/Run",    emoji: "🏃", color: "#e8fdf0" },
-  { title: "Coach",  sub: "Expert Coaches",      img: coach,  path: "/Coach",  emoji: "🎯", color: "#fde8f0" },
-  { title: "Events", sub: "Book Fit Events",     img: events, path: "/Events", emoji: "🎪", color: "#f0e8fd" },
-  { title: "Gym",    sub: "Pay Per Workout",     img: gym,    path: "/Gym",    emoji: "💪", color: "#e8fdf8" },
+  { title:"Turf",   sub:"Book Sports Turf",  img:book,   path:"/venue",  color:"#dbeafe", accent:"#1163C7", emoji:"🏟️" },
+  { title:"Play",   sub:"Find Players Fast", img:play,   path:"/Host",   color:"#fef3c7", accent:"#D97706", emoji:"⚽" },
+  { title:"Run",    sub:"Join Run Clubs",    img:run,    path:"/Run",    color:"#dcfce7", accent:"#16A34A", emoji:"🏃" },
+  { title:"Coach",  sub:"Expert Coaches",   img:coach,  path:"/Coach",  color:"#fce7f3", accent:"#DB2777", emoji:"🎯" },
+  { title:"Events", sub:"Book Fit Events",  img:events, path:"/Events", color:"#ede9fe", accent:"#7C3AED", emoji:"🎪" },
+  { title:"Gym",    sub:"Pay Per Workout",  img:gym,    path:"/Gym",    color:"#ccfbf1", accent:"#0D9488", emoji:"💪" },
 ];
 
-function QuickBooking() {
+export default function QuickBooking() {
   const navigate   = useNavigate();
   const sectionRef = useRef(null);
   const [visible, setVisible] = useState([]);
@@ -28,13 +28,11 @@ function QuickBooking() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          CARDS.forEach((_, i) => {
-            setTimeout(() => setVisible((p) => [...p, i]), i * 70);
-          });
+          CARDS.forEach((_, i) => setTimeout(() => setVisible(p => [...p, i]), i * 65));
           observer.disconnect();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.08 }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
@@ -42,10 +40,13 @@ function QuickBooking() {
 
   return (
     <section className="qb-section" ref={sectionRef}>
+      {/* Background pattern */}
+      <div className="qb-bg" aria-hidden="true" />
+
       <Container>
         {/* Header */}
         <div className="qb-header">
-          <div className="qb-header-left">
+          <div>
             <span className="qb-eyebrow">What are you looking for?</span>
             <h2 className="qb-title">Quick Booking</h2>
           </div>
@@ -54,16 +55,19 @@ function QuickBooking() {
           </p>
         </div>
 
-        {/* Cards */}
+        {/* Grid */}
         <div className="qb-grid">
           {CARDS.map((card, i) => (
             <button
               key={i}
               className={`qb-card${visible.includes(i) ? " qb-card--in" : ""}`}
-              style={{ "--card-bg": card.color, transitionDelay: `${i * 0.06}s` }}
+              style={{ "--qb-color": card.color, "--qb-accent": card.accent, transitionDelay: `${i * 0.055}s` }}
               onClick={() => navigate(card.path)}
               aria-label={`${card.title} — ${card.sub}`}
             >
+              {/* Top accent bar */}
+              <div className="qb-card-bar" aria-hidden="true" />
+
               {/* Image */}
               <div className="qb-card-img">
                 <img src={card.img} alt={card.title} loading="lazy" />
@@ -75,15 +79,16 @@ function QuickBooking() {
                 <p className="qb-card-sub">{card.sub}</p>
               </div>
 
-              {/* Arrow */}
-              <div className="qb-card-arrow">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+              {/* Arrow chip */}
+              <div className="qb-card-cta">
+                <span>Explore</span>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
 
-              {/* Hover shimmer */}
-              <div className="qb-card-shimmer" aria-hidden="true" />
+              {/* Shimmer */}
+              <div className="qb-shimmer" aria-hidden="true" />
             </button>
           ))}
         </div>
@@ -91,5 +96,3 @@ function QuickBooking() {
     </section>
   );
 }
-
-export default QuickBooking;

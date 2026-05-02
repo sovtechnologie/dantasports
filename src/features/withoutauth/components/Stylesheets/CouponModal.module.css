@@ -87,7 +87,7 @@
   width: 15px;
 }
 .selected {
-  border-color: #007bff;
+  border-color: #1163C7;
 }
 
 .couponInfo h4 {
@@ -96,7 +96,7 @@
 }
 
 .discount {
-  color: #007bff;
+  color: #1163C7;
   margin: 4px 0;
 }
 

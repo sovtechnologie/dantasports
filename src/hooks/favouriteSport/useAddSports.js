@@ -12,11 +12,8 @@ export const useAddSports = () => {
             return AddfavoriteSport({ sportsId: sportsIds });
         },
         onSuccess: (data) => {
-            console.log("Sports added successfully:", data);
             queryClient.invalidateQueries(['favoritesSport']);
         },
-        onError: (error) => {
-            console.error("Error adding sports:", error);
-        },
+        onError: () => {},
     });
 };

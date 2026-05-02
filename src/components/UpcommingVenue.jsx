@@ -3,8 +3,8 @@ import Cookies from "js-cookie";
 import { useGetAllBooking } from "../hooks/BookingVenue/useGetAllBooking";
 import UpCommingCard from "./UpCommingCard";
 import { useState } from "react";
-import leftArrow from "../assets/VenueImage/left-arrow.png";
-import rightArrow from "../assets/VenueImage/right-arrow.png";
+import leftArrow from "../assets/svg-icons/chevron-left-circle.svg";
+import rightArrow from "../assets/svg-icons/chevron-right-circle.svg";
 
 // Helper to format date to "Wed, 04 Sep 2024"
 function formatDate(dateStr) {

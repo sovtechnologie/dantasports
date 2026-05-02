@@ -1,41 +1,64 @@
+/* ═══════════════════════════════════════════════════════
+   LOGIN MODAL OVERLAY
+   ═══════════════════════════════════════════════════════ */
+
+@keyframes lmFadeIn  { from{opacity:0} to{opacity:1} }
+@keyframes lmSlideUp { from{opacity:0;transform:translateY(24px) scale(.97)} to{opacity:1;transform:none} }
+
+/* ─── Overlay ─── */
 .login-modal-overlay {
   position: fixed;
   inset: 0;
-  background: transparent;
+  background: rgba(8, 47, 94, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 16px;
+  animation: lmFadeIn .2s ease both;
 }
 
+/* ─── Content wrapper ─── */
 .login-modal-content {
   position: relative;
-  /* background: #fff; */
-  border-radius: 10px;
-  /* padding: 2rem; */
-  max-width: clamp(320px, 34.7222vw, 500px);
   width: 100%;
+  max-width: 440px;
+  animation: lmSlideUp .35s cubic-bezier(.34,1.56,.64,1) both;
 }
 
+/* ─── Close button ─── */
 .login-modal-close {
   position: absolute;
-  right: 15px;
-  height: 35px;
-  width: 35px;
+  top: 14px;
+  right: 18px;
+  z-index: 10;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: #f0f4ff;
+  border: none;
+  font-size: 20px;
+  line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  top: 10px;
-  /* margin-top: clamp(20px, 2.222vw, 40px); */
-  background: none;
-  border: none;
-  font-size: 40px;
   cursor: pointer;
-  border-radius: 50%;
-  color: #1163c7;
+  color: #555;
+  transition: background .2s ease, color .2s ease, transform .25s ease;
+}
+.login-modal-close:hover {
+  background: #e8f0fd;
+  color: #1163C7;
+  transform: scale(1.1);
 }
 
-.login-modal-close:hover {
-  
-  color: #1163c7;
+/* ─── Inside the modal the login-box needs no outer container ─── */
+.login-modal-content .login-container {
+  min-height: unset;
+  background: transparent;
+  padding: 0;
+}
+.login-modal-content .login-box {
+  box-shadow: 0 24px 80px rgba(8, 47, 94, 0.28);
 }

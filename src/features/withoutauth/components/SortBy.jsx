@@ -1,52 +1,60 @@
 import React from "react";
-import "../Stylesheets/SortBy.css";
+import "../Stylesheets/Filterpages/FilterSystem.css";
 
-const SortBy = ({ sortBy = [], setSortBy }) => {
+const SORT_OPTIONS = [
+  { id: "popularity", label: "Popularity",        icon: "🔥" },
+  { id: "nearby",     label: "Nearest First",     icon: "📍" },
+  { id: "favourite",  label: "My Favourites",     icon: "❤️" },
+  { id: "priceLow",   label: "Price: Low to High",icon: "💰" },
+];
+
+export default function SortBy({ sortBy = [], setSortBy }) {
   const current = Array.isArray(sortBy) ? sortBy : [];
 
-  const handleSortChange = (type) => {
-    if (current.includes(type)) {
-      setSortBy(current.filter((t) => t !== type));
-    } else {
-      setSortBy([...current, type]);
-    }
+  const toggle = (id) => {
+    setSortBy(current.includes(id) ? current.filter((t) => t !== id) : [...current, id]);
   };
 
-  const handleReset = (e) => {
+  const reset = (e) => {
     e.preventDefault();
     setSortBy([]);
   };
 
-  const options = [
-    { id: "popularity", label: "Popularity" },
-    { id: "nearby", label: "Near By" },
-    { id: "favourite", label: "Favorites" },
-    { id: "priceLow", label: "Price: Low to High" },
-  ];
-
   return (
     <div className="short_card">
-      <div className="d-flex justify-content-between mb-3 align-items-center">
-        <h2 className="m-0">Sort by</h2>
-        <a href="#" onClick={handleReset}>Reset</a>
+      {/* Header */}
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <h2 className="m-0">Sort By</h2>
+        {current.length > 0 && (
+          <button type="button" onClick={reset} className="reset">
+            Reset ({current.length})
+          </button>
+        )}
       </div>
 
-      {options.map((item) => (
-        <div className="form-check" key={item.id}>
-          <input
-            className="form-check-input"
-            type="checkbox"
-            id={`sort-${item.id}`}
-            checked={current.includes(item.id)}
-            onChange={() => handleSortChange(item.id)}
-          />
-          <label className="form-check-label" htmlFor={`sort-${item.id}`}>
-            {item.label}
-          </label>
-        </div>
-      ))}
+      {/* Options */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+        {SORT_OPTIONS.map((opt) => {
+          const active = current.includes(opt.id);
+          return (
+            <div
+              key={opt.id}
+              className={`sort-option${active ? " sort-active" : ""}`}
+              onClick={() => toggle(opt.id)}
+              role="checkbox"
+              aria-checked={active}
+              tabIndex={0}
+              onKeyDown={(e) => e.key === "Enter" && toggle(opt.id)}
+            >
+              <label style={{ cursor: "pointer" }}>
+                <span className="sort-icon">{opt.icon}</span>
+                {opt.label}
+              </label>
+              <div className={`sort-checkbox${active ? " checked" : ""}`} />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
-};
-
-export default SortBy;
+}

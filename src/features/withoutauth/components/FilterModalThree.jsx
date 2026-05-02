@@ -1,6 +1,5 @@
 import React from 'react'
 import filtericon from "../assets/Filtericon/Filtericon.svg"
-import SortBy from './SortBy'
 import FilterThree from './FilterThree'
 function FilterModalThree() {
   return (

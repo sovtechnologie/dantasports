@@ -1,16 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import "../StyleSheets/ProfilePage.css";
-import Cookies from "js-cookie";
 import { NavLink, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../../redux/Slices/authSlice';
-import { useSelector } from 'react-redux';
-import ProfileImage from "../assets/profileImage.png";
-import EditIcon from "../assets/Edit Square.png";
-import CalandarIcon from "../assets/CalanderIcon.png";
-import WorkIcon from "../assets/WorkIcon.png";
-import HelpIcon from "../assets/HelpIcon.png";
-import LogoutIcon from "../assets/logoutIcon.png";
+import ProfileImage from "../../../assets/svg-icons/user-circle.svg";
+import EditIcon from "../../../assets/svg-icons/edit-square.svg";
+import CalandarIcon from "../../../assets/svg-icons/calendar.svg";
+import WorkIcon from "../../../assets/svg-icons/work-bag.svg";
+import LogoutIcon from "../../../assets/svg-icons/logout.svg";
 import { fetchProfile } from '../../../services/LoginApi/profileApi/endpointApi.js';
 import { useQuery } from '@tanstack/react-query';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -22,8 +19,6 @@ function ProfilePage() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isChatOpen, setIsChatOpen] = useState(false);
-
 const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const { data, isLoading: isFetching } = useQuery({
@@ -32,7 +27,6 @@ const [showLogoutModal, setShowLogoutModal] = useState(false);
   });
 
   const profile = data?.data;
-  console.log(" my Profile data:", data);
 
   // const toggleChat = useCallback(() => {
   //   const api = window.Tawk_API;
@@ -202,7 +196,7 @@ const confirmLogout = () => {
                           }>
 
                           <div className="account-left">
-                            <img src={option.icon} className="account-icon" />
+                            <img src={option.icon} className="account-icon" alt="" />
                             <span className="account-label">{option.label}</span>
                           </div>
                           <div className="account-arrow">›</div>
@@ -218,7 +212,7 @@ const confirmLogout = () => {
                           style={{ cursor: option.action ? 'pointer' : 'default' }}
                         >
                           <div className="account-left">
-                            <img src={option.icon} className="account-icon" />
+                            <img src={option.icon} className="account-icon" alt="" />
                             <span className="account-label">{option.label}</span>
                           </div>
                           <div className="account-arrow">›</div>

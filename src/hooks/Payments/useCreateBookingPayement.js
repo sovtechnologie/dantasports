@@ -1,10 +1,8 @@
 // src/hooks/Payments/useCreatePayment.js
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { CreateBookingPayment } from "../../services/LoginApi/PaymentApi/endpointsApi";
 
 export const useCreateBookingPayment = () => {
-  const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: ({ bookingId, amount, type, couponId, discountAmount, convenienceFees }) =>
       CreateBookingPayment({
@@ -17,7 +15,6 @@ export const useCreateBookingPayment = () => {
       }),
 
     onSuccess: (data, variables) => {
-      console.log("Payment created for booking:", variables.bookingId, data);
 
       if (data?.result) {
         window.open(data?.result, "_blank");
@@ -32,7 +29,6 @@ export const useCreateBookingPayment = () => {
         errMsg = error.message;
       }
       alert("error", errMsg);
-      console.error("Payment creation failed for booking:", variables.bookingId, error);
     },
   });
 };

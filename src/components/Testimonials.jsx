@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './StyleSheets/Testimonials.css';
-import userAvatar from '../assets/UserAvator.png'; // Replace with actual image path
-import leftArrow from "../assets/left-arrow.png";
-import rightArrow from "../assets/right-arrow.png";
+import userAvatar from '../assets/svg-icons/user-circle.svg';
+import leftArrow from "../assets/svg-icons/chevron-left-circle.svg";
+import rightArrow from "../assets/svg-icons/chevron-right-circle.svg";
 
 
 const testimonials = [
@@ -86,8 +86,8 @@ const Testimonials = () => {
         ))}
       </div>
       <div className="testimonial-controls">
-        <button onClick={prev}><img src={leftArrow} /></button>
-        <button onClick={next}><img src={rightArrow} /></button>
+        <button onClick={prev}><img src={leftArrow} alt="Previous" /></button>
+        <button onClick={next}><img src={rightArrow} alt="Next" /></button>
       </div>
     </section>
   );

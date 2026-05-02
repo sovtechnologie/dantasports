@@ -1,23 +1,6 @@
 import React from 'react';
 import './Stylesheets/Gallery.css';
 import Masonry from "react-masonry-css";
-import eventImage from '../assets/EventImage2.svg';
-
-
-const images = [
-  { id: 1, src: "https://upload.wikimedia.org/wikipedia/commons/a/a1/Statue_of_Liberty_7.jpg" },
-  { id: 2, src: "https://upload.wikimedia.org/wikipedia/commons/0/0c/GoldenGateBridge-001.jpg" },
-  { id: 3, src: "https://upload.wikimedia.org/wikipedia/commons/a/a1/Statue_of_Liberty_7.jpg" },
-  { id: 4, src: "https://upload.wikimedia.org/wikipedia/commons/0/0c/GoldenGateBridge-001.jpg" },
-  { id: 5, src: "https://upload.wikimedia.org/wikipedia/commons/a/a1/Statue_of_Liberty_7.jpg" },
-  { id: 6, src: "https://upload.wikimedia.org/wikipedia/commons/0/0c/GoldenGateBridge-001.jpg" },
-  { id: 7, src: "https://upload.wikimedia.org/wikipedia/commons/0/0c/GoldenGateBridge-001.jpg" },
-  { id: 8, src: "https://upload.wikimedia.org/wikipedia/commons/a/a1/Statue_of_Liberty_7.jpg" },
-  { id: 9, src: "https://upload.wikimedia.org/wikipedia/commons/0/0c/GoldenGateBridge-001.jpg" },
-  { id: 10, src: "https://upload.wikimedia.org/wikipedia/commons/a/a1/Statue_of_Liberty_7.jpg" },
-  { id: 11, src: "https://upload.wikimedia.org/wikipedia/commons/0/0c/GoldenGateBridge-001.jpg" },
-  { id: 12, src: "https://upload.wikimedia.org/wikipedia/commons/a/a1/Statue_of_Liberty_7.jpg" },
-];
 
 const breakpoints = {
   default: 6,

@@ -26,11 +26,12 @@ import PageSearch from "../components/PageSearch.jsx";
 import { useFilterVenue } from "../../../hooks/SortAndFilter/useFilterVenue.js";
 import sortIcon from "../../withoutauth/assets/icons/sort.svg";
 import filterIcon from "../../withoutauth/assets/icons/filter.svg";
-import HeartFilled from "../../withoutauth/assets/VenueCardLogo/heartfilled.png"
+import HeartFilled from "../../../assets/svg-icons/heart-filled.svg"
 import likeIcon from "../assets/icons/like.svg";
 import OngoingEvents from "../components/OngoingEvents.jsx";
 import { useBanner } from "../../../hooks/useBanner.js";
 import { Link } from "react-router-dom";
+import InlineLoader from "../../../components/InlineLoader.jsx";
 
 function VenuePage() {
   // const [showSort, setShowSort] = useState(false);
@@ -167,7 +168,6 @@ const loadMore = () => {
 
   useEffect(() => {
     if (isSuccess && filterData) {
-      console.log("✅ Filtered data received:", filterData.result);
       setFilteredVenues(filterData.result || []);
       setIsFiltering(false);
     }
@@ -218,7 +218,6 @@ const loadMore = () => {
       userId: auth?.id,
     };
 
-    console.log("🎯 APPLY CLICK API PAYLOAD:", payload);
     setIsFiltering(true);
     filterVenues(payload)
   };
@@ -837,13 +836,7 @@ if (isLoadingData || isLoading || sportsLoading) {
             </Col>
           </Row>
 <div ref={observerRef}></div>
-
-{isFetchingMore && (
-  <div className="text-center my-4">
-    <div className="spinner-border text-success" role="status"></div>
-    <p className="mt-2">Loading more venues...</p>
-  </div>
-)}
+{isFetchingMore && <InlineLoader text="Loading more venues…" />}
           <AppDownloadBanner />
    
         </Container >

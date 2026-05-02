@@ -1,129 +1,204 @@
-/* ─── About Page ─── */
+/* ═══════════════════════════════════════════════════════
+   ABOUT PAGE
+   ═══════════════════════════════════════════════════════ */
 
-/* ─── Header ─── */
-.header-left h1 {
-  font-size: clamp(26px, 4vw, 60px);
-  font-weight: 700;
-  color: #172a39;
-  font-family: 'Lato', Arial, sans-serif;
-  margin: clamp(12px, 1.39vw, 20px) 0;
-  line-height: 1.15;
-}
-.header-left h1 span { color: #1163c7; }
-
-.header-left p {
-  font-size: clamp(15px, 1.1vw, 18px);
-  margin-top: 8px;
-  margin-bottom: 8px;
-  color: #757575;
-  font-weight: 400;
-  letter-spacing: .3px;
-  line-height: 1.65;
+/* ─── Intro section ─── */
+.about-intro {
+  padding: 72px 0;
+  background: #ffffff;
 }
 
-/* ─── Buttons ─── */
-.button-group {
-  margin-top: clamp(16px, 2.5vw, 48px);
+.about-section-title {
+  font-family: 'Lato', sans-serif;
+  font-weight: 800;
+  font-size: clamp(26px, 3vw, 40px);
+  color: #172A39;
+  margin: 8px 0 16px;
+  line-height: 1.2;
+}
+
+.about-body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(14px, 1.1vw, 17px);
+  color: #555;
+  line-height: 1.75;
+  margin-bottom: 14px;
+}
+
+.about-cta-group {
   display: flex;
   gap: 14px;
   flex-wrap: wrap;
+  margin-top: 28px;
 }
 
-.primary-btn, .secondary-btn {
-  border-radius: 50px;
-  border: 1.5px solid #1163c7;
-  cursor: pointer;
-  font-weight: 600;
-  transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease, background .3s ease;
-  height: clamp(36px, 4vw, 56px);
-  width: clamp(110px, 11vw, 168px);
+/* ─── Image ─── */
+.about-img-wrap {
+  position: relative;
+  border-radius: 24px;
+  overflow: visible;
+}
+.about-hero-img {
+  width: 100%;
+  border-radius: 24px;
+  box-shadow: 0 16px 48px rgba(0,0,0,.14);
+  display: block;
+  transition: transform .5s ease;
+}
+.about-img-wrap:hover .about-hero-img { transform: scale(1.02); }
+
+.about-img-badge {
+  position: absolute;
+  bottom: -16px;
+  left: 24px;
+  background: white;
+  border-radius: 14px;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 28px rgba(0,0,0,.14);
+  font-size: 24px;
+}
+.about-badge-title {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: #172A39;
+  margin: 0;
+  line-height: 1.2;
+}
+.about-badge-sub {
   font-family: 'DM Sans', sans-serif;
-  font-size: clamp(13px, 1.1vw, 18px);
-}
-.primary-btn {
-  background-color: #1163c7;
-  color: white;
-  box-shadow: 0 4px 14px rgba(17,99,199,.35);
-}
-.primary-btn:hover {
-  background-color: #0d4fa0;
-  transform: translateY(-3px) scale(1.04);
-  box-shadow: 0 8px 24px rgba(17,99,199,.45);
-}
-.secondary-btn {
-  background-color: white;
-  color: #1163c7;
-  box-shadow: 0 4px 12px rgba(0,0,0,.08);
-}
-.secondary-btn:hover {
-  transform: translateY(-3px) scale(1.04);
-  box-shadow: 0 8px 20px rgba(0,0,0,.14);
-}
-
-/* ─── About image ─── */
-.header-left + div img,
-.col-lg-6 img.w-100 {
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0,0,0,.12);
-  transition: transform .5s ease, box-shadow .5s ease;
-}
-.col-lg-6 img.w-100:hover {
-  transform: scale(1.02);
-  box-shadow: 0 16px 48px rgba(0,0,0,.18);
+  font-size: 12px;
+  color: #858585;
+  margin: 0;
 }
 
 /* ─── Mission / Vision ─── */
-.mission-vision-section { margin: 60px 0; }
-
-.content-block {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: clamp(24px, 4vw, 60px);
-  gap: clamp(12px, 1.4vw, 20px);
+.about-mv-section {
+  padding: 72px 0;
+  background: #f8fafc;
 }
-.content-block.reverse { flex-direction: row-reverse; }
 
-.text-block h3 {
+.about-mv-card {
+  background: white;
+  border-radius: 20px;
+  padding: 36px 32px;
+  height: 100%;
+  border: 1px solid #edf0f7;
+  box-shadow: 0 4px 20px rgba(0,0,0,.06);
+  transition: transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.about-mv-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  border-radius: 20px 20px 0 0;
+}
+.about-mv-card--mission::before { background: linear-gradient(90deg, #1163C7, #1a7ae0); }
+.about-mv-card--vision::before  { background: linear-gradient(90deg, #FC8019, #FFD700); }
+.about-mv-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 48px rgba(17,99,199,.14);
+}
+
+.about-mv-icon {
+  font-size: 36px;
+  margin-bottom: 16px;
+  display: block;
+}
+.about-mv-card h3 {
   font-family: 'Lato', sans-serif;
   font-weight: 700;
-  font-size: clamp(26px, 3vw, 44px);
-  line-height: 1.2;
-  letter-spacing: .3px;
-  margin-top: clamp(12px, 2vw, 36px);
-  margin-bottom: 12px;
-  color: #172a39;
+  font-size: clamp(20px, 1.8vw, 26px);
+  color: #172A39;
+  margin: 0 0 12px;
 }
-
-.highlight { color: #1163c7; }
-
-.text-block p {
+.about-mv-lead {
   font-family: 'DM Sans', sans-serif;
-  font-weight: 400;
-  font-size: clamp(15px, 1.1vw, 18px);
+  font-weight: 600;
+  font-size: clamp(14px, 1.1vw, 17px);
+  color: #1163C7;
+  margin-bottom: 14px;
+}
+.about-mv-card p {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(13px, 1vw, 15px);
+  color: #555;
   line-height: 1.7;
-  letter-spacing: .3px;
-  color: #444;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
-
-/* ─── Culture wrapper ─── */
-.culture-wrapper { margin: 20px 0; }
-
-/* ─── Founder note ─── */
-.culture-heading {
-  font-size: clamp(24px, 3vw, 44px);
-  font-weight: 700;
+.about-mv-tagline {
   font-family: 'Lato', sans-serif;
-  color: #172a39;
+  font-size: 16px;
+  color: #172A39;
 }
 
-/* ─── Download wrapper ─── */
-.DownloadApp-wrapper { margin-top: 40px; }
+/* ─── Founders ─── */
+.about-founders {
+  padding: 72px 0;
+  background: #ffffff;
+}
+
+.about-founder-card {
+  background: #f8fafc;
+  border-radius: 20px;
+  padding: 32px;
+  height: 100%;
+  border: 1px solid #edf0f7;
+  display: flex;
+  gap: 20px;
+  transition: transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease;
+}
+.about-founder-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(17,99,199,.1);
+}
+
+.about-founder-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1163C7, #1a7ae0);
+  color: white;
+  font-family: 'Lato', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(17,99,199,.3);
+}
+
+.about-founder-body p {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(13px, 1vw, 15px);
+  color: #444;
+  line-height: 1.75;
+  margin-bottom: 12px;
+}
+
+.about-founder-sign {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(17,99,199,.12);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: #172A39;
+}
+.about-founder-sign span {
+  font-size: 12px;
+  color: #858585;
+}
 
 /* ─── Responsive ─── */
-@media screen and (max-width: 767px) {
-  .mission-vision-section { margin: 30px 0; }
-}
-@media (max-width: 530px) {
-  .content-block, .content-block.reverse { flex-direction: column; }
+@media (max-width: 767px) {
+  .about-intro, .about-mv-section, .about-founders { padding: 48px 0; }
+  .about-founder-card { flex-direction: column; }
+  .about-img-badge { left: 12px; bottom: -12px; }
 }

@@ -1,7 +1,6 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import Filter from "./Filter";
 import filtericon from "../assets/Filtericon/Filtericon.svg"
 import EventFilter from "./EventFilter";
 function EventPageModal() {

@@ -7,7 +7,6 @@ export const useLikeVenue = () => {
       if (!venueId || !userId) {
         throw new Error("venueId and userId are required");
       }
-      console.log("Calling AddfavoriteVenue with:", { venueId, userId });
       return addFavoriteVenue({ venueId, userId });
     },
   });

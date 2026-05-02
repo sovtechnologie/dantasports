@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import './Stylesheets/TicketSelector.css';
 import addCircle from "../../withoutauth/assets/icons/add.svg"
 import minusCircle from "../../../assets/VenueImage/sub.svg"

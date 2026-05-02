@@ -9,15 +9,11 @@ export const useAddReview = () => {
       if (!payload) {
         throw new Error("payload must be an required");
       }
-      console.log("in mutation section payload", payload);
       return AddReview({ payload });
     },
     onSuccess: (data) => {
-      console.log("Reviw Add successfully:", data);
       queryClient.invalidateQueries(["completeBooking"]);
     },
-    onError: (error) => {
-      console.error("Error adding Review:", error);
-    },
+    onError: () => {},
   });
 };

@@ -3,8 +3,6 @@ import React from "react";
 const CustomMap = ({ latitude, longitude }) => {
   if (!latitude || !longitude) return <p>Location data not available</p>;
 
-  console.log("Rendering map for:", latitude, longitude);
-
   const embedUrl = `https://www.google.com/maps?q=${latitude},${longitude}&z=15&output=embed`;
 
   return (
@@ -19,13 +17,12 @@ const CustomMap = ({ latitude, longitude }) => {
         loading="lazy"
         title="Venue Map"
       />
-
       <a
         href={`https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`}
         target="_blank"
         rel="noopener noreferrer"
         className="map-link"
-        style={{ display: "inline-block", color: "#007bff", textDecoration: "underline" }}
+        style={{ display: "inline-block", color: "#1163C7", textDecoration: "underline" }}
       >
         View on Google Maps
       </a>

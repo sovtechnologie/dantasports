@@ -1,150 +1,96 @@
 import React, { useState, useEffect } from "react";
 import "../Stylesheets/TimeSlotSelector.css";
 
-const TimeSlotSelector = ({ date, selectedTime, setSelectedTime }) => {
-  const [timeSlots, setTimeSlots] = useState([]);
-
-  // 🕒 Generate 24-hour half-hour slots
-  const generateTimeSlots = () => {
-    const slots = [];
-    for (let hour = 0; hour < 24; hour++) {
-      for (let min = 0; min < 60; min += 30) {
-        const timeString = new Date(0, 0, 0, hour, min).toLocaleTimeString(
-          "en-US",
-          { hour: "numeric", minute: "2-digit" }
-        );
-        slots.push(timeString);
-      }
+const generateSlots = () => {
+  const slots = [];
+  for (let h = 0; h < 24; h++) {
+    for (let m = 0; m < 60; m += 30) {
+      slots.push(new Date(0, 0, 0, h, m).toLocaleTimeString("en-US", {
+        hour: "numeric", minute: "2-digit",
+      }));
     }
-    setTimeSlots(slots);
-  };
+  }
+  return slots;
+};
 
-  // ⏳ Check if slot is in past (only for today)
-  const isPastTime = (timeString) => {
-    if (!date) return false;
+const isPast = (timeStr, date) => {
+  if (!date) return false;
+  const sel = new Date(date);
+  const now = new Date();
+  if (sel.toDateString() !== now.toDateString()) return false;
+  const [time, mod] = timeStr.split(" ");
+  let [h, m] = time.split(":").map(Number);
+  if (mod === "PM" && h < 12) h += 12;
+  if (mod === "AM" && h === 12) h = 0;
+  const slot = new Date(); slot.setHours(h, m, 0, 0);
+  return slot < now;
+};
 
-    const selectedDate = new Date(date);
-    const now = new Date();
+export default function TimeSlotSelector({ date, selectedTime, setSelectedTime }) {
+  const [slots] = useState(generateSlots);
 
-    const isToday = selectedDate.toDateString() === now.toDateString();
-    if (!isToday) return false;
-
-    const [time, modifier] = timeString.split(" ");
-    let [hours, minutes] = time.split(":");
-    hours = parseInt(hours);
-    minutes = parseInt(minutes);
-
-    if (modifier === "PM" && hours < 12) hours += 12;
-    if (modifier === "AM" && hours === 12) hours = 0;
-
-    const slotTime = new Date();
-    slotTime.setHours(hours, minutes, 0, 0);
-
-    return slotTime < now;
-  };
-
-  // 🕓 Automatically select current nearest slot
-  const autoSelectCurrentTime = (slots) => {
+  // Auto-select nearest future slot when date changes
+  useEffect(() => {
     if (!date || !slots.length) return;
-
     const now = new Date();
-    const selectedDate = new Date(date);
-    const isToday = selectedDate.toDateString() === now.toDateString();
-
-    // If selected date is today → auto-select current or next half-hour slot
-    if (isToday) {
-      const currentMinutes = now.getHours() * 60 + now.getMinutes();
-      let nearestSlot = slots[0];
-      let nearestDiff = Infinity;
-
-      slots.forEach((slot) => {
-        const [time, modifier] = slot.split(" ");
-        let [h, m] = time.split(":");
-        h = parseInt(h);
-        m = parseInt(m);
-        if (modifier === "PM" && h < 12) h += 12;
-        if (modifier === "AM" && h === 12) h = 0;
-
-        const slotMinutes = h * 60 + m;
-        const diff = slotMinutes - currentMinutes;
-
-        if (diff >= 0 && diff < nearestDiff) {
-          nearestSlot = slot;
-          nearestDiff = diff;
-        }
+    const sel = new Date(date);
+    if (sel.toDateString() === now.toDateString()) {
+      const cur = now.getHours() * 60 + now.getMinutes();
+      let nearest = slots[0], diff = Infinity;
+      slots.forEach((s) => {
+        const [t, mod] = s.split(" ");
+        let [h, m] = t.split(":").map(Number);
+        if (mod === "PM" && h < 12) h += 12;
+        if (mod === "AM" && h === 12) h = 0;
+        const d = h * 60 + m - cur;
+        if (d >= 0 && d < diff) { nearest = s; diff = d; }
       });
-
-      // Auto-set nearest future slot
-      setSelectedTime(nearestSlot);
+      setSelectedTime(nearest);
     } else {
-      // Future date → default 12:00 PM
       setSelectedTime("12:00 PM");
     }
-  };
-
-  useEffect(() => {
-    generateTimeSlots();
   }, [date]);
-
-  // Once slots generated, auto-select current time
-  useEffect(() => {
-    if (timeSlots.length > 0) {
-      autoSelectCurrentTime(timeSlots);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timeSlots, date]);
 
   return (
     <section className="timeslot_section">
-      <div className="inner">
-        <div className="mb-3 d-flex align-items-center justify-content-between">
-          <label className="time">Time:</label>
-          <input
-            type="text"
-            className="form-control text-center ms-3"
-            value={selectedTime || ""}
-            readOnly
-          />
-        </div>
+      {/* Header */}
+      <div className="time-display">
+        <span className="time-label">⏰ Time</span>
+        {selectedTime && (
+          <span className="time-value">{selectedTime}</span>
+        )}
+      </div>
 
-        {/* Time Buttons */}
-        <div className="d-flex mb-3 flex-wrap">
-          {timeSlots.map((time, i) => {
-            const disabled = isPastTime(time);
+      {/* Slot grid */}
+      <div className="inner">
+        <div className="slot-grid">
+          {slots.map((t, i) => {
+            const disabled = isPast(t, date);
             return (
               <button
                 key={i}
-                className={`time-btn ${selectedTime === time ? "active" : ""
-                  } ${disabled ? "disabled" : ""}`}
-                onClick={() => !disabled && setSelectedTime(time)}
+                className={`${selectedTime === t ? "active" : ""}${disabled ? " disabled" : ""}`}
+                onClick={() => !disabled && setSelectedTime(t)}
                 disabled={disabled}
+                title={disabled ? "Past time" : t}
               >
-                {time}
+                {t}
               </button>
             );
           })}
         </div>
-
-       
       </div>
-       {selectedTime && (
-          <div className="book_a_time">
-            <p>
-              Badminton |{" "}
-              {date
-                ? new Date(date).toLocaleDateString("en-IN", {
-                  weekday: "short",
-                  day: "2-digit",
-                  month: "short",
-                  year: "numeric",
-                })
-                : "Select Date"}{" "}
-              | {selectedTime}
-            </p>
-          </div>
-        )}
+
+      {/* Summary */}
+      {selectedTime && date && (
+        <div className="book_a_time">
+          <p>
+            📅 {new Date(date).toLocaleDateString("en-IN", {
+              weekday: "short", day: "2-digit", month: "short",
+            })} · ⏰ {selectedTime}
+          </p>
+        </div>
+      )}
     </section>
   );
-};
-
-export default TimeSlotSelector;
+}

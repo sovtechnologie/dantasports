@@ -1,5 +1,4 @@
 import React, { useRef, memo } from "react";
-import PropTypes from "prop-types";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
@@ -19,7 +18,6 @@ const getTimeAgo = (dateString) => {
 
   const parsedDate = new Date(dateString);
   if (isNaN(parsedDate.getTime())) {
-    console.warn("Invalid date format:", dateString);
     return "";
   }
 

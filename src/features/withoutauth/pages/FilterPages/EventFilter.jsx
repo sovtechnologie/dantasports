@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import "../../Stylesheets/Filterpages/EventFilter.css";
 import "../../Stylesheets/Filterpages/Cards.css";
+import "../../Stylesheets/Filterpages/FilterSystem.css";
 import { useQueryClient } from "@tanstack/react-query";
 import { useFetchEvent } from "../../../../hooks/EventList/useFetchEvents.js";
 import { useSelector } from "react-redux";
@@ -22,12 +23,13 @@ import sortIcon from "../../assets/icons/sort.svg";
 import filterIcon from "../../assets/icons/filter.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { Share } from "../../../../utils/share";
-import HeartFilled from "../../assets/VenueCardLogo/heartfilled.png";
+import HeartFilled from "../../../../assets/svg-icons/heart-filled.svg";
 import PageSearch from "../../components/PageSearch.jsx";
 import star from "../../assets/icons/star-white.svg"
 import OngoingEvents from "../../components/OngoingEvents.jsx";
 import { useBanner } from "../../../../hooks/useBanner.js";
-import sportIcons from "../../assets/sport-list/Batminton.png";
+import sportIcons from "../../../../assets/svg-icons/badminton.svg";
+import InlineLoader from "../../../../components/InlineLoader.jsx";
 
 export default function EventFilterPage() {
 
@@ -57,7 +59,6 @@ const observerRef = React.useRef(null);
   });
 
   const payload = { lat, lng, userId: userId || null, type: 1 };
-  console.log("payloadpayload", payload);
   const {
     data: AllEventdata,
     isLoading,
@@ -72,8 +73,6 @@ const observerRef = React.useRef(null);
     if (AllEventdata?.status === 200) setEventList(AllEventdata.result);
   }, [AllEventdata]);
 
-  console.log("AllEventdataAllEventdata", AllEventdata);
-  console.log("eventListeventListeventList", eventList);
 
   const likeEvent = useLikeEvent();
   const unlikeEvent = useUnlikeEvent();
@@ -129,11 +128,9 @@ const observerRef = React.useRef(null);
 
 
     if (selectedSports.length > 0) {
-      console.log("Selected Sports:", selectedSports);
       result = result.filter((evt) =>
         evt.sports?.some((s) => selectedSports.includes(s.id))
       );
-      console.log("After sports filter:", result);
     }
 
     if (selectedDate) {
@@ -174,7 +171,6 @@ const observerRef = React.useRef(null);
         typeof a === "object" ? a.id : a
       );
 
-      console.log("✅ selectedAmenityIds", selectedAmenityIds);
 
       result = result.filter((evt) => {
         const eventAmenityIds = evt.amenities?.map((a) => a.id) || [];
@@ -505,7 +501,7 @@ useEffect(() => {
                         <Card className="event-card">
                           <div
                             className="card_img"
-                            onClick={() => navigate(`/Events/${evt.id}`)}
+                            onClick={() => navigate(`/events/${evt.id}`)}
                             style={{ cursor: "pointer" }}
                           >
                             <img
@@ -572,7 +568,7 @@ useEffect(() => {
 
                           <div
                             className="txt_wrapper"
-                            onClick={() => navigate(`/Events/${evt.id}`)}
+                            onClick={() => navigate(`/events/${evt.id}`)}
                           >
                             <div className="card_txt">
                               <h2 className="text_wrap card_heading">{evt.event_title}</h2>
@@ -641,12 +637,7 @@ useEffect(() => {
                   ))}
     {visibleCount < filteredEvents.length && (
       <>
-        {isFetchingMore && (
-          <div className="text-center my-4 col-12">
-            <div className="spinner-border text-success" role="status"></div>
-            <p className="mt-2">Loading more events...</p>
-          </div>
-        )}
+        {isFetchingMore && <InlineLoader text="Loading more events…" />}
         <div ref={observerRef} className="col-12"></div>
       </>
     )}

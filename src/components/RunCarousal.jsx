@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "./StyleSheets/RunCarousal.module.css";
-import leftArrow from "../assets/VenueImage/left-arrow.png";
-import rightArrow from "../assets/VenueImage/right-arrow.png";
-import cursorArrow from "../assets/cursorArrow.png";
+import leftArrow from "../assets/svg-icons/chevron-left-circle.svg";
+import rightArrow from "../assets/svg-icons/chevron-right-circle.svg";
+import cursorArrow from "../assets/svg-icons/arrow-right.svg";
 import { useFetchEvent } from "../hooks/EventList/useFetchEvents.js";
 import HomeRunCard from "./HomeRunCard.jsx";
 import { useSelector } from "react-redux";
+import fallback from "../assets/images/home/bookrun/bookrun.png";
+
+const fallbackRuns = [
+  { id: "run-fallback-1", event_title: "Sunrise 5K Run", average_rating: 4.8, review_count: 112, lowest_ticket_price: 299, locations: [{ area: "City Park", city: "Bengaluru" }], start_date: "2026-05-10", end_date: "2026-05-10", start_time: "06:00:00", end_time: "08:00:00", desktop_image: fallback, sports: [] },
+  { id: "run-fallback-2", event_title: "Weekend Trail Run", average_rating: 4.6, review_count: 86, lowest_ticket_price: 399, locations: [{ area: "Lake View", city: "Bengaluru" }], start_date: "2026-05-17", end_date: "2026-05-17", start_time: "06:30:00", end_time: "09:00:00", desktop_image: fallback, sports: [] },
+  { id: "run-fallback-3", event_title: "Night City Dash", average_rating: 4.7, review_count: 74, lowest_ticket_price: 499, locations: [{ area: "Central Arena", city: "Bengaluru" }], start_date: "2026-05-24", end_date: "2026-05-24", start_time: "19:00:00", end_time: "21:00:00", desktop_image: fallback, sports: [] },
+  { id: "run-fallback-4", event_title: "10K Endurance Run", average_rating: 4.9, review_count: 93, lowest_ticket_price: 599, locations: [{ area: "Green Belt", city: "Bengaluru" }], start_date: "2026-05-31", end_date: "2026-05-31", start_time: "05:45:00", end_time: "08:45:00", desktop_image: fallback, sports: [] },
+];
 
 // Formats "15:00", "15:00:30" → "03:00 PM"
 function formatTime(timeStr = "00:00") {
@@ -30,23 +38,22 @@ function formatTime(timeStr = "00:00") {
 const RunCarousel = () => {
   const { lat, lng } = useSelector((state) => state.location);
   const [index, setIndex] = useState(0);
-  const [coords, setCoords] = useState({
+  const coords = {
     lat: lat,
     lng: lng,
     type: 2,
     userId: null,
-  });
-  const [lastClicked, setLastClicked] = useState(null); // 'prev' | 'next' | null
+  };
   const [hoveredArrow, setHoveredArrow] = useState(null); // 'prev' | 'next' | null
   const visibleCount = 4;
-  const { data, isLoading, error } = useFetchEvent(coords);
+  const { data } = useFetchEvent(coords);
 
   const venues = data?.result || [];
+  const carouselItems = venues.length ? venues : fallbackRuns;
 
   const prev = () => {
     setIndex((prevIndex) => {
       if (prevIndex > 0) {
-        setLastClicked("prev");
         return prevIndex - 1;
       }
       return prevIndex;
@@ -55,22 +62,18 @@ const RunCarousel = () => {
 
   const next = () => {
     setIndex((prevIndex) => {
-      if (prevIndex < venues.length - visibleCount) {
-        setLastClicked("next");
+      if (prevIndex < carouselItems.length - visibleCount) {
         return prevIndex + 1;
       }
       return prevIndex;
     });
   };
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error loading venues: {error.message}</p>;
-
   return (
     <div className={styled.eventsectioncontainer}>
       <div className={styled.eventsheader}>
         <h3>Book Run</h3>
-        <Link to="/Run" className={styled.seeall}>
+        <Link to="/run" className={styled.seeall}>
           See All
           <img
             src={cursorArrow}
@@ -82,7 +85,7 @@ const RunCarousel = () => {
 
       <div className={styled.eventcarouselwrapper}>
         <div className={styled.eventcarouseltrack}>
-          {venues.slice(index, index + visibleCount).map((evt, i) => {
+          {carouselItems.slice(index, index + visibleCount).map((evt, i) => {
             let extraClass = "";
             if (hoveredArrow === "prev" && i === 0 && index > 0) {
               extraClass = "hover-effect";
@@ -90,7 +93,7 @@ const RunCarousel = () => {
             if (
               hoveredArrow === "next" &&
               i === visibleCount - 1 &&
-              index < venues.length - visibleCount
+              index < carouselItems.length - visibleCount
             ) {
               extraClass = "hover-effect";
             }
@@ -100,28 +103,32 @@ const RunCarousel = () => {
               rating: evt.average_rating ?? 0,
               type: evt?.event_type,
               RatingCount: evt.review_count ?? 0,
-              price: `₹${parseInt(evt.lowest_ticket_price)} onwards`,
+              price: evt.lowest_ticket_price ? `₹${parseInt(evt.lowest_ticket_price)} onwards` : "",
               offer: evt.offer ?? "No offer",
               favourite: evt?.favourite,
               favourite_event_id: evt?.favourite_event_id,
               location:
-                `${evt.locations[0]?.area}, ${evt.locations[0]?.city}` || "",
-              date: `${new Date(evt.start_date).toLocaleDateString("en-GB", {
+                `${evt.locations?.[0]?.area || ""}, ${evt.locations?.[0]?.city || ""}`.replace(/^,\s*/, ""),
+              date: `${new Date(evt.start_date || Date.now()).toLocaleDateString("en-GB", {
                 day: "2-digit",
                 month: "short",
-              })} – ${new Date(evt.end_date).toLocaleDateString("en-GB", {
+              })} – ${new Date(evt.end_date || evt.start_date || Date.now()).toLocaleDateString("en-GB", {
                 day: "2-digit",
                 month: "short",
-              })} | ${formatTime(evt.start_time)}‑${formatTime(evt.end_time.slice(0, 5))}`,
-              image: evt.desktop_image,
+              })} | ${formatTime(evt.start_time)}‑${formatTime(evt.end_time?.slice(0, 5))}`,
+              image: evt.desktop_image || fallback,
               sportIcon: evt.sports || "",
             };
 
-            return <HomeRunCard key={evt.id} event={formattedEvent} />;
+            return (
+              <div key={evt.id} className={extraClass}>
+                <HomeRunCard event={formattedEvent} />
+              </div>
+            );
           })}
         </div>
         <div className={styled.eventnav}>
-          {/* <button
+          <button
                         onClick={prev}
                         disabled={index === 0}
                         onMouseEnter={() => setHoveredArrow('prev')}
@@ -136,7 +143,7 @@ const RunCarousel = () => {
                         onMouseLeave={() => setHoveredArrow(null)}
                     >
                         <img src={rightArrow} alt='rightArrow' />
-                    </button> */}
+                    </button>
         </div>
       </div>
     </div>

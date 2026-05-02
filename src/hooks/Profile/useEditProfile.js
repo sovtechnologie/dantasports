@@ -19,7 +19,6 @@
 //       return await updateProfile({ id, fullName, email, dob, gender });
 //     },
 //     onSuccess: () => {
-//       console.log("✅ Profile updated successfully");
 //     },
 //     onError: (error) => {
 //       console.error("❌ Error updating profile:", error.message);
@@ -40,10 +39,7 @@ export const useEditProfile = () => {
       return await updateProfile(formData);
     },
     onSuccess: () => {
-      console.log("✅ Profile updated successfully");
     },
-    onError: (error) => {
-      console.error("❌ Error updating profile:", error.message);
-    },
+    onError: () => {},
   });
 };

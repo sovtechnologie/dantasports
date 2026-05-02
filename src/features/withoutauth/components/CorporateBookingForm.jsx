@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Stylesheets/CorporateBookingForm.css';
 import { useMutation } from '@tanstack/react-query';
 import { submitInquiryForm } from '../../../services/withoutLoginApi/InquiryFormApi/endpointApi';
-import checkOutIcon from "../assets/checkOutIcon.png";
+import checkOutIcon from "../../../assets/svg-icons/checkout.svg";
 
 const CorporateBookingForm = () => {
   const [formData, setFormData] = useState({

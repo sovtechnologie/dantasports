@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./StyleSheets/BookingPopupCard.css";
-import checkIcon from "../assets/Checkicon.png";
-import ShareIcon from "../assets/BookingshareIcons.png";
-import viewIcon from "../assets/BookingViewIcons.png";
+import checkIcon from "../../../assets/svg-icons/check-circle.svg";
+import ShareIcon from "../../../assets/svg-icons/share-circle.svg";
+import viewIcon from "../../../assets/svg-icons/eye.svg";
 import { useBanner } from "../../../hooks/useBanner.js";
 import { useSelector } from "react-redux";
 import Cookies from "js-cookie";
@@ -26,8 +26,6 @@ const BookingPopupCard = () => {
   const duration = Number(queryParams.get("duration")) || 0;
   const type = queryParams.get("type") || "0";
   const paymentMethod = queryParams.get("paymentMethod");
-  const courtName = queryParams.get("courtName");
-
 
   // Fetch banners safely
   const { data: bannerData, isLoading, error } = useBanner(pageNo);
@@ -52,8 +50,8 @@ const BookingPopupCard = () => {
       await navigator.clipboard.writeText(currentUrl);
       alert("Link copied!");
     }
-  } catch (err) {
-    console.log("Share cancelled:", err?.message);
+  } catch {
+    // Share cancelled or failed silently
   }
 };
 

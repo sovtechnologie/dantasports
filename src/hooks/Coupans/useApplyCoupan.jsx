@@ -7,7 +7,6 @@ export const useApplyCoupan = () => {
             if (!payload) {
                 throw new Error("payload are required");
             }
-            console.log("Calling apply coupon with:", payload);
             return  ApplyCoupan(payload);
         },
     })

@@ -7,7 +7,6 @@ export const useLikeEvent = () => {
       if (!eventId || !userId) {
         throw new Error("eventId and userId are required");
       }
-      console.log("Calling AddfavoriteEvent with:", { eventId, userId,type });
       return addFavoriteEvent({ eventId, userId ,type});
     },
   });

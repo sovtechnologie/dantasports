@@ -74,7 +74,7 @@
 }
 
 .amenities_card .row::-webkit-scrollbar-thumb {
-  background-color: #6da9f1; /* scrollbar color */
+  background-color: #1163C7; /* scrollbar color */
   border-radius: 10px;
   transition: background-color 0.3s ease;
 }

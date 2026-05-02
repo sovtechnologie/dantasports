@@ -69,7 +69,7 @@
 }
 
 .data_box::-webkit-scrollbar-thumb {
-  background-color: #6da9f1; /* scrollbar color */
+  background-color: #1163C7; /* scrollbar color */
   border-radius: 10px;
   transition: background-color 0.3s ease;
 }
@@ -89,7 +89,7 @@
   font-size: 20px;
   color: #172a39;
   padding: 5px !important;
-  background-color: #0050c817;
+  background-color: #1163C717;
   
 }
 .day-group p {

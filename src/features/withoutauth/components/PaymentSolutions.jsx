@@ -1,7 +1,6 @@
 import React from "react";
 import "./Stylesheets/PaymentSolutions.css";
 
-import analyticsImg from "../assets/analyticsImg.png";
 import PaymentsSolutions1 from "../assets/facilitylogo/PaymentsSolutions1.png";
 import PaymentsSolutions2 from "../assets/facilitylogo/paymentsolutions2.png";
 import PaymentsSolutions3 from "../assets/facilitylogo/paymentsolutions3.png";

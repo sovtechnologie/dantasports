@@ -17,8 +17,7 @@ import {
   endOfMonth,
   endOfYear,
   addYears,
-  subYears,
-  isAfter
+  subYears
 } from 'date-fns';
 import "./Stylesheets/MyCalandar.css";
 

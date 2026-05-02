@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './Stylesheets/DownloadApp.css'; // Assuming you have a CSS file for styling
 import iphoneImage from '../assets/downloadAppLogo/iPhone 15.png'; // adjust the path as needed
-import appleicon from '../../../assets/appleicon.png';
-import googleplaystoreicon from '../../../assets/googleicon.png';
+import appleicon from '../../../assets/downloadAppLogo/appleicon.svg';
+import googleplaystoreicon from '../../../assets/downloadAppLogo/play-store.svg';
 
 
 const subtexts = [

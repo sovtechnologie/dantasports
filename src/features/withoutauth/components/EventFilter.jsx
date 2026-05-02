@@ -1,10 +1,8 @@
 import React from "react";
 import "../../withoutauth/Stylesheets/EventFilter.css";
-import ActivityServices from "./ActivityServices";
 import CustomDatePicker from "./CustomDatePicker";
 import Difficulty from "./Difficulty";
 import Amenities from "./Amenities";
-import DistanceSlider from "./DistanceSlider";
 import ActivityForEvent from "./ActivityForEvent";
 import PriceSlider from "./PriceSlider";
 
@@ -36,14 +34,13 @@ function EventFilter({
       <div className="filter_card mt-3">
         <div className="d-flex justify-content-between align-items-center mb-2">
           <h3 className="m-0">Filter</h3>
-          <a href="" className="reset"
-
-            onClick={handleReset}
-
+          <button
             type="button"
+            className="reset"
+            onClick={handleReset}
           >
             Reset
-          </a>
+          </button>
         </div>
 
         <ActivityForEvent

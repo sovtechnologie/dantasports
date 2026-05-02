@@ -12,11 +12,8 @@ export const useDeleteSport = () => {
             return RemovefavoriteSport({ favoriteSportsId: favoriteSportsId }); // single ID
         },
         onSuccess: (data) => {
-            console.log("Sport removed successfully:", data);
             queryClient.invalidateQueries(['favoritesSport']);
         },
-        onError: (error) => {
-            console.error("Error removing sport:", error);
-        },
+        onError: () => {},
     });
 };

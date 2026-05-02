@@ -67,6 +67,7 @@ const TimeSelector = ({
 
 }) => {
   const isLoggedIn = Boolean(Cookies.get('token'));
+  const queryClient = useQueryClient();
   const [errorMessage, setErrorMessage] = useState("");
   const payload = {
     date: getLocalIsoDate(selectedDate),
@@ -80,13 +81,15 @@ const TimeSelector = ({
     isError: timeslotError,
     error: timeslotMessage
   } = useFetchTimeslotForVenue(payload);
+  const {
+    mutate: updateBooking,
+  } = useUpdateBooking();
 
   const slottime = timeslotData?.result?.[0] || {};
 
   const { start_time = '00:00:00', end_time = '00:00:00' } = slottime;
 
   const { data, isLoading, error } = useSportDetails(sportId, venueId);
-  console.log("sportsportsportsportsportsport", data);
   const sport = data?.result?.[0] || {};
 
 
@@ -199,11 +202,8 @@ const TimeSelector = ({
         updateBooking(bookingPayload, {
           onSuccess: () => {
             queryClient.invalidateQueries(["paymentDetails", bookingId]);
-            console.log("Duration Updated Successfully");
           },
-          onError: (err) => {
-            console.log("Duration Update Failed", err);
-          }
+          onError: () => {}
         });
       }
 
@@ -219,7 +219,9 @@ const TimeSelector = ({
     selectedPitch,
     sportId,
     venueId,
-    selectedDate
+    selectedDate,
+    updateBooking,
+    queryClient
   ]);
 
 
@@ -255,7 +257,7 @@ const TimeSelector = ({
 
     setSelectedTime(slot);
     setSelectedDuration(slotMinDurationHr);
-  }, [selectedDate, setSelectedTime, setSelectedDuration, slotMinDurationHr]);
+  }, [selectedDate, setSelectedTime, setSelectedDuration, setSelectedPitch, slotMinDurationHr]);
 
 
 
@@ -297,21 +299,12 @@ const TimeSelector = ({
 
   const {
     mutate: createBooking,
-    isLoading: bookingLoading,
-    error: bookingError
   } = useCreateVenueBooking();
   const timeRead = selectedTime?.toLocaleTimeString([], {
     hour: '2-digit',
     minute: '2-digit',
     hour12: false
   });
-
-  const {
-    mutate: updateBooking,
-    isLoading: updateLoading,
-    error: updateError
-  } = useUpdateBooking();
-
 
   // const bookVenue = (courtId) => {
 
@@ -340,8 +333,6 @@ const TimeSelector = ({
   //     onError: (error) => alert('Booking failed. ' + (error.message || '')),
   //   });
   // }
-  const queryClient = useQueryClient();
-
   const bookVenue = (courtId) => {
     if (!isLoggedIn) {
       alert('Please log in to proceed.');
@@ -366,14 +357,8 @@ const TimeSelector = ({
 
         onSuccess: (data) => {
           queryClient.invalidateQueries(["paymentDetails", bookingId]);
-
-          console.log("Booking updated successfully:", data);
-          // alert("Booking updated successfully!");
         },
-        onError: (error) => {
-          console.error("Update failed:", error);
-          // alert("Failed to update booking.");
-        },
+        onError: () => {},
       });
     } else {
 
@@ -381,19 +366,16 @@ const TimeSelector = ({
         onSuccess: (data) => {
           const id = data?.result?.insertId;
           setBookingId(id);
-          console.log("Booking created successfully. ID:", id);
         },
         onError: (error) => {
-          console.error("Booking failed:", error);
           alert("Booking failed. Please try again.");
         },
       });
     }
   };
 
-  console.log("bookingid", bookingId);
-
-
+  if (timeslotLoading) return <div><TimeslotShimmer /></div>;
+  if (timeslotError) return <div>{timeslotMessage?.message || "Error loading time slots"}</div>;
   if (isLoading) return <div><TimeslotShimmer /></div>;
   if (error) return <div>Error loading sport details</div>;
 
@@ -467,11 +449,11 @@ const TimeSelector = ({
                   className={`ts-slot${isSelected ? ' active' : ''}`}
                   style={{
                     backgroundColor: isSelected
-                      ? "#007bff"
+                      ? "#1163C7"
                       : allCourtsBooked
-                        ? "grey"
+                        ? "#b0b8c8"
                         : "",
-                    color: allCourtsBooked ? "white" : isSelected ? "white" : "black"
+                    color: allCourtsBooked ? "white" : isSelected ? "white" : "inherit"
                   }}
                   onClick={() => !allCourtsBooked && handleTimeClick(slotStart)}
                 >

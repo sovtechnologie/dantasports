@@ -8,14 +8,10 @@ export const useBookEvent = () => {
       if (!payload) {
         throw new Error("payload must be an required");
       }
-      console.log("in mutation section payload", payload);
       return BookEvent(payload);
     },
     onSuccess: (data) => {
-      console.log("Book event successfully:", data);
     },
-    onError: (error) => {
-      console.error("Error book event:", error);
-    },
+    onError: () => {},
   });
 };

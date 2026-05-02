@@ -7,7 +7,6 @@ export const useUnlikeCoach = (options = {}) => {
       if (!favouriteCoachesId) {
         throw new Error("favouriteCoachesId is required");
       }
-      console.log("Calling removeFavoriteCoach with:", { favouriteCoachesId });
       return removeFavoriteCoach({ favouriteCoachesId });
     },
 

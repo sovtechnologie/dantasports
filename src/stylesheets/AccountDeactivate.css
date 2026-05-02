@@ -1,119 +1,182 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+/* ═══════════════════════════════════════════════════════
+   ACCOUNT DEACTIVATE PAGE
+   ═══════════════════════════════════════════════════════ */
 
-.account_titel h1,
-h2,
-.listing h2,
-.tite h2 {
+.ad-section { padding: 60px 0 80px; }
 
-    color: #1163C7;
-    font-family: 'Lato';
-    font-weight: 500;
-    font-size: 32px;
-
-
+/* ─── Overview block ─── */
+.ad-overview {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  background: white;
+  border-radius: 16px;
+  padding: 28px 32px;
+  border: 1px solid rgba(17,99,199,.12);
+  box-shadow: 0 4px 16px rgba(0,0,0,.06);
+  margin-bottom: 8px;
+}
+.ad-overview-icon { font-size: 36px; flex-shrink: 0; }
+.ad-overview h2 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: clamp(18px, 1.8vw, 24px);
+  color: #1163C7;
+  margin: 0 0 10px;
+}
+.ad-overview p {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(13px, 1vw, 15px);
+  color: #444;
+  line-height: 1.7;
+  margin: 0;
 }
 
-.account_titel p {
-
-    font-family: 'Lato';
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-    color: #000;
-
-
+/* ─── Divider ─── */
+.ad-divider {
+  border: none;
+  border-top: 1px dashed rgba(17,99,199,.2);
+  margin: 36px 0;
 }
 
-.bder {
-    border: 1px dotted #1163C7;
-    margin: 20px 0;
+/* ─── Info cards ─── */
+.ad-card {
+  background: white;
+  border-radius: 16px;
+  padding: 28px 28px;
+  height: 100%;
+  border: 1px solid #edf0f7;
+  box-shadow: 0 4px 16px rgba(0,0,0,.06);
+  transition: transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease;
+}
+.ad-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(17,99,199,.1);
+}
+.ad-card h2 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: clamp(17px, 1.5vw, 22px);
+  color: #1163C7;
+  margin: 0 0 16px;
 }
 
-.listing ol li {
+/* ─── Lists ─── */
+.ad-list {
+  padding-left: 20px;
+  margin: 0 0 16px;
+}
+.ad-list li {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(13px, 1vw, 15px);
+  color: #444;
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+.ad-list--ordered { list-style-type: decimal; }
+.ad-list:not(.ad-list--ordered) { list-style-type: disc; }
 
-    list-style-type: decimal;
-    font-family: 'Lato';
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 26px;
-    margin-bottom: 10px;
+.ad-alt-text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: #555;
+  background: #f0f4ff;
+  border-left: 3px solid #1163C7;
+  padding: 12px 16px;
+  border-radius: 0 8px 8px 0;
+  margin-top: 16px;
+  line-height: 1.6;
+}
+.ad-alt-text a { color: #1163C7; }
 
+/* ─── Retention cards ─── */
+.ad-retention-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px 20px;
+  height: 100%;
+  border: 1px solid #edf0f7;
+  box-shadow: 0 4px 16px rgba(0,0,0,.06);
+  text-align: center;
+  transition: transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease, border-color .3s ease;
+}
+.ad-retention-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(17,99,199,.14);
+  border-color: rgba(17,99,199,.2);
+}
+.ad-retention-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e8f0fd, #f0f4ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  transition: transform .4s cubic-bezier(.34,1.56,.64,1);
+}
+.ad-retention-card:hover .ad-retention-icon { transform: scale(1.12) rotate(-5deg); }
+.ad-retention-icon img { width: 32px; height: 32px; object-fit: contain; }
+.ad-retention-card h3 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: clamp(14px, 1.2vw, 17px);
+  color: #1163C7;
+  margin: 0 0 14px;
+}
+.ad-retention-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+.ad-retention-list li {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 6px;
+  padding-left: 16px;
+  position: relative;
+}
+.ad-retention-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: #1163C7;
+  font-weight: 700;
 }
 
-.listing ul li {
-
-    list-style-type: disc;
-     font-family: 'Lato';
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 26px;
-     margin-bottom: 8px;
+/* ─── Contact block ─── */
+.ad-contact {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  background: linear-gradient(135deg, #e8f0fd, #f0f4ff);
+  border-radius: 16px;
+  padding: 28px 32px;
+  border: 1px solid rgba(17,99,199,.15);
 }
-
-.listing ul li strong {
-
-    color: #1163C7;
-    font-weight: 500;
+.ad-contact-icon { font-size: 36px; flex-shrink: 0; }
+.ad-contact h2 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: clamp(17px, 1.5vw, 22px);
+  color: #172A39;
+  margin: 0 0 10px;
 }
-
-.account_deactive_section .card {
-
-    box-shadow: 0px 5.35px 3.57px 0px #3363EB40;
-    border-radius: 15px;
-    text-align: center;
-    padding: 20px;
-    border: none;
-    text-align: center;
-    border: 1px solid transparent;
-
+.ad-contact p {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: #444;
+  margin: 0 0 6px;
+  line-height: 1.6;
 }
+.ad-contact a { color: #1163C7; font-weight: 500; }
 
-.account_deactive_section .card:hover {
-
-    /* transform: scale(1.1); */
-    border: 1px solid #1163C7;
-    transition: .3s ease-in-out;
-}
-
-.account_deactive_section .card h3 {
-
-    color: #1163C7;
-    font-family: 'Lato';
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 28.25px;
-
-}
-
-.account_deactive_section .card p {
-
-    font-family: 'DM Sans';
-    font-weight: 400;
-    font-size: 16px;
-    color: #000;
-
-}
-
-@media screen and (max-width: 767px) {
-
-    .account_titel h1,h2,.listing h2,.tite h2 {
-
-        font-size: 25px;
-        line-height: 35px;
-    }
-
-}
-
-@media screen and (max-width: 540px) {
-
-    .account_titel h1,h2,.listing h2,.tite h2 {
-
-        font-size: 20px;
-        line-height: 30px;
-    }
-    .account_deactive_section .card{
-
-        padding: 10px;
-    }
-
+/* ─── Responsive ─── */
+@media (max-width: 767px) {
+  .ad-overview, .ad-contact { flex-direction: column; }
+  .ad-section { padding: 40px 0 60px; }
 }

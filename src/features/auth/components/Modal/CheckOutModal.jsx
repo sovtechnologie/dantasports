@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../StyleSheets/CheckOutModal.css";
-import editIcon from "../../assets/Edit Square.png";
+import editIcon from "../../../../assets/svg-icons/edit-square.svg";
 import { usePaymentDetails } from "../../../../hooks/Payments/usePaymentDetails.js";
 import { useCreatePayment } from "../../../../hooks/Payments/useCreatePayment.js";
 import { useCancelBooking } from "../../../../hooks/Payments/useCancelBooking.js";
@@ -53,8 +53,6 @@ const mapBookingResponse = (api) => ({
 
 
 export function CheckoutModal({ isOpen, onClose, bookingId }) {
-    console.log("CheckoutModal render, isOpen:", isOpen, bookingId);
-
     const navigate = useNavigate();
 
     // ⚠️ Always call hooks at top
@@ -119,7 +117,6 @@ export function CheckoutModal({ isOpen, onClose, bookingId }) {
     if (!isOpen) return null;
 
     const details = data?.result?.[0];
-    console.log("payment detais", details)
     // 2. Data loading or error states
     if (isLoading) return <div>Loading booking data…</div>;
     if (error) return <div>Error loading booking: {error.message}</div>;

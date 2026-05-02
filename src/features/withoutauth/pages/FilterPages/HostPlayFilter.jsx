@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import styled from "../../Stylesheets/Filterpages/HostPlayFilter.css";
+import "../../Stylesheets/Filterpages/HostPlayFilter.css";
+import "../../Stylesheets/Filterpages/Cards.css";
+import "../../Stylesheets/Filterpages/FilterSystem.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { isIOS, isAndroid } from "react-device-detect";
 import { useFetchHostList } from "../../../../hooks/Hostlist/useFetchHostList";
@@ -18,6 +20,7 @@ import sortIcon from "../../assets/icons/sort.svg";
 import OngoingEvents from "../../components/OngoingEvents.jsx";
 import { useBanner } from "../../../../hooks/useBanner.js";
 import { Link } from "react-router-dom";
+import InlineLoader from "../../../../components/InlineLoader.jsx";
 
 function formatTime(timeStr = "00:00") {
   const [h, m] = timeStr.split(":").map(Number);
@@ -55,11 +58,11 @@ const pageSearchTerm = useSelector((state) => state.search.searchTerm);
   }, [AllHostdata]);
 
   const SKILL_MAP = {
-    0: { label: "Novice", color: "#18429F" },
-    1: { label: "Learner", color: "#0FA903" },
-    2: { label: "Skilled", color: "#FFA200" },
-    3: { label: "Expert", color: "#E65B00" },
-    4: { label: "Elite", color: "#4C2DFF" },
+    0: { label: "Novice",  color: "#1163C7" },
+    1: { label: "Learner", color: "#1a7ae0" },
+    2: { label: "Skilled", color: "#0d4fa0" },
+    3: { label: "Expert",  color: "#082f5e" },
+    4: { label: "Elite",   color: "#0a3d7a" },
   };
 
   const ACTIVITY_TYPE_LABEL = {
@@ -366,12 +369,7 @@ useEffect(() => {
                 ))}
                 {visibleCount < visibleHosts.length && (
   <>
-    {isFetchingMore && (
-      <Col xs={12} className="text-center my-4">
-        <div className="spinner-border text-success"></div>
-        <p className="mt-2">Loading more hosts...</p>
-      </Col>
-    )}
+    {isFetchingMore && <InlineLoader text="Loading more hosts…" />}
     <div ref={observerRef}></div>
   </>
 )}</>
@@ -387,7 +385,7 @@ useEffect(() => {
       </Container>
 
       <Container>
-        <div className={styled.event_footer_banner}>
+        <div className="host-footer-banner">
           <AppDownloadBanner />
         </div>
       </Container>

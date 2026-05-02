@@ -1,23 +1,98 @@
+/* ─── Availability Calendar (Venue Filter) ─── */
 
+.date_box_wrapper {
+  display: flex;
+  overflow-x: auto;
+  gap: 6px;
+  padding: 4px 2px 8px;
+  scrollbar-width: thin;
+  scrollbar-color: #c0d4f0 transparent;
+}
+.date_box_wrapper::-webkit-scrollbar { height: 4px; }
+.date_box_wrapper::-webkit-scrollbar-thumb { background: #c0d4f0; border-radius: 2px; }
 
-.date_btn button {
-
-   margin: 0 5px;
-    cursor: pointer;
-    padding: 5px;
-    border-radius: 3px;
-    color: #999;
-    transition: all 0.2s;
-    height: 60px;
-    width: 40px;
-    border: 0.5px solid #b1b1b1;
-    background-color: #fff;
+.date_btn {
+  flex-shrink: 0;
 }
 
+.date_btn button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 46px;
+  height: 58px;
+  border-radius: 10px;
+  border: 1.5px solid #e8edf5;
+  background: #f8fafc;
+  color: #858585;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  transition: border-color .25s ease, background .25s ease,
+              color .25s ease, transform .3s cubic-bezier(.34,1.56,.64,1),
+              box-shadow .25s ease;
+  padding: 0;
+}
+.date_btn button span:first-child {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: inherit;
+  line-height: 1;
+}
+.date_btn button span:last-child {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: inherit;
+  opacity: .8;
+}
 
+.date_btn button:hover {
+  border-color: #1163C7;
+  background: #e8f0fd;
+  color: #1163C7;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(17,99,199,.12);
+}
 
-.date_btn .active_btn{
+.date_btn .active_btn {
+  border-color: #1163C7;
+  background: #1163C7;
+  color: white;
+  box-shadow: 0 4px 14px rgba(17,99,199,.35);
+  transform: translateY(-2px);
+}
+.date_btn .active_btn span { color: white !important; opacity: 1 !important; }
 
-       color: #fff;
-       background-color: #1163C7;
+/* Month header */
+.availability-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.availability-header h6 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: #1163C7;
+  margin: 0;
+}
+.availability-nav {
+  background: none;
+  border: 1.5px solid #e8edf5;
+  border-radius: 50%;
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: #1163C7;
+  font-size: 14px;
+  transition: background .25s ease, border-color .25s ease;
+}
+.availability-nav:hover {
+  background: #e8f0fd;
+  border-color: #1163C7;
 }

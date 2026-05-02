@@ -13,9 +13,7 @@ const getLocalIsoDate = date => {
 
 const ConfirmSlotCard = ({ onClose, onSuccess, payload }) => {
   const { sportId, venueId, selectedDate, selectedDuration, selectedTime, selectedPitch } = payload;
-  console.log("in my confirsmSlotCard", selectedDate,selectedDuration)
   const isLoggedIn = Boolean(Cookies.get('token'));
-  console.log("myPayload", payload)
   const {
     mutate: createBooking,
     isLoading: bookingLoading,
@@ -56,7 +54,6 @@ const ConfirmSlotCard = ({ onClose, onSuccess, payload }) => {
         const id = data?.result?.insertId;
         onSuccess(id);
         // setBookingId(data?.result?.insertId);
-        console.log("My Booking Id", data?.result?.insertId);
       },
       onError: (error) => alert('Booking failed. ' + (error.message || '')),
     });

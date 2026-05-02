@@ -1,5 +1,6 @@
 import React from "react";
-import styles from "./Stylesheets/HostCard.module.css";
+import "../../../components/StyleSheets/BookVenues.css";
+import "../../../components/StyleSheets/PlayHost.css";
 import calendarIcon from "../assets/Calandarlogo.svg"
 import locationIcon from "../assets/LocationLogo.svg";
 import gameImage from "../assets/gameImage.png";
@@ -30,35 +31,36 @@ export const HostCard = ({ host }) => {
 
   const typeObj = TYPE_LIST.find(t => t.value === host?.type);
   return (
-    <div className={styles.card}>
-      <span className={styles.type}>{typeObj ? typeObj.label : "Regular"}</span>
-      <div className={styles.avatarRow}>
-        {host?.attendeesAvatars?.map((src, i) => (
-          <img key={i} src={src.profile_image} alt="avatar" className={styles.avatar} onError={e => { e.target.onerror = null; e.target.src = gameImage; }} />
-        ))}
-        <span className={styles.dot} aria-hidden="true"></span>
-        <span className={styles.going}>{host?.attendees} Going</span>
+    <div className="hs-card ph-card hs-list-card">
+      <div className="ph-inner">
+        <div className="ph-type-badge">{typeObj ? typeObj.label : "Regular"}</div>
+        <div className="ph-attendees">
+          <div className="ph-avatars">
+            {host?.attendeesAvatars?.slice(0, 3).map((src, i) => (
+              <img key={i} src={src.profile_image} alt="avatar" className="ph-avatar" onError={e => { e.target.onerror = null; e.target.src = gameImage; }} />
+            ))}
+          </div>
+          <div className="ph-going">
+            <span className="ph-dot" aria-hidden="true"></span>
+            <span>{host?.attendees} Going</span>
+          </div>
+        </div>
+        <p className="ph-host-by">Host By: <strong>{host?.host}</strong></p>
+        <div className="ph-meta">
+          <img src={calendarIcon} alt="" />
+          <span>{host?.date}</span>
+        </div>
+        <div className="ph-meta">
+          <img src={locationIcon} alt="" />
+          <span>{host?.address || host?.city}, (~{host?.distance}Km)</span>
+        </div>
+        <div className="ph-footer">
+          <span className="ph-skill" style={{ color: SKILL_MAP[host?.skill]?.color || "#d99312" }}>
+            {SKILL_MAP[host?.skill]?.label || "Skilled"}
+          </span>
+          <span className="ph-join">Join</span>
+        </div>
       </div>
-      <div className={styles.hostBy}>Host By: <span className={styles.host}>{host?.host}</span></div>
-      <div className={styles.detailRow}>
-        <img src={calendarIcon} alt="Calendar" className={styles.icon} />
-        <span className={styles.detailText}>{host?.date}</span>
-      </div>
-      <div className={styles.detailRow}>
-        <img src={locationIcon} alt="Location" className={styles.icon} />
-        <span className={styles.detailText}>{host?.address || host?.city}, (~{host?.distance}Km)</span>
-      </div>
-      <span
-        style={{
-          color: SKILL_MAP[host?.skill]?.color || "#d99312",
-          fontWeight: 500,
-          fontSize: 15,
-          display: "inline-block"
-        }}
-      >
-        {SKILL_MAP[host?.skill]?.label || "Skilled"}
-      </span>
-
     </div>
   );
 }

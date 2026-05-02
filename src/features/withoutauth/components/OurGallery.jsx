@@ -1,29 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Stylesheets/OurGallery.css';
 import galleryImg from '../assets/Gallery/gallery.jpeg'; // Replace with your actual image
 
-const galleryData = Array(30).fill({
-    title: 'SRV Media Sports Event',
-    location: 'Bangalore, India',
-    image: galleryImg,
-});
-
 const OurGallery = () => {
-    const [currentPage, setCurrentPage] = useState(1);
-    const cardsPerPage = 3;
-    const totalPages = Math.ceil(galleryData.length / cardsPerPage);
-
-    const startIndex = (currentPage - 1) * cardsPerPage;
-    const currentCards = galleryData.slice(startIndex, startIndex + cardsPerPage);
-
-    const handlePrev = () => {
-        if (currentPage > 1) setCurrentPage(currentPage - 1);
-    };
-
-    const handleNext = () => {
-        if (currentPage < totalPages) setCurrentPage(currentPage + 1);
-    };
-
     return (
         <div className="gallery-container">
             <h2 className="gallery-heading">

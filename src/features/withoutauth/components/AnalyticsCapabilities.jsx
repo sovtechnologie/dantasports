@@ -1,9 +1,8 @@
 import React from "react";
 import "./Stylesheets/AnalyticsCapabilities.css";
-import analyticsImage from "../assets/facilitylogo/Phone-two-image.png"; // adjust as needed
-import bookingIcon from "../assets/facilitylogo/Slot-Icon-image.png"; // replace with actual icons
-import reportIcon from "../assets/facilitylogo/Role-Icon-image.png";
-import insightsIcon from "../assets/facilitylogo/Dashboard-Icon-image.png";
+import bookingIcon from "../../../assets/svg-icons/booking.svg";
+import reportIcon from "../../../assets/svg-icons/detail.svg";
+import insightsIcon from "../../../assets/svg-icons/spark.svg";
 import phonesImage2 from "../assets/facilitylogo/account.jpeg"; 
 
 const analyticsFeatures = [
